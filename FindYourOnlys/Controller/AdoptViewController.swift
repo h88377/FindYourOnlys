@@ -22,6 +22,7 @@ class AdoptViewController: UIViewController {
                 $0.setTitleColor(.systemGray2, for: .normal)
                 
                 $0.setTitleColor(.black, for: .selected)
+                
             }
         }
     }
@@ -42,7 +43,6 @@ class AdoptViewController: UIViewController {
         sender.isSelected = true
         
         moveIndicatorView(to: sender)
-        
     }
     
     private func moveIndicatorView(to sender: UIView) {
