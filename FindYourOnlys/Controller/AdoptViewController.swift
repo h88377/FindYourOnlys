@@ -22,7 +22,6 @@ class AdoptViewController: UIViewController {
                 $0.setTitleColor(.systemGray2, for: .normal)
                 
                 $0.setTitleColor(.black, for: .selected)
-                
             }
         }
     }
