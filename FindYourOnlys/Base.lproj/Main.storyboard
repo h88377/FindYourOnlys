@@ -1,24 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jp9-2S-d94">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Adopt View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AdoptViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSA-1x-9d2">
+                                <rect key="frame" x="0.0" y="88" width="207" height="31"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="領養列表"/>
+                                <connections>
+                                    <action selector="pressAdoptButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iy9-0k-wpk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4H-fi-IEa">
+                                <rect key="frame" x="207" y="88" width="207" height="31"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="我的最愛"/>
+                                <connections>
+                                    <action selector="pressAdoptButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MVR-Fi-hA4"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2m6-3A-qQ1">
+                                <rect key="frame" x="0.0" y="119" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="uuH-Ic-vfw"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMm-ww-4HI">
+                                <rect key="frame" x="0.0" y="119" width="207" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="YG6-kV-pyB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZSA-1x-9d2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GPL-G8-Ifh"/>
+                            <constraint firstItem="U4H-fi-IEa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HTa-9b-1JE"/>
+                            <constraint firstItem="kMm-ww-4HI" firstAttribute="centerX" secondItem="ZSA-1x-9d2" secondAttribute="centerX" id="NFC-QZ-KAE"/>
+                            <constraint firstItem="2m6-3A-qQ1" firstAttribute="top" secondItem="ZSA-1x-9d2" secondAttribute="bottom" id="aRv-zZ-Emg"/>
+                            <constraint firstItem="U4H-fi-IEa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="aeN-fS-jF1"/>
+                            <constraint firstItem="kMm-ww-4HI" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="g0g-xL-qgT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2m6-3A-qQ1" secondAttribute="trailing" id="kDk-KM-mEg"/>
+                            <constraint firstItem="ZSA-1x-9d2" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="m72-vU-Ogw"/>
+                            <constraint firstItem="2m6-3A-qQ1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pre-Ln-LfD"/>
+                            <constraint firstItem="ZSA-1x-9d2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="q3J-iN-0mK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U4H-fi-IEa" secondAttribute="trailing" id="tev-zK-lsa"/>
+                            <constraint firstItem="kMm-ww-4HI" firstAttribute="top" secondItem="ZSA-1x-9d2" secondAttribute="bottom" id="ymk-4o-iAj"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="bwD-x1-Nga"/>
+                    <connections>
+                        <outlet property="indicatorCenterXConstraint" destination="NFC-QZ-KAE" id="3st-aW-PZv"/>
+                        <outlet property="indicatorView" destination="kMm-ww-4HI" id="bdH-fe-o4e"/>
+                        <outletCollection property="adoptButtons" destination="ZSA-1x-9d2" collectionClass="NSMutableArray" id="h9c-Me-eUx"/>
+                        <outletCollection property="adoptButtons" destination="U4H-fi-IEa" collectionClass="NSMutableArray" id="VtT-bq-jPN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="955.07246376811599" y="63.616071428571423"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e6v-ou-DZe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jp9-2S-d94" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8FH-1R-yJ9">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2Te-hu-IXh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxx-pA-kx3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="44.927536231884062" y="63.616071428571423"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

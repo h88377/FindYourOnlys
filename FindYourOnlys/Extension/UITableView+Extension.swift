@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import UIKit
+
+extension UITableView {
+    
+    func registerCellWithIdentifier(identifier: String) {
+        
+        let nib = UINib(nibName: identifier, bundle: nil)
+        
+        register(nib, forCellReuseIdentifier: identifier)
+    }
+    
+}
