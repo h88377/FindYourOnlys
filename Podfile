@@ -8,5 +8,7 @@ target 'FindYourOnlys' do
   # Pods for FindYourOnlys
 
 pod 'SwiftLint'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
 
 end
