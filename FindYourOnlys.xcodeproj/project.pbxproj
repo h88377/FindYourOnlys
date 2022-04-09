@@ -14,6 +14,7 @@
 		98CC15AE28005B6C00B9FDC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98CC15AC28005B6C00B9FDC6 /* Main.storyboard */; };
 		98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */; };
 		98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */; };
+		98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98CC15BB2801721000B9FDC6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98CC15B228005B6C00B9FDC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		98CC15B428005B6C00B9FDC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98CC15BB2801721000B9FDC6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 				98CC15AC28005B6C00B9FDC6 /* Main.storyboard */,
 				98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */,
 				98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */,
+				98CC15BB2801721000B9FDC6 /* GoogleService-Info.plist */,
 				98CC15B428005B6C00B9FDC6 /* Info.plist */,
 			);
 			path = FindYourOnlys;
@@ -103,6 +106,7 @@
 				98CC15A028005B6C00B9FDC6 /* Frameworks */,
 				98CC15A128005B6C00B9FDC6 /* Resources */,
 				98CC15BA2800689D00B9FDC6 /* ShellScript */,
+				6DB016886865862642893970 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
+				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Main.storyboard in Resources */,
 			);
@@ -180,6 +185,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DB016886865862642893970 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		98CC15BA2800689D00B9FDC6 /* ShellScript */ = {
