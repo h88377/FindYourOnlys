@@ -62,6 +62,9 @@
                         <state key="normal" title="Add to Favorite">
                             <color key="titleColor" systemColor="tintColor"/>
                         </state>
+                        <connections>
+                            <action selector="addToFavorite:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XDt-Gf-ptA"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="idLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5s-3D-HpG">
                         <rect key="frame" x="191.5" y="273" width="55.5" height="20.5"/>
