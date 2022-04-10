@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -93,11 +91,11 @@
             <connections>
                 <outlet property="favoriteButton" destination="Csc-aK-4W9" id="e41-ic-8B3"/>
                 <outlet property="idLabel" destination="ucd-RS-uEn" id="0qh-PS-gyU"/>
+                <outlet property="kindLabel" destination="5TK-Rx-5Cs" id="Qs9-3W-4fe"/>
                 <outlet property="locationLabel" destination="VCA-AX-Xw8" id="uwF-xu-NtW"/>
                 <outlet property="photoImageView" destination="VCA-AX-Xw8" id="zXV-y9-CbQ"/>
                 <outlet property="sexLabel" destination="h0e-mg-H8F" id="bzy-0b-Cvs"/>
                 <outlet property="statusLabel" destination="lgc-9W-egB" id="xJK-O7-hKe"/>
-                <outlet property="typeLabel" destination="5TK-Rx-5Cs" id="Qs9-3W-4fe"/>
                 <outlet property="varietyLabel" destination="UbV-Ql-Dug" id="Jmm-Od-vA0"/>
             </connections>
             <point key="canvasLocation" x="91.304347826086968" y="-165.06696428571428"/>
