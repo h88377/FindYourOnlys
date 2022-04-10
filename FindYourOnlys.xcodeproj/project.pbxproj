@@ -33,6 +33,10 @@
 		98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E42801E01100B9FDC6 /* PetManager.swift */; };
 		98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */; };
 		98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */; };
+		98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15ED280289C000B9FDC6 /* StorageManager.swift */; };
+		98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15F028028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld */; };
+		98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */; };
+		98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +69,10 @@
 		98CC15E42801E01100B9FDC6 /* PetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetManager.swift; sourceTree = "<group>"; };
 		98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
 		98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherWrapper.swift; sourceTree = "<group>"; };
+		98CC15ED280289C000B9FDC6 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		98CC15F128028A3500B9FDC6 /* FindYourOnlys.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FindYourOnlys.xcdatamodel; sourceTree = "<group>"; };
+		98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -157,6 +165,7 @@
 				98CC15DA2801C09900B9FDC6 /* Pet.swift */,
 				98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */,
 				98CC15E42801E01100B9FDC6 /* PetManager.swift */,
+				98CC15EF280289C900B9FDC6 /* Local Storage */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -185,6 +194,17 @@
 				98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */,
 			);
 			path = "Third party framework wrapper";
+			sourceTree = "<group>";
+		};
+		98CC15EF280289C900B9FDC6 /* Local Storage */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15F028028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld */,
+				98CC15ED280289C000B9FDC6 /* StorageManager.swift */,
+				98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */,
+				98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */,
+			);
+			path = "Local Storage";
 			sourceTree = "<group>";
 		};
 		DD46BB83A3A5D507D07D9598 /* Pods */ = {
@@ -347,13 +367,17 @@
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
+				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
+				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
+				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
+				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
 				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,
@@ -582,6 +606,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		98CC15F028028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				98CC15F128028A3500B9FDC6 /* FindYourOnlys.xcdatamodel */,
+			);
+			currentVersion = 98CC15F128028A3500B9FDC6 /* FindYourOnlys.xcdatamodel */;
+			path = FindYourOnlys.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 98CC159B28005B6C00B9FDC6 /* Project object */;
 }

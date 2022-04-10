@@ -12,6 +12,8 @@ class AdoptListViewController: UIViewController {
     
     let viewModel = AdoptListViewModel()
     
+    var isLogin = false
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         
         didSet {
@@ -42,6 +44,7 @@ class AdoptListViewController: UIViewController {
                 print(error)
             }
         }
+        
         
     }
     
@@ -89,10 +92,14 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         let cellViewModel = viewModel.petViewModels.value[indexPath.item]
         
+        cell.addToFavoriteHandler = {
+            
+            StorageManager.shared.savePetInFavorite(with: cellViewModel)
+        }
+        
         cell.configureCell(with: cellViewModel)
         
         return cell
     }
-    
-    
+
 }
