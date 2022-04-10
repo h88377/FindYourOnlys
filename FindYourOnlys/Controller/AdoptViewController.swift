@@ -13,6 +13,10 @@ class AdoptViewController: UIViewController {
     
     @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var adoptListContainerView: UIView!
+    
+    @IBOutlet weak var adoptFavoriteContainerView: UIView!
+    
     @IBOutlet var adoptButtons: [UIButton]! {
         
         didSet {
@@ -29,10 +33,9 @@ class AdoptViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    
-    func setupTableView() {
+        adoptFavoriteContainerView.isHidden = true
         
+  
     }
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {

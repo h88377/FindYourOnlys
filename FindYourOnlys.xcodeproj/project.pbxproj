@@ -18,9 +18,19 @@
 		98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15C128017A1C00B9FDC6 /* AdoptCollectionViewCell.swift */; };
 		98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC15C228017A1C00B9FDC6 /* AdoptCollectionViewCell.xib */; };
 		98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15C628017A3700B9FDC6 /* UITableView+Extension.swift */; };
-		98CC15C928017A8600B9FDC6 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15C828017A8600B9FDC6 /* UITableViewCell+Extension.swift */; };
 		98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15CA2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift */; };
 		98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC15CE2801B22700B9FDC6 /* FavoriteTableViewCell.xib */; };
+		98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */; };
+		98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */; };
+		98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */; };
+		98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */; };
+		98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */; };
+		98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DA2801C09900B9FDC6 /* Pet.swift */; };
+		98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DC2801C98100B9FDC6 /* PetRequest.swift */; };
+		98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */; };
+		98CC15E12801D67300B9FDC6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E02801D67300B9FDC6 /* Box.swift */; };
+		98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E22801D71300B9FDC6 /* PetViewModel.swift */; };
+		98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E42801E01100B9FDC6 /* PetManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,9 +48,19 @@
 		98CC15C128017A1C00B9FDC6 /* AdoptCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptCollectionViewCell.swift; sourceTree = "<group>"; };
 		98CC15C228017A1C00B9FDC6 /* AdoptCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptCollectionViewCell.xib; sourceTree = "<group>"; };
 		98CC15C628017A3700B9FDC6 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
-		98CC15C828017A8600B9FDC6 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		98CC15CA2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		98CC15CE2801B22700B9FDC6 /* FavoriteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteTableViewCell.xib; sourceTree = "<group>"; };
+		98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptListViewController.swift; sourceTree = "<group>"; };
+		98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFavoriteViewController.swift; sourceTree = "<group>"; };
+		98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHTTPClient.swift; sourceTree = "<group>"; };
+		98CC15DA2801C09900B9FDC6 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		98CC15DC2801C98100B9FDC6 /* PetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRequest.swift; sourceTree = "<group>"; };
+		98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptListViewModel.swift; sourceTree = "<group>"; };
+		98CC15E02801D67300B9FDC6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		98CC15E22801D71300B9FDC6 /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
+		98CC15E42801E01100B9FDC6 /* PetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetManager.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,6 +99,9 @@
 			children = (
 				98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */,
 				98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */,
+				98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */,
+				98CC15DC2801C98100B9FDC6 /* PetRequest.swift */,
+				98CC15E02801D67300B9FDC6 /* Box.swift */,
 				98CC15C528017A2500B9FDC6 /* Extension */,
 				98CC15C02801798700B9FDC6 /* Model */,
 				98CC15BE2801797500B9FDC6 /* View */,
@@ -97,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */,
+				98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */,
+				98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -115,6 +140,8 @@
 		98CC15BF2801797F00B9FDC6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
+				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -122,6 +149,9 @@
 		98CC15C02801798700B9FDC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				98CC15DA2801C09900B9FDC6 /* Pet.swift */,
+				98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */,
+				98CC15E42801E01100B9FDC6 /* PetManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -129,8 +159,8 @@
 		98CC15C528017A2500B9FDC6 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */,
 				98CC15C628017A3700B9FDC6 /* UITableView+Extension.swift */,
-				98CC15C828017A8600B9FDC6 /* UITableViewCell+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -289,10 +319,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
-				98CC15C928017A8600B9FDC6 /* UITableViewCell+Extension.swift in Sources */,
+				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
+				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
+				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
+				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
+				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
+				98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */,
+				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
+				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
+				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
+				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
+				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 			);

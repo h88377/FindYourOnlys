@@ -13,7 +13,7 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var locationLabel: UILabel!
     
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var kindLabel: UILabel!
     
     @IBOutlet weak var sexLabel: UILabel!
     

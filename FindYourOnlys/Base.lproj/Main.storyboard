@@ -102,6 +102,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="bwD-x1-Nga"/>
                     <connections>
+                        <outlet property="adoptFavoriteContainerView" destination="Y5o-jx-SJD" id="n7D-SX-IRt"/>
+                        <outlet property="adoptListContainerView" destination="RUu-Tx-dxK" id="1Au-Ul-HdP"/>
                         <outlet property="indicatorCenterXConstraint" destination="NFC-QZ-KAE" id="3st-aW-PZv"/>
                         <outlet property="indicatorView" destination="kMm-ww-4HI" id="bdH-fe-o4e"/>
                         <outletCollection property="adoptButtons" destination="ZSA-1x-9d2" collectionClass="NSMutableArray" id="h9c-Me-eUx"/>
@@ -130,29 +132,65 @@
             </objects>
             <point key="canvasLocation" x="44.927536231884062" y="63.616071428571423"/>
         </scene>
-        <!--View Controller-->
+        <!--Adopt Favorite View Controller-->
         <scene sceneID="4wZ-qq-8B9">
             <objects>
-                <viewController id="Dov-hS-zDy" sceneMemberID="viewController">
+                <viewController id="Dov-hS-zDy" customClass="AdoptFavoriteViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GFH-QV-cQs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="55s-XO-3IO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uXq-CI-Vky"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="55s-XO-3IO" firstAttribute="top" secondItem="GFH-QV-cQs" secondAttribute="top" id="1ZL-mx-boQ"/>
+                            <constraint firstAttribute="trailing" secondItem="55s-XO-3IO" secondAttribute="trailing" id="8Xu-6c-yY7"/>
+                            <constraint firstAttribute="bottom" secondItem="55s-XO-3IO" secondAttribute="bottom" id="TnY-Gm-cyU"/>
+                            <constraint firstItem="55s-XO-3IO" firstAttribute="leading" secondItem="GFH-QV-cQs" secondAttribute="leading" id="cdk-AV-v42"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXO-WX-Ybm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1651" y="795"/>
         </scene>
-        <!--View Controller-->
+        <!--Adopt List View Controller-->
         <scene sceneID="gbF-yq-rBb">
             <objects>
-                <viewController id="1pB-aw-e5a" sceneMemberID="viewController">
+                <viewController id="1pB-aw-e5a" customClass="AdoptListViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lcu-Vf-T8C">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="689"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="689"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oiI-w8-EsT">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="deQ-Dp-IuG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lPB-Hh-8hq" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" id="AU1-tS-2Vu"/>
+                            <constraint firstItem="lPB-Hh-8hq" firstAttribute="leading" secondItem="Lcu-Vf-T8C" secondAttribute="leading" id="GRe-YH-Lcr"/>
+                            <constraint firstAttribute="bottom" secondItem="lPB-Hh-8hq" secondAttribute="bottom" id="l5s-Ox-PxR"/>
+                            <constraint firstAttribute="trailing" secondItem="lPB-Hh-8hq" secondAttribute="trailing" id="m5E-PP-647"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="lPB-Hh-8hq" id="nn0-Tv-tuX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E30-Vk-UiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
