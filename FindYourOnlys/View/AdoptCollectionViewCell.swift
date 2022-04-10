@@ -5,6 +5,7 @@
 //  Created by 鄭昭韋 on 2022/4/9.
 //
 
+import Foundation
 import UIKit
 
 class AdoptCollectionViewCell: UICollectionViewCell {
@@ -27,7 +28,9 @@ class AdoptCollectionViewCell: UICollectionViewCell {
     
     func configureCell(with viewModel: PetViewModel) {
         
-        locationLabel.text = viewModel.pet.location
+        let location = viewModel.pet.location
+        
+        locationLabel.text = String(location[...2])
         
         kindLabel.text = viewModel.pet.kind
         
@@ -38,5 +41,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         idLabel.text = "\(viewModel.pet.id)"
         
         statusLabel.text = viewModel.pet.status
+        
+        photoImageView.loadImage(viewModel.pet.photoURLString)
     }
 }
