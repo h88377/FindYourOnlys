@@ -31,6 +31,8 @@
 		98CC15E12801D67300B9FDC6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E02801D67300B9FDC6 /* Box.swift */; };
 		98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E22801D71300B9FDC6 /* PetViewModel.swift */; };
 		98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E42801E01100B9FDC6 /* PetManager.swift */; };
+		98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */; };
+		98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		98CC15E02801D67300B9FDC6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		98CC15E22801D71300B9FDC6 /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
 		98CC15E42801E01100B9FDC6 /* PetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetManager.swift; sourceTree = "<group>"; };
+		98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
+		98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherWrapper.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -101,7 +105,8 @@
 				98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */,
 				98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */,
 				98CC15DC2801C98100B9FDC6 /* PetRequest.swift */,
-				98CC15E02801D67300B9FDC6 /* Box.swift */,
+				98CC15E92802855E00B9FDC6 /* Third party framework wrapper */,
+				98CC15E82802855600B9FDC6 /* Box */,
 				98CC15C528017A2500B9FDC6 /* Extension */,
 				98CC15C02801798700B9FDC6 /* Model */,
 				98CC15BE2801797500B9FDC6 /* View */,
@@ -161,8 +166,25 @@
 			children = (
 				98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */,
 				98CC15C628017A3700B9FDC6 /* UITableView+Extension.swift */,
+				98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		98CC15E82802855600B9FDC6 /* Box */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15E02801D67300B9FDC6 /* Box.swift */,
+			);
+			path = Box;
+			sourceTree = "<group>";
+		};
+		98CC15E92802855E00B9FDC6 /* Third party framework wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */,
+			);
+			path = "Third party framework wrapper";
 			sourceTree = "<group>";
 		};
 		DD46BB83A3A5D507D07D9598 /* Pods */ = {
@@ -319,9 +341,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
+				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
+				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,

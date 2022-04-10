@@ -10,5 +10,6 @@ target 'FindYourOnlys' do
 pod 'SwiftLint'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
+pod 'Kingfisher', '~> 7.0'
 
 end

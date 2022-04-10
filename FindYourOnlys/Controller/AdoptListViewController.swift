@@ -25,7 +25,7 @@ class AdoptListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
+        setupCollectionView()
         
         viewModel.petViewModels.bind { [weak self] pets in
             
@@ -45,6 +45,30 @@ class AdoptListViewController: UIViewController {
         
     }
     
+    private func setupCollectionView() {
+        
+        collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
+        
+        setupCollectionViewLayout()
+    }
+    
+    private func setupCollectionViewLayout() {
+
+        let flowLayout = UICollectionViewFlowLayout()
+
+        flowLayout.itemSize = CGSize(
+            width: Int(164.0 / 375.0 * UIScreen.main.bounds.width),
+            height: 400
+        )
+
+        flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
+
+        flowLayout.minimumInteritemSpacing = 0
+
+        flowLayout.minimumLineSpacing = 24.0
+
+        collectionView.collectionViewLayout = flowLayout
+    }
     
 }
 
@@ -69,5 +93,6 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         return cell
     }
+    
     
 }
