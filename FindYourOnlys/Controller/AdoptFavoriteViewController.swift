@@ -9,6 +9,8 @@ import UIKit
 
 class AdoptFavoriteViewController: UIViewController {
     
+    
+    
     let viewModel = AdoptFavoriteViewModel()
     
     @IBOutlet weak var tableView: UITableView! {

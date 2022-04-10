@@ -9,6 +9,13 @@ import UIKit
 
 class AdoptViewController: UIViewController {
     
+    private enum AdoptButtonType: String {
+        
+        case adopt = "領養列表"
+        
+        case favorite = "我的最愛"
+    }
+    
     @IBOutlet weak var indicatorView: UIView!
     
     @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
@@ -30,12 +37,14 @@ class AdoptViewController: UIViewController {
         }
     }
     
+    var containerViews: [UIView] {
+        
+        [adoptListContainerView, adoptFavoriteContainerView]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        adoptFavoriteContainerView.isHidden = true
-        
-        adoptListContainerView.isHidden = true
     }
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {
@@ -45,6 +54,12 @@ class AdoptViewController: UIViewController {
         sender.isSelected = true
         
         moveIndicatorView(to: sender)
+        
+        guard
+            let currentTitle = sender.currentTitle,
+            let type = AdoptButtonType(rawValue: currentTitle) else { return }
+        
+        updateContainerView(with: type)
     }
     
     private func moveIndicatorView(to sender: UIView) {
@@ -61,4 +76,19 @@ class AdoptViewController: UIViewController {
         })
     }
     
+    private func updateContainerView(with type: AdoptButtonType) {
+        
+        containerViews.forEach { $0.isHidden = true }
+        
+        switch type {
+            
+        case .adopt:
+            
+            adoptListContainerView.isHidden = false
+            
+        case .favorite:
+            
+            adoptFavoriteContainerView.isHidden = false
+        }
+    }
 }
