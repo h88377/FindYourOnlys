@@ -154,6 +154,9 @@
                             <constraint firstItem="55s-XO-3IO" firstAttribute="leading" secondItem="GFH-QV-cQs" secondAttribute="leading" id="cdk-AV-v42"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="55s-XO-3IO" id="AJf-ZQ-GYd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXO-WX-Ybm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

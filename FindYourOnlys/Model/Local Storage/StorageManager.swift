@@ -95,4 +95,21 @@ class StorageManager {
         
         saveContext()
     }
+    
+    func fetchPet(completion: ((Result<[LSPet], Error>) -> Void)) {
+        
+        let request: NSFetchRequest<LSPet> = LSPet.fetchRequest()
+        
+        do {
+            
+            let lsPets = try StorageManager.shared.persistentContainer.viewContext.fetch(request)
+            
+            completion(.success(lsPets))
+        }
+        
+        catch {
+            
+            completion(.failure(error))
+        }
+    }
 }

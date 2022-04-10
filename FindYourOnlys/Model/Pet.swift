@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Pet: Codable {
+struct Pet: Codable {
     
     let id: Int
     

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="376" height="445"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JnK-yq-4jS">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JnK-yq-4jS">
                     <rect key="frame" x="0.0" y="0.0" width="376" height="300"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="300" id="cn2-J1-2CO"/>
@@ -93,7 +95,7 @@
                 <outlet property="idLabel" destination="ucd-RS-uEn" id="0qh-PS-gyU"/>
                 <outlet property="kindLabel" destination="5TK-Rx-5Cs" id="Qs9-3W-4fe"/>
                 <outlet property="locationLabel" destination="VCA-AX-Xw8" id="uwF-xu-NtW"/>
-                <outlet property="photoImageView" destination="VCA-AX-Xw8" id="zXV-y9-CbQ"/>
+                <outlet property="photoImageView" destination="JnK-yq-4jS" id="Bmo-nu-ZcM"/>
                 <outlet property="sexLabel" destination="h0e-mg-H8F" id="bzy-0b-Cvs"/>
                 <outlet property="statusLabel" destination="lgc-9W-egB" id="xJK-O7-hKe"/>
                 <outlet property="varietyLabel" destination="UbV-Ql-Dug" id="Jmm-Od-vA0"/>

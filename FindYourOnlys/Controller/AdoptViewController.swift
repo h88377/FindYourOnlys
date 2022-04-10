@@ -33,9 +33,9 @@ class AdoptViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adoptFavoriteContainerView.isHidden = true
+//        adoptFavoriteContainerView.isHidden = true
         
-  
+        adoptListContainerView.isHidden = true
     }
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {

@@ -9,7 +9,7 @@ import UIKit
 
 class FavoriteTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var photoImageView: UILabel!
+    @IBOutlet weak var photoImageView: UIImageView!
     
     @IBOutlet weak var locationLabel: UILabel!
     
@@ -25,9 +25,23 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func configureCell(with viewModel: PetViewModel) {
+        
+        let location = viewModel.pet.address
+        
+        locationLabel.text = String(location[...2])
+        
+        kindLabel.text = viewModel.pet.kind
+        
+        sexLabel.text = viewModel.pet.sex
+        
+        varietyLabel.text = viewModel.pet.variety
+        
+        idLabel.text = "\(viewModel.pet.id)"
+        
+        statusLabel.text = viewModel.pet.status
+        
+        photoImageView.loadImage(viewModel.pet.photoURLString)
     }
 
 }

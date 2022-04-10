@@ -37,6 +37,7 @@
 		98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15F028028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld */; };
 		98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */; };
 		98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */; };
+		98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		98CC15F128028A3500B9FDC6 /* FindYourOnlys.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FindYourOnlys.xcdatamodel; sourceTree = "<group>"; };
 		98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFavoriteViewModel.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -153,8 +155,9 @@
 		98CC15BF2801797F00B9FDC6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
+				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
+				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
+				98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */,
