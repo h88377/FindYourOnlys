@@ -11,7 +11,7 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var kindLabel: UILabel!
     
@@ -29,7 +29,7 @@ class FavoriteTableViewCell: UITableViewCell {
         
         let location = viewModel.pet.address
         
-        locationLabel.text = String(location[...2])
+        cityLabel.text = String(location[...2])
         
         kindLabel.text = viewModel.pet.kind
         

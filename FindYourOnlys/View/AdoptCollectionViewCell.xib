@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -98,10 +96,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="cityLabel" destination="qRL-VK-FVf" id="T0b-9Z-Oqj"/>
                 <outlet property="favoriteButton" destination="H5v-rZ-Exb" id="qPI-lJ-VLe"/>
                 <outlet property="idLabel" destination="d5s-3D-HpG" id="CQ7-je-VR2"/>
                 <outlet property="kindLabel" destination="KJt-gH-lUe" id="gWa-IO-rlV"/>
-                <outlet property="locationLabel" destination="qRL-VK-FVf" id="T0b-9Z-Oqj"/>
                 <outlet property="photoImageView" destination="2yM-jF-9xz" id="DIe-3N-MWr"/>
                 <outlet property="sexLabel" destination="Rtc-x0-3Yn" id="AHS-ZG-0wW"/>
                 <outlet property="statusLabel" destination="31d-Fh-RIG" id="gcz-KB-sLx"/>

@@ -105,6 +105,46 @@
             </objects>
             <point key="canvasLocation" x="1303" y="64"/>
         </scene>
+        <!--Adopt Detail View Controller-->
+        <scene sceneID="wd0-tT-9ec">
+            <objects>
+                <viewController storyboardIdentifier="AdoptDetailViewController" id="63v-a2-Ckk" customClass="AdoptDetailViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wet-30-s9C">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vah-WI-JMO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="QO6-yw-3wh"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ag0-Oo-vne">
+                                <rect key="frame" x="0.0" y="330" width="414" height="532"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hbi-Ck-CiX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ag0-Oo-vne" firstAttribute="top" secondItem="vah-WI-JMO" secondAttribute="bottom" constant="-20" id="Fmn-fZ-6yf"/>
+                            <constraint firstItem="hbi-Ck-CiX" firstAttribute="trailing" secondItem="vah-WI-JMO" secondAttribute="trailing" id="JbD-If-JVT"/>
+                            <constraint firstItem="hbi-Ck-CiX" firstAttribute="trailing" secondItem="Ag0-Oo-vne" secondAttribute="trailing" id="M85-f5-7ak"/>
+                            <constraint firstItem="vah-WI-JMO" firstAttribute="leading" secondItem="hbi-Ck-CiX" secondAttribute="leading" id="Z7U-XO-ls0"/>
+                            <constraint firstItem="vah-WI-JMO" firstAttribute="top" secondItem="wet-30-s9C" secondAttribute="top" id="bPn-5n-oTD"/>
+                            <constraint firstItem="hbi-Ck-CiX" firstAttribute="bottom" secondItem="Ag0-Oo-vne" secondAttribute="bottom" id="e3U-k6-5JW"/>
+                            <constraint firstItem="Ag0-Oo-vne" firstAttribute="leading" secondItem="hbi-Ck-CiX" secondAttribute="leading" id="ohX-FK-tXX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="photoImageView" destination="vah-WI-JMO" id="fne-h2-Ya1"/>
+                        <outlet property="tableView" destination="Ag0-Oo-vne" id="9nG-Jt-MoD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gwr-iO-Ljl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2302" y="56"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="e6v-ou-DZe">
             <objects>

@@ -91,10 +91,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="cityLabel" destination="VCA-AX-Xw8" id="uwF-xu-NtW"/>
                 <outlet property="favoriteButton" destination="Csc-aK-4W9" id="e41-ic-8B3"/>
                 <outlet property="idLabel" destination="ucd-RS-uEn" id="0qh-PS-gyU"/>
                 <outlet property="kindLabel" destination="5TK-Rx-5Cs" id="Qs9-3W-4fe"/>
-                <outlet property="locationLabel" destination="VCA-AX-Xw8" id="uwF-xu-NtW"/>
                 <outlet property="photoImageView" destination="JnK-yq-4jS" id="Bmo-nu-ZcM"/>
                 <outlet property="sexLabel" destination="h0e-mg-H8F" id="bzy-0b-Cvs"/>
                 <outlet property="statusLabel" destination="lgc-9W-egB" id="xJK-O7-hKe"/>

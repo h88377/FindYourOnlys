@@ -92,6 +92,8 @@ struct Pet: Codable {
         case variety = "animal_Variety"
     }
 }
+
+
 //"animal_id": 249909,
 //        "animal_subid": "1110407C01",
 //        "animal_area_pkid": 22,

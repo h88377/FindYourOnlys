@@ -38,6 +38,17 @@
 		98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */; };
 		98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */; };
 		98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */; };
+		98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */; };
+		98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16012802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift */; };
+		98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */; };
+		98CC16062802EA0D00B9FDC6 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16052802EA0D00B9FDC6 /* UIView+Extension.swift */; };
+		98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */; };
+		98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16092802EB9B00B9FDC6 /* UIViewController+Extension.swift */; };
+		98CC160D2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC160B2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift */; };
+		98CC160E2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC160C2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib */; };
+		98CC16112803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC160F2803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift */; };
+		98CC16122803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16102803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib */; };
+		98CC161428030F8100B9FDC6 /* AdoptDetailDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +86,17 @@
 		98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFavoriteViewModel.swift; sourceTree = "<group>"; };
+		98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdoptDetailViewController.swift; path = FindYourOnlys/Controller/AdoptDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		98CC16012802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailTableViewCell.swift; sourceTree = "<group>"; };
+		98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailTableViewCell.xib; sourceTree = "<group>"; };
+		98CC16052802EA0D00B9FDC6 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailViewModel.swift; sourceTree = "<group>"; };
+		98CC16092802EB9B00B9FDC6 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		98CC160B2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		98CC160C2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		98CC160F2803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAdoptDetailDecriptionTableViewCell.swift; sourceTree = "<group>"; };
+		98CC16102803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAdoptDetailDecriptionTableViewCell.xib; sourceTree = "<group>"; };
+		98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDescription.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,6 +159,7 @@
 				98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */,
 				98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */,
 				98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */,
+				98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -148,6 +171,12 @@
 				98CC15C228017A1C00B9FDC6 /* AdoptCollectionViewCell.xib */,
 				98CC15CA2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift */,
 				98CC15CE2801B22700B9FDC6 /* FavoriteTableViewCell.xib */,
+				98CC16012802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift */,
+				98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */,
+				98CC160B2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift */,
+				98CC160C2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib */,
+				98CC160F2803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift */,
+				98CC16102803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +187,7 @@
 				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
 				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
+				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -166,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC15DA2801C09900B9FDC6 /* Pet.swift */,
+				98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */,
 				98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */,
 				98CC15E42801E01100B9FDC6 /* PetManager.swift */,
 				98CC15EF280289C900B9FDC6 /* Local Storage */,
@@ -178,7 +209,9 @@
 			children = (
 				98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */,
 				98CC15C628017A3700B9FDC6 /* UITableView+Extension.swift */,
+				98CC16052802EA0D00B9FDC6 /* UIView+Extension.swift */,
 				98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */,
+				98CC16092802EB9B00B9FDC6 /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -289,9 +322,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
+				98CC16122803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
+				98CC160E2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib in Resources */,
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
+				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Main.storyboard in Resources */,
 			);
@@ -364,8 +400,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
+				98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */,
 				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
+				98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */,
+				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
+				98CC161428030F8100B9FDC6 /* AdoptDetailDescription.swift in Sources */,
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
@@ -374,14 +414,18 @@
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
+				98CC16062802EA0D00B9FDC6 /* UIView+Extension.swift in Sources */,
 				98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */,
+				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
+				98CC16112803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
+				98CC160D2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
 				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,

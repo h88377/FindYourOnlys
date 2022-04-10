@@ -12,7 +12,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var kindLabel: UILabel!
     
@@ -32,7 +32,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         let location = viewModel.pet.address
         
-        locationLabel.text = String(location[...2])
+        cityLabel.text = String(location[...2])
         
         kindLabel.text = viewModel.pet.kind
         

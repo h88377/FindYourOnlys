@@ -101,5 +101,17 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard
+            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
+                
+        else { return }
+        
+        adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
+        
+        navigationController?.pushViewController(adoptDetaiVC, animated: true)
+    }
 
 }
