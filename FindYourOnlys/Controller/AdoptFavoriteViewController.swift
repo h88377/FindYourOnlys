@@ -9,8 +9,6 @@ import UIKit
 
 class AdoptFavoriteViewController: UIViewController {
     
-    
-    
     let viewModel = AdoptFavoriteViewModel()
     
     @IBOutlet weak var tableView: UITableView! {
@@ -75,5 +73,15 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard
+            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
+                
+        else { return }
+        
+        adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
+        
+        navigationController?.pushViewController(adoptDetaiVC, animated: true)
+    }
 }
 
