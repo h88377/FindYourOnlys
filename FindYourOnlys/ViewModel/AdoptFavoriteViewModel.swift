@@ -32,8 +32,6 @@ class AdoptFavoriteViewModel {
     
     private func convertLsPetsToViewModels(from lsPets: [LSPet]) -> [FavoritePetViewModel] {
         
-//        let pets = convertLsPetsToPets(from: lsPets)
-        
         var viewModels = [FavoritePetViewModel]()
         
         for lsPet in lsPets {

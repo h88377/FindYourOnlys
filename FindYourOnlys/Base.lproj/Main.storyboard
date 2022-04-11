@@ -56,7 +56,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5o-jx-SJD">
                                 <rect key="frame" x="0.0" y="123" width="414" height="739"/>
                                 <connections>
-                                    <segue destination="Dov-hS-zDy" kind="embed" id="E8S-Gd-kyw"/>
+                                    <segue destination="Dov-hS-zDy" kind="embed" identifier="SegueFavorite" id="E8S-Gd-kyw"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUu-Tx-dxK">
@@ -152,7 +152,7 @@
                                     <color key="titleColor" systemColor="tintColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="addToFavorite:" destination="63v-a2-Ckk" eventType="touchUpInside" id="nae-XZ-HwB"/>
+                                    <action selector="toggleFavorite:" destination="63v-a2-Ckk" eventType="touchUpInside" id="TBE-b7-OQl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -209,7 +209,7 @@
         <!--Adopt Favorite View Controller-->
         <scene sceneID="4wZ-qq-8B9">
             <objects>
-                <viewController id="Dov-hS-zDy" customClass="AdoptFavoriteViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdoptFavoriteViewController" id="Dov-hS-zDy" customClass="AdoptFavoriteViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GFH-QV-cQs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -85,6 +85,39 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         
         adoptDetaiVC.viewModel.petViewModel.value.pet = viewModel.convertLsPetToPet(from: lsPet)
         
+        adoptDetaiVC.delegate = self
+        
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
+    }
+}
+
+// MARK: - AdoptDetailViewControllerDelegate
+extension AdoptFavoriteViewController: AdoptDetailViewControllerDelegate {
+    
+    func toggleFavorite() {
+        
+        viewModel.fetchFavoritePetFromLS { error in
+
+            if error != nil {
+
+                print(error)
+            }
+        }
+    }
+    
+}
+
+// MARK: - AdoptDetailViewControllerDelegate
+extension AdoptFavoriteViewController: AdoptViewControllerDelegate {
+    
+    func fetchFavoritePet() {
+        
+        viewModel.fetchFavoritePetFromLS { error in
+            
+            if error != nil {
+                
+                print(error)
+            }
+        }
     }
 }

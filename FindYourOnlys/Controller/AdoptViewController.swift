@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol AdoptViewControllerDelegate: AnyObject {
+    
+    func fetchFavoritePet()
+}
+
 class AdoptViewController: UIViewController {
     
     private enum AdoptButtonType: String {
@@ -15,6 +20,13 @@ class AdoptViewController: UIViewController {
         
         case favorite = "我的最愛"
     }
+    
+    private struct Segue {
+        
+        static let favorite = "SegueFavorite"
+    }
+    
+    weak var delegate: AdoptViewControllerDelegate?
     
     @IBOutlet weak var indicatorView: UIView!
     
@@ -42,9 +54,15 @@ class AdoptViewController: UIViewController {
         [adoptListContainerView, adoptFavoriteContainerView]
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        guard
+            segue.identifier == Segue.favorite,
+            let adpotFavoriteVC = segue.destination as? AdoptFavoriteViewController
+                
+        else { return }
+        
+        self.delegate = adpotFavoriteVC
     }
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {
@@ -60,6 +78,11 @@ class AdoptViewController: UIViewController {
             let type = AdoptButtonType(rawValue: currentTitle) else { return }
         
         updateContainerView(with: type)
+        
+        if type == .favorite {
+        
+            delegate?.fetchFavoritePet()
+        }
     }
     
     private func moveIndicatorView(to sender: UIView) {

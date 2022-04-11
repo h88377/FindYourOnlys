@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol AdoptDetailViewControllerDelegate: AnyObject {
+    
+    func toggleFavorite()
+}
+
 class AdoptDetailViewController: UIViewController {
     
     var viewModel = AdoptDetailViewModel()
+    
+    weak var delegate: AdoptDetailViewControllerDelegate?
     
     @IBOutlet weak var photoImageView: UIImageView!
     
@@ -51,7 +58,7 @@ class AdoptDetailViewController: UIViewController {
         photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString)
     }
  
-    @IBAction func addToFavorite(_ sender: UIButton) {
+    @IBAction func toggleFavorite(_ sender: UIButton) {
         
         viewModel.fetchFavoritePetFromLS { error in
 
@@ -62,6 +69,8 @@ class AdoptDetailViewController: UIViewController {
         }
         
         viewModel.toggleFavoriteButton(with: sender)
+        
+        self.delegate?.toggleFavorite()
     }
     
     func setupTableView() {
