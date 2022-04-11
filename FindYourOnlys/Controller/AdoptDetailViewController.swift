@@ -18,7 +18,7 @@ class AdoptDetailViewController: UIViewController {
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
-    var phoneNumber: String?
+//    var isLogin: Bool = false
     
     @IBOutlet weak var photoImageView: UIImageView!
     
@@ -77,21 +77,7 @@ class AdoptDetailViewController: UIViewController {
     
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
-        guard
-            let phoneNumber = phoneNumber,
-            let url = URL(string: "tel://\(phoneNumber)"),
-              UIApplication.shared.canOpenURL(url)
-                
-        else { return }
-        
-        if #available(iOS 10, *) {
-            
-            UIApplication.shared.open(url)
-            
-        } else {
-            
-            UIApplication.shared.openURL(url)
-        }
+        viewModel.makePhoneCall()
     }
     
     func setupTableView() {
@@ -116,8 +102,6 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellViewModel = viewModel.petViewModel.value
-        
-        phoneNumber = cellViewModel.pet.telephone
         
         let adoptDetailDescription = viewModel.adoptDetailDescription
         

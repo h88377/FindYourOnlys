@@ -7,9 +7,9 @@
 
 import Foundation
 
-class PetManager {
+class PetProvider {
     
-    static let shared = PetManager()
+    static let shared = PetProvider()
     
     func fetchPet(completion: @escaping (Result<[Pet], Error>) -> Void) {
         
