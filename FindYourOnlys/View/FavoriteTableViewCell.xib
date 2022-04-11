@@ -21,15 +21,6 @@
                         <constraint firstAttribute="height" constant="300" id="cn2-J1-2CO"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Csc-aK-4W9">
-                    <rect key="frame" x="194" y="316" width="166" height="33"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="tintColor" systemColor="tintColor"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Remove from Favorite">
-                        <color key="titleColor" systemColor="tintColor"/>
-                    </state>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="locationLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCA-AX-Xw8">
                     <rect key="frame" x="16" y="316" width="102" height="26"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -61,7 +52,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="idLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucd-RS-uEn">
-                    <rect key="frame" x="304" y="357" width="56" height="21"/>
+                    <rect key="frame" x="304" y="316" width="56" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" systemColor="systemGray2Color"/>
                     <nil key="highlightedColor"/>
@@ -79,20 +70,17 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lgc-9W-egB" secondAttribute="bottom" constant="16" id="TEL-fz-2ub"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JnK-yq-4jS" secondAttribute="trailing" id="TKz-Sn-AG2"/>
                 <constraint firstItem="5TK-Rx-5Cs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Y4c-Ob-TRE"/>
+                <constraint firstItem="ucd-RS-uEn" firstAttribute="top" secondItem="JnK-yq-4jS" secondAttribute="bottom" constant="16" id="eyw-H0-s8B"/>
                 <constraint firstItem="h0e-mg-H8F" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="fjh-0T-xMh"/>
                 <constraint firstItem="5TK-Rx-5Cs" firstAttribute="top" secondItem="VCA-AX-Xw8" secondAttribute="bottom" constant="8" id="gr3-Il-RP7"/>
-                <constraint firstItem="ucd-RS-uEn" firstAttribute="top" secondItem="Csc-aK-4W9" secondAttribute="bottom" constant="8" id="ljR-7f-an8"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ucd-RS-uEn" secondAttribute="trailing" constant="16" id="pCM-VV-ltp"/>
                 <constraint firstItem="JnK-yq-4jS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pht-3H-Ort"/>
-                <constraint firstItem="Csc-aK-4W9" firstAttribute="top" secondItem="JnK-yq-4jS" secondAttribute="bottom" constant="16" id="qhz-OB-dLz"/>
                 <constraint firstItem="h0e-mg-H8F" firstAttribute="top" secondItem="5TK-Rx-5Cs" secondAttribute="bottom" constant="8" id="qxs-ct-kqG"/>
                 <constraint firstItem="UbV-Ql-Dug" firstAttribute="top" secondItem="h0e-mg-H8F" secondAttribute="bottom" constant="8" id="wct-2k-ozv"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Csc-aK-4W9" secondAttribute="trailing" constant="16" id="yhV-Ot-MGt"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="cityLabel" destination="VCA-AX-Xw8" id="uwF-xu-NtW"/>
-                <outlet property="favoriteButton" destination="Csc-aK-4W9" id="e41-ic-8B3"/>
                 <outlet property="idLabel" destination="ucd-RS-uEn" id="0qh-PS-gyU"/>
                 <outlet property="kindLabel" destination="5TK-Rx-5Cs" id="Qs9-3W-4fe"/>
                 <outlet property="photoImageView" destination="JnK-yq-4jS" id="Bmo-nu-ZcM"/>
@@ -109,9 +97,6 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

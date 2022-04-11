@@ -24,10 +24,6 @@ class AdoptCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var statusLabel: UILabel!
     
-    @IBOutlet weak var favoriteButton: UIButton!
-    
-    var addToFavoriteHandler: (() -> Void)?
-    
     func configureCell(with viewModel: PetViewModel) {
         
         let location = viewModel.pet.address
@@ -47,14 +43,4 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         photoImageView.loadImage(viewModel.pet.photoURLString)
     }
     
-    @IBAction func addToFavorite(_ sender: UIButton) {
-        
-        addToFavoriteHandler?()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        addToFavoriteHandler = nil
-    }
 }

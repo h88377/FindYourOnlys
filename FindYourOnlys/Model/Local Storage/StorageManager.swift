@@ -96,6 +96,15 @@ class StorageManager {
         saveContext()
     }
     
+    func removePetfromFavorite(lsPet: LSPet) {
+        
+        let context = StorageManager.shared.persistentContainer.viewContext
+        
+        context.delete(lsPet)
+        
+        saveContext()
+    }
+    
     func fetchPet(completion: ((Result<[LSPet], Error>) -> Void)) {
         
         let request: NSFetchRequest<LSPet> = LSPet.fetchRequest()

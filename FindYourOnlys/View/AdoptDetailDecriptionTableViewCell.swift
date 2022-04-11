@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewAdoptDetailDecriptionTableViewCell: UITableViewCell {
+class AdoptDetailDecriptionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var descriptionLabel: UILabel!
     

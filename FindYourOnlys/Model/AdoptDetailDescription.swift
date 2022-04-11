@@ -50,7 +50,7 @@ enum AdoptDetailDescription: String, CaseIterable {
     func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, viewModel: PetViewModel) -> UITableViewCell {
 
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewAdoptDetailDecriptionTableViewCell.identifier, for: indexPath) as? NewAdoptDetailDecriptionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: AdoptDetailDecriptionTableViewCell.identifier, for: indexPath) as? AdoptDetailDecriptionTableViewCell
                 
         else { return UITableViewCell() }
         

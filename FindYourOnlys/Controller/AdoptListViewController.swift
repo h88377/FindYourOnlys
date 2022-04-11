@@ -92,11 +92,6 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         let cellViewModel = viewModel.petViewModels.value[indexPath.item]
         
-        cell.addToFavoriteHandler = {
-            
-            StorageManager.shared.savePetInFavorite(with: cellViewModel)
-        }
-        
         cell.configureCell(with: cellViewModel)
         
         return cell

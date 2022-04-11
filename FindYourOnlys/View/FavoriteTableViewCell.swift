@@ -23,25 +23,22 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var statusLabel: UILabel!
     
-    @IBOutlet weak var favoriteButton: UIButton!
-    
-    func configureCell(with viewModel: PetViewModel) {
+    func configureCell(with viewModel: FavoritePetViewModel) {
         
-        let location = viewModel.pet.address
+        let location = viewModel.lsPet.address
         
         cityLabel.text = String(location[...2])
         
-        kindLabel.text = viewModel.pet.kind
+        kindLabel.text = viewModel.lsPet.kind
         
-        sexLabel.text = viewModel.pet.sex
+        sexLabel.text = viewModel.lsPet.sex
         
-        varietyLabel.text = viewModel.pet.variety
+        varietyLabel.text = viewModel.lsPet.variety
         
-        idLabel.text = "\(viewModel.pet.id)"
+        idLabel.text = "\(viewModel.lsPet.id)"
         
-        statusLabel.text = viewModel.pet.status
+        statusLabel.text = viewModel.lsPet.status
         
-        photoImageView.loadImage(viewModel.pet.photoURLString)
+        photoImageView.loadImage(viewModel.lsPet.photoURLString)
     }
-
 }
