@@ -100,13 +100,31 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard
-            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
+            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController,
+            let adoptFavoriteVC = storyboard?.instantiateViewController(withIdentifier: AdoptFavoriteViewController.identifier) as? AdoptFavoriteViewController
+                
                 
         else { return }
         
         adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
         
+        adoptDetaiVC.delegate = adoptFavoriteVC
+        
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
     }
 
+}
+
+extension AdoptListViewController: AdoptDetailViewControllerDelegate {
+
+    func toggleFavorite() {
+
+        viewModel.fetchPet { error in
+
+            if error != nil {
+
+                print(error)
+            }
+        }
+    }
 }
