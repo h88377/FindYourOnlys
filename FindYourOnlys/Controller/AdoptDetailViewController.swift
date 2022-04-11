@@ -13,6 +13,8 @@ class AdoptDetailViewController: UIViewController {
     
     @IBOutlet weak var photoImageView: UIImageView!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -28,30 +30,46 @@ class AdoptDetailViewController: UIViewController {
 
         setupTableView()
         
-        viewModel.petViewModel.bind { [weak self] petViewModel in
+        viewModel.petViewModel.bind { [weak self] petViewModels in
             
             DispatchQueue.main.async {
                 
                 self?.tableView.reloadData()
             }
         }
+        viewModel.fetchFavoritePetFromLS { error in
+            
+            if error != nil {
+                
+                print(error)
+            }
+            
+        }
+        
+        viewModel.checkFavoriteButton(with: favoriteButton)
         
         photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString)
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+ 
+    @IBAction func addToFavorite(_ sender: UIButton) {
         
-//        tableView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+        viewModel.fetchFavoritePetFromLS { error in
+
+            if error != nil {
+
+                print(error)
+            }
+        }
+        
+        viewModel.toggleFavoriteButton(with: sender)
     }
     
     func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: NewAdoptDetailDecriptionTableViewCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: AdoptDetailDecriptionTableViewCell.identifier)
     }
-
 
 }
 
@@ -89,3 +107,28 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
 }
+
+
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+    
+//        tableView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+//    }
+
+//        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+            
+//            self?.viewModel.isFavorite(with: &self!.favoriteButton)
+//            self?.favoriteButton.setTitle("AddToFavorite", for: .normal)
+//
+//            for favoritePetViewModel in favoritePetViewModels {
+//
+//                if favoritePetViewModel.pet.id == self?.viewModel.petViewModel.value.pet.id {
+//
+//                    self?.favoriteButton.setTitle("RemoveFromFavorite", for: .normal)
+//
+//                    break
+//                }
+//
+//
+//            }
+//        }

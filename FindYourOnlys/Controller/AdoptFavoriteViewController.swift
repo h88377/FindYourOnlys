@@ -26,7 +26,7 @@ class AdoptFavoriteViewController: UIViewController {
 
         setupTableView()
         
-        viewModel.fetchFavoritePet { error in
+        viewModel.fetchFavoritePetFromLS { error in
             
             if error != nil {
                 
@@ -34,7 +34,7 @@ class AdoptFavoriteViewController: UIViewController {
             }
         }
         
-        viewModel.petViewModels.bind { [weak self] petViewModels in
+        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
             
             DispatchQueue.main.async {
                 
@@ -56,7 +56,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.petViewModels.value.count
+        viewModel.favoritePetViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,7 +66,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.petViewModels.value[indexPath.item]
+        let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
         
         cell.configureCell(with: cellViewModel)
         
@@ -79,9 +79,12 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return }
         
-        adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
+//        adoptDetaiVC.viewModel.petViewModel.value = viewModel.favoritePetViewModels.value[indexPath.item]
+        
+        let lsPet = viewModel.favoritePetViewModels.value[indexPath.row].lsPet
+        
+        adoptDetaiVC.viewModel.petViewModel.value.pet = viewModel.convertLsPetToPet(from: lsPet)
         
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
     }
 }
-

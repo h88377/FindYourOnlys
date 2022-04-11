@@ -44,11 +44,10 @@
 		98CC16062802EA0D00B9FDC6 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16052802EA0D00B9FDC6 /* UIView+Extension.swift */; };
 		98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */; };
 		98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16092802EB9B00B9FDC6 /* UIViewController+Extension.swift */; };
-		98CC160D2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC160B2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift */; };
-		98CC160E2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC160C2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib */; };
-		98CC16112803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC160F2803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift */; };
-		98CC16122803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16102803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib */; };
+		98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */; };
+		98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */; };
 		98CC161428030F8100B9FDC6 /* AdoptDetailDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */; };
+		98CC16162803D69100B9FDC6 /* FavoritePetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,11 +91,10 @@
 		98CC16052802EA0D00B9FDC6 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailViewModel.swift; sourceTree = "<group>"; };
 		98CC16092802EB9B00B9FDC6 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		98CC160B2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDescriptionTableViewCell.swift; sourceTree = "<group>"; };
-		98CC160C2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailDescriptionTableViewCell.xib; sourceTree = "<group>"; };
-		98CC160F2803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAdoptDetailDecriptionTableViewCell.swift; sourceTree = "<group>"; };
-		98CC16102803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAdoptDetailDecriptionTableViewCell.xib; sourceTree = "<group>"; };
+		98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDecriptionTableViewCell.swift; sourceTree = "<group>"; };
+		98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailDecriptionTableViewCell.xib; sourceTree = "<group>"; };
 		98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDescription.swift; sourceTree = "<group>"; };
+		98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePetViewModel.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -173,10 +171,8 @@
 				98CC15CE2801B22700B9FDC6 /* FavoriteTableViewCell.xib */,
 				98CC16012802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift */,
 				98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */,
-				98CC160B2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift */,
-				98CC160C2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib */,
-				98CC160F2803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift */,
-				98CC16102803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib */,
+				98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */,
+				98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
+				98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */,
 				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
 				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
@@ -322,9 +319,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
-				98CC16122803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.xib in Resources */,
+				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
-				98CC160E2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.xib in Resources */,
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
@@ -409,6 +405,7 @@
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
+				98CC16162803D69100B9FDC6 /* FavoritePetViewModel.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
@@ -423,9 +420,8 @@
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
-				98CC16112803016500B9FDC6 /* NewAdoptDetailDecriptionTableViewCell.swift in Sources */,
+				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
-				98CC160D2802F78C00B9FDC6 /* AdoptDetailDescriptionTableViewCell.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
 				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,
