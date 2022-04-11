@@ -16,6 +16,8 @@ class AdoptDetailViewModel {
         case remove = "Remove"
     }
     
+    var isLogin: Bool = false
+    
     let adoptDetailDescription = AdoptDetailDescription.allCases
     
     let favoritePetViewModels = Box([FavoritePetViewModel]())
@@ -36,7 +38,25 @@ class AdoptDetailViewModel {
         )
     )
     
-    
+    func makePhoneCall() {
+        
+        let phoneNumber = petViewModel.value.pet.telephone
+        
+        guard
+            let url = URL(string: "tel://\(phoneNumber)"),
+              UIApplication.shared.canOpenURL(url)
+                
+        else { return }
+        
+        if #available(iOS 10, *) {
+            
+            UIApplication.shared.open(url)
+            
+        } else {
+            
+            UIApplication.shared.openURL(url)
+        }
+    }
     
     func addToFavoriteInLS() {
         

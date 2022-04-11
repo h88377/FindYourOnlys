@@ -20,9 +20,10 @@
         <attribute name="sterilization" attributeType="String"/>
         <attribute name="telephone" attributeType="String"/>
         <attribute name="updatedDate" attributeType="String"/>
+        <attribute name="userIDs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int64]"/>
         <attribute name="variety" attributeType="String"/>
     </entity>
     <elements>
-        <element name="LSPet" positionX="-63" positionY="-18" width="128" height="329"/>
+        <element name="LSPet" positionX="-63" positionY="-18" width="128" height="344"/>
     </elements>
 </model>

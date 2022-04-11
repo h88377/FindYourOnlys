@@ -30,7 +30,7 @@
 		98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */; };
 		98CC15E12801D67300B9FDC6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E02801D67300B9FDC6 /* Box.swift */; };
 		98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E22801D71300B9FDC6 /* PetViewModel.swift */; };
-		98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E42801E01100B9FDC6 /* PetManager.swift */; };
+		98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E42801E01100B9FDC6 /* PetProvider.swift */; };
 		98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */; };
 		98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */; };
 		98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15ED280289C000B9FDC6 /* StorageManager.swift */; };
@@ -48,6 +48,7 @@
 		98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */; };
 		98CC161428030F8100B9FDC6 /* AdoptDetailDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */; };
 		98CC16162803D69100B9FDC6 /* FavoritePetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */; };
+		98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC1619280427B700B9FDC6 /* FavoritePetFirebaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +78,7 @@
 		98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptListViewModel.swift; sourceTree = "<group>"; };
 		98CC15E02801D67300B9FDC6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		98CC15E22801D71300B9FDC6 /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
-		98CC15E42801E01100B9FDC6 /* PetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetManager.swift; sourceTree = "<group>"; };
+		98CC15E42801E01100B9FDC6 /* PetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProvider.swift; sourceTree = "<group>"; };
 		98CC15E62802815200B9FDC6 /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
 		98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherWrapper.swift; sourceTree = "<group>"; };
 		98CC15ED280289C000B9FDC6 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailDecriptionTableViewCell.xib; sourceTree = "<group>"; };
 		98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDescription.swift; sourceTree = "<group>"; };
 		98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePetViewModel.swift; sourceTree = "<group>"; };
+		98CC1619280427B700B9FDC6 /* FavoritePetFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePetFirebaseManager.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -194,8 +196,8 @@
 			children = (
 				98CC15DA2801C09900B9FDC6 /* Pet.swift */,
 				98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */,
-				98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */,
-				98CC15E42801E01100B9FDC6 /* PetManager.swift */,
+				98CC16172804276300B9FDC6 /* HTTPClient */,
+				98CC16182804278700B9FDC6 /* Firebase */,
 				98CC15EF280289C900B9FDC6 /* Local Storage */,
 			);
 			path = Model;
@@ -238,6 +240,23 @@
 				98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */,
 			);
 			path = "Local Storage";
+			sourceTree = "<group>";
+		};
+		98CC16172804276300B9FDC6 /* HTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */,
+				98CC15E42801E01100B9FDC6 /* PetProvider.swift */,
+			);
+			path = HTTPClient;
+			sourceTree = "<group>";
+		};
+		98CC16182804278700B9FDC6 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				98CC1619280427B700B9FDC6 /* FavoritePetFirebaseManager.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		DD46BB83A3A5D507D07D9598 /* Pods */ = {
@@ -415,7 +434,8 @@
 				98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
-				98CC15E52801E01100B9FDC6 /* PetManager.swift in Sources */,
+				98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */,
+				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
 				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,

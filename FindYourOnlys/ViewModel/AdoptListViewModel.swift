@@ -13,7 +13,7 @@ class AdoptListViewModel {
     
     func fetchPet(completion: @escaping (Error?) -> Void) {
         
-        PetManager.shared.fetchPet { [weak self] result in
+        PetProvider.shared.fetchPet { [weak self] result in
             
             switch result {
                 

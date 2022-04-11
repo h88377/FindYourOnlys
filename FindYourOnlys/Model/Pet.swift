@@ -9,6 +9,8 @@ import Foundation
 
 struct Pet: Codable {
     
+    var userIDs: [String]?
+    
     let id: Int
     
     let location: String
