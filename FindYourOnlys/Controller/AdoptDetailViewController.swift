@@ -18,6 +18,8 @@ class AdoptDetailViewController: UIViewController {
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
+    var phoneNumber: String?
+    
     @IBOutlet weak var photoImageView: UIImageView!
     
     @IBOutlet weak var favoriteButton: UIButton!
@@ -73,6 +75,25 @@ class AdoptDetailViewController: UIViewController {
         self.delegate?.toggleFavorite()
     }
     
+    @IBAction func makePhoneCall(_ sender: UIButton) {
+        
+        guard
+            let phoneNumber = phoneNumber,
+            let url = URL(string: "tel://\(phoneNumber)"),
+              UIApplication.shared.canOpenURL(url)
+                
+        else { return }
+        
+        if #available(iOS 10, *) {
+            
+            UIApplication.shared.open(url)
+            
+        } else {
+            
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
@@ -95,6 +116,8 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellViewModel = viewModel.petViewModel.value
+        
+        phoneNumber = cellViewModel.pet.telephone
         
         let adoptDetailDescription = viewModel.adoptDetailDescription
         
