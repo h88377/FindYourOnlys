@@ -132,6 +132,9 @@
                                 <state key="normal" title="撥打電話">
                                     <color key="titleColor" systemColor="tintColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="makePhoneCall:" destination="63v-a2-Ckk" eventType="touchUpInside" id="Lsx-DU-jAN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gA4-hq-HPp">
                                 <rect key="frame" x="234.5" y="822" width="179.5" height="40"/>
