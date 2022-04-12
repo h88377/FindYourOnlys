@@ -1,0 +1,6 @@
+framework module Pods_FindYourOnlys {
+  umbrella header "Pods-FindYourOnlys-umbrella.h"
+
+  export *
+  module * { export * }
+}
