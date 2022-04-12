@@ -57,6 +57,9 @@
 		98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */; };
 		98CC163228055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163028055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift */; };
 		98CC163328055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */; };
+		98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163428056FD500B9FDC6 /* PublishViewController.swift */; };
+		98CC16382805709900B9FDC6 /* PublishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */; };
+		98CC16392805709900B9FDC6 /* PublishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +116,9 @@
 		98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyViewController.swift; sourceTree = "<group>"; };
 		98CC163028055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyTableViewCell.swift; sourceTree = "<group>"; };
 		98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindPetSocietyTableViewCell.xib; sourceTree = "<group>"; };
+		98CC163428056FD500B9FDC6 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
+		98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTableViewCell.swift; sourceTree = "<group>"; };
+		98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishTableViewCell.xib; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -310,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */,
+				98CC163428056FD500B9FDC6 /* PublishViewController.swift */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";
@@ -319,6 +326,8 @@
 			children = (
 				98CC163028055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift */,
 				98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */,
+				98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */,
+				98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";
@@ -408,6 +417,7 @@
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
 				98CC161E28054A7600B9FDC6 /* FindPetSociety.storyboard in Resources */,
+				98CC16392805709900B9FDC6 /* PublishTableViewCell.xib in Resources */,
 				98CC163328055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
@@ -512,6 +522,7 @@
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
 				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
+				98CC16382805709900B9FDC6 /* PublishTableViewCell.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
@@ -519,6 +530,7 @@
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
+				98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
