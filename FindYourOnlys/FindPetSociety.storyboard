@@ -16,8 +16,55 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="FMc-Os-2gs">
+                                <rect key="frame" x="259" y="96" width="139" height="22.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cG5-xY-Cch">
+                                        <rect key="frame" x="0.0" y="0.0" width="20.5" height="22.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="magnifyingglass" catalog="system">
+                                            <color key="titleColor" systemColor="tintColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J2-Ga-0zB">
+                                        <rect key="frame" x="37.5" y="0.0" width="24.5" height="22.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="plus.rectangle.on.folder" catalog="system">
+                                            <color key="titleColor" systemColor="tintColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XN-eJ-RWz">
+                                        <rect key="frame" x="79" y="0.0" width="21" height="22.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="person.badge.plus" catalog="system">
+                                            <color key="titleColor" systemColor="tintColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TK-h6-ZdP">
+                                        <rect key="frame" x="117" y="0.0" width="22" height="22.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="message" catalog="system">
+                                            <color key="titleColor" systemColor="tintColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CU0-Df-4ll">
+                                <rect key="frame" x="0.0" y="118.5" width="414" height="743.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="CU0-Df-4ll" secondAttribute="trailing" id="0Nt-RH-lPn"/>
+                            <constraint firstItem="CU0-Df-4ll" firstAttribute="top" secondItem="FMc-Os-2gs" secondAttribute="bottom" id="OMu-tb-Zif"/>
+                            <constraint firstItem="CU0-Df-4ll" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aiE-2h-EOD"/>
+                            <constraint firstItem="FMc-Os-2gs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="lCj-bS-KVG"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="CU0-Df-4ll" secondAttribute="bottom" id="w7s-ko-rlN"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FMc-Os-2gs" secondAttribute="trailing" constant="16" id="y98-h8-bNZ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rGw-50-d36"/>
                 </viewController>
@@ -45,8 +92,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="message" catalog="system" width="128" height="113"/>
+        <image name="person.badge.plus" catalog="system" width="128" height="124"/>
+        <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

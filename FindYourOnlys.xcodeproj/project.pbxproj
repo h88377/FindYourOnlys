@@ -54,6 +54,9 @@
 		98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98CC1626280550D900B9FDC6 /* Main.storyboard */; };
 		98CC16292805518400B9FDC6 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16282805518400B9FDC6 /* HomeTabBarController.swift */; };
 		98CC162B280554E500B9FDC6 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC162A280554E500B9FDC6 /* UIImage+Extension.swift */; };
+		98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */; };
+		98CC163228055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163028055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift */; };
+		98CC163328055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +110,9 @@
 		98CC1626280550D900B9FDC6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		98CC16282805518400B9FDC6 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		98CC162A280554E500B9FDC6 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyViewController.swift; sourceTree = "<group>"; };
+		98CC163028055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyTableViewCell.swift; sourceTree = "<group>"; };
+		98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindPetSocietyTableViewCell.xib; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -154,9 +160,9 @@
 				98CC15BE2801797500B9FDC6 /* View */,
 				98CC15BD2801796D00B9FDC6 /* Controller */,
 				98CC15BF2801797F00B9FDC6 /* ViewModel */,
-				98CC1626280550D900B9FDC6 /* Main.storyboard */,
-				98CC15AC28005B6C00B9FDC6 /* Adopt.storyboard */,
 				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
+				98CC15AC28005B6C00B9FDC6 /* Adopt.storyboard */,
+				98CC1626280550D900B9FDC6 /* Main.storyboard */,
 				98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */,
 				98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */,
 				98CC15BB2801721000B9FDC6 /* GoogleService-Info.plist */,
@@ -170,6 +176,7 @@
 			children = (
 				98CC16282805518400B9FDC6 /* HomeTabBarController.swift */,
 				98CC162028054ACB00B9FDC6 /* Adopt */,
+				98CC162C28055F3000B9FDC6 /* FindPetSociety */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +184,7 @@
 		98CC15BE2801797500B9FDC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				98CC162F28055F7B00B9FDC6 /* FindPetSociety */,
 				98CC161F28054AB600B9FDC6 /* Adopt */,
 			);
 			path = View;
@@ -298,6 +306,23 @@
 			path = Adopt;
 			sourceTree = "<group>";
 		};
+		98CC162C28055F3000B9FDC6 /* FindPetSociety */ = {
+			isa = PBXGroup;
+			children = (
+				98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */,
+			);
+			path = FindPetSociety;
+			sourceTree = "<group>";
+		};
+		98CC162F28055F7B00B9FDC6 /* FindPetSociety */ = {
+			isa = PBXGroup;
+			children = (
+				98CC163028055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift */,
+				98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */,
+			);
+			path = FindPetSociety;
+			sourceTree = "<group>";
+		};
 		DD46BB83A3A5D507D07D9598 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +408,7 @@
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
 				98CC161E28054A7600B9FDC6 /* FindPetSociety.storyboard in Resources */,
+				98CC163328055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
@@ -470,6 +496,7 @@
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
+				98CC163228055F9B00B9FDC6 /* FindPetSocietyTableViewCell.swift in Sources */,
 				98CC16292805518400B9FDC6 /* HomeTabBarController.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
@@ -491,6 +518,7 @@
 				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
+				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
