@@ -35,8 +35,9 @@ extension LSPet {
     @NSManaged public var sterilization: String
     @NSManaged public var telephone: String
     @NSManaged public var updatedDate: String
+    @NSManaged public var userID: String?
     @NSManaged public var variety: String
-    @NSManaged public var userIDs: [Int64]?
+    @NSManaged public var favoriteID: String?
 
 }
 

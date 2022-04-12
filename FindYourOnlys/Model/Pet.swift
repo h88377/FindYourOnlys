@@ -9,7 +9,9 @@ import Foundation
 
 struct Pet: Codable {
     
-    var userIDs: [String]?
+    var userID: String?
+    
+    var favoriteID: String?
     
     let id: Int
     

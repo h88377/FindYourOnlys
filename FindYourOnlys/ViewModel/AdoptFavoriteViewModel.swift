@@ -9,7 +9,9 @@ import UIKit.UIImage
 
 class AdoptFavoriteViewModel {
     
-    let favoritePetViewModels = Box([FavoritePetViewModel]())
+    let favoriteLSPetViewModels = Box([FavoriteLSPetViewModel]())
+    
+    let favoritePetViewModels = Box([PetViewModel]())
     
     func fetchFavoritePetFromLS(completion: (Error?) -> Void ) {
         
@@ -26,17 +28,33 @@ class AdoptFavoriteViewModel {
                 completion(error)
             }
         }
+    }
+    
+    func fetchFavoritePetFromFB(completion: @escaping (Error?) -> Void ) {
         
+        FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
+            
+            switch result {
+                
+            case .success(let pets):
+                
+                self?.setPets(pets)
+            
+            case .failure(let error):
+                
+                completion(error)
+            }
+        }
     }
 
     
-    private func convertLsPetsToViewModels(from lsPets: [LSPet]) -> [FavoritePetViewModel] {
+    private func convertLsPetsToViewModels(from lsPets: [LSPet]) -> [FavoriteLSPetViewModel] {
         
-        var viewModels = [FavoritePetViewModel]()
+        var viewModels = [FavoriteLSPetViewModel]()
         
         for lsPet in lsPets {
             
-            let viewModel = FavoritePetViewModel(model: lsPet)
+            let viewModel = FavoriteLSPetViewModel(model: lsPet)
             
             viewModels.append(viewModel)
         }
@@ -46,29 +64,25 @@ class AdoptFavoriteViewModel {
     
     private func setPets(with lsPets: [LSPet]) {
         
-        favoritePetViewModels.value = convertLsPetsToViewModels(from: lsPets)
+        favoriteLSPetViewModels.value = convertLsPetsToViewModels(from: lsPets)
     }
     
-    func convertLsPetsToPets(from lsPets: ([LSPet])) -> [Pet] {
+    private func convertPetsToViewModels(from pets: [Pet]) -> [PetViewModel] {
         
-        var pets = [Pet]()
+        var viewModels = [PetViewModel]()
         
-        for lsPet in lsPets {
+        for pet in pets {
             
-            let pet = Pet(
-                id: Int(lsPet.id), location: lsPet.location, kind: lsPet.kind,
-                sex: lsPet.sex, bodyType: lsPet.bodyType, color: lsPet.color,
-                age: lsPet.age, sterilization: lsPet.sterilization, bacterin: lsPet.bacterin,
-                foundPlace: lsPet.foundPlace, status: lsPet.status, remark: lsPet.remark,
-                openDate: lsPet.openDate, closedDate: lsPet.closedDate,
-                updatedDate: lsPet.updatedDate, createdDate: lsPet.createdDate,
-                photoURLString: lsPet.photoURLString, address: lsPet.address, telephone: lsPet.telephone,
-                variety: lsPet.variety
-            )
-            pets.append(pet)
+            let viewModel = PetViewModel(model: pet)
+            
+            viewModels.append(viewModel)
         }
+        return viewModels
+    }
+    
+    private func setPets(_ pets: [Pet]) {
         
-        return pets
+        favoritePetViewModels.value = convertPetsToViewModels(from: pets)
     }
     
     func convertLsPetToPet(from lsPet: (LSPet)) -> Pet {
@@ -88,5 +102,25 @@ class AdoptFavoriteViewModel {
     
 }
 
-
+//    func convertLsPetsToPets(from lsPets: ([LSPet])) -> [Pet] {
+//
+//        var pets = [Pet]()
+//
+//        for lsPet in lsPets {
+//
+//            let pet = Pet(
+//                id: Int(lsPet.id), location: lsPet.location, kind: lsPet.kind,
+//                sex: lsPet.sex, bodyType: lsPet.bodyType, color: lsPet.color,
+//                age: lsPet.age, sterilization: lsPet.sterilization, bacterin: lsPet.bacterin,
+//                foundPlace: lsPet.foundPlace, status: lsPet.status, remark: lsPet.remark,
+//                openDate: lsPet.openDate, closedDate: lsPet.closedDate,
+//                updatedDate: lsPet.updatedDate, createdDate: lsPet.createdDate,
+//                photoURLString: lsPet.photoURLString, address: lsPet.address, telephone: lsPet.telephone,
+//                variety: lsPet.variety
+//            )
+//            pets.append(pet)
+//        }
+//
+//        return pets
+//    }
 

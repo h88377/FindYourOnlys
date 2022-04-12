@@ -23,7 +23,7 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var statusLabel: UILabel!
     
-    func configureCell(with viewModel: FavoritePetViewModel) {
+    func configureCell(with viewModel: FavoriteLSPetViewModel) {
         
         let location = viewModel.lsPet.address
         
@@ -40,5 +40,24 @@ class FavoriteTableViewCell: UITableViewCell {
         statusLabel.text = viewModel.lsPet.status
         
         photoImageView.loadImage(viewModel.lsPet.photoURLString)
+    }
+    
+    func configureCell(with viewModel: PetViewModel) {
+        
+        let location = viewModel.pet.address
+        
+        cityLabel.text = String(location[...2])
+        
+        kindLabel.text = viewModel.pet.kind
+        
+        sexLabel.text = viewModel.pet.sex
+        
+        varietyLabel.text = viewModel.pet.variety
+        
+        idLabel.text = "\(viewModel.pet.id)"
+        
+        statusLabel.text = viewModel.pet.status
+        
+        photoImageView.loadImage(viewModel.pet.photoURLString)
     }
 }

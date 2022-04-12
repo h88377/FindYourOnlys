@@ -11,6 +11,8 @@ class AdoptFavoriteViewController: UIViewController {
     
     let viewModel = AdoptFavoriteViewModel()
     
+    var didLogin: Bool = false
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -26,21 +28,45 @@ class AdoptFavoriteViewController: UIViewController {
 
         setupTableView()
         
-        viewModel.fetchFavoritePetFromLS { error in
+        if !didLogin {
             
-            if error != nil {
+            viewModel.fetchFavoritePetFromLS { error in
                 
-                print(error)
+                if error != nil {
+                    
+                    print(error)
+                }
+            }
+            
+            viewModel.favoriteLSPetViewModels.bind { [weak self] _ in
+                
+                DispatchQueue.main.async {
+                    
+                    self?.tableView.reloadData()
+                }
+            }
+            
+            
+        } else {
+            
+            viewModel.fetchFavoritePetFromFB { error in
+                
+                if error != nil {
+                    
+                    print(error)
+                }
+            }
+            
+            viewModel.favoritePetViewModels.bind { [weak self] _ in
+                
+                DispatchQueue.main.async {
+                    
+                    self?.tableView.reloadData()
+                }
             }
         }
         
-        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-            
-            DispatchQueue.main.async {
-                
-                self?.tableView.reloadData()
-            }
-        }
+        
     }
     
     func setupTableView() {
@@ -56,7 +82,10 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.favoritePetViewModels.value.count
+        
+        return !didLogin
+        ? viewModel.favoriteLSPetViewModels.value.count
+        : viewModel.favoritePetViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,11 +95,22 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
-        
-        cell.configureCell(with: cellViewModel)
-        
-        return cell
+        if !didLogin {
+            
+            let cellViewModel = viewModel.favoriteLSPetViewModels.value[indexPath.item]
+            
+            cell.configureCell(with: cellViewModel)
+            
+            return cell
+            
+        } else {
+            
+            let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
+            
+            cell.configureCell(with: cellViewModel)
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -79,11 +119,16 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return }
         
-//        adoptDetaiVC.viewModel.petViewModel.value = viewModel.favoritePetViewModels.value[indexPath.item]
-        
-        let lsPet = viewModel.favoritePetViewModels.value[indexPath.row].lsPet
-        
-        adoptDetaiVC.viewModel.petViewModel.value.pet = viewModel.convertLsPetToPet(from: lsPet)
+        if !didLogin {
+            
+            let lsPet = viewModel.favoriteLSPetViewModels.value[indexPath.row].lsPet
+            
+            adoptDetaiVC.viewModel.petViewModel.value.pet = viewModel.convertLsPetToPet(from: lsPet)
+            
+        } else {
+            
+            adoptDetaiVC.viewModel.petViewModel.value = viewModel.favoritePetViewModels.value[indexPath.item]
+        }
         
         adoptDetaiVC.delegate = self
         
@@ -96,15 +141,27 @@ extension AdoptFavoriteViewController: AdoptDetailViewControllerDelegate {
     
     func toggleFavorite() {
         
-        viewModel.fetchFavoritePetFromLS { error in
+        if !didLogin {
+            
+            viewModel.fetchFavoritePetFromLS { error in
 
-            if error != nil {
+                if error != nil {
 
-                print(error)
+                    print(error)
+                }
+            }
+        } else {
+            
+            viewModel.fetchFavoritePetFromFB { error in
+
+                if error != nil {
+
+                    print(error)
+                }
             }
         }
+        tableView.reloadData()
     }
-    
 }
 
 // MARK: - AdoptDetailViewControllerDelegate
@@ -112,11 +169,23 @@ extension AdoptFavoriteViewController: AdoptViewControllerDelegate {
     
     func fetchFavoritePet() {
         
-        viewModel.fetchFavoritePetFromLS { error in
+        if !didLogin {
             
-            if error != nil {
-                
-                print(error)
+            viewModel.fetchFavoritePetFromLS { error in
+
+                if error != nil {
+
+                    print(error)
+                }
+            }
+        } else {
+            
+            viewModel.fetchFavoritePetFromFB { error in
+
+                if error != nil {
+
+                    print(error)
+                }
             }
         }
     }

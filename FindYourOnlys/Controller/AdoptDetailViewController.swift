@@ -18,7 +18,7 @@ class AdoptDetailViewController: UIViewController {
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
-//    var isLogin: Bool = false
+    var didLogin: Bool = false
     
     @IBOutlet weak var photoImageView: UIImageView!
     
@@ -46,31 +46,72 @@ class AdoptDetailViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        viewModel.fetchFavoritePetFromLS { error in
+        
+        //Create a function to replace
+        if !didLogin {
             
-            if error != nil {
+            viewModel.fetchFavoritePetFromLS { error in
                 
-                print(error)
+                if error != nil {
+                    
+                    print(error)
+                    
+                } else {
+                    
+                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+                }
+                
             }
             
+        } else {
+            
+            viewModel.fetchFavoriteFromFB { error in
+                
+                if error != nil {
+                    
+                    print(error)
+                    
+                } else {
+                    
+                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+                }
+            }
         }
-        
-        viewModel.checkFavoriteButton(with: favoriteButton)
-        
         photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString)
     }
  
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
-        viewModel.fetchFavoritePetFromLS { error in
-
+        if !didLogin {
+            
+            // Local Storage
+            viewModel.fetchFavoritePetFromLS { error in
+                
+                if error != nil {
+                    
+                    print(error)
+                }
+            }
+            
+        } else {
+            
+            // Firebase
+            viewModel.fetchFavoriteFromFB { error in
+                
+                if error != nil {
+                    
+                    print(error)
+                }
+            }
+        }
+        
+        viewModel.toggleFavoriteButton(with: sender) { error in
+            
             if error != nil {
 
                 print(error)
             }
         }
-        
-        viewModel.toggleFavoriteButton(with: sender)
         
         self.delegate?.toggleFavorite()
     }
