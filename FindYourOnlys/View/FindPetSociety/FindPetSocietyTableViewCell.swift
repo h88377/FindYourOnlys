@@ -11,7 +11,7 @@ class FindPetSocietyTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userButton: UIButton!
     
-    @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var postedImageView: UIImageView!
     
@@ -25,16 +25,17 @@ class FindPetSocietyTableViewCell: UITableViewCell {
     
     @IBOutlet weak var commentCountLabel: UILabel!
     
+    @IBOutlet weak var categoryLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    @IBOutlet weak var cityLabel: UILabel!
+    
+    @IBOutlet weak var kindLabel: UILabel!
+    
+    @IBOutlet weak var contentLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+ 
+    @IBOutlet weak var colorLabel: UILabel!
+    
     
 }
