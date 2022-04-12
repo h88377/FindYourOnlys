@@ -60,6 +60,14 @@
 		98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163428056FD500B9FDC6 /* PublishViewController.swift */; };
 		98CC16382805709900B9FDC6 /* PublishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */; };
 		98CC16392805709900B9FDC6 /* PublishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */; };
+		98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163E28059EBD00B9FDC6 /* PublishKindCell.swift */; };
+		98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC163F28059EBD00B9FDC6 /* PublishKindCell.xib */; };
+		98CC164428059EE800B9FDC6 /* PublishSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC164228059EE800B9FDC6 /* PublishSelectionCell.swift */; };
+		98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC164328059EE800B9FDC6 /* PublishSelectionCell.xib */; };
+		98CC164828059F0C00B9FDC6 /* PublishUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC164628059F0C00B9FDC6 /* PublishUserCell.swift */; };
+		98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC164728059F0C00B9FDC6 /* PublishUserCell.xib */; };
+		98CC164C28059FCB00B9FDC6 /* PublishContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC164A28059FCB00B9FDC6 /* PublishContentCell.swift */; };
+		98CC164D28059FCB00B9FDC6 /* PublishContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC164B28059FCB00B9FDC6 /* PublishContentCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +127,14 @@
 		98CC163428056FD500B9FDC6 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
 		98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTableViewCell.swift; sourceTree = "<group>"; };
 		98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishTableViewCell.xib; sourceTree = "<group>"; };
+		98CC163E28059EBD00B9FDC6 /* PublishKindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishKindCell.swift; sourceTree = "<group>"; };
+		98CC163F28059EBD00B9FDC6 /* PublishKindCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishKindCell.xib; sourceTree = "<group>"; };
+		98CC164228059EE800B9FDC6 /* PublishSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSelectionCell.swift; sourceTree = "<group>"; };
+		98CC164328059EE800B9FDC6 /* PublishSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishSelectionCell.xib; sourceTree = "<group>"; };
+		98CC164628059F0C00B9FDC6 /* PublishUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishUserCell.swift; sourceTree = "<group>"; };
+		98CC164728059F0C00B9FDC6 /* PublishUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishUserCell.xib; sourceTree = "<group>"; };
+		98CC164A28059FCB00B9FDC6 /* PublishContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishContentCell.swift; sourceTree = "<group>"; };
+		98CC164B28059FCB00B9FDC6 /* PublishContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishContentCell.xib; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -328,6 +344,14 @@
 				98CC163128055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib */,
 				98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */,
 				98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */,
+				98CC164628059F0C00B9FDC6 /* PublishUserCell.swift */,
+				98CC164728059F0C00B9FDC6 /* PublishUserCell.xib */,
+				98CC164228059EE800B9FDC6 /* PublishSelectionCell.swift */,
+				98CC164328059EE800B9FDC6 /* PublishSelectionCell.xib */,
+				98CC163E28059EBD00B9FDC6 /* PublishKindCell.swift */,
+				98CC163F28059EBD00B9FDC6 /* PublishKindCell.xib */,
+				98CC164A28059FCB00B9FDC6 /* PublishContentCell.swift */,
+				98CC164B28059FCB00B9FDC6 /* PublishContentCell.xib */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";
@@ -415,12 +439,16 @@
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
+				98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */,
+				98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
 				98CC161E28054A7600B9FDC6 /* FindPetSociety.storyboard in Resources */,
 				98CC16392805709900B9FDC6 /* PublishTableViewCell.xib in Resources */,
 				98CC163328055F9B00B9FDC6 /* FindPetSocietyTableViewCell.xib in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
+				98CC164D28059FCB00B9FDC6 /* PublishContentCell.xib in Resources */,
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
+				98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,9 +543,11 @@
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
 				98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */,
+				98CC164428059EE800B9FDC6 /* PublishSelectionCell.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
 				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
+				98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
@@ -527,7 +557,9 @@
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
 				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,
+				98CC164828059F0C00B9FDC6 /* PublishUserCell.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
+				98CC164C28059FCB00B9FDC6 /* PublishContentCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
 				98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */,
