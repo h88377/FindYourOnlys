@@ -108,6 +108,8 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
         
+        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = "123"
+        
         adoptDetaiVC.delegate = adoptFavoriteVC
         
         navigationController?.pushViewController(adoptDetaiVC, animated: true)

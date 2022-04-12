@@ -11,7 +11,7 @@ class AdoptFavoriteViewController: UIViewController {
     
     let viewModel = AdoptFavoriteViewModel()
     
-    var didLogin: Bool = false
+    var didLogin: Bool = true
     
     @IBOutlet weak var tableView: UITableView! {
         

@@ -16,7 +16,7 @@ class AdoptDetailViewModel {
         case remove = "Remove"
     }
     
-    var didLogin: Bool = false
+    var didLogin: Bool = true
     
     let adoptDetailDescription = AdoptDetailDescription.allCases
     
