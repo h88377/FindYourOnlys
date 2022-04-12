@@ -18,7 +18,7 @@ class AdoptDetailViewController: UIViewController {
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
-    var didLogin: Bool = false
+    var didLogin: Bool = true
     
     @IBOutlet weak var photoImageView: UIImageView!
     

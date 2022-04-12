@@ -55,6 +55,8 @@ struct Pet: Codable {
     
     enum CodingKeys: String, CodingKey {
         
+        case userID, favoriteID
+        
         case id = "animal_id"
         
         case location = "animal_place"

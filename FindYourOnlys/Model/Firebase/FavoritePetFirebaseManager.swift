@@ -34,7 +34,7 @@ class FavoritePetFirebaseManager {
                     
                     do {
                         
-                        let pet = try document.data(as: Pet.self)
+                        let pet = try document.data(as: Pet.self, decoder: Firestore.Decoder())
                         
                         pets.append(pet)
                     }
@@ -63,7 +63,7 @@ class FavoritePetFirebaseManager {
             
             pet.userID = userID
             
-            try documentReference.setData(from: pet)
+            try documentReference.setData(from: pet, encoder: Firestore.Encoder())
         }
         
         catch {
