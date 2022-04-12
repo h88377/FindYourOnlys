@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G314" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LSPet" representedClassName="LSPet" syncable="YES">
+        <attribute name="address" attributeType="String"/>
+        <attribute name="age" attributeType="String"/>
+        <attribute name="bacterin" attributeType="String"/>
+        <attribute name="bodyType" attributeType="String"/>
+        <attribute name="closedDate" attributeType="String"/>
+        <attribute name="color" attributeType="String"/>
+        <attribute name="createdDate" attributeType="String"/>
+        <attribute name="favoriteID" optional="YES" attributeType="String"/>
+        <attribute name="foundPlace" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="kind" attributeType="String"/>
+        <attribute name="location" attributeType="String"/>
+        <attribute name="openDate" attributeType="String"/>
+        <attribute name="photoURLString" attributeType="String"/>
+        <attribute name="remark" attributeType="String"/>
+        <attribute name="sex" attributeType="String"/>
+        <attribute name="status" attributeType="String"/>
+        <attribute name="sterilization" attributeType="String"/>
+        <attribute name="telephone" attributeType="String"/>
+        <attribute name="updatedDate" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int64]"/>
+        <attribute name="variety" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="LSPet" positionX="-63" positionY="-18" width="128" height="359"/>
+    </elements>
+</model>
