@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIImage
+import UIKit
 
 class AdoptDetailViewModel {
     
@@ -40,7 +41,7 @@ class AdoptDetailViewModel {
         )
     )
     
-    func makePhoneCall() {
+    func makePhoneCall(_ viewController: UIViewController) {
         
         let phoneNumber = petViewModel.value.pet.telephone
         
@@ -48,7 +49,18 @@ class AdoptDetailViewModel {
             let url = URL(string: "tel://\(phoneNumber)"),
               UIApplication.shared.canOpenURL(url)
                 
-        else { return }
+        else {
+            
+            let alert = UIAlertController(title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(action)
+            
+            viewController.present(alert, animated: true)
+            
+            return
+        }
         
         if #available(iOS 10, *) {
             
