@@ -47,7 +47,7 @@
 		98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */; };
 		98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */; };
 		98CC161428030F8100B9FDC6 /* AdoptDetailDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */; };
-		98CC16162803D69100B9FDC6 /* FavoritePetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */; };
+		98CC16162803D69100B9FDC6 /* FavoriteLSPetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16152803D69100B9FDC6 /* FavoriteLSPetViewModel.swift */; };
 		98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC1619280427B700B9FDC6 /* FavoritePetFirebaseManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +95,7 @@
 		98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDecriptionTableViewCell.swift; sourceTree = "<group>"; };
 		98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailDecriptionTableViewCell.xib; sourceTree = "<group>"; };
 		98CC161328030F8100B9FDC6 /* AdoptDetailDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailDescription.swift; sourceTree = "<group>"; };
-		98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePetViewModel.swift; sourceTree = "<group>"; };
+		98CC16152803D69100B9FDC6 /* FavoriteLSPetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLSPetViewModel.swift; sourceTree = "<group>"; };
 		98CC1619280427B700B9FDC6 /* FavoritePetFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePetFirebaseManager.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -183,7 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
-				98CC16152803D69100B9FDC6 /* FavoritePetViewModel.swift */,
+				98CC16152803D69100B9FDC6 /* FavoriteLSPetViewModel.swift */,
 				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
 				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
@@ -424,7 +424,7 @@
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
-				98CC16162803D69100B9FDC6 /* FavoritePetViewModel.swift in Sources */,
+				98CC16162803D69100B9FDC6 /* FavoriteLSPetViewModel.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
