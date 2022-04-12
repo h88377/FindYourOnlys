@@ -118,7 +118,7 @@ class AdoptDetailViewController: UIViewController {
     
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
-        viewModel.makePhoneCall()
+        viewModel.makePhoneCall(self)
     }
     
     func setupTableView() {
