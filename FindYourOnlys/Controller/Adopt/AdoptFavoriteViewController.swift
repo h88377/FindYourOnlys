@@ -114,8 +114,11 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard.adopt
+        
         guard
-            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
+            let adoptDetaiVC = storyboard.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
                 
         else { return }
         
