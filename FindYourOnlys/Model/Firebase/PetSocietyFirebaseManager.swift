@@ -42,4 +42,25 @@ class PetSocietyFirebaseManager {
                 completion(.success(articles))
             }
     }
+    
+    func publishArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
+        
+        let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
+        
+//        let documentId = documentReference.documentID
+        
+        do {
+            
+//            var article = articleViewModel.article
+            
+            article.userId = userId
+            
+            try documentReference.setData(from: article, encoder: Firestore.Encoder())
+        }
+        
+        catch {
+            
+            completion(error)
+        }
+    }
 }

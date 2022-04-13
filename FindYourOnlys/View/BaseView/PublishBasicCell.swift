@@ -7,7 +7,20 @@
 
 import UIKit
 
+protocol PublishBasicCellDelegate: AnyObject {
+    
+    func didChangeCity(_ cell: PublishBasicCell, with city: String)
+    
+    func didChangeColor(_ cell: PublishBasicCell, with color: String)
+    
+    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String)
+    
+    func didChangePostType(_ cell: PublishBasicCell, with postType: String)
+}
+
 class PublishBasicCell: UITableViewCell {
+    
+    weak var delegate: PublishBasicCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,5 +33,29 @@ class PublishBasicCell: UITableViewCell {
     }
     func layoutCell(category: String) {
 
+    }
+    
+    func passValue() {
+        
+    }
+    
+}
+
+extension PublishBasicCellDelegate {
+    
+    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+        
+    }
+    
+    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+        
+    }
+    
+    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+        
+    }
+    
+    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+        
     }
 }

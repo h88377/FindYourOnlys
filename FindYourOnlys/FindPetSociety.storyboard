@@ -94,7 +94,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rtO-p0-ZeG">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -107,13 +107,20 @@
                             <constraint firstItem="rtO-p0-ZeG" firstAttribute="top" secondItem="itc-0S-J5n" secondAttribute="top" id="vLx-sT-aPW"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ChG-1C-qqZ">
+                        <barButtonItem key="rightBarButtonItem" title="發布" style="plain" id="aj0-wi-iKb">
+                            <connections>
+                                <action selector="publish:" destination="Ppr-a4-Qod" id="UHh-yK-nKJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rtO-p0-ZeG" id="czl-xy-4QI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bc0-aA-Mud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="76"/>
+            <point key="canvasLocation" x="3063.768115942029" y="30.803571428571427"/>
         </scene>
         <!--Upload Test View Controller-->
         <scene sceneID="PGy-b4-ocV">
@@ -170,6 +177,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9f6-ud-bl6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="69.565217391304358" y="63.616071428571423"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AeJ-Bv-R0L">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="onS-8j-aCH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jXL-8l-i28">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ppr-a4-Qod" kind="relationship" relationship="rootViewController" id="BIr-TE-IZp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JiH-Nn-wjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2153.6231884057975" y="30.803571428571427"/>
         </scene>
     </scenes>
     <resources>

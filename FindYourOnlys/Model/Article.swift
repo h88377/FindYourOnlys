@@ -12,25 +12,25 @@ struct Article: Identifiable, Codable {
     
     @DocumentID var id: String?
     
-    let userId: String
+    var userId: String
     
-    let likeUserIds: [String]
+    var likeUserIds: [String]
     
-    let createdTime: TimeInterval
+    var createdTime: TimeInterval
     
-    let postType: Int?
+    var postType: Int?
     
-    let city: String
+    var city: String
     
-    let petKind: String
+    var petKind: String
     
-    let color: String
+    var color: String
     
-    let content: String
+    var content: String
     
-    let imageURLStrung: String
+    var imageURLString: String
     
-    let comments: [Comment]
+    var comments: [Comment]
 }
 
 struct Comment: Codable {
