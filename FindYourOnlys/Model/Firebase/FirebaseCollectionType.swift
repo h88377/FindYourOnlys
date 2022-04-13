@@ -13,3 +13,19 @@ enum FirebaseCollectionType: String {
     
     case article
 }
+
+enum PostType: String, CaseIterable {
+    
+    case missing = "遺失"
+    
+    case found = "尋獲"
+}
+
+enum PetKind: String, CaseIterable {
+    
+    case cat = "貓咪"
+    
+    case dog = "狗狗"
+    
+    case others = "其他"
+}

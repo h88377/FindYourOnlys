@@ -8,33 +8,12 @@
 import UIKit
 
 class PublishKindCell: PublishBasicCell {
-    
-    private enum PetKind: String, CaseIterable {
-        
-        case cat = "貓咪"
-        
-        case dog = "狗狗"
-        
-        case others = "其他"
-    }
-
-    private enum PetDescription: String, CaseIterable {
-        
-        case missing = "遺失"
-        
-        case found = "尋獲"
-    }
 
     @IBOutlet weak var kindLabel: UILabel!
     
     @IBOutlet weak var kindStackView: UIStackView!
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        
-    }
-    
+    var buttons: [UIButton] = []
     
     override func layoutCell(category: String) {
         
@@ -46,57 +25,70 @@ class PublishKindCell: PublishBasicCell {
 
             for index in 0..<petKinds.count {
 
-                let button = UIButton()
-                
-                let screenWidth = UIScreen.main.bounds.width
-
-                button.setTitle(petKinds[index].rawValue, for: .normal)
-
-                button.setTitleColor(.systemBlue, for: .normal)
-
-                kindStackView.addSubview(button)
-
-                button.translatesAutoresizingMaskIntoConstraints = false
-
-                NSLayoutConstraint.activate(
-                    [
-                        button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
-                        button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
-                        button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
-                        button.leadingAnchor.constraint(equalTo: kindStackView.leadingAnchor, constant: ((screenWidth - 32) / 3) * CGFloat(index) )
-                    ]
-                )
+                createButton(with: petKinds[index].rawValue, index: index)
             }
 
         } else {
 
-            let petDescriptions = PetDescription.allCases
+            let postTypes = PostType.allCases
 
-            for index in 0..<petDescriptions.count {
+            for index in 0..<postTypes.count {
 
-                let button = UIButton()
-                
-                let screenWidth = UIScreen.main.bounds.width
-
-                button.setTitle(petDescriptions[index].rawValue, for: .normal)
-                
-                button.setTitleColor(.systemBlue, for: .normal)
-
-                kindStackView.addSubview(button)
-
-                button.translatesAutoresizingMaskIntoConstraints = false
-
-                NSLayoutConstraint.activate(
-                    [
-                        button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
-                        button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
-                        button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
-                        button.leadingAnchor.constraint(equalTo: kindStackView.leadingAnchor, constant: ((screenWidth - 32) / 3) * CGFloat(index) )
-                    ]
-                )
+                createButton(with: postTypes[index].rawValue, index: index)
             }
         }
 
+    }
+    
+    func createButton(with title: String, index: Int) {
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let button = UIButton()
+
+        button.setTitle(title, for: .normal)
+        
+        button.setTitleColor(.systemBlue, for: .normal)
+        
+        button.setTitleColor(.red, for: .selected)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(toggleButton), for: .touchUpInside)
+        
+        buttons.append(button)
+
+        kindStackView.addSubview(button)
+
+        NSLayoutConstraint.activate(
+            [
+                button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
+                button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
+                button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
+                button.leadingAnchor.constraint(equalTo: kindStackView.leadingAnchor, constant: ((screenWidth - 32) / 3) * CGFloat(index) )
+            ]
+        )
+    }
+    
+    @objc func toggleButton(_ sender: UIButton) {
+        
+        guard
+            let currentTitle = sender.currentTitle
+        
+        else { return }
+        
+        buttons.forEach { $0.isSelected = false }
+        
+        sender.isSelected = true
+        
+        if kindLabel.text == PublishContentCategory.petKind.rawValue {
+            
+            delegate?.didChangePetKind(self, with: currentTitle)
+            
+        } else {
+            
+            delegate?.didChangePostType(self, with: currentTitle)
+        }
     }
     
 }

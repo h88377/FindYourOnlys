@@ -46,6 +46,14 @@ class PublishViewController: UIViewController {
         Int(index / count)
     }
     
+    @IBAction func publish(_ sender: UIBarButtonItem) {
+        
+        viewModel.tapPublish { error in
+            
+            if error != nil { print(error) }
+        }
+    }
+    
 }
 
 // MARK: - UITableViewDelegate and DataSource
@@ -68,8 +76,40 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         
         let publishContentCategory = viewModel.publishContentCategory
         
-        return publishContentCategory[indexPath.row].cellForIndexPath(indexPath, tableView: tableView)
+        guard
+            let cell = publishContentCategory[indexPath.row].cellForIndexPath(indexPath, tableView: tableView) as? PublishBasicCell
+                
+        else { return UITableViewCell() }
         
+        cell.delegate = self
+        
+        return cell
+        
+    }
+    
+}
+
+// MARK: - PublishSelectionCellDelegate
+extension PublishViewController: PublishBasicCellDelegate {
+    
+    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+        
+        viewModel.cityChanged(with: city)
+    }
+    
+    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+        
+        viewModel.colorChanged(with: color)
+    }
+    
+    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+        
+        viewModel.postTypeChanged(with: postType)
+    }
+    
+    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+        
+        viewModel.petKindChangede(with: petKind)
     }
     
 }

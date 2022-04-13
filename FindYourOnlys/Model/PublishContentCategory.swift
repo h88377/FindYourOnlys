@@ -17,7 +17,7 @@ enum PublishContentCategory: String, CaseIterable {
     
     case petKind = "請選擇類別"
     
-    case petDescription = "請選擇遺失/尋獲"
+    case postType = "請選擇遺失/尋獲"
     
     case content = " "
     
@@ -29,7 +29,7 @@ enum PublishContentCategory: String, CaseIterable {
 
         case .color, .city: return PublishSelectionCell.identifier
             
-        case .petKind, .petDescription: return PublishKindCell.identifier
+        case .petKind, .postType: return PublishKindCell.identifier
 
         case .content: return PublishContentCell.identifier
 
@@ -60,7 +60,7 @@ enum PublishContentCategory: String, CaseIterable {
             
             basicCell.layoutCell(category: rawValue)
             
-        case .petDescription:
+        case .postType:
             
             basicCell.layoutCell(category: rawValue)
             

@@ -7,6 +7,13 @@
 
 import UIKit
 
+//protocol PublishSelectionCellDelegate: AnyObject {
+//
+//    func didChangeCity(_ cell: PublishBasicCell, with city: String)
+//
+//    func didChangeColor(_ cell: PublishBasicCell, with color: String)
+//}
+
 class PublishSelectionCell: PublishBasicCell {
     
     private enum City: String, CaseIterable {
@@ -89,6 +96,8 @@ class PublishSelectionCell: PublishBasicCell {
         case gray = "灰色"
         
     }
+    
+//    weak var delegate: PublishSelectionCellDelegate?
 
     @IBOutlet weak var selectionLabel: UILabel!
     
@@ -147,14 +156,31 @@ class PublishSelectionCell: PublishBasicCell {
         return toolbar
     }
     
+    func passData() {
+        
+        guard
+            let text = selectionTextField.text
+                
+        else { return }
+        
+        if selectionLabel.text == PublishContentCategory.city.rawValue {
+            
+            delegate?.didChangeCity(self, with: text)
+            
+        } else {
+            
+            delegate?.didChangeColor(self, with: text)
+        }
+        
+    }
+    
     @objc func donePressed(){
 
-//        view.endEditing(true)
         selectionTextField.endEditing(true)
     }
     
 }
-
+// MARK: - UIPickerViewDelegate and Datasource
 extension PublishSelectionCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
 
@@ -210,4 +236,8 @@ extension PublishSelectionCell: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        passData()
+    }
 }
