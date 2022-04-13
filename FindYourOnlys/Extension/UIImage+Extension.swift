@@ -18,6 +18,8 @@ enum SystemImageAsset: String {
     
     case findPetSocietySelectedItem = "person.3.fill"
     
+    case personPlaceHolder = "person.circle"
+    
 }
 
 // swiftlint:enable identifier_name

@@ -19,7 +19,7 @@ class AdoptDetailViewModel {
     
     var didLogin: Bool = true
     
-    let adoptDetailDescription = AdoptDetailDescription.allCases
+    let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     
     let favoriteLSPetViewModels = Box([FavoriteLSPetViewModel]())
     

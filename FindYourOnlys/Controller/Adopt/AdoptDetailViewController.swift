@@ -135,7 +135,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let adoptDetailDescription = viewModel.adoptDetailDescription
+        let adoptDetailDescription = viewModel.adoptDetailContentCategory
         
         return 1 + adoptDetailDescription.count
     }
@@ -144,7 +144,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
         
         let cellViewModel = viewModel.petViewModel.value
         
-        let adoptDetailDescription = viewModel.adoptDetailDescription
+        let adoptDetailContentCategory = viewModel.adoptDetailContentCategory
         
         if indexPath.item == 0 {
             
@@ -159,7 +159,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
         } else {
             
-            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
+            return adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
 //            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, pet: cellViewModel.pet)
         }
     }
