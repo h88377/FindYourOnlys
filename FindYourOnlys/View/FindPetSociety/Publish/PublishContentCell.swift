@@ -7,16 +7,18 @@
 
 import UIKit
 
-class PublishContentCell: UITableViewCell {
+class PublishContentCell: PublishBasicCell {
     
     @IBOutlet weak var contentImageView: UIImageView!
     
-    @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var contentTextView: ContentInsetTextField!
     
     @IBAction func openCamera(_ sender: UIButton) {
     }
     
     @IBAction func openGallery(_ sender: UIButton) {
     }
+    
+
     
 }

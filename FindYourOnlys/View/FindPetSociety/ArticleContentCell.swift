@@ -1,20 +1,14 @@
 //
-//  FindPetSocietyTableViewCell.swift
+//  ArticleContentCell.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/12.
+//  Created by 鄭昭韋 on 2022/4/13.
 //
 
 import UIKit
 
-class FindPetSocietyTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var userButton: UIButton!
-    
-    @IBOutlet weak var userNameLabel: UILabel!
-    
-    @IBOutlet weak var postedImageView: UIImageView!
-    
+class ArticleContentCell: UITableViewCell {
+
     @IBOutlet weak var likeButton: UIButton!
     
     @IBOutlet weak var leaveCommentButton: UIButton!
@@ -32,10 +26,7 @@ class FindPetSocietyTableViewCell: UITableViewCell {
     @IBOutlet weak var kindLabel: UILabel!
     
     @IBOutlet weak var contentLabel: UILabel!
-    
-    @IBOutlet weak var timeLabel: UILabel!
  
     @IBOutlet weak var colorLabel: UILabel!
-    
     
 }

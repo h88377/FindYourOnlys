@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum AdoptDetailDescription: String, CaseIterable {
+enum AdoptDetailContentCategory: String, CaseIterable {
     
     case id = "動物流水編號"
     

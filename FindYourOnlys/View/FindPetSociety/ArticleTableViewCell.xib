@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="722" id="KGk-i7-Jjw" customClass="FindPetSocietyTableViewCell" customModule="FindYourOnlys" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="722" id="KGk-i7-Jjw" customClass="ArticleTableViewCell" customModule="FindYourOnlys" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="389" height="722"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -168,22 +168,6 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <connections>
-                <outlet property="categoryLabel" destination="ytp-ac-NxH" id="eWH-Vl-3Em"/>
-                <outlet property="cityLabel" destination="Lbn-oF-zEJ" id="Aa1-TC-NGt"/>
-                <outlet property="colorLabel" destination="yvD-4D-mMm" id="K60-Wb-SSk"/>
-                <outlet property="commentCountLabel" destination="PKs-Bm-EZr" id="W5r-Kb-lBv"/>
-                <outlet property="contentLabel" destination="2Ot-b0-SKv" id="ULn-rz-8BZ"/>
-                <outlet property="kindLabel" destination="jmq-Uu-u4z" id="mDB-w8-DGB"/>
-                <outlet property="leaveCommentButton" destination="Pfi-4N-m8h" id="iDg-on-kdb"/>
-                <outlet property="likeButton" destination="Ub6-TO-FXl" id="Zdb-8U-pEO"/>
-                <outlet property="likeCountLabel" destination="ZFq-3T-k5C" id="zdL-DB-dnv"/>
-                <outlet property="postedImageView" destination="VvT-g9-0PZ" id="gRt-Ct-RNO"/>
-                <outlet property="shareButton" destination="mGu-gE-B7g" id="dWQ-H9-6EG"/>
-                <outlet property="timeLabel" destination="2H5-GG-dAX" id="AK2-2n-A0J"/>
-                <outlet property="userButton" destination="QNO-ir-s1N" id="2Xv-Ab-6ja"/>
-                <outlet property="userNameLabel" destination="djJ-CZ-fmc" id="F2t-Je-WeF"/>
-            </connections>
             <point key="canvasLocation" x="181.8840579710145" y="303.34821428571428"/>
         </tableViewCell>
     </objects>
