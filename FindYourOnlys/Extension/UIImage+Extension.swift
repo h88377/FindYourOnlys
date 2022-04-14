@@ -10,7 +10,7 @@ import UIKit
 enum SystemImageAsset: String {
 
     // Profile tab - Tab
-    case adoptItem = "doc.text.image"
+    case adoptItem = "doc.fill"
     
     case adoptSelectedItem = "doc.text.image.fill"
     

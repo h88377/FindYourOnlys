@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		80B017278C10374F5E895CDD /* Pods_FindYourOnlys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */; };
+		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
+		9896D8D328083F3E003D4A16 /* ChatRoomFriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D128083F3E003D4A16 /* ChatRoomFriendListCell.swift */; };
+		9896D8D428083F3E003D4A16 /* ChatRoomFriendListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D228083F3E003D4A16 /* ChatRoomFriendListCell.xib */; };
+		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
+		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -88,6 +93,11 @@
 /* Begin PBXFileReference section */
 		0DE5B635AC6994CD5CEA68B5 /* Pods-FindYourOnlys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.debug.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.debug.xcconfig"; sourceTree = "<group>"; };
 		6AAA99A8BC5FA9600A080C81 /* Pods-FindYourOnlys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.release.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.release.xcconfig"; sourceTree = "<group>"; };
+		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		9896D8D128083F3E003D4A16 /* ChatRoomFriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendListCell.swift; sourceTree = "<group>"; };
+		9896D8D228083F3E003D4A16 /* ChatRoomFriendListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomFriendListCell.xib; sourceTree = "<group>"; };
+		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
+		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +190,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9896D8D028083F01003D4A16 /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				98CC163028055F9B00B9FDC6 /* ArticleTableViewCell.swift */,
+				98CC163128055F9B00B9FDC6 /* ArticleTableViewCell.xib */,
+				98CC164F2806585F00B9FDC6 /* ArticlePhotoCell.swift */,
+				98CC16502806585F00B9FDC6 /* ArticlePhotoCell.xib */,
+				98CC16532806587D00B9FDC6 /* ArticleContentCell.swift */,
+				98CC16542806587D00B9FDC6 /* ArticleContentCell.xib */,
+			);
+			path = Article;
+			sourceTree = "<group>";
+		};
+		9896D8D52808418D003D4A16 /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				9896D8D128083F3E003D4A16 /* ChatRoomFriendListCell.swift */,
+				9896D8D228083F3E003D4A16 /* ChatRoomFriendListCell.xib */,
+				9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */,
+				9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */,
+			);
+			path = ChatRoom;
+			sourceTree = "<group>";
+		};
 		98CC159A28005B6C00B9FDC6 = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC16282805518400B9FDC6 /* HomeTabBarController.swift */,
+				9896D8CE280825DB003D4A16 /* BaseViewController.swift */,
 				98CC162028054ACB00B9FDC6 /* Adopt */,
 				98CC162C28055F3000B9FDC6 /* FindPetSociety */,
 			);
@@ -378,12 +413,8 @@
 		98CC162F28055F7B00B9FDC6 /* FindPetSociety */ = {
 			isa = PBXGroup;
 			children = (
-				98CC163028055F9B00B9FDC6 /* ArticleTableViewCell.swift */,
-				98CC163128055F9B00B9FDC6 /* ArticleTableViewCell.xib */,
-				98CC164F2806585F00B9FDC6 /* ArticlePhotoCell.swift */,
-				98CC16502806585F00B9FDC6 /* ArticlePhotoCell.xib */,
-				98CC16532806587D00B9FDC6 /* ArticleContentCell.swift */,
-				98CC16542806587D00B9FDC6 /* ArticleContentCell.xib */,
+				9896D8D52808418D003D4A16 /* ChatRoom */,
+				9896D8D028083F01003D4A16 /* Article */,
 				98CC164E2805BF1C00B9FDC6 /* Publish */,
 			);
 			path = FindPetSociety;
@@ -505,6 +536,7 @@
 			files = (
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
+				9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */,
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */,
@@ -520,6 +552,7 @@
 				98CC164D28059FCB00B9FDC6 /* PublishContentCell.xib in Resources */,
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */,
+				9896D8D428083F3E003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -615,6 +648,7 @@
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
 				98CC16062802EA0D00B9FDC6 /* UIView+Extension.swift in Sources */,
 				98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */,
+				9896D8D328083F3E003D4A16 /* ChatRoomFriendListCell.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
 				98CC166A2806C14200B9FDC6 /* PetSocietyFirebaseManager.swift in Sources */,
@@ -635,6 +669,7 @@
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
 				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
 				98CC16382805709900B9FDC6 /* PublishTableViewCell.swift in Sources */,
+				9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */,
 				98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
@@ -647,6 +682,7 @@
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
 				98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */,
+				9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
