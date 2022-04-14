@@ -16,6 +16,8 @@ protocol PublishBasicCellDelegate: AnyObject {
     func didChangePetKind(_ cell: PublishBasicCell, with petKind: String)
     
     func didChangePostType(_ cell: PublishBasicCell, with postType: String)
+    
+    func didChangeContent(_ cell: PublishBasicCell, with content: String)
 }
 
 class PublishBasicCell: UITableViewCell {
@@ -63,6 +65,10 @@ extension PublishBasicCellDelegate {
     }
     
     func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+        
+    }
+    
+    func didChangeContent(_ cell: PublishBasicCell, with content: String) {
         
     }
 }

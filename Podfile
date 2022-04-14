@@ -14,5 +14,6 @@ pod 'Firebase/Storage'
 pod 'Firebase/Database'
 pod 'FirebaseFirestoreSwift', '8.14.0-beta'
 pod 'Kingfisher', '~> 7.0'
+pod 'IQKeyboardManagerSwift'
 
 end

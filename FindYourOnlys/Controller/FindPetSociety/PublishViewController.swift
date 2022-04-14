@@ -21,6 +21,7 @@ class PublishViewController: UIViewController {
         }
     }
     
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +29,7 @@ class PublishViewController: UIViewController {
         
         
     }
+    
     
     func setupTableView() {
         
@@ -38,7 +40,6 @@ class PublishViewController: UIViewController {
         tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
-        
     }
     
     func convertDataSourceIndex(with index: Int, count: Int) -> Int {
@@ -59,8 +60,6 @@ class PublishViewController: UIViewController {
 extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-//        let cellViewModels = viewModel.articleViewModels.value
 
         let publishContentCategory = viewModel.publishContentCategory
 
@@ -68,10 +67,6 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let convertIndex = convertDataSourceIndex(with: indexPath.row, count: viewModel.articleViewModels.value.count)
-        
-//        let cellViewModel = viewModel.article
         
         let publishContentCategory = viewModel.publishContentCategory
         
@@ -86,7 +81,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
             
             self?.openGallery()
             
-            self?.viewModel.updateImage = { [weak self] image in
+            self?.viewModel.updateImage = { image in
                 
                 cell.layoutCellWith(image: image)
             }
@@ -96,7 +91,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
             
             self?.openCamera()
             
-            self?.viewModel.updateImage = { [weak self] image in
+            self?.viewModel.updateImage = { image in
                 
                 cell.layoutCellWith(image: image)
             }
@@ -126,6 +121,11 @@ extension PublishViewController: PublishBasicCellDelegate {
     func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
+    }
+    
+    func didChangeContent(_ cell: PublishBasicCell, with content: String) {
+        
+        viewModel.contentChanged(with: content)
     }
 }
 
