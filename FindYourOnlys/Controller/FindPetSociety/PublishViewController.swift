@@ -27,7 +27,16 @@ class PublishViewController: UIViewController {
         
         setupTableView()
         
-        
+        viewModel.checkPublishedContent = { [weak self] isValid in
+            
+            if !isValid {
+                
+                self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再發布文章喔！")
+                
+                print("content is invalid")
+            }
+            
+        }
     }
     
     
@@ -45,6 +54,17 @@ class PublishViewController: UIViewController {
     func convertDataSourceIndex(with index: Int, count: Int) -> Int {
         
         Int(index / count)
+    }
+    
+    func showAlertWindow(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
     }
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
@@ -163,12 +183,8 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
             present(imagePicker, animated: true)
             
         } else {
-            
-            let alert = UIAlertController(title: "異常訊息", message: "你的裝置沒有相機喔！", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            present(alert, animated: true)
+
+            showAlertWindow(title: "異常訊息", message: "你的裝置沒有相機喔！")
         }
         
     }
@@ -188,11 +204,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
             
         } else {
             
-            let alert = UIAlertController(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            present(alert, animated: true)
+            showAlertWindow(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！")
         }
     }
 }

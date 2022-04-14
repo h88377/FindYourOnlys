@@ -14,12 +14,29 @@ class PublishViewModel {
     
     var article: Article = Article(
         id: "", userId: UserManager.shared.currentUser, likeUserIds: [],
-        createdTime: 123, postType: 0,
+        createdTime: 123, postType: -1,
         city: "", petKind: "", color: "",
         content: "", imageURLString: "", comments: []
     )
     
     var updateImage: ((UIImage) -> Void)?
+    
+    var checkPublishedContent: ((Bool) -> Void)?
+    
+    var isValidPublishedContent: Bool {
+        
+        guard
+            article.city != "",
+            article.color != "",
+            article.petKind != "",
+            article.postType != -1,
+            article.imageURLString != "",
+            article.content != ""
+                
+        else { return false }
+            
+        return true
+    }
     
     func cityChanged(with city: String) {
         
@@ -55,10 +72,15 @@ class PublishViewModel {
     
     func publish(completion: @escaping (Error?)-> Void) {
         
-        PetSocietyFirebaseManager.shared.publishArticle(UserManager.shared.currentUser, with: &article) { error in
-            
-            completion(error)
-        }
+        checkPublishedContent?(isValidPublishedContent)
+        
+        if !isValidPublishedContent { return }
+        
+        print("content is valid")
+//        PetSocietyFirebaseManager.shared.publishArticle(UserManager.shared.currentUser, with: &article) { error in
+//
+//            completion(error)
+//        }
         
     }
     
