@@ -14,11 +14,19 @@ class PublishContentCell: PublishBasicCell {
     @IBOutlet weak var contentTextView: ContentInsetTextField!
     
     @IBAction func openCamera(_ sender: UIButton) {
+        
+        cameraHandler?()
     }
     
     @IBAction func openGallery(_ sender: UIButton) {
+        
+        galleryHandler?()
     }
     
-
-    
+    override func layoutCellWith(image: UIImage) {
+        
+        contentImageView.image = image
+    }
 }
+
+

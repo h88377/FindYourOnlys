@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PublishViewModel {
     
@@ -18,6 +19,8 @@ class PublishViewModel {
         content: "", imageURLString: "", comments: []
     )
     
+    var updateImage: ((UIImage) -> Void)?
+    
     func cityChanged(with city: String) {
         
         self.article.city = city
@@ -28,7 +31,7 @@ class PublishViewModel {
         self.article.color = color
     }
     
-    func petKindChangede(with petKind: String) {
+    func petKindChanged(with petKind: String) {
         
         self.article.petKind = petKind
     }
@@ -66,5 +69,12 @@ class PublishViewModel {
         }
     }
     
+    func tapCamera() {
+        
+    }
+    
+    func tapGallery() {
+        
+    }
     
 }

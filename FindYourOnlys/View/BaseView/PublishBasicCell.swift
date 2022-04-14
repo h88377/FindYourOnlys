@@ -21,13 +21,12 @@ protocol PublishBasicCellDelegate: AnyObject {
 class PublishBasicCell: UITableViewCell {
     
     weak var delegate: PublishBasicCellDelegate?
+    
+    var cameraHandler: (() ->Void)?
+    
+    var galleryHandler: (() ->Void)?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    //Implement by child class
+    // Implement by child class
     func layoutCell() {
 
     }
@@ -35,8 +34,16 @@ class PublishBasicCell: UITableViewCell {
 
     }
     
-    func passValue() {
+    func layoutCellWith(image: UIImage) {
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        cameraHandler = nil
+        
+        galleryHandler = nil
     }
     
 }
