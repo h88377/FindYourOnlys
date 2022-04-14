@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FindPetSocietyViewController: UIViewController {
+class FindPetSocietyViewController: BaseViewController {
     
     let viewModel = FindPetSocietyViewModel()
     
@@ -24,6 +24,8 @@ class FindPetSocietyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupNavigationTitle()
+        
         setupTableView()
         
         viewModel.articleViewModels.bind { [weak self] _ in
@@ -52,12 +54,15 @@ class FindPetSocietyViewController: UIViewController {
     
     func setupTableView() {
         
-//        tableView.registerCellWithIdentifier(identifier: ArticleTableViewCell.identifier)
-        
         tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
         
+        navigationItem.title = "尋寵物啟示"
     }
     
     func convertDataSourceIndex(with index: Int, count: Int) -> Int {

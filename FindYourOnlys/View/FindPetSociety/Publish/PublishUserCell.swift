@@ -18,7 +18,7 @@ class PublishUserCell: PublishBasicCell {
     
     override func layoutCell() {
         
-//        userImageView.loadImage(viewModel.article.imageURLStrung, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage("wait fetch userPhoto", placeHolder: UIImage.system(.personPlaceHolder))
         
         userNickName.text = UserManager.shared.currentUser
 
