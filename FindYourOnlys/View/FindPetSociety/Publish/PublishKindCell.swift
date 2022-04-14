@@ -63,8 +63,11 @@ class PublishKindCell: PublishBasicCell {
         NSLayoutConstraint.activate(
             [
                 button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
+                
                 button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
+                
                 button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
+                
                 button.leadingAnchor.constraint(equalTo: kindStackView.leadingAnchor, constant: ((screenWidth - 32) / 3) * CGFloat(index) )
             ]
         )
