@@ -145,5 +145,4 @@ class PublishViewModel {
             completion(nil)
         }
     }
-    
 }

@@ -22,7 +22,7 @@ struct Article: Codable {
     
     var city: String
     
-    var petKind: String
+    var petKind: String?
     
     var color: String
     

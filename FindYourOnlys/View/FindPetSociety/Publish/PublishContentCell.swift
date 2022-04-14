@@ -25,7 +25,7 @@ class PublishContentCell: PublishBasicCell {
             
             contentTextView.layer.borderColor = UIColor.systemGray5.cgColor
             
-            contentTextView.inputAccessoryView = customDoneToolBar()
+//            contentTextView.inputAccessoryView = customDoneToolBar()
         }
     }
     
