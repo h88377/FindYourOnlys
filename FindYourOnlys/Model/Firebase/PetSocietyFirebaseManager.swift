@@ -8,12 +8,15 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 class PetSocietyFirebaseManager {
     
     static let shared = PetSocietyFirebaseManager()
     
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
+    
+    private let storage = Storage.storage()
     
     func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
         
@@ -47,13 +50,15 @@ class PetSocietyFirebaseManager {
         
         let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
         
-//        let documentId = documentReference.documentID
+        let documentId = documentReference.documentID
         
         do {
             
-//            var article = articleViewModel.article
-            
             article.userId = userId
+            
+            article.id = documentId
+            
+            article.createdTime = NSDate().timeIntervalSince1970
             
             try documentReference.setData(from: article, encoder: Firestore.Encoder())
         }
@@ -61,6 +66,45 @@ class PetSocietyFirebaseManager {
         catch {
             
             completion(error)
+        }
+    }
+    
+    func fetchDownloadImageURL(image: UIImage, with articleId: String, completion: @escaping ((Result<URL, Error>) -> Void)) {
+        
+        let storageRef = storage.reference()
+        
+        let imageRef = storageRef.child("images/articles/\(articleId)")
+        
+        guard
+            let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+        
+        imageRef.putData(imageData, metadata: nil) { _, error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                completion(.failure(error!))
+                
+                return
+            }
+            
+            imageRef.downloadURL { url, error in
+                guard
+                    error == nil,
+                    let url = url
+                        
+                else {
+                    
+                    completion(.failure(error!))
+                    
+                    return
+                }
+                
+                completion(.success(url))
+            }
+            
         }
     }
 }

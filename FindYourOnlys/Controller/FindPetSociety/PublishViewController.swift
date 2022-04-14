@@ -69,9 +69,16 @@ class PublishViewController: UIViewController {
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
         
-        viewModel.tapPublish { error in
+        viewModel.tapPublish { [weak self] error in
             
-            if error != nil { print(error) }
+            if error != nil {
+                
+                print(error)
+                
+                return
+            }
+            
+            self?.navigationController?.popViewController(animated: true)
         }
     }
 }
@@ -161,10 +168,14 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
             
             viewModel.updateImage?(editedImage)
             
+            viewModel.selectedImage = editedImage
+            
         } else if
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             viewModel.updateImage?(image)
+            
+            viewModel.selectedImage = image
         }
     }
     

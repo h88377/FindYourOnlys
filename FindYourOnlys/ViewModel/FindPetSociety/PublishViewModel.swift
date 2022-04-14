@@ -14,12 +14,14 @@ class PublishViewModel {
     
     var article: Article = Article(
         id: "", userId: UserManager.shared.currentUser, likeUserIds: [],
-        createdTime: 123, postType: -1,
+        createdTime: 0, postType: -1,
         city: "", petKind: "", color: "",
         content: "", imageURLString: "", comments: []
     )
     
     var updateImage: ((UIImage) -> Void)?
+    
+    var selectedImage: UIImage?
     
     var checkPublishedContent: ((Bool) -> Void)?
     
@@ -30,8 +32,8 @@ class PublishViewModel {
             article.color != "",
             article.petKind != "",
             article.postType != -1,
-            article.imageURLString != "",
-            article.content != ""
+            article.content != "",
+            selectedImage != nil
                 
         else { return false }
             
@@ -70,33 +72,78 @@ class PublishViewModel {
         self.article.content = content
     }
     
-    func publish(completion: @escaping (Error?)-> Void) {
+    private func publish(completion: @escaping (Error?)-> Void) {
         
         checkPublishedContent?(isValidPublishedContent)
         
-        if !isValidPublishedContent { return }
+        guard
+            isValidPublishedContent,
+              let selectedImage = selectedImage
+                
+        else { return }
         
-        print("content is valid")
-//        PetSocietyFirebaseManager.shared.publishArticle(UserManager.shared.currentUser, with: &article) { error in
-//
-//            completion(error)
-//        }
+        print("Published content is valid")
         
+        DispatchQueue.global().async {
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: selectedImage, with: self.article.id) { result in
+                
+                switch result {
+                    
+                case .success(let url):
+                    
+                    self.article.imageURLString = "\(url)"
+                    
+                    completion(nil)
+                    
+                case .failure(let error):
+                    
+                    completion(error)
+                }
+
+                semaphore.signal()
+            }
+            
+
+            semaphore.wait()
+            PetSocietyFirebaseManager.shared.publishArticle(UserManager.shared.currentUser, with: &self.article) { error in
+
+                guard
+                    error == nil
+                
+                else {
+                    
+                    completion(error)
+                    
+                    return
+                    }
+                
+                completion(nil)
+                
+                semaphore.signal()
+            }
+            
+        }
     }
     
     func tapPublish(completion: @escaping (Error?)-> Void) {
         
         publish { error in
-            completion(error)
+            
+            guard
+                error == nil
+            
+            else {
+                
+                completion(error)
+                
+                return
+                }
+            
+            completion(nil)
         }
-    }
-    
-    func tapCamera() {
-        
-    }
-    
-    func tapGallery() {
-        
     }
     
 }
