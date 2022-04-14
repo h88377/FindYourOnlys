@@ -53,7 +53,6 @@ class PublishViewController: UIViewController {
             if error != nil { print(error) }
         }
     }
-    
 }
 
 // MARK: - UITableViewDelegate and DataSource
@@ -83,10 +82,27 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.delegate = self
         
-        return cell
+        cell.galleryHandler = { [weak self] in
+            
+            self?.openGallery()
+            
+            self?.viewModel.updateImage = { [weak self] image in
+                
+                cell.layoutCellWith(image: image)
+            }
+        }
         
+        cell.cameraHandler = { [weak self] in
+            
+            self?.openCamera()
+            
+            self?.viewModel.updateImage = { [weak self] image in
+                
+                cell.layoutCellWith(image: image)
+            }
+        }
+        return cell
     }
-    
 }
 
 // MARK: - PublishSelectionCellDelegate
@@ -109,7 +125,74 @@ extension PublishViewController: PublishBasicCellDelegate {
     
     func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
         
-        viewModel.petKindChangede(with: petKind)
+        viewModel.petKindChanged(with: petKind)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        dismiss(animated: true)
+        
+        if
+            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            
+            viewModel.updateImage?(editedImage)
+            
+        } else if
+            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            viewModel.updateImage?(image)
+        }
     }
     
+    func openCamera() {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            
+            imagePicker.allowsEditing = false
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+            
+            let alert = UIAlertController(title: "異常訊息", message: "你的裝置沒有相機喔！", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            present(alert, animated: true)
+        }
+        
+    }
+    
+    func openGallery(){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            
+            imagePicker.allowsEditing = true
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+            
+            let alert = UIAlertController(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            present(alert, animated: true)
+        }
+    }
 }
