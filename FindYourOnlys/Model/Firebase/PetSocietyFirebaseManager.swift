@@ -21,6 +21,7 @@ class PetSocietyFirebaseManager {
     func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.article.rawValue)
+            .order(by: "createdTime", descending: true)
             .addSnapshotListener { snapshot, error in
                 
                 guard
@@ -73,7 +74,10 @@ class PetSocietyFirebaseManager {
         
         let storageRef = storage.reference()
         
-        let imageRef = storageRef.child("images/articles/\(articleId)")
+//        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
+//        spaceRef = storage.reference(forURL: storagePath)
+        
+        let imageRef = storageRef.child("images/\(UserManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
         
         guard
             let imageData = image.jpegData(compressionQuality: 0.5) else { return }

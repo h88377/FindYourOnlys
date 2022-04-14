@@ -19,7 +19,7 @@ class ArticleContentCell: UITableViewCell {
     
     @IBOutlet weak var commentCountLabel: UILabel!
     
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var postTypeLabel: UILabel!
     
     @IBOutlet weak var cityLabel: UILabel!
     
@@ -29,4 +29,33 @@ class ArticleContentCell: UITableViewCell {
  
     @IBOutlet weak var colorLabel: UILabel!
     
+    func configureCell(with viewModel: ArticleViewModel) {
+        
+        likeCountLabel.text = "\(viewModel.article.likeUserIds.count)"
+        
+        commentCountLabel.text = "\(viewModel.article.comments.count)"
+        
+        cityLabel.text = viewModel.article.city
+        
+        kindLabel.text = viewModel.article.petKind
+        
+        contentLabel.text = viewModel.article.content
+        
+        colorLabel.text = viewModel.article.color
+        
+        switch viewModel.article.postType {
+            
+        case 0:
+            
+            postTypeLabel.text = PostType.allCases[0].rawValue
+            
+        case 1:
+            
+            postTypeLabel.text = PostType.allCases[1].rawValue
+            
+        default:
+            
+            postTypeLabel.text = "error type."
+        }   
+    }
 }

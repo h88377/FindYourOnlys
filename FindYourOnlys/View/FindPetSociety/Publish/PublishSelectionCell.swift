@@ -128,7 +128,7 @@ class PublishSelectionCell: PublishBasicCell {
             
             selectionTextField.rightViewMode = .always
             
-            selectionTextField.inputAccessoryView = customDoneToolBar()
+//            selectionTextField.inputAccessoryView = customDoneToolBar()
             
             selectionTextField.delegate = self
             

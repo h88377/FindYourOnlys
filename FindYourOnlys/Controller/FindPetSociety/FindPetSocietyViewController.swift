@@ -9,7 +9,7 @@ import UIKit
 
 class FindPetSocietyViewController: UIViewController {
     
-    let dataSource = [0,1]
+    let viewModel = FindPetSocietyViewModel()
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -26,6 +26,28 @@ class FindPetSocietyViewController: UIViewController {
 
         setupTableView()
         
+        viewModel.articleViewModels.bind { [weak self] _ in
+            
+            DispatchQueue.main.async {
+                
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.fetchArticles { error in
+            
+            guard
+                error == nil
+            
+            else {
+                
+                print(error)
+                
+                return
+            }
+            
+                
+        }
     }
     
     func setupTableView() {
@@ -48,9 +70,10 @@ class FindPetSocietyViewController: UIViewController {
         let storyboard = UIStoryboard.findPetSociety
         
         guard
-            let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController,
-            let uploadTestVC = storyboard.instantiateViewController(withIdentifier: UploadTestViewController.identifier) as? UploadTestViewController
-                
+            let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController
+//                ,
+//            let uploadTestVC = storyboard.instantiateViewController(withIdentifier: UploadTestViewController.identifier) as? UploadTestViewController
+//
                 
         else { return }
         
@@ -64,14 +87,17 @@ class FindPetSocietyViewController: UIViewController {
 extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count * 2
+        
+        let registeredCellCount = 2
+        
+        return viewModel.articleViewModels.value.count * registeredCellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let registeredCellCount = 2
         
-        
-        let relativeDS = dataSource[convertDataSourceIndex(with: indexPath.row, count: dataSource.count)]
+        let cellViewModel = viewModel.articleViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
         switch indexPath.row % 2 {
             
@@ -82,7 +108,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                     
             else { return UITableViewCell() }
             
-            cell.timeLabel.text = "\(relativeDS)"
+            cell.configureCell(with: cellViewModel)
             
             return cell
             
@@ -93,7 +119,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                     
             else { return UITableViewCell() }
             
-            cell.categoryLabel.text = "\(relativeDS)"
+            cell.configureCell(with: cellViewModel)
             
             return cell
             
@@ -101,10 +127,5 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         
             return UITableViewCell()
         }
-        
-//        guard
-//            let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.identifier, for: indexPath) as? ArticleTableViewCell
-//
-//        else { return UITableViewCell() }
     }
 }

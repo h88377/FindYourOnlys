@@ -126,7 +126,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="categoryLabel" destination="u6S-ZZ-4F6" id="OCi-SW-1Ou"/>
                 <outlet property="cityLabel" destination="yqa-Pr-2TF" id="4hh-zQ-Irz"/>
                 <outlet property="colorLabel" destination="Ft6-nU-4Kc" id="5re-ku-Hgt"/>
                 <outlet property="commentCountLabel" destination="Gqn-77-Kbd" id="swD-Ez-5nn"/>
@@ -135,6 +134,7 @@
                 <outlet property="leaveCommentButton" destination="msQ-n5-UeQ" id="4aa-AG-9ah"/>
                 <outlet property="likeButton" destination="UR6-BL-E0t" id="9av-2n-Ukr"/>
                 <outlet property="likeCountLabel" destination="2kE-JU-GZi" id="Fq5-BN-iVe"/>
+                <outlet property="postTypeLabel" destination="u6S-ZZ-4F6" id="OCi-SW-1Ou"/>
                 <outlet property="shareButton" destination="hYJ-9k-taF" id="VXO-GZ-LXs"/>
             </connections>
             <point key="canvasLocation" x="213.04347826086959" y="240.73660714285714"/>
