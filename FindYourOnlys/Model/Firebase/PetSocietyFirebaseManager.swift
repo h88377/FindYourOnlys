@@ -141,4 +141,53 @@ class PetSocietyFirebaseManager {
                 completion(.success(chatRooms))
             }
     }
+    
+//    func createThread(with thread: inout Thread, channelId: String, completion: @escaping (Error?) -> Void) {
+//
+//        let documentReference = db.collection(FirebaseCollectionType.thread.rawValue).document()
+//
+//        do {
+//
+//            thread.channelId = channelId
+//
+//            article.id = documentId
+//
+//            article.createdTime = NSDate().timeIntervalSince1970
+//
+//            try documentReference.setData(from: article, encoder: Firestore.Encoder())
+//        }
+//
+//        catch {
+//
+//            completion(error)
+//        }
+//    }
+    
+    func fetchThread(with channelId: String, completion: @escaping (Result<[Thread], Error>) -> Void) {
+
+        db.collection(FirebaseCollectionType.thread.rawValue)
+            .addSnapshotListener { snapshot, error in
+
+                guard
+                    let snapshot = snapshot else { return }
+
+                var threads = [Thread]()
+
+                for document in snapshot.documents {
+
+                    do {
+
+                        let thread = try document.data(as: Thread.self)
+
+                        threads.append(thread)
+                    }
+                    catch {
+
+                        completion(.failure(error))
+                    }
+                }
+
+                completion(.success(threads))
+            }
+    }
 }

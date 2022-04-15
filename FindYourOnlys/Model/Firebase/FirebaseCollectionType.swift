@@ -16,6 +16,8 @@ enum FirebaseCollectionType: String {
     case user
     
     case chatRoom
+    
+    case thread
 }
 
 enum PostType: String, CaseIterable {
