@@ -8,8 +8,8 @@
 import UIKit
 
 class ChatRoomMessageCell: UITableViewCell {
-
-    @IBOutlet weak var friendButton: UIButton!
+    
+    @IBOutlet weak var friendImageView: UIImageView!
     
     @IBOutlet weak var contentLabel: UILabel!
     
@@ -17,5 +17,25 @@ class ChatRoomMessageCell: UITableViewCell {
     
     @IBOutlet weak var messageBubbleView: UIView!
     
-    
+    func configureCell(with viewModel: ThreadViewModel, friendImageURLString: String) {
+        
+        friendImageView.isHidden = UserFirebaseManager.shared.currentUser == viewModel.thread.senderId
+        ? true
+        : false
+        
+        friendImageView.loadImage(friendImageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        
+        if
+            let content = viewModel.thread.content {
+            
+            contentLabel.text = content
+            
+        } else if
+            
+            let imageURLString = viewModel.thread.contentImageURLString {
+            
+            contentImageView.loadImage(imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        }
+        
+    }
 }

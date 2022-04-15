@@ -22,6 +22,7 @@
 		9896D8EF280968C5003D4A16 /* ChatRoomThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8EE280968C5003D4A16 /* ChatRoomThreadViewController.swift */; };
 		9896D8F128096B57003D4A16 /* ChatRoomThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F028096B57003D4A16 /* ChatRoomThreadViewModel.swift */; };
 		9896D8F328096B97003D4A16 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F228096B97003D4A16 /* Thread.swift */; };
+		9896D8F52809769A003D4A16 /* ThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F42809769A003D4A16 /* ThreadViewModel.swift */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -115,6 +116,7 @@
 		9896D8EE280968C5003D4A16 /* ChatRoomThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomThreadViewController.swift; sourceTree = "<group>"; };
 		9896D8F028096B57003D4A16 /* ChatRoomThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomThreadViewModel.swift; sourceTree = "<group>"; };
 		9896D8F228096B97003D4A16 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
+		9896D8F42809769A003D4A16 /* ThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewModel.swift; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				9896D8E028084BA9003D4A16 /* UserViewModel.swift */,
 				9896D8E428091720003D4A16 /* ChatRoomViewModel.swift */,
 				9896D8F028096B57003D4A16 /* ChatRoomThreadViewModel.swift */,
+				9896D8F42809769A003D4A16 /* ThreadViewModel.swift */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				9896D8F128096B57003D4A16 /* ChatRoomThreadViewModel.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */,
+				9896D8F52809769A003D4A16 /* ThreadViewModel.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,

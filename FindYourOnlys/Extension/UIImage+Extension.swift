@@ -20,6 +20,10 @@ enum SystemImageAsset: String {
     
     case personPlaceHolder = "person.circle"
     
+    case messagePlaceHolder = "questionmark.folder"
+    
+    case petPlaceHolder = "questionmark.circle"
+    
 }
 
 // swiftlint:enable identifier_name

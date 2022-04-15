@@ -136,7 +136,7 @@
         <!--Chat Room Thread View Controller-->
         <scene sceneID="mJt-E6-9Ds">
             <objects>
-                <viewController id="nFF-Y7-H1d" customClass="ChatRoomThreadViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatRoomThreadViewController" id="nFF-Y7-H1d" customClass="ChatRoomThreadViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tIL-55-4Al">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -223,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hO-vf-pqQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2731" y="308"/>
+            <point key="canvasLocation" x="2728" y="321"/>
         </scene>
         <!--Publish View Controller-->
         <scene sceneID="TOA-Dj-4T8">
@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bc0-aA-Mud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2728" y="-329"/>
+            <point key="canvasLocation" x="3217" y="-380"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ck1-cY-gaO">
@@ -296,7 +296,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiH-Nn-wjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2041" y="-329"/>
+            <point key="canvasLocation" x="2049" y="-392"/>
         </scene>
     </scenes>
     <resources>

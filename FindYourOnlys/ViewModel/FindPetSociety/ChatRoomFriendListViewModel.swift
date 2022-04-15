@@ -64,7 +64,6 @@ class ChatRoomFriendListViewModel {
     
     func fetchChatRoom(completion: @escaping (Error?)-> Void) {
         
-        //Fetch current user
         fetchUser(with: UserFirebaseManager.shared.currentUser ) { result in
             
             switch result {
@@ -76,15 +75,7 @@ class ChatRoomFriendListViewModel {
                     switch result {
                         
                     case .success(let totalChatRooms):
-                        
-//                        let currentChatRooms = totalChatRooms.filter {
-//
-//                            $0.userIds.contains {
-//
-//                                $0 == UserFirebaseManager.shared.currentUser
-//                            }
-//                        }
-                        
+             
                         var currentChatRooms = [ChatRoom]()
                         
                         var friendIds = [String]()
@@ -124,11 +115,6 @@ class ChatRoomFriendListViewModel {
                     }
                 }
                 
-                //Fetch current user's friends data
-//                fetchUsers(with: user.friends) { result in
-//                    <#code#>
-//                }
-                
             case .failure(let error):
                 
                 completion(error)
@@ -136,31 +122,6 @@ class ChatRoomFriendListViewModel {
         }
         
     }
-    
-//    private func fetchFriend(with friends: [String], completion: @escaping (Result<User, Error>) -> Void) {
-//        
-//        UserFirebaseManager.shared.fetchUser { result in
-//            
-//            switch result {
-//                
-//            case .success(let users):
-//                
-//                for user in users {
-//                    
-//                    if user.id == UserFirebaseManager.shared.currentUser {
-//                        
-//                        completion(.success(user))
-//                        
-//                        break
-//                    }
-//                }
-//                
-//            case .failure(let error):
-//                
-//                completion(.failure(error))
-//            }
-//        }
-//    }
     
     // MARK: - Convert functions
     private func convertChatRoomToViewModels(from chatRooms: [ChatRoom]) -> [ChatRoomViewModel] {

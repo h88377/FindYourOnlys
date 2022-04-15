@@ -45,8 +45,7 @@ class ChatRoomFriendListViewController: BaseViewController {
     
     override func setupTableView() {
         
-        tableView.registerCellWithIdentifier(identifier: ChatRoomFriendListCell.identifier)
-        
+        tableView.registerCellWithIdentifier(identifier: ChatRoomFriendListCell.identifier)   
     }
 }
 
@@ -72,7 +71,23 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let chatRoomThreadVC = storyboard.instantiateViewController(withIdentifier: ChatRoomThreadViewController.identifier) as? ChatRoomThreadViewController
+                
+        else { return }
+        
+        let selectedChatRoomId = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom.id
+        
+        let selectedFriendImageURLString = viewModel.friendViewModels.value[indexPath.row].user.imageURLString
+        
+        chatRoomThreadVC.viewModel.changedSelectedChatId(with: selectedChatRoomId)
+        
+        chatRoomThreadVC.viewModel.changedSelectedFriendURLString(with: selectedFriendImageURLString)
+        
+        navigationController?.pushViewController(chatRoomThreadVC, animated: true)
+    }
 }

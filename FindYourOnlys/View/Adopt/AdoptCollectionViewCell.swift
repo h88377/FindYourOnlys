@@ -40,7 +40,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         statusLabel.text = viewModel.pet.status
         
-        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
     }
     
 }

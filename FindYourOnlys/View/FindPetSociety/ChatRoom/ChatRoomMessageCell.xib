@@ -18,22 +18,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-Hx-pTg">
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-Hx-pTg">
                         <rect key="frame" x="8" y="8" width="304" height="73"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jv1-0y-tG3">
-                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ipn-rG-FJJ">
+                                <rect key="frame" x="0.0" y="17" width="40" height="39"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="2uZ-Rx-wCF"/>
-                                    <constraint firstAttribute="height" constant="40" id="oHi-ql-CoU"/>
+                                    <constraint firstAttribute="height" constant="40" id="fIH-cL-vGJ"/>
+                                    <constraint firstAttribute="width" constant="40" id="xY9-GW-Juf"/>
                                 </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="person.circle" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="33"/>
-                                </state>
-                            </button>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcI-r0-fbL">
-                                <rect key="frame" x="48" y="0.0" width="256" height="66"/>
+                                <rect key="frame" x="48" y="3.5" width="256" height="66"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-Ng-QRv">
                                         <rect key="frame" x="8" y="8" width="240" height="50"/>
@@ -59,6 +55,9 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="Ipn-rG-FJJ" firstAttribute="centerY" secondItem="8Cb-Hx-pTg" secondAttribute="centerY" id="Yz9-e4-JVU"/>
+                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
@@ -72,14 +71,14 @@
             <connections>
                 <outlet property="contentImageView" destination="40U-Hb-rfe" id="7xi-8s-NNB"/>
                 <outlet property="contentLabel" destination="90R-H0-7a5" id="iG5-6t-hZ5"/>
-                <outlet property="friendButton" destination="Jv1-0y-tG3" id="PpA-n7-gw5"/>
+                <outlet property="friendImageView" destination="Ipn-rG-FJJ" id="hF2-f6-z0P"/>
                 <outlet property="messageBubbleView" destination="HcI-r0-fbL" id="oXG-x2-GhU"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="69.977678571428569"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="questionmark.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -21,10 +21,20 @@ class ChatRoomThreadViewController: BaseViewController {
         }
     }
     
+    let viewModel = ChatRoomThreadViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.fetchThread { error in
+            
+            if error != nil { print(error) }
+        }
         
+        viewModel.threadViewModels.bind { [weak self] _ in
+            
+            self?.tableView.reloadData()
+        }
     }
     
     @IBAction func openCamera(_ sender: UIButton) {
@@ -41,15 +51,20 @@ class ChatRoomThreadViewController: BaseViewController {
 extension ChatRoomThreadViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        viewModel.threadViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: ChatRoomMessageCell.identifier, for: indexPath) as? ChatRoomMessageCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatRoomMessageCell.identifier, for: indexPath) as? ChatRoomMessageCell,
+            let selectedFriendImageURLString = viewModel.selectedFriendURLString
                 
         else { return UITableViewCell() }
+        
+        let cellViewModel = viewModel.threadViewModels.value[indexPath.row]
+        
+        cell.configureCell(with: cellViewModel, friendImageURLString: selectedFriendImageURLString)
         
         return cell
     }

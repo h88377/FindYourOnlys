@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct Thread {
+struct Thread: Codable {
     
-    var channelId: String
+    var chatRoomId: String
     
     var senderId: String
     
-    var content: String
+    var content: String?
+    
+    var contentImageURLString: String?
     
     var createdTime: TimeInterval
 }

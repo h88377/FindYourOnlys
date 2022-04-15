@@ -23,7 +23,7 @@ class ArticlePhotoCell: UITableViewCell {
         
         userNameLabel.text = viewModel.article.userId
         
-        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         
         timeLabel.text = formateTime(with: viewModel.article.createdTime)
     }
