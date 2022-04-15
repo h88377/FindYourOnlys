@@ -13,6 +13,10 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
 
         setupNavigationTitle()
+        
+        setupTableView()
+        
+        setupCollectionView()
     }
     
     func setupNavigationTitle() {
@@ -22,6 +26,16 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = textAttributes
 
 //        navigationController?.navigationBar.backgroundColor = .systemPurple
+        
+    }
+    
+    func setupTableView() {
+        
+        
+    }
+    
+    func setupCollectionView() {
+        
         
     }
 }

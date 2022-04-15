@@ -20,7 +20,7 @@ class PublishUserCell: PublishBasicCell {
         
         userImageView.loadImage("wait fetch userPhoto", placeHolder: UIImage.system(.personPlaceHolder))
         
-        userNickName.text = UserManager.shared.currentUser
+        userNickName.text = UserFirebaseManager.shared.currentUser
 
         
 //        timeLabel.text = formateTime(with: viewModel.article.createdTime)

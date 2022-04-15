@@ -18,6 +18,7 @@ class PetSocietyFirebaseManager {
     
     private let storage = Storage.storage()
     
+    // MARK: - Article
     func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.article.rawValue)
@@ -77,7 +78,7 @@ class PetSocietyFirebaseManager {
 //        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
 //        spaceRef = storage.reference(forURL: storagePath)
         
-        let imageRef = storageRef.child("images/\(UserManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
+        let imageRef = storageRef.child("images/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
         
         guard
             let imageData = image.jpegData(compressionQuality: 0.5) else { return }
@@ -110,5 +111,34 @@ class PetSocietyFirebaseManager {
             }
             
         }
+    }
+    
+    // MARK: - ChatRoom
+    func fetchChatRoom(completion: @escaping (Result<[ChatRoom], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.chatRoom.rawValue)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else { return }
+                
+                var chatRooms = [ChatRoom]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let chatRoom = try document.data(as: ChatRoom.self)
+                        
+                        chatRooms.append(chatRoom)
+                    }
+                    catch {
+                        
+                        completion(.failure(error))
+                    }
+                }
+                
+                completion(.success(chatRooms))
+            }
     }
 }

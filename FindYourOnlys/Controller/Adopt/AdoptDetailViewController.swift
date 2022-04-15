@@ -12,7 +12,7 @@ protocol AdoptDetailViewControllerDelegate: AnyObject {
     func toggleFavorite()
 }
 
-class AdoptDetailViewController: UIViewController {
+class AdoptDetailViewController: BaseViewController {
     
     var viewModel = AdoptDetailViewModel()
     
@@ -36,8 +36,6 @@ class AdoptDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupTableView()
         
         viewModel.petViewModel.bind { [weak self] petViewModels in
             
@@ -121,7 +119,7 @@ class AdoptDetailViewController: UIViewController {
         viewModel.makePhoneCall(self)
     }
     
-    func setupTableView() {
+    override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
         

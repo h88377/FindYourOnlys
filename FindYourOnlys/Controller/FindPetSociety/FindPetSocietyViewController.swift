@@ -23,10 +23,6 @@ class FindPetSocietyViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupNavigationTitle()
-        
-        setupTableView()
         
         viewModel.articleViewModels.bind { [weak self] _ in
             
@@ -52,7 +48,7 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
-    func setupTableView() {
+    override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
         
@@ -76,14 +72,22 @@ class FindPetSocietyViewController: BaseViewController {
         
         guard
             let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController
-//                ,
-//            let uploadTestVC = storyboard.instantiateViewController(withIdentifier: UploadTestViewController.identifier) as? UploadTestViewController
-//
                 
         else { return }
         
         navigationController?.pushViewController(publishVC, animated: true)
-//        navigationController?.pushViewController(uploadTestVC, animated: true)
+    }
+    
+    @IBAction func goToChat(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let chatRoomFriendListVC = storyboard.instantiateViewController(withIdentifier: ChatRoomFriendListViewController.identifier) as? ChatRoomFriendListViewController
+                
+        else { return }
+        
+        navigationController?.pushViewController(chatRoomFriendListVC, animated: true)
     }
     
 }
