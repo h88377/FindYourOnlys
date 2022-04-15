@@ -17,34 +17,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="FMc-Os-2gs">
-                                <rect key="frame" x="300.5" y="96" width="97.5" height="22.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="FMc-Os-2gs">
+                                <rect key="frame" x="228" y="88" width="170" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cG5-xY-Cch">
-                                        <rect key="frame" x="0.0" y="0.0" width="20.5" height="22.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="LxZ-20-tNT"/>
+                                            <constraint firstAttribute="height" constant="40" id="oB2-bw-PBy"/>
+                                        </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="magnifyingglass" catalog="system">
                                             <color key="titleColor" systemColor="tintColor"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XN-eJ-RWz">
-                                        <rect key="frame" x="37.5" y="0.0" width="21" height="22.5"/>
+                                        <rect key="frame" x="65" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="3Lc-Bi-W5n"/>
+                                            <constraint firstAttribute="height" constant="40" id="tir-6h-juJ"/>
+                                        </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="person.badge.plus" catalog="system">
                                             <color key="titleColor" systemColor="tintColor"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TK-h6-ZdP">
-                                        <rect key="frame" x="75.5" y="0.0" width="22" height="22.5"/>
+                                        <rect key="frame" x="130" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="mW6-8h-QMn"/>
+                                            <constraint firstAttribute="width" constant="40" id="oui-OX-AxU"/>
+                                        </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="message" catalog="system">
                                             <color key="titleColor" systemColor="tintColor"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                         </state>
+                                        <connections>
+                                            <action selector="goToChat:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="yf1-SQ-U3v"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CU0-Df-4ll">
-                                <rect key="frame" x="0.0" y="118.5" width="414" height="743.5"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J2-Ga-0zB">
@@ -70,7 +88,7 @@
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="top" secondItem="FMc-Os-2gs" secondAttribute="bottom" id="OMu-tb-Zif"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" id="XBV-PH-ihj"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aiE-2h-EOD"/>
-                            <constraint firstItem="FMc-Os-2gs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="lCj-bS-KVG"/>
+                            <constraint firstItem="FMc-Os-2gs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="lCj-bS-KVG"/>
                             <constraint firstItem="8J2-Ga-0zB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="ryo-9p-2B0"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="CU0-Df-4ll" secondAttribute="bottom" id="w7s-ko-rlN"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FMc-Os-2gs" secondAttribute="trailing" constant="16" id="y98-h8-bNZ"/>
@@ -84,6 +102,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="979.71014492753636" y="63.616071428571423"/>
+        </scene>
+        <!--Chat Room Friend List View Controller-->
+        <scene sceneID="j2K-0J-SkY">
+            <objects>
+                <viewController storyboardIdentifier="ChatRoomFriendListViewController" id="9kb-ol-vu8" customClass="ChatRoomFriendListViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lqi-xd-cgE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="N6m-JP-Ndo">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bcx-Vb-ijP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="N6m-JP-Ndo" firstAttribute="top" secondItem="Bcx-Vb-ijP" secondAttribute="top" id="KmL-Ci-duk"/>
+                            <constraint firstItem="Bcx-Vb-ijP" firstAttribute="bottom" secondItem="N6m-JP-Ndo" secondAttribute="bottom" id="eby-13-MgL"/>
+                            <constraint firstItem="Bcx-Vb-ijP" firstAttribute="trailing" secondItem="N6m-JP-Ndo" secondAttribute="trailing" id="jYz-a7-7MS"/>
+                            <constraint firstItem="N6m-JP-Ndo" firstAttribute="leading" secondItem="Bcx-Vb-ijP" secondAttribute="leading" id="xPC-Q4-49f"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="N6m-JP-Ndo" id="DED-3Y-SP4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZVd-aL-Amy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2019" y="322"/>
         </scene>
         <!--Publish View Controller-->
         <scene sceneID="TOA-Dj-4T8">
@@ -120,45 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bc0-aA-Mud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3063.768115942029" y="30.803571428571427"/>
-        </scene>
-        <!--Upload Test View Controller-->
-        <scene sceneID="PGy-b4-ocV">
-            <objects>
-                <viewController storyboardIdentifier="UploadTestViewController" id="OMk-xb-WAa" customClass="UploadTestViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YE0-Xb-dXT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square.and.arrow.up.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Osz-Ef-jDg">
-                                <rect key="frame" x="87" y="127" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjh-Fw-KP3">
-                                <rect key="frame" x="138" y="330" width="67" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="uploadToFirebase:" destination="OMk-xb-WAa" eventType="touchUpInside" id="syx-zy-lU1"/>
-                                </connections>
-                            </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7Mv-x5-xXf">
-                                <rect key="frame" x="87" y="631" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="qQ8-yV-Tcr"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <connections>
-                        <outlet property="downloadImage" destination="7Mv-x5-xXf" id="bWV-Lb-C8e"/>
-                        <outlet property="image" destination="Osz-Ef-jDg" id="spD-7v-j5y"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z6q-t6-9yE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1782" y="782"/>
+            <point key="canvasLocation" x="2728" y="-329"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ck1-cY-gaO">
@@ -194,16 +204,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiH-Nn-wjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2153.6231884057975" y="30.803571428571427"/>
+            <point key="canvasLocation" x="2041" y="-329"/>
         </scene>
     </scenes>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person.badge.plus" catalog="system" width="128" height="124"/>
-        <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
-        <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

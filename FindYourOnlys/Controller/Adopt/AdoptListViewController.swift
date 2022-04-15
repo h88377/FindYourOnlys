@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AdoptListViewController: UIViewController {
+class AdoptListViewController: BaseViewController {
     
     let viewModel = AdoptListViewModel()
     
@@ -48,7 +48,7 @@ class AdoptListViewController: UIViewController {
         
     }
     
-    private func setupCollectionView() {
+    override func setupCollectionView() {
         
         collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
         

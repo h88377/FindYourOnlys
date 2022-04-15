@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PublishViewController: UIViewController {
+class PublishViewController: BaseViewController {
     
     let viewModel = PublishViewModel()
     
@@ -25,8 +25,6 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTableView()
-        
         viewModel.checkPublishedContent = { [weak self] isValid in
             
             if !isValid {
@@ -40,7 +38,7 @@ class PublishViewController: UIViewController {
     }
     
     
-    func setupTableView() {
+    override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
         

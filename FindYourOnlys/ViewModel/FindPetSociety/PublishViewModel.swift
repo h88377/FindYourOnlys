@@ -13,7 +13,7 @@ class PublishViewModel {
     let publishContentCategory = PublishContentCategory.allCases
     
     var article: Article = Article(
-        id: "", userId: UserManager.shared.currentUser, likeUserIds: [],
+        id: "", userId: UserFirebaseManager.shared.currentUser, likeUserIds: [],
         createdTime: 0, postType: -1,
         city: "", petKind: "", color: "",
         content: "", imageURLString: "", comments: []
@@ -108,7 +108,7 @@ class PublishViewModel {
             
 
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishArticle(UserManager.shared.currentUser, with: &self.article) { error in
+            PetSocietyFirebaseManager.shared.publishArticle(UserFirebaseManager.shared.currentUser, with: &self.article) { error in
 
                 guard
                     error == nil

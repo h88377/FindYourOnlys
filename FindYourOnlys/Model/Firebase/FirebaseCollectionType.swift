@@ -12,6 +12,10 @@ enum FirebaseCollectionType: String {
     case favoritePet
     
     case article
+    
+    case user
+    
+    case chatRoom
 }
 
 enum PostType: String, CaseIterable {
