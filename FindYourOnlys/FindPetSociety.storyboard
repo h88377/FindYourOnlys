@@ -133,6 +133,98 @@
             </objects>
             <point key="canvasLocation" x="2019" y="322"/>
         </scene>
+        <!--Chat Room Thread View Controller-->
+        <scene sceneID="mJt-E6-9Ds">
+            <objects>
+                <viewController id="nFF-Y7-H1d" customClass="ChatRoomThreadViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tIL-55-4Al">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djJ-BJ-xI6">
+                                <rect key="frame" x="4" y="802" width="406" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="ph8-i7-D5d">
+                                        <rect key="frame" x="8" y="8" width="390" height="44"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="4qX-Oj-1NO">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juV-ih-l4A">
+                                                        <rect key="frame" x="0.0" y="0.0" width="36" height="44"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="camera" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="openCamera:" destination="nFF-Y7-H1d" eventType="touchUpInside" id="C7w-S8-Nnh"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fkw-em-XuW">
+                                                        <rect key="frame" x="51" y="0.0" width="35" height="44"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="photo" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="openGallery:" destination="nFF-Y7-H1d" eventType="touchUpInside" id="ZMq-jh-CqB"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ta2-SK-Lao">
+                                                <rect key="frame" x="105" y="0.0" width="234" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u13-Qg-eaz">
+                                                <rect key="frame" x="358" y="0.0" width="32" height="44"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="arrow.up.message" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="sendMessage:" destination="nFF-Y7-H1d" eventType="touchUpInside" id="8yZ-Vy-OAh"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="4s0-vM-Rdv"/>
+                                    <constraint firstAttribute="trailing" secondItem="ph8-i7-D5d" secondAttribute="trailing" constant="8" id="CSW-f8-QcX"/>
+                                    <constraint firstItem="ph8-i7-D5d" firstAttribute="top" secondItem="djJ-BJ-xI6" secondAttribute="top" constant="8" id="NDG-hP-vW0"/>
+                                    <constraint firstAttribute="bottom" secondItem="ph8-i7-D5d" secondAttribute="bottom" constant="8" id="rbf-ZB-OEY"/>
+                                    <constraint firstItem="ph8-i7-D5d" firstAttribute="leading" secondItem="djJ-BJ-xI6" secondAttribute="leading" constant="8" id="uUi-bZ-SXS"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2PP-5h-Sld">
+                                <rect key="frame" x="0.0" y="44" width="414" height="758"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZfG-L7-hg1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZfG-L7-hg1" firstAttribute="trailing" secondItem="2PP-5h-Sld" secondAttribute="trailing" id="2vf-IF-yST"/>
+                            <constraint firstItem="ZfG-L7-hg1" firstAttribute="bottom" secondItem="djJ-BJ-xI6" secondAttribute="bottom" id="9Qh-Ea-PJE"/>
+                            <constraint firstItem="ZfG-L7-hg1" firstAttribute="trailing" secondItem="djJ-BJ-xI6" secondAttribute="trailing" constant="4" id="RCd-VW-7nd"/>
+                            <constraint firstItem="djJ-BJ-xI6" firstAttribute="top" secondItem="2PP-5h-Sld" secondAttribute="bottom" id="Yrr-CN-ZNT"/>
+                            <constraint firstItem="2PP-5h-Sld" firstAttribute="leading" secondItem="ZfG-L7-hg1" secondAttribute="leading" id="cgh-TA-APQ"/>
+                            <constraint firstItem="djJ-BJ-xI6" firstAttribute="leading" secondItem="ZfG-L7-hg1" secondAttribute="leading" constant="4" id="kBd-1z-hGv"/>
+                            <constraint firstItem="2PP-5h-Sld" firstAttribute="top" secondItem="ZfG-L7-hg1" secondAttribute="top" id="uej-hB-KNP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="messageTextField" destination="ta2-SK-Lao" id="QYi-UQ-8yE"/>
+                        <outlet property="tableView" destination="2PP-5h-Sld" id="E84-Ap-9Ft"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8hO-vf-pqQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2731" y="308"/>
+        </scene>
         <!--Publish View Controller-->
         <scene sceneID="TOA-Dj-4T8">
             <objects>
@@ -208,12 +300,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.message" catalog="system" width="128" height="113"/>
+        <image name="camera" catalog="system" width="128" height="94"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person.badge.plus" catalog="system" width="128" height="124"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
