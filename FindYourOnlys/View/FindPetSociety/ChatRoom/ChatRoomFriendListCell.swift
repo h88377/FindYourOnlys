@@ -17,11 +17,15 @@ class ChatRoomFriendListCell: UITableViewCell {
     
     @IBOutlet weak var lastTextSentTimeLabel: UILabel!
     
-    
-    
-    func configureCell(with viewModel: ChatRoomViewModel) {
+    func configureCell(with viewModel: UserViewModel) {
         
+        friendImageView.loadImage(viewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
+        friendImageView.layer.cornerRadius = friendImageView.frame.height / 2
     }
     
 }

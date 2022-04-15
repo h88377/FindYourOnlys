@@ -36,6 +36,11 @@ class ChatRoomFriendListViewController: BaseViewController {
             
             self?.tableView.reloadData()
         }
+        
+        viewModel.friendViewModels.bind { [weak self] _ in
+            
+            self?.tableView.reloadData()
+        }
     }
     
     override func setupTableView() {
@@ -50,7 +55,7 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.chatRoomViewModels.value.count
+        viewModel.friendViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,7 +65,7 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
                 
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.chatRoomViewModels.value[indexPath.row]
+        let cellViewModel = viewModel.friendViewModels.value[indexPath.row]
         
         cell.configureCell(with: cellViewModel)
         

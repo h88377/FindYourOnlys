@@ -13,7 +13,7 @@ class ChatRoomFriendListViewModel {
     
     let friendViewModels = Box([UserViewModel]())
     
-    private func fetchUser(completion: @escaping (Result<User, Error>) -> Void) {
+    private func fetchUser(with userId: String, completion: @escaping (Result<User, Error>) -> Void) {
         
         UserFirebaseManager.shared.fetchUser { result in
             
@@ -21,14 +21,38 @@ class ChatRoomFriendListViewModel {
                 
             case .success(let users):
                 
+                for user in users where user.id == userId {
+                    
+                    completion(.success(user))
+                    
+                    break
+                }
+                
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func fetchUsers(with userIds: [String], completion: @escaping (Result<[User], Error>) -> Void) {
+        
+        UserFirebaseManager.shared.fetchUser { result in
+            
+            switch result {
+                
+            case .success(let users):
+                
+                var fetchedUsers = [User]()
+                
                 for user in users {
                     
-                    if user.id == UserFirebaseManager.shared.currentUser {
+                    for userId in userIds where userId == user.id {
                         
-                        completion(.success(user))
-                        
-                        break
+                        fetchedUsers.append(user)
                     }
+                    
+                    completion(.success(fetchedUsers))
                 }
                 
             case .failure(let error):
@@ -40,7 +64,8 @@ class ChatRoomFriendListViewModel {
     
     func fetchChatRoom(completion: @escaping (Error?)-> Void) {
         
-        fetchUser { result in
+        //Fetch current user
+        fetchUser(with: UserFirebaseManager.shared.currentUser ) { result in
             
             switch result {
                 
@@ -52,21 +77,57 @@ class ChatRoomFriendListViewModel {
                         
                     case .success(let totalChatRooms):
                         
-                        let currentChatRooms = totalChatRooms.filter {
+//                        let currentChatRooms = totalChatRooms.filter {
+//
+//                            $0.userIds.contains {
+//
+//                                $0 == UserFirebaseManager.shared.currentUser
+//                            }
+//                        }
+                        
+                        var currentChatRooms = [ChatRoom]()
+                        
+                        var friendIds = [String]()
+                        
+                        for chatRoom in totalChatRooms {
                             
-                            $0.userIds.contains {
+                            for userId in chatRoom.userIds where userId == UserFirebaseManager.shared.currentUser {
                                 
-                                $0 == UserFirebaseManager.shared.currentUser
+                                currentChatRooms.append(chatRoom)
+                                
+                                for friendId in chatRoom.userIds where friendId != UserFirebaseManager.shared.currentUser {
+                                    
+                                    friendIds.append(friendId)
+                                }
                             }
                         }
                         
                         self?.setChatRooms(currentChatRooms)
+                        
+                        self?.fetchUsers(with: friendIds) { result in
+                            
+                            switch result {
+                                
+                            case .success(let users):
+                                
+                                self?.setUsers(users)
+                                
+                            case .failure(let error):
+                                
+                                completion(error)
+                            }
+                        }
                         
                     case .failure(let error):
                         
                         completion(error)
                     }
                 }
+                
+                //Fetch current user's friends data
+//                fetchUsers(with: user.friends) { result in
+//                    <#code#>
+//                }
                 
             case .failure(let error):
                 
@@ -76,6 +137,32 @@ class ChatRoomFriendListViewModel {
         
     }
     
+//    private func fetchFriend(with friends: [String], completion: @escaping (Result<User, Error>) -> Void) {
+//        
+//        UserFirebaseManager.shared.fetchUser { result in
+//            
+//            switch result {
+//                
+//            case .success(let users):
+//                
+//                for user in users {
+//                    
+//                    if user.id == UserFirebaseManager.shared.currentUser {
+//                        
+//                        completion(.success(user))
+//                        
+//                        break
+//                    }
+//                }
+//                
+//            case .failure(let error):
+//                
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    
+    // MARK: - Convert functions
     private func convertChatRoomToViewModels(from chatRooms: [ChatRoom]) -> [ChatRoomViewModel] {
         
         var viewModels = [ChatRoomViewModel]()
@@ -92,6 +179,24 @@ class ChatRoomFriendListViewModel {
     private func setChatRooms(_ chatRooms: [ChatRoom]) {
         
         chatRoomViewModels.value = convertChatRoomToViewModels(from: chatRooms)
+    }
+    
+    private func convertUserToViewModels(from users: [User]) -> [UserViewModel] {
+        
+        var viewModels = [UserViewModel]()
+        
+        for user in users {
+            
+            let viewModel = UserViewModel(model: user)
+            
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    private func setUsers(_ users: [User]) {
+        
+        friendViewModels.value = convertUserToViewModels(from: users)
     }
     
 }
