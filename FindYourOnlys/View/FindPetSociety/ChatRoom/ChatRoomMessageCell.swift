@@ -11,9 +11,9 @@ class ChatRoomMessageCell: UITableViewCell {
 
     @IBOutlet weak var friendButton: UIButton!
     
-    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
     
-    @IBOutlet weak var userButton: UIButton!
+    @IBOutlet weak var contentImageView: UIImageView!
     
     @IBOutlet weak var messageBubbleView: UIView!
     
