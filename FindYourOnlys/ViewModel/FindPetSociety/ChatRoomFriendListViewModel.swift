@@ -13,15 +13,6 @@ class ChatRoomFriendListViewModel {
     
     let friendViewModels = Box([UserViewModel]())
     
-//    var selected
-    
-    var didSelecteRowHandler: (() -> Void)?
-    
-    func didSelectRowAtTableView() {
-        
-        didSelecteRowHandler?()
-    }
-    
     private func fetchUser(with userId: String, completion: @escaping (Result<User, Error>) -> Void) {
         
         UserFirebaseManager.shared.fetchUser { result in
