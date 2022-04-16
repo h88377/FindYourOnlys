@@ -72,6 +72,9 @@ class ChatRoomFriendListViewModel {
                 
                 PetSocietyFirebaseManager.shared.fetchChatRoom { [weak self] result in
                     
+                    guard
+                        let self = self else { return }
+                    
                     switch result {
                         
                     case .success(let totalChatRooms):
@@ -93,15 +96,15 @@ class ChatRoomFriendListViewModel {
                             }
                         }
                         
-                        self?.setChatRooms(currentChatRooms)
+                        self.setChatRooms(currentChatRooms)
                         
-                        self?.fetchUsers(with: friendIds) { result in
+                        self.fetchUsers(with: friendIds) { result in
                             
                             switch result {
                                 
                             case .success(let users):
                                 
-                                self?.setUsers(users)
+                                UserFirebaseManager.shared.setUsers(with: self.friendViewModels, users: users)
                                 
                             case .failure(let error):
                                 
@@ -140,24 +143,6 @@ class ChatRoomFriendListViewModel {
     private func setChatRooms(_ chatRooms: [ChatRoom]) {
         
         chatRoomViewModels.value = convertChatRoomToViewModels(from: chatRooms)
-    }
-    
-    private func convertUserToViewModels(from users: [User]) -> [UserViewModel] {
-        
-        var viewModels = [UserViewModel]()
-        
-        for user in users {
-            
-            let viewModel = UserViewModel(model: user)
-            
-            viewModels.append(viewModel)
-        }
-        return viewModels
-    }
-    
-    private func setUsers(_ users: [User]) {
-        
-        friendViewModels.value = convertUserToViewModels(from: users)
     }
     
 }

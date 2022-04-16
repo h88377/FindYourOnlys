@@ -75,8 +75,8 @@ class PetSocietyFirebaseManager {
         
         let storageRef = storage.reference()
         
-//        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
-//        spaceRef = storage.reference(forURL: storagePath)
+        //        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
+        //        spaceRef = storage.reference(forURL: storagePath)
         
         let imageRef = storageRef.child("\(type)/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
         
@@ -143,33 +143,33 @@ class PetSocietyFirebaseManager {
     }
     
     func fetchMessage(with channelId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
-
+        
         db.collection(FirebaseCollectionType.message.rawValue)
             .order(by: "createdTime", descending: false)
             .addSnapshotListener { snapshot, error in
-
+                
                 guard
                     let snapshot = snapshot else { return }
-
+                
                 var messages = [Message]()
-
+                
                 for document in snapshot.documents {
-
+                    
                     do {
-
+                        
                         let message = try document.data(as: Message.self)
-
+                        
                         if message.chatRoomId == channelId {
                             
                             messages.append(message)
                         }
                     }
                     catch {
-
+                        
                         completion(.failure(error))
                     }
                 }
-
+                
                 completion(.success(messages))
             }
     }
@@ -192,4 +192,26 @@ class PetSocietyFirebaseManager {
             completion(error)
         }
     }
+    
+    // MARK: - Convert functions
+
+    private func convertArticlesToViewModels(from articles: [Article]) -> [ArticleViewModel] {
+        
+        var viewModels = [ArticleViewModel]()
+        
+        for article in articles {
+            
+            let viewModel = ArticleViewModel(model: article)
+            
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+
+    func setArticles(with viewModels: Box<[ArticleViewModel]>, articles: [Article]) {
+        
+        viewModels.value = convertArticlesToViewModels(from: articles)
+    }
 }
+
+
