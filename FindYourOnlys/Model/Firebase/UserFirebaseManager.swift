@@ -14,7 +14,7 @@ class UserFirebaseManager {
     
     private let db = Firestore.firestore()
     
-    var currentUser: String { return "123" }
+    var currentUser: String { return "321" }
     
     var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911" }
     
