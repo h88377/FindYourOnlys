@@ -55,7 +55,7 @@ class ChatRoomMessageViewModel {
         PetSocietyFirebaseManager.shared.sendMessage(UserFirebaseManager.shared.currentUser, with: &message) { error in
             
             completion(error)
-        }   
+        }
     }
     
     func fetchMessage(completion: @escaping (Error?) -> Void) {
