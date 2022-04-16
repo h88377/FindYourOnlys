@@ -80,13 +80,18 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
                 
         else { return }
         
-        let selectedChatRoomId = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom.id
+        viewModel.didSelecteRowHandler = { [weak self] in
+            
+            
+        }
         
-        let selectedFriendImageURLString = viewModel.friendViewModels.value[indexPath.row].user.imageURLString
+        let selectedChatRoom = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom
         
-        chatRoomMessageVC.viewModel.changedSelectedChatId(with: selectedChatRoomId)
+        let selectedFriend = viewModel.friendViewModels.value[indexPath.row].user
         
-        chatRoomMessageVC.viewModel.changedSelectedFriendURLString(with: selectedFriendImageURLString)
+        chatRoomMessageVC.viewModel.changedSelectedChatRoom(with: selectedChatRoom)
+        
+        chatRoomMessageVC.viewModel.changedSelectedFriend(with: selectedFriend)
         
         navigationController?.pushViewController(chatRoomMessageVC, animated: true)
     }
