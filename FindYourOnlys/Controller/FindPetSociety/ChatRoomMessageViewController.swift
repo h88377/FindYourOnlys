@@ -185,6 +185,7 @@ class ChatRoomMessageViewController: BaseViewController {
 extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         viewModel.messageViewModels.value.count
     }
     

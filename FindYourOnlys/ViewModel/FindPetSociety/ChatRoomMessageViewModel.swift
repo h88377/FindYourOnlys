@@ -55,8 +55,7 @@ class ChatRoomMessageViewModel {
         PetSocietyFirebaseManager.shared.sendMessage(UserFirebaseManager.shared.currentUser, with: &message) { error in
             
             completion(error)
-        }
-        
+        }   
     }
     
     func fetchMessage(completion: @escaping (Error?) -> Void) {
@@ -97,6 +96,8 @@ class ChatRoomMessageViewModel {
     func changedContent(with contentText: String) {
         
         message.content = contentText
+        
+        message.contentImageURLString = ""
     }
     
     func changeContent(with contextImage: UIImage, completion: @escaping (Error?) -> Void) {
@@ -112,6 +113,8 @@ class ChatRoomMessageViewModel {
                 case .success(let url):
                     
                     self.message.contentImageURLString = "\(url)"
+                    
+                    self.message.content = ""
                     
                 case .failure(let error):
                     
