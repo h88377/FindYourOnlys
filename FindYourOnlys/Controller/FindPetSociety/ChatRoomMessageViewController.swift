@@ -113,6 +113,8 @@ class ChatRoomMessageViewController: BaseViewController {
             self?.messageTextView.text = MessageType.placeHolder.rawValue
 
             self?.messageTextView.textColor = UIColor.systemGray3
+            
+            self?.checkMessageButton()
         }
         
         checkMessageButton()
