@@ -45,4 +45,23 @@ class UserFirebaseManager {
                 completion(.success(users))
             }
     }
+    
+    // MARK: - Convert functions
+    private func convertUserToViewModels(from users: [User]) -> [UserViewModel] {
+        
+        var viewModels = [UserViewModel]()
+        
+        for user in users {
+            
+            let viewModel = UserViewModel(model: user)
+            
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setUsers(with viewModels: Box<[UserViewModel]>, users: [User]) {
+        
+        viewModels.value = UserFirebaseManager.shared.convertUserToViewModels(from: users)
+    }
 }

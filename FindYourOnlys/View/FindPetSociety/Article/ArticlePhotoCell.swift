@@ -17,9 +17,19 @@ class ArticlePhotoCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    func configureCell(with viewModel: ArticleViewModel) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        userButton.setImage(UIImage.system(.personPlaceHolder), for: .normal)
+        userButton.layer.cornerRadius = userButton.frame.height / 2
+    }
+    
+    func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
+        
+        let userImageView = UIImageView()
+        
+        userImageView.loadImage(authorViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        userButton.setImage(userImageView.image, for: .normal)
         
         userNameLabel.text = viewModel.article.userId
         

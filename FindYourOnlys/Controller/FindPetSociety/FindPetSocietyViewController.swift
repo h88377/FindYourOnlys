@@ -31,6 +31,13 @@ class FindPetSocietyViewController: BaseViewController {
                 self?.tableView.reloadData()
             }
         }
+        viewModel.authorViewModels.bind { [weak self] _ in
+            
+            DispatchQueue.main.async {
+                
+                self?.tableView.reloadData()
+            }
+        }
         
         viewModel.fetchArticles { error in
             
@@ -99,6 +106,9 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         
         let registeredCellCount = 2
         
+        guard
+            viewModel.authorViewModels.value.count > 0 else { return 0 }
+        
         return viewModel.articleViewModels.value.count * registeredCellCount
     }
     
@@ -107,6 +117,8 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         let registeredCellCount = 2
         
         let cellViewModel = viewModel.articleViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+        
+        let authorCellViewModel = viewModel.authorViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
         switch indexPath.row % 2 {
             
@@ -117,7 +129,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                     
             else { return UITableViewCell() }
             
-            cell.configureCell(with: cellViewModel)
+            cell.configureCell(with: cellViewModel, authorViewModel: authorCellViewModel)
             
             return cell
             
