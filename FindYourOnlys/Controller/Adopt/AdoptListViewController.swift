@@ -27,8 +27,6 @@ class AdoptListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionView()
-        
         viewModel.petViewModels.bind { [weak self] pets in
             
             DispatchQueue.main.async {

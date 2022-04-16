@@ -133,10 +133,10 @@
             </objects>
             <point key="canvasLocation" x="2019" y="322"/>
         </scene>
-        <!--Chat Room Thread View Controller-->
+        <!--Chat Room Message View Controller-->
         <scene sceneID="mJt-E6-9Ds">
             <objects>
-                <viewController storyboardIdentifier="ChatRoomThreadViewController" id="nFF-Y7-H1d" customClass="ChatRoomThreadViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatRoomMessageViewController" id="nFF-Y7-H1d" customClass="ChatRoomMessageViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tIL-55-4Al">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,11 +172,13 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ta2-SK-Lao">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FiS-f5-6Fr">
                                                 <rect key="frame" x="105" y="0.0" width="234" height="44"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u13-Qg-eaz">
                                                 <rect key="frame" x="358" y="0.0" width="32" height="44"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -217,7 +219,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="messageTextField" destination="ta2-SK-Lao" id="QYi-UQ-8yE"/>
+                        <outlet property="messageTextView" destination="FiS-f5-6Fr" id="5Ch-NU-hM4"/>
+                        <outlet property="sendMessageButton" destination="u13-Qg-eaz" id="b2F-BW-oxM"/>
                         <outlet property="tableView" destination="2PP-5h-Sld" id="E84-Ap-9Ft"/>
                     </connections>
                 </viewController>
@@ -307,6 +310,9 @@
         <image name="person.badge.plus" catalog="system" width="128" height="124"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

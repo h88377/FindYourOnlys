@@ -17,7 +17,7 @@ class PublishContentCell: PublishBasicCell {
             
             contentTextView.delegate = self
             
-            contentTextView.text = "Here is your story"
+            contentTextView.text = "請輸入你的內文"
             
             contentTextView.textColor = UIColor.systemGray3
             
@@ -25,7 +25,6 @@ class PublishContentCell: PublishBasicCell {
             
             contentTextView.layer.borderColor = UIColor.systemGray5.cgColor
             
-//            contentTextView.inputAccessoryView = customDoneToolBar()
         }
     }
     
@@ -88,7 +87,7 @@ extension PublishContentCell: UITextViewDelegate {
         
         if textView.text.isEmpty {
             
-            textView.text = "Here is your story"
+            textView.text = "請輸入你的內文"
             
             textView.textColor = UIColor.systemGray3
         }

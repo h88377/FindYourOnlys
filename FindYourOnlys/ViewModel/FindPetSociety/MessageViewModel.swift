@@ -7,12 +7,13 @@
 
 import Foundation
 
-class ThreadViewModel {
+class MessageViewModel {
     
-    var thread: Thread
+    var message: Message
     
-    init(model: Thread) {
+    init(model: Message) {
         
-        self.thread = model
+        self.message = model
     }
+    
 }
