@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Thread: Codable {
+struct Message: Codable {
     
     var chatRoomId: String
     

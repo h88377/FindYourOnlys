@@ -17,22 +17,22 @@ class ChatRoomMessageCell: UITableViewCell {
     
     @IBOutlet weak var messageBubbleView: UIView!
     
-    func configureCell(with viewModel: ThreadViewModel, friendImageURLString: String) {
+    func configureCell(with viewModel: MessageViewModel, friendImageURLString: String) {
         
-        friendImageView.isHidden = UserFirebaseManager.shared.currentUser == viewModel.thread.senderId
+        friendImageView.isHidden = UserFirebaseManager.shared.currentUser == viewModel.message.senderId
         ? true
         : false
         
         friendImageView.loadImage(friendImageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         
         if
-            let content = viewModel.thread.content {
+            let content = viewModel.message.content {
             
             contentLabel.text = content
             
         } else if
             
-            let imageURLString = viewModel.thread.contentImageURLString {
+            let imageURLString = viewModel.message.contentImageURLString {
             
             contentImageView.loadImage(imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         }

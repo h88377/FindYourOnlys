@@ -76,7 +76,7 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard.findPetSociety
         
         guard
-            let chatRoomThreadVC = storyboard.instantiateViewController(withIdentifier: ChatRoomThreadViewController.identifier) as? ChatRoomThreadViewController
+            let chatRoomMessageVC = storyboard.instantiateViewController(withIdentifier: ChatRoomMessageViewController.identifier) as? ChatRoomMessageViewController
                 
         else { return }
         
@@ -84,10 +84,10 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         
         let selectedFriendImageURLString = viewModel.friendViewModels.value[indexPath.row].user.imageURLString
         
-        chatRoomThreadVC.viewModel.changedSelectedChatId(with: selectedChatRoomId)
+        chatRoomMessageVC.viewModel.changedSelectedChatId(with: selectedChatRoomId)
         
-        chatRoomThreadVC.viewModel.changedSelectedFriendURLString(with: selectedFriendImageURLString)
+        chatRoomMessageVC.viewModel.changedSelectedFriendURLString(with: selectedFriendImageURLString)
         
-        navigationController?.pushViewController(chatRoomThreadVC, animated: true)
+        navigationController?.pushViewController(chatRoomMessageVC, animated: true)
     }
 }

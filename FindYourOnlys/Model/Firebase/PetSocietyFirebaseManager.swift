@@ -163,23 +163,27 @@ class PetSocietyFirebaseManager {
 //        }
 //    }
     
-    func fetchThread(with channelId: String, completion: @escaping (Result<[Thread], Error>) -> Void) {
+    func fetchMessage(with channelId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
 
-        db.collection(FirebaseCollectionType.thread.rawValue)
+        db.collection(FirebaseCollectionType.message.rawValue)
+            .order(by: "createdTime", descending: false)
             .addSnapshotListener { snapshot, error in
 
                 guard
                     let snapshot = snapshot else { return }
 
-                var threads = [Thread]()
+                var messages = [Message]()
 
                 for document in snapshot.documents {
 
                     do {
 
-                        let thread = try document.data(as: Thread.self)
+                        let message = try document.data(as: Message.self)
 
-                        threads.append(thread)
+                        if message.chatRoomId == channelId {
+                            
+                            messages.append(message)
+                        }
                     }
                     catch {
 
@@ -187,7 +191,26 @@ class PetSocietyFirebaseManager {
                     }
                 }
 
-                completion(.success(threads))
+                completion(.success(messages))
             }
+    }
+    
+    func sendMessage(_ senderId: String, with message: inout Message, completion: @escaping (Error?) -> Void) {
+        
+        let documentReference = db.collection(FirebaseCollectionType.message.rawValue).document()
+        
+        do {
+            
+            message.senderId = senderId
+            
+            message.createdTime = NSDate().timeIntervalSince1970
+            
+            try documentReference.setData(from: message)
+        }
+        
+        catch {
+            
+            completion(error)
+        }
     }
 }
