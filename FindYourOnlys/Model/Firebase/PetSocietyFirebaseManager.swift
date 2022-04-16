@@ -71,14 +71,14 @@ class PetSocietyFirebaseManager {
         }
     }
     
-    func fetchDownloadImageURL(image: UIImage, with articleId: String, completion: @escaping ((Result<URL, Error>) -> Void)) {
+    func fetchDownloadImageURL(image: UIImage, with type: String, completion: @escaping ((Result<URL, Error>) -> Void)) {
         
         let storageRef = storage.reference()
         
 //        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
 //        spaceRef = storage.reference(forURL: storagePath)
         
-        let imageRef = storageRef.child("images/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
+        let imageRef = storageRef.child("\(type)/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
         
         guard
             let imageData = image.jpegData(compressionQuality: 0.5) else { return }
@@ -141,27 +141,6 @@ class PetSocietyFirebaseManager {
                 completion(.success(chatRooms))
             }
     }
-    
-//    func createThread(with thread: inout Thread, channelId: String, completion: @escaping (Error?) -> Void) {
-//
-//        let documentReference = db.collection(FirebaseCollectionType.thread.rawValue).document()
-//
-//        do {
-//
-//            thread.channelId = channelId
-//
-//            article.id = documentId
-//
-//            article.createdTime = NSDate().timeIntervalSince1970
-//
-//            try documentReference.setData(from: article, encoder: Firestore.Encoder())
-//        }
-//
-//        catch {
-//
-//            completion(error)
-//        }
-//    }
     
     func fetchMessage(with channelId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
 
