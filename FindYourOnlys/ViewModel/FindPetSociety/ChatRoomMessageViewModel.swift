@@ -21,6 +21,34 @@ class ChatRoomMessageViewModel {
         contentImageURLString: "", createdTime: -1
     )
     
+    var editMessageHandler: (() -> Void)?
+    
+    var beginEditMessageHander: (() -> Void)?
+    
+    var scrollToBottomHandler: (() -> Void)?
+    
+    var endEditMessageHandler: (() -> Void)?
+    
+    func editMessage() {
+        
+        editMessageHandler?()
+    }
+    
+    func beginEditMessage() {
+        
+        beginEditMessageHander?()
+    }
+    
+    func endEditMessage() {
+        
+        endEditMessageHandler?()
+    }
+    
+    func scrollToBottom() {
+        
+        scrollToBottomHandler?()    
+    }
+    
     func sendMessage(completion: @escaping (Error?) -> Void) {
         
         PetSocietyFirebaseManager.shared.sendMessage(UserFirebaseManager.shared.currentUser, with: &message) { error in
@@ -42,6 +70,8 @@ class ChatRoomMessageViewModel {
             case .success(let messages):
                 
                 self?.setMessages(messages)
+                
+//                self?.scrollToBottom()
                 
             case .failure(let error):
                 

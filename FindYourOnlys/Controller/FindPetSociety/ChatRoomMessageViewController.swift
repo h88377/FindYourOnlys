@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import IQKeyboardManagerSwift
 
 class ChatRoomMessageViewController: BaseViewController {
     
@@ -30,7 +29,6 @@ class ChatRoomMessageViewController: BaseViewController {
             messageTextView.layer.borderWidth = 1
             
             messageTextView.layer.borderColor = UIColor.systemGray5.cgColor
-            
         }
     }
     
@@ -60,6 +58,8 @@ class ChatRoomMessageViewController: BaseViewController {
     
     override var isHiddenIQKeyboardToolBar: Bool { return true }
     
+//    override var isEnableIQKeyboard: Bool { return false }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,10 +71,67 @@ class ChatRoomMessageViewController: BaseViewController {
         viewModel.messageViewModels.bind { [weak self] _ in
             
             self?.tableView.reloadData()
+            
+            self?.viewModel.scrollToBottom()
+        }
+        
+        viewModel.beginEditMessageHander = { [weak self ] in
+            
+            if self?.messageTextView.textColor == UIColor.systemGray3 {
+                
+                self?.messageTextView.text = nil
+                
+                self?.messageTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.editMessageHandler = { [weak self] in
+            
+            self?.checkMessageButton()
+            
+            if self?.messageTextView.textColor == UIColor.systemGray3 {
+                
+                self?.messageTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.scrollToBottomHandler = { [weak self] in
+            
+            guard
+                let messageCount = self?.viewModel.messageViewModels.value.count,
+                messageCount > 0
+                    
+            else { return }
+            
+            let indexPath = IndexPath(row: messageCount - 1, section: 0)
+            
+            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
+        
+        viewModel.endEditMessageHandler = { [weak self] in
+            
+            self?.messageTextView.text = MessageType.placeHolder.rawValue
+
+            self?.messageTextView.textColor = UIColor.systemGray3
         }
         
         checkMessageButton()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        messageTextView.centerVertically()
+        
+        messageTextView.layer.cornerRadius = 5
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "聊天室"
+    }
+
     
     func checkMessageButton() {
         
@@ -102,23 +159,17 @@ class ChatRoomMessageViewController: BaseViewController {
     
     @IBAction func sendMessage(_ sender: UIButton) {
         
-        messageTextView.endEditing(true)
-        
-        guard
-            messageTextView.text != MessageType.placeHolder.rawValue,
-            messageTextView.text?.isEmpty == false
-                
-        else { return }
+        viewModel.changedContent(with: messageTextView.text)
         
         viewModel.sendMessage { error in
             
             print(error)
         }
         
-        messageTextView.text = MessageType.placeHolder.rawValue
-        
+        messageTextView.text = ""
+
         messageTextView.textColor = UIColor.systemGray3
-        
+
         checkMessageButton()
     }
 }
@@ -152,31 +203,41 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        if textView.textColor == UIColor.systemGray3 {
-            
-            textView.text = nil
-            
-            textView.textColor = UIColor.black
-        }
+        viewModel.beginEditMessage()
     }
     
     func textViewDidChange(_ textView: UITextView) {
         
-        checkMessageButton()
+        viewModel.editMessage()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         
-        if textView.text.isEmpty {
-            
-            textView.text = MessageType.placeHolder.rawValue
-            
-            textView.textColor = UIColor.systemGray3
-            
-            return
-        }
-        
-        viewModel.changedContent(with: textView.text)
-        
+        viewModel.endEditMessage()
     }
 }
+
+
+
+// Fix keyboard appear view will over the screen issue
+
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+//@objc func keyboardWillShow(notification: NSNotification) {
+//
+//    let bottonGap = view.frame.height - view.safeAreaLayoutGuide.layoutFrame.height
+//
+//    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//        if self.view.frame.origin.y == 0 {
+//            self.view.frame.origin.y -= keyboardSize.height + bottonGap
+//        }
+//    }
+//}
+//
+//@objc func keyboardWillHide(notification: NSNotification) {
+//    if self.view.frame.origin.y != 0 {
+//        self.view.frame.origin.y = 0
+//    }
+//}
+
