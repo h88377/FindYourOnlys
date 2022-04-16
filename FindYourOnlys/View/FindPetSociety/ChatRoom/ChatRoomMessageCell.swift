@@ -9,6 +9,8 @@ import UIKit
 
 class ChatRoomMessageCell: UITableViewCell {
     
+    @IBOutlet weak var userImageView: UIImageView!
+    
     @IBOutlet weak var friendImageView: UIImageView!
     
     @IBOutlet weak var contentLabel: UILabel!
@@ -24,6 +26,11 @@ class ChatRoomMessageCell: UITableViewCell {
         : false
         
         friendImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        
+        userImageView.isHidden = friendImageView.isHidden
+        ? false
+        : true
+        userImageView.loadImage(UserFirebaseManager.shared.currentUserImageURL, placeHolder: UIImage.system(.personPlaceHolder))
         
         if
             let content = viewModel.message.content {

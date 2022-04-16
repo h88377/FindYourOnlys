@@ -80,11 +80,6 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
                 
         else { return }
         
-        viewModel.didSelecteRowHandler = { [weak self] in
-            
-            
-        }
-        
         let selectedChatRoom = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom
         
         let selectedFriend = viewModel.friendViewModels.value[indexPath.row].user

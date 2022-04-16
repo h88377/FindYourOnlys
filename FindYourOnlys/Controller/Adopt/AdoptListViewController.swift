@@ -107,7 +107,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
         
-        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = "123"
+        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser
         
         adoptDetaiVC.delegate = adoptFavoriteVC
         
