@@ -32,16 +32,24 @@ class ChatRoomMessageCell: UITableViewCell {
         : true
         userImageView.loadImage(UserFirebaseManager.shared.currentUserImageURL, placeHolder: UIImage.system(.personPlaceHolder))
         
+        
+        messageBubbleView.isHidden = true
+        
+        contentImageView.isHidden = true
         if
-            let content = viewModel.message.content {
+            let content = viewModel.message.content,
+            content != "" {
             
             contentLabel.text = content
             
-        } else if
+            messageBubbleView.isHidden = false
             
+        } else if
             let imageURLString = viewModel.message.contentImageURLString {
             
             contentImageView.loadImage(imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+            
+            contentLabel.isHidden = false
         }
         
     }

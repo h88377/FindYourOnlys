@@ -88,7 +88,7 @@ class PublishViewModel {
             
             let semaphore = DispatchSemaphore(value: 0)
             
-            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: selectedImage, with: self.article.id) { result in
+            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: selectedImage, with: FirebaseCollectionType.article.rawValue) { result in
                 
                 switch result {
                     

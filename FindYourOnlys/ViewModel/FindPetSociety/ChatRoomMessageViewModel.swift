@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class ChatRoomMessageViewModel {
     
@@ -98,9 +99,35 @@ class ChatRoomMessageViewModel {
         message.content = contentText
     }
     
-    func changeContent(with contextImage: UIImage) {
-        
-        //fetchImageURLString with image
+    func changeContent(with contextImage: UIImage, completion: @escaping (Error?) -> Void) {
+          
+        DispatchQueue.global().async {
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: contextImage, with: FirebaseCollectionType.message.rawValue) { result in
+                
+                switch result {
+                    
+                case .success(let url):
+                    
+                    self.message.contentImageURLString = "\(url)"
+                    
+                case .failure(let error):
+                    
+                    completion(error)
+                }
+                semaphore.signal()
+            }
+            
+            semaphore.wait()
+            PetSocietyFirebaseManager.shared.sendMessage(UserFirebaseManager.shared.currentUser, with: &self.message) { error in
+                
+                completion(error)
+                
+                semaphore.signal()
+            }
+        }
     }
     
     // MARK: - Convert functions

@@ -146,16 +146,23 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
+    func showAlertWindow(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
+    
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: ChatRoomMessageCell.identifier)
     }
     
-    @IBAction func openCamera(_ sender: UIButton) {
-    }
-    
-    @IBAction func openGallery(_ sender: UIButton) {
-    }
+   
     
     @IBAction func sendMessage(_ sender: UIButton) {
         
@@ -217,6 +224,71 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        dismiss(animated: true)
+        
+        if
+            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            
+            viewModel.changeContent(with: editedImage) { error in
+                
+                print(error)
+            }
+            
+        } else if
+            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        
+            viewModel.changeContent(with: image) { error in
+                
+                print(error)
+            }
+        }
+    }
+    
+    @IBAction func openCamera(_ sender: UIButton) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            
+            imagePicker.allowsEditing = false
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+
+            showAlertWindow(title: "異常訊息", message: "你的裝置沒有相機喔！")
+        }
+    }
+    
+    @IBAction func openGallery(_ sender: UIButton) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            
+            imagePicker.allowsEditing = true
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+            
+            showAlertWindow(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！")
+        }
+    }
+}
 
 
 // Fix keyboard appear view will over the screen issue
