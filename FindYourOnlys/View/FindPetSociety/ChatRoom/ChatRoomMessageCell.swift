@@ -19,6 +19,8 @@ class ChatRoomMessageCell: UITableViewCell {
     
     @IBOutlet weak var messageBubbleView: UIView!
     
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    
     func configureCell(with viewModel: MessageViewModel, friend: User) {
         
         friendImageView.isHidden = UserFirebaseManager.shared.currentUser == viewModel.message.senderId
@@ -44,12 +46,16 @@ class ChatRoomMessageCell: UITableViewCell {
             
             messageBubbleView.isHidden = false
             
+            imageViewHeightConstraint.constant = 0
+            
         } else if
             let imageURLString = viewModel.message.contentImageURLString {
             
             contentImageView.loadImage(imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
             
-            contentLabel.isHidden = false
+            contentImageView.isHidden = false
+            
+            imageViewHeightConstraint.constant = 150
         }
         
     }
