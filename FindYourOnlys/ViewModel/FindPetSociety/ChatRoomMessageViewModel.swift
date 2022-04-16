@@ -12,9 +12,9 @@ class ChatRoomMessageViewModel {
     
     let messageViewModels = Box([MessageViewModel]())
     
-    private var selectedChatRoomId: String?
+    private var selectedChatRoom: ChatRoom?
     
-    var selectedFriendURLString: String?
+    var selectedFriend: User?
     
     var message = Message(
         chatRoomId: "", senderId: "", content: "",
@@ -61,7 +61,7 @@ class ChatRoomMessageViewModel {
     func fetchMessage(completion: @escaping (Error?) -> Void) {
         
         guard
-            let selectedChatRoomId = selectedChatRoomId else { return }
+            let selectedChatRoomId = selectedChatRoom?.id else { return }
         
         PetSocietyFirebaseManager.shared.fetchMessage(with: selectedChatRoomId) { [weak self] result in
             
@@ -71,8 +71,6 @@ class ChatRoomMessageViewModel {
                 
                 self?.setMessages(messages)
                 
-//                self?.scrollToBottom()
-                
             case .failure(let error):
                 
                 completion(error)
@@ -81,17 +79,17 @@ class ChatRoomMessageViewModel {
         
     }
     
-    func changedSelectedChatId(with selectedChatRoomId: String) {
+    func changedSelectedChatRoom(with selectedChatRoom: ChatRoom) {
         
-        self.selectedChatRoomId = selectedChatRoomId
+        self.selectedChatRoom = selectedChatRoom
         
-        message.chatRoomId = selectedChatRoomId
+        message.chatRoomId = selectedChatRoom.id
         
     }
     
-    func changedSelectedFriendURLString(with selectedFriendURLString: String) {
+    func changedSelectedFriend(with selectedFriend: User) {
         
-        self.selectedFriendURLString = selectedFriendURLString
+        self.selectedFriend = selectedFriend
         
     }
     

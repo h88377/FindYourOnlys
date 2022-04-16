@@ -129,7 +129,7 @@ class ChatRoomMessageViewController: BaseViewController {
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         
-        navigationItem.title = "聊天室"
+        navigationItem.title = viewModel.selectedFriend?.nickName
     }
 
     
@@ -185,13 +185,13 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
         
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: ChatRoomMessageCell.identifier, for: indexPath) as? ChatRoomMessageCell,
-            let selectedFriendImageURLString = viewModel.selectedFriendURLString
+            let selectedFriend = viewModel.selectedFriend
                 
         else { return UITableViewCell() }
         
         let cellViewModel = viewModel.messageViewModels.value[indexPath.row]
         
-        cell.configureCell(with: cellViewModel, friendImageURLString: selectedFriendImageURLString)
+        cell.configureCell(with: cellViewModel, friend: selectedFriend)
         
         return cell
     }
