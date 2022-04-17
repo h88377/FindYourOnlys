@@ -10,11 +10,33 @@ import UIKit
 
 class AdoptCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var baseView: UIView!
     
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var photoImageView: UIImageView! {
+        
+        didSet {
+            
+            photoImageView.tintColor = .systemGray2
+            
+            photoImageView.backgroundColor = .white
+        }
+    }
     
-    @IBOutlet weak var kindLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel! {
+        
+        didSet {
+            
+            cityLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
+    
+    @IBOutlet weak var kindLabel: UILabel! {
+        
+        didSet {
+            
+            kindLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var sexLabel: UILabel!
     
@@ -34,13 +56,21 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         sexLabel.text = viewModel.pet.sex
         
-        varietyLabel.text = viewModel.pet.variety
+//        varietyLabel.text = viewModel.pet.variety
         
-        idLabel.text = "\(viewModel.pet.id)"
+//        idLabel.text = "\(viewModel.pet.id)"
         
         statusLabel.text = viewModel.pet.status
         
         photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        baseView.layer.cornerRadius = 12
+        
+        photoImageView.layer.cornerRadius = 12
     }
     
 }

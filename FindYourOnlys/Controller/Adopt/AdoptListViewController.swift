@@ -59,7 +59,7 @@ class AdoptListViewController: BaseViewController {
 
         flowLayout.itemSize = CGSize(
             width: Int(164.0 / 375.0 * UIScreen.main.bounds.width),
-            height: 400
+            height: 350
         )
 
         flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
