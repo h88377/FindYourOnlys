@@ -21,6 +21,40 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var chatButton: UIButton! {
+        
+        didSet {
+            
+            chatButton.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var addFriendButton: UIButton! {
+        
+        didSet {
+            
+            addFriendButton.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var searchButton: UIButton! {
+        
+        didSet {
+            
+            searchButton.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var addArticleButton: UIButton! {
+        
+        didSet {
+            
+            addArticleButton.tintColor = .systemGray2
+            
+            addArticleButton.backgroundColor = .darkGray
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,9 +84,13 @@ class FindPetSocietyViewController: BaseViewController {
                 
                 return
             }
-            
-                
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        addArticleButton.layer.cornerRadius = addArticleButton.frame.height / 2
     }
     
     override func setupTableView() {

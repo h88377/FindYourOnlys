@@ -69,13 +69,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J2-Ga-0zB">
-                                <rect key="frame" x="177" y="802" width="60" height="60"/>
+                                <rect key="frame" x="334" y="782" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="8qj-js-s50"/>
                                     <constraint firstAttribute="width" constant="60" id="dSR-fa-BKf"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="plus.rectangle.on.folder" catalog="system">
+                                <state key="normal" image="plus" catalog="system">
                                     <color key="titleColor" systemColor="tintColor"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="41"/>
                                 </state>
@@ -89,16 +89,20 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="CU0-Df-4ll" secondAttribute="trailing" id="0Nt-RH-lPn"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="top" secondItem="FMc-Os-2gs" secondAttribute="bottom" id="OMu-tb-Zif"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" id="XBV-PH-ihj"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" constant="20" id="XBV-PH-ihj"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aiE-2h-EOD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8J2-Ga-0zB" secondAttribute="trailing" constant="20" id="bDV-kZ-Ke3"/>
                             <constraint firstItem="FMc-Os-2gs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="lCj-bS-KVG"/>
-                            <constraint firstItem="8J2-Ga-0zB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="ryo-9p-2B0"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="CU0-Df-4ll" secondAttribute="bottom" id="w7s-ko-rlN"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FMc-Os-2gs" secondAttribute="trailing" constant="16" id="y98-h8-bNZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rGw-50-d36"/>
                     <connections>
+                        <outlet property="addArticleButton" destination="8J2-Ga-0zB" id="65V-Oq-ciL"/>
+                        <outlet property="addFriendButton" destination="9XN-eJ-RWz" id="eoz-Rc-55y"/>
+                        <outlet property="chatButton" destination="7TK-h6-ZdP" id="vjr-Ve-lak"/>
+                        <outlet property="searchButton" destination="cG5-xY-Cch" id="VHr-jo-z6m"/>
                         <outlet property="tableView" destination="CU0-Df-4ll" id="Pwf-al-MzS"/>
                     </connections>
                 </viewController>
@@ -506,7 +510,7 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person.badge.plus" catalog="system" width="128" height="124"/>
         <image name="photo" catalog="system" width="128" height="93"/>
-        <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="qrcode" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
