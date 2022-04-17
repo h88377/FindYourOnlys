@@ -82,6 +82,8 @@ class SearchFriendViewController: BaseViewController {
         
     }
     
+    override var isHiddenTabBar: Bool { return true }
+    
     @IBAction func sendFriendRequest(_ sender: UIButton) {
         
         viewModel.sendFriendRequest { error in

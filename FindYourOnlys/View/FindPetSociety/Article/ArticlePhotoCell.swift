@@ -51,7 +51,7 @@ class ArticlePhotoCell: UITableViewCell {
         
         userButton.setImage(userImageView.image, for: .normal)
         
-        userNameLabel.text = viewModel.article.userId
+        userNameLabel.text = authorViewModel.user.nickName
         
         postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         

@@ -37,6 +37,7 @@ class PublishViewController: BaseViewController {
         }
     }
     
+    override var isHiddenTabBar: Bool { return true }
     
     override func setupTableView() {
         
