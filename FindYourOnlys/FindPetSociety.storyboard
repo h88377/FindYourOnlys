@@ -69,15 +69,15 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J2-Ga-0zB">
-                                <rect key="frame" x="334" y="782" width="60" height="60"/>
+                                <rect key="frame" x="344" y="802" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="8qj-js-s50"/>
-                                    <constraint firstAttribute="width" constant="60" id="dSR-fa-BKf"/>
+                                    <constraint firstAttribute="height" constant="50" id="8qj-js-s50"/>
+                                    <constraint firstAttribute="width" constant="50" id="dSR-fa-BKf"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="plus" catalog="system">
                                     <color key="titleColor" systemColor="tintColor"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="41"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="31"/>
                                 </state>
                                 <connections>
                                     <action selector="addArticle:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="49u-K2-1Yx"/>
@@ -89,7 +89,7 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="CU0-Df-4ll" secondAttribute="trailing" id="0Nt-RH-lPn"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="top" secondItem="FMc-Os-2gs" secondAttribute="bottom" id="OMu-tb-Zif"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" constant="20" id="XBV-PH-ihj"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" constant="10" id="XBV-PH-ihj"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aiE-2h-EOD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8J2-Ga-0zB" secondAttribute="trailing" constant="20" id="bDV-kZ-Ke3"/>
                             <constraint firstItem="FMc-Os-2gs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="lCj-bS-KVG"/>

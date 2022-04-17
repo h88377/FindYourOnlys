@@ -40,6 +40,7 @@ private enum Tab: CaseIterable {
         switch self {
 
         case .adopt:
+            
             return UITabBarItem(
                 title: nil,
                 image: UIImage.system(.adoptItem),

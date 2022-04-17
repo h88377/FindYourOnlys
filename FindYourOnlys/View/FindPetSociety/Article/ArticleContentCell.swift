@@ -19,7 +19,20 @@ class ArticleContentCell: UITableViewCell {
     
     @IBOutlet weak var commentCountLabel: UILabel!
     
-    @IBOutlet weak var postTypeLabel: UILabel!
+    @IBOutlet weak var postTypeLabel: UILabel! {
+        
+        didSet {
+            
+            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
+    @IBOutlet weak var locationImage: UIImageView! {
+        
+        didSet {
+            
+            locationImage.tintColor = .systemGray2
+        }
+    }
     
     @IBOutlet weak var cityLabel: UILabel!
     
@@ -35,7 +48,7 @@ class ArticleContentCell: UITableViewCell {
         
         commentCountLabel.text = "\(viewModel.article.comments.count)"
         
-        cityLabel.text = viewModel.article.city
+//        cityLabel.text = viewModel.article.city
         
         kindLabel.text = viewModel.article.petKind
         
@@ -43,19 +56,19 @@ class ArticleContentCell: UITableViewCell {
         
         colorLabel.text = viewModel.article.color
         
-        switch viewModel.article.postType {
-            
-        case 0:
-            
-            postTypeLabel.text = PostType.allCases[0].rawValue
-            
-        case 1:
-            
-            postTypeLabel.text = PostType.allCases[1].rawValue
-            
-        default:
-            
-            postTypeLabel.text = "error type."
-        }   
+//        switch viewModel.article.postType {
+//            
+//        case 0:
+//            
+//            postTypeLabel.text = PostType.allCases[0].rawValue
+//            
+//        case 1:
+//            
+//            postTypeLabel.text = PostType.allCases[1].rawValue
+//            
+//        default:
+//            
+//            postTypeLabel.text = "error type."
+//        }   
     }
 }
