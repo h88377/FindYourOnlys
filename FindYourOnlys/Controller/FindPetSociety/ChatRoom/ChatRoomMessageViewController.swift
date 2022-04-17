@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import IQKeyboardManagerSwift
 
 class ChatRoomMessageViewController: BaseViewController {
     
@@ -57,8 +58,6 @@ class ChatRoomMessageViewController: BaseViewController {
     override var isHiddenTabBar: Bool { return true }
     
     override var isHiddenIQKeyboardToolBar: Bool { return true }
-    
-//    override var isEnableIQKeyboard: Bool { return false }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,6 +116,11 @@ class ChatRoomMessageViewController: BaseViewController {
             self?.checkMessageButton()
         }
         
+        viewModel.enableIQKeyboardHandler = { [weak self] in
+            
+            //Wait handle content out of screen when user tap textView.
+        }
+        
         checkMessageButton()
     }
     
@@ -162,6 +166,7 @@ class ChatRoomMessageViewController: BaseViewController {
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: ChatRoomMessageCell.identifier)
+        
     }
     
    
@@ -188,7 +193,9 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.messageViewModels.value.count
+        viewModel.enableIQKeyboard()
+        
+        return viewModel.messageViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

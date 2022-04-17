@@ -30,6 +30,8 @@ class ChatRoomMessageViewModel {
     
     var endEditMessageHandler: (() -> Void)?
     
+    var enableIQKeyboardHandler: (() -> Void)?
+    
     func editMessage() {
         
         editMessageHandler?()
@@ -48,6 +50,11 @@ class ChatRoomMessageViewModel {
     func scrollToBottom() {
         
         scrollToBottomHandler?()    
+    }
+    
+    func enableIQKeyboard() {
+        
+        enableIQKeyboardHandler?()
     }
     
     func sendMessage(completion: @escaping (Error?) -> Void) {
