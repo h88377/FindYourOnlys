@@ -18,6 +18,18 @@ class UserFirebaseManager {
     
     var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911" }
     
+    var currentUserInfo: User {
+
+        return User(id: "123", nickName: "Wayne", email: "123@email", imageURLString: "",
+                    friends: ["321", "456"], limitedUsers: ["444"])
+    }
+    
+//    var currentUserInfo: User {
+//
+//        return User(id: "321", nickName: "Luke", email: "321@email", imageURLString: "",
+//                    friends: ["123"], limitedUsers: ["444"])
+//    }
+    
     func fetchUser(completion: @escaping (Result<[User], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.user.rawValue)

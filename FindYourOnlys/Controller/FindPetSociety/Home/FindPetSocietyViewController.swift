@@ -97,6 +97,18 @@ class FindPetSocietyViewController: BaseViewController {
         navigationController?.pushViewController(chatRoomFriendListVC, animated: true)
     }
     
+    @IBAction func addFriend(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let addFriendVC = storyboard.instantiateViewController(withIdentifier: AddFriendViewController.identifier) as? AddFriendViewController
+                
+        else { return }
+        
+        navigationController?.pushViewController(addFriendVC, animated: true)
+    }
+    
 }
 
 // MARK: - UITableViewDataSource and Delegate

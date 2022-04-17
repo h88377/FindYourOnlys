@@ -43,6 +43,9 @@
                                             <color key="titleColor" systemColor="tintColor"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                         </state>
+                                        <connections>
+                                            <action selector="addFriend:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="yD7-FD-aJn"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TK-h6-ZdP">
                                         <rect key="frame" x="130" y="0.0" width="40" height="40"/>
@@ -136,7 +139,7 @@
         <!--Search Friend View Controller-->
         <scene sceneID="dTY-6p-j3h">
             <objects>
-                <viewController id="1VF-nO-BQ1" customClass="SearchFriendViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchFriendViewController" id="1VF-nO-BQ1" customClass="SearchFriendViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cAJ-qP-EDO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,24 +186,43 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-9K-nY7">
-                                        <rect key="frame" x="25.5" y="209" width="87" height="30"/>
+                                        <rect key="frame" x="18" y="209" width="102" height="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Invite Button"/>
+                                        <state key="normal" title="request Button"/>
+                                        <connections>
+                                            <action selector="sendFriendRequest:" destination="1VF-nO-BQ1" eventType="touchUpInside" id="4fs-kX-ACu"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OoJ-kg-xcR">
+                                <rect key="frame" x="16" y="174.5" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGray2Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ctj-z9-69D"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="OoJ-kg-xcR" firstAttribute="top" secondItem="2Oz-vz-1Rw" secondAttribute="bottom" constant="20" id="2HA-vs-JDC"/>
                             <constraint firstItem="hyx-B0-4T5" firstAttribute="width" secondItem="cAJ-qP-EDO" secondAttribute="width" multiplier="1/3" id="EtR-fG-p1V"/>
                             <constraint firstItem="PUy-FR-zvI" firstAttribute="centerX" secondItem="cAJ-qP-EDO" secondAttribute="centerX" id="Tch-di-y5d"/>
                             <constraint firstItem="PUy-FR-zvI" firstAttribute="centerY" secondItem="cAJ-qP-EDO" secondAttribute="centerY" id="Zkx-bY-Ab6"/>
                             <constraint firstItem="ctj-z9-69D" firstAttribute="trailing" secondItem="2Oz-vz-1Rw" secondAttribute="trailing" constant="16" id="fO0-U1-une"/>
                             <constraint firstItem="2Oz-vz-1Rw" firstAttribute="top" secondItem="ctj-z9-69D" secondAttribute="top" constant="30" id="rGr-At-6ET"/>
                             <constraint firstItem="2Oz-vz-1Rw" firstAttribute="leading" secondItem="ctj-z9-69D" secondAttribute="leading" constant="16" id="tVE-Xh-pg2"/>
+                            <constraint firstItem="OoJ-kg-xcR" firstAttribute="leading" secondItem="ctj-z9-69D" secondAttribute="leading" constant="16" id="yNi-WN-gDt"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="errorMessageLabel" destination="OoJ-kg-xcR" id="9KN-JI-roJ"/>
+                        <outlet property="requestButton" destination="vnY-9K-nY7" id="1Gi-TQ-7IX"/>
+                        <outlet property="searchTextField" destination="X9Q-co-MBk" id="Z3M-fI-Tcf"/>
+                        <outlet property="statusLabel" destination="eIr-65-oa8" id="L6O-4Q-Kgk"/>
+                        <outlet property="userImageView" destination="hyx-B0-4T5" id="fBH-VJ-jKn"/>
+                        <outlet property="userNickNameLabel" destination="mCt-Zd-SXH" id="7Ai-l3-pSK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZNh-zU-3of" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -209,7 +231,7 @@
         <!--Add Friend View Controller-->
         <scene sceneID="8Yt-zo-4nY">
             <objects>
-                <viewController id="A0n-RD-52A" customClass="AddFriendViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddFriendViewController" id="A0n-RD-52A" customClass="AddFriendViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WBz-Lm-r7n">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -225,6 +247,9 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48"/>
                                         </state>
+                                        <connections>
+                                            <action selector="searchQRCode:" destination="A0n-RD-52A" eventType="touchUpInside" id="caO-LQ-48q"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsO-DR-KGD">
                                         <rect key="frame" x="0.0" y="64.5" width="66" height="20.5"/>
@@ -258,6 +283,9 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48"/>
                                         </state>
+                                        <connections>
+                                            <action selector="searchUserId:" destination="A0n-RD-52A" eventType="touchUpInside" id="dWs-rZ-yP1"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜尋" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aU7-9i-hju">
                                         <rect key="frame" x="11" y="67.5" width="35" height="20.5"/>
@@ -282,6 +310,11 @@
                             <constraint firstItem="Sq1-By-PCY" firstAttribute="centerX" secondItem="Ema-6a-TMr" secondAttribute="leading" multiplier="4" id="o0c-g0-Yj0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="myQRCodeImageView" destination="os1-HY-ECy" id="4Ee-I3-jPA"/>
+                        <outlet property="qrCodeButton" destination="LZC-dE-hCF" id="r8B-vJ-cMV"/>
+                        <outlet property="searchButton" destination="5Qc-aP-Zbp" id="zxN-xI-zJ7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ta3-zB-uIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -480,6 +513,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

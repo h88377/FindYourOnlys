@@ -18,6 +18,8 @@ enum FirebaseCollectionType: String {
     case chatRoom
     
     case message
+    
+    case friendRequest
 }
 
 enum PostType: String, CaseIterable {
@@ -34,4 +36,18 @@ enum PetKind: String, CaseIterable {
     case dog = "狗狗"
     
     case others = "其他"
+}
+
+
+enum SearchFriendResult: String {
+    
+    case friend = "已加入好友"
+    
+    case noRelativeId = "查無此 User ID 的使用者"
+    
+    case sentRequest = "已傳送好友邀請"
+    
+    case receivedRequest = "待接受好友邀請"
+    
+    case limitedUser = "封鎖名單使用者"
 }
