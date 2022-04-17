@@ -21,6 +21,8 @@ class ChatRoomFriendListViewController: BaseViewController {
     
     let viewModel = ChatRoomFriendListViewModel()
     
+    override var isHiddenTabBar: Bool { return true }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +48,12 @@ class ChatRoomFriendListViewController: BaseViewController {
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: ChatRoomFriendListCell.identifier)   
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "聊天室"
     }
 }
 
@@ -89,5 +97,7 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         chatRoomMessageVC.viewModel.changedSelectedFriend(with: selectedFriend)
         
         navigationController?.pushViewController(chatRoomMessageVC, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }

@@ -15,7 +15,13 @@ class ChatRoomMessageCell: UITableViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
     
-    @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet weak var contentImageView: UIImageView! {
+        
+        didSet {
+            
+            contentImageView.tintColor = .systemGray2
+        }
+    }
     
     @IBOutlet weak var messageBubbleView: UIView!
     
@@ -58,5 +64,17 @@ class ChatRoomMessageCell: UITableViewCell {
             imageViewHeightConstraint.constant = 150
         }
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+
+        friendImageView.layer.cornerRadius = userImageView.frame.height / 2
+        
+        messageBubbleView.layer.cornerRadius = 12
+        
+        contentImageView.layer.cornerRadius = 12
     }
 }
