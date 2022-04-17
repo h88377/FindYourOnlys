@@ -21,7 +21,7 @@ class UserFirebaseManager {
     var currentUserInfo: User {
 
         return User(id: "123", nickName: "Wayne", email: "123@email", imageURLString: "",
-                    friends: ["321", "456"], limitedUsers: ["444"])
+                    friends: ["321", "456", "654"], limitedUsers: ["444"])
     }
     
 //    var currentUserInfo: User {
