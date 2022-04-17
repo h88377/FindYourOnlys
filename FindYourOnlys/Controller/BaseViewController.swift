@@ -124,7 +124,7 @@ class BaseViewController: UIViewController {
     
     func setupNavigationTitle() {
 
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.systemBlue]
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         
         navigationController?.navigationBar.titleTextAttributes = textAttributes
 

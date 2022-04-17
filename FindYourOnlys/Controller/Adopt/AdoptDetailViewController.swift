@@ -20,9 +20,52 @@ class AdoptDetailViewController: BaseViewController {
     
     var didLogin: Bool = true
     
+    override var isHiddenTabBar: Bool { return true }
+    
+    override var isHiddenNavigationBar: Bool { return true }
+    
+    @IBOutlet weak var baseView: UIView!
+    
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton! {
+        
+        didSet {
+            
+            favoriteButton.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var phoneCallButton: UIButton! {
+        
+        didSet {
+            
+            phoneCallButton.setTitleColor(.gray, for: .highlighted)
+            
+            phoneCallButton.setTitleColor(.black, for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var checkLocationButton: UIButton! {
+        
+        didSet {
+            
+            checkLocationButton.setTitleColor(.gray, for: .highlighted)
+            
+            checkLocationButton.setTitleColor(.black, for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var backButton: UIButton! {
+        
+        didSet {
+            
+            backButton.tintColor = .systemGray2
+        }
+    }
+    
+
+    
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -78,6 +121,20 @@ class AdoptDetailViewController: BaseViewController {
         photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString)
     }
  
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+    }
+    
+    
+    override func setupTableView() {
+        
+        tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: AdoptDetailDecriptionTableViewCell.identifier)
+    }
+    
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
         if !didLogin {
@@ -119,13 +176,11 @@ class AdoptDetailViewController: BaseViewController {
         viewModel.makePhoneCall(self)
     }
     
-    override func setupTableView() {
+    
+    @IBAction func back(_ sender: UIButton) {
         
-        tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: AdoptDetailDecriptionTableViewCell.identifier)
+        navigationController?.popViewController(animated: true)
     }
-
 }
 
 // MARK: - UITableViewDelegate & DataSource
@@ -159,6 +214,18 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             return adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
 //            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, pet: cellViewModel.pet)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 0 {
+            
+            return 170
+            
+        } else {
+            
+            return tableView.estimatedRowHeight
         }
     }
 }

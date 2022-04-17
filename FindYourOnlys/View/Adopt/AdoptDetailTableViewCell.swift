@@ -17,6 +17,8 @@ class AdoptDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var varietyLabel: UILabel!
     
+    @IBOutlet var baseViews: [UIView]!
+    
     func configureCell(with viewModel: PetViewModel) {
         
         kindLabel.text = viewModel.pet.kind
@@ -28,4 +30,9 @@ class AdoptDetailTableViewCell: UITableViewCell {
         statusLabel.text = viewModel.pet.status
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        baseViews.forEach { $0.layer.cornerRadius = 15 }
+    }
 }

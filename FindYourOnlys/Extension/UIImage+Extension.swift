@@ -25,6 +25,12 @@ enum SystemImageAsset: String {
     
     case petPlaceHolder = "questionmark.circle"
     
+    // Favorite
+    
+    case addToFavorite = "heart"
+    
+    case removeFromFavorite = "heart.fill"
+    
     case search = "magnifyingglass"
 }
 
