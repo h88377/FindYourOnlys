@@ -9,9 +9,21 @@ import UIKit
 
 class AddFriendViewController: BaseViewController {
     
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton! {
+        
+        didSet {
+            
+            searchButton.imageView?.tintColor = .systemGray2
+        }
+    }
     
-    @IBOutlet weak var qrCodeButton: UIButton!
+    @IBOutlet weak var qrCodeButton: UIButton! {
+        
+        didSet {
+            
+            qrCodeButton.imageView?.tintColor = .systemGray2
+        }
+    }
     
     @IBOutlet weak var myQRCodeImageView: UIImageView!
     
@@ -20,16 +32,13 @@ class AddFriendViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.searchUserIdHander = { [weak self] in
-            
-            
-        }
+ 
         
     }
     
+    override var isHiddenTabBar: Bool { return true }
+    
     @IBAction func searchUserId(_ sender: UIButton) {
-        
-//        viewModel.searchUserId()
         
         let storyboard = UIStoryboard.findPetSociety
         
