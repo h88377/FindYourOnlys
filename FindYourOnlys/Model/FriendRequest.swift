@@ -9,9 +9,9 @@ import Foundation
 
 struct FriendRequest: Codable {
     
-    let requestUserId: String
+    var requestUserId: String
     
-    let requestedUserId: String
+    var requestedUserId: String
     
-    let createdTime: TimeInterval
+    var createdTime: TimeInterval
 }
