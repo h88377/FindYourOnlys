@@ -20,7 +20,10 @@ class ArticlePhotoCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        userButton.layer.cornerRadius = userButton.frame.height / 2
+        guard
+            let imageView = userButton.imageView else { return }
+        
+        userButton.imageView?.layer.cornerRadius = imageView.layer.frame.height / 2
     }
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
