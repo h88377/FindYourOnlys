@@ -17,6 +17,23 @@ class ArticlePhotoCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var postTypeLabel: UILabel! {
+        
+        didSet {
+            
+            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
+    @IBOutlet weak var locationImage: UIImageView! {
+        
+        didSet {
+            
+            locationImage.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var cityLabel: UILabel!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -39,6 +56,23 @@ class ArticlePhotoCell: UITableViewCell {
         postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         
         timeLabel.text = formateTime(with: viewModel.article.createdTime)
+        
+        cityLabel.text = viewModel.article.city
+        
+        switch viewModel.article.postType {
+            
+        case 0:
+            
+            postTypeLabel.text = PostType.allCases[0].rawValue
+            
+        case 1:
+            
+            postTypeLabel.text = PostType.allCases[1].rawValue
+            
+        default:
+            
+            postTypeLabel.text = "error type."
+        }   
     }
     
     func formateTime(with time: TimeInterval) -> String {
