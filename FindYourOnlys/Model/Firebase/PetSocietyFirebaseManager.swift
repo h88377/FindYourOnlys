@@ -193,6 +193,41 @@ class PetSocietyFirebaseManager {
         }
     }
     
+    // MARK: - Friend
+    
+    func fetchFriendRequest(with userId: String, completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.friendRequest.rawValue)
+            .order(by: "createdTime", descending: false)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else { return }
+                
+                var friendRequests = [FriendRequest]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let friendRequest = try document.data(as: FriendRequest.self)
+                        
+                        if friendRequest.requestUserId == userId || friendRequest.reqeustedUserId == userId {
+                            
+                            friendRequests.append(friendRequest)
+                        }
+                    }
+                    catch {
+                        
+                        completion(.failure(error))
+                    }
+                }
+                
+                completion(.success(friendRequests))
+            }
+        
+    }
+    
     // MARK: - Convert functions
 
     private func convertArticlesToViewModels(from articles: [Article]) -> [ArticleViewModel] {
