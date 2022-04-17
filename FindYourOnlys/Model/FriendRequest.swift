@@ -11,7 +11,7 @@ struct FriendRequest: Codable {
     
     let requestUserId: String
     
-    let reqeustedUserId: String
+    let requestedUserId: String
     
     let createdTime: TimeInterval
 }
