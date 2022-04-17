@@ -157,7 +157,10 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         let registeredCellCount = 2
         
         guard
-            viewModel.authorViewModels.value.count > 0 else { return 0 }
+            viewModel.authorViewModels.value.count > 0,
+            viewModel.articleViewModels.value.count == viewModel.authorViewModels.value.count
+                
+        else { return 0 }
         
         return viewModel.articleViewModels.value.count * registeredCellCount
     }

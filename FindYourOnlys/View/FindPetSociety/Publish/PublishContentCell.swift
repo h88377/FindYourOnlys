@@ -28,6 +28,22 @@ class PublishContentCell: PublishBasicCell {
         }
     }
     
+    @IBOutlet weak var cameraButton: UIButton! {
+        
+        didSet {
+            
+            cameraButton.tintColor = .systemGray2
+        }
+    }
+    @IBOutlet weak var galleryButton: UIButton! {
+        
+        didSet {
+            
+            galleryButton.tintColor = .systemGray2
+        }
+    }
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

@@ -123,6 +123,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    
 }
 
 // MARK: - PublishSelectionCellDelegate
