@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 class SearchFriendViewModel {
     
@@ -15,6 +16,10 @@ class SearchFriendViewModel {
     var user = User(
         id: "", nickName: "", email: "",
         imageURLString: "", friends: [], limitedUsers: []
+    )
+    
+    var friendRequest = FriendRequest(
+        requestUserId: "", requestedUserId: "", createdTime: -1
     )
     
     func searchUserId(with userId: String, completion: @escaping (Result<SearchFriendResult, Error>) -> Void) {
@@ -85,6 +90,22 @@ class SearchFriendViewModel {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func sendFriendRequest(completion: @escaping (Error?) -> Void) {
+        
+        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { error in
+            
+            if error != nil {
+                
+                completion(error)
+                
+            } else {
+                completion(nil)
+            }
+            
+        }
+        
     }
     
 }

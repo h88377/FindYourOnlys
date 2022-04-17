@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SearchFriendViewController: BaseViewController {
     
@@ -74,18 +75,26 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
-    
     let viewModel = SearchFriendViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
     
     @IBAction func sendFriendRequest(_ sender: UIButton) {
         
-        
+        viewModel.sendFriendRequest { error in
+            
+            if error != nil { print(error)
+                
+            } else {
+                
+                sender.isEnabled = false
+                
+                sender.setTitle(SearchFriendResult.sentRequest.rawValue, for: .disabled)
+            }
+        }
     }
     
     func toggleSearchedUserInfo(isExisted: Bool) {

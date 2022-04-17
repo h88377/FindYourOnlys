@@ -228,6 +228,27 @@ class PetSocietyFirebaseManager {
         
     }
     
+    func sendFriendRequest(_ userId: String, with friendRequest: inout FriendRequest, completion: @escaping (Error?) -> Void) {
+        
+        let documentReference = db.collection(FirebaseCollectionType.friendRequest.rawValue).document()
+        
+        do {
+            
+            friendRequest.requestUserId = UserFirebaseManager.shared.currentUser
+            
+            friendRequest.requestedUserId = userId
+            
+            friendRequest.createdTime = NSDate().timeIntervalSince1970
+            
+            try documentReference.setData(from: friendRequest)
+        }
+        
+        catch {
+            
+            completion(error)
+        }
+    }
+    
     // MARK: - Convert functions
 
     private func convertArticlesToViewModels(from articles: [Article]) -> [ArticleViewModel] {
