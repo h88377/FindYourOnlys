@@ -48,9 +48,9 @@ class PublishKindCell: PublishBasicCell {
 
         button.setTitle(title, for: .normal)
         
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.systemGray2, for: .normal)
         
-        button.setTitleColor(.red, for: .selected)
+        button.setTitleColor(.black, for: .selected)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         

@@ -9,7 +9,13 @@ import UIKit
 
 class PublishUserCell: PublishBasicCell {
     
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView! {
+        
+        didSet {
+            
+            userImageView.tintColor = .systemGray2
+        }
+    }
     
     @IBOutlet weak var userNickName: UILabel!
     
@@ -18,7 +24,7 @@ class PublishUserCell: PublishBasicCell {
     
     override func layoutCell() {
         
-        userImageView.loadImage("wait fetch userPhoto", placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(UserFirebaseManager.shared.currentUserImageURL, placeHolder: UIImage.system(.personPlaceHolder))
         
         userNickName.text = UserFirebaseManager.shared.currentUser
 
@@ -39,5 +45,11 @@ class PublishUserCell: PublishBasicCell {
         let dateString = formatter.string(from: date as Date)
         
         return dateString
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
     }
 }

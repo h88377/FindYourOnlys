@@ -24,7 +24,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Gs-cn-kbY">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Gs-cn-kbY">
                         <rect key="frame" x="16" y="64" width="407" height="350"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="350" id="YlN-MP-DxT"/>
@@ -37,7 +37,7 @@
                             <constraint firstAttribute="height" constant="150" id="F0M-SY-pFC"/>
                         </constraints>
                         <color key="textColor" systemColor="labelColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="內文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cE5-JW-0cb">
@@ -93,8 +93,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="cameraButton" destination="fT2-EQ-SbR" id="cZe-yy-loI"/>
                 <outlet property="contentImageView" destination="9Gs-cn-kbY" id="eRJ-7B-3yG"/>
                 <outlet property="contentTextView" destination="JZT-Wg-e6F" id="202-H1-fuu"/>
+                <outlet property="galleryButton" destination="ckv-Oa-S3d" id="XuJ-Wy-dQv"/>
             </connections>
             <point key="canvasLocation" x="-123.91304347826087" y="327.79017857142856"/>
         </tableViewCell>
