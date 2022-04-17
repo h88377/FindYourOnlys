@@ -186,9 +186,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-9K-nY7">
-                                        <rect key="frame" x="18" y="209" width="102" height="30"/>
+                                        <rect key="frame" x="23" y="209" width="92" height="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="request Button"/>
+                                        <state key="normal" title="發送好友邀請"/>
                                         <connections>
                                             <action selector="sendFriendRequest:" destination="1VF-nO-BQ1" eventType="touchUpInside" id="4fs-kX-ACu"/>
                                         </connections>

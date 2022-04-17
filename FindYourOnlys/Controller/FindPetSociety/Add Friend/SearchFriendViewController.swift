@@ -29,6 +29,8 @@ class SearchFriendViewController: BaseViewController {
             searchTextField.rightView = button
             
             searchTextField.rightViewMode = .always
+            
+            searchTextField.placeholder = "請輸入 User ID 查詢使用者"
         }
     }
     
@@ -61,8 +63,6 @@ class SearchFriendViewController: BaseViewController {
         didSet {
             
             requestButton.isHidden = true
-            
-            
         }
     }
     
@@ -79,11 +79,13 @@ class SearchFriendViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
     }
     
     @IBAction func sendFriendRequest(_ sender: UIButton) {
+        
+        
     }
     
     func toggleSearchedUserInfo(isExisted: Bool) {
@@ -95,6 +97,8 @@ class SearchFriendViewController: BaseViewController {
         statusLabel.isHidden = !isExisted
         
         requestButton.isHidden = !isExisted
+        
+        requestButton.isEnabled = isExisted
         
         errorMessageLabel.isHidden = isExisted
     }
@@ -110,8 +114,45 @@ class SearchFriendViewController: BaseViewController {
         statusLabel.text = result.rawValue
         
         errorMessageLabel.text = result.rawValue
+        
+        switch result {
+            
+        case .currentUser:
+            
+            requestButton.isHidden = true
+            
+        case .friend:
+            
+            requestButton.isHidden = true
+            
+        case .normalUser:
+            
+            requestButton.isHidden = false
+            
+        case .noRelativeId:
+            
+            requestButton.isHidden = true
+            
+        case .sentRequest:
+            
+            requestButton.isEnabled = false
+            
+            requestButton.setTitleColor(.systemGray2, for: .disabled)
+            
+        case .receivedRequest:
+            
+            requestButton.isEnabled = false
+            
+            requestButton.setTitleColor(.systemGray2, for: .disabled)
+            
+        case .limitedUser:
+            
+            requestButton.isEnabled = false
+            
+            requestButton.setTitleColor(.systemGray2, for: .disabled)
+        }
     }
-
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -135,11 +176,23 @@ extension SearchFriendViewController: UITextFieldDelegate {
                     
                     switch searchResult {
                         
+                    case .currentUser:
+                        
+                        self.toggleSearchedUserInfo(isExisted: true)
+                        
+                        self.updateSearchedUserInfo(with: self.viewModel, result: .currentUser)
+                        
                     case .friend:
                         
                         self.toggleSearchedUserInfo(isExisted: true)
                         
                         self.updateSearchedUserInfo(with: self.viewModel, result: .friend)
+                        
+                    case .normalUser:
+                        
+                        self.toggleSearchedUserInfo(isExisted: true)
+                        
+                        self.updateSearchedUserInfo(with: self.viewModel, result: .normalUser)
                         
                     case .noRelativeId:
                         

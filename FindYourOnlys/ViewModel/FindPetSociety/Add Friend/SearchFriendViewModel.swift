@@ -37,6 +37,10 @@ class SearchFriendViewModel {
                             
                             completion(.success(.limitedUser))
                             
+                        } else if userId  == UserFirebaseManager.shared.currentUser{
+                            
+                            completion(.success(.currentUser))
+                            
                         } else {
                             
                             PetSocietyFirebaseManager.shared.fetchFriendRequest(with: userId) { result in
@@ -45,16 +49,21 @@ class SearchFriendViewModel {
                                     
                                 case .success(let requests):
                                     
+                                    if requests.count == 0 {
+                                        
+                                        completion(.success(.normalUser))
+                                    }
+                                    
                                     for request in requests {
                                         
                                         if request.requestUserId == userId {
                                             
                                             completion(.success(.sentRequest))
                                             
-                                        } else if request.reqeustedUserId == userId {
+                                        } else if request.requestedUserId == userId {
                                             
                                             completion(.success(.receivedRequest))
-                                        }   
+                                        }
                                     }
                                     
                                 case .failure(let error):

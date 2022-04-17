@@ -212,7 +212,7 @@ class PetSocietyFirebaseManager {
                         
                         let friendRequest = try document.data(as: FriendRequest.self)
                         
-                        if friendRequest.requestUserId == userId || friendRequest.reqeustedUserId == userId {
+                        if friendRequest.requestUserId == userId || friendRequest.requestedUserId == userId {
                             
                             friendRequests.append(friendRequest)
                         }
