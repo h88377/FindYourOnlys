@@ -11,11 +11,6 @@ import FirebaseFirestoreSwift
 
 class FavoritePetFirebaseManager {
     
-    private enum FirebaseCollectionType: String {
-        
-        case favoritePet
-    }
-    
     static let shared = FavoritePetFirebaseManager()
     
     let db = Firestore.firestore()
