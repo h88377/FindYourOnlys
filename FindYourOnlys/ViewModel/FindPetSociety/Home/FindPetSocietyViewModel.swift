@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit.UIImage
 
 class FindPetSocietyViewModel {
     

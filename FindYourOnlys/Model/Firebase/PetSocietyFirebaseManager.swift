@@ -249,6 +249,8 @@ class PetSocietyFirebaseManager {
         }
     }
     
+    
+    
     // MARK: - Convert functions
 
     private func convertArticlesToViewModels(from articles: [Article]) -> [ArticleViewModel] {
@@ -268,6 +270,7 @@ class PetSocietyFirebaseManager {
         
         viewModels.value = convertArticlesToViewModels(from: articles)
     }
+    
 }
 
 
