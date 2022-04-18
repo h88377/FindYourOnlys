@@ -27,16 +27,21 @@ class AddFriendViewController: BaseViewController {
     
     @IBOutlet weak var myQRCodeImageView: UIImageView!
     
+    override var isHiddenTabBar: Bool { return true }
+    
     let viewModel = AddFriendViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
- 
-        
     }
     
-    override var isHiddenTabBar: Bool { return true }
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "新增好友"
+    }
+    
     
     @IBAction func searchUserId(_ sender: UIButton) {
         

@@ -75,6 +75,8 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
+    override var isHiddenTabBar: Bool { return true }
+    
     let viewModel = SearchFriendViewModel()
     
     override func viewDidLoad() {
@@ -82,7 +84,11 @@ class SearchFriendViewController: BaseViewController {
         
     }
     
-    override var isHiddenTabBar: Bool { return true }
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "搜尋好友"
+    }
     
     @IBAction func sendFriendRequest(_ sender: UIButton) {
         
