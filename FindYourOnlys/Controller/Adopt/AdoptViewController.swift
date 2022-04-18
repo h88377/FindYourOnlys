@@ -12,7 +12,7 @@ protocol AdoptViewControllerDelegate: AnyObject {
     func fetchFavoritePet()
 }
 
-class AdoptViewController: UIViewController {
+class AdoptViewController: BaseViewController {
     
     private enum AdoptButtonType: String {
         
@@ -52,6 +52,12 @@ class AdoptViewController: UIViewController {
     var containerViews: [UIView] {
         
         [adoptListContainerView, adoptFavoriteContainerView]
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "領養資訊"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

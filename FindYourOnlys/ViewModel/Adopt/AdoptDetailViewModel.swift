@@ -19,7 +19,7 @@ class AdoptDetailViewModel {
     
     var didLogin: Bool = true
     
-    let adoptDetailDescription = AdoptDetailDescription.allCases
+    let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     
     let favoriteLSPetViewModels = Box([FavoriteLSPetViewModel]())
     
@@ -137,7 +137,7 @@ class AdoptDetailViewModel {
     
     func addToFavoriteInFB(completion: @escaping (Error?) -> Void) {
         
-        FavoritePetFirebaseManager.shared.saveFavoritePet("123", with: petViewModel.value) { error in
+        FavoritePetFirebaseManager.shared.saveFavoritePet(UserFirebaseManager.shared.currentUser, with: petViewModel.value) { error in
             
             completion(error)
         }
@@ -153,7 +153,9 @@ class AdoptDetailViewModel {
     // Use for AdoptDetailVC viewDidLoad
     func checkFavoriteButton(with favoriteButton: UIButton) {
         
-        favoriteButton.setTitle(FavoriteType.add.rawValue, for: .normal)
+//        favoriteButton.setTitle(FavoriteType.add.rawValue, for: .normal)
+        
+        favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
         
         if !didLogin {
             
@@ -161,7 +163,9 @@ class AdoptDetailViewModel {
                 
                 if favoriteLSPetViewModel.lsPet.id == petViewModel.value.pet.id {
                     
-                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
+//                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
+                    
+                    favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
                     
                     break
                 }
@@ -173,7 +177,9 @@ class AdoptDetailViewModel {
                 
                 if favoritePetViewModel.pet.id == petViewModel.value.pet.id {
                     
-                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
+//                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
+                    
+                    favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
                     
                     break
                 }
@@ -186,7 +192,9 @@ class AdoptDetailViewModel {
     func toggleFavoriteButton(with favoriteButton: UIButton, completion: @escaping (Error?) -> Void) {
         
         // Save data
-        if favoriteButton.currentTitle == FavoriteType.add.rawValue {
+        if favoriteButton.currentImage == UIImage.system(.addToFavorite)
+//        if favoriteButton.currentTitle == FavoriteType.add.rawValue
+        {
             
             if !didLogin {
                 
@@ -213,10 +221,16 @@ class AdoptDetailViewModel {
             }
         }
         
-        favoriteButton.setTitle(
-            favoriteButton.currentTitle == FavoriteType.add.rawValue
-            ? FavoriteType.remove.rawValue
-            : FavoriteType.add.rawValue, for: .normal
+//        favoriteButton.setTitle(
+//            favoriteButton.currentTitle == FavoriteType.add.rawValue
+//            ? FavoriteType.remove.rawValue
+//            : FavoriteType.add.rawValue, for: .normal
+//        )
+        
+        favoriteButton.setImage(
+            favoriteButton.currentImage == UIImage.system(.addToFavorite)
+            ? UIImage.system(.removeFromFavorite)
+            : UIImage.system(.addToFavorite), for: .normal
         )
     }
     

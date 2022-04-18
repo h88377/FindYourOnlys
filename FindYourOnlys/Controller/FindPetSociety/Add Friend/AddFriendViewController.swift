@@ -1,0 +1,57 @@
+//
+//  AddFriendViewController.swift
+//  FindYourOnlys
+//
+//  Created by 鄭昭韋 on 2022/4/17.
+//
+
+import UIKit
+
+class AddFriendViewController: BaseViewController {
+    
+    @IBOutlet weak var searchButton: UIButton! {
+        
+        didSet {
+            
+            searchButton.imageView?.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var qrCodeButton: UIButton! {
+        
+        didSet {
+            
+            qrCodeButton.imageView?.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var myQRCodeImageView: UIImageView!
+    
+    override var isHiddenTabBar: Bool { return true }
+    
+    let viewModel = AddFriendViewModel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "新增好友"
+    }
+    
+    
+    @IBAction func searchUserId(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        let searchFriendVC = storyboard.instantiateViewController(withIdentifier: SearchFriendViewController.identifier)
+        
+        navigationController?.pushViewController(searchFriendVC, animated: true)
+    }
+    
+    @IBAction func searchQRCode(_ sender: UIButton) {
+    }
+}

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdoptFavoriteViewController: UIViewController {
+class AdoptFavoriteViewController: BaseViewController {
     
     let viewModel = AdoptFavoriteViewModel()
     
@@ -25,8 +25,6 @@ class AdoptFavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupTableView()
         
         if !didLogin {
             
@@ -69,12 +67,11 @@ class AdoptFavoriteViewController: UIViewController {
         
     }
     
-    func setupTableView() {
+    override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: FavoriteTableViewCell.identifier)
         
     }
-    
 }
 
 // MARK: - UITableViewDataSource & Delegate
@@ -114,8 +111,11 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard.adopt
+        
         guard
-            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
+            let adoptDetaiVC = storyboard.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
                 
         else { return }
         

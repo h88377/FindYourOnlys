@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AdoptListViewController: UIViewController {
+class AdoptListViewController: BaseViewController {
     
     let viewModel = AdoptListViewModel()
     
@@ -26,8 +26,6 @@ class AdoptListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupCollectionView()
         
         viewModel.petViewModels.bind { [weak self] pets in
             
@@ -48,7 +46,7 @@ class AdoptListViewController: UIViewController {
         
     }
     
-    private func setupCollectionView() {
+    override func setupCollectionView() {
         
         collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
         
@@ -61,7 +59,7 @@ class AdoptListViewController: UIViewController {
 
         flowLayout.itemSize = CGSize(
             width: Int(164.0 / 375.0 * UIScreen.main.bounds.width),
-            height: 400
+            height: 350
         )
 
         flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
@@ -99,16 +97,17 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let storyboard = UIStoryboard.adopt
+        
         guard
-            let adoptDetaiVC = storyboard?.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController,
-            let adoptFavoriteVC = storyboard?.instantiateViewController(withIdentifier: AdoptFavoriteViewController.identifier) as? AdoptFavoriteViewController
-                
+            let adoptDetaiVC = storyboard.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController,
+            let adoptFavoriteVC = storyboard.instantiateViewController(withIdentifier: AdoptFavoriteViewController.identifier) as? AdoptFavoriteViewController
                 
         else { return }
         
         adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
         
-        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = "123"
+        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser
         
         adoptDetaiVC.delegate = adoptFavoriteVC
         

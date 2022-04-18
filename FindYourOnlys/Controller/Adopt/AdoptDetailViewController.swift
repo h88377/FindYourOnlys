@@ -12,7 +12,7 @@ protocol AdoptDetailViewControllerDelegate: AnyObject {
     func toggleFavorite()
 }
 
-class AdoptDetailViewController: UIViewController {
+class AdoptDetailViewController: BaseViewController {
     
     var viewModel = AdoptDetailViewModel()
     
@@ -20,9 +20,52 @@ class AdoptDetailViewController: UIViewController {
     
     var didLogin: Bool = true
     
+    override var isHiddenTabBar: Bool { return true }
+    
+    override var isHiddenNavigationBar: Bool { return true }
+    
+    @IBOutlet weak var baseView: UIView!
+    
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton! {
+        
+        didSet {
+            
+            favoriteButton.tintColor = .systemGray2
+        }
+    }
+    
+    @IBOutlet weak var phoneCallButton: UIButton! {
+        
+        didSet {
+            
+            phoneCallButton.setTitleColor(.gray, for: .highlighted)
+            
+            phoneCallButton.setTitleColor(.black, for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var checkLocationButton: UIButton! {
+        
+        didSet {
+            
+            checkLocationButton.setTitleColor(.gray, for: .highlighted)
+            
+            checkLocationButton.setTitleColor(.black, for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var backButton: UIButton! {
+        
+        didSet {
+            
+            backButton.tintColor = .systemGray2
+        }
+    }
+    
+
+    
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -36,8 +79,6 @@ class AdoptDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupTableView()
         
         viewModel.petViewModel.bind { [weak self] petViewModels in
             
@@ -80,6 +121,20 @@ class AdoptDetailViewController: UIViewController {
         photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString)
     }
  
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+    }
+    
+    
+    override func setupTableView() {
+        
+        tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: AdoptDetailDecriptionTableViewCell.identifier)
+    }
+    
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
         if !didLogin {
@@ -121,13 +176,11 @@ class AdoptDetailViewController: UIViewController {
         viewModel.makePhoneCall(self)
     }
     
-    func setupTableView() {
+    
+    @IBAction func back(_ sender: UIButton) {
         
-        tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: AdoptDetailDecriptionTableViewCell.identifier)
+        navigationController?.popViewController(animated: true)
     }
-
 }
 
 // MARK: - UITableViewDelegate & DataSource
@@ -135,7 +188,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let adoptDetailDescription = viewModel.adoptDetailDescription
+        let adoptDetailDescription = viewModel.adoptDetailContentCategory
         
         return 1 + adoptDetailDescription.count
     }
@@ -144,7 +197,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
         
         let cellViewModel = viewModel.petViewModel.value
         
-        let adoptDetailDescription = viewModel.adoptDetailDescription
+        let adoptDetailContentCategory = viewModel.adoptDetailContentCategory
         
         if indexPath.item == 0 {
             
@@ -159,8 +212,20 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
         } else {
             
-            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
+            return adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
 //            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, pet: cellViewModel.pet)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 0 {
+            
+            return 170
+            
+        } else {
+            
+            return tableView.estimatedRowHeight
         }
     }
 }
