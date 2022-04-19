@@ -44,6 +44,7 @@
 		9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D948280DBD83003D4A16 /* SearchFriendResult.swift */; };
 		9896D94E280E626A003D4A16 /* PetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D94D280E626A003D4A16 /* PetLocationViewController.swift */; };
 		9896D950280E7E93003D4A16 /* PetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D94F280E7E93003D4A16 /* PetLocationViewModel.swift */; };
+		9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D951280E89D9003D4A16 /* MapAnnotation.swift */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -159,6 +160,7 @@
 		9896D948280DBD83003D4A16 /* SearchFriendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendResult.swift; sourceTree = "<group>"; };
 		9896D94D280E626A003D4A16 /* PetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetLocationViewController.swift; sourceTree = "<group>"; };
 		9896D94F280E7E93003D4A16 /* PetLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetLocationViewModel.swift; sourceTree = "<group>"; };
+		9896D951280E89D9003D4A16 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				9896D8DC28084A49003D4A16 /* User.swift */,
+				9896D951280E89D9003D4A16 /* MapAnnotation.swift */,
 				9896D941280DBCB0003D4A16 /* Adopt */,
 				9896D942280DBCC3003D4A16 /* FindPetSociety */,
 				9896D943280DBCE4003D4A16 /* Profile */,
@@ -893,6 +896,7 @@
 				98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */,
 				98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */,
 				9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */,
+				9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */,
 				9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */,
