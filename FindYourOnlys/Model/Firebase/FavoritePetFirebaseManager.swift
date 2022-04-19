@@ -86,12 +86,9 @@ class FavoritePetFirebaseManager {
                     self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
                     
                 }
-                
             }
-        
         }
     }
-  
 }
 
 //    func addUserIDInFavoritePet(with userID: Int, completion: @escaping (Error?) -> Void) {

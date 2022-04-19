@@ -20,7 +20,7 @@ class ProfileFriendRequestViewModel {
     
     var errorViewModel: Box<ErrorViewModel>?
     
-    func fetchFriendRequest() {
+    func fetchFriendRequestList() {
         
         PetSocietyFirebaseManager.shared.fetchFriendRequest(with: UserFirebaseManager.shared.currentUserInfo.id) { [weak self] result in
             
@@ -87,5 +87,45 @@ class ProfileFriendRequestViewModel {
         }
         
     }
+    
+    func acceptFriendRequest(at indexPath: IndexPath) {
+        
+        // Remove friend request
+        removeFriendRequest(at: indexPath)
+        
+        // Add friend into each user's friend array
+        ProfileFirebaseManager.shared.addFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { error in
+            
+            if
+                let error = error {
+                
+                self.errorViewModel = Box(ErrorViewModel(model: error))
+            }
+        }
+        
+        // Create chatroom (including created time)
+        ProfileFirebaseManager.shared.createChatRoom(with: friendRequestListViewModels.value, at: indexPath) { error in
+            
+            if
+                let error = error {
+                
+                self.errorViewModel = Box(ErrorViewModel(model: error))
+            }
+        }
+    }
+    
+    func removeFriendRequest(at indexPath: IndexPath) {
+        
+        // Remove friend request
+        ProfileFirebaseManager.shared.removeFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { error in
+            
+            if
+                let error = error {
+                
+                self.errorViewModel = Box(ErrorViewModel(model: error))
+            }
+        }
+    }
+    
     
 }

@@ -12,4 +12,6 @@ struct ChatRoom: Codable {
     var id: String
     
     var userIds: [String]
+    
+    var createdTime: TimeInterval
 }

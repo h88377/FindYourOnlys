@@ -21,6 +21,10 @@ class FriendRequestCell: UITableViewCell {
     
     @IBOutlet weak var waitAcceptButton: UILabel!
     
+    var acceptHandler: (() -> Void)?
+    
+    var rejectHandler: (() -> Void)?
+    
     func configureCell(with type: FriendRequestType, user: User) {
         
         nickNameLabel.text = user.nickName
@@ -56,8 +60,20 @@ class FriendRequestCell: UITableViewCell {
     }
     
     @IBAction func accept(_ sender: UIButton) {
+        
+        acceptHandler?()
     }
     
     @IBAction func reject(_ sender: UIButton) {
+        
+        rejectHandler?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        acceptHandler = nil
+        
+        rejectHandler = nil
     }
 }
