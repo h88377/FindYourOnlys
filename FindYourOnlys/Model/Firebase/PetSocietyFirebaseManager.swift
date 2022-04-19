@@ -117,7 +117,7 @@ class PetSocietyFirebaseManager {
     func fetchChatRoom(completion: @escaping (Result<[ChatRoom], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.chatRoom.rawValue)
-            .order(by: "createdTime", descending: false)
+            .order(by: "createdTime", descending: true)
             .addSnapshotListener { snapshot, error in
                 
                 guard
