@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="385" height="88"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8q9-wx-RBW">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8q9-wx-RBW">
                         <rect key="frame" x="16" y="16" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="Mjv-56-O9h"/>
@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="59C-NX-I5C">
-                        <rect key="frame" x="76" y="14" width="124.5" height="54"/>
+                        <rect key="frame" x="76" y="17" width="124.5" height="54"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8F-Yb-DIy">
                                 <rect key="frame" x="0.0" y="0.0" width="124.5" height="20.5"/>
@@ -43,7 +43,7 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="8jQ-zc-WSZ">
-                        <rect key="frame" x="316" y="1" width="53" height="80"/>
+                        <rect key="frame" x="316" y="4" width="53" height="80"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ca4-Hu-SrL">
                                 <rect key="frame" x="0.0" y="0.0" width="53" height="31"/>
@@ -64,7 +64,7 @@
                         </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待接受好友邀請" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Em-cI-JWA">
-                        <rect key="frame" x="247.5" y="31" width="121.5" height="20.5"/>
+                        <rect key="frame" x="247.5" y="34" width="121.5" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -79,7 +79,7 @@
                     <constraint firstAttribute="trailing" secondItem="8jQ-zc-WSZ" secondAttribute="trailing" constant="16" id="PjG-xL-82J"/>
                     <constraint firstItem="59C-NX-I5C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jfl-4Z-B0r"/>
                     <constraint firstItem="5Em-cI-JWA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="urh-wf-IUJ"/>
-                    <constraint firstAttribute="bottom" secondItem="8q9-wx-RBW" secondAttribute="bottom" constant="16" id="wjW-wg-WBf"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8q9-wx-RBW" secondAttribute="bottom" constant="16" id="wjW-wg-WBf"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
