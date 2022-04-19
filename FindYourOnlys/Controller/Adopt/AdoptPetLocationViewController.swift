@@ -82,6 +82,11 @@ class AdoptPetLocationViewController: BaseViewController {
         
         else { return }
         
+        adoptDirectionVC.closeHandler = { [weak self] in
+
+            self?.dismissPicker(adoptDirectionVC)
+        }
+        
         self.adoptDirectionVC = adoptDirectionVC
     }
     
@@ -180,6 +185,25 @@ class AdoptPetLocationViewController: BaseViewController {
                 self?.directionView.frame = CGRect(
                     x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
                 )
+            }
+        )
+    }
+    
+    func dismissPicker(_ controller: AdoptDirectionViewController) {
+
+        let origin = directionView.frame
+
+        let nextFrame = CGRect(x: origin.minX, y: origin.maxY, width: origin.width, height: origin.height)
+
+        UIView.animate(
+            withDuration: 0.3,
+            animations: { [weak self] in
+
+                self?.directionView.frame = nextFrame
+
+            }, completion: { [weak self] _ in
+
+                self?.directionView.removeFromSuperview()
             }
         )
     }
