@@ -24,7 +24,7 @@ class ProfileFriendRequestViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.fetchFriendRequest()
+        viewModel.fetchFriendRequestList()
         
         viewModel.friendRequestListViewModels.bind { [weak self] _ in
             
@@ -72,6 +72,17 @@ extension ProfileFriendRequestViewController: UITableViewDelegate, UITableViewDa
         let cellViewModel = viewModel.friendRequestListViewModels.value[indexPath.section]
         
         cell.configureCell(with: cellViewModel.friendRequestList.type, user: cellViewModel.friendRequestList.users[indexPath.row])
+        
+        cell.acceptHandler = { [weak self] in
+            
+            self?.viewModel.acceptFriendRequest(at: indexPath)
+            
+        }
+        
+        cell.rejectHandler = { [weak self] in
+            
+            self?.viewModel.removeFriendRequest(at: indexPath)
+        }
         
         return cell
     }
