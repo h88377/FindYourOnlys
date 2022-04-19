@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class PetLocationViewModel {
+class AdoptPetLocationViewModel {
     
     var petViewModel = Box(
         PetViewModel(
