@@ -5,7 +5,7 @@
 //  Created by 鄭昭韋 on 2022/4/10.
 //
 
-import UIKit.UIImage
+import Foundation
 
 class AdoptFavoriteViewModel {
     
