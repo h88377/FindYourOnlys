@@ -17,21 +17,38 @@ class AdoptDirectionViewController: BaseViewController {
         
         didSet {
             
-//            tableView.dataSource = self
+            tableView.dataSource = self
         }
     }
     
-    var route: Route?
+    let viewModel = AdoptDirectionViewModel()
     
-    var mapRoutes: [MKRoute] = []
+//    var route: Route?
+//
+//    var mapRoutes: [MKRoute] = []
+//
+//    private var totalDistance: CLLocationDistance = 0
+//
+//    private var totalTravelTime: TimeInterval = 0
+    
+//    private let distanceFormatter = MKDistanceFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        headerLabel.text = route?.label
+        viewModel.directionViewModel.bind(listener: { [weak self] directionViewModel in
+            
+            DispatchQueue.main.async {
+                
+                self?.tableView.reloadData()
+                
+                self?.headerLabel.text = directionViewModel.direction.route.label
+            }
+        })
     }
     
     @IBAction func close(_ sender: UIButton) {
+        
         
     }
     
@@ -44,14 +61,42 @@ class AdoptDirectionViewController: BaseViewController {
 }
 
 // MARK: - UITableViewDataSource
-//extension AdoptDirectionViewController: UITableViewDataSource {
+extension AdoptDirectionViewController: UITableViewDataSource {
     
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//}
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        let directionViewModel = viewModel.directionViewModel
+        
+        return directionViewModel.value.direction.mapRoutes.isEmpty ? 0 : directionViewModel.value.direction.mapRoutes.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let directionViewModel = viewModel.directionViewModel
+        
+        let route = directionViewModel.value.direction.mapRoutes[section]
+        
+        return route.steps.count - 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: DirectionCell.identifier, for: indexPath) as? DirectionCell
+                
+        else { return UITableViewCell() }
+        let directionViewModel = viewModel.directionViewModel
+        
+        cell.configureCell(with: directionViewModel.value, at: indexPath)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
+        
+        return route.name
+    }
+}
 

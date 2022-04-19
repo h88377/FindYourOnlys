@@ -11,9 +11,16 @@ import AVFAudio
 
 class AdoptPetLocationViewController: BaseViewController {
     
+    private struct Segue {
+        
+        static let direction = "SegueDirection"
+    }
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var navigateButton: UIButton!
+    
+    @IBOutlet var directionView: UIView!
     
     let viewModel = AdoptPetLocationViewModel()
     
@@ -29,23 +36,20 @@ class AdoptPetLocationViewController: BaseViewController {
     
     private var route: Route?
     
-//    private var groupedRoutes: [(startItem: MKMapItem, endItem: MKMapItem)] = []
-    
     private var totalDistance: CLLocationDistance = 0
     
     private var totalTravelTime: TimeInterval = 0
     
     private let distanceFormatter = MKDistanceFormatter()
     
-    //    var placemark: Placemark {
-    //
-    //
-    //    }
+    var adoptDirectionVC: AdoptDirectionViewController?
+    
+    override var isHiddenTabBar: Bool { return true }
+    
+    override var isHiddenNavigationBar: Bool { return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        attemptLocationAccess()
         
         mapView.delegate = self
         
@@ -68,6 +72,17 @@ class AdoptPetLocationViewController: BaseViewController {
             self.stopPlace = location
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard
+            segue.identifier == Segue.direction,
+            let adoptDirectionVC = segue.destination as? AdoptDirectionViewController
+        
+        else { return }
+        
+        self.adoptDirectionVC = adoptDirectionVC
     }
     
     private func attemptLocationAccess() {
@@ -94,9 +109,86 @@ class AdoptPetLocationViewController: BaseViewController {
         }
     }
     
+    private func updateView(with mapRoute: MKRoute) {
+        
+      let padding: CGFloat = 8
+        
+      mapView.addOverlay(mapRoute.polyline)
+        
+      mapView.setVisibleMapRect(
+        mapView.visibleMapRect.union(mapRoute.polyline.boundingMapRect),
+        edgePadding: UIEdgeInsets(
+          top: 0,
+          left: padding,
+          bottom: padding,
+          right: padding
+        ),
+        animated: true
+      )
+
+      totalDistance += mapRoute.distance
+      totalTravelTime += mapRoute.expectedTravelTime
+
+//      let informationComponents = [
+//        totalTravelTime.formatted,
+//        "• \(distanceFormatter.string(fromDistance: totalDistance))"
+//      ]
+//      informationLabel.text = informationComponents.joined(separator: " ")
+
+        mapRoutes.append(mapRoute)
+        
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = mapRoutes
+        
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
+        
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+//        guard
+//            let stopPlace = stopPlace,
+//            let currentPlace = currentPlace,
+//            let currentLocation = currentPlace.location
+//
+//        else { return }
+//
+//        let newlatitude = (stopPlace.coordinate.latitude + currentLocation.coordinate.latitude) / 2
+//
+//        let newlongitude = (stopPlace.coordinate.longitude + currentLocation.coordinate.longitude) / 2
+//
+//        let newCenter = CLLocation(latitude: newlatitude, longitude: newlongitude)
+//
+//        mapView.centerToLocation(newCenter)
+    }
+    
+    func showProductDirectionView() {
+        
+        let maxY = mapView.frame.maxY
+        
+        directionView.frame = CGRect(
+            x: 0, y: maxY, width: UIScreen.main.bounds.height, height: 0.0
+        )
+        
+        view.addSubview(directionView)
+
+        UIView.animate(
+            withDuration: 0.3,
+            animations: { [weak self] in
+
+                guard
+                    let strongSelf = self else { return }
+
+                let height = strongSelf.view.frame.height * 0.6
+                
+                self?.directionView.frame = CGRect(
+                    x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
+                )
+            }
+        )
+    }
+    
     @IBAction func navigate(_ sender: UIButton) {
         
         navigateButton.isEnabled = false
+        
+        attemptLocationAccess()
         
         let segment: RouteBuilder.Segment?
         
@@ -121,6 +213,7 @@ class AdoptPetLocationViewController: BaseViewController {
         else {
             
             navigateButton.isEnabled = true
+            
             return
         }
         
@@ -137,6 +230,8 @@ class AdoptPetLocationViewController: BaseViewController {
                 
                 self?.route = route
                 
+                self?.adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = route
+                
                 guard
                   let firstStop = route.stops.first else { return }
                 
@@ -151,6 +246,7 @@ class AdoptPetLocationViewController: BaseViewController {
                 let directions = MKDirections(request: request)
 
                 directions.calculate { response, error in
+                    
                   guard
                     let mapRoute = response?.routes.first
                     
@@ -160,29 +256,24 @@ class AdoptPetLocationViewController: BaseViewController {
                         
                     return
                   }
-
-                  self?.updateView(with: mapRoute)
+                    
+                    self?.updateView(with: mapRoute)
+                    
+                    if self?.directionView.superview == nil {
+                        
+                        self?.showProductDirectionView()
+                        
+                    } else {
+                        
+                    }
                 }
-                
-                
-//                let storyboard = UIStoryboard.adopt
-//
-//                guard
-//                    let adoptPetDirectionVC = storyboard.instantiateViewController(withIdentifier: AdoptDirectionViewController.identifier) as? AdoptDirectionViewController
-//
-//                else { return }
-//
-//                adoptPetDirectionVC.route = route
-//
-//                adoptPetDirectionVC.modalPresentationStyle = .custom
-//
-//                self.present(adoptPetDirectionVC, animated: true)
                 
             case .failure(let error):
                 
                 let errorMessage: String
                 
                 switch error {
+                    
                 case .invalidSegment(let reason):
                     
                     errorMessage = "There was an error with: \(reason)."
@@ -193,40 +284,10 @@ class AdoptPetLocationViewController: BaseViewController {
         }
     }
     
-    private func updateView(with mapRoute: MKRoute) {
+    @IBAction func back(_ sender: UIButton) {
         
-      let padding: CGFloat = 8
-        
-      mapView.addOverlay(mapRoute.polyline)
-        
-      mapView.setVisibleMapRect(
-        
-        mapView.visibleMapRect.union(
-            
-          mapRoute.polyline.boundingMapRect
-        ),
-        edgePadding: UIEdgeInsets(
-          top: 0,
-          left: padding,
-          bottom: padding,
-          right: padding
-        ),
-        animated: true
-      )
-
-      totalDistance += mapRoute.distance
-      totalTravelTime += mapRoute.expectedTravelTime
-
-//      let informationComponents = [
-//        totalTravelTime.formatted,
-//        "• \(distanceFormatter.string(fromDistance: totalDistance))"
-//      ]
-//      informationLabel.text = informationComponents.joined(separator: " ")
-
-      mapRoutes.append(mapRoute)
+        navigationController?.popViewController(animated: true)
     }
-    
-    
 }
 
 
@@ -235,9 +296,8 @@ extension AdoptPetLocationViewController: CLLocationManagerDelegate {
     
     func locationManager(
         _ manager: CLLocationManager,
-        didChangeAuthorization status: CLAuthorizationStatus
-    ) {
-        // 1
+        didChangeAuthorization status: CLAuthorizationStatus) {
+        
         guard
             status == .authorizedWhenInUse
                 
@@ -250,8 +310,7 @@ extension AdoptPetLocationViewController: CLLocationManagerDelegate {
     
     func locationManager(
         _ manager: CLLocationManager,
-        didUpdateLocations locations: [CLLocation]
-    ) {
+        didUpdateLocations locations: [CLLocation]) {
         
         guard
             let firstLocation = locations.first
@@ -261,18 +320,13 @@ extension AdoptPetLocationViewController: CLLocationManagerDelegate {
             return
         }
         
-        // TODO: Configure MKLocalSearchCompleter here...
-        
-        // 2
         CLGeocoder().reverseGeocodeLocation(firstLocation) { [weak self] places, _ in
-            // 3
+            
             guard
                 let firstPlace = places?.first,
                 let self = self
                     
             else { return }
-            
-            let pet = self.viewModel.petViewModel.value.pet
             
             let currentAnnotation = MapAnnotation(
                 title: "現在位置", subtitle: "\(firstPlace.abbreviation)", location: "\(firstPlace)",
@@ -292,34 +346,7 @@ extension AdoptPetLocationViewController: CLLocationManagerDelegate {
     
 }
 
-extension CLPlacemark {
-    var abbreviation: String {
-        if let name = self.name {
-            return name
-        }
-        
-        if let interestingPlace = areasOfInterest?.first {
-            return interestingPlace
-        }
-        
-        return [subThoroughfare, thoroughfare].compactMap { $0 }.joined(separator: " ")
-    }
-}
 
-
-
-private extension MKMapView {
-    func centerToLocation(
-        _ location: CLLocation,
-        regionRadius: CLLocationDistance = 50000
-    ) {
-        let coordinateRegion = MKCoordinateRegion(
-            center: location.coordinate,
-            latitudinalMeters: regionRadius,
-            longitudinalMeters: regionRadius)
-        setRegion(coordinateRegion, animated: true)
-    }
-}
 
 // MARK: - MKMapViewDelegate
 
