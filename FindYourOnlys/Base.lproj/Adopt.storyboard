@@ -450,7 +450,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="29"/>
                                 </state>
                                 <connections>
-                                    <action selector="cloase:" destination="Fnd-BW-aXg" eventType="touchUpInside" id="XZm-mo-zLd"/>
+                                    <action selector="close:" destination="Fnd-BW-aXg" eventType="touchUpInside" id="SGE-dm-BPx"/>
                                 </connections>
                             </button>
                         </subviews>

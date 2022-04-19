@@ -23,6 +23,8 @@ class AdoptDirectionViewController: BaseViewController {
     
     let viewModel = AdoptDirectionViewModel()
     
+    var closeHandler: (() -> Void)?
+    
 //    var route: Route?
 //
 //    var mapRoutes: [MKRoute] = []
@@ -49,7 +51,8 @@ class AdoptDirectionViewController: BaseViewController {
     
     @IBAction func close(_ sender: UIButton) {
         
-        
+        closeHandler?()
+//        view.removeFromSuperview()
     }
     
     override func setupTableView() {
