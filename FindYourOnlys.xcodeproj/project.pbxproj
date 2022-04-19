@@ -42,6 +42,8 @@
 		9896D945280DBD53003D4A16 /* PostType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D944280DBD52003D4A16 /* PostType.swift */; };
 		9896D947280DBD63003D4A16 /* PetKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D946280DBD63003D4A16 /* PetKind.swift */; };
 		9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D948280DBD83003D4A16 /* SearchFriendResult.swift */; };
+		9896D94E280E626A003D4A16 /* PetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D94D280E626A003D4A16 /* PetLocationViewController.swift */; };
+		9896D950280E7E93003D4A16 /* PetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D94F280E7E93003D4A16 /* PetLocationViewModel.swift */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -155,6 +157,8 @@
 		9896D944280DBD52003D4A16 /* PostType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostType.swift; sourceTree = "<group>"; };
 		9896D946280DBD63003D4A16 /* PetKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetKind.swift; sourceTree = "<group>"; };
 		9896D948280DBD83003D4A16 /* SearchFriendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendResult.swift; sourceTree = "<group>"; };
+		9896D94D280E626A003D4A16 /* PetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetLocationViewController.swift; sourceTree = "<group>"; };
+		9896D94F280E7E93003D4A16 /* PetLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetLocationViewModel.swift; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -444,8 +448,8 @@
 				98CC15BE2801797500B9FDC6 /* View */,
 				98CC15BD2801796D00B9FDC6 /* Controller */,
 				98CC15BF2801797F00B9FDC6 /* ViewModel */,
-				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
 				98CC15AC28005B6C00B9FDC6 /* Adopt.storyboard */,
+				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
 				98CC1626280550D900B9FDC6 /* Main.storyboard */,
 				9896D928280D60C1003D4A16 /* Profile.storyboard */,
 				98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */,
@@ -461,8 +465,8 @@
 			children = (
 				98CC16282805518400B9FDC6 /* HomeTabBarController.swift */,
 				9896D8CE280825DB003D4A16 /* BaseViewController.swift */,
-				9896D92A280D610D003D4A16 /* Profile */,
 				98CC162028054ACB00B9FDC6 /* Adopt */,
+				9896D92A280D610D003D4A16 /* Profile */,
 				98CC162C28055F3000B9FDC6 /* FindPetSociety */,
 			);
 			path = Controller;
@@ -588,6 +592,7 @@
 				98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */,
 				98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */,
 				98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */,
+				9896D94D280E626A003D4A16 /* PetLocationViewController.swift */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -600,6 +605,7 @@
 				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
 				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
+				9896D94F280E7E93003D4A16 /* PetLocationViewModel.swift */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -848,6 +854,8 @@
 				9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */,
 				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,
+				9896D950280E7E93003D4A16 /* PetLocationViewModel.swift in Sources */,
+				9896D94E280E626A003D4A16 /* PetLocationViewController.swift in Sources */,
 				98CC161428030F8100B9FDC6 /* AdoptDetailContentCategory.swift in Sources */,
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,

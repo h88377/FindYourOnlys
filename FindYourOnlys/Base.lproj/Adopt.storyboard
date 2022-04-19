@@ -143,6 +143,9 @@
                                 <state key="normal" title="查看位置">
                                     <color key="titleColor" systemColor="tintColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="checkLocation:" destination="63v-a2-Ckk" eventType="touchUpInside" id="UL9-Zk-6By"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HM-Kq-jgR">
                                 <rect key="frame" x="179.5" y="812" width="55" height="50"/>
@@ -211,6 +214,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gwr-iO-Ljl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2301.449275362319" y="55.580357142857139"/>
+        </scene>
+        <!--Pet Location View Controller-->
+        <scene sceneID="Au5-ev-eSI">
+            <objects>
+                <viewController storyboardIdentifier="PetLocationViewController" id="Fhk-0n-hSq" customClass="PetLocationViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qez-0b-Ntu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MJ8-wS-7t5">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6iP-JP-tSQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6iP-JP-tSQ" firstAttribute="bottom" secondItem="MJ8-wS-7t5" secondAttribute="bottom" id="G7t-zX-Zya"/>
+                            <constraint firstItem="MJ8-wS-7t5" firstAttribute="top" secondItem="6iP-JP-tSQ" secondAttribute="top" id="VDc-ir-ixf"/>
+                            <constraint firstItem="6iP-JP-tSQ" firstAttribute="trailing" secondItem="MJ8-wS-7t5" secondAttribute="trailing" id="X8C-rh-A2q"/>
+                            <constraint firstItem="MJ8-wS-7t5" firstAttribute="leading" secondItem="6iP-JP-tSQ" secondAttribute="leading" id="tKu-SY-vKb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="MJ8-wS-7t5" id="1VI-1M-3Rv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gNJ-gB-HNY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3189" y="72"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e6v-ou-DZe">
