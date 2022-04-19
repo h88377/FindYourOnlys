@@ -187,7 +187,7 @@ class AdoptDetailViewController: BaseViewController {
         let storyboard = UIStoryboard.adopt
         
         guard
-            let petLocationVC = storyboard.instantiateViewController(withIdentifier: PetLocationViewController.identifier) as? PetLocationViewController
+            let petLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetLocationViewController.identifier) as? AdoptPetLocationViewController
         
         else { return }
         
