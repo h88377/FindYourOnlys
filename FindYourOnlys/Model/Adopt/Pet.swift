@@ -53,6 +53,8 @@ struct Pet: Codable {
     
     let variety: String
     
+    let shelterName: String
+    
     enum CodingKeys: String, CodingKey {
         
         case userID, favoriteID
@@ -96,6 +98,8 @@ struct Pet: Codable {
         case telephone = "shelter_tel"
         
         case variety = "animal_Variety"
+        
+        case shelterName = "shelter_name"
     }
 }
 
