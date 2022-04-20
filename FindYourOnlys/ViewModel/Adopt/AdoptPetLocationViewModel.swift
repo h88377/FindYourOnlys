@@ -26,19 +26,20 @@ class AdoptPetLocationViewModel {
     
     func convertAddress(completion: @escaping (CLLocation) -> Void) {
         
-        let geoCoder = CLGeocoder()
-        
-        geoCoder.geocodeAddressString("\(petViewModel.value.pet.address)") { placemarks, error in
-            
-            guard
-                let placemarks = placemarks,
-                
-                let location = placemarks.first?.location
-                    
-            else { return }
+        MapManager.shared.convertAddress(with: "\(petViewModel.value.pet.address)") { location in
             
             completion(location)
         }
+    }
+    
+    func addAnnotation(in mapView: MKMapView, with viewModel: PetViewModel) {
+        
+        MapManager.shared.addAnimation(in: mapView, with: viewModel)
+    }
+    
+    func addAnnotations(in mapView: MKMapView, with viewModels: [PetViewModel]) {
+        
+        MapManager.shared.addAnimations(in: mapView, with: viewModels)
     }
     
 //    func getInitialLocation(mapView: MKMapView) {

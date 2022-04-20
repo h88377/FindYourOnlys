@@ -7,7 +7,6 @@
 
 import UIKit
 import MapKit
-import AVFAudio
 
 class AdoptPetLocationViewController: BaseViewController {
     
@@ -54,21 +53,14 @@ class AdoptPetLocationViewController: BaseViewController {
         mapView.delegate = self
         
         viewModel.convertAddress { [weak self] location in
-            
+
             guard
                 let self = self else { return }
-            
+
             self.mapView.centerToLocation(location)
-            
-            let pet = self.viewModel.petViewModel.value.pet
-            
-            let mapAnnotation = MapAnnotation(
-                title: pet.kind, subtitle: pet.address, location: pet.location,
-                coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            )
-            
-            self.mapView.addAnnotation(mapAnnotation)
-            
+
+            self.viewModel.addAnnotation(in: self.mapView, with: self.viewModel.petViewModel.value)
+
             self.stopPlace = location
         }
         
