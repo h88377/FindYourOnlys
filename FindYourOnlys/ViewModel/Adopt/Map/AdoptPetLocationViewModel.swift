@@ -37,24 +37,4 @@ class AdoptPetLocationViewModel {
         MapManager.shared.addAnimationWithPetKind(in: mapView, with: viewModel)
     }
     
-//    func addAnnotations(in mapView: MKMapView, with viewModels: [PetViewModel]) {
-//        
-//        MapManager.shared.addAnimationsWithPetKind(in: mapView, with: viewModels)
-//    }
-    
-//    func getInitialLocation(mapView: MKMapView) {
-//        
-//        convertAddress { location in
-//            
-//            let initialLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//            
-//            mapView.centerToLocation(initialLocation)
-//        }
-//        
-//        
-//        
-//        mapView.centerToLocation(initialLocation)
-//        
-//    }
-    
 }

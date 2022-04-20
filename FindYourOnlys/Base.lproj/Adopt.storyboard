@@ -408,7 +408,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35"/>
                                 </state>
                                 <connections>
-                                    <action selector="goToMap:" destination="1pB-aw-e5a" eventType="touchUpInside" id="aYM-vZ-Hb8"/>
+                                    <action selector="goToMap:" destination="1pB-aw-e5a" eventType="touchUpInside" id="Uf6-WB-N2Z"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -459,11 +459,28 @@
                                     <action selector="back:" destination="kc4-Rr-dBN" eventType="touchUpInside" id="x0H-pv-C7e"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29N-hb-QXl">
+                                <rect key="frame" x="354" y="802" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="9ld-UE-76h"/>
+                                    <constraint firstAttribute="height" constant="40" id="qNE-3J-4xa"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="location.north.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                </state>
+                                <connections>
+                                    <action selector="navigate:" destination="kc4-Rr-dBN" eventType="touchUpInside" id="60s-Gr-hye"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="M20-jG-GhI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="lyd-z0-sNO" firstAttribute="top" secondItem="qxe-LX-2xw" secondAttribute="top" id="50E-NO-OfV"/>
+                            <constraint firstItem="M20-jG-GhI" firstAttribute="bottom" secondItem="29N-hb-QXl" secondAttribute="bottom" constant="20" id="5j5-IP-KrK"/>
+                            <constraint firstItem="M20-jG-GhI" firstAttribute="trailing" secondItem="29N-hb-QXl" secondAttribute="trailing" constant="20" id="IHf-9j-AKE"/>
                             <constraint firstItem="lyd-z0-sNO" firstAttribute="leading" secondItem="M20-jG-GhI" secondAttribute="leading" id="SB4-1x-eBg"/>
                             <constraint firstItem="ytc-d5-9nS" firstAttribute="leading" secondItem="M20-jG-GhI" secondAttribute="leading" constant="20" id="SSS-s8-7A6"/>
                             <constraint firstItem="M20-jG-GhI" firstAttribute="trailing" secondItem="lyd-z0-sNO" secondAttribute="trailing" id="ed8-1s-a5O"/>

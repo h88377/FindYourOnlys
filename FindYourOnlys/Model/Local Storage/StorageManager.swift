@@ -93,6 +93,8 @@ class StorageManager {
         
         lsPet.telephone = pet.telephone
         
+        lsPet.shelterName = pet.shelterName
+        
         saveContext()
     }
     

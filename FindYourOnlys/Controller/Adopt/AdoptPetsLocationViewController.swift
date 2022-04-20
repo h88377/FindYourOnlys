@@ -12,36 +12,114 @@ class AdoptPetsLocationViewController: BaseViewController {
     
     let viewModel = AdoptPetsLocationViewModel()
     
+    private let locationManager = CLLocationManager()
+    
     override var isHiddenNavigationBar: Bool { return true }
     
     override var isHiddenTabBar: Bool { return true }
     
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView! {
+        
+        didSet {
+            
+            mapView.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.mapAnnotations.bind { [weak self] mapAnnotationViewModels in
-            
-            let annotations = mapAnnotationViewModels.map { $0.mapAnnotation }
-            
-            self?.mapView.addAnnotations(annotations)
-            
-            self?.mapView.showAnnotations(annotations, animated: true)
-        }
+        attemptLocationAccess()
         
-        viewModel.petViewModels.bind { _ in
-            
+        viewModel.routeViewModel.bind { [weak self] _ in
             
         }
         
+        viewModel.mapRouteViewModel.bind { [weak self] _ in
+            
+        }
         
+        viewModel.updateViewHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
+        }
     }
     
     
     @IBAction func back(_ sender: UIButton) {
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func navigate(_ sender: UIButton) {
+        
+        viewModel.calculateRoute()
+        
+        mapView.addAnnotation(viewModel.currentMapAnnotation.value.mapAnnotation)
+    }
+    
+    private func attemptLocationAccess() {
+        
+        guard
+            CLLocationManager.locationServicesEnabled()
+                
+        else {
+            
+            return
+        }
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        
+        locationManager.delegate = self
+        
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            
+            locationManager.requestWhenInUseAuthorization()
+            
+        } else {
+            
+            locationManager.requestLocation()
+        }
+    }
+    
+    private func updateView(with mapRoute: MKRoute) {
+        
+        if
+            mapView.overlays.count != 0 {
+            
+            mapView.removeOverlay(mapView.overlays[0])
+        }
+        
+        let padding: CGFloat = 8
+        
+        mapView.addOverlay(mapRoute.polyline)
+        
+        mapView.setVisibleMapRect(
+            mapView.visibleMapRect.union(mapRoute.polyline.boundingMapRect),
+            edgePadding: UIEdgeInsets(
+                top: 0,
+                left: padding,
+                bottom: padding,
+                right: padding
+            ),
+            animated: true
+        )
+        
+//        totalDistance += mapRoute.distance
+//
+//        totalTravelTime += mapRoute.expectedTravelTime
+//
+//        mapRoutes.append(mapRoute)
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = mapRoutes
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+       
     }
     
 }
@@ -87,18 +165,20 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                     title: "現在位置", subtitle: "\(firstPlace.abbreviation)", location: "\(firstPlace)",
                     coordinate: CLLocationCoordinate2D(latitude: firstLocation.coordinate.latitude, longitude: firstLocation.coordinate.longitude)
                 )
+                self.viewModel.currentMapAnnotation.value.mapAnnotation = currentAnnotation
                 
-                self.mapView.addAnnotation(currentAnnotation)
                 
-//                self.currentPlace = firstPlace
+                // Mock location because Taipei don't have any shelter.
                 
-                self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+//                self.viewModel.fetchShelter(with: "新北市", mapView: self.mapView)
+                
+                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
             }
         }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
-        print("Error requesting location: \(error.localizedDescription)")
+        print("=====Error requesting location: \(error.localizedDescription)")
     }
     
 }
@@ -115,5 +195,16 @@ extension AdoptPetsLocationViewController: MKMapViewDelegate {
         renderer.lineWidth = 3
         
         return renderer
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        guard
+            let selectedMapAnnotation = view.annotation as? MapAnnotation
+                
+        else { return }
+        
+        viewModel.selectedMapAnnotation.value.mapAnnotation = selectedMapAnnotation
+        
     }
 }

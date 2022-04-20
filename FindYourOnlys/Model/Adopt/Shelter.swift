@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+struct Shelter {
+    
+    let title: String
+    
+    let address: String
+    
+    var petCounts: [PetCount]
+    
+}
+
+struct PetCount {
+    
+    let petKind: String
+    
+    var count: Int
+}
