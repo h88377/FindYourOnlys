@@ -19,7 +19,7 @@ class AdoptPetLocationViewModel {
                 foundPlace: "", status: "", remark: "",
                 openDate: "", closedDate: "", updatedDate: "",
                 createdDate: "", photoURLString: "", address: "",
-                telephone: "", variety: ""
+                telephone: "", variety: "", shelterName: ""
             )
         )
     )
@@ -34,13 +34,13 @@ class AdoptPetLocationViewModel {
     
     func addAnnotation(in mapView: MKMapView, with viewModel: PetViewModel) {
         
-        MapManager.shared.addAnimation(in: mapView, with: viewModel)
+        MapManager.shared.addAnimationWithPetKind(in: mapView, with: viewModel)
     }
     
-    func addAnnotations(in mapView: MKMapView, with viewModels: [PetViewModel]) {
-        
-        MapManager.shared.addAnimations(in: mapView, with: viewModels)
-    }
+//    func addAnnotations(in mapView: MKMapView, with viewModels: [PetViewModel]) {
+//        
+//        MapManager.shared.addAnimationsWithPetKind(in: mapView, with: viewModels)
+//    }
     
 //    func getInitialLocation(mapView: MKMapView) {
 //        
