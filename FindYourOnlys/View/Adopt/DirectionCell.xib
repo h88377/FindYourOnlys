@@ -44,8 +44,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="descriptionLabel" destination="deX-aM-Jfg" id="s8C-0p-ikt"/>
-                <outlet property="distanceLabel" destination="FWv-Aq-gMB" id="4SE-TG-pJP"/>
+                <outlet property="descriptionLabel" destination="FWv-Aq-gMB" id="5dB-r4-2lb"/>
+                <outlet property="distanceLabel" destination="deX-aM-Jfg" id="8O9-fX-em1"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="164.73214285714286"/>
         </tableViewCell>

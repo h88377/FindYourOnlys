@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		80B017278C10374F5E895CDD /* Pods_FindYourOnlys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */; };
+		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -56,6 +57,8 @@
 		9896D964280EDC98003D4A16 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D963280EDC98003D4A16 /* Direction.swift */; };
 		9896D966280EDCC4003D4A16 /* AdoptDirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D965280EDCC4003D4A16 /* AdoptDirectionViewModel.swift */; };
 		9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */; };
+		9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */; };
+		9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -135,6 +138,7 @@
 /* Begin PBXFileReference section */
 		0DE5B635AC6994CD5CEA68B5 /* Pods-FindYourOnlys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.debug.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.debug.xcconfig"; sourceTree = "<group>"; };
 		6AAA99A8BC5FA9600A080C81 /* Pods-FindYourOnlys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.release.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.release.xcconfig"; sourceTree = "<group>"; };
+		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		9896D963280EDC98003D4A16 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		9896D965280EDCC4003D4A16 /* AdoptDirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDirectionViewModel.swift; sourceTree = "<group>"; };
 		9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewModel.swift; sourceTree = "<group>"; };
+		9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionHeaderView.swift; sourceTree = "<group>"; };
+		9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionHeaderView.xib; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -549,6 +555,7 @@
 				9896D916280A6F42003D4A16 /* UITextView+Extension.swift */,
 				9896D95F280EBF6E003D4A16 /* CLPlacemark+Extension.swift */,
 				9896D961280EBFA5003D4A16 /* MKMapView+Extension.swift */,
+				989399ED280F9F74004312F1 /* TimeInterval.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -614,6 +621,8 @@
 				98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */,
 				9896D95B280EB5CA003D4A16 /* DirectionCell.swift */,
 				9896D95C280EB5CA003D4A16 /* DirectionCell.xib */,
+				9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */,
+				9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -784,6 +793,7 @@
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
 				9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */,
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
+				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */,
@@ -941,7 +951,9 @@
 				98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */,
 				9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */,
 				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
+				9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */,
 				9896D954280E9BFB003D4A16 /* Route.swift in Sources */,
+				989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */,
 				9896D940280DBC98003D4A16 /* FriendRequestList.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,

@@ -282,14 +282,8 @@ class AdoptPetLocationViewController: BaseViewController {
                   }
                     
                     self?.updateView(with: mapRoute)
-                    
-                    if self?.directionView.superview == nil {
                         
-                        self?.showProductDirectionView()
-                        
-                    } else {
-                        
-                    }
+                    self?.showProductDirectionView()
                 }
                 
             case .failure(let error):

@@ -429,18 +429,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="598"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFS-ky-KAj">
-                                <rect key="frame" x="36" y="64" width="318" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8Sd-c3-g6J">
-                                <rect key="frame" x="16" y="85" width="358" height="513"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8Sd-c3-g6J">
+                                <rect key="frame" x="16" y="0.0" width="358" height="598"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2u-vO-Cgn">
-                                <rect key="frame" x="320" y="30" width="40" height="40"/>
+                                <rect key="frame" x="320" y="20" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="8sv-e0-c0i"/>
                                     <constraint firstAttribute="width" constant="40" id="Qe1-Hx-wmh"/>
@@ -454,22 +448,19 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="fxS-rl-j6B"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="YFS-ky-KAj" firstAttribute="top" secondItem="tmW-1A-WbM" secondAttribute="topMargin" constant="20" id="0M8-ur-STU"/>
-                            <constraint firstItem="P2u-vO-Cgn" firstAttribute="top" secondItem="tmW-1A-WbM" secondAttribute="top" constant="30" id="4F7-lw-Wnq"/>
+                            <constraint firstItem="P2u-vO-Cgn" firstAttribute="top" secondItem="tmW-1A-WbM" secondAttribute="top" constant="20" id="4F7-lw-Wnq"/>
                             <constraint firstAttribute="trailing" secondItem="P2u-vO-Cgn" secondAttribute="trailing" constant="30" id="5d6-Me-VnA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="YFS-ky-KAj" secondAttribute="trailing" constant="20" id="ITO-qo-X8J"/>
                             <constraint firstAttribute="bottomMargin" secondItem="8Sd-c3-g6J" secondAttribute="bottom" id="RYg-bA-52X"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="8Sd-c3-g6J" secondAttribute="trailing" id="eaR-wk-uu1"/>
-                            <constraint firstItem="8Sd-c3-g6J" firstAttribute="top" secondItem="YFS-ky-KAj" secondAttribute="bottom" id="kaE-OM-Z7v"/>
-                            <constraint firstItem="8Sd-c3-g6J" firstAttribute="leading" secondItem="tmW-1A-WbM" secondAttribute="leadingMargin" id="o8L-f9-mTw"/>
-                            <constraint firstItem="YFS-ky-KAj" firstAttribute="leading" secondItem="tmW-1A-WbM" secondAttribute="leadingMargin" constant="20" id="vvX-PV-4FY"/>
+                            <constraint firstItem="8Sd-c3-g6J" firstAttribute="top" secondItem="tmW-1A-WbM" secondAttribute="top" id="eM1-wi-wEY"/>
+                            <constraint firstAttribute="trailing" secondItem="8Sd-c3-g6J" secondAttribute="trailing" constant="16" id="eaR-wk-uu1"/>
+                            <constraint firstItem="8Sd-c3-g6J" firstAttribute="leading" secondItem="tmW-1A-WbM" secondAttribute="leading" constant="16" id="o8L-f9-mTw"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="390" height="598"/>
                     <connections>
-                        <outlet property="headerLabel" destination="YFS-ky-KAj" id="DV0-k8-tAH"/>
                         <outlet property="tableView" destination="8Sd-c3-g6J" id="HMO-xb-xOh"/>
                     </connections>
                 </viewController>
