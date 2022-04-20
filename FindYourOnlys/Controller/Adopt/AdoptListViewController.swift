@@ -80,7 +80,9 @@ class AdoptListViewController: BaseViewController {
         
         else { return }
         
-        adoptPetsLocationVC.viewModel.petViewModels = viewModel.petViewModels
+//        adoptPetsLocationVC.viewModel.petViewModels = viewModel.petViewModels
+        
+        navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }
 }
 

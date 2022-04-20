@@ -10,7 +10,12 @@ import MapKit
 
 class AdoptDirectionViewModel {
     
-//    var directionViewModel: Box<DirectionViewModel>?
-    
-    var directionViewModel = Box(DirectionViewModel(model: Direction(route: Route(origin: MKMapItem(), stops: []), mapRoutes: [], totalDistance: -1, totalTravelTime: -1)))
+    var directionViewModel = Box(
+        DirectionViewModel(
+            model: Direction(
+                route: Route(origin: MKMapItem(), stops: []),
+                mapRoutes: [], totalDistance: -1, totalTravelTime: -1
+            )
+        )
+    )
 }

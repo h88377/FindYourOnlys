@@ -95,7 +95,7 @@ class AdoptFavoriteViewModel {
             openDate: lsPet.openDate, closedDate: lsPet.closedDate,
             updatedDate: lsPet.updatedDate, createdDate: lsPet.createdDate,
             photoURLString: lsPet.photoURLString, address: lsPet.address, telephone: lsPet.telephone,
-            variety: lsPet.variety
+            variety: lsPet.variety, shelterName: lsPet.shelterName
         )
         return pet
     }

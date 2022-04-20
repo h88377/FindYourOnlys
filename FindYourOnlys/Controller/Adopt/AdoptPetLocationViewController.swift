@@ -124,13 +124,8 @@ class AdoptPetLocationViewController: BaseViewController {
         )
         
         totalDistance += mapRoute.distance
-        totalTravelTime += mapRoute.expectedTravelTime
         
-        //      let informationComponents = [
-        //        totalTravelTime.formatted,
-        //        "• \(distanceFormatter.string(fromDistance: totalDistance))"
-        //      ]
-        //      informationLabel.text = informationComponents.joined(separator: " ")
+        totalTravelTime += mapRoute.expectedTravelTime
         
         mapRoutes.append(mapRoute)
         
@@ -139,20 +134,7 @@ class AdoptPetLocationViewController: BaseViewController {
         adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
         
         adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
-        //        guard
-        //            let stopPlace = stopPlace,
-        //            let currentPlace = currentPlace,
-        //            let currentLocation = currentPlace.location
-        //
-        //        else { return }
-        //
-        //        let newlatitude = (stopPlace.coordinate.latitude + currentLocation.coordinate.latitude) / 2
-        //
-        //        let newlongitude = (stopPlace.coordinate.longitude + currentLocation.coordinate.longitude) / 2
-        //
-        //        let newCenter = CLLocation(latitude: newlatitude, longitude: newlongitude)
-        //
-        //        mapView.centerToLocation(newCenter)
+       
     }
     
     func showProductDirectionView() {

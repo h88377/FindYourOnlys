@@ -9,18 +9,35 @@ import MapKit
 
 class AdoptPetsLocationViewModel {
     
-    var petViewModels = Box([PetViewModel]())
-    
-    var mapAnnotations = Box([MapAnnotationViewModel]())
-    
     var shelterViewModels = Box([ShelterViewModel]())
     
     var errorViewModel: Box<ErrorViewModel>?
     
-//    func addAnnotationsWithShelterName(in mapView: MKMapView, with viewModels: [PetViewModel]) {
-//
-//        MapManager.shared.addAnimationsWithShelterName(in: mapView, with: viewModels)
-//    }
+    var routeViewModel = Box(RouteViewModel(model: Route(origin: MKMapItem(), stops: [MKMapItem]())))
+    
+    var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
+    
+    var updateViewHandler: (() -> Void)?
+    
+    var currentMapAnnotation = Box(
+        MapAnnotationViewModel(
+            model: MapAnnotation(
+                title: "",
+                subtitle: "",
+                location: "",
+                coordinate: CLLocationCoordinate2D())
+        )
+    )
+    
+    var selectedMapAnnotation = Box(
+        MapAnnotationViewModel(
+            model: MapAnnotation(
+                title: "",
+                subtitle: "",
+                location: "",
+                coordinate: CLLocationCoordinate2D())
+        )
+    )
     
     func fetchShelter(with city: String, mapView: MKMapView) {
         
@@ -88,4 +105,47 @@ class AdoptPetsLocationViewModel {
         MapManager.shared.addAnimationsWithShelter(in: mapView, with: viewModels)
     }
     
+    func calculateRoute() {
+        
+        MapManager.shared.calculateRoute(
+            currentCoordinate: currentMapAnnotation.value.mapAnnotation.coordinate,
+            stopCoordinate: selectedMapAnnotation.value.mapAnnotation.coordinate) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            switch result {
+                
+            case .success(let(route, mapRoute)):
+                
+                self.routeViewModel.value.route = route
+                
+                self.mapRouteViewModel.value.mapRoute = mapRoute
+                
+                self.updateViewHandler?()
+                
+            case .failure(let error):
+                
+                self.errorViewModel?.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    private func updateView(mapView: MKMapView, with mapRoute: MKRoute) {
+        
+        
+        
+        let padding: CGFloat = 8
+        
+        mapView.addOverlay(mapRoute.polyline)
+        
+        mapView.setVisibleMapRect(
+            mapView.visibleMapRect.union(mapRoute.polyline.boundingMapRect),
+            edgePadding: UIEdgeInsets(
+                top: 0,
+                left: padding,
+                bottom: padding,
+                right: padding
+            ),
+            animated: true
+        )
+    }
 }

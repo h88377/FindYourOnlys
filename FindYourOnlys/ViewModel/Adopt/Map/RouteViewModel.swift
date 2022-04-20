@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+class RouteViewModel {
+    
+    var route: Route
+    
+    init(model: Route) {
+        
+        self.route = model
+    }
+    
+}
