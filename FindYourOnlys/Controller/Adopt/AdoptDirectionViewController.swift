@@ -13,38 +13,35 @@ class AdoptDirectionViewController: BaseViewController {
     
     @IBOutlet weak var headerLabel: UILabel!
     
+    @IBOutlet weak var informationLabel: UILabel!
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
             
             tableView.dataSource = self
+            
+            tableView.delegate = self
         }
     }
     
     let viewModel = AdoptDirectionViewModel()
     
+//    let distanceFormatter = MKDistanceFormatter()
+    
     var closeHandler: (() -> Void)?
-    
-//    var route: Route?
-//
-//    var mapRoutes: [MKRoute] = []
-//
-//    private var totalDistance: CLLocationDistance = 0
-//
-//    private var totalTravelTime: TimeInterval = 0
-    
-//    private let distanceFormatter = MKDistanceFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.directionViewModel.bind(listener: { [weak self] directionViewModel in
             
+            guard
+                let self = self else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
-                
-                self?.headerLabel.text = directionViewModel.direction.route.label
+                self.tableView.reloadData()
             }
         })
     }
@@ -52,19 +49,20 @@ class AdoptDirectionViewController: BaseViewController {
     @IBAction func close(_ sender: UIButton) {
         
         closeHandler?()
-//        view.removeFromSuperview()
     }
     
     override func setupTableView() {
         super.setupTableView()
         
         tableView.registerCellWithIdentifier(identifier: DirectionCell.identifier)
+        
+        tableView.register(UINib(nibName: "\(DirectionHeaderView.self)", bundle: nil), forHeaderFooterViewReuseIdentifier: "\(DirectionHeaderView.self)")
     }
     
 }
 
 // MARK: - UITableViewDataSource
-extension AdoptDirectionViewController: UITableViewDataSource {
+extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -95,11 +93,30 @@ extension AdoptDirectionViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
+//
+//        return route.name
+//    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+      
+        guard
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(DirectionHeaderView.self)") as? DirectionHeaderView
+                                                                         
+      else { return nil }
         
         let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
+      
+        headerView.configureView(with: viewModel.directionViewModel.value, route: route)
         
-        return route.name
+      return headerView
     }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//
+//      return 60
+//    }
 }
 
