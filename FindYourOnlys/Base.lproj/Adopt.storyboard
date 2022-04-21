@@ -283,10 +283,10 @@
             </objects>
             <point key="canvasLocation" x="3312" y="84"/>
         </scene>
-        <!--View Controller-->
+        <!--Adopt Directions View Controller-->
         <scene sceneID="Jm7-KF-6Ho">
             <objects>
-                <viewController id="fcj-aH-PbM" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdoptDirectionsViewController" id="fcj-aH-PbM" customClass="AdoptDirectionsViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zeF-Xm-uOv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -327,7 +327,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hg8-8B-qcj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4177" y="76"/>
+            <point key="canvasLocation" x="2613" y="1323"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e6v-ou-DZe">
@@ -408,7 +408,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35"/>
                                 </state>
                                 <connections>
-                                    <action selector="goToMap:" destination="1pB-aw-e5a" eventType="touchUpInside" id="Uf6-WB-N2Z"/>
+                                    <action selector="goToMap:" destination="1pB-aw-e5a" eventType="touchUpInside" id="7XI-bb-i4h"/>
                                 </connections>
                             </button>
                         </subviews>

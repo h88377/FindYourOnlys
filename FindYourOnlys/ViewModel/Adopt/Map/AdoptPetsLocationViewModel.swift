@@ -9,6 +9,44 @@ import MapKit
 
 class AdoptPetsLocationViewModel {
     
+    var isShelterMap: Bool = true
+    
+    //Pet
+    var petViewModel = Box(
+        PetViewModel(
+            model: Pet(
+                id: 0, location: "", kind: "",
+                sex: "", bodyType: "", color: "",
+                age: "", sterilization: "", bacterin: "",
+                foundPlace: "", status: "", remark: "",
+                openDate: "", closedDate: "", updatedDate: "",
+                createdDate: "", photoURLString: "", address: "",
+                telephone: "", variety: "", shelterName: ""
+            )
+        )
+    )
+    
+    var locationViewModel = Box(LocationViewModel(model: CLLocation()))
+    
+    var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
+    
+    var getUserLocationHandler: (() -> Void)?
+    
+    func convertAddress() {
+        
+        guard
+            !isShelterMap else { return }
+            
+        MapManager.shared.convertAddress(with: "\(petViewModel.value.pet.address)") { [weak self] location in
+            
+            self?.locationViewModel.value.location = location
+            
+            self?.getUserLocationHandler?()
+        }
+    }
+    
+    //Pets
+    
     var shelterViewModels = Box([ShelterViewModel]())
     
     var errorViewModel: Box<ErrorViewModel>?
@@ -17,7 +55,7 @@ class AdoptPetsLocationViewModel {
     
     var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
     
-    var updateViewHandler: (() -> Void)?
+//    var updateViewHandler: (() -> Void)?
     
     var currentMapAnnotation = Box(
         MapAnnotationViewModel(
@@ -39,7 +77,12 @@ class AdoptPetsLocationViewModel {
         )
     )
     
+    var mapAnnotationViewModels = Box([MapAnnotationViewModel]())
+    
     func fetchShelter(with city: String, mapView: MKMapView) {
+        
+        guard
+            isShelterMap else { return }
         
         PetProvider.shared.fetchPet(with: city) { [weak self] result in
             
@@ -90,8 +133,9 @@ class AdoptPetsLocationViewModel {
                 }
                 
                 ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
-                self.addAnnotations(in: mapView, with: self.shelterViewModels.value)
                 
+                self.appendMapAnnotationsInViewModels(with: shelters)
+              
             case .failure(let error):
                 
                 self.errorViewModel?.value = ErrorViewModel(model: error)
@@ -99,13 +143,36 @@ class AdoptPetsLocationViewModel {
             
         }
     }
-    
-    func addAnnotations(in mapView: MKMapView, with viewModels: [ShelterViewModel]) {
-        
-        MapManager.shared.addAnimationsWithShelter(in: mapView, with: viewModels)
+
+    private func appendMapAnnotationsInViewModels(with shelters: [Shelter]) {
+
+        shelters.forEach { shelter in
+            
+            MapManager.shared.convertAddress(with: shelter.address) { [weak self] location in
+                
+                guard
+                    let self = self else { return }
+                
+                let petCounts = shelter.petCounts
+                
+                let mapAnnotation = MapAnnotation(
+                    title: shelter.title,
+                    subtitle: "\(petCounts[0].petKind): \(petCounts[0].count), \(petCounts[1].petKind): \(petCounts[1].count), \(petCounts[2].petKind): \(petCounts[2].count)" ,
+                    location: shelter.address,
+                    coordinate: CLLocationCoordinate2D(
+                        latitude: location.coordinate.latitude,
+                        longitude: location.coordinate.longitude
+                    )
+                )
+                MapManager.shared.appendMapAnnotation(in: self.mapAnnotationViewModels, annotation: mapAnnotation)
+            }
+        }
     }
     
     func calculateRoute() {
+        
+        guard
+            isShelterMap else { return }
         
         MapManager.shared.calculateRoute(
             currentCoordinate: currentMapAnnotation.value.mapAnnotation.coordinate,
@@ -121,7 +188,9 @@ class AdoptPetsLocationViewModel {
                 
                 self.mapRouteViewModel.value.mapRoute = mapRoute
                 
-                self.updateViewHandler?()
+                self.getUserLocationHandler?()
+                
+//                self.updateViewHandler?()
                 
             case .failure(let error):
                 
@@ -129,23 +198,35 @@ class AdoptPetsLocationViewModel {
             }
         }
     }
-    private func updateView(mapView: MKMapView, with mapRoute: MKRoute) {
+    
+    func calculateRouteNew() {
         
+        guard
+            !isShelterMap else { return }
         
-        
-        let padding: CGFloat = 8
-        
-        mapView.addOverlay(mapRoute.polyline)
-        
-        mapView.setVisibleMapRect(
-            mapView.visibleMapRect.union(mapRoute.polyline.boundingMapRect),
-            edgePadding: UIEdgeInsets(
-                top: 0,
-                left: padding,
-                bottom: padding,
-                right: padding
-            ),
-            animated: true
-        )
+        MapManager.shared.calculateRouteNew(
+            currentLocation: currentLocationViewModel.value.location,
+            stopLocation: locationViewModel.value.location) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+                
+            switch result {
+                
+            case .success(let(route, mapRoute)):
+                
+                self.getUserLocationHandler?()
+                
+                self.routeViewModel.value.route = route
+                
+                self.mapRouteViewModel.value.mapRoute = mapRoute
+                
+//                self.updateViewHandler?()
+                
+            case .failure(let error):
+                
+                self.errorViewModel?.value = ErrorViewModel(model: error)
+            }
+        }
     }
 }

@@ -18,6 +18,9 @@
 		98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */; };
 		98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A01281033F0004312F1 /* RouteViewModel.swift */; };
 		98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0328103491004312F1 /* MapRouteViewModel.swift */; };
+		98939A0628105F4F004312F1 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0528105F4F004312F1 /* PresentationController.swift */; };
+		98939A0828106076004312F1 /* AdoptDirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0728106076004312F1 /* AdoptDirectionsViewController.swift */; };
+		98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0928106B09004312F1 /* LocationViewModel.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -155,6 +158,9 @@
 		989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationViewModel.swift; sourceTree = "<group>"; };
 		98939A01281033F0004312F1 /* RouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewModel.swift; sourceTree = "<group>"; };
 		98939A0328103491004312F1 /* MapRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouteViewModel.swift; sourceTree = "<group>"; };
+		98939A0528105F4F004312F1 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		98939A0728106076004312F1 /* AdoptDirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDirectionsViewController.swift; sourceTree = "<group>"; };
+		98939A0928106B09004312F1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -318,6 +324,7 @@
 				989399FC280FF5F8004312F1 /* ShelterViewModel.swift */,
 				98939A01281033F0004312F1 /* RouteViewModel.swift */,
 				98939A0328103491004312F1 /* MapRouteViewModel.swift */,
+				98939A0928106B09004312F1 /* LocationViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -537,6 +544,7 @@
 			children = (
 				98CC16282805518400B9FDC6 /* HomeTabBarController.swift */,
 				9896D8CE280825DB003D4A16 /* BaseViewController.swift */,
+				98939A0528105F4F004312F1 /* PresentationController.swift */,
 				98CC162028054ACB00B9FDC6 /* Adopt */,
 				9896D92A280D610D003D4A16 /* Profile */,
 				98CC162C28055F3000B9FDC6 /* FindPetSociety */,
@@ -675,6 +683,7 @@
 				9896D94D280E626A003D4A16 /* AdoptPetLocationViewController.swift */,
 				9896D959280EA7AA003D4A16 /* AdoptDirectionViewController.swift */,
 				989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */,
+				98939A0728106076004312F1 /* AdoptDirectionsViewController.swift */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -952,6 +961,7 @@
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
 				98CC16162803D69100B9FDC6 /* FavoriteLSPetViewModel.swift in Sources */,
+				98939A0828106076004312F1 /* AdoptDirectionsViewController.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
@@ -994,6 +1004,8 @@
 				9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */,
 				9896D954280E9BFB003D4A16 /* Route.swift in Sources */,
 				989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */,
+				98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */,
+				98939A0628105F4F004312F1 /* PresentationController.swift in Sources */,
 				9896D940280DBC98003D4A16 /* FriendRequestList.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
