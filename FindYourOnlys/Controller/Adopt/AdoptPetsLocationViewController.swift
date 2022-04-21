@@ -32,6 +32,33 @@ class AdoptPetsLocationViewController: BaseViewController {
         //Pet
         viewModel.convertAddress()
         
+        viewModel.getPetLocationHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+
+            self.mapView.centerToLocation(self.viewModel.locationViewModel.value.location)
+
+            self.mapView.addAnnotation(self.viewModel.petMapAnnotation.value.mapAnnotation)
+        }
+        
+        viewModel.petViewModel.bind { [weak self] petViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            let pet = petViewModel.pet
+            
+            self.viewModel.petMapAnnotation.value.mapAnnotation = MapAnnotation(
+                title: pet.kind, subtitle: pet.address,
+                location: pet.address,
+                coordinate: self.viewModel.locationViewModel.value.location.coordinate
+            )
+        }
+        
+        //Pets
+        attemptLocationAccess()
+        
         viewModel.getUserLocationHandler = { [weak self] in
 
             guard
@@ -43,10 +70,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
         }
-        
-        
-        //Pets
-        attemptLocationAccess()
         
         viewModel.mapAnnotationViewModels.bind { [weak self] _ in
             
