@@ -122,12 +122,12 @@ class AdoptPetLocationViewController: BaseViewController {
             ),
             animated: true
         )
-        
+        mapRoutes.append(mapRoute)
         totalDistance += mapRoute.distance
         
         totalTravelTime += mapRoute.expectedTravelTime
         
-        mapRoutes.append(mapRoute)
+        
         
         adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = mapRoutes
         

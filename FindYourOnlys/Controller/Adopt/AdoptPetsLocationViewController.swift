@@ -10,9 +10,16 @@ import MapKit
 
 class AdoptPetsLocationViewController: BaseViewController {
     
+    private struct Segue {
+        
+        static let direction = "SegueDirection"
+    }
+    
     let viewModel = AdoptPetsLocationViewModel()
     
     private let locationManager = CLLocationManager()
+    
+    var adoptDirectionVC: AdoptDirectionViewController?
     
     override var isHiddenNavigationBar: Bool { return true }
     
@@ -25,6 +32,8 @@ class AdoptPetsLocationViewController: BaseViewController {
             mapView.delegate = self
         }
     }
+    
+    @IBOutlet var directionView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +76,16 @@ class AdoptPetsLocationViewController: BaseViewController {
             self.mapView.addAnnotations(mapAnnotations)
             
             self.mapView.showAnnotations(mapAnnotations, animated: true)
+            
+            if mapAnnotations.count == 0 {
+                
+                print("====There is no adopted pets located nearby your location.")
+            }
+        }
+        
+        viewModel.showDirectionHandler = { [weak self] in
+            
+            self?.showProductDirectionView()
         }
     }
     
@@ -80,11 +99,6 @@ class AdoptPetsLocationViewController: BaseViewController {
     @IBAction func navigate(_ sender: UIButton) {
         
         viewModel.calculateRoute()
-        
-//        viewModel.calculateRouteNew()
-        
-//        mapView.addAnnotation(viewModel.currentMapAnnotation.value.mapAnnotation)
-        
     }
     
     private func attemptLocationAccess() {
@@ -136,18 +150,78 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         mapView.showAnnotations([viewModel.currentMapAnnotation.value.mapAnnotation, viewModel.selectedMapAnnotation.value.mapAnnotation], animated: true)
         
-        //        totalDistance += mapRoute.distance
-        //
-        //        totalTravelTime += mapRoute.expectedTravelTime
-        //
-        //        mapRoutes.append(mapRoute)
-        //
-        //        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = mapRoutes
-        //
-        //        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
-        //
-        //        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+                let totalDistance = mapRoute.distance
         
+                let totalTravelTime = mapRoute.expectedTravelTime
+        
+                adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
+        
+                adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
+        
+                adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+        
+    }
+    
+    func showProductDirectionView() {
+        
+        let maxY = mapView.frame.maxY
+        
+        directionView.frame = CGRect(
+            x: 0, y: maxY, width: UIScreen.main.bounds.height, height: 0.0
+        )
+        
+        view.addSubview(directionView)
+        
+        UIView.animate(
+            withDuration: 0.3,
+            animations: { [weak self] in
+                
+                guard
+                    let strongSelf = self else { return }
+                
+                let height = strongSelf.view.frame.height * 0.6
+                
+                self?.directionView.frame = CGRect(
+                    x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
+                )
+            }
+        )
+    }
+    
+    func dismiss(_ controller: AdoptDirectionViewController) {
+        
+        let origin = directionView.frame
+        
+        let nextFrame = CGRect(x: origin.minX, y: origin.maxY, width: origin.width, height: origin.height)
+        
+        UIView.animate(
+            withDuration: 0.3,
+            animations: { [weak self] in
+                
+                self?.directionView.frame = nextFrame
+                
+            }, completion: { [weak self] _ in
+                
+                self?.directionView.removeFromSuperview()
+            }
+        )
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard
+            segue.identifier == Segue.direction,
+            let adoptDirectionVC = segue.destination as? AdoptDirectionViewController
+                
+        else { return }
+        
+        adoptDirectionVC.closeHandler = { [weak self] in
+            
+            self?.dismiss(adoptDirectionVC)
+        }
+        
+        
+        self.adoptDirectionVC = adoptDirectionVC
     }
     
 }
@@ -199,7 +273,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 // Mock location because Taipei don't have any shelter.
                 
-                self.viewModel.fetchShelter(with: "苗栗縣")
+                self.viewModel.fetchShelter(with: "新北市")
                 
 //                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
             }

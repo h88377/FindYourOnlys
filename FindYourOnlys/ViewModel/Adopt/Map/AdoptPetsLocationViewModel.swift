@@ -26,21 +26,13 @@ class AdoptPetsLocationViewModel {
         )
     )
     
-//    var petMapAnnotation = Box(
-//        MapAnnotationViewModel(
-//            model: MapAnnotation(
-//                title: "",
-//                subtitle: "",
-//                location: "",
-//                coordinate: CLLocationCoordinate2D())
-//        )
-//    )
-    
     var locationViewModel = Box(LocationViewModel(model: CLLocation()))
     
     var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
     
     var getPetLocationHandler: (() -> Void)?
+    
+    var showDirectionHandler: (() -> Void)?
     
     func convertAddress() {
         
@@ -213,6 +205,8 @@ class AdoptPetsLocationViewModel {
                 
                 self.getUserLocationHandler?()
                 
+                self.showDirectionHandler?()
+                
 //                self.updateViewHandler?()
                 
             case .failure(let error):
@@ -222,34 +216,34 @@ class AdoptPetsLocationViewModel {
         }
     }
     
-    func calculateRouteNew() {
-        
-        guard
-            !isShelterMap else { return }
-        
-        MapManager.shared.calculateRouteNew(
-            currentLocation: currentLocationViewModel.value.location,
-            stopLocation: locationViewModel.value.location) { [weak self] result in
-            
-            guard
-                let self = self else { return }
-                
-            switch result {
-                
-            case .success(let(route, mapRoute)):
-                
-                self.getUserLocationHandler?()
-                
-                self.routeViewModel.value.route = route
-                
-                self.mapRouteViewModel.value.mapRoute = mapRoute
-                
-//                self.updateViewHandler?()
-                
-            case .failure(let error):
-                
-                self.errorViewModel?.value = ErrorViewModel(model: error)
-            }
-        }
-    }
+//    func calculateRouteNew() {
+//
+//        guard
+//            !isShelterMap else { return }
+//
+//        MapManager.shared.calculateRouteNew(
+//            currentLocation: currentLocationViewModel.value.location,
+//            stopLocation: locationViewModel.value.location) { [weak self] result in
+//
+//            guard
+//                let self = self else { return }
+//
+//            switch result {
+//
+//            case .success(let(route, mapRoute)):
+//
+//                self.getUserLocationHandler?()
+//
+//                self.routeViewModel.value.route = route
+//
+//                self.mapRouteViewModel.value.mapRoute = mapRoute
+//
+////                self.updateViewHandler?()
+//
+//            case .failure(let error):
+//
+//                self.errorViewModel?.value = ErrorViewModel(model: error)
+//            }
+//        }
+//    }
 }
