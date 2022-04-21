@@ -186,14 +186,23 @@ class AdoptDetailViewController: BaseViewController {
         
         let storyboard = UIStoryboard.adopt
         
+//        guard
+//            let petLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetLocationViewController.identifier) as? AdoptPetLocationViewController
+//
+//        else { return }
+//
+//        petLocationVC.viewModel.petViewModel = viewModel.petViewModel
+        
         guard
-            let petLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetLocationViewController.identifier) as? AdoptPetLocationViewController
+            let petsLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetsLocationViewController.identifier) as? AdoptPetsLocationViewController
         
         else { return }
         
-        petLocationVC.viewModel.petViewModel = viewModel.petViewModel
+        petsLocationVC.viewModel.petViewModel = viewModel.petViewModel
         
-        navigationController?.pushViewController(petLocationVC, animated: true)
+        petsLocationVC.viewModel.isShelterMap = false
+        
+        navigationController?.pushViewController(petsLocationVC, animated: true)
     }
     
 }

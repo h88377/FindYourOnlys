@@ -26,11 +26,21 @@ class AdoptPetsLocationViewModel {
         )
     )
     
+    var petMapAnnotation = Box(
+        MapAnnotationViewModel(
+            model: MapAnnotation(
+                title: "",
+                subtitle: "",
+                location: "",
+                coordinate: CLLocationCoordinate2D())
+        )
+    )
+    
     var locationViewModel = Box(LocationViewModel(model: CLLocation()))
     
     var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
     
-    var getUserLocationHandler: (() -> Void)?
+    var getPetLocationHandler: (() -> Void)?
     
     func convertAddress() {
         
@@ -41,7 +51,7 @@ class AdoptPetsLocationViewModel {
             
             self?.locationViewModel.value.location = location
             
-            self?.getUserLocationHandler?()
+            self?.getPetLocationHandler?()
         }
     }
     
@@ -56,6 +66,8 @@ class AdoptPetsLocationViewModel {
     var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
     
 //    var updateViewHandler: (() -> Void)?
+    
+    var getUserLocationHandler: (() -> Void)?
     
     var currentMapAnnotation = Box(
         MapAnnotationViewModel(
