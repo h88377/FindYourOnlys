@@ -110,10 +110,5 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         
       return headerView
     }
-    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//
-//      return 60
-//    }
 }
 

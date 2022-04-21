@@ -11,7 +11,7 @@ class AdoptPetsLocationViewModel {
     
     var isShelterMap: Bool = true
     
-    //Pet
+    // Pet
     var petViewModel = Box(
         PetViewModel(
             model: Pet(
@@ -26,13 +26,7 @@ class AdoptPetsLocationViewModel {
         )
     )
     
-    var locationViewModel = Box(LocationViewModel(model: CLLocation()))
-    
-    var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
-    
     var getPetLocationHandler: (() -> Void)?
-    
-    var showDirectionHandler: (() -> Void)?
     
     func convertAddress() {
         
@@ -58,17 +52,21 @@ class AdoptPetsLocationViewModel {
         }
     }
     
-    //Pets
+    // Pets
     
     var shelterViewModels = Box([ShelterViewModel]())
+    
+    var mapAnnotationViewModels = Box([MapAnnotationViewModel]())
+    
+    // Common
+    
+    var showAlertHandler: (() -> Void)?
     
     var errorViewModel: Box<ErrorViewModel>?
     
     var routeViewModel = Box(RouteViewModel(model: Route(origin: MKMapItem(), stops: [MKMapItem]())))
     
     var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
-    
-//    var updateViewHandler: (() -> Void)?
     
     var getUserLocationHandler: (() -> Void)?
     
@@ -92,7 +90,11 @@ class AdoptPetsLocationViewModel {
         )
     )
     
-    var mapAnnotationViewModels = Box([MapAnnotationViewModel]())
+    var locationViewModel = Box(LocationViewModel(model: CLLocation()))
+    
+    var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
+    
+    var showDirectionHandler: (() -> Void)?
     
     func fetchShelter(with city: String) {
         
@@ -185,9 +187,16 @@ class AdoptPetsLocationViewModel {
     }
     
     func calculateRoute() {
-//
-//        guard
-//            isShelterMap else { return }
+        
+        guard
+            locationViewModel.value.location.coordinate.longitude != CLLocationDegrees(0.0)
+        
+        else {
+            
+            showAlertHandler?()
+            
+            return
+        }
         
         MapManager.shared.calculateRoute(
             currentCoordinate: currentMapAnnotation.value.mapAnnotation.coordinate,
@@ -195,6 +204,7 @@ class AdoptPetsLocationViewModel {
             
             guard
                 let self = self else { return }
+                
             switch result {
                 
             case .success(let(route, mapRoute)):
@@ -207,43 +217,10 @@ class AdoptPetsLocationViewModel {
                 
                 self.showDirectionHandler?()
                 
-//                self.updateViewHandler?()
-                
             case .failure(let error):
                 
                 self.errorViewModel?.value = ErrorViewModel(model: error)
             }
         }
     }
-    
-//    func calculateRouteNew() {
-//
-//        guard
-//            !isShelterMap else { return }
-//
-//        MapManager.shared.calculateRouteNew(
-//            currentLocation: currentLocationViewModel.value.location,
-//            stopLocation: locationViewModel.value.location) { [weak self] result in
-//
-//            guard
-//                let self = self else { return }
-//
-//            switch result {
-//
-//            case .success(let(route, mapRoute)):
-//
-//                self.getUserLocationHandler?()
-//
-//                self.routeViewModel.value.route = route
-//
-//                self.mapRouteViewModel.value.mapRoute = mapRoute
-//
-////                self.updateViewHandler?()
-//
-//            case .failure(let error):
-//
-//                self.errorViewModel?.value = ErrorViewModel(model: error)
-//            }
-//        }
-//    }
 }
