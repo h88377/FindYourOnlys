@@ -81,6 +81,7 @@ class AdoptListViewController: BaseViewController {
         else { return }
         
 //        adoptPetsLocationVC.viewModel.petViewModels = viewModel.petViewModels
+        adoptPetsLocationVC.viewModel.isShelterMap = true
         
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }

@@ -27,13 +27,11 @@ class AdoptDirectionViewController: BaseViewController {
     
     let viewModel = AdoptDirectionViewModel()
     
-//    let distanceFormatter = MKDistanceFormatter()
-    
     var closeHandler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel.directionViewModel.bind(listener: { [weak self] directionViewModel in
             
             guard
@@ -58,7 +56,6 @@ class AdoptDirectionViewController: BaseViewController {
         
         tableView.register(UINib(nibName: "\(DirectionHeaderView.self)", bundle: nil), forHeaderFooterViewReuseIdentifier: "\(DirectionHeaderView.self)")
     }
-    
 }
 
 // MARK: - UITableViewDataSource
