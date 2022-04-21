@@ -38,29 +38,29 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Pet
+        // Pet
         viewModel.convertAddress()
         
         viewModel.getPetLocationHandler = { [weak self] in
             
             guard
                 let self = self else { return }
-
+            
             self.mapView.centerToLocation(self.viewModel.locationViewModel.value.location)
             
             self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
         }
         
-        //Pets
-        attemptLocationAccess()
         
+        
+        // Pets
         viewModel.getUserLocationHandler = { [weak self] in
-
+            
             guard
                 let self = self else { return }
-
+            
             self.mapView.centerToLocation(self.viewModel.currentLocationViewModel.value.location)
-
+            
             self.mapView.addAnnotation(self.viewModel.currentMapAnnotation.value.mapAnnotation)
             
             self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
@@ -83,10 +83,19 @@ class AdoptPetsLocationViewController: BaseViewController {
             }
         }
         
+        // Common
+        attemptLocationAccess()
+        
         viewModel.showDirectionHandler = { [weak self] in
             
             self?.showProductDirectionView()
         }
+        
+        viewModel.showAlertHandler = { [weak self] in
+            
+            self?.showAlertWindow(title: "異常訊息", message: "請先選擇你的目的地喔！")
+        }
+        
     }
     
     // Pets
@@ -150,15 +159,17 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         mapView.showAnnotations([viewModel.currentMapAnnotation.value.mapAnnotation, viewModel.selectedMapAnnotation.value.mapAnnotation], animated: true)
         
-                let totalDistance = mapRoute.distance
+        let totalDistance = mapRoute.distance
         
-                let totalTravelTime = mapRoute.expectedTravelTime
+        let totalTravelTime = mapRoute.expectedTravelTime
         
-                adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
         
-                adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
         
-                adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+        
+        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
         
     }
     
@@ -207,6 +218,17 @@ class AdoptPetsLocationViewController: BaseViewController {
         )
     }
     
+    func showAlertWindow(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard
@@ -219,7 +241,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             self?.dismiss(adoptDirectionVC)
         }
-        
         
         self.adoptDirectionVC = adoptDirectionVC
     }
@@ -275,7 +296,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 self.viewModel.fetchShelter(with: "新北市")
                 
-//                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
+                //                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
             }
         }
     

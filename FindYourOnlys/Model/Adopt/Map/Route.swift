@@ -34,7 +34,7 @@ struct Route {
         
         if let name = stops.first?.name, stops.count == 1 {
             
-            return "到\(name)的導航方向"
+            return "前往\(name)的導航方向"
             
         } else {
             
@@ -45,7 +45,7 @@ struct Route {
             
             let namesString = stopNames.joined(separator: " 和 ")
             
-            return "\(namesString)的導航方向"
+            return "前往\(namesString)的導航方向"
         }
     }
 }
