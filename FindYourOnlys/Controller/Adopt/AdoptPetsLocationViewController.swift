@@ -38,22 +38,8 @@ class AdoptPetsLocationViewController: BaseViewController {
                 let self = self else { return }
 
             self.mapView.centerToLocation(self.viewModel.locationViewModel.value.location)
-
-            self.mapView.addAnnotation(self.viewModel.petMapAnnotation.value.mapAnnotation)
-        }
-        
-        viewModel.petViewModel.bind { [weak self] petViewModel in
             
-            guard
-                let self = self else { return }
-            
-            let pet = petViewModel.pet
-            
-            self.viewModel.petMapAnnotation.value.mapAnnotation = MapAnnotation(
-                title: pet.kind, subtitle: pet.address,
-                location: pet.address,
-                coordinate: self.viewModel.locationViewModel.value.location.coordinate
-            )
+            self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
         }
         
         //Pets
@@ -83,26 +69,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             self.mapView.showAnnotations(mapAnnotations, animated: true)
         }
     }
-    
-    //Pet
-    func addAnnotation() {
-
-        let pet = viewModel.petViewModel.value.pet
-        
-        let location = viewModel.locationViewModel.value.location
-        
-        let mapAnnotation = MapAnnotation(
-            title: pet.kind,
-            subtitle: pet.address,
-            location: pet.location,
-            coordinate: CLLocationCoordinate2D(
-                latitude: location.coordinate.latitude,
-                longitude: location.coordinate.longitude
-            )
-        )
-        mapView.addAnnotation(mapAnnotation)
-    }
-    
     
     // Pets
     
@@ -233,7 +199,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 // Mock location because Taipei don't have any shelter.
                 
-                self.viewModel.fetchShelter(with: "新北市", mapView: self.mapView)
+                self.viewModel.fetchShelter(with: "苗栗縣")
                 
 //                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
             }
