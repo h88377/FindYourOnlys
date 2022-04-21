@@ -23,13 +23,13 @@ enum ShelterName: String, CaseIterable {
     
     case taoyuan = "桃園市動物保護教育園區"
     
-    case hsinchuCountry = "新竹縣動物收容所"
+    case hsinchuCountry = "新竹縣公立動物收容所"
     
-    case hsinchu = "新竹市動物收容所"
+    case hsinchu = "新竹市動物保護教育園區"
     
     case newtaipei = "新北市政府動物保護防疫處"
     
-    case miaoliCountry = "苗栗縣生態保育教育中心"
+    case miaoliCountry = "苗栗縣生態保育教育中心(動物收容所)"
     
     case taichung = "臺中市動物之家南屯園區"
     
@@ -43,7 +43,7 @@ enum ShelterName: String, CaseIterable {
     
     case chiayiCountry = "嘉義縣流浪犬中途之家"
     
-    case chiayi = "嘉義市流浪犬收容中心"
+    case chiayi = "嘉義市動物保護教育園區"
     
     case tainan = "臺南市動物之家灣裡站"
     
@@ -53,11 +53,11 @@ enum ShelterName: String, CaseIterable {
     
     case ianchao = "高雄市燕巢動物保護關愛園區"
     
-    case pingtungCountry = "屏東縣流浪動物收容所"
+    case pingtungCountry = "屏東縣公立犬貓中途之家"
     
     case yilanCountry = "宜蘭縣流浪動物中途之家"
     
-    case hualianCountry = "花蓮縣流浪犬中途之家"
+    case hualianCountry = "花蓮縣狗貓躍動園區"
     
     case taitungCountry = "臺東縣動物收容中心"
     
@@ -74,8 +74,6 @@ enum ShelterName: String, CaseIterable {
     case bali = "新北市八里區公立動物之家"
     
     case shanchi = "新北市三芝區公立動物之家"
-    
-    
 }
 
 class ShelterProvider {
