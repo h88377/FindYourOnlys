@@ -26,15 +26,15 @@ class AdoptPetsLocationViewModel {
         )
     )
     
-    var petMapAnnotation = Box(
-        MapAnnotationViewModel(
-            model: MapAnnotation(
-                title: "",
-                subtitle: "",
-                location: "",
-                coordinate: CLLocationCoordinate2D())
-        )
-    )
+//    var petMapAnnotation = Box(
+//        MapAnnotationViewModel(
+//            model: MapAnnotation(
+//                title: "",
+//                subtitle: "",
+//                location: "",
+//                coordinate: CLLocationCoordinate2D())
+//        )
+//    )
     
     var locationViewModel = Box(LocationViewModel(model: CLLocation()))
     
@@ -49,9 +49,20 @@ class AdoptPetsLocationViewModel {
             
         MapManager.shared.convertAddress(with: "\(petViewModel.value.pet.address)") { [weak self] location in
             
-            self?.locationViewModel.value.location = location
+            guard
+                let self = self else { return }
             
-            self?.getPetLocationHandler?()
+            self.locationViewModel.value.location = location
+            
+            let pet = self.petViewModel.value.pet
+            
+            self.selectedMapAnnotation.value.mapAnnotation = MapAnnotation(
+                title: pet.kind, subtitle: pet.address,
+                location: pet.address,
+                coordinate: location.coordinate
+            )
+            
+            self.getPetLocationHandler?()
         }
     }
     
@@ -91,7 +102,7 @@ class AdoptPetsLocationViewModel {
     
     var mapAnnotationViewModels = Box([MapAnnotationViewModel]())
     
-    func fetchShelter(with city: String, mapView: MKMapView) {
+    func fetchShelter(with city: String) {
         
         guard
             isShelterMap else { return }
@@ -182,9 +193,9 @@ class AdoptPetsLocationViewModel {
     }
     
     func calculateRoute() {
-        
-        guard
-            isShelterMap else { return }
+//
+//        guard
+//            isShelterMap else { return }
         
         MapManager.shared.calculateRoute(
             currentCoordinate: currentMapAnnotation.value.mapAnnotation.coordinate,
