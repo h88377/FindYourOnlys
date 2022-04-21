@@ -29,7 +29,7 @@ class PetHTTPClient {
         
         let urlString = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx"
         
-        let parameters = ["UnitId": "QcbUEzN6E6DL", "$top": "10", "$skip": "$0"]
+        let parameters = ["UnitId": "QcbUEzN6E6DL", "$top": "1000", "$skip": "$0"]
         
 //        let parameters = ["UnitId": "QcbUEzN6E6DL"]
         

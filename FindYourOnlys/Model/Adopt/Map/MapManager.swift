@@ -24,7 +24,13 @@ class MapManager {
                 
                     let location = placemarks.first?.location
                     
-            else { return }
+            else {
+                
+                print(error)
+                
+                return
+                
+            }
             
             completion(location)
         }

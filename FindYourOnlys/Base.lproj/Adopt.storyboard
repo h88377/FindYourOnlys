@@ -267,17 +267,16 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="directionView" destination="cgs-4i-5Vz" id="o31-um-Sf9"/>
                         <outlet property="mapView" destination="MJ8-wS-7t5" id="1VI-1M-3Rv"/>
                         <outlet property="navigateButton" destination="Eso-I3-g3z" id="1T1-3P-jFT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gNJ-gB-HNY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <containerView opaque="NO" contentMode="scaleToFill" id="cgs-4i-5Vz">
+                <containerView opaque="NO" contentMode="scaleToFill" id="Ef6-HM-h1J">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <connections>
-                        <segue destination="Fnd-BW-aXg" kind="embed" identifier="SegueDirection" id="eZi-OL-YrP"/>
+                        <segue destination="dpA-3d-bOB" kind="embed" id="fai-QS-wNC"/>
                     </connections>
                 </containerView>
             </objects>
@@ -375,7 +374,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXO-WX-Ybm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1664" y="755"/>
+            <point key="canvasLocation" x="1638" y="754"/>
         </scene>
         <!--Adopt List View Controller-->
         <scene sceneID="gbF-yq-rBb">
@@ -489,12 +488,20 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="directionView" destination="cgs-4i-5Vz" id="kZs-7V-HdJ"/>
                         <outlet property="mapView" destination="lyd-z0-sNO" id="Y3a-Z4-mKQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zH9-wT-29b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <containerView opaque="NO" contentMode="scaleToFill" id="cgs-4i-5Vz">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <segue destination="Fnd-BW-aXg" kind="embed" identifier="SegueDirection" id="mQo-WO-vEG"/>
+                    </connections>
+                </containerView>
             </objects>
-            <point key="canvasLocation" x="925" y="1354"/>
+            <point key="canvasLocation" x="4132" y="46"/>
         </scene>
         <!--Adopt Direction View Controller-->
         <scene sceneID="dOs-ZT-Vng">
@@ -541,7 +548,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3tf-Qp-gg0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3312" y="767"/>
+            <point key="canvasLocation" x="4113" y="725"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="EB9-k7-xmN">
+            <objects>
+                <viewController id="dpA-3d-bOB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3l6-7F-M33">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="MoK-pA-Vrq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MgC-9y-11u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3341" y="635"/>
         </scene>
     </scenes>
     <resources>
