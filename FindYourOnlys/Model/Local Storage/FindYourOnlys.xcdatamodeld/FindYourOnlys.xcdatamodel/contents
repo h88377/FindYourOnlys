@@ -17,6 +17,7 @@
         <attribute name="photoURLString" attributeType="String"/>
         <attribute name="remark" attributeType="String"/>
         <attribute name="sex" attributeType="String"/>
+        <attribute name="shelterName" attributeType="String"/>
         <attribute name="status" attributeType="String"/>
         <attribute name="sterilization" attributeType="String"/>
         <attribute name="telephone" attributeType="String"/>
@@ -25,6 +26,6 @@
         <attribute name="variety" attributeType="String"/>
     </entity>
     <elements>
-        <element name="LSPet" positionX="-63" positionY="-18" width="128" height="359"/>
+        <element name="LSPet" positionX="-63" positionY="-18" width="128" height="374"/>
     </elements>
 </model>

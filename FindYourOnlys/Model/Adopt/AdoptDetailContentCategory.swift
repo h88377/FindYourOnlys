@@ -32,6 +32,8 @@ enum AdoptDetailContentCategory: String, CaseIterable {
     
     case createdDate = "資料建立時間"
     
+    case shelterName = "領養機構"
+    
     case address = "領養地址"
     
     case telephone = "領養電話"
@@ -101,6 +103,10 @@ enum AdoptDetailContentCategory: String, CaseIterable {
         case .createdDate:
             
             cell.configureCell(description: rawValue, content: pet.createdDate)
+            
+        case .shelterName:
+            
+            cell.configureCell(description: rawValue, content: pet.shelterName)
         
         case .address:
             
