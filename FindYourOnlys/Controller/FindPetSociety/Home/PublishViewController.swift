@@ -55,17 +55,6 @@ class PublishViewController: BaseViewController {
         Int(index / count)
     }
     
-    func showAlertWindow(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default)
-        
-        alert.addAction(action)
-        
-        present(alert, animated: true)
-    }
-    
     @IBAction func publish(_ sender: UIBarButtonItem) {
         
         viewModel.tapPublish { [weak self] error in

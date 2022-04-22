@@ -47,12 +47,6 @@ class AdoptListViewController: BaseViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print("AdoptListVC didAppear")
-    }
-    
     override func setupCollectionView() {
         
         collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)

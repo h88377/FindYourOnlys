@@ -53,18 +53,20 @@ class AdoptFilterViewController: BaseViewController {
     
     @objc func filter(sender: UIBarButtonItem) {
         
-        print(viewModel.adoptFilterCondition)
-        
         guard
-            let adoptVC = navigationController?.viewControllers[0] as? AdoptViewController
+            let adoptVC = navigationController?.viewControllers[0] as? AdoptViewController,
+            viewModel.isValidCondition
                 
-        else { return }
+        else {
+            
+            showAlertWindow(title: "異常訊息", message: "請至少填寫一個條件喔！")
+            
+            return }
         
         adoptVC.adoptListVC?.viewModel.fetchPet(with: viewModel.adoptFilterCondition)
         
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
 // MARK: - UITableViewDataSource and Delegate
