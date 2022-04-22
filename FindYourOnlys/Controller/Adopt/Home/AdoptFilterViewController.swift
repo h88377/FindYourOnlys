@@ -54,6 +54,15 @@ class AdoptFilterViewController: BaseViewController {
     @objc func filter(sender: UIBarButtonItem) {
         
         print(viewModel.adoptFilterCondition)
+        
+        guard
+            let adoptVC = navigationController?.viewControllers[0] as? AdoptViewController
+                
+        else { return }
+        
+        adoptVC.adoptListVC?.viewModel.fetchPet(with: viewModel.adoptFilterCondition)
+        
+        navigationController?.popViewController(animated: true)
     }
     
 }

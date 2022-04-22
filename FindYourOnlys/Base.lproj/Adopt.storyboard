@@ -62,7 +62,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUu-Tx-dxK">
                                 <rect key="frame" x="0.0" y="123" width="414" height="739"/>
                                 <connections>
-                                    <segue destination="1pB-aw-e5a" kind="embed" id="8wU-TC-BLf"/>
+                                    <segue destination="1pB-aw-e5a" kind="embed" identifier="SegueList" id="8wU-TC-BLf"/>
                                 </connections>
                             </containerView>
                         </subviews>

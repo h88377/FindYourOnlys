@@ -27,7 +27,7 @@ class AdoptListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.petViewModels.bind { [weak self] pets in
+        viewModel.petViewModels.bind { [weak self] _ in
             
             DispatchQueue.main.async {
                 
@@ -35,14 +35,22 @@ class AdoptListViewController: BaseViewController {
             }
         }
         
-        viewModel.fetchPet { error in
+        viewModel.fetchPet()
+        
+        viewModel.errorViewModel.bind { errorViewModel in
             
-            if error != nil {
-                
-                print(error)
-            }
+            guard
+                let errorViewModel = errorViewModel else { return }
+            
+            print(errorViewModel.error)
         }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print("AdoptListVC didAppear")
     }
     
     override func setupCollectionView() {
@@ -144,12 +152,6 @@ extension AdoptListViewController: AdoptDetailViewControllerDelegate {
 
     func toggleFavorite() {
 
-        viewModel.fetchPet { error in
-
-            if error != nil {
-
-                print(error)
-            }
-        }
+        viewModel.fetchPet()
     }
 }
