@@ -40,4 +40,34 @@ class PetProvider {
         }
     }
     
+    func fetchPet(with city: String, completion: @escaping (Result<[Pet], Error>) -> Void) {
+        
+        PetHTTPClient.shared.requestPet(with: city) { result in
+            
+            switch result {
+                
+            case.success(let data):
+                
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    
+                    let pets = try decoder.decode([Pet].self, from: data)
+                    
+                    completion(.success(pets))
+                }
+                
+                catch {
+                    
+                    completion(.failure(HTTPClientError.decodeDataFail))
+                    
+                }
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
+    }
 }
+
+

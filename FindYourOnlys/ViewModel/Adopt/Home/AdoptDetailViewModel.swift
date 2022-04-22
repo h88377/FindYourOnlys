@@ -36,7 +36,7 @@ class AdoptDetailViewModel {
                 foundPlace: "", status: "", remark: "",
                 openDate: "", closedDate: "", updatedDate: "",
                 createdDate: "", photoURLString: "", address: "",
-                telephone: "", variety: ""
+                telephone: "", variety: "", shelterName: ""
             )
         )
     )

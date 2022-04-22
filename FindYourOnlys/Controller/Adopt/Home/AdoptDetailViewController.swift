@@ -181,6 +181,30 @@ class AdoptDetailViewController: BaseViewController {
         
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func checkLocation(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.adopt
+        
+//        guard
+//            let petLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetLocationViewController.identifier) as? AdoptPetLocationViewController
+//
+//        else { return }
+//
+//        petLocationVC.viewModel.petViewModel = viewModel.petViewModel
+        
+        guard
+            let petsLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetsLocationViewController.identifier) as? AdoptPetsLocationViewController
+        
+        else { return }
+        
+        petsLocationVC.viewModel.petViewModel = viewModel.petViewModel
+        
+        petsLocationVC.viewModel.isShelterMap = false
+        
+        navigationController?.pushViewController(petsLocationVC, animated: true)
+    }
+    
 }
 
 // MARK: - UITableViewDelegate & DataSource

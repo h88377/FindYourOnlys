@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>這個應用程式想要取得您現在所在位置。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>這個應用程式想要取得開啟您的裝置開啟相簿權限。</string>
 	<key>NSCameraUsageDescription</key>

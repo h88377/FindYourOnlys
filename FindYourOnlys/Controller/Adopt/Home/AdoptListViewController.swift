@@ -71,6 +71,20 @@ class AdoptListViewController: BaseViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
+    @IBAction func goToMap(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.adopt
+        
+        guard
+            let adoptPetsLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetsLocationViewController.identifier) as? AdoptPetsLocationViewController
+        
+        else { return }
+        
+//        adoptPetsLocationVC.viewModel.petViewModels = viewModel.petViewModels
+        adoptPetsLocationVC.viewModel.isShelterMap = true
+        
+        navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource & Delegate
