@@ -66,20 +66,26 @@ class AdoptPetsLocationViewController: BaseViewController {
             self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
         }
         
-        viewModel.mapAnnotationViewModels.bind { [weak self] _ in
+        viewModel.mapAnnotationViewModels.bind { [weak self] mapAnnotationViewModels in
             
             guard
+                let mapAnnotationViewModels = mapAnnotationViewModels,
                 let self = self else { return }
             
-            let mapAnnotations = self.viewModel.mapAnnotationViewModels.value.map { $0.mapAnnotation }
+            let mapAnnotations = mapAnnotationViewModels.map { $0.mapAnnotation }
             
-            self.mapView.addAnnotations(mapAnnotations)
-            
-            self.mapView.showAnnotations(mapAnnotations, animated: true)
-            
-            if mapAnnotations.count == 0 {
+            DispatchQueue.main.async {
                 
-                print("====There is no adopted pets located nearby your location.")
+                self.mapView.addAnnotations(mapAnnotations)
+                
+                if mapAnnotations.count == 0 {
+                    
+                    self.showAlertWindow(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
+                    
+                } else {
+                    
+                    self.mapView.showAnnotations(mapAnnotations, animated: true)
+                }
             }
         }
         
@@ -94,6 +100,14 @@ class AdoptPetsLocationViewController: BaseViewController {
         viewModel.showAlertHandler = { [weak self] in
             
             self?.showAlertWindow(title: "異常訊息", message: "請先選擇你的目的地喔！")
+        }
+                
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            guard
+                let errorViewModel = errorViewModel else { return }
+            
+            self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
         }
         
     }

@@ -56,13 +56,13 @@ class AdoptPetsLocationViewModel {
     
     var shelterViewModels = Box([ShelterViewModel]())
     
-    var mapAnnotationViewModels = Box([MapAnnotationViewModel]())
+    var mapAnnotationViewModels: Box<[MapAnnotationViewModel]?> = Box(nil)
     
     // Common
     
     var showAlertHandler: (() -> Void)?
     
-    var errorViewModel: Box<ErrorViewModel>?
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var routeViewModel = Box(RouteViewModel(model: Route(origin: MKMapItem(), stops: [MKMapItem]())))
     
@@ -151,18 +151,26 @@ class AdoptPetsLocationViewModel {
                 
                 ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
                 
-                self.appendMapAnnotationsInViewModels(with: shelters)
+                if shelters.count == 0 {
+                    
+                    self.mapAnnotationViewModels.value = []
+                    
+                } else {
+                    
+                    self.appendMapAnnotationsInViewModels(with: shelters)
+                }
+                
               
             case .failure(let error):
                 
-                self.errorViewModel?.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
             
         }
     }
 
     private func appendMapAnnotationsInViewModels(with shelters: [Shelter]) {
-
+        
         shelters.forEach { shelter in
             
             MapManager.shared.convertAddress(with: shelter.address) { [weak self] location in
@@ -189,7 +197,7 @@ class AdoptPetsLocationViewModel {
     func calculateRoute() {
         
         guard
-            locationViewModel.value.location.coordinate.longitude != CLLocationDegrees(0.0)
+            selectedMapAnnotation.value.mapAnnotation.coordinate.longitude != CLLocationDegrees(0.0)
         
         else {
             
@@ -219,7 +227,7 @@ class AdoptPetsLocationViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel?.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }

@@ -213,7 +213,7 @@ class MapManager {
                             
                     else {
                         
-                        print(error)
+                        completion(.failure(error!))
                         
                         return
                     }
@@ -253,9 +253,15 @@ class MapManager {
 //        return viewModels
 //    }
 
-    func appendMapAnnotation(in viewModels: Box<[MapAnnotationViewModel]>, annotation: MapAnnotation) {
+    func appendMapAnnotation(in viewModels: Box<[MapAnnotationViewModel]?>, annotation: MapAnnotation) {
         
-        viewModels.value.append(MapAnnotationViewModel(model: annotation))
+        if
+            viewModels.value == nil { viewModels.value = [MapAnnotationViewModel(model: annotation)] }
+        
+        else {
+            
+            viewModels.value?.append(MapAnnotationViewModel(model: annotation))
+        }
     }
     
 //    func setMapAnnotations(with viewModels: Box<[MapAnnotationViewModel]>, annotations: [MapAnnotation]) {
