@@ -5,7 +5,6 @@
 //  Created by 鄭昭韋 on 2022/4/10.
 //
 
-import Foundation
 import UIKit
 
 enum AdoptDetailContentCategory: String, CaseIterable {
@@ -39,15 +38,6 @@ enum AdoptDetailContentCategory: String, CaseIterable {
     case telephone = "領養電話"
     
     case remark = "備註"
-    
-//        case variety = "animal_Variety"
-    //        case location = "animal_place"
-            
-    //        case kind = "animal_kind"
-            
-    //        case sex = "animal_sex"
-    //        case status = "animal_status"
-    //        case photoURLString = "album_file"
     
     func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, viewModel: PetViewModel) -> UITableViewCell {
 

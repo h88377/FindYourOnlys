@@ -19,24 +19,59 @@ class PublishKindCell: PublishBasicCell {
         
         kindLabel.text = category
     
-        if kindLabel.text == PublishContentCategory.petKind.rawValue {
-
+        
+        switch category {
+            
+        case PublishContentCategory.petKind.rawValue:
+            
             let petKinds = PetKind.allCases
 
             for index in 0..<petKinds.count {
 
                 createButton(with: petKinds[index].rawValue, index: index)
             }
-
-        } else {
-
+        case PublishContentCategory.postType.rawValue:
+            
             let postTypes = PostType.allCases
 
             for index in 0..<postTypes.count {
 
                 createButton(with: postTypes[index].rawValue, index: index)
             }
+            
+        default:
+            
+            let sexes = Sex.allCases
+
+            for index in 0..<sexes.count {
+
+                createButton(with: sexes[index].rawValue, index: index)
+            }
+            
         }
+        
+    
+        
+        
+        
+//        if category == PublishContentCategory.petKind.rawValue {
+//
+//            let petKinds = PetKind.allCases
+//
+//            for index in 0..<petKinds.count {
+//
+//                createButton(with: petKinds[index].rawValue, index: index)
+//            }
+//
+//        } else {
+//
+//            let postTypes = PostType.allCases
+//
+//            for index in 0..<postTypes.count {
+//
+//                createButton(with: postTypes[index].rawValue, index: index)
+//            }
+//        }
 
     }
     

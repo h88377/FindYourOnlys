@@ -43,7 +43,6 @@ class AdoptListViewController: BaseViewController {
             }
         }
         
-        
     }
     
     override func setupCollectionView() {
@@ -80,10 +79,21 @@ class AdoptListViewController: BaseViewController {
         
         else { return }
         
-//        adoptPetsLocationVC.viewModel.petViewModels = viewModel.petViewModels
         adoptPetsLocationVC.viewModel.isShelterMap = true
         
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
+    }
+    
+    @IBAction func goToFilter(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.adopt
+        
+        guard
+            let adoptFilterLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptFilterViewController.identifier) as? AdoptFilterViewController
+        
+        else { return }
+        
+        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
     }
 }
 

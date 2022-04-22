@@ -20,6 +20,10 @@
 		98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0328103491004312F1 /* MapRouteViewModel.swift */; };
 		98939A0628105F4F004312F1 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0528105F4F004312F1 /* PresentationController.swift */; };
 		98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0928106B09004312F1 /* LocationViewModel.swift */; };
+		98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A102812759C004312F1 /* AdoptFilterViewController.swift */; };
+		98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A12281276DC004312F1 /* AdoptFilterCategory.swift */; };
+		98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A142812856A004312F1 /* AdoptFilterViewModel.swift */; };
+		98939A172812890F004312F1 /* Sex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A162812890F004312F1 /* Sex.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -153,6 +157,10 @@
 		98939A0328103491004312F1 /* MapRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouteViewModel.swift; sourceTree = "<group>"; };
 		98939A0528105F4F004312F1 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		98939A0928106B09004312F1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		98939A102812759C004312F1 /* AdoptFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewController.swift; sourceTree = "<group>"; };
+		98939A12281276DC004312F1 /* AdoptFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterCategory.swift; sourceTree = "<group>"; };
+		98939A142812856A004312F1 /* AdoptFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewModel.swift; sourceTree = "<group>"; };
+		98939A162812890F004312F1 /* Sex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sex.swift; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -330,6 +338,7 @@
 				98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */,
 				98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */,
 				98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */,
+				98939A102812759C004312F1 /* AdoptFilterViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -342,6 +351,7 @@
 				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
 				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
+				98939A142812856A004312F1 /* AdoptFilterViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -461,6 +471,7 @@
 				989399F8280FD707004312F1 /* Shelter.swift */,
 				98CC165F2806724000B9FDC6 /* Article.swift */,
 				98CC161328030F8100B9FDC6 /* AdoptDetailContentCategory.swift */,
+				98939A12281276DC004312F1 /* AdoptFilterCategory.swift */,
 				989399F5280FB0F6004312F1 /* Map */,
 			);
 			path = Adopt;
@@ -498,6 +509,7 @@
 			children = (
 				9896D944280DBD52003D4A16 /* PostType.swift */,
 				9896D946280DBD63003D4A16 /* PetKind.swift */,
+				98939A162812890F004312F1 /* Sex.swift */,
 				98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */,
 			);
 			path = Home;
@@ -934,6 +946,7 @@
 				9896D936280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift in Sources */,
 				9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */,
 				9896D964280EDC98003D4A16 /* Direction.swift in Sources */,
+				98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */,
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
 				9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */,
 				989399F9280FD707004312F1 /* Shelter.swift in Sources */,
@@ -1005,6 +1018,7 @@
 				98939A0628105F4F004312F1 /* PresentationController.swift in Sources */,
 				9896D940280DBC98003D4A16 /* FriendRequestList.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
+				98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
 				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
 				9896D945280DBD53003D4A16 /* PostType.swift in Sources */,
@@ -1027,9 +1041,11 @@
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
 				9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */,
 				9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */,
+				98939A172812890F004312F1 /* Sex.swift in Sources */,
 				98CC164C28059FCB00B9FDC6 /* PublishContentCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 				9896D947280DBD63003D4A16 /* PetKind.swift in Sources */,
+				98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */,
 				98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */,
 				9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
