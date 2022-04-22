@@ -135,17 +135,17 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser
         
-        adoptDetaiVC.delegate = adoptFavoriteVC
+//        adoptDetaiVC.delegate = adoptFavoriteVC
         
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
     }
 
 }
 
-extension AdoptListViewController: AdoptDetailViewControllerDelegate {
-
-    func toggleFavorite() {
-
-        viewModel.fetchPet()
-    }
-}
+//extension AdoptListViewController: AdoptDetailViewControllerDelegate {
+//
+//    func toggleFavorite() {
+//
+//        viewModel.fetchPet()
+//    }
+//}

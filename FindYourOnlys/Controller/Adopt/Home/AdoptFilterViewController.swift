@@ -109,7 +109,14 @@ extension AdoptFilterViewController: PublishBasicCellDelegate {
     
     func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
         
-        viewModel.sexChanged(with: sex)
+        if sex == Sex.male.rawValue {
+            
+            viewModel.sexChanged(with: "M")
+            
+        } else {
+            
+            viewModel.sexChanged(with: "F")
+        }
     }
     
     func didChangeColor(_ cell: PublishBasicCell, with color: String) {
