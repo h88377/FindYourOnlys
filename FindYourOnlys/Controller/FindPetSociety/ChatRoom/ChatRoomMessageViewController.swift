@@ -152,17 +152,6 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    func showAlertWindow(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default)
-        
-        alert.addAction(action)
-        
-        present(alert, animated: true)
-    }
-    
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: ChatRoomMessageCell.identifier)
