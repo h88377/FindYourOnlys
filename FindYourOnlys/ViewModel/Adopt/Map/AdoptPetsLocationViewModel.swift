@@ -101,7 +101,7 @@ class AdoptPetsLocationViewModel {
         guard
             isShelterMap else { return }
         
-        PetProvider.shared.fetchPet(with: city) { [weak self] result in
+        PetProvider.shared.fetchPet(with: AdoptFilterCondition(city: city, petKind: "", sex: "", color: "")) { [weak self] result in
             
             guard
                 let self = self else { return }
