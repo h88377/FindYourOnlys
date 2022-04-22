@@ -18,6 +18,8 @@ protocol PublishBasicCellDelegate: AnyObject {
     func didChangePostType(_ cell: PublishBasicCell, with postType: String)
     
     func didChangeContent(_ cell: PublishBasicCell, with content: String)
+    
+    func didChangeSex(_ cell: PublishBasicCell, with sex: String)
 }
 
 class PublishBasicCell: UITableViewCell {
@@ -69,6 +71,11 @@ extension PublishBasicCellDelegate {
     }
     
     func didChangeContent(_ cell: PublishBasicCell, with content: String) {
+        
+    }
+    
+    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
+        
         
     }
 }
