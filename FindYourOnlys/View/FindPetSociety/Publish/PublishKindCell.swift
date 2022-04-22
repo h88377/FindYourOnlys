@@ -18,7 +18,6 @@ class PublishKindCell: PublishBasicCell {
     override func layoutCell(category: String) {
         
         kindLabel.text = category
-    
         
         switch category {
             
@@ -119,14 +118,19 @@ class PublishKindCell: PublishBasicCell {
         
         sender.isSelected = true
         
-        if kindLabel.text == PublishContentCategory.petKind.rawValue {
+        switch kindLabel.text {
+            
+        case PublishContentCategory.petKind.rawValue:
             
             delegate?.didChangePetKind(self, with: currentTitle)
             
-        } else {
+        case PublishContentCategory.postType.rawValue:
             
             delegate?.didChangePostType(self, with: currentTitle)
+            
+        default:
+            
+            delegate?.didChangeSex(self, with: currentTitle)
         }
     }
-    
 }

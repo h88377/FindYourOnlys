@@ -13,12 +13,6 @@ class AdoptFilterViewController: BaseViewController {
     
     let viewModel = AdoptFilterViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-    }
-    
     override func setupTableView() {
         super.setupTableView()
         
@@ -51,6 +45,15 @@ class AdoptFilterViewController: BaseViewController {
         super.setupNavigationTitle()
         
         navigationItem.title = "搜尋條件"
+        
+        let filterButtonItem = UIBarButtonItem(title: "篩選", style: .done, target: self, action: #selector(filter))
+        
+        navigationItem.rightBarButtonItem = filterButtonItem
+    }
+    
+    @objc func filter(sender: UIBarButtonItem) {
+        
+        print(viewModel.adoptFilterCondition)
     }
     
 }
@@ -65,6 +68,42 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        viewModel.adoptFilterCategory[indexPath.row].cellForIndexPath(indexPath, tableView: tableView)
+        let adoptFilterCategory = viewModel.adoptFilterCategory
+        
+        guard
+            let cell = adoptFilterCategory[indexPath.row].cellForIndexPath(
+                indexPath,
+                tableView: tableView
+            ) as? PublishBasicCell
+                
+        else { return UITableViewCell() }
+                
+        cell.delegate = self
+        
+        return cell
     }
+}
+
+extension AdoptFilterViewController: PublishBasicCellDelegate {
+    
+    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+        
+        viewModel.cityChanged(with: city)
+    }
+    
+    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+        
+        viewModel.petKindChanged(with: petKind)
+    }
+    
+    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
+        
+        viewModel.sexChanged(with: sex)
+    }
+    
+    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    
+        viewModel.colorChanged(with: color)
+    }
+    
 }
