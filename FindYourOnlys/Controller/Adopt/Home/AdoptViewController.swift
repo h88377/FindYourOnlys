@@ -24,9 +24,13 @@ class AdoptViewController: BaseViewController {
     private struct Segue {
         
         static let favorite = "SegueFavorite"
+        
+        static let list = "SegueList"
     }
     
     weak var delegate: AdoptViewControllerDelegate?
+    
+    var adoptListVC: AdoptListViewController?
     
     @IBOutlet weak var indicatorView: UIView!
     
@@ -62,13 +66,30 @@ class AdoptViewController: BaseViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard
-            segue.identifier == Segue.favorite,
-            let adpotFavoriteVC = segue.destination as? AdoptFavoriteViewController
-                
-        else { return }
+        if segue.identifier == Segue.favorite {
+            
+            let adoptFavoriteVC = segue.destination as? AdoptFavoriteViewController
+            
+            self.delegate = adoptFavoriteVC
+            
+        } else {
+            
+            let adoptListVC = segue.destination as? AdoptListViewController
+            
+            self.adoptListVC = adoptListVC
+        }
         
-        self.delegate = adpotFavoriteVC
+//        guard
+//            segue.identifier == Segue.favorite,
+//            segue.identifier == Segue.list,
+//            
+//            
+//                
+//        else { return }
+        
+        
+        
+        
     }
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {
