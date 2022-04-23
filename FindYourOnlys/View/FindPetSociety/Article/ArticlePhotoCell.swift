@@ -71,7 +71,7 @@ class ArticlePhotoCell: UITableViewCell {
             
         default:
             
-            postTypeLabel.text = "error type."
+            postTypeLabel.text = ""
         }   
     }
     

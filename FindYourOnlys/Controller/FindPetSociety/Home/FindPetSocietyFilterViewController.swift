@@ -56,7 +56,6 @@ class FindPetSocietyFilterViewController: BaseViewController {
     
     @objc func filter(sender: UIBarButtonItem) {
         
-        print(viewModel.findPetSocietyFilterCondition)
         guard
             let petSocietyVC = navigationController?.viewControllers[0] as? FindPetSocietyViewController,
             viewModel.isValidCondition

@@ -88,6 +88,34 @@ class ShareSocietyViewController: BaseViewController {
         
         navigationController?.pushViewController(shareSocietyVC, animated: true)
     }
+    
+    @IBAction func goToChat(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let chatRoomFriendListVC = storyboard.instantiateViewController(withIdentifier: ChatRoomFriendListViewController.identifier) as? ChatRoomFriendListViewController
+                
+        else { return }
+        
+        navigationController?.pushViewController(chatRoomFriendListVC, animated: true)
+    }
+    
+    @IBAction func addFriend(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let addFriendVC = storyboard
+                .instantiateViewController(withIdentifier: AddFriendViewController.identifier)
+                as? AddFriendViewController
+                
+        else { return }
+        
+        navigationController?.pushViewController(addFriendVC, animated: true)
+    }
+    
+    
 }
 
 // MARK: - ShareSocietyViewController UITableViewDelegate and DataSource
