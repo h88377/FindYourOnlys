@@ -140,13 +140,28 @@ class FindPetSocietyViewController: BaseViewController {
         let storyboard = UIStoryboard.findPetSociety
         
         guard
-            let addFriendVC = storyboard.instantiateViewController(withIdentifier: AddFriendViewController.identifier) as? AddFriendViewController
+            let addFriendVC = storyboard
+                .instantiateViewController(withIdentifier: AddFriendViewController.identifier)
+                as? AddFriendViewController
                 
         else { return }
         
         navigationController?.pushViewController(addFriendVC, animated: true)
     }
     
+    @IBAction func search(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let filterVC = storyboard
+                .instantiateViewController(withIdentifier: PetSocietyFilterViewController.identifier)
+                as? PetSocietyFilterViewController
+                
+        else { return }
+        
+        navigationController?.pushViewController(filterVC, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource and Delegate
