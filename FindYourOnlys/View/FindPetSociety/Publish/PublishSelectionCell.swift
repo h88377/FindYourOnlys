@@ -7,13 +7,6 @@
 
 import UIKit
 
-//protocol PublishSelectionCellDelegate: AnyObject {
-//
-//    func didChangeCity(_ cell: PublishBasicCell, with city: String)
-//
-//    func didChangeColor(_ cell: PublishBasicCell, with color: String)
-//}
-
 class PublishSelectionCell: PublishBasicCell {
     
     private enum City: String, CaseIterable {
@@ -96,8 +89,6 @@ class PublishSelectionCell: PublishBasicCell {
         case gray = "灰色"
         
     }
-    
-//    weak var delegate: PublishSelectionCellDelegate?
 
     @IBOutlet weak var selectionLabel: UILabel!
     

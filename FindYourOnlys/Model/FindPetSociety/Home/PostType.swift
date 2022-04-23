@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum PostType: String, CaseIterable {
     
     case missing = "遺失"

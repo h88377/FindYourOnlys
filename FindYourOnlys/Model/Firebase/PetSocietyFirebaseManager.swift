@@ -19,7 +19,36 @@ class PetSocietyFirebaseManager {
     private let storage = Storage.storage()
     
     // MARK: - Article
-    func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
+//    func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
+//        
+//        db.collection(FirebaseCollectionType.article.rawValue)
+//            .order(by: "createdTime", descending: true)
+//            .addSnapshotListener { snapshot, error in
+//                
+//                guard
+//                    let snapshot = snapshot else { return }
+//                
+//                var articles = [Article]()
+//                
+//                for document in snapshot.documents {
+//                    
+//                    do {
+//                        
+//                        let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
+//                        
+//                        articles.append(article)
+//                        
+//                    } catch {
+//                        
+//                        completion(.failure(error))
+//                    }
+//                }
+//                
+//                completion(.success(articles))
+//            }
+//    }
+    
+    func fetchArticle(with condition: FindPetSocietyFilterCondition? = nil, completion: @escaping (Result<[Article], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.article.rawValue)
             .order(by: "createdTime", descending: true)
@@ -36,9 +65,25 @@ class PetSocietyFirebaseManager {
                         
                         let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
                         
-                        articles.append(article)
-                    }
-                    catch {
+                        switch condition == nil {
+                            
+                        case true:
+                            
+                            articles.append(article)
+                            
+                        case false:
+                            
+                            // All conditions are filled in.
+                            if article.postType == condition?.postType
+                                && article.petKind == condition?.petKind
+                                && article.city == condition?.city
+                                && article.color == condition?.color {
+                                
+                                articles.append(article)
+                            }
+                        }
+                        
+                    } catch {
                         
                         completion(.failure(error))
                     }

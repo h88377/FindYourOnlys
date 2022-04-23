@@ -9,9 +9,9 @@ import Foundation
 
 enum PetKind: String, CaseIterable {
     
-    case cat = "貓咪"
+    case cat = "貓"
     
-    case dog = "狗狗"
+    case dog = "狗"
     
     case others = "其他"
 }
