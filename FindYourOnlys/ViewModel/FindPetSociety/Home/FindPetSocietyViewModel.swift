@@ -13,9 +13,11 @@ class FindPetSocietyViewModel {
     
     let authorViewModels = Box([UserViewModel]())
     
-    func fetchArticles(completion: @escaping (Error?) -> Void) {
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
+    func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
-        PetSocietyFirebaseManager.shared.fetchArticle { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle(with: condition) { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -28,18 +30,18 @@ class FindPetSocietyViewModel {
                 
                 self.fetchAuthors(with: articles) { error in
                     
-                    completion(error)
+                    self.errorViewModel.value = ErrorViewModel(model: error!)
                 }
                 
             case .failure(let error):
                 
-                completion(error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
     }
     
-    func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
+    private func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             

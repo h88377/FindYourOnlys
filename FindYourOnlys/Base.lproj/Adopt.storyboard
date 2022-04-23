@@ -62,7 +62,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUu-Tx-dxK">
                                 <rect key="frame" x="0.0" y="123" width="414" height="739"/>
                                 <connections>
-                                    <segue destination="1pB-aw-e5a" kind="embed" id="8wU-TC-BLf"/>
+                                    <segue destination="1pB-aw-e5a" kind="embed" identifier="SegueList" id="8wU-TC-BLf"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -215,73 +215,6 @@
             </objects>
             <point key="canvasLocation" x="2425" y="68"/>
         </scene>
-        <!--Adopt Pet Location View Controller-->
-        <scene sceneID="Au5-ev-eSI">
-            <objects>
-                <viewController storyboardIdentifier="AdoptPetLocationViewController" id="Fhk-0n-hSq" customClass="AdoptPetLocationViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qez-0b-Ntu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MJ8-wS-7t5">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                            </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eso-I3-g3z">
-                                <rect key="frame" x="366" y="809.5" width="28" height="32.5"/>
-                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="location.north.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
-                                </state>
-                                <connections>
-                                    <action selector="navigate:" destination="Fhk-0n-hSq" eventType="touchUpInside" id="zBd-y7-K7f"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27l-l7-540">
-                                <rect key="frame" x="20" y="64" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="hiA-c3-AKV"/>
-                                    <constraint firstAttribute="width" constant="40" id="wPN-vE-xpi"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="chevron.backward.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="31"/>
-                                </state>
-                                <connections>
-                                    <action selector="back:" destination="Fhk-0n-hSq" eventType="touchUpInside" id="EdT-cW-cPe"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6iP-JP-tSQ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6iP-JP-tSQ" firstAttribute="bottom" secondItem="Eso-I3-g3z" secondAttribute="bottom" constant="20" id="2dc-Zi-LxE"/>
-                            <constraint firstItem="27l-l7-540" firstAttribute="top" secondItem="6iP-JP-tSQ" secondAttribute="top" constant="20" id="7ma-4J-5Aq"/>
-                            <constraint firstItem="6iP-JP-tSQ" firstAttribute="bottom" secondItem="MJ8-wS-7t5" secondAttribute="bottom" id="G7t-zX-Zya"/>
-                            <constraint firstItem="MJ8-wS-7t5" firstAttribute="top" secondItem="qez-0b-Ntu" secondAttribute="top" id="VDc-ir-ixf"/>
-                            <constraint firstItem="6iP-JP-tSQ" firstAttribute="trailing" secondItem="MJ8-wS-7t5" secondAttribute="trailing" id="X8C-rh-A2q"/>
-                            <constraint firstItem="6iP-JP-tSQ" firstAttribute="trailing" secondItem="Eso-I3-g3z" secondAttribute="trailing" constant="20" id="Zvn-0E-HHm"/>
-                            <constraint firstItem="27l-l7-540" firstAttribute="leading" secondItem="6iP-JP-tSQ" secondAttribute="leading" constant="20" id="iqc-6Q-IWq"/>
-                            <constraint firstItem="MJ8-wS-7t5" firstAttribute="leading" secondItem="6iP-JP-tSQ" secondAttribute="leading" id="tKu-SY-vKb"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="mapView" destination="MJ8-wS-7t5" id="1VI-1M-3Rv"/>
-                        <outlet property="navigateButton" destination="Eso-I3-g3z" id="1T1-3P-jFT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gNJ-gB-HNY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <containerView opaque="NO" contentMode="scaleToFill" id="Ef6-HM-h1J">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <connections>
-                        <segue destination="dpA-3d-bOB" kind="embed" id="fai-QS-wNC"/>
-                    </connections>
-                </containerView>
-            </objects>
-            <point key="canvasLocation" x="3836" y="173"/>
-        </scene>
         <!--Adopt Directions View Controller-->
         <scene sceneID="Jm7-KF-6Ho">
             <objects>
@@ -354,6 +287,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目前沒有收藏的動物喔！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHK-z2-ths">
+                                <rect key="frame" x="111.5" y="359" width="191" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="55s-XO-3IO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -364,17 +303,35 @@
                         <constraints>
                             <constraint firstItem="55s-XO-3IO" firstAttribute="top" secondItem="GFH-QV-cQs" secondAttribute="top" id="1ZL-mx-boQ"/>
                             <constraint firstAttribute="trailing" secondItem="55s-XO-3IO" secondAttribute="trailing" id="8Xu-6c-yY7"/>
+                            <constraint firstItem="XHK-z2-ths" firstAttribute="centerX" secondItem="GFH-QV-cQs" secondAttribute="centerX" id="Dwr-aR-cgs"/>
                             <constraint firstAttribute="bottom" secondItem="55s-XO-3IO" secondAttribute="bottom" id="TnY-Gm-cyU"/>
                             <constraint firstItem="55s-XO-3IO" firstAttribute="leading" secondItem="GFH-QV-cQs" secondAttribute="leading" id="cdk-AV-v42"/>
+                            <constraint firstItem="XHK-z2-ths" firstAttribute="centerY" secondItem="GFH-QV-cQs" secondAttribute="centerY" id="tnP-a0-10B"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="remindLabel" destination="XHK-z2-ths" id="avT-Ld-DTC"/>
                         <outlet property="tableView" destination="55s-XO-3IO" id="AJf-ZQ-GYd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXO-WX-Ybm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1638" y="754"/>
+            <point key="canvasLocation" x="1910" y="748"/>
+        </scene>
+        <!--Adopt Filter View Controller-->
+        <scene sceneID="0C1-cC-FgP">
+            <objects>
+                <viewController storyboardIdentifier="AdoptFilterViewController" id="yUP-O3-Tgk" customClass="AdoptFilterViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gDA-Xi-Pw9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="vjU-kt-xof"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eCF-WN-POL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="222" y="1527"/>
         </scene>
         <!--Adopt List View Controller-->
         <scene sceneID="gbF-yq-rBb">
@@ -384,10 +341,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沒有相關動物資訊喔！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgm-Ot-ZDv">
+                                <rect key="frame" x="120" y="359" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcT-OB-vGr">
                                 <rect key="frame" x="352" y="8" width="54" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="filter"/>
+                                <connections>
+                                    <action selector="goToFilter:" destination="1pB-aw-e5a" eventType="touchUpInside" id="Gay-0I-gmN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjL-qO-zZE">
+                                <rect key="frame" x="176" y="400" width="62" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="查看全部"/>
+                                <connections>
+                                    <action selector="reFetchPetInfo:" destination="1pB-aw-e5a" eventType="touchUpInside" id="sy8-OA-IJC"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
                                 <rect key="frame" x="0.0" y="39" width="414" height="700"/>
@@ -418,19 +392,25 @@
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="leading" secondItem="Lcu-Vf-T8C" secondAttribute="leading" id="GRe-YH-Lcr"/>
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="top" secondItem="AcT-OB-vGr" secondAttribute="bottom" id="JOZ-1l-CbK"/>
                             <constraint firstItem="AcT-OB-vGr" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" constant="8" id="JZw-Vs-lzF"/>
+                            <constraint firstItem="fjL-qO-zZE" firstAttribute="top" secondItem="Lgm-Ot-ZDv" secondAttribute="bottom" constant="20" id="S5e-l9-gtS"/>
+                            <constraint firstItem="Lgm-Ot-ZDv" firstAttribute="centerX" secondItem="Lcu-Vf-T8C" secondAttribute="centerX" id="VsV-Fv-S9N"/>
                             <constraint firstItem="deQ-Dp-IuG" firstAttribute="trailing" secondItem="M35-Pu-lfS" secondAttribute="trailing" constant="20" id="Wb6-Nb-zzf"/>
+                            <constraint firstItem="fjL-qO-zZE" firstAttribute="centerX" secondItem="Lcu-Vf-T8C" secondAttribute="centerX" id="Zb4-Su-CAo"/>
                             <constraint firstItem="deQ-Dp-IuG" firstAttribute="bottom" secondItem="M35-Pu-lfS" secondAttribute="bottom" constant="20" id="aTB-ak-mxk"/>
                             <constraint firstAttribute="bottom" secondItem="lPB-Hh-8hq" secondAttribute="bottom" id="l5s-Ox-PxR"/>
                             <constraint firstAttribute="trailing" secondItem="lPB-Hh-8hq" secondAttribute="trailing" id="m5E-PP-647"/>
+                            <constraint firstItem="Lgm-Ot-ZDv" firstAttribute="centerY" secondItem="Lcu-Vf-T8C" secondAttribute="centerY" id="ozx-9y-76v"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="lPB-Hh-8hq" id="nn0-Tv-tuX"/>
+                        <outlet property="refetchButton" destination="fjL-qO-zZE" id="pVk-vl-0Kk"/>
+                        <outlet property="remindLabel" destination="Lgm-Ot-ZDv" id="3gF-zu-kSp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E30-Vk-UiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942" y="738"/>
+            <point key="canvasLocation" x="620" y="748"/>
         </scene>
         <!--Adopt Pets Location View Controller-->
         <scene sceneID="rQZ-tD-Vnp">
@@ -549,21 +529,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3tf-Qp-gg0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="881" y="2185"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="EB9-k7-xmN">
-            <objects>
-                <viewController id="dpA-3d-bOB" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3l6-7F-M33">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="MoK-pA-Vrq"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MgC-9y-11u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3865" y="725"/>
         </scene>
     </scenes>
     <resources>

@@ -11,9 +11,13 @@ class AdoptListViewModel {
     
     let petViewModels = Box([PetViewModel]())
     
-    func fetchPet(completion: @escaping (Error?) -> Void) {
+//    var filterConditionViewModel: Box<AdoptFilterCondition?> = Box(nil)
+    
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
+    func fetchPet(with condition: AdoptFilterCondition? = nil) {
         
-        PetProvider.shared.fetchPet { [weak self] result in
+        PetProvider.shared.fetchPet(with: condition) { [weak self] result in
             
             switch result {
                 
@@ -23,11 +27,29 @@ class AdoptListViewModel {
                 
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel = Box(ErrorViewModel(model: error))
             }
         }
         
     }
+    
+//    func fetchPet(with condition: AdoptFilterCondition) {
+//        
+//        PetProvider.shared.fetchPet(with: condition) { [weak self] result in
+//            
+//            switch result {
+//                
+//            case .success(let pets):
+//                
+//                self?.setPets(pets)
+//                
+//            case .failure(let error):
+//                
+//                self?.errorViewModel = Box(ErrorViewModel(model: error))
+//            }
+//        }
+//        
+//    }
     
     private func convertPetsToViewModels(from pets: [Pet]) -> [PetViewModel] {
         

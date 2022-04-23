@@ -1,15 +1,13 @@
 //
-//  PublishContentCategory.swift
+//  PetSocietyFilterCategory.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/13.
+//  Created by 鄭昭韋 on 2022/4/23.
 //
 
 import UIKit
 
-enum PublishContentCategory: String, CaseIterable {
-    
-    case user = ""
+enum FindPetSocietyFilterCategory: String, CaseIterable {
     
     case city = "請選擇縣市"
     
@@ -19,35 +17,25 @@ enum PublishContentCategory: String, CaseIterable {
     
     case postType = "請選擇遺失/尋獲"
     
-    case content = " "
-    
     func identifier() -> String {
-
+        
         switch self {
-
-        case .user: return PublishUserCell.identifier
-
+            
         case .color, .city: return PublishSelectionCell.identifier
             
         case .petKind, .postType: return PublishKindCell.identifier
-
-        case .content: return PublishContentCell.identifier
-
+            
         }
     }
     
     func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
-
+        
         guard
             let basicCell = cell as? PublishBasicCell else { return cell }
         
         switch self {
-            
-        case .user:
-            
-            basicCell.layoutCell()
             
         case .city:
             
@@ -64,12 +52,9 @@ enum PublishContentCategory: String, CaseIterable {
         case .postType:
             
             basicCell.layoutCell(category: rawValue)
-            
-        case .content:
-            
-            basicCell.layoutCell()
         }
-
+        
         return basicCell
+        
     }
 }

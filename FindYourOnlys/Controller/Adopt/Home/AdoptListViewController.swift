@@ -14,6 +14,22 @@ class AdoptListViewController: BaseViewController {
     
     var isLogin = false
     
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+//            remindLabel.alpha = 0
+        }
+    }
+    
+    @IBOutlet weak var refetchButton: UIButton! {
+        
+        didSet {
+            
+//            refetchButton.alpha = 0
+        }
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         
         didSet {
@@ -27,22 +43,40 @@ class AdoptListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.petViewModels.bind { [weak self] pets in
+        viewModel.petViewModels.bind { [weak self] petViewModels in
+            
+            guard
+                let self = self else { return }
             
             DispatchQueue.main.async {
                 
-                self?.collectionView.reloadData()
-            }
-        }
-        
-        viewModel.fetchPet { error in
-            
-            if error != nil {
+                self.collectionView.reloadData()
                 
-                print(error)
+                self.collectionView.isHidden = petViewModels.count == 0
+                ? true
+                : false
+                
+//                self.remindLabel.alpha =
+//                self.collectionView.isHidden
+//                ? 1
+//                : 0
+//
+//                self.refetchButton.alpha =
+//                self.collectionView.isHidden
+//                ? 1
+//                : 0
             }
         }
         
+        viewModel.fetchPet()
+        
+        viewModel.errorViewModel.bind { errorViewModel in
+            
+            guard
+                let errorViewModel = errorViewModel else { return }
+            
+            print(errorViewModel.error)
+        }
         
     }
     
@@ -80,11 +114,28 @@ class AdoptListViewController: BaseViewController {
         
         else { return }
         
-//        adoptPetsLocationVC.viewModel.petViewModels = viewModel.petViewModels
         adoptPetsLocationVC.viewModel.isShelterMap = true
         
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }
+    
+    @IBAction func goToFilter(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.adopt
+        
+        guard
+            let adoptFilterLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptFilterViewController.identifier) as? AdoptFilterViewController
+        
+        else { return }
+        
+        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
+    }
+    
+    @IBAction func reFetchPetInfo(_ sender: UIButton) {
+        
+        viewModel.fetchPet()
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource & Delegate
@@ -123,23 +174,17 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser
         
-        adoptDetaiVC.delegate = adoptFavoriteVC
+//        adoptDetaiVC.delegate = adoptFavoriteVC
         
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
     }
 
 }
 
-extension AdoptListViewController: AdoptDetailViewControllerDelegate {
-
-    func toggleFavorite() {
-
-        viewModel.fetchPet { error in
-
-            if error != nil {
-
-                print(error)
-            }
-        }
-    }
-}
+//extension AdoptListViewController: AdoptDetailViewControllerDelegate {
+//
+//    func toggleFavorite() {
+//
+//        viewModel.fetchPet()
+//    }
+//}
