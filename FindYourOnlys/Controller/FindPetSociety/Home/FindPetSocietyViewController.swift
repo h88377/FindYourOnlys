@@ -120,7 +120,7 @@ class FindPetSocietyViewController: BaseViewController {
         navigationItem.title = "尋寵物啟示"
     }
     
-    func convertDataSourceIndex(with index: Int, count: Int) -> Int {
+    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
         
         Int(index / count)
     }
@@ -203,16 +203,22 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         
         let registeredCellCount = 2
         
-        let cellViewModel = viewModel.articleViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+        let cellViewModel = viewModel
+            .articleViewModels
+            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
-        let authorCellViewModel = viewModel.authorViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+        let authorCellViewModel = viewModel
+            .authorViewModels
+            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
         switch indexPath.row % 2 {
             
         case 0:
             
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: ArticlePhotoCell.identifier, for: indexPath) as? ArticlePhotoCell
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
+                    as? ArticlePhotoCell
                     
             else { return UITableViewCell() }
             
@@ -223,7 +229,9 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         case 1:
             
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: ArticleContentCell.identifier, for: indexPath) as? ArticleContentCell
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ArticleContentCell.identifier, for: indexPath)
+                    as? ArticleContentCell
                     
             else { return UITableViewCell() }
             

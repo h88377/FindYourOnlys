@@ -34,6 +34,7 @@
 		98939A2A28143088004312F1 /* SharePublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2928143088004312F1 /* SharePublishViewController.swift */; };
 		98939A2D2814338A004312F1 /* ShareContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2C2814338A004312F1 /* ShareContentCategory.swift */; };
 		98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2F2814343C004312F1 /* SharePublishViewModel.swift */; };
+		98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -181,6 +182,7 @@
 		98939A2928143088004312F1 /* SharePublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewController.swift; sourceTree = "<group>"; };
 		98939A2C2814338A004312F1 /* ShareContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareContentCategory.swift; sourceTree = "<group>"; };
 		98939A2F2814343C004312F1 /* SharePublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewModel.swift; sourceTree = "<group>"; };
+		98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocietyViewModel.swift; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				98939A2F2814343C004312F1 /* SharePublishViewModel.swift */,
+				98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */,
 			);
 			path = ShareSociety;
 			sourceTree = "<group>";
@@ -1017,6 +1020,7 @@
 				9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,
+				98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */,
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
 				98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */,
 				9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */,

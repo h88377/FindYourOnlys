@@ -19,7 +19,9 @@ class PetSocietyFirebaseManager {
     private let storage = Storage.storage()
     
     // MARK: - Article
-    func fetchArticle(with condition: FindPetSocietyFilterCondition? = nil, completion: @escaping (Result<[Article], Error>) -> Void) {
+    func fetchArticle(
+        with condition: FindPetSocietyFilterCondition? = nil,
+        completion: @escaping (Result<[Article], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.article.rawValue)
             .order(by: "createdTime", descending: true)
@@ -104,6 +106,35 @@ class PetSocietyFirebaseManager {
             
             completion(error)
         }
+    }
+    
+    func fetchSharedArticle(
+        completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.sharedArticle.rawValue)
+            .order(by: "createdTime", descending: true)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else { return }
+                
+                var articles = [Article]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                        
+                        articles.append(article)
+                        
+                    } catch {
+                        
+                        completion(.failure(error))
+                    }
+                }
+                completion(.success(articles))
+            }
     }
     
     func fetchDownloadImageURL(
