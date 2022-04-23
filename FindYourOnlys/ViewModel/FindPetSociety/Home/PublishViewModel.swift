@@ -82,8 +82,6 @@ class PublishViewModel {
                 
         else { return }
         
-        print("Published content is valid")
-        
         DispatchQueue.global().async {
             
             let semaphore = DispatchSemaphore(value: 0)
