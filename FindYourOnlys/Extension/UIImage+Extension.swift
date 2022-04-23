@@ -18,6 +18,10 @@ enum SystemImageAsset: String {
     
     case findPetSocietySelectedItem = "person.3.fill"
     
+    case shareSocietyItem = "person.2"
+    
+    case shareSocietySelectedItem = "person.2.fill"
+    
     case profileItem = "person"
     
     case profileSelectedItem = "person.fill"
