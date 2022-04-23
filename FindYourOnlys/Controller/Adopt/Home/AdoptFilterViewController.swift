@@ -63,7 +63,8 @@ class AdoptFilterViewController: BaseViewController {
             
             showAlertWindow(title: "異常訊息", message: "請至少填寫一個條件喔！")
             
-            return }
+            return
+        }
         
         adoptVC.adoptListVC?.viewModel.fetchPet(with: viewModel.adoptFilterCondition)
         

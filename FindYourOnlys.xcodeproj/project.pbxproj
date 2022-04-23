@@ -25,10 +25,10 @@
 		98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A142812856A004312F1 /* AdoptFilterViewModel.swift */; };
 		98939A172812890F004312F1 /* Sex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A162812890F004312F1 /* Sex.swift */; };
 		98939A19281291CD004312F1 /* AdoptFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A18281291CD004312F1 /* AdoptFilterCondition.swift */; };
-		98939A1D28139428004312F1 /* PetSocietyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A1C28139428004312F1 /* PetSocietyFilterViewController.swift */; };
-		98939A1F281395EE004312F1 /* PetSocietyFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A1E281395EE004312F1 /* PetSocietyFilterCategory.swift */; };
-		98939A21281398CB004312F1 /* PetSocietyFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A20281398CB004312F1 /* PetSocietyFilterViewModel.swift */; };
-		98939A2328139D18004312F1 /* PetSocietyFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2228139D18004312F1 /* PetSocietyFilterCondition.swift */; };
+		98939A1D28139428004312F1 /* FindPetSocietyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A1C28139428004312F1 /* FindPetSocietyFilterViewController.swift */; };
+		98939A1F281395EE004312F1 /* FindPetSocietyFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A1E281395EE004312F1 /* FindPetSocietyFilterCategory.swift */; };
+		98939A21281398CB004312F1 /* FindPetSocietyFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */; };
+		98939A2328139D18004312F1 /* FindPetSocietyFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2228139D18004312F1 /* FindPetSocietyFilterCondition.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -167,10 +167,10 @@
 		98939A142812856A004312F1 /* AdoptFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewModel.swift; sourceTree = "<group>"; };
 		98939A162812890F004312F1 /* Sex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sex.swift; sourceTree = "<group>"; };
 		98939A18281291CD004312F1 /* AdoptFilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterCondition.swift; sourceTree = "<group>"; };
-		98939A1C28139428004312F1 /* PetSocietyFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyFilterViewController.swift; sourceTree = "<group>"; };
-		98939A1E281395EE004312F1 /* PetSocietyFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyFilterCategory.swift; sourceTree = "<group>"; };
-		98939A20281398CB004312F1 /* PetSocietyFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyFilterViewModel.swift; sourceTree = "<group>"; };
-		98939A2228139D18004312F1 /* PetSocietyFilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyFilterCondition.swift; sourceTree = "<group>"; };
+		98939A1C28139428004312F1 /* FindPetSocietyFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterViewController.swift; sourceTree = "<group>"; };
+		98939A1E281395EE004312F1 /* FindPetSocietyFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterCategory.swift; sourceTree = "<group>"; };
+		98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterViewModel.swift; sourceTree = "<group>"; };
+		98939A2228139D18004312F1 /* FindPetSocietyFilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterCondition.swift; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -411,7 +411,7 @@
 			children = (
 				98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */,
 				98CC163428056FD500B9FDC6 /* PublishViewController.swift */,
-				98939A1C28139428004312F1 /* PetSocietyFilterViewController.swift */,
+				98939A1C28139428004312F1 /* FindPetSocietyFilterViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -434,7 +434,7 @@
 				98CC165B2806717800B9FDC6 /* FindPetSocietyViewModel.swift */,
 				98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */,
 				98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */,
-				98939A20281398CB004312F1 /* PetSocietyFilterViewModel.swift */,
+				98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -524,8 +524,8 @@
 				9896D946280DBD63003D4A16 /* PetKind.swift */,
 				98939A162812890F004312F1 /* Sex.swift */,
 				98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */,
-				98939A2228139D18004312F1 /* PetSocietyFilterCondition.swift */,
-				98939A1E281395EE004312F1 /* PetSocietyFilterCategory.swift */,
+				98939A2228139D18004312F1 /* FindPetSocietyFilterCondition.swift */,
+				98939A1E281395EE004312F1 /* FindPetSocietyFilterCategory.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1001,7 +1001,7 @@
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
 				98CC16062802EA0D00B9FDC6 /* UIView+Extension.swift in Sources */,
 				98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */,
-				98939A1D28139428004312F1 /* PetSocietyFilterViewController.swift in Sources */,
+				98939A1D28139428004312F1 /* FindPetSocietyFilterViewController.swift in Sources */,
 				9896D938280D6E8E003D4A16 /* ProfileFirebaseManager.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				989399F7280FB10E004312F1 /* MapManager.swift in Sources */,
@@ -1037,14 +1037,14 @@
 				98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
 				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
-				98939A21281398CB004312F1 /* PetSocietyFilterViewModel.swift in Sources */,
+				98939A21281398CB004312F1 /* FindPetSocietyFilterViewModel.swift in Sources */,
 				9896D945280DBD53003D4A16 /* PostType.swift in Sources */,
 				9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */,
 				9896D960280EBF6E003D4A16 /* CLPlacemark+Extension.swift in Sources */,
 				9896D8DD28084A49003D4A16 /* User.swift in Sources */,
 				989399FB280FE065004312F1 /* ShelterProvider.swift in Sources */,
 				98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */,
-				98939A2328139D18004312F1 /* PetSocietyFilterCondition.swift in Sources */,
+				98939A2328139D18004312F1 /* FindPetSocietyFilterCondition.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
@@ -1065,7 +1065,7 @@
 				9896D947280DBD63003D4A16 /* PetKind.swift in Sources */,
 				98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */,
 				98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */,
-				98939A1F281395EE004312F1 /* PetSocietyFilterCategory.swift in Sources */,
+				98939A1F281395EE004312F1 /* FindPetSocietyFilterCategory.swift in Sources */,
 				9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
 				98939A19281291CD004312F1 /* AdoptFilterCondition.swift in Sources */,

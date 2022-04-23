@@ -73,18 +73,12 @@ class FindPetSocietyViewController: BaseViewController {
             }
         }
         
-        viewModel.fetchArticles { error in
+        viewModel.errorViewModel.bind { errorViewModel in
             
-            guard
-                error == nil
-            
-            else {
-                
-                print(error)
-                
-                return
-            }
+            print(errorViewModel?.error)
         }
+        
+        viewModel.fetchArticles()
     }
     
     override func viewDidLayoutSubviews() {
@@ -155,8 +149,8 @@ class FindPetSocietyViewController: BaseViewController {
         
         guard
             let filterVC = storyboard
-                .instantiateViewController(withIdentifier: PetSocietyFilterViewController.identifier)
-                as? PetSocietyFilterViewController
+                .instantiateViewController(withIdentifier: FindPetSocietyFilterViewController.identifier)
+                as? FindPetSocietyFilterViewController
                 
         else { return }
         

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PetSocietyFilterCondition {
+struct FindPetSocietyFilterCondition {
     
     var postType: Int
     
@@ -17,3 +17,4 @@ struct PetSocietyFilterCondition {
     
     var color: String
 }
+
