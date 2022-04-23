@@ -37,8 +37,8 @@ class PetSocietyFirebaseManager {
                         let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
                         
                         articles.append(article)
-                    }
-                    catch {
+                        
+                    } catch {
                         
                         completion(.failure(error))
                     }

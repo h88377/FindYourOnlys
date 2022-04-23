@@ -31,6 +31,9 @@
                                             <color key="titleColor" systemColor="tintColor"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                         </state>
+                                        <connections>
+                                            <action selector="search:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="IY0-y4-X4G"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XN-eJ-RWz">
                                         <rect key="frame" x="65" y="0.0" width="40" height="40"/>
@@ -464,6 +467,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bc0-aA-Mud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2757" y="-392"/>
+        </scene>
+        <!--Pet Society Filter View Controller-->
+        <scene sceneID="GcO-gU-o87">
+            <objects>
+                <viewController storyboardIdentifier="PetSocietyFilterViewController" id="Twz-OP-fzs" customClass="PetSocietyFilterViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pdx-k8-3Yy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="UjR-Rz-Yyc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ef-VN-FMS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2048" y="1866"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ck1-cY-gaO">
