@@ -14,6 +14,22 @@ class AdoptListViewController: BaseViewController {
     
     var isLogin = false
     
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+//            remindLabel.alpha = 0
+        }
+    }
+    
+    @IBOutlet weak var refetchButton: UIButton! {
+        
+        didSet {
+            
+//            refetchButton.alpha = 0
+        }
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         
         didSet {
@@ -27,11 +43,28 @@ class AdoptListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.petViewModels.bind { [weak self] _ in
+        viewModel.petViewModels.bind { [weak self] petViewModels in
+            
+            guard
+                let self = self else { return }
             
             DispatchQueue.main.async {
                 
-                self?.collectionView.reloadData()
+                self.collectionView.reloadData()
+                
+                self.collectionView.isHidden = petViewModels.count == 0
+                ? true
+                : false
+                
+//                self.remindLabel.alpha =
+//                self.collectionView.isHidden
+//                ? 1
+//                : 0
+//
+//                self.refetchButton.alpha =
+//                self.collectionView.isHidden
+//                ? 1
+//                : 0
             }
         }
         
@@ -97,6 +130,12 @@ class AdoptListViewController: BaseViewController {
         
         navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
     }
+    
+    @IBAction func reFetchPetInfo(_ sender: UIButton) {
+        
+        viewModel.fetchPet()
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource & Delegate

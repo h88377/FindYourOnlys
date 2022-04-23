@@ -11,6 +11,10 @@ class FindPetSocietyViewController: BaseViewController {
     
     let viewModel = FindPetSocietyViewModel()
     
+    @IBOutlet weak var remindLabel: UILabel!
+    
+    @IBOutlet weak var reFetchButton: UIButton!
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -58,11 +62,27 @@ class FindPetSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.articleViewModels.bind { [weak self] _ in
+        viewModel.articleViewModels.bind { [weak self] articleViewModel in
+            
+            guard
+                let self = self else { return }
             
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
+                
+                self.tableView.isHidden = articleViewModel.count == 0
+                ? true
+                : false
+                
+//                self.reFetchButton.alpha = self.tableView.isHidden
+//                ? 1
+//                : 0
+//                
+//                self.remindLabel.alpha =
+//                self.tableView.isHidden
+//                ? 1
+//                : 0
             }
         }
         viewModel.authorViewModels.bind { [weak self] _ in
@@ -155,6 +175,11 @@ class FindPetSocietyViewController: BaseViewController {
         else { return }
         
         navigationController?.pushViewController(filterVC, animated: true)
+    }
+    
+    @IBAction func reFetchArticle(_ sender: UIButton) {
+        
+        viewModel.fetchArticles()
     }
 }
 

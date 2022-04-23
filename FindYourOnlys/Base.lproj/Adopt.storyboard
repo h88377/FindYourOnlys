@@ -287,6 +287,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目前沒有收藏的動物喔！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHK-z2-ths">
+                                <rect key="frame" x="111.5" y="359" width="191" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="55s-XO-3IO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -297,11 +303,14 @@
                         <constraints>
                             <constraint firstItem="55s-XO-3IO" firstAttribute="top" secondItem="GFH-QV-cQs" secondAttribute="top" id="1ZL-mx-boQ"/>
                             <constraint firstAttribute="trailing" secondItem="55s-XO-3IO" secondAttribute="trailing" id="8Xu-6c-yY7"/>
+                            <constraint firstItem="XHK-z2-ths" firstAttribute="centerX" secondItem="GFH-QV-cQs" secondAttribute="centerX" id="Dwr-aR-cgs"/>
                             <constraint firstAttribute="bottom" secondItem="55s-XO-3IO" secondAttribute="bottom" id="TnY-Gm-cyU"/>
                             <constraint firstItem="55s-XO-3IO" firstAttribute="leading" secondItem="GFH-QV-cQs" secondAttribute="leading" id="cdk-AV-v42"/>
+                            <constraint firstItem="XHK-z2-ths" firstAttribute="centerY" secondItem="GFH-QV-cQs" secondAttribute="centerY" id="tnP-a0-10B"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="remindLabel" destination="XHK-z2-ths" id="avT-Ld-DTC"/>
                         <outlet property="tableView" destination="55s-XO-3IO" id="AJf-ZQ-GYd"/>
                     </connections>
                 </viewController>
@@ -332,12 +341,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沒有相關動物資訊喔！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgm-Ot-ZDv">
+                                <rect key="frame" x="120" y="359" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcT-OB-vGr">
                                 <rect key="frame" x="352" y="8" width="54" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="filter"/>
                                 <connections>
                                     <action selector="goToFilter:" destination="1pB-aw-e5a" eventType="touchUpInside" id="Gay-0I-gmN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjL-qO-zZE">
+                                <rect key="frame" x="176" y="400" width="62" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="查看全部"/>
+                                <connections>
+                                    <action selector="reFetchPetInfo:" destination="1pB-aw-e5a" eventType="touchUpInside" id="sy8-OA-IJC"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
@@ -369,14 +392,20 @@
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="leading" secondItem="Lcu-Vf-T8C" secondAttribute="leading" id="GRe-YH-Lcr"/>
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="top" secondItem="AcT-OB-vGr" secondAttribute="bottom" id="JOZ-1l-CbK"/>
                             <constraint firstItem="AcT-OB-vGr" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" constant="8" id="JZw-Vs-lzF"/>
+                            <constraint firstItem="fjL-qO-zZE" firstAttribute="top" secondItem="Lgm-Ot-ZDv" secondAttribute="bottom" constant="20" id="S5e-l9-gtS"/>
+                            <constraint firstItem="Lgm-Ot-ZDv" firstAttribute="centerX" secondItem="Lcu-Vf-T8C" secondAttribute="centerX" id="VsV-Fv-S9N"/>
                             <constraint firstItem="deQ-Dp-IuG" firstAttribute="trailing" secondItem="M35-Pu-lfS" secondAttribute="trailing" constant="20" id="Wb6-Nb-zzf"/>
+                            <constraint firstItem="fjL-qO-zZE" firstAttribute="centerX" secondItem="Lcu-Vf-T8C" secondAttribute="centerX" id="Zb4-Su-CAo"/>
                             <constraint firstItem="deQ-Dp-IuG" firstAttribute="bottom" secondItem="M35-Pu-lfS" secondAttribute="bottom" constant="20" id="aTB-ak-mxk"/>
                             <constraint firstAttribute="bottom" secondItem="lPB-Hh-8hq" secondAttribute="bottom" id="l5s-Ox-PxR"/>
                             <constraint firstAttribute="trailing" secondItem="lPB-Hh-8hq" secondAttribute="trailing" id="m5E-PP-647"/>
+                            <constraint firstItem="Lgm-Ot-ZDv" firstAttribute="centerY" secondItem="Lcu-Vf-T8C" secondAttribute="centerY" id="ozx-9y-76v"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="lPB-Hh-8hq" id="nn0-Tv-tuX"/>
+                        <outlet property="refetchButton" destination="fjL-qO-zZE" id="pVk-vl-0Kk"/>
+                        <outlet property="remindLabel" destination="Lgm-Ot-ZDv" id="3gF-zu-kSp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E30-Vk-UiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
