@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum PetSocietyFilterCategory: String, CaseIterable {
+enum FindPetSocietyFilterCategory: String, CaseIterable {
     
     case city = "請選擇縣市"
     

@@ -468,10 +468,10 @@
             </objects>
             <point key="canvasLocation" x="2757" y="-392"/>
         </scene>
-        <!--Pet Society Filter View Controller-->
+        <!--Find Pet Society Filter View Controller-->
         <scene sceneID="GcO-gU-o87">
             <objects>
-                <viewController storyboardIdentifier="PetSocietyFilterViewController" id="Twz-OP-fzs" customClass="PetSocietyFilterViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FindPetSocietyFilterViewController" id="Twz-OP-fzs" customClass="FindPetSocietyFilterViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pdx-k8-3Yy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
