@@ -13,6 +13,8 @@ class AdoptFavoriteViewController: BaseViewController {
     
     var didLogin: Bool = true
     
+    @IBOutlet weak var remindLabel: UILabel!
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -36,11 +38,15 @@ class AdoptFavoriteViewController: BaseViewController {
                 }
             }
             
-            viewModel.favoriteLSPetViewModels.bind { [weak self] _ in
+            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
                 
                 DispatchQueue.main.async {
                     
                     self?.tableView.reloadData()
+                    
+                    self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
+                    ? true
+                    : false
                 }
             }
             
@@ -55,23 +61,26 @@ class AdoptFavoriteViewController: BaseViewController {
                 }
             }
             
-            viewModel.favoritePetViewModels.bind { [weak self] _ in
+            viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
                 
                 DispatchQueue.main.async {
                     
                     self?.tableView.reloadData()
+                    
+                    self?.tableView.isHidden = favoritePetViewModels.count == 0
+                    ? true
+                    : false
                 }
             }
         }
-        
         
     }
     
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: FavoriteTableViewCell.identifier)
-        
     }
+    
 }
 
 // MARK: - UITableViewDataSource & Delegate
