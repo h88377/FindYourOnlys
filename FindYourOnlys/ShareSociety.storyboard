@@ -17,12 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jqY-35-8Fa">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jqY-35-8Fa">
+                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqx-8B-Whv">
-                                <rect key="frame" x="361" y="811.5" width="33" height="30.5"/>
+                                <rect key="frame" x="344" y="792" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3Xf-lx-fha"/>
+                                    <constraint firstAttribute="width" constant="50" id="lkn-xn-mzb"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="plus" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="31"/>
@@ -31,16 +35,48 @@
                                     <action selector="publish:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="vIn-Ua-G57"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCM-Sx-hjX">
+                                <rect key="frame" x="354" y="88" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="D0l-K9-DsN"/>
+                                    <constraint firstAttribute="height" constant="40" id="hE1-3H-zcl"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="message.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToChat:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gpn-tY-ZCJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChV-bt-eOY">
+                                <rect key="frame" x="294" y="88" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="2dc-Pb-3up"/>
+                                    <constraint firstAttribute="width" constant="40" id="jZA-Bp-q83"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="person.fill.badge.plus" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFriend:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="FqI-We-gf9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jqY-35-8Fa" secondAttribute="bottom" id="0rO-5X-lqo"/>
+                            <constraint firstItem="ChV-bt-eOY" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="BJf-Fz-R9Q"/>
+                            <constraint firstItem="jqY-35-8Fa" firstAttribute="top" secondItem="PCM-Sx-hjX" secondAttribute="bottom" id="G96-7G-Rkc"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jqY-35-8Fa" secondAttribute="trailing" id="MIf-Sr-PJs"/>
                             <constraint firstItem="jqY-35-8Fa" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Poq-7S-ie7"/>
+                            <constraint firstItem="PCM-Sx-hjX" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="VvM-l1-4k7"/>
+                            <constraint firstItem="PCM-Sx-hjX" firstAttribute="leading" secondItem="ChV-bt-eOY" secondAttribute="trailing" constant="20" id="b1U-jS-xUb"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="uqx-8B-Whv" secondAttribute="trailing" constant="20" id="f3t-Tp-wr9"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="PCM-Sx-hjX" secondAttribute="trailing" constant="20" id="g3a-kq-amk"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="uqx-8B-Whv" secondAttribute="bottom" constant="20" id="pm5-gk-BeN"/>
-                            <constraint firstItem="jqY-35-8Fa" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="t2s-GS-CjN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P8h-p5-HtC"/>
@@ -103,6 +139,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="message.fill" catalog="system" width="128" height="113"/>
+        <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
