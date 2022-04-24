@@ -29,7 +29,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            chatButton.tintColor = .systemGray2
+            chatButton.tintColor = .projectTintColor
         }
     }
     
@@ -37,7 +37,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            addFriendButton.tintColor = .systemGray2
+            addFriendButton.tintColor = .projectTintColor
         }
     }
     

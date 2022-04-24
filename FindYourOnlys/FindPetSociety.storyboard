@@ -86,7 +86,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J2-Ga-0zB">
-                                <rect key="frame" x="344" y="802" width="50" height="50"/>
+                                <rect key="frame" x="344" y="792" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8qj-js-s50"/>
                                     <constraint firstAttribute="width" constant="50" id="dSR-fa-BKf"/>
@@ -109,7 +109,7 @@
                             <constraint firstItem="4Fk-GN-dLv" firstAttribute="top" secondItem="1qb-ni-Pzg" secondAttribute="bottom" constant="20" id="JyR-nC-zH4"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="top" secondItem="FMc-Os-2gs" secondAttribute="bottom" id="OMu-tb-Zif"/>
                             <constraint firstItem="1qb-ni-Pzg" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="WnV-Nv-nx0"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" constant="10" id="XBV-PH-ihj"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8J2-Ga-0zB" secondAttribute="bottom" constant="20" id="XBV-PH-ihj"/>
                             <constraint firstItem="CU0-Df-4ll" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aiE-2h-EOD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8J2-Ga-0zB" secondAttribute="trailing" constant="20" id="bDV-kZ-Ke3"/>
                             <constraint firstItem="FMc-Os-2gs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="lCj-bS-KVG"/>
