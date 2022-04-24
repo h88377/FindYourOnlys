@@ -30,6 +30,8 @@ class AdoptListViewModel {
     
     var resetPetHandler: (() -> Void)?
     
+    var noMorePetHandler: (() -> Void)?
+    
     func fetchPet() {
         
         // Need to change header loader
@@ -41,12 +43,23 @@ class AdoptListViewModel {
                 
             case .success(let pets):
                 
-//                self?.setPets(pets)
-                self?.appendPets(pets)
+                if pets.count > 0 {
+                    
+                    self?.appendPets(pets)
+                    
+                    self?.stopIndicatorHandler?()
+                    
+                    self?.currentPage += 1
+                    
+                } else {
+                    
+                    self?.noMorePetHandler?()
+                    
+                    self?.stopIndicatorHandler?()
+                    
+                    return
+                }
                 
-                self?.stopIndicatorHandler?()
-                
-                self?.currentPage += 1
                 
             case .failure(let error):
                 
