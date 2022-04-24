@@ -82,12 +82,27 @@ class AdoptListViewController: BaseViewController {
         
         activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
         
+        viewModel.startIndicatorHandler = { [weak self] in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.activityIndicator.start(closure: {
+                    
+                    self?.viewModel.fetchPet()
+                })
+            }
+        }
         viewModel.stopIndicatorHandler = { [weak self] in
             
             DispatchQueue.main.async { [weak self] in
                 
                 self?.activityIndicator.stop()
             }
+        }
+        
+        viewModel.resetPetHandler = { [weak self] in
+            
+            self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
             
     }
@@ -149,7 +164,9 @@ class AdoptListViewController: BaseViewController {
     
     @IBAction func reFetchPetInfo(_ sender: UIButton) {
         
-        viewModel.fetchPet()
+        viewModel.resetFilterCondition()
+        
+        viewModel.resetFetchPet()
     }
     
 }
@@ -222,7 +239,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
             activityIndicator.start {
                 DispatchQueue.global(qos: .utility).async {
                     
-                    self.viewModel.fetchPet(paging: self.viewModel.currentPage)
+                    self.viewModel.fetchPet()
                 }
             }
         }
