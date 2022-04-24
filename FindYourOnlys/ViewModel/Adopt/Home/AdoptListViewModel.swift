@@ -15,6 +15,10 @@ class AdoptListViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
+    var currentPage = 1
+    
+    var stopIndicatorHandler: (() -> Void)?
+    
     func fetchPet(with condition: AdoptFilterCondition? = nil) {
         
         PetProvider.shared.fetchPet(with: condition) { [weak self] result in
@@ -24,6 +28,26 @@ class AdoptListViewModel {
             case .success(let pets):
                 
                 self?.setPets(pets)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel = Box(ErrorViewModel(model: error))
+            }
+        }
+        
+    }
+    
+    func fetchPet(with condition: AdoptFilterCondition? = nil, paging: Int) {
+        
+        PetProvider.shared.fetchPet(with: condition, paging: currentPage + 1) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let pets):
+                
+                self?.appendPets(pets)
+                
+                self?.stopIndicatorHandler?()
                 
             case .failure(let error):
                 
@@ -67,5 +91,14 @@ class AdoptListViewModel {
     private func setPets(_ pets: [Pet]) {
         
         petViewModels.value = convertPetsToViewModels(from: pets)
+    }
+    
+    private func appendPets(_ pets: [Pet]) {
+        
+        let appendedPetViewModels = convertPetsToViewModels(from: pets)
+        
+        petViewModels.value += appendedPetViewModels
+        
+        currentPage += 1
     }
 }

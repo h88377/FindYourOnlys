@@ -35,6 +35,7 @@
 		98939A2D2814338A004312F1 /* ShareContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2C2814338A004312F1 /* ShareContentCategory.swift */; };
 		98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2F2814343C004312F1 /* SharePublishViewModel.swift */; };
 		98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */; };
+		98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -183,6 +184,7 @@
 		98939A2C2814338A004312F1 /* ShareContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareContentCategory.swift; sourceTree = "<group>"; };
 		98939A2F2814343C004312F1 /* SharePublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewModel.swift; sourceTree = "<group>"; };
 		98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocietyViewModel.swift; sourceTree = "<group>"; };
+		98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreActivityIndicator.swift; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 			children = (
 				98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */,
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
+				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1094,6 +1097,7 @@
 				98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */,
 				98939A2328139D18004312F1 /* FindPetSocietyFilterCondition.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
+				98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
 				9896D95A280EA7AA003D4A16 /* AdoptDirectionViewController.swift in Sources */,
