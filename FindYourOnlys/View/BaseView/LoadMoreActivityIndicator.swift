@@ -115,7 +115,8 @@ class LoadMoreActivityIndicator {
                     
                     UIView.animate(withDuration: 0.3) { [weak self] in
                         
-                        if let bottom = self?.spacingFromLastCellWhenLoadMoreActionStart {
+                        if
+                            let bottom = self?.spacingFromLastCellWhenLoadMoreActionStart {
                             scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
                         }
                     }
@@ -134,6 +135,7 @@ class LoadMoreActivityIndicator {
         let offsetDelta = scrollView.contentOffset.y - contentDelta
         
         if offsetDelta >= 0 {
+            
             UIView.animate(withDuration: 0.3, animations: {
                 
                 scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

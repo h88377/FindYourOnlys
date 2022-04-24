@@ -40,7 +40,7 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    fileprivate var activityIndicator: LoadMoreActivityIndicator!
+    private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +104,15 @@ class AdoptListViewController: BaseViewController {
             
             self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
+         
+        viewModel.noMorePetHandler = { [weak self] in
             
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.showAlertWindow(title: "沒有更多動物資訊了喔！", message: "")
+            }
+            
+        }
     }
     
     override func setupCollectionView() {
