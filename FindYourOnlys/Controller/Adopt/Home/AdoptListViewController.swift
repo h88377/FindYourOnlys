@@ -40,6 +40,25 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var mapButton: UIButton! {
+        
+        didSet {
+            
+            mapButton.backgroundColor = .projectTintColor
+            
+            mapButton.tintColor = .white
+        }
+    }
+    
+    @IBOutlet weak var filterButton: UIButton! {
+        
+        didSet {
+            
+            filterButton.tintColor = .projectTintColor
+        }
+    }
+    
+    
     private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {
@@ -113,6 +132,12 @@ class AdoptListViewController: BaseViewController {
             }
             
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        mapButton.layer.cornerRadius = mapButton.frame.height / 2
     }
     
     override func setupCollectionView() {

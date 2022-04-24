@@ -31,15 +31,37 @@ class FavoriteTableViewCell: UITableViewCell {
         
         kindLabel.text = viewModel.lsPet.kind
         
-        sexLabel.text = viewModel.lsPet.sex
-        
         varietyLabel.text = viewModel.lsPet.variety
         
         idLabel.text = "\(viewModel.lsPet.id)"
         
-        statusLabel.text = viewModel.lsPet.status
-        
         photoImageView.loadImage(viewModel.lsPet.photoURLString)
+        
+        if viewModel.lsPet.status == "OPEN" {
+            
+            statusLabel.text = "開放認養"
+            
+//            statusLabel.textColor = .openAdopt
+            
+        } else {
+            
+            statusLabel.text = "不開放認養"
+            
+//            statusLabel.textColor = .closeAdopt
+        }
+        
+        if viewModel.lsPet.sex == "M" {
+            
+            sexLabel.text = Sex.male.rawValue
+            
+//            sexLabel.textColor = .maleColor
+            
+        } else {
+            
+            sexLabel.text = Sex.female.rawValue
+            
+//            sexLabel.textColor = .femaleColor
+        }
     }
     
     func configureCell(with viewModel: PetViewModel) {
@@ -50,14 +72,36 @@ class FavoriteTableViewCell: UITableViewCell {
         
         kindLabel.text = viewModel.pet.kind
         
-        sexLabel.text = viewModel.pet.sex
-        
         varietyLabel.text = viewModel.pet.variety
         
         idLabel.text = "\(viewModel.pet.id)"
         
-        statusLabel.text = viewModel.pet.status
-        
         photoImageView.loadImage(viewModel.pet.photoURLString)
+        
+        if viewModel.pet.status == "OPEN" {
+            
+            statusLabel.text = "開放認養"
+            
+//            statusLabel.textColor = .openAdopt
+            
+        } else {
+            
+            statusLabel.text = "不開放認養"
+            
+//            statusLabel.textColor = .closeAdopt
+        }
+        
+        if viewModel.pet.sex == "M" {
+            
+            sexLabel.text = Sex.male.rawValue
+            
+//            sexLabel.textColor = .maleColor
+            
+        } else {
+            
+            sexLabel.text = Sex.female.rawValue
+            
+//            sexLabel.textColor = .femaleColor
+        }
     }
 }
