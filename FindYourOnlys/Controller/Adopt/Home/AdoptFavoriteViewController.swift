@@ -142,6 +142,12 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         adoptDetaiVC.delegate = self
         
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        250
     }
 }
 
