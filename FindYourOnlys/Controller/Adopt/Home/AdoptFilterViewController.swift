@@ -98,6 +98,8 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
                 
         cell.delegate = self
         
+        cell.selectionStyle = .none
+        
         return cell
     }
 }

@@ -42,6 +42,15 @@ enum SystemImageAsset: String {
     case search = "magnifyingglass"
 }
 
+enum ImageAsset: String {
+    
+    case cat
+    
+    case dog
+    
+    case others
+}
+
 // swiftlint:enable identifier_name
 
 extension UIImage {
@@ -49,5 +58,10 @@ extension UIImage {
     static func system(_ system: SystemImageAsset) -> UIImage? {
 
         return UIImage(systemName: system.rawValue)
+    }
+    
+    static func asset(_ name: ImageAsset) -> UIImage? {
+        
+        return UIImage(named: name.rawValue)
     }
 }
