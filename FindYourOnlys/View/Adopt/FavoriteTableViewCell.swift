@@ -13,15 +13,27 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cityLabel: UILabel!
     
-    @IBOutlet weak var kindLabel: UILabel!
+    @IBOutlet weak var kindLabel: UILabel! {
+        
+        didSet {
+            
+            kindLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var sexLabel: UILabel!
     
     @IBOutlet weak var varietyLabel: UILabel!
     
-    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel! {
+        
+        didSet {
+            
+            statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        }
+    }
     
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var baseView: UIView!
     
     func configureCell(with viewModel: FavoriteLSPetViewModel) {
         
@@ -32,8 +44,6 @@ class FavoriteTableViewCell: UITableViewCell {
         kindLabel.text = viewModel.lsPet.kind
         
         varietyLabel.text = viewModel.lsPet.variety
-        
-        idLabel.text = "\(viewModel.lsPet.id)"
         
         photoImageView.loadImage(viewModel.lsPet.photoURLString)
         
@@ -74,8 +84,6 @@ class FavoriteTableViewCell: UITableViewCell {
         
         varietyLabel.text = viewModel.pet.variety
         
-        idLabel.text = "\(viewModel.pet.id)"
-        
         photoImageView.loadImage(viewModel.pet.photoURLString)
         
         if viewModel.pet.status == "OPEN" {
@@ -103,5 +111,13 @@ class FavoriteTableViewCell: UITableViewCell {
             
 //            sexLabel.textColor = .femaleColor
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        photoImageView.layer.cornerRadius = 15
+        
+        baseView.layer.cornerRadius = 15
     }
 }
