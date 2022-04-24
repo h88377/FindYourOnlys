@@ -15,16 +15,6 @@ class AdoptPetsLocationViewController: BaseViewController {
         static let direction = "SegueDirection"
     }
     
-    let viewModel = AdoptPetsLocationViewModel()
-    
-    private let locationManager = CLLocationManager()
-    
-    var adoptDirectionVC: AdoptDirectionViewController?
-    
-    override var isHiddenNavigationBar: Bool { return true }
-    
-    override var isHiddenTabBar: Bool { return true }
-    
     @IBOutlet weak var mapView: MKMapView! {
         
         didSet {
@@ -34,6 +24,26 @@ class AdoptPetsLocationViewController: BaseViewController {
     }
     
     @IBOutlet var directionView: UIView!
+    
+    @IBOutlet weak var navigateButton: UIButton! {
+        
+        didSet {
+            
+            navigateButton.tintColor = .systemBlue
+            
+            navigateButton.backgroundColor = .white
+        }
+    }
+    
+    let viewModel = AdoptPetsLocationViewModel()
+    
+    private let locationManager = CLLocationManager()
+    
+    var adoptDirectionVC: AdoptDirectionViewController?
+    
+    override var isHiddenNavigationBar: Bool { return true }
+    
+    override var isHiddenTabBar: Bool { return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +120,14 @@ class AdoptPetsLocationViewController: BaseViewController {
             self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
         }
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        navigateButton.layer.cornerRadius = navigateButton.frame.height / 2
+        
+        directionView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
     }
     
     // Pets
@@ -204,7 +222,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 guard
                     let strongSelf = self else { return }
                 
-                let height = strongSelf.view.frame.height * 0.6
+                let height = strongSelf.view.frame.height * 0.33
                 
                 self?.directionView.frame = CGRect(
                     x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
