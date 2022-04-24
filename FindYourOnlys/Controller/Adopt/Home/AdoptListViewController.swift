@@ -40,6 +40,8 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
+    fileprivate var activityIndicator: LoadMoreActivityIndicator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,6 +80,16 @@ class AdoptListViewController: BaseViewController {
             print(errorViewModel.error)
         }
         
+        activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
+        
+        viewModel.stopIndicatorHandler = { [weak self] in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.activityIndicator.stop()
+            }
+        }
+            
     }
     
     override func setupCollectionView() {
@@ -110,7 +122,9 @@ class AdoptListViewController: BaseViewController {
         let storyboard = UIStoryboard.adopt
         
         guard
-            let adoptPetsLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetsLocationViewController.identifier) as? AdoptPetsLocationViewController
+            let adoptPetsLocationVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptPetsLocationViewController.identifier)
+                as? AdoptPetsLocationViewController
         
         else { return }
         
@@ -124,7 +138,9 @@ class AdoptListViewController: BaseViewController {
         let storyboard = UIStoryboard.adopt
         
         guard
-            let adoptFilterLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptFilterViewController.identifier) as? AdoptFilterViewController
+            let adoptFilterLocationVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptFilterViewController.identifier)
+                as? AdoptFilterViewController
         
         else { return }
         
@@ -146,10 +162,15 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         viewModel.petViewModels.value.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell {
         
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath) as? AdoptCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath)
+                as? AdoptCollectionViewCell
                 
         else { return UICollectionViewCell() }
         
@@ -165,8 +186,13 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         let storyboard = UIStoryboard.adopt
         
         guard
-            let adoptDetaiVC = storyboard.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController,
-            let adoptFavoriteVC = storyboard.instantiateViewController(withIdentifier: AdoptFavoriteViewController.identifier) as? AdoptFavoriteViewController
+            let adoptDetaiVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptDetailViewController.identifier)
+                as? AdoptDetailViewController
+//                ,
+//            let adoptFavoriteVC = storyboard.instantiateViewController(
+//                withIdentifier: AdoptFavoriteViewController.identifier)
+//                as? AdoptFavoriteViewController
                 
         else { return }
         
@@ -179,6 +205,27 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         navigationController?.pushViewController(adoptDetaiVC, animated: true)
     }
 
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//
+//        // UITableView only moves in one direction, y axis
+//            let currentOffset = scrollView.contentOffset.y
+//            let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+//
+//            // Change 10.0 to adjust the distance from bottom
+//            if maximumOffset - currentOffset <= 10.0 {
+////                self.loadMore()
+//                print("Load more")
+//            }
+//    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            activityIndicator.start {
+                DispatchQueue.global(qos: .utility).async {
+                    
+                    self.viewModel.fetchPet(paging: self.viewModel.currentPage)
+                }
+            }
+        }
 }
 
 //extension AdoptListViewController: AdoptDetailViewControllerDelegate {

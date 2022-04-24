@@ -1,25 +1,28 @@
 //
-//  PublishViewModel.swift
+//  SharePublishViewModel.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/13.
+//  Created by 鄭昭韋 on 2022/4/23.
 //
 
-import Foundation
-import UIKit
+import UIKit.UIImage
 
-class PublishViewModel {
+class SharePublishViewModel {
     
-    let publishContentCategory = PublishContentCategory.allCases
+    let shareContentCategory = ShareContentCategory.allCases
+    
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var article: Article = Article(
         id: "", userId: UserFirebaseManager.shared.currentUser, likeUserIds: [],
-        createdTime: 0, postType: -1,
-        city: "", petKind: "", color: "",
+        createdTime: 0,
+        city: "", petKind: "",
         content: "", imageURLString: "", comments: []
     )
     
     var updateImage: ((UIImage) -> Void)?
+    
+    var finishPublishHandler: (() -> Void)?
     
     var selectedImage: UIImage?
     
@@ -29,8 +32,6 @@ class PublishViewModel {
         
         guard
             article.city != "",
-            article.color != "",
-            article.petKind != "",
             article.postType != -1,
             article.content != "",
             selectedImage != nil
@@ -39,15 +40,13 @@ class PublishViewModel {
             
         return true
     }
+}
+
+extension SharePublishViewModel {
     
     func cityChanged(with city: String) {
         
         self.article.city = city
-    }
-    
-    func colorChanged(with color: String) {
-        
-        self.article.color = color
     }
     
     func petKindChanged(with petKind: String) {
@@ -55,24 +54,12 @@ class PublishViewModel {
         self.article.petKind = petKind
     }
     
-    func postTypeChanged(with type: String) {
-        
-        if type == PostType.missing.rawValue {
-            
-            self.article.postType = 0
-            
-        } else {
-            
-            self.article.postType = 1
-        }
-    }
-    
     func contentChanged(with content: String) {
         
         self.article.content = content
     }
     
-    private func publish(completion: @escaping (Error?)-> Void) {
+    private func publish(completion: @escaping (Error?) -> Void) {
         
         checkPublishedContent?(isValidPublishedContent)
         
@@ -86,7 +73,9 @@ class PublishViewModel {
             
             let semaphore = DispatchSemaphore(value: 0)
             
-            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: selectedImage, with: FirebaseCollectionType.article.rawValue) { result in
+            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
+                image: selectedImage,
+                with: FirebaseCollectionType.article.rawValue) { result in
                 
                 switch result {
                     
@@ -106,7 +95,8 @@ class PublishViewModel {
             
 
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishArticle(UserFirebaseManager.shared.currentUser, with: &self.article) { error in
+            PetSocietyFirebaseManager.shared.publishSharedArticle(
+                UserFirebaseManager.shared.currentUser, with: &self.article) { error in
 
                 guard
                     error == nil
@@ -126,21 +116,22 @@ class PublishViewModel {
         }
     }
     
-    func tapPublish(completion: @escaping (Error?)-> Void) {
+    func tapPublish() {
         
-        publish { error in
+        publish { [weak self] error in
             
             guard
                 error == nil
             
             else {
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
                 
                 return
+                
                 }
             
-            completion(nil)
+            self?.finishPublishHandler?()
         }
     }
 }

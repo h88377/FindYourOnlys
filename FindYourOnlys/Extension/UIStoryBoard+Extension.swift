@@ -14,6 +14,8 @@ private struct StoryboardCategory {
     static let findPetSociety = "FindPetSociety"
     
     static let profile = "Profile"
+    
+    static let shareSociety = "ShareSociety"
 }
 
 extension UIStoryboard {
@@ -23,6 +25,8 @@ extension UIStoryboard {
     static var findPetSociety: UIStoryboard { return getStoryboard(name: StoryboardCategory.findPetSociety) }
     
     static var profile: UIStoryboard { return getStoryboard(name: StoryboardCategory.profile) }
+    
+    static var shareSociety: UIStoryboard { return getStoryboard(name: StoryboardCategory.shareSociety) }
 
     private static func getStoryboard(name: String) -> UIStoryboard {
 
