@@ -121,7 +121,15 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.resetPetHandler = { [weak self] in
             
-            self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            
+            guard
+                let self = self,
+                self.viewModel.petViewModels.value.count > 0 else { return }
+            
+            DispatchQueue.main.async {
+                
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
         }
          
         viewModel.noMorePetHandler = { [weak self] in

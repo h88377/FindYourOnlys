@@ -9,7 +9,13 @@ import UIKit
 
 class AdoptDetailTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel! {
+        
+        didSet {
+            
+            statusLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var kindLabel: UILabel!
     
