@@ -49,6 +49,8 @@ enum ImageAsset: String {
     case dog
     
     case others
+    
+    case pickerDropDown = "Icons_24px_DropDown"
 }
 
 // swiftlint:enable identifier_name
