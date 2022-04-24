@@ -1,29 +1,35 @@
 //
-//  PublishViewController.swift
+//  SharePublishViewController.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/12.
+//  Created by 鄭昭韋 on 2022/4/23.
 //
 
 import UIKit
 
-class PublishViewController: BaseViewController {
+class SharePublishViewController: BaseViewController {
     
-    let viewModel = PublishViewModel()
+    let viewModel = SharePublishViewModel()
     
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
             
-            tableView.delegate = self
-            
             tableView.dataSource = self
+            
+            tableView.delegate = self
         }
     }
     
-    // MARK: - View Lifecycle
+    override var isHiddenTabBar: Bool { return true }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.finishPublishHandler = { [weak self] in
+            
+            self?.navigationController?.popViewController(animated: true)
+        }
         
         viewModel.checkPublishedContent = { [weak self] isValid in
             
@@ -34,10 +40,9 @@ class PublishViewController: BaseViewController {
             
         }
     }
-    
-    override var isHiddenTabBar: Bool { return true }
-    
+     
     override func setupTableView() {
+        super.setupTableView()
         
         tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
         
@@ -48,85 +53,67 @@ class PublishViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
     }
     
-    @IBAction func publish(_ sender: UIBarButtonItem) {
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
         
-        viewModel.tapPublish { [weak self] error in
-            
-            if error != nil {
-                
-                print(error)
-                
-                return
-            }
-            
-            self?.navigationController?.popViewController(animated: true)
-        }
+        let publishItemButton = UIBarButtonItem(title: "發布", style: .plain, target: self, action: #selector(publish))
+        
+        navigationItem.rightBarButtonItem = publishItemButton
+    }
+    
+    @objc func publish(sender: UIBarButtonItem) {
+        
+        viewModel.tapPublish()
     }
 }
 
-// MARK: - UITableViewDelegate and DataSource
-extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - SharePublishViewController: UITableViewDelegate and DataSource
+extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        let publishContentCategory = viewModel.publishContentCategory
-
-        return publishContentCategory.count
+        
+        viewModel.shareContentCategory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let publishContentCategory = viewModel.publishContentCategory
+        let cell = viewModel.shareContentCategory[indexPath.row].cellForIndexPath(indexPath, tableView: tableView)
         
         guard
-            let cell = publishContentCategory[indexPath.row]
-                .cellForIndexPath(indexPath, tableView: tableView)
-                as? PublishBasicCell
-                
-        else { return UITableViewCell() }
+            let publishCell = cell as? PublishBasicCell else { return cell }
         
-        cell.delegate = self
+        publishCell.delegate = self
         
-        cell.galleryHandler = { [weak self] in
+        publishCell.galleryHandler = { [weak self] in
             
             self?.openGallery()
             
             self?.viewModel.updateImage = { image in
                 
-                cell.layoutCellWith(image: image)
+                publishCell.layoutCellWith(image: image)
             }
         }
         
-        cell.cameraHandler = { [weak self] in
+        publishCell.cameraHandler = { [weak self] in
             
             self?.openCamera()
             
             self?.viewModel.updateImage = { image in
                 
-                cell.layoutCellWith(image: image)
+                publishCell.layoutCellWith(image: image)
             }
         }
-        return cell
+         
+        return publishCell
     }
-    
 }
 
 // MARK: - PublishSelectionCellDelegate
-extension PublishViewController: PublishBasicCellDelegate {
+extension SharePublishViewController: PublishBasicCellDelegate {
     
     func didChangeCity(_ cell: PublishBasicCell, with city: String) {
         
         viewModel.cityChanged(with: city)
-    }
-    
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
-        
-        viewModel.colorChanged(with: color)
-    }
-    
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
-        
-        viewModel.postTypeChanged(with: postType)
     }
     
     func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
@@ -141,7 +128,7 @@ extension PublishViewController: PublishBasicCellDelegate {
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension SharePublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(
         _ picker: UIImagePickerController,
@@ -186,7 +173,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         
     }
     
-    func openGallery() {
+    func openGallery(){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             
             let imagePicker = UIImagePickerController()

@@ -13,6 +13,8 @@ enum FirebaseCollectionType: String {
     
     case article
     
+    case sharedArticle
+    
     case user
     
     case chatRoom

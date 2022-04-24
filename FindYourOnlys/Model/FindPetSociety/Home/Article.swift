@@ -24,7 +24,7 @@ struct Article: Codable {
     
     var petKind: String?
     
-    var color: String
+    var color: String?
     
     var content: String
     

@@ -1,19 +1,15 @@
 //
-//  FindPetSocietyViewController.swift
+//  ShareSocietyViewController.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/12.
+//  Created by 鄭昭韋 on 2022/4/23.
 //
 
 import UIKit
 
-class FindPetSocietyViewController: BaseViewController {
+class ShareSocietyViewController: BaseViewController {
     
-    let viewModel = FindPetSocietyViewModel()
-    
-    @IBOutlet weak var remindLabel: UILabel!
-    
-    @IBOutlet weak var reFetchButton: UIButton!
+    let viewModel = ShareSocietyViewModel()
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -22,30 +18,6 @@ class FindPetSocietyViewController: BaseViewController {
             tableView.dataSource = self
             
             tableView.delegate = self
-        }
-    }
-    
-    @IBOutlet weak var chatButton: UIButton! {
-        
-        didSet {
-            
-            chatButton.tintColor = .systemGray2
-        }
-    }
-    
-    @IBOutlet weak var addFriendButton: UIButton! {
-        
-        didSet {
-            
-            addFriendButton.tintColor = .systemGray2
-        }
-    }
-    
-    @IBOutlet weak var searchButton: UIButton! {
-        
-        didSet {
-            
-            searchButton.tintColor = .systemGray2
         }
     }
     
@@ -61,30 +33,18 @@ class FindPetSocietyViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        viewModel.fetchSharedArticles()
         
-        viewModel.articleViewModels.bind { [weak self] articleViewModel in
-            
-            guard
-                let self = self else { return }
+        viewModel.articleViewModels.bind { [weak self] _ in
             
             DispatchQueue.main.async {
                 
-                self.tableView.reloadData()
-                
-                self.tableView.isHidden = articleViewModel.count == 0
-                ? true
-                : false
-                
-//                self.reFetchButton.alpha = self.tableView.isHidden
-//                ? 1
-//                : 0
-//                
-//                self.remindLabel.alpha =
-//                self.tableView.isHidden
-//                ? 1
-//                : 0
+                self?.tableView.reloadData()
             }
+            
         }
+        
         viewModel.authorViewModels.bind { [weak self] _ in
             
             DispatchQueue.main.async {
@@ -93,12 +53,10 @@ class FindPetSocietyViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             print(errorViewModel?.error)
         }
-        
-        viewModel.fetchArticles()
     }
     
     override func viewDidLayoutSubviews() {
@@ -108,33 +66,27 @@ class FindPetSocietyViewController: BaseViewController {
     }
     
     override func setupTableView() {
+        super.setupTableView()
+        
+        navigationItem.title = "分享牆"
         
         tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
     }
     
-    override func setupNavigationTitle() {
-        super.setupNavigationTitle()
-        
-        navigationItem.title = "尋寵物啟示"
-    }
-    
     private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
         
         Int(index / count)
     }
-    
-    @IBAction func addArticle(_ sender: UIButton) {
+
+    @IBAction func publish(_ sender: UIButton) {
         
-        let storyboard = UIStoryboard.findPetSociety
+        let storyboard = UIStoryboard.shareSociety
         
-        guard
-            let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController
-                
-        else { return }
+        let shareSocietyVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
         
-        navigationController?.pushViewController(publishVC, animated: true)
+        navigationController?.pushViewController(shareSocietyVC, animated: true)
     }
     
     @IBAction func goToChat(_ sender: UIButton) {
@@ -163,28 +115,11 @@ class FindPetSocietyViewController: BaseViewController {
         navigationController?.pushViewController(addFriendVC, animated: true)
     }
     
-    @IBAction func search(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard.findPetSociety
-        
-        guard
-            let filterVC = storyboard
-                .instantiateViewController(withIdentifier: FindPetSocietyFilterViewController.identifier)
-                as? FindPetSocietyFilterViewController
-                
-        else { return }
-        
-        navigationController?.pushViewController(filterVC, animated: true)
-    }
     
-    @IBAction func reFetchArticle(_ sender: UIButton) {
-        
-        viewModel.fetchArticles()
-    }
 }
 
-// MARK: - UITableViewDataSource and Delegate
-extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - ShareSocietyViewController UITableViewDelegate and DataSource
+extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
