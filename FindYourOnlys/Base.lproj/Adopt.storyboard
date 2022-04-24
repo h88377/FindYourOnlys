@@ -348,10 +348,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcT-OB-vGr">
-                                <rect key="frame" x="347.5" y="8" width="58.5" height="38"/>
+                                <rect key="frame" x="358" y="0.0" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="1rk-6f-apX"/>
+                                    <constraint firstAttribute="height" constant="40" id="hOE-4k-v2f"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system" title=" ">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="28"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="goToFilter:" destination="1pB-aw-e5a" eventType="touchUpInside" id="Gay-0I-gmN"/>
@@ -366,7 +370,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
-                                <rect key="frame" x="0.0" y="46" width="414" height="693"/>
+                                <rect key="frame" x="0.0" y="40" width="414" height="699"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oiI-w8-EsT">
                                     <size key="itemSize" width="128" height="128"/>
@@ -394,10 +398,10 @@
                         <viewLayoutGuide key="safeArea" id="deQ-Dp-IuG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="AcT-OB-vGr" secondAttribute="trailing" constant="8" id="Enq-uU-9rt"/>
+                            <constraint firstAttribute="trailing" secondItem="AcT-OB-vGr" secondAttribute="trailing" constant="16" id="Enq-uU-9rt"/>
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="leading" secondItem="Lcu-Vf-T8C" secondAttribute="leading" id="GRe-YH-Lcr"/>
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="top" secondItem="AcT-OB-vGr" secondAttribute="bottom" id="JOZ-1l-CbK"/>
-                            <constraint firstItem="AcT-OB-vGr" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" constant="8" id="JZw-Vs-lzF"/>
+                            <constraint firstItem="AcT-OB-vGr" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" id="JZw-Vs-lzF"/>
                             <constraint firstItem="fjL-qO-zZE" firstAttribute="top" secondItem="Lgm-Ot-ZDv" secondAttribute="bottom" constant="20" id="S5e-l9-gtS"/>
                             <constraint firstItem="Lgm-Ot-ZDv" firstAttribute="centerX" secondItem="Lcu-Vf-T8C" secondAttribute="centerX" id="VsV-Fv-S9N"/>
                             <constraint firstItem="deQ-Dp-IuG" firstAttribute="trailing" secondItem="M35-Pu-lfS" secondAttribute="trailing" constant="20" id="Wb6-Nb-zzf"/>

@@ -30,6 +30,21 @@ class ShareSocietyViewController: BaseViewController {
             addArticleButton.backgroundColor = .darkGray
         }
     }
+    @IBOutlet weak var chatButton: UIButton! {
+        
+        didSet {
+            
+            chatButton.tintColor = .projectTintColor
+        }
+    }
+    
+    @IBOutlet weak var addFriendButton: UIButton! {
+        
+        didSet {
+            
+            addFriendButton.tintColor = .projectTintColor
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
