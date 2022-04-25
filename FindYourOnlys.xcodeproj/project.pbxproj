@@ -11,6 +11,9 @@
 		987D8B2F281681B9000D1F95 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B2E281681B9000D1F95 /* Auth.storyboard */; };
 		987D8B32281681EB000D1F95 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B31281681EB000D1F95 /* AuthViewController.swift */; };
 		987D8B3528169FE5000D1F95 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3428169FE5000D1F95 /* AuthViewModel.swift */; };
+		987D8B372816BC1B000D1F95 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B362816BC1B000D1F95 /* RegisterViewController.swift */; };
+		987D8B392816BC25000D1F95 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B382816BC25000D1F95 /* SignInViewController.swift */; };
+		987D8B3B2816C23D000D1F95 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -165,6 +168,9 @@
 		987D8B2E281681B9000D1F95 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		987D8B31281681EB000D1F95 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		987D8B3428169FE5000D1F95 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		987D8B362816BC1B000D1F95 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		987D8B382816BC25000D1F95 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -331,6 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				987D8B31281681EB000D1F95 /* AuthViewController.swift */,
+				987D8B362816BC1B000D1F95 /* RegisterViewController.swift */,
+				987D8B382816BC25000D1F95 /* SignInViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -339,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				987D8B3428169FE5000D1F95 /* AuthViewModel.swift */,
+				987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1041,6 +1050,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				987D8B392816BC25000D1F95 /* SignInViewController.swift in Sources */,
 				98CC16592806651D00B9FDC6 /* ContentInsetTextField.swift in Sources */,
 				987D8B32281681EB000D1F95 /* AuthViewController.swift in Sources */,
 				9896D8EF280968C5003D4A16 /* ChatRoomMessageViewController.swift in Sources */,
@@ -1061,6 +1071,7 @@
 				9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */,
 				98CC162B280554E500B9FDC6 /* UIImage+Extension.swift in Sources */,
 				9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */,
+				987D8B3B2816C23D000D1F95 /* RegisterViewModel.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,
 				98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */,
@@ -1082,6 +1093,7 @@
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
 				9896D8E528091720003D4A16 /* ChatRoomViewModel.swift in Sources */,
+				987D8B372816BC1B000D1F95 /* RegisterViewController.swift in Sources */,
 				98CC16682806B3A400B9FDC6 /* UserFirebaseManager.swift in Sources */,
 				98CC16292805518400B9FDC6 /* HomeTabBarController.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,

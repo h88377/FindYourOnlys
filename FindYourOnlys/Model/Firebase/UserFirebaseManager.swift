@@ -23,27 +23,28 @@ class UserFirebaseManager {
     
     // swiftlint:disable line_length
     // Wayne
-//    var currentUser: String { return "123" }
-//
-//    var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911" }
-//    var currentUserInfo: User {
-//
-//        return User(id: "123", nickName: "Wayne", email: "123@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911",
-//                    friends: ["321", "456", "654"], limitedUsers: ["444"])
-//    }
+    //    var currentUser: String { return "123" }
+    //
+    //    var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911" }
+    //    var currentUserInfo: User {
+    //
+    //        return User(id: "123", nickName: "Wayne", email: "123@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911",
+    //                    friends: ["321", "456", "654"], limitedUsers: ["444"])
+    //    }
     
     // Luke
     
     var currentUser: String { return "321" }
-
+    
     var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2" }
-
+    
     var currentUserInfo: User {
-
+        
         return User(id: "321", nickName: "Luke", email: "321@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2",
                     friends: ["123"], limitedUsers: ["444"])
     }
     
+    // Sign in with Apple
     func createAppleIdRequest() -> ASAuthorizationAppleIDRequest {
         
         let appleIdProvider = ASAuthorizationAppleIDProvider()
@@ -148,19 +149,86 @@ class UserFirebaseManager {
                 rawNonce: nonce
             )
             
-            Auth.auth().signIn(with: credential) { authDataResult, error in
-                if
-                    let user = authDataResult?.user {
+            Auth.auth().signIn(with: credential) { [weak self] authDataResult, error in
+                
+                guard
+                    let user = authDataResult?.user,
+                    let email = user.email,
+                    let self = self
+                        
+                else {
                     
-                    print("You have succeed to login, \(user.uid), \(String(describing: user.email))")
-                } else {
-                    
-                    print("Fail to sign in with credential with error: \(String(describing: error))")
+//                    print("Fail to sign in with credential with error: \(String(describing: error))")
                     
                     completion(error)
+                    
+                    return
+                }
+                
+                print("You have succeed to login, \(user.uid), \(String(describing: user.email))")
+               
+                self.saveUser(with: user.displayName ?? "初來乍到", with: email, with: user.uid) { error in
+                    
+                    if
+                        let error = error {
+                        
+                        completion(error)
+                    }
                 }
             }
             
+        }
+        
+    }
+    
+    @available(iOS 13, *)
+    private func sha256(_ input: String) -> String {
+        
+        let inputData = Data(input.utf8)
+        
+        let hashedData = SHA256.hash(data: inputData)
+        
+        let hashString = hashedData.compactMap {
+            
+            String(format: "%02x", $0)
+            
+        }.joined()
+        
+        return hashString
+    }
+    
+    // Register with Firebase
+    func register(with nickName: String, with email: String, with password: String, completion: @escaping (Error?) -> Void) {
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
+            
+            guard
+                error == nil,
+                let user = authDataResult?.user,
+                let self = self
+            
+            else {
+                
+                completion(error)
+                
+                return
+            }
+            
+            print("User registeration success!, User: \(user.uid), \(user.email)")
+            
+            // Save User on firebase
+            self.saveUser(with: nickName, with: email, with: user.uid) { error in
+                
+                if
+                    let error = error {
+                    
+                    completion(error)
+                    
+                } else {
+                    
+                    completion(nil)
+                }
+            }
         }
         
     }
@@ -192,20 +260,29 @@ class UserFirebaseManager {
             }
     }
     
-    @available(iOS 13, *)
-    private func sha256(_ input: String) -> String {
+    func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Error?) -> Void) {
         
-        let inputData = Data(input.utf8)
+        let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(id)")
         
-        let hashedData = SHA256.hash(data: inputData)
-        
-        let hashString = hashedData.compactMap {
+        do {
             
-            String(format: "%02x", $0)
+            let user = User(
+                id: id,
+                nickName: nickName,
+                email: email,
+                imageURLString: "",
+                friends: [],
+                limitedUsers: []
+            )
             
-        }.joined()
-        
-        return hashString
+            try documentReference.setData(from: user, encoder: Firestore.Encoder())
+            
+            completion(nil)
+            
+        } catch {
+            
+            completion(error)
+        }
     }
     
     // MARK: - Convert functions

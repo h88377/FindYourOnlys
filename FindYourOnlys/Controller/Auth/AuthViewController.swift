@@ -17,14 +17,11 @@ class AuthViewController: UIViewController {
         
         viewModel.errorViewModel.bind { errorViewModel in
             
-            print(errorViewModel?.error)
+            print(errorViewModel?.error.localizedDescription)
         }
     }
     
-    @IBAction func signInWithApple(_ sender: UIButton) {
-        
-        performSignIn()
-    }
+    
     
     func performSignIn() {
         
@@ -39,7 +36,29 @@ class AuthViewController: UIViewController {
         authorizationViewController.performRequests()
     }
     
+    @IBAction func signInWithApple(_ sender: UIButton) {
+        
+        performSignIn()
+    }
     
+    @IBAction func register(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.auth
+        
+        let registerVC = storyboard.instantiateViewController(withIdentifier: RegisterViewController.identifier)
+        
+        present(registerVC, animated: true)
+        
+    }
+    
+    @IBAction func signInWithFirebase(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.auth
+        
+        let signInVC = storyboard.instantiateViewController(withIdentifier: SignInViewController.identifier)
+        
+        present(signInVC, animated: true)
+    }
     
 }
 
