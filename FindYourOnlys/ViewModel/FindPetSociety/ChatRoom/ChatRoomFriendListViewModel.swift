@@ -104,7 +104,19 @@ class ChatRoomFriendListViewModel {
                                 
                             case .success(let users):
                                 
-                                UserFirebaseManager.shared.setUsers(with: self.friendViewModels, users: users)
+                                var orderedUsers = [User]()
+                                
+                                for friendId in friendIds {
+                                    
+                                    for user in users {
+                                        
+                                        if user.id == friendId {
+                                            
+                                            orderedUsers.append(user)
+                                        }
+                                    }
+                                }
+                                UserFirebaseManager.shared.setUsers(with: self.friendViewModels, users: orderedUsers)
                                 
                             case .failure(let error):
                                 

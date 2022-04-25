@@ -11,7 +11,13 @@ class ArticlePhotoCell: UITableViewCell {
 
     @IBOutlet weak var userButton: UIButton!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel! {
+        
+        didSet {
+            
+            userNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var postedImageView: UIImageView!
     
@@ -41,6 +47,8 @@ class ArticlePhotoCell: UITableViewCell {
             let imageView = userButton.imageView else { return }
         
         userButton.imageView?.layer.cornerRadius = imageView.layer.frame.height / 2
+        
+        postedImageView.layer.cornerRadius = 15
     }
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
@@ -71,7 +79,7 @@ class ArticlePhotoCell: UITableViewCell {
             
         default:
             
-            postTypeLabel.text = "error type."
+            postTypeLabel.text = ""
         }   
     }
     

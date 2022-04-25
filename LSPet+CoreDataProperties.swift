@@ -2,7 +2,7 @@
 //  LSPet+CoreDataProperties.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/11.
+//  Created by 鄭昭韋 on 2022/4/20.
 //
 //
 
@@ -23,6 +23,7 @@ extension LSPet {
     @NSManaged public var closedDate: String
     @NSManaged public var color: String
     @NSManaged public var createdDate: String
+    @NSManaged public var favoriteID: String
     @NSManaged public var foundPlace: String
     @NSManaged public var id: Int64
     @NSManaged public var kind: String
@@ -35,9 +36,9 @@ extension LSPet {
     @NSManaged public var sterilization: String
     @NSManaged public var telephone: String
     @NSManaged public var updatedDate: String
-    @NSManaged public var userID: String?
+    @NSManaged public var userID: String
     @NSManaged public var variety: String
-    @NSManaged public var favoriteID: String?
+    @NSManaged public var shelterName: String
 
 }
 

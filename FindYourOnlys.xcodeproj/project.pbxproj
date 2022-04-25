@@ -8,6 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		80B017278C10374F5E895CDD /* Pods_FindYourOnlys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */; };
+		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
+		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
+		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
+		989399F7280FB10E004312F1 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F6280FB10E004312F1 /* MapManager.swift */; };
+		989399F9280FD707004312F1 /* Shelter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F8280FD707004312F1 /* Shelter.swift */; };
+		989399FB280FE065004312F1 /* ShelterProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FA280FE065004312F1 /* ShelterProvider.swift */; };
+		989399FD280FF5F8004312F1 /* ShelterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FC280FF5F8004312F1 /* ShelterViewModel.swift */; };
+		98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */; };
+		98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A01281033F0004312F1 /* RouteViewModel.swift */; };
+		98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0328103491004312F1 /* MapRouteViewModel.swift */; };
+		98939A0628105F4F004312F1 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0528105F4F004312F1 /* PresentationController.swift */; };
+		98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0928106B09004312F1 /* LocationViewModel.swift */; };
+		98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A102812759C004312F1 /* AdoptFilterViewController.swift */; };
+		98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A12281276DC004312F1 /* AdoptFilterCategory.swift */; };
+		98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A142812856A004312F1 /* AdoptFilterViewModel.swift */; };
+		98939A172812890F004312F1 /* Sex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A162812890F004312F1 /* Sex.swift */; };
+		98939A19281291CD004312F1 /* AdoptFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A18281291CD004312F1 /* AdoptFilterCondition.swift */; };
+		98939A1D28139428004312F1 /* FindPetSocietyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A1C28139428004312F1 /* FindPetSocietyFilterViewController.swift */; };
+		98939A1F281395EE004312F1 /* FindPetSocietyFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A1E281395EE004312F1 /* FindPetSocietyFilterCategory.swift */; };
+		98939A21281398CB004312F1 /* FindPetSocietyFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */; };
+		98939A2328139D18004312F1 /* FindPetSocietyFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2228139D18004312F1 /* FindPetSocietyFilterCondition.swift */; };
+		98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98939A2428143024004312F1 /* ShareSociety.storyboard */; };
+		98939A2828143067004312F1 /* ShareSocietyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2728143067004312F1 /* ShareSocietyViewController.swift */; };
+		98939A2A28143088004312F1 /* SharePublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2928143088004312F1 /* SharePublishViewController.swift */; };
+		98939A2D2814338A004312F1 /* ShareContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2C2814338A004312F1 /* ShareContentCategory.swift */; };
+		98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2F2814343C004312F1 /* SharePublishViewModel.swift */; };
+		98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */; };
+		98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */; };
+		98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A3528154A12004312F1 /* UIColor+Extension.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -29,6 +58,33 @@
 		9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */; };
 		9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */; };
 		9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D926280BD3DD003D4A16 /* FriendRequest.swift */; };
+		9896D929280D60C1003D4A16 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9896D928280D60C1003D4A16 /* Profile.storyboard */; };
+		9896D92C280D6127003D4A16 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D92B280D6127003D4A16 /* ProfileViewController.swift */; };
+		9896D92E280D6164003D4A16 /* ProfileFriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */; };
+		9896D932280D6694003D4A16 /* FriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D930280D6694003D4A16 /* FriendRequestCell.swift */; };
+		9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D931280D6694003D4A16 /* FriendRequestCell.xib */; };
+		9896D936280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */; };
+		9896D938280D6E8E003D4A16 /* ProfileFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */; };
+		9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */; };
+		9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */; };
+		9896D940280DBC98003D4A16 /* FriendRequestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93F280DBC98003D4A16 /* FriendRequestList.swift */; };
+		9896D945280DBD53003D4A16 /* PostType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D944280DBD52003D4A16 /* PostType.swift */; };
+		9896D947280DBD63003D4A16 /* PetKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D946280DBD63003D4A16 /* PetKind.swift */; };
+		9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D948280DBD83003D4A16 /* SearchFriendResult.swift */; };
+		9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D951280E89D9003D4A16 /* MapAnnotation.swift */; };
+		9896D954280E9BFB003D4A16 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D953280E9BFB003D4A16 /* Route.swift */; };
+		9896D956280E9C3F003D4A16 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D955280E9C3F003D4A16 /* RouteAnnotation.swift */; };
+		9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D957280E9CC6003D4A16 /* RouteBuilder.swift */; };
+		9896D95A280EA7AA003D4A16 /* AdoptDirectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D959280EA7AA003D4A16 /* AdoptDirectionViewController.swift */; };
+		9896D95D280EB5CB003D4A16 /* DirectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D95B280EB5CA003D4A16 /* DirectionCell.swift */; };
+		9896D95E280EB5CB003D4A16 /* DirectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D95C280EB5CA003D4A16 /* DirectionCell.xib */; };
+		9896D960280EBF6E003D4A16 /* CLPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D95F280EBF6E003D4A16 /* CLPlacemark+Extension.swift */; };
+		9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D961280EBFA5003D4A16 /* MKMapView+Extension.swift */; };
+		9896D964280EDC98003D4A16 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D963280EDC98003D4A16 /* Direction.swift */; };
+		9896D966280EDCC4003D4A16 /* AdoptDirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D965280EDCC4003D4A16 /* AdoptDirectionViewModel.swift */; };
+		9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */; };
+		9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */; };
+		9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -44,10 +100,8 @@
 		98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */; };
 		98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */; };
 		98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */; };
-		98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */; };
 		98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */; };
 		98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DA2801C09900B9FDC6 /* Pet.swift */; };
-		98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DC2801C98100B9FDC6 /* PetRequest.swift */; };
 		98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */; };
 		98CC15E12801D67300B9FDC6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E02801D67300B9FDC6 /* Box.swift */; };
 		98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15E22801D71300B9FDC6 /* PetViewModel.swift */; };
@@ -76,11 +130,7 @@
 		98CC16292805518400B9FDC6 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16282805518400B9FDC6 /* HomeTabBarController.swift */; };
 		98CC162B280554E500B9FDC6 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC162A280554E500B9FDC6 /* UIImage+Extension.swift */; };
 		98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */; };
-		98CC163228055F9B00B9FDC6 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163028055F9B00B9FDC6 /* ArticleTableViewCell.swift */; };
-		98CC163328055F9B00B9FDC6 /* ArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC163128055F9B00B9FDC6 /* ArticleTableViewCell.xib */; };
 		98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163428056FD500B9FDC6 /* PublishViewController.swift */; };
-		98CC16382805709900B9FDC6 /* PublishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */; };
-		98CC16392805709900B9FDC6 /* PublishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */; };
 		98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC163E28059EBD00B9FDC6 /* PublishKindCell.swift */; };
 		98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC163F28059EBD00B9FDC6 /* PublishKindCell.xib */; };
 		98CC164428059EE800B9FDC6 /* PublishSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC164228059EE800B9FDC6 /* PublishSelectionCell.swift */; };
@@ -108,6 +158,35 @@
 /* Begin PBXFileReference section */
 		0DE5B635AC6994CD5CEA68B5 /* Pods-FindYourOnlys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.debug.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.debug.xcconfig"; sourceTree = "<group>"; };
 		6AAA99A8BC5FA9600A080C81 /* Pods-FindYourOnlys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.release.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.release.xcconfig"; sourceTree = "<group>"; };
+		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
+		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
+		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
+		989399F6280FB10E004312F1 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		989399F8280FD707004312F1 /* Shelter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shelter.swift; sourceTree = "<group>"; };
+		989399FA280FE065004312F1 /* ShelterProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterProvider.swift; sourceTree = "<group>"; };
+		989399FC280FF5F8004312F1 /* ShelterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterViewModel.swift; sourceTree = "<group>"; };
+		989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationViewModel.swift; sourceTree = "<group>"; };
+		98939A01281033F0004312F1 /* RouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewModel.swift; sourceTree = "<group>"; };
+		98939A0328103491004312F1 /* MapRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouteViewModel.swift; sourceTree = "<group>"; };
+		98939A0528105F4F004312F1 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		98939A0928106B09004312F1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		98939A102812759C004312F1 /* AdoptFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewController.swift; sourceTree = "<group>"; };
+		98939A12281276DC004312F1 /* AdoptFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterCategory.swift; sourceTree = "<group>"; };
+		98939A142812856A004312F1 /* AdoptFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewModel.swift; sourceTree = "<group>"; };
+		98939A162812890F004312F1 /* Sex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sex.swift; sourceTree = "<group>"; };
+		98939A18281291CD004312F1 /* AdoptFilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterCondition.swift; sourceTree = "<group>"; };
+		98939A1C28139428004312F1 /* FindPetSocietyFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterViewController.swift; sourceTree = "<group>"; };
+		98939A1E281395EE004312F1 /* FindPetSocietyFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterCategory.swift; sourceTree = "<group>"; };
+		98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterViewModel.swift; sourceTree = "<group>"; };
+		98939A2228139D18004312F1 /* FindPetSocietyFilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyFilterCondition.swift; sourceTree = "<group>"; };
+		98939A2428143024004312F1 /* ShareSociety.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShareSociety.storyboard; sourceTree = "<group>"; };
+		98939A2728143067004312F1 /* ShareSocietyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocietyViewController.swift; sourceTree = "<group>"; };
+		98939A2928143088004312F1 /* SharePublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewController.swift; sourceTree = "<group>"; };
+		98939A2C2814338A004312F1 /* ShareContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareContentCategory.swift; sourceTree = "<group>"; };
+		98939A2F2814343C004312F1 /* SharePublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewModel.swift; sourceTree = "<group>"; };
+		98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocietyViewModel.swift; sourceTree = "<group>"; };
+		98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreActivityIndicator.swift; sourceTree = "<group>"; };
+		98939A3528154A12004312F1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -129,6 +208,33 @@
 		9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewModel.swift; sourceTree = "<group>"; };
 		9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewModel.swift; sourceTree = "<group>"; };
 		9896D926280BD3DD003D4A16 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		9896D928280D60C1003D4A16 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		9896D92B280D6127003D4A16 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendRequestViewController.swift; sourceTree = "<group>"; };
+		9896D930280D6694003D4A16 /* FriendRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestCell.swift; sourceTree = "<group>"; };
+		9896D931280D6694003D4A16 /* FriendRequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestCell.xib; sourceTree = "<group>"; };
+		9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendRequestViewModel.swift; sourceTree = "<group>"; };
+		9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFirebaseManager.swift; sourceTree = "<group>"; };
+		9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
+		9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListViewModel.swift; sourceTree = "<group>"; };
+		9896D93F280DBC98003D4A16 /* FriendRequestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestList.swift; sourceTree = "<group>"; };
+		9896D944280DBD52003D4A16 /* PostType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostType.swift; sourceTree = "<group>"; };
+		9896D946280DBD63003D4A16 /* PetKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetKind.swift; sourceTree = "<group>"; };
+		9896D948280DBD83003D4A16 /* SearchFriendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendResult.swift; sourceTree = "<group>"; };
+		9896D951280E89D9003D4A16 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
+		9896D953280E9BFB003D4A16 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		9896D955280E9C3F003D4A16 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
+		9896D957280E9CC6003D4A16 /* RouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
+		9896D959280EA7AA003D4A16 /* AdoptDirectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDirectionViewController.swift; sourceTree = "<group>"; };
+		9896D95B280EB5CA003D4A16 /* DirectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionCell.swift; sourceTree = "<group>"; };
+		9896D95C280EB5CA003D4A16 /* DirectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionCell.xib; sourceTree = "<group>"; };
+		9896D95F280EBF6E003D4A16 /* CLPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+Extension.swift"; sourceTree = "<group>"; };
+		9896D961280EBFA5003D4A16 /* MKMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extension.swift"; sourceTree = "<group>"; };
+		9896D963280EDC98003D4A16 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		9896D965280EDCC4003D4A16 /* AdoptDirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDirectionViewModel.swift; sourceTree = "<group>"; };
+		9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewModel.swift; sourceTree = "<group>"; };
+		9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionHeaderView.swift; sourceTree = "<group>"; };
+		9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionHeaderView.xib; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,10 +252,8 @@
 		98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptListViewController.swift; sourceTree = "<group>"; };
 		98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFavoriteViewController.swift; sourceTree = "<group>"; };
 		98CC15D42801B9B500B9FDC6 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
-		98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHTTPClient.swift; sourceTree = "<group>"; };
 		98CC15DA2801C09900B9FDC6 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
-		98CC15DC2801C98100B9FDC6 /* PetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRequest.swift; sourceTree = "<group>"; };
 		98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptListViewModel.swift; sourceTree = "<group>"; };
 		98CC15E02801D67300B9FDC6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		98CC15E22801D71300B9FDC6 /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
@@ -161,7 +265,7 @@
 		98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSPet+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFavoriteViewModel.swift; sourceTree = "<group>"; };
-		98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdoptDetailViewController.swift; path = FindYourOnlys/Controller/Adopt/AdoptDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdoptDetailViewController.swift; path = FindYourOnlys/Controller/Adopt/Home/AdoptDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		98CC16012802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailTableViewCell.swift; sourceTree = "<group>"; };
 		98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailTableViewCell.xib; sourceTree = "<group>"; };
 		98CC16052802EA0D00B9FDC6 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -178,11 +282,7 @@
 		98CC16282805518400B9FDC6 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		98CC162A280554E500B9FDC6 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyViewController.swift; sourceTree = "<group>"; };
-		98CC163028055F9B00B9FDC6 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
-		98CC163128055F9B00B9FDC6 /* ArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleTableViewCell.xib; sourceTree = "<group>"; };
 		98CC163428056FD500B9FDC6 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
-		98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTableViewCell.swift; sourceTree = "<group>"; };
-		98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishTableViewCell.xib; sourceTree = "<group>"; };
 		98CC163E28059EBD00B9FDC6 /* PublishKindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishKindCell.swift; sourceTree = "<group>"; };
 		98CC163F28059EBD00B9FDC6 /* PublishKindCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishKindCell.xib; sourceTree = "<group>"; };
 		98CC164228059EE800B9FDC6 /* PublishSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSelectionCell.swift; sourceTree = "<group>"; };
@@ -220,11 +320,108 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		989399F5280FB0F6004312F1 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				989399F6280FB10E004312F1 /* MapManager.swift */,
+				9896D951280E89D9003D4A16 /* MapAnnotation.swift */,
+				9896D953280E9BFB003D4A16 /* Route.swift */,
+				9896D955280E9C3F003D4A16 /* RouteAnnotation.swift */,
+				9896D957280E9CC6003D4A16 /* RouteBuilder.swift */,
+				9896D963280EDC98003D4A16 /* Direction.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		989399FE28100E78004312F1 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9896D965280EDCC4003D4A16 /* AdoptDirectionViewModel.swift */,
+				9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */,
+				989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */,
+				989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */,
+				989399FC280FF5F8004312F1 /* ShelterViewModel.swift */,
+				98939A01281033F0004312F1 /* RouteViewModel.swift */,
+				98939A0328103491004312F1 /* MapRouteViewModel.swift */,
+				98939A0928106B09004312F1 /* LocationViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		98939A0C2811ADFA004312F1 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */,
+				9896D959280EA7AA003D4A16 /* AdoptDirectionViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		98939A0E2811AE6A004312F1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */,
+				98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */,
+				98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */,
+				98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */,
+				98939A102812759C004312F1 /* AdoptFilterViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		98939A0F2811AE79004312F1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
+				98CC16152803D69100B9FDC6 /* FavoriteLSPetViewModel.swift */,
+				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
+				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
+				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
+				98939A142812856A004312F1 /* AdoptFilterViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		98939A2628143043004312F1 /* ShareSociety */ = {
+			isa = PBXGroup;
+			children = (
+				98939A2728143067004312F1 /* ShareSocietyViewController.swift */,
+				98939A2928143088004312F1 /* SharePublishViewController.swift */,
+			);
+			path = ShareSociety;
+			sourceTree = "<group>";
+		};
+		98939A2B28143371004312F1 /* ShareSociety */ = {
+			isa = PBXGroup;
+			children = (
+				98939A2C2814338A004312F1 /* ShareContentCategory.swift */,
+			);
+			path = ShareSociety;
+			sourceTree = "<group>";
+		};
+		98939A2E281433DA004312F1 /* ShareSociety */ = {
+			isa = PBXGroup;
+			children = (
+				98939A2F2814343C004312F1 /* SharePublishViewModel.swift */,
+				98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */,
+			);
+			path = ShareSociety;
+			sourceTree = "<group>";
+		};
+		98939A372815519E004312F1 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9896D95B280EB5CA003D4A16 /* DirectionCell.swift */,
+				9896D95C280EB5CA003D4A16 /* DirectionCell.xib */,
+				9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */,
+				9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		9896D8D028083F01003D4A16 /* Article */ = {
 			isa = PBXGroup;
 			children = (
-				98CC163028055F9B00B9FDC6 /* ArticleTableViewCell.swift */,
-				98CC163128055F9B00B9FDC6 /* ArticleTableViewCell.xib */,
 				98CC164F2806585F00B9FDC6 /* ArticlePhotoCell.swift */,
 				98CC16502806585F00B9FDC6 /* ArticlePhotoCell.xib */,
 				98CC16532806587D00B9FDC6 /* ArticleContentCell.swift */,
@@ -267,6 +464,7 @@
 			children = (
 				98CC162D28055F5A00B9FDC6 /* FindPetSocietyViewController.swift */,
 				98CC163428056FD500B9FDC6 /* PublishViewController.swift */,
+				98939A1C28139428004312F1 /* FindPetSocietyFilterViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -289,6 +487,7 @@
 				98CC165B2806717800B9FDC6 /* FindPetSocietyViewModel.swift */,
 				98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */,
 				98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */,
+				98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -298,6 +497,97 @@
 			children = (
 				9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */,
 				9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */,
+			);
+			path = "Add Friend";
+			sourceTree = "<group>";
+		};
+		9896D92A280D610D003D4A16 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9896D92B280D6127003D4A16 /* ProfileViewController.swift */,
+				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		9896D92F280D6671003D4A16 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9896D930280D6694003D4A16 /* FriendRequestCell.swift */,
+				9896D931280D6694003D4A16 /* FriendRequestCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		9896D934280D6D95003D4A16 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */,
+				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
+				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		9896D941280DBCB0003D4A16 /* Adopt */ = {
+			isa = PBXGroup;
+			children = (
+				98CC15DA2801C09900B9FDC6 /* Pet.swift */,
+				989399F8280FD707004312F1 /* Shelter.swift */,
+				98939A18281291CD004312F1 /* AdoptFilterCondition.swift */,
+				98CC161328030F8100B9FDC6 /* AdoptDetailContentCategory.swift */,
+				98939A12281276DC004312F1 /* AdoptFilterCategory.swift */,
+				989399F5280FB0F6004312F1 /* Map */,
+			);
+			path = Adopt;
+			sourceTree = "<group>";
+		};
+		9896D942280DBCC3003D4A16 /* FindPetSociety */ = {
+			isa = PBXGroup;
+			children = (
+				9896D94A280DBDBD003D4A16 /* ChatRoom */,
+				9896D94B280DBDDB003D4A16 /* Home */,
+				9896D94C280DBDE7003D4A16 /* Add Friend */,
+			);
+			path = FindPetSociety;
+			sourceTree = "<group>";
+		};
+		9896D943280DBCE4003D4A16 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9896D93F280DBC98003D4A16 /* FriendRequestList.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		9896D94A280DBDBD003D4A16 /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				9896D8E2280914DF003D4A16 /* ChatRoom.swift */,
+				9896D8F228096B97003D4A16 /* Message.swift */,
+			);
+			path = ChatRoom;
+			sourceTree = "<group>";
+		};
+		9896D94B280DBDDB003D4A16 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				98CC165F2806724000B9FDC6 /* Article.swift */,
+				9896D944280DBD52003D4A16 /* PostType.swift */,
+				9896D946280DBD63003D4A16 /* PetKind.swift */,
+				98939A162812890F004312F1 /* Sex.swift */,
+				98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */,
+				98939A2228139D18004312F1 /* FindPetSocietyFilterCondition.swift */,
+				98939A1E281395EE004312F1 /* FindPetSocietyFilterCategory.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9896D94C280DBDE7003D4A16 /* Add Friend */ = {
+			isa = PBXGroup;
+			children = (
+				9896D926280BD3DD003D4A16 /* FriendRequest.swift */,
+				9896D948280DBD83003D4A16 /* SearchFriendResult.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -325,8 +615,6 @@
 			children = (
 				98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */,
 				98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */,
-				98CC15D62801BA4B00B9FDC6 /* HTTPClient.swift */,
-				98CC15DC2801C98100B9FDC6 /* PetRequest.swift */,
 				98CC15E92802855E00B9FDC6 /* Third party framework wrapper */,
 				98CC15E82802855600B9FDC6 /* Box */,
 				98CC15C528017A2500B9FDC6 /* Extension */,
@@ -334,9 +622,11 @@
 				98CC15BE2801797500B9FDC6 /* View */,
 				98CC15BD2801796D00B9FDC6 /* Controller */,
 				98CC15BF2801797F00B9FDC6 /* ViewModel */,
-				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
 				98CC15AC28005B6C00B9FDC6 /* Adopt.storyboard */,
+				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
 				98CC1626280550D900B9FDC6 /* Main.storyboard */,
+				9896D928280D60C1003D4A16 /* Profile.storyboard */,
+				98939A2428143024004312F1 /* ShareSociety.storyboard */,
 				98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */,
 				98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */,
 				98CC15BB2801721000B9FDC6 /* GoogleService-Info.plist */,
@@ -350,8 +640,11 @@
 			children = (
 				98CC16282805518400B9FDC6 /* HomeTabBarController.swift */,
 				9896D8CE280825DB003D4A16 /* BaseViewController.swift */,
+				98939A0528105F4F004312F1 /* PresentationController.swift */,
 				98CC162028054ACB00B9FDC6 /* Adopt */,
+				9896D92A280D610D003D4A16 /* Profile */,
 				98CC162C28055F3000B9FDC6 /* FindPetSociety */,
+				98939A2628143043004312F1 /* ShareSociety */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -362,6 +655,7 @@
 				98CC1657280664E300B9FDC6 /* BaseView */,
 				98CC162F28055F7B00B9FDC6 /* FindPetSociety */,
 				98CC161F28054AB600B9FDC6 /* Adopt */,
+				9896D92F280D6671003D4A16 /* Profile */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -369,6 +663,8 @@
 		98CC15BF2801797F00B9FDC6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				98939A2E281433DA004312F1 /* ShareSociety */,
+				9896D934280D6D95003D4A16 /* Profile */,
 				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
 				98CC162128054ADB00B9FDC6 /* Adopt */,
 			);
@@ -378,14 +674,11 @@
 		98CC15C02801798700B9FDC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				98CC15DA2801C09900B9FDC6 /* Pet.swift */,
-				98CC165F2806724000B9FDC6 /* Article.swift */,
+				98939A2B28143371004312F1 /* ShareSociety */,
 				9896D8DC28084A49003D4A16 /* User.swift */,
-				9896D8E2280914DF003D4A16 /* ChatRoom.swift */,
-				9896D8F228096B97003D4A16 /* Message.swift */,
-				9896D926280BD3DD003D4A16 /* FriendRequest.swift */,
-				98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */,
-				98CC161328030F8100B9FDC6 /* AdoptDetailContentCategory.swift */,
+				9896D941280DBCB0003D4A16 /* Adopt */,
+				9896D942280DBCC3003D4A16 /* FindPetSociety */,
+				9896D943280DBCE4003D4A16 /* Profile */,
 				98CC16172804276300B9FDC6 /* HTTPClient */,
 				98CC16182804278700B9FDC6 /* Firebase */,
 				98CC15EF280289C900B9FDC6 /* Local Storage */,
@@ -404,6 +697,10 @@
 				98CC162228054B3A00B9FDC6 /* UIStoryBoard+Extension.swift */,
 				98CC162A280554E500B9FDC6 /* UIImage+Extension.swift */,
 				9896D916280A6F42003D4A16 /* UITextView+Extension.swift */,
+				9896D95F280EBF6E003D4A16 /* CLPlacemark+Extension.swift */,
+				9896D961280EBFA5003D4A16 /* MKMapView+Extension.swift */,
+				989399ED280F9F74004312F1 /* TimeInterval.swift */,
+				98939A3528154A12004312F1 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -440,6 +737,7 @@
 			children = (
 				98CC15D82801BD7800B9FDC6 /* PetHTTPClient.swift */,
 				98CC15E42801E01100B9FDC6 /* PetProvider.swift */,
+				989399FA280FE065004312F1 /* ShelterProvider.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -451,6 +749,7 @@
 				98CC16672806B3A400B9FDC6 /* UserFirebaseManager.swift */,
 				98CC1619280427B700B9FDC6 /* FavoritePetFirebaseManager.swift */,
 				98CC16692806C14200B9FDC6 /* PetSocietyFirebaseManager.swift */,
+				9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -466,6 +765,7 @@
 				98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */,
 				98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */,
 				98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */,
+				98939A372815519E004312F1 /* Map */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -473,10 +773,8 @@
 		98CC162028054ACB00B9FDC6 /* Adopt */ = {
 			isa = PBXGroup;
 			children = (
-				98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */,
-				98CC15D02801B8EE00B9FDC6 /* AdoptListViewController.swift */,
-				98CC15D22801B91600B9FDC6 /* AdoptFavoriteViewController.swift */,
-				98CC15FF2802E87D00B9FDC6 /* AdoptDetailViewController.swift */,
+				98939A0E2811AE6A004312F1 /* Home */,
+				98939A0C2811ADFA004312F1 /* Map */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -484,11 +782,8 @@
 		98CC162128054ADB00B9FDC6 /* Adopt */ = {
 			isa = PBXGroup;
 			children = (
-				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
-				98CC16152803D69100B9FDC6 /* FavoriteLSPetViewModel.swift */,
-				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
-				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
-				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
+				98939A0F2811AE79004312F1 /* Home */,
+				989399FE28100E78004312F1 /* Map */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -516,8 +811,6 @@
 		98CC164E2805BF1C00B9FDC6 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
-				98CC16362805709900B9FDC6 /* PublishTableViewCell.swift */,
-				98CC16372805709900B9FDC6 /* PublishTableViewCell.xib */,
 				98CC164628059F0C00B9FDC6 /* PublishUserCell.swift */,
 				98CC164728059F0C00B9FDC6 /* PublishUserCell.xib */,
 				98CC164228059EE800B9FDC6 /* PublishSelectionCell.swift */,
@@ -535,6 +828,7 @@
 			children = (
 				98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */,
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
+				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -631,22 +925,25 @@
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
 				9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */,
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
+				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */,
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC16522806585F00B9FDC6 /* ArticlePhotoCell.xib in Resources */,
 				98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */,
+				98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */,
 				98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
+				9896D95E280EB5CB003D4A16 /* DirectionCell.xib in Resources */,
+				9896D929280D60C1003D4A16 /* Profile.storyboard in Resources */,
 				98CC161E28054A7600B9FDC6 /* FindPetSociety.storyboard in Resources */,
-				98CC16392805709900B9FDC6 /* PublishTableViewCell.xib in Resources */,
-				98CC163328055F9B00B9FDC6 /* ArticleTableViewCell.xib in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
 				98CC164D28059FCB00B9FDC6 /* PublishContentCell.xib in Resources */,
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
+				9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,38 +1015,58 @@
 			files = (
 				98CC16592806651D00B9FDC6 /* ContentInsetTextField.swift in Sources */,
 				9896D8EF280968C5003D4A16 /* ChatRoomMessageViewController.swift in Sources */,
+				9896D936280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift in Sources */,
+				9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */,
+				9896D964280EDC98003D4A16 /* Direction.swift in Sources */,
+				98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */,
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
 				9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */,
+				989399F9280FD707004312F1 /* Shelter.swift in Sources */,
+				9896D92E280D6164003D4A16 /* ProfileFriendRequestViewController.swift in Sources */,
 				9896D8E128084BA9003D4A16 /* UserViewModel.swift in Sources */,
+				9896D966280EDCC4003D4A16 /* AdoptDirectionViewModel.swift in Sources */,
+				9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */,
+				989399FD280FF5F8004312F1 /* ShelterViewModel.swift in Sources */,
 				98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */,
 				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
+				9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */,
 				98CC162B280554E500B9FDC6 /* UIImage+Extension.swift in Sources */,
+				9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,
+				98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */,
+				98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */,
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
 				98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */,
 				9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */,
 				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,
 				98CC161428030F8100B9FDC6 /* AdoptDetailContentCategory.swift in Sources */,
+				98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */,
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
+				98939A2A28143088004312F1 /* SharePublishViewController.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
 				98CC16162803D69100B9FDC6 /* FavoriteLSPetViewModel.swift in Sources */,
+				98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
 				9896D8E528091720003D4A16 /* ChatRoomViewModel.swift in Sources */,
-				98CC163228055F9B00B9FDC6 /* ArticleTableViewCell.swift in Sources */,
 				98CC16682806B3A400B9FDC6 /* UserFirebaseManager.swift in Sources */,
 				98CC16292805518400B9FDC6 /* HomeTabBarController.swift in Sources */,
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				9896D8DB28084795003D4A16 /* ChatRoomFriendListViewController.swift in Sources */,
 				98CC16662806AFAC00B9FDC6 /* PublishBasicCell.swift in Sources */,
+				9896D932280D6694003D4A16 /* FriendRequestCell.swift in Sources */,
+				98939A2828143067004312F1 /* ShareSocietyViewController.swift in Sources */,
 				98CC15D12801B8EE00B9FDC6 /* AdoptListViewController.swift in Sources */,
 				98CC16062802EA0D00B9FDC6 /* UIView+Extension.swift in Sources */,
 				98CC15FE2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift in Sources */,
+				98939A1D28139428004312F1 /* FindPetSocietyFilterViewController.swift in Sources */,
+				9896D938280D6E8E003D4A16 /* ProfileFirebaseManager.swift in Sources */,
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
+				989399F7280FB10E004312F1 /* MapManager.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
 				98CC166A2806C14200B9FDC6 /* PetSocietyFirebaseManager.swift in Sources */,
 				98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */,
@@ -762,33 +1079,60 @@
 				9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */,
 				9896D8EC28094E84003D4A16 /* ChatRoomFriendListCell.swift in Sources */,
 				98CC16512806585F00B9FDC6 /* ArticlePhotoCell.swift in Sources */,
+				9896D95D280EB5CB003D4A16 /* DirectionCell.swift in Sources */,
 				98CC16642806ACF600B9FDC6 /* PublishContentCategory.swift in Sources */,
 				98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */,
 				98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */,
+				98939A2D2814338A004312F1 /* ShareContentCategory.swift in Sources */,
 				9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */,
+				9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */,
+				9896D956280E9C3F003D4A16 /* RouteAnnotation.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC164028059EBD00B9FDC6 /* PublishKindCell.swift in Sources */,
 				9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */,
-				98CC15D72801BA4B00B9FDC6 /* HTTPClient.swift in Sources */,
+				9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */,
+				9896D954280E9BFB003D4A16 /* Route.swift in Sources */,
+				989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */,
+				98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */,
+				98939A0628105F4F004312F1 /* PresentationController.swift in Sources */,
+				9896D940280DBC98003D4A16 /* FriendRequestList.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
+				98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
 				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
-				98CC16382805709900B9FDC6 /* PublishTableViewCell.swift in Sources */,
+				98939A21281398CB004312F1 /* FindPetSocietyFilterViewModel.swift in Sources */,
+				9896D945280DBD53003D4A16 /* PostType.swift in Sources */,
 				9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */,
+				9896D960280EBF6E003D4A16 /* CLPlacemark+Extension.swift in Sources */,
 				9896D8DD28084A49003D4A16 /* User.swift in Sources */,
+				989399FB280FE065004312F1 /* ShelterProvider.swift in Sources */,
 				98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */,
+				98939A2328139D18004312F1 /* FindPetSocietyFilterCondition.swift in Sources */,
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
+				98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
-				98CC15DD2801C98100B9FDC6 /* PetRequest.swift in Sources */,
+				9896D95A280EA7AA003D4A16 /* AdoptDirectionViewController.swift in Sources */,
+				9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */,
+				989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */,
 				98CC164828059F0C00B9FDC6 /* PublishUserCell.swift in Sources */,
+				9896D92C280D6127003D4A16 /* ProfileViewController.swift in Sources */,
+				989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */,
 				98CC16602806724000B9FDC6 /* Article.swift in Sources */,
+				98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
 				9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */,
 				9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */,
+				98939A172812890F004312F1 /* Sex.swift in Sources */,
 				98CC164C28059FCB00B9FDC6 /* PublishContentCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
+				9896D947280DBD63003D4A16 /* PetKind.swift in Sources */,
+				98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */,
+				98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */,
+				98939A1F281395EE004312F1 /* FindPetSocietyFilterCategory.swift in Sources */,
+				9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
+				98939A19281291CD004312F1 /* AdoptFilterCondition.swift in Sources */,
 				98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */,
 				9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */,
 			);

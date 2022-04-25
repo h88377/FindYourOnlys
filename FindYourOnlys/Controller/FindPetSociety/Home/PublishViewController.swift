@@ -30,8 +30,6 @@ class PublishViewController: BaseViewController {
             if !isValid {
                 
                 self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再發布文章喔！")
-                
-                print("content is invalid")
             }
             
         }
@@ -48,22 +46,6 @@ class PublishViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
-    }
-    
-    func convertDataSourceIndex(with index: Int, count: Int) -> Int {
-        
-        Int(index / count)
-    }
-    
-    func showAlertWindow(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default)
-        
-        alert.addAction(action)
-        
-        present(alert, animated: true)
     }
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
@@ -97,7 +79,9 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         let publishContentCategory = viewModel.publishContentCategory
         
         guard
-            let cell = publishContentCategory[indexPath.row].cellForIndexPath(indexPath, tableView: tableView) as? PublishBasicCell
+            let cell = publishContentCategory[indexPath.row]
+                .cellForIndexPath(indexPath, tableView: tableView)
+                as? PublishBasicCell
                 
         else { return UITableViewCell() }
         
@@ -159,7 +143,9 @@ extension PublishViewController: PublishBasicCellDelegate {
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         dismiss(animated: true)
         
@@ -200,7 +186,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         
     }
     
-    func openGallery(){
+    func openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             
             let imagePicker = UIImagePickerController()

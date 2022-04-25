@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dm8-sv-5x4">
-                        <rect key="frame" x="0.0" y="82" width="383" height="306.5"/>
+                        <rect key="frame" x="16" y="82" width="351" height="306.5"/>
                         <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PostType" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MU7-US-9A9">
@@ -68,10 +68,10 @@
                 <constraints>
                     <constraint firstItem="VQb-6o-DKm" firstAttribute="leading" secondItem="0Xz-52-cTh" secondAttribute="trailing" constant="3" id="0yj-os-PBv"/>
                     <constraint firstAttribute="trailing" secondItem="MU7-US-9A9" secondAttribute="trailing" constant="16" id="2Ts-TK-cju"/>
-                    <constraint firstAttribute="trailing" secondItem="Dm8-sv-5x4" secondAttribute="trailing" id="2jr-dN-FNn"/>
+                    <constraint firstAttribute="trailing" secondItem="Dm8-sv-5x4" secondAttribute="trailing" constant="16" id="2jr-dN-FNn"/>
                     <constraint firstAttribute="trailing" secondItem="VQb-6o-DKm" secondAttribute="trailing" constant="16" id="HJS-WM-U8K"/>
                     <constraint firstItem="tug-lT-ZdT" firstAttribute="leading" secondItem="urq-VJ-thk" secondAttribute="trailing" constant="8" symbolic="YES" id="KiG-E7-plF"/>
-                    <constraint firstItem="Dm8-sv-5x4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PLR-cg-jEk"/>
+                    <constraint firstItem="Dm8-sv-5x4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="PLR-cg-jEk"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dm8-sv-5x4" secondAttribute="bottom" constant="16" id="PeS-u1-KSq"/>
                     <constraint firstItem="urq-VJ-thk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Rsu-fb-kpu"/>
                     <constraint firstItem="tug-lT-ZdT" firstAttribute="top" secondItem="urq-VJ-thk" secondAttribute="top" constant="10" id="SKp-6v-XIj"/>

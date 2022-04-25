@@ -79,15 +79,16 @@ class SearchFriendViewController: BaseViewController {
     
     let viewModel = SearchFriendViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         
         navigationItem.title = "搜尋好友"
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
     }
     
     @IBAction func sendFriendRequest(_ sender: UIButton) {

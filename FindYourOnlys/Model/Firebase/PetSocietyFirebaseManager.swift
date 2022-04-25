@@ -19,7 +19,9 @@ class PetSocietyFirebaseManager {
     private let storage = Storage.storage()
     
     // MARK: - Article
-    func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
+    func fetchArticle(
+        with condition: FindPetSocietyFilterCondition? = nil,
+        completion: @escaping (Result<[Article], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.article.rawValue)
             .order(by: "createdTime", descending: true)
@@ -36,9 +38,25 @@ class PetSocietyFirebaseManager {
                         
                         let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
                         
-                        articles.append(article)
-                    }
-                    catch {
+                        switch condition == nil {
+                            
+                        case true:
+                            
+                            articles.append(article)
+                            
+                        case false:
+                            
+                            // All conditions are filled in.
+                            if article.postType == condition?.postType
+                                && article.petKind == condition?.petKind
+                                && article.city == condition?.city
+                                && article.color == condition?.color {
+                                
+                                articles.append(article)
+                            }
+                        }
+                        
+                    } catch {
                         
                         completion(.failure(error))
                     }
@@ -63,22 +81,75 @@ class PetSocietyFirebaseManager {
             article.createdTime = NSDate().timeIntervalSince1970
             
             try documentReference.setData(from: article, encoder: Firestore.Encoder())
-        }
-        
-        catch {
+        } catch {
             
             completion(error)
         }
     }
     
-    func fetchDownloadImageURL(image: UIImage, with type: String, completion: @escaping ((Result<URL, Error>) -> Void)) {
+    func publishSharedArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
+        
+        let documentReference = db.collection(FirebaseCollectionType.sharedArticle.rawValue).document()
+        
+        let documentId = documentReference.documentID
+        
+        do {
+            
+            article.userId = userId
+            
+            article.id = documentId
+            
+            article.createdTime = NSDate().timeIntervalSince1970
+            
+            try documentReference.setData(from: article, encoder: Firestore.Encoder())
+        } catch {
+            
+            completion(error)
+        }
+    }
+    
+    func fetchSharedArticle(
+        completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.sharedArticle.rawValue)
+            .order(by: "createdTime", descending: true)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else { return }
+                
+                var articles = [Article]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                        
+                        articles.append(article)
+                        
+                    } catch {
+                        
+                        completion(.failure(error))
+                    }
+                }
+                completion(.success(articles))
+            }
+    }
+    
+    func fetchDownloadImageURL(
+        image: UIImage,
+        with type: String,
+        completion: @escaping ((Result<URL, Error>) -> Void)) {
         
         let storageRef = storage.reference()
         
         //        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
         //        spaceRef = storage.reference(forURL: storagePath)
         
-        let imageRef = storageRef.child("\(type)/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg")
+        let imageRef = storageRef.child(
+            "\(type)/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg"
+        )
         
         guard
             let imageData = image.jpegData(compressionQuality: 0.5) else { return }
@@ -96,6 +167,7 @@ class PetSocietyFirebaseManager {
             }
             
             imageRef.downloadURL { url, error in
+                
                 guard
                     error == nil,
                     let url = url
@@ -109,7 +181,6 @@ class PetSocietyFirebaseManager {
                 
                 completion(.success(url))
             }
-            
         }
     }
     
@@ -117,6 +188,7 @@ class PetSocietyFirebaseManager {
     func fetchChatRoom(completion: @escaping (Result<[ChatRoom], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.chatRoom.rawValue)
+            .order(by: "createdTime", descending: true)
             .addSnapshotListener { snapshot, error in
                 
                 guard
@@ -249,6 +321,8 @@ class PetSocietyFirebaseManager {
         }
     }
     
+    
+    
     // MARK: - Convert functions
 
     private func convertArticlesToViewModels(from articles: [Article]) -> [ArticleViewModel] {
@@ -268,6 +342,7 @@ class PetSocietyFirebaseManager {
         
         viewModels.value = convertArticlesToViewModels(from: articles)
     }
+    
 }
 
 

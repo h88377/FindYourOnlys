@@ -9,7 +9,13 @@ import UIKit
 
 class AdoptDetailTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel! {
+        
+        didSet {
+            
+            statusLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var kindLabel: UILabel!
     
@@ -23,11 +29,33 @@ class AdoptDetailTableViewCell: UITableViewCell {
         
         kindLabel.text = viewModel.pet.kind
         
-        sexLabel.text = viewModel.pet.sex
-        
         varietyLabel.text = viewModel.pet.variety
         
-        statusLabel.text = viewModel.pet.status
+        if viewModel.pet.status == "OPEN" {
+            
+            statusLabel.text = "開放認養"
+            
+//            statusLabel.textColor = .openAdopt
+            
+        } else {
+            
+            statusLabel.text = "不開放認養"
+            
+//            statusLabel.textColor = .closeAdopt
+        }
+        
+        if viewModel.pet.sex == "M" {
+            
+            sexLabel.text = Sex.male.rawValue
+            
+//            sexLabel.textColor = .maleColor
+            
+        } else {
+            
+            sexLabel.text = Sex.female.rawValue
+            
+//            sexLabel.textColor = .femaleColor
+        }
     }
     
     override func layoutSubviews() {

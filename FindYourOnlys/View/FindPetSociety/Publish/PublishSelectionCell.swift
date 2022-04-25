@@ -7,13 +7,6 @@
 
 import UIKit
 
-//protocol PublishSelectionCellDelegate: AnyObject {
-//
-//    func didChangeCity(_ cell: PublishBasicCell, with city: String)
-//
-//    func didChangeColor(_ cell: PublishBasicCell, with color: String)
-//}
-
 class PublishSelectionCell: PublishBasicCell {
     
     private enum City: String, CaseIterable {
@@ -83,7 +76,7 @@ class PublishSelectionCell: PublishBasicCell {
         
         case white = "白色"
         
-        case black = "綠色"
+        case black = "黑色"
         
         case brown = "棕色"
         
@@ -95,9 +88,9 @@ class PublishSelectionCell: PublishBasicCell {
         
         case gray = "灰色"
         
+        case green = "綠色"
+        
     }
-    
-//    weak var delegate: PublishSelectionCellDelegate?
 
     @IBOutlet weak var selectionLabel: UILabel!
     
@@ -118,7 +111,7 @@ class PublishSelectionCell: PublishBasicCell {
             button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
             
             button.setBackgroundImage(
-                UIImage(named: "Icons_24px_DropDown"),
+                UIImage.asset(.pickerDropDown),
                 for: .normal
             )
             

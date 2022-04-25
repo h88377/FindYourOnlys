@@ -10,9 +10,13 @@ import UIKit
 private enum Tab: CaseIterable {
 
     case adopt
-
+    
     case findPetSociety
+    
+    case shareSociety
 
+    case profile
+    
     func controller() -> UIViewController {
 
         var controller: UIViewController
@@ -26,6 +30,14 @@ private enum Tab: CaseIterable {
         case .findPetSociety:
             
             controller = UIStoryboard.findPetSociety.instantiateInitialViewController()!
+            
+        case .profile:
+            
+            controller = UIStoryboard.profile.instantiateInitialViewController()!
+        
+        case .shareSociety:
+            
+            controller = UIStoryboard.shareSociety.instantiateInitialViewController()!
         }
 
         controller.tabBarItem = tabBarItem()
@@ -52,6 +64,19 @@ private enum Tab: CaseIterable {
                 title: nil,
                 image: UIImage.system(.findPetSocietyItem),
                 selectedImage: UIImage.system(.findPetSocietySelectedItem)
+            )
+        case .shareSociety:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage.system(.shareSocietyItem),
+                selectedImage: UIImage.system(.shareSocietySelectedItem)
+            )
+            
+        case .profile:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage.system(.profileItem),
+                selectedImage: UIImage.system(.profileSelectedItem)
             )
         }
     }

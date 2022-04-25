@@ -11,6 +11,10 @@ class FindPetSocietyViewController: BaseViewController {
     
     let viewModel = FindPetSocietyViewModel()
     
+    @IBOutlet weak var remindLabel: UILabel!
+    
+    @IBOutlet weak var reFetchButton: UIButton!
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -25,7 +29,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            chatButton.tintColor = .systemGray2
+            chatButton.tintColor = .projectTintColor
         }
     }
     
@@ -33,7 +37,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            addFriendButton.tintColor = .systemGray2
+            addFriendButton.tintColor = .projectTintColor
         }
     }
     
@@ -58,11 +62,27 @@ class FindPetSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.articleViewModels.bind { [weak self] _ in
+        viewModel.articleViewModels.bind { [weak self] articleViewModel in
+            
+            guard
+                let self = self else { return }
             
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
+                
+                self.tableView.isHidden = articleViewModel.count == 0
+                ? true
+                : false
+                
+//                self.reFetchButton.alpha = self.tableView.isHidden
+//                ? 1
+//                : 0
+//                
+//                self.remindLabel.alpha =
+//                self.tableView.isHidden
+//                ? 1
+//                : 0
             }
         }
         viewModel.authorViewModels.bind { [weak self] _ in
@@ -73,18 +93,12 @@ class FindPetSocietyViewController: BaseViewController {
             }
         }
         
-        viewModel.fetchArticles { error in
+        viewModel.errorViewModel.bind { errorViewModel in
             
-            guard
-                error == nil
-            
-            else {
-                
-                print(error)
-                
-                return
-            }
+            print(errorViewModel?.error)
         }
+        
+        viewModel.fetchArticles()
     }
     
     override func viewDidLayoutSubviews() {
@@ -106,7 +120,7 @@ class FindPetSocietyViewController: BaseViewController {
         navigationItem.title = "尋寵物啟示"
     }
     
-    func convertDataSourceIndex(with index: Int, count: Int) -> Int {
+    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
         
         Int(index / count)
     }
@@ -140,13 +154,33 @@ class FindPetSocietyViewController: BaseViewController {
         let storyboard = UIStoryboard.findPetSociety
         
         guard
-            let addFriendVC = storyboard.instantiateViewController(withIdentifier: AddFriendViewController.identifier) as? AddFriendViewController
+            let addFriendVC = storyboard
+                .instantiateViewController(withIdentifier: AddFriendViewController.identifier)
+                as? AddFriendViewController
                 
         else { return }
         
         navigationController?.pushViewController(addFriendVC, animated: true)
     }
     
+    @IBAction func search(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.findPetSociety
+        
+        guard
+            let filterVC = storyboard
+                .instantiateViewController(withIdentifier: FindPetSocietyFilterViewController.identifier)
+                as? FindPetSocietyFilterViewController
+                
+        else { return }
+        
+        navigationController?.pushViewController(filterVC, animated: true)
+    }
+    
+    @IBAction func reFetchArticle(_ sender: UIButton) {
+        
+        viewModel.fetchArticles()
+    }
 }
 
 // MARK: - UITableViewDataSource and Delegate
@@ -169,16 +203,22 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         
         let registeredCellCount = 2
         
-        let cellViewModel = viewModel.articleViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+        let cellViewModel = viewModel
+            .articleViewModels
+            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
-        let authorCellViewModel = viewModel.authorViewModels.value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+        let authorCellViewModel = viewModel
+            .authorViewModels
+            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
         switch indexPath.row % 2 {
             
         case 0:
             
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: ArticlePhotoCell.identifier, for: indexPath) as? ArticlePhotoCell
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
+                    as? ArticlePhotoCell
                     
             else { return UITableViewCell() }
             
@@ -189,7 +229,9 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         case 1:
             
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: ArticleContentCell.identifier, for: indexPath) as? ArticleContentCell
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ArticleContentCell.identifier, for: indexPath)
+                    as? ArticleContentCell
                     
             else { return UITableViewCell() }
             
