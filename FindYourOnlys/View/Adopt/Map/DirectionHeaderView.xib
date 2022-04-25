@@ -16,19 +16,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="descriptionLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxk-1v-Jyu">
-                    <rect key="frame" x="20" y="20" width="127" height="20.5"/>
+                    <rect key="frame" x="10" y="20" width="127" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distanceLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="591-Za-HYq">
-                    <rect key="frame" x="20" y="48.5" width="107" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="routeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="591-Za-HYq">
+                    <rect key="frame" x="10" y="48.5" width="82" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lH-CH-Bt5">
-                    <rect key="frame" x="20" y="77.5" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="informationLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lH-CH-Bt5">
+                    <rect key="frame" x="10" y="77.5" width="128" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -43,13 +43,13 @@
                 <constraint firstItem="591-Za-HYq" firstAttribute="top" secondItem="pxk-1v-Jyu" secondAttribute="bottom" constant="8" id="QKC-Sy-W6L"/>
                 <constraint firstItem="591-Za-HYq" firstAttribute="leading" secondItem="pxk-1v-Jyu" secondAttribute="leading" id="UEb-Pi-gss"/>
                 <constraint firstItem="1lH-CH-Bt5" firstAttribute="top" secondItem="591-Za-HYq" secondAttribute="bottom" constant="8" id="l0T-Pz-nS3"/>
-                <constraint firstItem="pxk-1v-Jyu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="lry-e6-t1K"/>
+                <constraint firstItem="pxk-1v-Jyu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="lry-e6-t1K"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="headerLabel" destination="pxk-1v-Jyu" id="pHO-jp-dZQ"/>
-                <outlet property="informationLabel" destination="591-Za-HYq" id="uDC-r5-LXj"/>
-                <outlet property="routeLabel" destination="1lH-CH-Bt5" id="mab-XS-JnE"/>
+                <outlet property="informationLabel" destination="1lH-CH-Bt5" id="hPn-x3-KaK"/>
+                <outlet property="routeLabel" destination="591-Za-HYq" id="IU6-59-qZM"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="-152.34375"/>
         </view>

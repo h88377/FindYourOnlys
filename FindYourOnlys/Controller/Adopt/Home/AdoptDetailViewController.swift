@@ -26,7 +26,13 @@ class AdoptDetailViewController: BaseViewController {
     
     @IBOutlet weak var baseView: UIView!
     
-    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var photoImageView: UIImageView! {
+        
+        didSet {
+            
+            photoImageView.tintColor = .projectTintColor
+        }
+    }
     
     @IBOutlet weak var favoriteButton: UIButton! {
         
@@ -118,7 +124,7 @@ class AdoptDetailViewController: BaseViewController {
                 }
             }
         }
-        photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString)
+        photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
     }
  
     override func viewDidLayoutSubviews() {
