@@ -8,25 +8,27 @@
 import UIKit
 
 private enum Tab: CaseIterable {
-
+    
     case adopt
     
     case findPetSociety
     
     case shareSociety
-
+    
     case profile
     
+    case auth
+    
     func controller() -> UIViewController {
-
+        
         var controller: UIViewController
-
+        
         switch self {
-
+            
         case .adopt:
             
             controller = UIStoryboard.adopt.instantiateInitialViewController()!
-
+            
         case .findPetSociety:
             
             controller = UIStoryboard.findPetSociety.instantiateInitialViewController()!
@@ -34,23 +36,27 @@ private enum Tab: CaseIterable {
         case .profile:
             
             controller = UIStoryboard.profile.instantiateInitialViewController()!
-        
+            
         case .shareSociety:
             
             controller = UIStoryboard.shareSociety.instantiateInitialViewController()!
+            
+        case .auth:
+            
+            controller = UIStoryboard.auth.instantiateInitialViewController()!
         }
-
+        
         controller.tabBarItem = tabBarItem()
-
+        
         controller.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: -6.0, right: 0.0)
-
+        
         return controller
     }
-
+    
     func tabBarItem() -> UITabBarItem {
-
+        
         switch self {
-
+            
         case .adopt:
             
             return UITabBarItem(
@@ -58,7 +64,7 @@ private enum Tab: CaseIterable {
                 image: UIImage.system(.adoptItem),
                 selectedImage: UIImage.system(.adoptSelectedItem)
             )
-
+            
         case .findPetSociety:
             return UITabBarItem(
                 title: nil,
@@ -78,17 +84,25 @@ private enum Tab: CaseIterable {
                 image: UIImage.system(.profileItem),
                 selectedImage: UIImage.system(.profileSelectedItem)
             )
+            
+        case .auth:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage.system(.profileItem),
+                selectedImage: UIImage.system(.profileSelectedItem)
+            )
         }
     }
+    
 }
 
 class HomeTabBarController: UITabBarController {
     
     private let tabs: [Tab] = Tab.allCases
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewControllers = tabs.map({ $0.controller() })
         
     }

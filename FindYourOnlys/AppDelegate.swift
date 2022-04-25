@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.enable = true
         
+        if
+            let user = Auth.auth().currentUser {
+            
+            print("Your're sign in as \(user.uid), \(user.email)")
+        }
+        
         return true
     }
 
