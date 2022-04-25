@@ -96,5 +96,4 @@ class ArticlePhotoCell: UITableViewCell {
         return dateString
     }
     
-    
 }

@@ -26,9 +26,9 @@ class PublishBasicCell: UITableViewCell {
     
     weak var delegate: PublishBasicCellDelegate?
     
-    var cameraHandler: (() ->Void)?
+    var cameraHandler: (() -> Void)?
     
-    var galleryHandler: (() ->Void)?
+    var galleryHandler: (() -> Void)?
 
     // Implement by child class
     func layoutCell() {
