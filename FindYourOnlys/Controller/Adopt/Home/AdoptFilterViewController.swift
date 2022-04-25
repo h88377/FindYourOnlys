@@ -66,7 +66,11 @@ class AdoptFilterViewController: BaseViewController {
             return
         }
         
-        adoptVC.adoptListVC?.viewModel.fetchPet(with: viewModel.adoptFilterCondition)
+        adoptVC.adoptListVC?.viewModel.resetFilterCondition()
+        
+        adoptVC.adoptListVC?.viewModel.filterConditionViewModel.value = viewModel.adoptFilterCondition
+        
+        adoptVC.adoptListVC?.viewModel.resetFetchPet()
         
         navigationController?.popViewController(animated: true)
     }
@@ -93,6 +97,8 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
         else { return UITableViewCell() }
                 
         cell.delegate = self
+        
+        cell.selectionStyle = .none
         
         return cell
     }

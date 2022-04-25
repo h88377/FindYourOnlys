@@ -40,7 +40,26 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    fileprivate var activityIndicator: LoadMoreActivityIndicator!
+    @IBOutlet weak var mapButton: UIButton! {
+        
+        didSet {
+            
+            mapButton.backgroundColor = .projectTintColor
+            
+            mapButton.tintColor = .white
+        }
+    }
+    
+    @IBOutlet weak var filterButton: UIButton! {
+        
+        didSet {
+            
+            filterButton.tintColor = .projectTintColor
+        }
+    }
+    
+    
+    private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +101,16 @@ class AdoptListViewController: BaseViewController {
         
         activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
         
+        viewModel.startIndicatorHandler = { [weak self] in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.activityIndicator.start(closure: {
+                    
+                    self?.viewModel.fetchPet()
+                })
+            }
+        }
         viewModel.stopIndicatorHandler = { [weak self] in
             
             DispatchQueue.main.async { [weak self] in
@@ -89,7 +118,34 @@ class AdoptListViewController: BaseViewController {
                 self?.activityIndicator.stop()
             }
         }
+        
+        viewModel.resetPetHandler = { [weak self] in
             
+            
+            guard
+                let self = self,
+                self.viewModel.petViewModels.value.count > 0 else { return }
+            
+            DispatchQueue.main.async {
+                
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
+        }
+         
+        viewModel.noMorePetHandler = { [weak self] in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.showAlertWindow(title: "沒有更多動物資訊了喔！", message: "")
+            }
+            
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        mapButton.layer.cornerRadius = mapButton.frame.height / 2
     }
     
     override func setupCollectionView() {
@@ -149,7 +205,9 @@ class AdoptListViewController: BaseViewController {
     
     @IBAction func reFetchPetInfo(_ sender: UIButton) {
         
-        viewModel.fetchPet()
+        viewModel.resetFilterCondition()
+        
+        viewModel.resetFetchPet()
     }
     
 }
@@ -222,7 +280,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
             activityIndicator.start {
                 DispatchQueue.global(qos: .utility).async {
                     
-                    self.viewModel.fetchPet(paging: self.viewModel.currentPage)
+                    self.viewModel.fetchPet()
                 }
             }
         }

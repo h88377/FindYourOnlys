@@ -36,6 +36,7 @@
 		98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2F2814343C004312F1 /* SharePublishViewModel.swift */; };
 		98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */; };
 		98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */; };
+		98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A3528154A12004312F1 /* UIColor+Extension.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
 		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
 		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
@@ -185,6 +186,7 @@
 		98939A2F2814343C004312F1 /* SharePublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewModel.swift; sourceTree = "<group>"; };
 		98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocietyViewModel.swift; sourceTree = "<group>"; };
 		98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreActivityIndicator.swift; sourceTree = "<group>"; };
+		98939A3528154A12004312F1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
 		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
@@ -404,6 +406,17 @@
 				98939A31281443AC004312F1 /* ShareSocietyViewModel.swift */,
 			);
 			path = ShareSociety;
+			sourceTree = "<group>";
+		};
+		98939A372815519E004312F1 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9896D95B280EB5CA003D4A16 /* DirectionCell.swift */,
+				9896D95C280EB5CA003D4A16 /* DirectionCell.xib */,
+				9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */,
+				9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		9896D8D028083F01003D4A16 /* Article */ = {
@@ -687,6 +700,7 @@
 				9896D95F280EBF6E003D4A16 /* CLPlacemark+Extension.swift */,
 				9896D961280EBFA5003D4A16 /* MKMapView+Extension.swift */,
 				989399ED280F9F74004312F1 /* TimeInterval.swift */,
+				98939A3528154A12004312F1 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -751,10 +765,7 @@
 				98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */,
 				98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */,
 				98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */,
-				9896D95B280EB5CA003D4A16 /* DirectionCell.swift */,
-				9896D95C280EB5CA003D4A16 /* DirectionCell.xib */,
-				9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */,
-				9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */,
+				98939A372815519E004312F1 /* Map */,
 			);
 			path = Adopt;
 			sourceTree = "<group>";
@@ -1023,6 +1034,7 @@
 				9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,
+				98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */,
 				98939A32281443AC004312F1 /* ShareSocietyViewModel.swift in Sources */,
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
 				98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */,

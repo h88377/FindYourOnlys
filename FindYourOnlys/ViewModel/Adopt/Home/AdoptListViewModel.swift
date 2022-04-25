@@ -11,17 +11,72 @@ class AdoptListViewModel {
     
     let petViewModels = Box([PetViewModel]())
     
-//    var filterConditionViewModel: Box<AdoptFilterCondition?> = Box(nil)
+    var filterConditionViewModel = Box(
+        AdoptFilterCondition(
+        city: "",
+        petKind: "",
+        sex: "",
+        color: ""
+        )
+    )
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var currentPage = 1
+    var currentPage = 0
     
     var stopIndicatorHandler: (() -> Void)?
     
-    func fetchPet(with condition: AdoptFilterCondition? = nil) {
+    var startIndicatorHandler: (() -> Void)?
+    
+    var resetPetHandler: (() -> Void)?
+    
+    var noMorePetHandler: (() -> Void)?
+    
+    func fetchPet() {
         
-        PetProvider.shared.fetchPet(with: condition) { [weak self] result in
+        // Need to change header loader
+        startIndicatorHandler?()
+        
+        PetProvider.shared.fetchPet(with: filterConditionViewModel.value, paging: currentPage + 1) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let pets):
+                
+                if pets.count > 0 {
+                    
+                    self?.appendPets(pets)
+                    
+                    self?.stopIndicatorHandler?()
+                    
+                    self?.currentPage += 1
+                    
+                } else {
+                    
+                    self?.noMorePetHandler?()
+                    
+                    self?.stopIndicatorHandler?()
+                    
+                    return
+                }
+                
+                
+            case .failure(let error):
+                
+                self?.errorViewModel = Box(ErrorViewModel(model: error))
+            }
+        }
+        
+    }
+    
+    func resetFetchPet() {
+        
+        // Need to change header loader
+        startIndicatorHandler?()
+        
+        resetPetHandler?()
+        
+        PetProvider.shared.fetchPet(with: filterConditionViewModel.value, paging: currentPage + 1) { [weak self] result in
             
             switch result {
                 
@@ -29,26 +84,10 @@ class AdoptListViewModel {
                 
                 self?.setPets(pets)
                 
-            case .failure(let error):
-                
-                self?.errorViewModel = Box(ErrorViewModel(model: error))
-            }
-        }
-        
-    }
-    
-    func fetchPet(with condition: AdoptFilterCondition? = nil, paging: Int) {
-        
-        PetProvider.shared.fetchPet(with: condition, paging: currentPage + 1) { [weak self] result in
-            
-            switch result {
-                
-            case .success(let pets):
-                
-                self?.appendPets(pets)
-                
                 self?.stopIndicatorHandler?()
                 
+                self?.currentPage += 1
+                
             case .failure(let error):
                 
                 self?.errorViewModel = Box(ErrorViewModel(model: error))
@@ -57,23 +96,17 @@ class AdoptListViewModel {
         
     }
     
-//    func fetchPet(with condition: AdoptFilterCondition) {
-//        
-//        PetProvider.shared.fetchPet(with: condition) { [weak self] result in
-//            
-//            switch result {
-//                
-//            case .success(let pets):
-//                
-//                self?.setPets(pets)
-//                
-//            case .failure(let error):
-//                
-//                self?.errorViewModel = Box(ErrorViewModel(model: error))
-//            }
-//        }
-//        
-//    }
+    func resetFilterCondition() {
+        
+        filterConditionViewModel.value = AdoptFilterCondition(
+            city: "",
+            petKind: "",
+            sex: "",
+            color: ""
+            )
+        
+        currentPage = 0
+    }
     
     private func convertPetsToViewModels(from pets: [Pet]) -> [PetViewModel] {
         
@@ -98,7 +131,5 @@ class AdoptListViewModel {
         let appendedPetViewModels = convertPetsToViewModels(from: pets)
         
         petViewModels.value += appendedPetViewModels
-        
-        currentPage += 1
     }
 }

@@ -36,7 +36,13 @@ class ArticleContentCell: UITableViewCell {
     
     @IBOutlet weak var cityLabel: UILabel!
     
-    @IBOutlet weak var kindLabel: UILabel!
+    @IBOutlet weak var kindLabel: UILabel! {
+        
+        didSet {
+            
+            kindLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var contentLabel: UILabel!
  

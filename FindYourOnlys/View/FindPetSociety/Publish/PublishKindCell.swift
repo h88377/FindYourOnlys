@@ -13,6 +13,30 @@ class PublishKindCell: PublishBasicCell {
     
     @IBOutlet weak var kindStackView: UIStackView!
     
+    var petImages: [UIImage] {
+        
+        guard
+            let catImage = UIImage.asset(.cat)?.withTintColor(.projectTintColor, renderingMode: .alwaysOriginal),
+            let dogImage = UIImage.asset(.dog)?.withTintColor(.projectTintColor, renderingMode: .alwaysOriginal),
+            let othersImage = UIImage.asset(.others)?.withTintColor(.projectTintColor, renderingMode: .alwaysOriginal)
+                
+        else { return [] }
+        
+        return [catImage, dogImage, othersImage]
+    }
+    
+    var selectedPetImages: [UIImage] {
+        
+        guard
+            let catImage = UIImage.asset(.cat)?.withTintColor(.black, renderingMode: .alwaysOriginal),
+            let dogImage = UIImage.asset(.dog)?.withTintColor(.black, renderingMode: .alwaysOriginal),
+            let othersImage = UIImage.asset(.others)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+                
+        else { return [] }
+        
+        return [catImage, dogImage, othersImage]
+    }
+    
     var buttons: [UIButton] = []
     
     override func layoutCell(category: String) {
@@ -48,30 +72,6 @@ class PublishKindCell: PublishBasicCell {
             }
             
         }
-        
-    
-        
-        
-        
-//        if category == PublishContentCategory.petKind.rawValue {
-//
-//            let petKinds = PetKind.allCases
-//
-//            for index in 0..<petKinds.count {
-//
-//                createButton(with: petKinds[index].rawValue, index: index)
-//            }
-//
-//        } else {
-//
-//            let postTypes = PostType.allCases
-//
-//            for index in 0..<postTypes.count {
-//
-//                createButton(with: postTypes[index].rawValue, index: index)
-//            }
-//        }
-
     }
     
     func createButton(with title: String, index: Int) {
@@ -80,8 +80,19 @@ class PublishKindCell: PublishBasicCell {
         
         let button = UIButton()
 
-        button.setTitle(title, for: .normal)
-        
+        if kindLabel.text == PublishContentCategory.petKind.rawValue {
+            
+            button.setImage(petImages[index], for: .normal)
+            
+            button.setImage(selectedPetImages[index], for: .selected)
+            
+            button.setTitle(title, for: .normal)
+            
+        } else {
+            
+            button.setTitle(title, for: .normal)
+        }
+
         button.setTitleColor(.systemGray2, for: .normal)
         
         button.setTitleColor(.black, for: .selected)
@@ -96,9 +107,13 @@ class PublishKindCell: PublishBasicCell {
 
         NSLayoutConstraint.activate(
             [
-                button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
+//                button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
                 
                 button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
+                
+                button.widthAnchor.constraint(equalToConstant: 40),
+                
+                button.heightAnchor.constraint(equalToConstant: 40),
                 
                 button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
                 
@@ -114,7 +129,9 @@ class PublishKindCell: PublishBasicCell {
         
         else { return }
         
-        buttons.forEach { $0.isSelected = false }
+        buttons.forEach {
+            $0.isSelected = false
+        }
         
         sender.isSelected = true
         

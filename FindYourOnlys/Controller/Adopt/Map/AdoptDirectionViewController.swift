@@ -11,10 +11,6 @@ import MapKit
 
 class AdoptDirectionViewController: BaseViewController {
     
-    @IBOutlet weak var headerLabel: UILabel!
-    
-    @IBOutlet weak var informationLabel: UILabel!
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -25,13 +21,21 @@ class AdoptDirectionViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var closeButton: UIButton! {
+        
+        didSet {
+            
+            closeButton.tintColor = .projectTintColor
+        }
+    }
+    
     let viewModel = AdoptDirectionViewModel()
     
     var closeHandler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewModel.directionViewModel.bind(listener: { [weak self] directionViewModel in
             
             guard
@@ -83,6 +87,7 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(withIdentifier: DirectionCell.identifier, for: indexPath) as? DirectionCell
                 
         else { return UITableViewCell() }
+        
         let directionViewModel = viewModel.directionViewModel
         
         cell.configureCell(with: directionViewModel.value, at: indexPath)
@@ -90,25 +95,18 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//
-//        let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
-//
-//        return route.name
-//    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      
+        
         guard
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(DirectionHeaderView.self)") as? DirectionHeaderView
-                                                                         
-      else { return nil }
+                
+        else { return nil }
         
         let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
-      
+        
         headerView.configureView(with: viewModel.directionViewModel.value, route: route)
         
-      return headerView
+        return headerView
     }
 }
 

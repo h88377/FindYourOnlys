@@ -76,7 +76,7 @@ class PublishSelectionCell: PublishBasicCell {
         
         case white = "白色"
         
-        case black = "綠色"
+        case black = "黑色"
         
         case brown = "棕色"
         
@@ -87,6 +87,8 @@ class PublishSelectionCell: PublishBasicCell {
         case blue = "藍色"
         
         case gray = "灰色"
+        
+        case green = "綠色"
         
     }
 
@@ -109,7 +111,7 @@ class PublishSelectionCell: PublishBasicCell {
             button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
             
             button.setBackgroundImage(
-                UIImage(named: "Icons_24px_DropDown"),
+                UIImage.asset(.pickerDropDown),
                 for: .normal
             )
             
