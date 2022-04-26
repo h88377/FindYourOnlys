@@ -12,42 +12,88 @@
         <!--Auth View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="AuthViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" id="Y6W-OH-hqX" customClass="AuthViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHr-tZ-g25">
-                                <rect key="frame" x="119" y="288" width="178" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHr-tZ-g25">
+                                <rect key="frame" x="40" y="74" width="334" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="fa0-ct-ML0"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Sign in"/>
+                                <state key="normal" title="登入"/>
                                 <connections>
                                     <action selector="signInWithFirebase:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ywd-BG-DWT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-oh-ZI2">
-                                <rect key="frame" x="118" y="227" width="178" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="或者" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBg-JH-D3x">
+                                <rect key="frame" x="189.5" y="164" width="35" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGray5Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-YU-ehH" customClass="ASAuthorizationAppleIDButton">
+                                <rect key="frame" x="40" y="204.5" width="334" height="70"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="ETR-4w-Zw6"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="還沒有帳號嗎？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohU-pc-pwD">
+                                <rect key="frame" x="146.5" y="294.5" width="121.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGray5Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVE-oh-ZI2">
+                                <rect key="frame" x="40" y="335" width="334" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="OvT-yB-IDW"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Registeration"/>
+                                <state key="normal" title="註冊"/>
                                 <connections>
                                     <action selector="register:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="1Dx-8M-C0P"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVT-YV-rRB">
-                                <rect key="frame" x="137" y="581" width="140" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Sign in with Apple"/>
-                                <connections>
-                                    <action selector="signInWithApple:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="473-ND-uIF"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00u-Pq-aKK">
+                                <rect key="frame" x="157" y="54" width="100" height="4"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="1KX-0h-PP6"/>
+                                    <constraint firstAttribute="width" constant="100" id="hyH-ye-us7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                        <constraints>
+                            <constraint firstItem="Eds-YU-ehH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="0WV-6L-pUh"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="vVE-oh-ZI2" secondAttribute="trailing" constant="40" id="6Xk-bA-baF"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Eds-YU-ehH" secondAttribute="trailing" constant="40" id="BTK-ge-Et8"/>
+                            <constraint firstItem="vVE-oh-ZI2" firstAttribute="top" secondItem="ohU-pc-pwD" secondAttribute="bottom" constant="20" id="EaJ-1l-H3p"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="uHr-tZ-g25" secondAttribute="trailing" constant="40" id="M4o-2f-7OJ"/>
+                            <constraint firstItem="uHr-tZ-g25" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="XuZ-rd-GMN"/>
+                            <constraint firstItem="vVE-oh-ZI2" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="Zuf-x4-qz7"/>
+                            <constraint firstItem="YBg-JH-D3x" firstAttribute="top" secondItem="uHr-tZ-g25" secondAttribute="bottom" constant="20" id="cfj-lG-amf"/>
+                            <constraint firstItem="00u-Pq-aKK" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="cop-XG-X4E"/>
+                            <constraint firstItem="uHr-tZ-g25" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="iiE-mW-8TQ"/>
+                            <constraint firstItem="uHr-tZ-g25" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="kao-BZ-uQD"/>
+                            <constraint firstItem="YBg-JH-D3x" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="mlV-AJ-JrC"/>
+                            <constraint firstItem="Eds-YU-ehH" firstAttribute="top" secondItem="YBg-JH-D3x" secondAttribute="bottom" constant="20" id="qu5-dJ-0Mm"/>
+                            <constraint firstItem="ohU-pc-pwD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="wbl-SX-js4"/>
+                            <constraint firstItem="00u-Pq-aKK" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="x9X-gc-eay"/>
+                            <constraint firstItem="ohU-pc-pwD" firstAttribute="top" secondItem="Eds-YU-ehH" secondAttribute="bottom" constant="20" id="xlW-fA-IRl"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="indicatorView" destination="00u-Pq-aKK" id="fxY-89-Zta"/>
+                        <outlet property="registerButton" destination="vVE-oh-ZI2" id="FSv-lG-qy4"/>
+                        <outlet property="signInButton" destination="uHr-tZ-g25" id="3EQ-mJ-Eih"/>
+                        <outlet property="signInWithAppleButton" destination="Eds-YU-ehH" id="1PW-LA-zfq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,8 +192,14 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

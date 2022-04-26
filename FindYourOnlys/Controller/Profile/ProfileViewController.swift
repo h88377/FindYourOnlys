@@ -27,7 +27,8 @@ class ProfileViewController: UIViewController {
         
         let storyboard = UIStoryboard.profile
         
-        let friendRequestVC = storyboard.instantiateViewController(withIdentifier: ProfileFriendRequestViewController.identifier)
+        let friendRequestVC = storyboard.instantiateViewController(
+            withIdentifier: ProfileFriendRequestViewController.identifier)
         
         navigationController?.pushViewController(friendRequestVC, animated: true)
     }
@@ -35,5 +36,28 @@ class ProfileViewController: UIViewController {
     @IBAction func signOut(_ sender: UIButton) {
         
         viewModel.signOut()
+    }
+    
+    @IBAction func showAuth(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.auth
+        
+        let authVC = storyboard.instantiateViewController(
+            withIdentifier: AuthViewController.identifier)
+        
+        authVC.modalPresentationStyle = .custom
+        
+        authVC.transitioningDelegate = self
+        
+        present(authVC, animated: true)
+    }
+    
+}
+
+extension ProfileViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
