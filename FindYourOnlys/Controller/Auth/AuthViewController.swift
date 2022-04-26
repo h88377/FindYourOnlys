@@ -19,9 +19,12 @@ class AuthViewController: UIViewController {
             
             print(errorViewModel?.error.localizedDescription)
         }
+        
+        viewModel.dismissHandler = {
+            
+            print("Sign in with Apple successfully.")
+        }
     }
-    
-    
     
     func performSignIn() {
         

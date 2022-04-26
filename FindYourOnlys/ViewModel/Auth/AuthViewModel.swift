@@ -12,17 +12,23 @@ class AuthViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
+    var dismissHandler: (() -> Void)?
+    
     func didCompleteWithAuthorization(with authorization: ASAuthorization) {
         
         UserFirebaseManager.shared.didCompleteWithAuthorization(with: authorization) { [weak self] error in
             
             guard
-                let self = self,
-                let error = error
+                error == nil
                     
-            else { return }
+            else {
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
             
-            self.errorViewModel.value = ErrorViewModel(model: error)
+            self?.dismissHandler?()
         }
     }
 }
