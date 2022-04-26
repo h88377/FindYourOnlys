@@ -39,10 +39,14 @@ class UserFirebaseManager {
     var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2" }
     
     var currentUserInfo: User {
-        
+
         return User(id: "321", nickName: "Luke", email: "321@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2",
                     friends: ["123"], limitedUsers: ["444"])
     }
+    
+    var initialUserId = Auth.auth().currentUser?.uid
+        
+    var currentFBUserInfo: User?
     
     // Sign in with Apple
     func createAppleIdRequest() -> ASAuthorizationAppleIDRequest {
@@ -221,7 +225,7 @@ class UserFirebaseManager {
     }
     
     // Register with Firebase
-    func register(with nickName: String, with email: String, with password: String, completion: @escaping (Error?) -> Void) {
+    func register(with nickName: String, with email: String, with password: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
             
@@ -232,7 +236,7 @@ class UserFirebaseManager {
             
             else {
                 
-                completion(error)
+                completion(.failure(error!))
                 
                 return
             }
@@ -243,11 +247,11 @@ class UserFirebaseManager {
                 if
                     let error = error {
                     
-                    completion(error)
+                    completion(.failure(error))
                     
                 } else {
                     
-                    completion(nil)
+                    completion(.success(user.uid))
                 }
             }
         }
@@ -288,6 +292,91 @@ class UserFirebaseManager {
         } catch {
             
             completion(error)
+        }
+    }
+    
+    // Delete User
+    func deleteAuthUser(completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let user = Auth.auth().currentUser
+                
+        else { return }
+
+        user.delete { [weak self] error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                completion(error)
+                
+                return
+            }
+            
+            let group = DispatchGroup()
+            
+            // User
+            DispatchQueue.global().async {
+                
+                group.enter()
+                self?.deleteUser(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
+                }
+            }
+            
+            
+            // Favorite pet
+            group.enter()
+            FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
+                
+                guard
+                    error == nil
+                        
+                else {
+                    
+                    completion(error)
+                    
+                    return
+                }
+                group.leave()
+            }
+            
+            // Need all delete process finish to end the delete process.
+            group.notify(queue: DispatchQueue.main) {
+                
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    func deleteUser(with userId: String, completion: @escaping (Error?) -> Void) {
+        
+        db.collection(FirebaseCollectionType.user.rawValue).document(userId).delete() { error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                completion(error)
+                
+                return
+            }
+            
+            completion(nil)
         }
     }
     

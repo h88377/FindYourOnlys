@@ -17,8 +17,6 @@ private enum Tab: CaseIterable {
     
     case profile
     
-    case auth
-    
     func controller() -> UIViewController {
         
         var controller: UIViewController
@@ -40,10 +38,6 @@ private enum Tab: CaseIterable {
         case .shareSociety:
             
             controller = UIStoryboard.shareSociety.instantiateInitialViewController()!
-            
-        case .auth:
-            
-            controller = UIStoryboard.auth.instantiateInitialViewController()!
         }
         
         controller.tabBarItem = tabBarItem()
@@ -79,13 +73,6 @@ private enum Tab: CaseIterable {
             )
             
         case .profile:
-            return UITabBarItem(
-                title: nil,
-                image: UIImage.system(.profileItem),
-                selectedImage: UIImage.system(.profileSelectedItem)
-            )
-            
-        case .auth:
             return UITabBarItem(
                 title: nil,
                 image: UIImage.system(.profileItem),

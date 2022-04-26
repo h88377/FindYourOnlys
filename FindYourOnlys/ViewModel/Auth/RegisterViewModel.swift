@@ -15,21 +15,37 @@ class RegisterViewModel {
     
     func register(with nickName: String, with email: String, with password: String) {
         
-        UserFirebaseManager.shared.register(with: nickName, with: email, with: password) { [weak self] error in
+        UserFirebaseManager.shared.register(with: nickName, with: email, with: password) { [weak self] result in
             
-            guard
-                let self = self,
-                error == nil
-            
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(let registeredUserId):
                 
-                return
+                UserFirebaseManager.shared.fetchUser { [weak self] result in
+
+                    switch result {
+
+                    case .success(let users):
+
+                        for user in users where user.id == registeredUserId {
+
+                            UserFirebaseManager.shared.currentFBUserInfo = user
+                            
+                            self?.dismissHandler?()
+                            
+                            break
+                        }
+
+                    case .failure(let error):
+
+                        self?.errorViewModel.value = ErrorViewModel(model: error)
+                    }
+                }
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
-            
-            self.dismissHandler?()
-            
         }
     }
 }

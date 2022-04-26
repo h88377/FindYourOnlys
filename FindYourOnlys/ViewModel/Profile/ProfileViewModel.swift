@@ -28,4 +28,22 @@ class ProfileViewModel {
             print("Sign out successfully.")
         }
     }
+    
+    func deleteUser() {
+        
+        UserFirebaseManager.shared.deleteAuthUser { [weak self] error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
+            
+            print("Delete user successfully.")
+        }
+    }
 }
