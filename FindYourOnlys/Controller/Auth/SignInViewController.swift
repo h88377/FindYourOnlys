@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignInViewController: UIViewController {
+class SignInViewController: BaseViewController {
     
     let viewModel = SignInViewModel()
     
@@ -71,7 +71,12 @@ class SignInViewController: UIViewController {
             email != "",
             password != ""
         
-        else { return }
+        else {
+            
+            showAlertWindow(title: "請填寫完整資訊登入喔！", message: "")
+            
+            return
+        }
                 
                 
         viewModel.signIn(withEmail: email, password: password)

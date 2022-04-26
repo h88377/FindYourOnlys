@@ -259,21 +259,22 @@ class UserFirebaseManager {
     
     // Sign in with Firebase
     
-    func signIn(withEmail email: String, password: String, completion: @escaping (Error?) -> Void) {
+    func signIn(withEmail email: String, password: String, completion: @escaping (Result<String, Error>) -> Void ){
         
         Auth.auth().signIn(withEmail: email, password: password) { authDataResult, error in
             
             guard
-                error == nil
+                error == nil,
+                let userId = authDataResult?.user.uid
             
             else {
                 
-                completion(error)
+                completion(.failure(error!))
                 
                 return
             }
             
-            completion(nil)
+            completion(.success(userId))
         }
         
     }
