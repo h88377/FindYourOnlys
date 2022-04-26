@@ -12,6 +12,51 @@ class AuthViewController: UIViewController {
     
     let viewModel = AuthViewModel()
     
+    var hasSetPointOrigin = false
+    
+    var pointOrigin: CGPoint?
+    
+    @IBOutlet weak var indicatorView: UIView!
+    
+    @IBOutlet weak var signInWithAppleButton: ASAuthorizationAppleIDButton! {
+        
+        didSet {
+            
+            signInWithAppleButton.addTarget(self, action: #selector(signInWithApple), for: .touchUpInside)
+        }
+    }
+    
+    @IBOutlet weak var registerButton: UIButton! {
+        
+        didSet {
+            
+            registerButton.backgroundColor = .white
+            
+            registerButton.setTitle("註冊", for: .normal)
+            
+            registerButton.tintColor = .black
+            
+            registerButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        }
+    }
+    
+    @IBOutlet weak var signInButton: UIButton! {
+        
+        didSet {
+            
+            signInButton.backgroundColor = .white
+            
+            signInButton.setTitle("登入", for: .normal)
+            
+            signInButton.tintColor = .black
+            
+            signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        }
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +72,29 @@ class AuthViewController: UIViewController {
             
             print("Sign in with Apple successfully.")
         }
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
+        view.addGestureRecognizer(panGesture)
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !hasSetPointOrigin {
+            
+            hasSetPointOrigin = true
+            
+            pointOrigin = self.view.frame.origin
+        }
+        
+        registerButton.layer.cornerRadius = 15
+        
+        signInButton.layer.cornerRadius = 15
+        
+        indicatorView.layer.cornerRadius = 5
+        
+        signInWithAppleButton.cornerRadius = 15
     }
     
     func performSignIn() {
@@ -42,10 +110,12 @@ class AuthViewController: UIViewController {
         authorizationViewController.performRequests()
     }
     
-    @IBAction func signInWithApple(_ sender: UIButton) {
+    @objc func signInWithApple(_ sender: UIButton) {
         
         performSignIn()
     }
+    
+    
     
     @IBAction func register(_ sender: UIButton) {
         
@@ -66,8 +136,27 @@ class AuthViewController: UIViewController {
         present(signInVC, animated: true)
     }
     
-   
-    
+    @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        
+        // Not allowing the user to drag the view upward
+        guard translation.y >= 0 else { return }
+        
+        // setting x as 0 because we don't want users to move the frame side ways!! Only want straight up or down
+        view.frame.origin = CGPoint(x: 0, y: self.pointOrigin!.y + translation.y)
+        
+        if sender.state == .ended {
+            let dragVelocity = sender.velocity(in: view)
+            if dragVelocity.y >= 1300 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                // Set back to original position of the view controller
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame.origin = self.pointOrigin ?? CGPoint(x: 0, y: 400)
+                }
+            }
+        }
+    }
     
 }
 

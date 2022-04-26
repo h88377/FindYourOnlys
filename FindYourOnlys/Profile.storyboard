@@ -35,6 +35,15 @@
                                     <action selector="signOut:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="a8L-cE-tOB"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-eB-0IH">
+                                <rect key="frame" x="58" y="223" width="92" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Show auth"/>
+                                <connections>
+                                    <action selector="showAuth:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="WpR-D1-8jd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
