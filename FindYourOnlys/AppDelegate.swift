@@ -26,6 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Your're sign in as \(user.uid), \(user.email)")
         }
         
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
+            print("Listen user: \(user?.uid)")
+            
+            UserFirebaseManager.shared.initialUser = user
+        }
+        
         return true
     }
 

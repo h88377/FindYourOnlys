@@ -44,7 +44,7 @@ class UserFirebaseManager {
 //                    friends: ["123"], limitedUsers: ["444"])
 //    }
     
-    var initialUserId = Auth.auth().currentUser?.uid
+    var initialUser = Auth.auth().currentUser
         
     var currentUser: User?
     
@@ -318,7 +318,10 @@ class UserFirebaseManager {
         guard
             let user = Auth.auth().currentUser
                 
-        else { return }
+        else {
+            
+            return
+        }
 
         user.delete { [weak self] error in
             
@@ -351,24 +354,26 @@ class UserFirebaseManager {
                     }
                     group.leave()
                 }
-            }
-            
-            
-            // Favorite pet
-            group.enter()
-            FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
                 
-                guard
-                    error == nil
+                // Favorite pet
+                group.enter()
+                FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
                         
-                else {
-                    
-                    completion(error)
-                    
-                    return
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
                 }
-                group.leave()
             }
+            
+            
+            
             
             // Need all delete process finish to end the delete process.
             group.notify(queue: DispatchQueue.main) {
