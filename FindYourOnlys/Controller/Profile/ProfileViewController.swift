@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: BaseViewController {
 
     let viewModel = ProfileViewModel()
     
@@ -50,6 +50,29 @@ class ProfileViewController: UIViewController {
         authVC.transitioningDelegate = self
         
         present(authVC, animated: true)
+    }
+    
+    @IBAction func deleteUser(_ sender: UIButton) {
+        
+        showDeleteWindow(title: "警告", message: "您將刪除個人帳號，確定要刪除帳號嗎？")
+    }
+    
+    func showDeleteWindow(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let delete = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
+            
+            self?.viewModel.deleteUser()
+        }
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        alert.addAction(cancel)
+        
+        alert.addAction(delete)
+        
+        present(alert, animated: true)
     }
     
 }

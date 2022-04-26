@@ -137,6 +137,8 @@ class AdoptDetailViewModel {
     
     func addToFavoriteInFB(completion: @escaping (Error?) -> Void) {
         
+        
+        
         FavoritePetFirebaseManager.shared.saveFavoritePet(UserFirebaseManager.shared.currentUser, with: petViewModel.value) { error in
             
             completion(error)
