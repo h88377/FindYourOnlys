@@ -158,27 +158,50 @@ class UserFirebaseManager {
                         
                 else {
                     
-//                    print("Fail to sign in with credential with error: \(String(describing: error))")
-                    
                     completion(error)
                     
                     return
                 }
                 
-                print("You have succeed to login, \(user.uid), \(String(describing: user.email))")
-               
-                self.saveUser(with: user.displayName ?? "初來乍到", with: email, with: user.uid) { error in
-                    
-                    if
-                        let error = error {
+                // Save User on firebase
+                self.fetchUser { result in
+            
+                    switch result {
+                        
+                    case .success(let users):
+                        
+                        guard
+                            !users.map({ $0.id }).contains(user.uid)
+                        
+                        else {
+                            
+                            completion(nil)
+                            
+                            return
+                        }
+                            
+                        self.saveUser(with: user.displayName ?? "初來乍到", with: email, with: user.uid) { error in
+                            
+                            guard
+                                error == nil
+                            
+                            else {
+                                
+                                completion(error)
+                                
+                                return
+                            }
+                            
+                            completion(nil)
+                        }
+                        
+                    case .failure(let error):
                         
                         completion(error)
                     }
                 }
             }
-            
         }
-        
     }
     
     @available(iOS 13, *)
@@ -214,8 +237,6 @@ class UserFirebaseManager {
                 return
             }
             
-            print("User registeration success!, User: \(user.uid), \(user.email)")
-            
             // Save User on firebase
             self.saveUser(with: nickName, with: email, with: user.uid) { error in
                 
@@ -230,7 +251,6 @@ class UserFirebaseManager {
                 }
             }
         }
-        
     }
     
     func fetchUser(completion: @escaping (Result<[User], Error>) -> Void) {
