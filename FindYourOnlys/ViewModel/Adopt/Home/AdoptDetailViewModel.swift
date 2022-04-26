@@ -27,6 +27,8 @@ class AdoptDetailViewModel {
     
     var favoritePetsFromLS = [LSPet]()
     
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
     var petViewModel = Box(
         PetViewModel(
             model: Pet(
@@ -118,13 +120,23 @@ class AdoptDetailViewModel {
     // MARK: - Firebase functions
     func fetchFavoriteFromFB(completion: @escaping (Error?) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
         FavoritePetFirebaseManager.shared.fetchFavoritePets { result in
             
             switch result {
                 
             case .success(let pets):
                 
-                self.setPets(pets)
+                var favoritePets: [Pet] = []
+                
+                for pet in pets where pet.userID == currentUser.id {
+                    
+                    favoritePets.append(pet)
+                }
+                
+                self.setPets(favoritePets)
                 
                 completion(nil)
                 
@@ -137,9 +149,10 @@ class AdoptDetailViewModel {
     
     func addToFavoriteInFB(completion: @escaping (Error?) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        
-        FavoritePetFirebaseManager.shared.saveFavoritePet(UserFirebaseManager.shared.currentUser, with: petViewModel.value) { error in
+        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: petViewModel.value) { error in
             
             completion(error)
         }

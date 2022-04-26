@@ -24,6 +24,9 @@ class SearchFriendViewModel {
     
     func searchUserId(with userId: String, completion: @escaping (Result<SearchFriendResult, Error>) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
             switch result {
@@ -34,15 +37,15 @@ class SearchFriendViewModel {
                     
                     if user.id == userId {
                         
-                        if UserFirebaseManager.shared.currentUserInfo.friends.contains(userId) {
+                        if currentUser.friends.contains(userId) {
                             
                             completion(.success(.friend))
                             
-                        } else if UserFirebaseManager.shared.currentUserInfo.limitedUsers.contains (userId){
+                        } else if currentUser.limitedUsers.contains (userId){
                             
                             completion(.success(.limitedUser))
                             
-                        } else if userId  == UserFirebaseManager.shared.currentUser{
+                        } else if userId  == currentUser.id {
                             
                             completion(.success(.currentUser))
                             

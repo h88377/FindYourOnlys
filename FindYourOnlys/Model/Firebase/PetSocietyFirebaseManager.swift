@@ -144,11 +144,11 @@ class PetSocietyFirebaseManager {
         
         let storageRef = storage.reference()
         
-        //        let storagePath = "\(your_firebase_storage_bucket)/images/space.jpg"
-        //        spaceRef = storage.reference(forURL: storagePath)
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         let imageRef = storageRef.child(
-            "\(type)/\(UserFirebaseManager.shared.currentUser)with time \(Date().timeIntervalSince1970).jpeg"
+            "\(type)/\(currentUser.id)with time \(Date().timeIntervalSince1970).jpeg"
         )
         
         guard
@@ -302,11 +302,14 @@ class PetSocietyFirebaseManager {
     
     func sendFriendRequest(_ userId: String, with friendRequest: inout FriendRequest, completion: @escaping (Error?) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
         let documentReference = db.collection(FirebaseCollectionType.friendRequest.rawValue).document()
         
         do {
             
-            friendRequest.requestUserId = UserFirebaseManager.shared.currentUser
+            friendRequest.requestUserId = currentUser.id
             
             friendRequest.requestedUserId = userId
             
