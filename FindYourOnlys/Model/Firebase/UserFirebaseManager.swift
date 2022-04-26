@@ -370,10 +370,86 @@ class UserFirebaseManager {
                     }
                     group.leave()
                 }
+                
+                // FriendRequest
+                group.enter()
+                ProfileFirebaseManager.shared.removeFriendRequest(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
+                }
+                
+                // Article
+                group.enter()
+                PetSocietyFirebaseManager.shared.deleteArticle(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
+                }
+                
+                // SharedArticle
+                group.enter()
+                PetSocietyFirebaseManager.shared.deleteSharedArticle(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
+                }
+                
+                // ChatRoom
+                group.enter()
+                PetSocietyFirebaseManager.shared.deleteChatRoom(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
+                }
+                
+                // Message
+                PetSocietyFirebaseManager.shared.deleteMessage(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                    group.leave()
+                }
             }
-            
-            
-            
             
             // Need all delete process finish to end the delete process.
             group.notify(queue: DispatchQueue.main) {
