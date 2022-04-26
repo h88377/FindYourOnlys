@@ -137,6 +137,70 @@ class PetSocietyFirebaseManager {
             }
     }
     
+    func deleteArticle(
+        with userId: String,
+        completion: @escaping (Error?) -> Void) {
+        
+        db.collection(FirebaseCollectionType.article.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else { return }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let deleteArticle = try snapshot.documents[index].data(as: Article.self)
+                    
+                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
+                    
+                    if deleteArticle.userId == currentUserId {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.article.rawValue).document("\(docID)").delete()
+                    }
+                } catch {
+                    
+                    completion(error)
+                }
+                
+            }
+        }
+    }
+    
+    func deleteSharedArticle(
+        with userId: String,
+        completion: @escaping (Error?) -> Void) {
+        
+        db.collection(FirebaseCollectionType.sharedArticle.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else { return }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let deleteArticle = try snapshot.documents[index].data(as: Article.self)
+                    
+                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
+                    
+                    if deleteArticle.userId == currentUserId {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.sharedArticle.rawValue).document("\(docID)").delete()
+                    }
+                } catch {
+                    
+                    completion(error)
+                }
+                
+            }
+        }
+    }
+    
     func fetchDownloadImageURL(
         image: UIImage,
         with type: String,
@@ -214,6 +278,39 @@ class PetSocietyFirebaseManager {
             }
     }
     
+    func deleteChatRoom(
+        with userId: String,
+        completion: @escaping (Error?) -> Void) {
+            
+            guard
+                let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        db.collection(FirebaseCollectionType.chatRoom.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else { return }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let deleteChatRoom = try snapshot.documents[index].data(as: ChatRoom.self)
+                    
+                    if deleteChatRoom.userIds.contains(currentUser.id) {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.chatRoom.rawValue).document("\(docID)").delete()
+                    }
+                } catch {
+                    
+                    completion(error)
+                }
+                
+            }
+        }
+    }
+    
     func fetchMessage(with channelId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.message.rawValue)
@@ -244,6 +341,39 @@ class PetSocietyFirebaseManager {
                 
                 completion(.success(messages))
             }
+    }
+    
+    func deleteMessage(
+        with userId: String,
+        completion: @escaping (Error?) -> Void) {
+            
+            guard
+                let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        db.collection(FirebaseCollectionType.message.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else { return }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let deleteMessage = try snapshot.documents[index].data(as: Message.self)
+                    
+                    if deleteMessage.senderId == currentUser.id {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.message.rawValue).document("\(docID)").delete()
+                    }
+                } catch {
+                    
+                    completion(error)
+                }
+                
+            }
+        }
     }
     
     func sendMessage(_ senderId: String, with message: inout Message, completion: @escaping (Error?) -> Void) {
@@ -290,6 +420,45 @@ class PetSocietyFirebaseManager {
                         }
                     }
                     catch {
+                        
+                        completion(.failure(error))
+                    }
+                }
+                
+                completion(.success(friendRequests))
+            }
+        
+    }
+    
+    func fetchFriendRequest(withRequest userId: String, completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        db.collection(FirebaseCollectionType.friendRequest.rawValue)
+            .order(by: "createdTime", descending: false)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else { return }
+                
+                var friendRequests = [FriendRequest]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let friendRequest = try document.data(as: FriendRequest.self)
+                        
+                        if friendRequest.requestUserId == userId && friendRequest.requestedUserId == currentUser.id {
+                            
+                            friendRequests.append(friendRequest)
+                            
+                        } else if friendRequest.requestUserId == currentUser.id && friendRequest.requestedUserId == userId {
+                            
+                            friendRequests.append(friendRequest)
+                        }
+                    } catch {
                         
                         completion(.failure(error))
                     }

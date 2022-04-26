@@ -51,7 +51,7 @@ class SearchFriendViewModel {
                             
                         } else {
                             
-                            PetSocietyFirebaseManager.shared.fetchFriendRequest(with: userId) { result in
+                            PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: userId) { result in
                                 
                                 switch result {
                                     

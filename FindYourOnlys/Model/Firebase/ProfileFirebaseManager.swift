@@ -16,7 +16,9 @@ class ProfileFirebaseManager {
     
     private let db = Firestore.firestore()
     
-    func removeFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
+    func removeFriendRequest(
+        with viewModels: [FriendRequestListViewModel],
+        at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
@@ -34,6 +36,38 @@ class ProfileFirebaseManager {
                     let requestUserId = viewModels[indexPath.section].friendRequestList.users[indexPath.row].id
                     
                     if removeRequest.requestedUserId == currentUserId && removeRequest.requestUserId == requestUserId {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.friendRequest.rawValue).document("\(docID)").delete()
+                    }
+                } catch {
+                    
+                    completion(error)
+                }
+                
+            }
+        }
+    }
+    
+    func removeFriendRequest(
+        with userId: String,
+        completion: @escaping (Error?) -> Void) {
+        
+        db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else { return }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let removeRequest = try snapshot.documents[index].data(as: FriendRequest.self)
+                    
+                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
+                    
+                    if removeRequest.requestedUserId == currentUserId || removeRequest.requestUserId == currentUserId {
                         
                         let docID = snapshot.documents[index].documentID
                         
