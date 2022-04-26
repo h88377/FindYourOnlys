@@ -14,6 +14,8 @@
 		987D8B372816BC1B000D1F95 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B362816BC1B000D1F95 /* RegisterViewController.swift */; };
 		987D8B392816BC25000D1F95 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B382816BC25000D1F95 /* SignInViewController.swift */; };
 		987D8B3B2816C23D000D1F95 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */; };
+		987D8B3D281792B1000D1F95 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3C281792B1000D1F95 /* SignInViewModel.swift */; };
+		987D8B3F28179A66000D1F95 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -171,6 +173,8 @@
 		987D8B362816BC1B000D1F95 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		987D8B382816BC25000D1F95 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		987D8B3C281792B1000D1F95 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 			children = (
 				987D8B3428169FE5000D1F95 /* AuthViewModel.swift */,
 				987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */,
+				987D8B3C281792B1000D1F95 /* SignInViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 		9896D934280D6D95003D4A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */,
 				9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */,
 				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
@@ -1118,6 +1124,7 @@
 				9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */,
 				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
 				9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */,
+				987D8B3D281792B1000D1F95 /* SignInViewModel.swift in Sources */,
 				9896D8EC28094E84003D4A16 /* ChatRoomFriendListCell.swift in Sources */,
 				98CC16512806585F00B9FDC6 /* ArticlePhotoCell.swift in Sources */,
 				9896D95D280EB5CB003D4A16 /* DirectionCell.swift in Sources */,
@@ -1163,6 +1170,7 @@
 				98CC16602806724000B9FDC6 /* Article.swift in Sources */,
 				98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
+				987D8B3F28179A66000D1F95 /* ProfileViewModel.swift in Sources */,
 				9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */,
 				9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */,
 				98939A172812890F004312F1 /* Sex.swift in Sources */,

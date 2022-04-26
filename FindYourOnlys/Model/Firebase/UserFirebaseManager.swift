@@ -110,6 +110,7 @@ class UserFirebaseManager {
         return result
     }
     
+    // Sign in with Apple
     func didCompleteWithAuthorization(with authorization: ASAuthorization, completion: @escaping (Error?) -> Void) {
         
         if
@@ -153,7 +154,6 @@ class UserFirebaseManager {
                 
                 guard
                     let user = authDataResult?.user,
-                    let email = user.email,
                     let self = self
                         
                 else {
@@ -180,7 +180,7 @@ class UserFirebaseManager {
                             return
                         }
                             
-                        self.saveUser(with: user.displayName ?? "初來乍到", with: email, with: user.uid) { error in
+                        self.saveUser(with: user.displayName ?? "初來乍到", with: user.email ?? "", with: user.uid) { error in
                             
                             guard
                                 error == nil
@@ -250,6 +250,44 @@ class UserFirebaseManager {
                     completion(nil)
                 }
             }
+        }
+    }
+    
+    // Sign in with Firebase
+    
+    func signIn(withEmail email: String, password: String, completion: @escaping (Error?) -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: password) { authDataResult, error in
+            
+            guard
+                error == nil
+            
+            else {
+                
+                completion(error)
+                
+                return
+            }
+            
+            completion(nil)
+        }
+        
+    }
+    
+    // Sign out
+    func signOut(completion: @escaping (Error?) -> Void) {
+        
+        let firebaseAuth = Auth.auth()
+        
+        do {
+            
+            try firebaseAuth.signOut()
+            
+            completion(nil)
+            
+        } catch {
+            
+            completion(error)
         }
     }
     
