@@ -11,9 +11,33 @@ class SignInViewController: UIViewController {
     
     let viewModel = SignInViewModel()
     
-    @IBOutlet weak var emailTextField: ContentInsetTextField!
+    @IBOutlet weak var emailTextField: ContentInsetTextField! {
+        
+        didSet {
+            
+            emailTextField.placeholder = "電子信箱"
+        }
+    }
     
-    @IBOutlet weak var passwordTextField: ContentInsetTextField!
+    @IBOutlet weak var passwordTextField: ContentInsetTextField! {
+        
+        didSet {
+            
+            passwordTextField.placeholder = "密碼"
+        }
+    }
+    
+    @IBOutlet weak var signInButton: UIButton! {
+        
+        didSet {
+            
+            signInButton.setTitle("登入", for: .normal)
+            
+            signInButton.tintColor = .black
+            
+            signInButton.backgroundColor = .projectTintColor
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +54,13 @@ class SignInViewController: UIViewController {
             
             self?.dismiss(animated: true)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        signInButton.layer.cornerRadius = 15
+        
     }
     
     @IBAction func signIn(_ sender: UIButton) {

@@ -37,6 +37,17 @@ class RegisterViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var registerButton: UIButton! {
+        
+        didSet {
+            
+            registerButton.setTitle("註冊", for: .normal)
+            
+            registerButton.tintColor = .black
+            
+            registerButton.backgroundColor = .projectTintColor
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +66,12 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        registerButton.layer.cornerRadius = 15
+    }
+    
     @IBAction func register(_ sender: UIButton) {
         
         guard
