@@ -172,12 +172,19 @@ class UserFirebaseManager {
             
                     switch result {
                         
-                    case .success(let users):
+                    case .success(let firestoreUsers):
                         
                         guard
-                            !users.map({ $0.id }).contains(user.uid)
+                            !firestoreUsers.map({ $0.id }).contains(user.uid)
                         
                         else {
+                            
+                            for firestoreUser in firestoreUsers where firestoreUser.id == user.uid {
+                                
+                                UserFirebaseManager.shared.currentFBUserInfo = firestoreUser
+                                
+                                break
+                            }
                             
                             completion(nil)
                             
@@ -195,6 +202,15 @@ class UserFirebaseManager {
                                 
                                 return
                             }
+                            
+                            UserFirebaseManager.shared.currentFBUserInfo = User(
+                                id: user.uid,
+                                nickName: user.displayName ?? "初來乍到",
+                                email: user.email ?? "",
+                                imageURLString: "",
+                                friends: [],
+                                limitedUsers: []
+                            )
                             
                             completion(nil)
                         }
