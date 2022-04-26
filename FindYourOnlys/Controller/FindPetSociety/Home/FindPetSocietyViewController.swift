@@ -95,7 +95,10 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { errorViewModel in
             
-            print(errorViewModel?.error)
+            guard
+                errorViewModel?.error != nil else { return }
+            
+            print(errorViewModel?.error.localizedDescription)
         }
         
         viewModel.fetchArticles()

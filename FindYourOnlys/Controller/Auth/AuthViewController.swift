@@ -17,6 +17,9 @@ class AuthViewController: UIViewController {
         
         viewModel.errorViewModel.bind { errorViewModel in
             
+            guard
+                errorViewModel?.error != nil else { return }
+            
             print(errorViewModel?.error.localizedDescription)
         }
         
@@ -62,6 +65,9 @@ class AuthViewController: UIViewController {
         
         present(signInVC, animated: true)
     }
+    
+   
+    
     
 }
 

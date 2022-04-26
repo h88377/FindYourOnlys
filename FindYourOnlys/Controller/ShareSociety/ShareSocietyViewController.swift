@@ -70,7 +70,10 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            print(errorViewModel?.error)
+            guard
+                errorViewModel?.error != nil else { return }
+            
+            print(errorViewModel?.error.localizedDescription)
         }
     }
     
