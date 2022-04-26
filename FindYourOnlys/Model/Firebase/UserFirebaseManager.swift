@@ -34,19 +34,19 @@ class UserFirebaseManager {
     
     // Luke
     
-    var currentUser: String { return "321" }
+//    var currentUser: String { return "321" }
     
-    var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2" }
+//    var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2" }
     
-    var currentUserInfo: User {
-
-        return User(id: "321", nickName: "Luke", email: "321@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2",
-                    friends: ["123"], limitedUsers: ["444"])
-    }
+//    var currentUserInfo: User {
+//
+//        return User(id: "321", nickName: "Luke", email: "321@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2",
+//                    friends: ["123"], limitedUsers: ["444"])
+//    }
     
     var initialUserId = Auth.auth().currentUser?.uid
         
-    var currentFBUserInfo: User?
+    var currentUser: User?
     
     // Sign in with Apple
     func createAppleIdRequest() -> ASAuthorizationAppleIDRequest {
@@ -181,7 +181,7 @@ class UserFirebaseManager {
                             
                             for firestoreUser in firestoreUsers where firestoreUser.id == user.uid {
                                 
-                                UserFirebaseManager.shared.currentFBUserInfo = firestoreUser
+                                UserFirebaseManager.shared.currentUser = firestoreUser
                                 
                                 break
                             }
@@ -203,7 +203,7 @@ class UserFirebaseManager {
                                 return
                             }
                             
-                            UserFirebaseManager.shared.currentFBUserInfo = User(
+                            UserFirebaseManager.shared.currentUser = User(
                                 id: user.uid,
                                 nickName: user.displayName ?? "初來乍到",
                                 email: user.email ?? "",

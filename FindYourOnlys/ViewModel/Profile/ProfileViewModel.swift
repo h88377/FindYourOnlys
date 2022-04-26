@@ -26,6 +26,8 @@ class ProfileViewModel {
             }
             
             print("Sign out successfully.")
+            
+            UserFirebaseManager.shared.currentUser = nil
         }
     }
     
@@ -44,6 +46,8 @@ class ProfileViewModel {
             }
             
             print("Delete user successfully.")
+            
+            UserFirebaseManager.shared.currentUser = nil
         }
     }
 }

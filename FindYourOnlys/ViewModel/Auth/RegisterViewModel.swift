@@ -29,7 +29,7 @@ class RegisterViewModel {
 
                         for user in users where user.id == registeredUserId {
 
-                            UserFirebaseManager.shared.currentFBUserInfo = user
+                            UserFirebaseManager.shared.currentUser = user
                             
                             self?.dismissHandler?()
                             

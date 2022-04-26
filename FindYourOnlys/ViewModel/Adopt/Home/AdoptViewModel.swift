@@ -26,7 +26,7 @@ class AdoptViewModel {
                 
                 for user in users where user.id == initialUserId {
                     
-                    UserFirebaseManager.shared.currentFBUserInfo = user
+                    UserFirebaseManager.shared.currentUser = user
                     
                     break
                 }

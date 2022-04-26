@@ -29,7 +29,7 @@ class ProfileFirebaseManager {
                     
                     let removeRequest = try snapshot.documents[index].data(as: FriendRequest.self)
                     
-                    let currentUserId = UserFirebaseManager.shared.currentUserInfo.id
+                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
                     
                     let requestUserId = viewModels[indexPath.section].friendRequestList.users[indexPath.row].id
                     
@@ -50,9 +50,12 @@ class ProfileFirebaseManager {
     
     func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
         var requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
         
-        var requestedUser = UserFirebaseManager.shared.currentUserInfo
+        var requestedUser = currentUser
         
         requestUser.friends.append(requestedUser.id)
         
@@ -71,11 +74,14 @@ class ProfileFirebaseManager {
     
     func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
         let documentReference = db.collection(FirebaseCollectionType.chatRoom.rawValue).document()
         
         let requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
         
-        let requestedUser = UserFirebaseManager.shared.currentUserInfo
+        let requestedUser = currentUser
         
         do {
             

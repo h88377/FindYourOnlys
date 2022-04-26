@@ -13,7 +13,7 @@ class PublishViewModel {
     let publishContentCategory = PublishContentCategory.allCases
     
     var article: Article = Article(
-        id: "", userId: UserFirebaseManager.shared.currentUser, likeUserIds: [],
+        id: "", userId: UserFirebaseManager.shared.currentUser?.id ?? "", likeUserIds: [],
         createdTime: 0, postType: -1,
         city: "", petKind: "", color: "",
         content: "", imageURLString: "", comments: []
@@ -84,6 +84,9 @@ class PublishViewModel {
         
         DispatchQueue.global().async {
             
+            guard
+                let currentUser = UserFirebaseManager.shared.currentUser else { return }
+            
             let semaphore = DispatchSemaphore(value: 0)
             
             PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: selectedImage, with: FirebaseCollectionType.article.rawValue) { result in
@@ -106,7 +109,7 @@ class PublishViewModel {
             
 
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishArticle(UserFirebaseManager.shared.currentUser, with: &self.article) { error in
+            PetSocietyFirebaseManager.shared.publishArticle(currentUser.id, with: &self.article) { error in
 
                 guard
                     error == nil
