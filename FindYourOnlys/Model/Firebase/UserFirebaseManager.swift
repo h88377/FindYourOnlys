@@ -25,6 +25,8 @@ enum DeleteDataError: Error {
     
     case deleteMessageError
     
+    case deleteFriendError
+    
     var errorMessage: String {
         
         switch self {
@@ -43,19 +45,19 @@ enum DeleteDataError: Error {
             
         case .deleteChatRoomError:
             
-            
             return "刪除使用者聊天室失敗，請再嘗試一次"
             
         case .deleteFavoritePetError:
-            
             
             return "刪除使用者收藏寵物失敗，請再嘗試一次"
             
         case .deleteMessageError:
             
-            
             return "刪除使用者聊天訊息失敗，請再嘗試一次"
             
+        case .deleteFriendError:
+            
+            return "刪除使用者好友失敗，請再嘗試一次"
         }
     }
 }
@@ -515,6 +517,24 @@ class UserFirebaseManager {
                 else {
                     
                     completion(DeleteDataError.deleteChatRoomError)
+                    
+                    group.leave()
+                    
+                    return
+                }
+                group.leave()
+            }
+            
+            //Friend
+            group.enter()
+            PetSocietyFirebaseManager.shared.deleteFriend(withCurrent: user.uid) { error in
+                
+                guard
+                    error == nil
+                        
+                else {
+                    
+                    completion(DeleteDataError.deleteFriendError)
                     
                     group.leave()
                     
