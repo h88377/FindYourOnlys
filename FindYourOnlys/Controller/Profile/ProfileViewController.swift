@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: BaseViewController {
 
@@ -14,12 +15,23 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
                 errorViewModel?.error != nil else { return }
             
-            print(errorViewModel?.error.localizedDescription)
+            if
+                let deleteDataError = errorViewModel?.error as? DeleteDataError {
+                
+                self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
+                
+            } else if
+                
+                let deleteAccountError = errorViewModel?.error as? DeleteAccountError {
+                
+                self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
+                
+            }
         }
     }
     

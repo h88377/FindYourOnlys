@@ -11,6 +11,76 @@ import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
 
+enum DeleteDataError: Error {
+    
+    case deleteUserError
+    
+    case deleteArticleError
+    
+    case deleteFriendRequestError
+    
+    case deleteChatRoomError
+    
+    case deleteFavoritePetError
+    
+    case deleteMessageError
+    
+    var errorMessage: String {
+        
+        switch self {
+            
+        case .deleteUserError:
+            
+            return "刪除使用者資料失敗，請再嘗試一次"
+            
+        case .deleteArticleError:
+            
+            return "刪除使用者文章失敗，請再嘗試一次"
+            
+        case .deleteFriendRequestError:
+            
+            return "刪除使用者好友邀請失敗，請再嘗試一次"
+            
+        case .deleteChatRoomError:
+            
+            
+            return "刪除使用者聊天室失敗，請再嘗試一次"
+            
+        case .deleteFavoritePetError:
+            
+            
+            return "刪除使用者收藏寵物失敗，請再嘗試一次"
+            
+        case .deleteMessageError:
+            
+            
+            return "刪除使用者聊天訊息失敗，請再嘗試一次"
+            
+        }
+    }
+}
+
+enum DeleteAccountError: Error {
+    
+    case deleteUserAccountError
+    
+    case unexpectedError
+    
+    var errorMessage: String {
+        
+        switch self {
+            
+        case .deleteUserAccountError:
+            
+            return "刪除使用者帳號失敗，請重新登入後再嘗試一次"
+            
+        case .unexpectedError:
+            
+            return "刪除使用者帳號發生預期外的錯誤，請再嘗試一次"
+        }
+    }
+}
+
 class UserFirebaseManager {
     
     static let shared = UserFirebaseManager()
@@ -322,141 +392,189 @@ class UserFirebaseManager {
             
             return
         }
-
-        user.delete { [weak self] error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                completion(error)
-                
-                return
-            }
-            
-            let group = DispatchGroup()
+        
+        let group = DispatchGroup()
+        
+        DispatchQueue.global().async {
             
             // User
-            DispatchQueue.global().async {
+            group.enter()
+            self.deleteUser(with: user.uid) { error in
                 
-                group.enter()
-                self?.deleteUser(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
+                          
+                    completion(DeleteDataError.deleteUserError)
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
+            }
+            
+            // Favorite pet
+            group.enter()
+            FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
                 
-                // Favorite pet
-                group.enter()
-                FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
+                    completion(DeleteDataError.deleteFavoritePetError)
+                    
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
+            }
+            
+            // FriendRequest
+            group.enter()
+            ProfileFirebaseManager.shared.removeFriendRequest(with: user.uid) { error in
                 
-                // FriendRequest
-                group.enter()
-                ProfileFirebaseManager.shared.removeFriendRequest(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
+                    completion(DeleteDataError.deleteFriendRequestError)
+                    
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
+            }
+            
+            // Article
+            group.enter()
+            PetSocietyFirebaseManager.shared.deleteArticle(with: user.uid) { error in
                 
-                // Article
-                group.enter()
-                PetSocietyFirebaseManager.shared.deleteArticle(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
+                    completion(DeleteDataError.deleteArticleError)
+                    
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
+            }
+            
+            // SharedArticle
+            group.enter()
+            PetSocietyFirebaseManager.shared.deleteSharedArticle(with: user.uid) { error in
                 
-                // SharedArticle
-                group.enter()
-                PetSocietyFirebaseManager.shared.deleteSharedArticle(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
+                    completion(DeleteDataError.deleteArticleError)
+                    
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
+            }
+            
+            // ChatRoom
+            group.enter()
+            PetSocietyFirebaseManager.shared.deleteChatRoom(with: user.uid) { error in
                 
-                // ChatRoom
-                group.enter()
-                PetSocietyFirebaseManager.shared.deleteChatRoom(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
+                    completion(DeleteDataError.deleteChatRoomError)
+                    
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
+            }
+            
+            // Message
+            group.enter()
+            PetSocietyFirebaseManager.shared.deleteMessage(with: user.uid) { error in
                 
-                // Message
-                PetSocietyFirebaseManager.shared.deleteMessage(with: user.uid) { error in
+                guard
+                    error == nil
+                        
+                else {
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
+                    completion(DeleteDataError.deleteChatRoomError)
+                    
                     group.leave()
+                    
+                    return
                 }
+                group.leave()
             }
             
             // Need all delete process finish to end the delete process.
             group.notify(queue: DispatchQueue.main) {
-                
-                completion(nil)
+                // Account
+                user.delete { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        if
+                            let error = error as NSError? {
+                            
+                            guard
+                                let errorCode = AuthErrorCode(rawValue: error.code)
+                                    
+                            else {
+                                
+                                completion(DeleteAccountError.unexpectedError)
+                                
+                                return
+                            }
+                            
+                            switch errorCode {
+                                
+                            case .requiresRecentLogin:
+                                
+                                completion(DeleteAccountError.deleteUserAccountError)
+                                
+                                return
+                                
+                            default:
+                                
+                                completion(DeleteAccountError.unexpectedError)
+                                
+                                return
+                            }
+                        }
+                        
+                        completion(DeleteAccountError.unexpectedError)
+                        
+                        return
+                    }
+                    
+                    completion(nil)
+                }
             }
+
         }
+        
+        
+        
         
     }
     

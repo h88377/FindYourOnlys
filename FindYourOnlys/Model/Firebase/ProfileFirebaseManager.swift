@@ -57,7 +57,12 @@ class ProfileFirebaseManager {
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
             guard
-                let snapshot = snapshot else { return }
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
             
             for index in 0..<snapshot.documents.count {
                 
@@ -79,6 +84,8 @@ class ProfileFirebaseManager {
                 }
                 
             }
+            
+            completion(nil)
         }
     }
     
