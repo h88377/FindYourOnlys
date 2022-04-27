@@ -240,11 +240,34 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             
             cell.configureCell(with: cellViewModel)
             
+            cell.leaveMessageHandler = { [weak self] in
+                
+                let storyboard = UIStoryboard.findPetSociety
+                
+                let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier)
+                
+                petSocietyCommentVC.modalPresentationStyle = .custom
+                
+                petSocietyCommentVC.transitioningDelegate = self
+                
+                self?.present(petSocietyCommentVC, animated: true)
+            }
+            
             return cell
             
         default:
         
             return UITableViewCell()
         }
+    }
+    
+}
+
+// MARK: - FindPetSocietyViewController
+extension FindPetSocietyViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
