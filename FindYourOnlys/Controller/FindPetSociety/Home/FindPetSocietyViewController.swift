@@ -244,11 +244,16 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 
                 let storyboard = UIStoryboard.findPetSociety
                 
-                let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier)
+                guard
+                    let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController
+                        
+                else { return }
                 
                 petSocietyCommentVC.modalPresentationStyle = .custom
                 
                 petSocietyCommentVC.transitioningDelegate = self
+                
+                petSocietyCommentVC.viewModel.article = cellViewModel.article
                 
                 self?.present(petSocietyCommentVC, animated: true)
             }

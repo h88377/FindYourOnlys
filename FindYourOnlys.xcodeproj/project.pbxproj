@@ -22,6 +22,8 @@
 		987D8B4728192176000D1F95 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B4528192176000D1F95 /* CommentCell.xib */; };
 		987D8B49281924E6000D1F95 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B48281924E6000D1F95 /* Comment.swift */; };
 		987D8B4B28195F15000D1F95 /* BaseModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B4A28195F15000D1F95 /* BaseModalViewController.swift */; };
+		987D8B4D2819622A000D1F95 /* PetSocietyCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B4C2819622A000D1F95 /* PetSocietyCommentViewModel.swift */; };
+		987D8B50281962BF000D1F95 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B4F281962BF000D1F95 /* CommentViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -187,6 +189,8 @@
 		987D8B4528192176000D1F95 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		987D8B48281924E6000D1F95 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		987D8B4A28195F15000D1F95 /* BaseModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModalViewController.swift; sourceTree = "<group>"; };
+		987D8B4C2819622A000D1F95 /* PetSocietyCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyCommentViewModel.swift; sourceTree = "<group>"; };
+		987D8B4F281962BF000D1F95 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -369,6 +373,17 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		987D8B4E2819629B000D1F95 /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */,
+				987D8B4C2819622A000D1F95 /* PetSocietyCommentViewModel.swift */,
+				98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */,
+				987D8B4F281962BF000D1F95 /* CommentViewModel.swift */,
+			);
+			path = Article;
+			sourceTree = "<group>";
+		};
 		989399F5280FB0F6004312F1 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,8 +553,6 @@
 			isa = PBXGroup;
 			children = (
 				98CC165B2806717800B9FDC6 /* FindPetSocietyViewModel.swift */,
-				98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */,
-				98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */,
 				98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */,
 			);
 			path = Home;
@@ -896,6 +909,7 @@
 		98CC165A2806714F00B9FDC6 /* FindPetSociety */ = {
 			isa = PBXGroup;
 			children = (
+				987D8B4E2819629B000D1F95 /* Article */,
 				9896D920280BC92C003D4A16 /* Home */,
 				9896D91F280BC916003D4A16 /* ChatRoom */,
 				9896D921280BC93B003D4A16 /* Add Friend */,
@@ -1191,9 +1205,11 @@
 				98CC164828059F0C00B9FDC6 /* PublishUserCell.swift in Sources */,
 				9896D92C280D6127003D4A16 /* ProfileViewController.swift in Sources */,
 				989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */,
+				987D8B4D2819622A000D1F95 /* PetSocietyCommentViewModel.swift in Sources */,
 				98CC16602806724000B9FDC6 /* Article.swift in Sources */,
 				98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
+				987D8B50281962BF000D1F95 /* CommentViewModel.swift in Sources */,
 				987D8B3F28179A66000D1F95 /* ProfileViewModel.swift in Sources */,
 				9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */,
 				9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */,

@@ -63,7 +63,7 @@ class ArticlePhotoCell: UITableViewCell {
         
         postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         
-        timeLabel.text = formateTime(with: viewModel.article.createdTime)
+        timeLabel.text =  viewModel.article.createdTime.formatedTime
         
         cityLabel.text = viewModel.article.city
         
@@ -83,17 +83,17 @@ class ArticlePhotoCell: UITableViewCell {
         }   
     }
     
-    func formateTime(with time: TimeInterval) -> String {
-        
-        let formatter = DateFormatter()
-
-        formatter.dateFormat = "yyyy.MM.dd hh:mm"
-        
-        let date = NSDate(timeIntervalSince1970: time)
-
-        let dateString = formatter.string(from: date as Date)
-        
-        return dateString
-    }
+//    func formateTime(with time: TimeInterval) -> String {
+//
+//        let formatter = DateFormatter()
+//
+//        formatter.dateFormat = "yyyy.MM.dd hh:mm"
+//
+//        let date = NSDate(timeIntervalSince1970: time)
+//
+//        let dateString = formatter.string(from: date as Date)
+//
+//        return dateString
+//    }
     
 }

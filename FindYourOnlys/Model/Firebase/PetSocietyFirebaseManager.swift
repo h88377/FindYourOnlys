@@ -66,6 +66,36 @@ class PetSocietyFirebaseManager {
                 }
         }
     
+    func fetchArticle(
+        withArticleId id: String,
+        completion: @escaping (Result<Article, Error>) -> Void) {
+            
+            db.collection(FirebaseCollectionType.article.rawValue)
+                .whereField("id", isEqualTo: id)
+                .addSnapshotListener { snapshot, error in
+                
+                    guard
+                        let snapshot = snapshot
+                            
+                    else {
+                        
+                        completion(.failure(error!))
+                        
+                        return
+                    }
+                    do {
+                        
+                        let article = try snapshot.documents.map { try $0.data(as: Article.self) }[0]
+                        
+                        completion(.success(article))
+                        
+                    } catch {
+                        
+                        completion(.failure(error))
+                    }
+            }
+        }
+    
     func publishArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
@@ -215,40 +245,6 @@ class PetSocietyFirebaseManager {
             }
         }
     
-    func deleteFriend(
-        withCurrent userId: String,
-        completion: @escaping (Error?) -> Void) {
-            
-            db.collection(FirebaseCollectionType.user.rawValue).whereField("friends", arrayContains: userId).getDocuments { snapshot, error in
-                
-                guard
-                    let snapshot = snapshot else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
-                
-                do {
-
-                    var users = try snapshot.documents.map { try $0.data(as: User.self) }
-                    
-                    for index in 0..<users.count {
-                        
-                        users[index].friends = users[index].friends.filter { $0 != userId }
-                        
-                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(users[index].id).setData(from: users[index])
-                    }
-                    
-                    completion(nil)
-
-                } catch {
-
-                    completion(error)
-                }
-            }
-        }
-    
     func fetchDownloadImageURL(
         image: UIImage,
         with type: String,
@@ -295,6 +291,55 @@ class PetSocietyFirebaseManager {
                 }
             }
         }
+    
+    func leaveComment(withArticleId articleId: String, comment: Comment, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        fetchArticle(withArticleId: articleId) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+
+            switch result {
+
+            case .success(var article):
+
+                article.comments.append(comment)
+                
+                do {
+                    try self.db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
+                } catch {
+                    
+                    completion(error)
+                }
+
+            case .failure(let error):
+
+                completion(error)
+            }
+        }
+        
+//        let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
+//
+//        do {
+//
+//            comment.articleId = articleId
+//
+//            comment.userId = currentUser.id
+//
+//            comment.createdTime = NSDate().timeIntervalSince1970
+//
+//
+//
+//            try documentReference.setData(from: comment)
+//
+//        } catch {
+//
+//            completion(error)
+//        }
+    }
     
     // MARK: - ChatRoom
     func fetchChatRoom(completion: @escaping (Result<[ChatRoom], Error>) -> Void) {
@@ -554,6 +599,39 @@ class PetSocietyFirebaseManager {
     }
     
     
+    func deleteFriend(
+        withCurrent userId: String,
+        completion: @escaping (Error?) -> Void) {
+            
+            db.collection(FirebaseCollectionType.user.rawValue).whereField("friends", arrayContains: userId).getDocuments { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                
+                do {
+
+                    var users = try snapshot.documents.map { try $0.data(as: User.self) }
+                    
+                    for index in 0..<users.count {
+                        
+                        users[index].friends = users[index].friends.filter { $0 != userId }
+                        
+                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(users[index].id).setData(from: users[index])
+                    }
+                    
+                    completion(nil)
+
+                } catch {
+
+                    completion(error)
+                }
+            }
+        }
     
     // MARK: - Convert functions
     
@@ -573,6 +651,24 @@ class PetSocietyFirebaseManager {
     func setArticles(with viewModels: Box<[ArticleViewModel]>, articles: [Article]) {
         
         viewModels.value = convertArticlesToViewModels(from: articles)
+    }
+    
+    private func convertCommentsToViewModels(from comments: [Comment]) -> [CommentViewModel] {
+        
+        var viewModels = [CommentViewModel]()
+        
+        for comment in comments {
+            
+            let viewModel = CommentViewModel(model: comment)
+            
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setComments(with viewModels: Box<[CommentViewModel]>, comments: [Comment]) {
+        
+        viewModels.value = convertCommentsToViewModels(from: comments)
     }
     
 }

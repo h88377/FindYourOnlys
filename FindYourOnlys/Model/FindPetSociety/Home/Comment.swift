@@ -9,13 +9,11 @@ import Foundation
 
 struct Comment: Codable {
     
-    let articleId: String
+    var articleId: String
     
-    let userId: String
+    var userId: String
     
-    let content: String
+    var content: String
     
-    let createdTime: TimeInterval
-    
-    let senderId: String
+    var createdTime: TimeInterval
 }
