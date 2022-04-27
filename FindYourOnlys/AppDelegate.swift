@@ -15,10 +15,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         FirebaseApp.configure()
         
         IQKeyboardManager.shared.enable = true
+        
+        if
+            let user = Auth.auth().currentUser {
+            
+            print("Your're sign in as \(user.uid), \(user.email)")
+        }
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
+            print("Listen user: \(user?.uid)")
+            
+            UserFirebaseManager.shared.initialUser = user
+        }
         
         return true
     }

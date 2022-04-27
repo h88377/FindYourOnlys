@@ -24,9 +24,12 @@ class PublishUserCell: PublishBasicCell {
     
     override func layoutCell() {
         
-        userImageView.loadImage(UserFirebaseManager.shared.currentUserImageURL, placeHolder: UIImage.system(.personPlaceHolder))
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        userNickName.text = UserFirebaseManager.shared.currentUserInfo.nickName
+        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        userNickName.text = currentUser.nickName
 
         
 //        timeLabel.text = formateTime(with: viewModel.article.createdTime)

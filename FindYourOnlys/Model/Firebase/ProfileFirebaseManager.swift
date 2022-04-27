@@ -16,7 +16,9 @@ class ProfileFirebaseManager {
     
     private let db = Firestore.firestore()
     
-    func removeFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
+    func removeFriendRequest(
+        with viewModels: [FriendRequestListViewModel],
+        at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
@@ -29,7 +31,7 @@ class ProfileFirebaseManager {
                     
                     let removeRequest = try snapshot.documents[index].data(as: FriendRequest.self)
                     
-                    let currentUserId = UserFirebaseManager.shared.currentUserInfo.id
+                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
                     
                     let requestUserId = viewModels[indexPath.section].friendRequestList.users[indexPath.row].id
                     
@@ -48,11 +50,53 @@ class ProfileFirebaseManager {
         }
     }
     
+    func removeFriendRequest(
+        with userId: String,
+        completion: @escaping (Error?) -> Void) {
+        
+        db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let removeRequest = try snapshot.documents[index].data(as: FriendRequest.self)
+                    
+                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
+                    
+                    if removeRequest.requestedUserId == currentUserId || removeRequest.requestUserId == currentUserId {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.friendRequest.rawValue).document("\(docID)").delete()
+                    }
+                } catch {
+                    
+                    completion(error)
+                }
+                
+            }
+            
+            completion(nil)
+        }
+    }
+    
     func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         var requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
         
-        var requestedUser = UserFirebaseManager.shared.currentUserInfo
+        var requestedUser = currentUser
         
         requestUser.friends.append(requestedUser.id)
         
@@ -71,11 +115,14 @@ class ProfileFirebaseManager {
     
     func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
         let documentReference = db.collection(FirebaseCollectionType.chatRoom.rawValue).document()
         
         let requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
         
-        let requestedUser = UserFirebaseManager.shared.currentUserInfo
+        let requestedUser = currentUser
         
         do {
             

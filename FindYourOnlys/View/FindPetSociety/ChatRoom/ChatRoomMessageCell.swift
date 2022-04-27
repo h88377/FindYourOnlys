@@ -29,7 +29,10 @@ class ChatRoomMessageCell: UITableViewCell {
     
     func configureCell(with viewModel: MessageViewModel, friend: User) {
         
-        friendImageView.isHidden = UserFirebaseManager.shared.currentUser == viewModel.message.senderId
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        friendImageView.isHidden = currentUser.id == viewModel.message.senderId
         ? true
         : false
         
@@ -38,7 +41,7 @@ class ChatRoomMessageCell: UITableViewCell {
         userImageView.isHidden = friendImageView.isHidden
         ? false
         : true
-        userImageView.loadImage(UserFirebaseManager.shared.currentUserImageURL, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
         
         messageBubbleView.isHidden = true

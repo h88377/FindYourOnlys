@@ -12,8 +12,6 @@ class AdoptListViewController: BaseViewController {
     
     let viewModel = AdoptListViewModel()
     
-    var isLogin = false
-    
     @IBOutlet weak var remindLabel: UILabel! {
         
         didSet {
@@ -256,7 +254,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
         
-        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser
+        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser?.id
         
 //        adoptDetaiVC.delegate = adoptFavoriteVC
         

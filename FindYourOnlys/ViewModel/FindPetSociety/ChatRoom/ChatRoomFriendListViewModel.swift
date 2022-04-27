@@ -64,7 +64,10 @@ class ChatRoomFriendListViewModel {
     
     func fetchChatRoom(completion: @escaping (Error?)-> Void) {
         
-        fetchUser(with: UserFirebaseManager.shared.currentUser ) { result in
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        fetchUser(with: currentUser.id ) { result in
             
             switch result {
                 
@@ -85,11 +88,11 @@ class ChatRoomFriendListViewModel {
                         
                         for chatRoom in totalChatRooms {
                             
-                            for userId in chatRoom.userIds where userId == UserFirebaseManager.shared.currentUser {
+                            for userId in chatRoom.userIds where userId == currentUser.id {
                                 
                                 currentChatRooms.append(chatRoom)
                                 
-                                for friendId in chatRoom.userIds where friendId != UserFirebaseManager.shared.currentUser {
+                                for friendId in chatRoom.userIds where friendId != currentUser.id {
                                     
                                     friendIds.append(friendId)
                                 }

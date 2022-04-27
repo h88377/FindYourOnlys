@@ -32,6 +32,8 @@ class AdoptViewController: BaseViewController {
     
     var adoptListVC: AdoptListViewController?
     
+    let viewModel = AdoptViewModel()
+    
     @IBOutlet weak var indicatorView: UIView!
     
     @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
@@ -56,6 +58,25 @@ class AdoptViewController: BaseViewController {
     var containerViews: [UIView] {
         
         [adoptListContainerView, adoptFavoriteContainerView]
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        viewModel.errorViewModel.bind { errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                print(errorViewModel?.error)
+                
+                return
+            }
+        }
+        
+        viewModel.fetchCurrentUser()
     }
     
     override func setupNavigationTitle() {
