@@ -503,6 +503,55 @@
             </objects>
             <point key="canvasLocation" x="2048" y="1866"/>
         </scene>
+        <!--Pet Society Comment View Controller-->
+        <scene sceneID="RxP-5d-jTa">
+            <objects>
+                <viewController storyboardIdentifier="PetSocietyCommentViewController" id="3Gc-rb-gBU" customClass="PetSocietyCommentViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kyq-YE-gpj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yD6-Zz-5Qg">
+                                <rect key="frame" x="40" y="823" width="257" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O35-cy-iUK">
+                                <rect key="frame" x="317" y="826" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="sendMessage:" destination="3Gc-rb-gBU" eventType="touchUpInside" id="Z55-fh-r9P"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oaQ-pl-TQQ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="772"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qWO-2l-7cS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oaQ-pl-TQQ" firstAttribute="leading" secondItem="qWO-2l-7cS" secondAttribute="leading" id="4KL-om-c8Z"/>
+                            <constraint firstItem="O35-cy-iUK" firstAttribute="leading" secondItem="yD6-Zz-5Qg" secondAttribute="trailing" constant="20" id="80U-3E-xmq"/>
+                            <constraint firstItem="oaQ-pl-TQQ" firstAttribute="top" secondItem="qWO-2l-7cS" secondAttribute="top" id="Iy7-3O-efE"/>
+                            <constraint firstItem="qWO-2l-7cS" firstAttribute="trailing" secondItem="O35-cy-iUK" secondAttribute="trailing" constant="30" id="Tyj-G2-LTN"/>
+                            <constraint firstItem="yD6-Zz-5Qg" firstAttribute="bottom" secondItem="qWO-2l-7cS" secondAttribute="bottom" constant="-5" id="duv-As-9C9"/>
+                            <constraint firstItem="O35-cy-iUK" firstAttribute="top" secondItem="oaQ-pl-TQQ" secondAttribute="bottom" constant="10" id="j3W-Y8-1xa"/>
+                            <constraint firstItem="qWO-2l-7cS" firstAttribute="trailing" secondItem="oaQ-pl-TQQ" secondAttribute="trailing" id="jRb-cI-v1K"/>
+                            <constraint firstItem="O35-cy-iUK" firstAttribute="bottom" secondItem="yD6-Zz-5Qg" secondAttribute="bottom" id="nXd-r4-5dp"/>
+                            <constraint firstItem="yD6-Zz-5Qg" firstAttribute="leading" secondItem="qWO-2l-7cS" secondAttribute="leading" constant="40" id="nXz-XM-DKG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentTextField" destination="yD6-Zz-5Qg" id="Qdj-xp-3XX"/>
+                        <outlet property="sendButton" destination="O35-cy-iUK" id="1b0-t0-3N2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hez-Ga-Wxu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3088" y="1871"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ck1-cY-gaO">
             <objects>
