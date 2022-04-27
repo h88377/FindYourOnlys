@@ -14,7 +14,7 @@ class SharePublishViewModel {
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var article: Article = Article(
-        id: "", userId: UserFirebaseManager.shared.currentUser, likeUserIds: [],
+        id: "", userId: UserFirebaseManager.shared.currentUser?.id ?? "", likeUserIds: [],
         createdTime: 0,
         city: "", petKind: "",
         content: "", imageURLString: "", comments: []
@@ -65,7 +65,8 @@ extension SharePublishViewModel {
         
         guard
             isValidPublishedContent,
-              let selectedImage = selectedImage
+            let selectedImage = selectedImage,
+            let currentUser = UserFirebaseManager.shared.currentUser
                 
         else { return }
         
@@ -96,7 +97,7 @@ extension SharePublishViewModel {
 
             semaphore.wait()
             PetSocietyFirebaseManager.shared.publishSharedArticle(
-                UserFirebaseManager.shared.currentUser, with: &self.article) { error in
+                currentUser.id, with: &self.article) { error in
 
                 guard
                     error == nil

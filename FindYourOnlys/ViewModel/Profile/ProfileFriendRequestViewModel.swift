@@ -22,7 +22,10 @@ class ProfileFriendRequestViewModel {
     
     func fetchFriendRequestList() {
         
-        PetSocietyFirebaseManager.shared.fetchFriendRequest(with: UserFirebaseManager.shared.currentUserInfo.id) { [weak self] result in
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        PetSocietyFirebaseManager.shared.fetchFriendRequest(with: currentUser.id) { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -41,12 +44,12 @@ class ProfileFriendRequestViewModel {
                 
                 for request in requests {
                     
-                    if request.requestUserId == UserFirebaseManager.shared.currentUserInfo.id {
+                    if request.requestUserId == currentUser.id {
                         
                         requestUsers.append(request.requestedUserId)
                     }
                     
-                    if request.requestedUserId == UserFirebaseManager.shared.currentUserInfo.id {
+                    if request.requestedUserId == currentUser.id {
                         
                         requestedUsers.append(request.requestUserId)
                     }

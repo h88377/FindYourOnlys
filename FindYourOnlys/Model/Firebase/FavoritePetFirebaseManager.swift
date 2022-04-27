@@ -89,6 +89,39 @@ class FavoritePetFirebaseManager {
             }
         }
     }
+    
+    func removeFavoritePet(with userId: String, completion: @escaping (Error?) -> Void) {
+        
+        db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    let removePet = try snapshot.documents[index].data(as: Pet.self)
+                    
+                    if removePet.userID == userId {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
+                    }
+                    
+                } catch {
+                    
+                    completion(error)
+                }
+            }
+            completion(nil)
+        }
+    }
 }
 
 //    func addUserIDInFavoritePet(with userID: Int, completion: @escaping (Error?) -> Void) {
