@@ -22,49 +22,49 @@ class PetSocietyFirebaseManager {
     func fetchArticle(
         with condition: FindPetSocietyFilterCondition? = nil,
         completion: @escaping (Result<[Article], Error>) -> Void) {
-        
-        db.collection(FirebaseCollectionType.article.rawValue)
-            .order(by: "createdTime", descending: true)
-            .addSnapshotListener { snapshot, error in
-                
-                guard
-                    let snapshot = snapshot else { return }
-                
-                var articles = [Article]()
-                
-                for document in snapshot.documents {
+            
+            db.collection(FirebaseCollectionType.article.rawValue)
+                .order(by: "createdTime", descending: true)
+                .addSnapshotListener { snapshot, error in
                     
-                    do {
+                    guard
+                        let snapshot = snapshot else { return }
+                    
+                    var articles = [Article]()
+                    
+                    for document in snapshot.documents {
                         
-                        let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
-                        
-                        switch condition == nil {
+                        do {
                             
-                        case true:
+                            let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
                             
-                            articles.append(article)
-                            
-                        case false:
-                            
-                            // All conditions are filled in.
-                            if article.postType == condition?.postType
-                                && article.petKind == condition?.petKind
-                                && article.city == condition?.city
-                                && article.color == condition?.color {
+                            switch condition == nil {
+                                
+                            case true:
                                 
                                 articles.append(article)
+                                
+                            case false:
+                                
+                                // All conditions are filled in.
+                                if article.postType == condition?.postType
+                                    && article.petKind == condition?.petKind
+                                    && article.city == condition?.city
+                                    && article.color == condition?.color {
+                                    
+                                    articles.append(article)
+                                }
                             }
+                            
+                        } catch {
+                            
+                            completion(.failure(error))
                         }
-                        
-                    } catch {
-                        
-                        completion(.failure(error))
                     }
+                    
+                    completion(.success(articles))
                 }
-                
-                completion(.success(articles))
-            }
-    }
+        }
     
     func publishArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
         
@@ -110,145 +110,166 @@ class PetSocietyFirebaseManager {
     
     func fetchSharedArticle(
         completion: @escaping (Result<[Article], Error>) -> Void) {
-        
-        db.collection(FirebaseCollectionType.sharedArticle.rawValue)
-            .order(by: "createdTime", descending: true)
-            .addSnapshotListener { snapshot, error in
-                
-                guard
-                    let snapshot = snapshot else { return }
-                
-                var articles = [Article]()
-                
-                for document in snapshot.documents {
+            
+            db.collection(FirebaseCollectionType.sharedArticle.rawValue)
+                .order(by: "createdTime", descending: true)
+                .addSnapshotListener { snapshot, error in
                     
-                    do {
+                    guard
+                        let snapshot = snapshot else { return }
+                    
+                    var articles = [Article]()
+                    
+                    for document in snapshot.documents {
                         
-                        let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
-                        
-                        articles.append(article)
-                        
-                    } catch {
-                        
-                        completion(.failure(error))
+                        do {
+                            
+                            let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                            
+                            articles.append(article)
+                            
+                        } catch {
+                            
+                            completion(.failure(error))
+                        }
                     }
+                    completion(.success(articles))
                 }
-                completion(.success(articles))
-            }
-    }
+        }
     
     func deleteArticle(
         with userId: String,
         completion: @escaping (Error?) -> Void) {
-        
-        db.collection(FirebaseCollectionType.article.rawValue).getDocuments { snapshot, error in
             
-            guard
-                let snapshot = snapshot else {
-                    
-                    completion(error)
-                    
-                    return
-                }
-            
-            for index in 0..<snapshot.documents.count {
+            db.collection(FirebaseCollectionType.article.rawValue).getDocuments { snapshot, error in
                 
-                do {
-                    
-                    let deleteArticle = try snapshot.documents[index].data(as: Article.self)
-                    
-                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
-                    
-                    if deleteArticle.userId == currentUserId {
+                guard
+                    let snapshot = snapshot else {
                         
-                        let docID = snapshot.documents[index].documentID
+                        completion(error)
                         
-                        self.db.collection(FirebaseCollectionType.article.rawValue).document("\(docID)").delete()
+                        return
                     }
-                } catch {
+                
+                for index in 0..<snapshot.documents.count {
                     
-                    completion(error)
+                    do {
+                        
+                        let deleteArticle = try snapshot.documents[index].data(as: Article.self)
+                        
+                        let currentUserId = UserFirebaseManager.shared.currentUser?.id
+                        
+                        if deleteArticle.userId == currentUserId {
+                            
+                            let docID = snapshot.documents[index].documentID
+                            
+                            self.db.collection(FirebaseCollectionType.article.rawValue).document("\(docID)").delete()
+                        }
+                    } catch {
+                        
+                        completion(error)
+                    }
+                    
                 }
                 
+                completion(nil)
             }
-            
-            completion(nil)
         }
-    }
     
     func deleteSharedArticle(
         with userId: String,
         completion: @escaping (Error?) -> Void) {
-        
-        db.collection(FirebaseCollectionType.sharedArticle.rawValue).getDocuments { snapshot, error in
             
-            guard
-                let snapshot = snapshot else {
+            db.collection(FirebaseCollectionType.sharedArticle.rawValue).getDocuments { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                
+                for index in 0..<snapshot.documents.count {
                     
-                    completion(error)
+                    do {
+                        
+                        let deleteArticle = try snapshot.documents[index].data(as: Article.self)
+                        
+                        let currentUserId = UserFirebaseManager.shared.currentUser?.id
+                        
+                        if deleteArticle.userId == currentUserId {
+                            
+                            let docID = snapshot.documents[index].documentID
+                            
+                            self.db.collection(FirebaseCollectionType.sharedArticle.rawValue).document("\(docID)").delete()
+                        }
+                    } catch {
+                        
+                        completion(error)
+                    }
                     
-                    return
                 }
+                
+                completion(nil)
+            }
+        }
+    
+    func deleteFriend(
+        withCurrent userId: String,
+        completion: @escaping (Error?) -> Void) {
             
-            for index in 0..<snapshot.documents.count {
+            db.collection(FirebaseCollectionType.user.rawValue).whereField("friends", arrayContains: userId).getDocuments { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
                 
                 do {
+
+                    var users = try snapshot.documents.map { try $0.data(as: User.self) }
                     
-                    let deleteArticle = try snapshot.documents[index].data(as: Article.self)
-                    
-                    let currentUserId = UserFirebaseManager.shared.currentUser?.id
-                    
-                    if deleteArticle.userId == currentUserId {
+                    for index in 0..<users.count {
                         
-                        let docID = snapshot.documents[index].documentID
+                        users[index].friends = users[index].friends.filter { $0 != userId }
                         
-                        self.db.collection(FirebaseCollectionType.sharedArticle.rawValue).document("\(docID)").delete()
+                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(users[index].id).setData(from: users[index])
                     }
-                } catch {
                     
+                    completion(nil)
+
+                } catch {
+
                     completion(error)
                 }
-                
             }
-            
-            completion(nil)
         }
-    }
     
     func fetchDownloadImageURL(
         image: UIImage,
         with type: String,
         completion: @escaping ((Result<URL, Error>) -> Void)) {
-        
-        let storageRef = storage.reference()
-        
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
-        let imageRef = storageRef.child(
-            "\(type)/\(currentUser.id)with time \(Date().timeIntervalSince1970).jpeg"
-        )
-        
-        guard
-            let imageData = image.jpegData(compressionQuality: 0.5) else { return }
-        
-        imageRef.putData(imageData, metadata: nil) { _, error in
+            
+            let storageRef = storage.reference()
             
             guard
-                error == nil
-                    
-            else {
-                
-                completion(.failure(error!))
-                
-                return
-            }
+                let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
-            imageRef.downloadURL { url, error in
+            let imageRef = storageRef.child(
+                "\(type)/\(currentUser.id)with time \(Date().timeIntervalSince1970).jpeg"
+            )
+            
+            guard
+                let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+            
+            imageRef.putData(imageData, metadata: nil) { _, error in
                 
                 guard
-                    error == nil,
-                    let url = url
+                    error == nil
                         
                 else {
                     
@@ -257,10 +278,23 @@ class PetSocietyFirebaseManager {
                     return
                 }
                 
-                completion(.success(url))
+                imageRef.downloadURL { url, error in
+                    
+                    guard
+                        error == nil,
+                        let url = url
+                            
+                    else {
+                        
+                        completion(.failure(error!))
+                        
+                        return
+                    }
+                    
+                    completion(.success(url))
+                }
             }
         }
-    }
     
     // MARK: - ChatRoom
     func fetchChatRoom(completion: @escaping (Result<[ChatRoom], Error>) -> Void) {
@@ -298,39 +332,39 @@ class PetSocietyFirebaseManager {
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
-        db.collection(FirebaseCollectionType.chatRoom.rawValue).getDocuments { snapshot, error in
             
-            guard
-                let snapshot = snapshot else {
-                    
-                    completion(error)
-                    
-                    return
-                }
-            
-            for index in 0..<snapshot.documents.count {
+            db.collection(FirebaseCollectionType.chatRoom.rawValue).getDocuments { snapshot, error in
                 
-                do {
-                    
-                    let deleteChatRoom = try snapshot.documents[index].data(as: ChatRoom.self)
-                    
-                    if deleteChatRoom.userIds.contains(currentUser.id) {
+                guard
+                    let snapshot = snapshot else {
                         
-                        let docID = snapshot.documents[index].documentID
+                        completion(error)
                         
-                        self.db.collection(FirebaseCollectionType.chatRoom.rawValue).document("\(docID)").delete()
+                        return
                     }
-                } catch {
+                
+                for index in 0..<snapshot.documents.count {
                     
-                    completion(error)
+                    do {
+                        
+                        let deleteChatRoom = try snapshot.documents[index].data(as: ChatRoom.self)
+                        
+                        if deleteChatRoom.userIds.contains(currentUser.id) {
+                            
+                            let docID = snapshot.documents[index].documentID
+                            
+                            self.db.collection(FirebaseCollectionType.chatRoom.rawValue).document("\(docID)").delete()
+                        }
+                    } catch {
+                        
+                        completion(error)
+                    }
+                    
                 }
                 
+                completion(nil)
             }
-            
-            completion(nil)
         }
-    }
     
     func fetchMessage(with channelId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
         
@@ -370,37 +404,37 @@ class PetSocietyFirebaseManager {
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
-        db.collection(FirebaseCollectionType.message.rawValue).getDocuments { snapshot, error in
             
-            guard
-                let snapshot = snapshot else {
-                    
-                    completion(error)
-                    
-                    return
-                }
-            
-            for index in 0..<snapshot.documents.count {
+            db.collection(FirebaseCollectionType.message.rawValue).getDocuments { snapshot, error in
                 
-                do {
-                    
-                    let deleteMessage = try snapshot.documents[index].data(as: Message.self)
-                    
-                    if deleteMessage.senderId == currentUser.id {
+                guard
+                    let snapshot = snapshot else {
                         
-                        let docID = snapshot.documents[index].documentID
+                        completion(error)
                         
-                        self.db.collection(FirebaseCollectionType.message.rawValue).document("\(docID)").delete()
+                        return
                     }
-                } catch {
+                
+                for index in 0..<snapshot.documents.count {
                     
-                    completion(error)
+                    do {
+                        
+                        let deleteMessage = try snapshot.documents[index].data(as: Message.self)
+                        
+                        if deleteMessage.senderId == currentUser.id {
+                            
+                            let docID = snapshot.documents[index].documentID
+                            
+                            self.db.collection(FirebaseCollectionType.message.rawValue).document("\(docID)").delete()
+                        }
+                    } catch {
+                        
+                        completion(error)
+                    }
                 }
+                completion(nil)
             }
-            completion(nil)
         }
-    }
     
     func sendMessage(_ senderId: String, with message: inout Message, completion: @escaping (Error?) -> Void) {
         
@@ -522,7 +556,7 @@ class PetSocietyFirebaseManager {
     
     
     // MARK: - Convert functions
-
+    
     private func convertArticlesToViewModels(from articles: [Article]) -> [ArticleViewModel] {
         
         var viewModels = [ArticleViewModel]()
@@ -535,7 +569,7 @@ class PetSocietyFirebaseManager {
         }
         return viewModels
     }
-
+    
     func setArticles(with viewModels: Box<[ArticleViewModel]>, articles: [Article]) {
         
         viewModels.value = convertArticlesToViewModels(from: articles)
