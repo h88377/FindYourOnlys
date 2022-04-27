@@ -144,7 +144,12 @@ class PetSocietyFirebaseManager {
         db.collection(FirebaseCollectionType.article.rawValue).getDocuments { snapshot, error in
             
             guard
-                let snapshot = snapshot else { return }
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
             
             for index in 0..<snapshot.documents.count {
                 
@@ -166,6 +171,8 @@ class PetSocietyFirebaseManager {
                 }
                 
             }
+            
+            completion(nil)
         }
     }
     
@@ -176,7 +183,12 @@ class PetSocietyFirebaseManager {
         db.collection(FirebaseCollectionType.sharedArticle.rawValue).getDocuments { snapshot, error in
             
             guard
-                let snapshot = snapshot else { return }
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
             
             for index in 0..<snapshot.documents.count {
                 
@@ -198,6 +210,8 @@ class PetSocietyFirebaseManager {
                 }
                 
             }
+            
+            completion(nil)
         }
     }
     
@@ -288,7 +302,12 @@ class PetSocietyFirebaseManager {
         db.collection(FirebaseCollectionType.chatRoom.rawValue).getDocuments { snapshot, error in
             
             guard
-                let snapshot = snapshot else { return }
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
             
             for index in 0..<snapshot.documents.count {
                 
@@ -308,6 +327,8 @@ class PetSocietyFirebaseManager {
                 }
                 
             }
+            
+            completion(nil)
         }
     }
     
@@ -353,7 +374,12 @@ class PetSocietyFirebaseManager {
         db.collection(FirebaseCollectionType.message.rawValue).getDocuments { snapshot, error in
             
             guard
-                let snapshot = snapshot else { return }
+                let snapshot = snapshot else {
+                    
+                    completion(error)
+                    
+                    return
+                }
             
             for index in 0..<snapshot.documents.count {
                 
@@ -371,8 +397,8 @@ class PetSocietyFirebaseManager {
                     
                     completion(error)
                 }
-                
             }
+            completion(nil)
         }
     }
     
