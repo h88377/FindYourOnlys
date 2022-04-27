@@ -52,6 +52,9 @@
                         <state key="normal" image="suit.heart" catalog="system">
                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35"/>
                         </state>
+                        <connections>
+                            <action selector="toggleFavorite:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Kie-kj-CaB"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msQ-n5-UeQ">
                         <rect key="frame" x="233" y="10" width="30" height="30"/>
@@ -64,6 +67,9 @@
                         <state key="normal" image="message" catalog="system">
                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
                         </state>
+                        <connections>
+                            <action selector="leaveMessage:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="J78-OZ-a3g"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAv-ST-XUv">
                         <rect key="frame" x="16" y="60" width="392" height="407"/>

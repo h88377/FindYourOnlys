@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+struct Comment: Codable {
+    
+    let articleId: String
+    
+    let userId: String
+    
+    let content: String
+    
+    let createdTime: TimeInterval
+    
+    let senderId: String
+}
