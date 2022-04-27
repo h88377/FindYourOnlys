@@ -9,19 +9,190 @@ import UIKit
 
 class PetSocietyCommentViewController: BaseModalViewController {
     
-    @IBOutlet weak var commentTextField: ContentInsetTextField!
+    private enum MessageType: String {
+        
+        case placeHolder = "請輸入訊息"
+    }
     
-    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var commentTextView: UITextView! {
+        
+        didSet {
+            
+            commentTextView.delegate = self
+            
+            commentTextView.text = MessageType.placeHolder.rawValue
+            
+            commentTextView.textColor = UIColor.systemGray3
+            
+            commentTextView.layer.borderWidth = 1
+            
+            commentTextView.layer.borderColor = UIColor.systemGray5.cgColor
+        }
+    }
     
+    @IBOutlet weak var sendButton: UIButton! {
+        
+        didSet {
+            
+            sendButton.tintColor = sendButton.isEnabled
+            ? .systemBlue
+            : .gray
+        }
+    }
+    
+    @IBOutlet weak var tableView: UITableView! {
+        
+        didSet {
+            
+            tableView.delegate = self
+            
+            tableView.dataSource = self
+        }
+    }
+    
+    let viewModel = PetSocietyCommentViewModel()
+    
+    override var isHiddenIQKeyboardToolBar: Bool { return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.fetchComments()
         
+        checkCommentButton()
+        
+        viewModel.errorViewModel.bind { errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                print(errorViewModel?.error)
+                
+                return
+            }
+        }
+        
+        viewModel.senderViewModels.bind { [weak self] _ in
+            
+            DispatchQueue.main.async {
+                
+                self?.tableView.reloadData()
+            }
+            
+        }
+        
+        viewModel.commentViewModels.bind { [weak self] _ in
+            
+            DispatchQueue.main.async {
+                
+                self?.tableView.reloadData()
+            }
+            
+        }
+        
+        viewModel.endEditCommentHandler = { [weak self] in
+            
+            self?.commentTextView.text = MessageType.placeHolder.rawValue
+
+            self?.commentTextView.textColor = UIColor.systemGray3
+            
+            self?.checkCommentButton()
+        }
+        
+        viewModel.beginEditCommentHander = { [weak self ] in
+            
+            if self?.commentTextView.textColor == UIColor.systemGray3 {
+                
+                self?.commentTextView.text = nil
+                
+                self?.commentTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.editCommentHandler = { [weak self] in
+            
+            self?.checkCommentButton()
+            
+            if self?.commentTextView.textColor == UIColor.systemGray3 {
+                
+                self?.commentTextView.textColor = UIColor.black
+            }
+        }
+    }
+    
+    override func setupTableView() {
+        super.setupTableView()
+        
+        tableView.registerCellWithIdentifier(identifier: CommentCell.identifier)
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
+        
+        viewModel.changedContent(with: commentTextView.text)
+        
+        viewModel.leaveComment()
+        
+        commentTextView.text = ""
+
+        commentTextView.textColor = UIColor.systemGray3
+
+        checkCommentButton()
     }
     
+    func checkCommentButton() {
+        
+        if commentTextView.text != MessageType.placeHolder.rawValue
+            && commentTextView.text?.isEmpty == false {
+            
+            sendButton.isEnabled = true
+            
+        } else {
+            
+            sendButton.isEnabled = false
+        }
+    }
+}
 
+// MARK: - UITableViewDataSource & Delegate
+extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        viewModel.commentViewModels.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath)
+        
+        guard
+            let commentCell = cell as? CommentCell
+                
+        else { return cell }
+        
+        commentCell.configure(with: viewModel.commentViewModels.value[indexPath.row], senderViewModel: viewModel.senderViewModels.value[indexPath.row])
+        
+        return commentCell
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension PetSocietyCommentViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        viewModel.beginEditMessage()
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        viewModel.editMessage()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        viewModel.endEditMessage()
+    }
 }

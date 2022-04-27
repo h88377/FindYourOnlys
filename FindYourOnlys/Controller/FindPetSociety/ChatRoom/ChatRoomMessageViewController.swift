@@ -6,15 +6,13 @@
 //
 
 import UIKit
-//import IQKeyboardManagerSwift
 
 class ChatRoomMessageViewController: BaseViewController {
     
     private enum MessageType: String {
         
         case placeHolder = "請輸入訊息"
-        
-//        case empty = ""
+
     }
     
     @IBOutlet weak var messageTextView: UITextView! {

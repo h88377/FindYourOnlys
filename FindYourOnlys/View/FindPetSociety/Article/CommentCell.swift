@@ -23,4 +23,15 @@ class CommentCell: UITableViewCell {
         
         userImageView.layer.cornerRadius = userImageView.frame.height / 2
     }
+    
+    func configure(with viewModel: CommentViewModel, senderViewModel: UserViewModel) {
+        
+        nickNameLabel.text = senderViewModel.user.nickName
+        
+        commentLabel.text = viewModel.comment.content
+        
+        createdTimeLabel.text = viewModel.comment.createdTime.formatedTime
+        
+        userImageView.loadImage(senderViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+    }
 }

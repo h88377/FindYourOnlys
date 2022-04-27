@@ -18,8 +18,11 @@ class ChatRoomMessageViewModel {
     var selectedFriend: User?
     
     var message = Message(
-        chatRoomId: "", senderId: "", content: "",
-        contentImageURLString: "", createdTime: -1
+        chatRoomId: "",
+        senderId: "",
+        content: "",
+        contentImageURLString: "",
+        createdTime: -1
     )
     
     var editMessageHandler: (() -> Void)?
