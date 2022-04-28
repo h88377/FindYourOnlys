@@ -190,11 +190,40 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configureCell(with: cellViewModel)
             
+            cell.leaveMessageHandler = { [weak self] in
+                
+                let storyboard = UIStoryboard.findPetSociety
+                
+                guard
+                    let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController
+                        
+                else { return }
+                
+                petSocietyCommentVC.modalPresentationStyle = .custom
+                
+                petSocietyCommentVC.transitioningDelegate = self
+                
+                petSocietyCommentVC.viewModel.selectedArticle = cellViewModel.article
+                
+                petSocietyCommentVC.viewModel.selectedAuthor = authorCellViewModel.user
+                
+                self?.present(petSocietyCommentVC, animated: true)
+            }
+            
             return cell
             
         default:
         
             return UITableViewCell()
         }
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension ShareSocietyViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

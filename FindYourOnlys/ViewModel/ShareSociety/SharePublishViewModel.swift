@@ -96,7 +96,7 @@ extension SharePublishViewModel {
             
 
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishSharedArticle(
+            PetSocietyFirebaseManager.shared.publishArticle(
                 currentUser.id, with: &self.article) { error in
 
                 guard
