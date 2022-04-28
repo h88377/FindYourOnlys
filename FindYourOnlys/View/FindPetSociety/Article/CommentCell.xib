@@ -49,13 +49,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="8oG-kZ-hOP"/>
                     <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="LIq-8P-mSS"/>
                     <constraint firstItem="iUS-YB-Kky" firstAttribute="leading" secondItem="Bgq-Bs-6Lf" secondAttribute="trailing" constant="20" id="OkN-QM-vW3"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="leading" secondItem="iUS-YB-Kky" secondAttribute="trailing" constant="20" id="SyL-ky-Bwp"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="10" id="UVz-Eb-2Ja"/>
                     <constraint firstAttribute="bottom" secondItem="iUS-YB-Kky" secondAttribute="bottom" constant="10" id="Wqp-36-pln"/>
-                    <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Bgq-Bs-6Lf" secondAttribute="bottom" constant="10" id="h89-wm-Bhv"/>
+                    <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="top" secondItem="iUS-YB-Kky" secondAttribute="top" id="dsN-4n-PAd"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="bottom" secondItem="iUS-YB-Kky" secondAttribute="bottom" id="kSj-Rs-FxC"/>
                     <constraint firstItem="iUS-YB-Kky" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="stP-O3-oCf"/>
                 </constraints>
