@@ -15,6 +15,8 @@ class FindPetSocietyViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
+    var shareHanlder: ((ArticleViewModel) -> Void)?
+    
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .missing, with: condition) { [weak self] result in
@@ -71,6 +73,11 @@ class FindPetSocietyViewModel {
                 return
             }
         }
+    }
+    
+    func shareArticle(with articleViewModel: ArticleViewModel) {
+        
+        shareHanlder?(articleViewModel)
     }
     
     private func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
