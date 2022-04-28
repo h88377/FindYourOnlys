@@ -253,7 +253,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 
                 petSocietyCommentVC.transitioningDelegate = self
                 
-                petSocietyCommentVC.viewModel.article = cellViewModel.article
+                petSocietyCommentVC.viewModel.selectedArticle = cellViewModel.article
                 
                 self?.present(petSocietyCommentVC, animated: true)
             }
