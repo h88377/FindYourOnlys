@@ -11,6 +11,8 @@ class PetSocietyCommentViewModel {
     
     var selectedArticle: Article?
     
+    var selectedAuthor: User?
+    
     var selectedArticleViewModel: Box<ArticleViewModel?> = Box(nil)
     
     var commentViewModels = Box([CommentViewModel]())

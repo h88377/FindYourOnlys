@@ -255,6 +255,8 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 
                 petSocietyCommentVC.viewModel.selectedArticle = cellViewModel.article
                 
+                petSocietyCommentVC.viewModel.selectedAuthor = authorCellViewModel.user
+                
                 self?.present(petSocietyCommentVC, animated: true)
             }
             

@@ -17,9 +17,20 @@ extension UITableView {
         register(nib, forCellReuseIdentifier: identifier)
     }
     
+    func registerViewWithIdentifier(identifier: String) {
+        
+        let nib = UINib(nibName: identifier, bundle: nil)
+        
+        register(nib, forHeaderFooterViewReuseIdentifier: identifier)
+    }
 }
 
 extension UITableViewCell {
+    
+    static var identifier: String { return "\(self.self)"}
+}
+
+extension UITableViewHeaderFooterView {
     
     static var identifier: String { return "\(self.self)"}
 }
