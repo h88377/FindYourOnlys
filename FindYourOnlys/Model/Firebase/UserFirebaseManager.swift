@@ -92,30 +92,6 @@ class UserFirebaseManager {
     // Unhashed nonce.
     var currentNonce: String?
     
-    
-    // swiftlint:disable line_length
-    // Wayne
-    //    var currentUser: String { return "123" }
-    //
-    //    var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911" }
-    //    var currentUserInfo: User {
-    //
-    //        return User(id: "123", nickName: "Wayne", email: "123@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123.jpeg?alt=media&token=fdac6ab2-47e1-4f9a-b5f2-20c464e7f911",
-    //                    friends: ["321", "456", "654"], limitedUsers: ["444"])
-    //    }
-    
-    // Luke
-    
-//    var currentUser: String { return "321" }
-    
-//    var currentUserImageURL: String { return "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2" }
-    
-//    var currentUserInfo: User {
-//
-//        return User(id: "321", nickName: "Luke", email: "321@email", imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/findyouronlys.appspot.com/o/images%2F123with%20time%201649930593.570539.jpeg?alt=media&token=85c08303-a395-49c8-a45e-6650258037f2",
-//                    friends: ["123"], limitedUsers: ["444"])
-//    }
-    
     var initialUser = Auth.auth().currentUser
         
     var currentUser: User?
@@ -590,12 +566,7 @@ class UserFirebaseManager {
                     completion(nil)
                 }
             }
-
         }
-        
-        
-        
-        
     }
     
     func deleteUser(with userId: String, completion: @escaping (Error?) -> Void) {
@@ -643,43 +614,6 @@ class UserFirebaseManager {
             }
     }
     
-    func fetchUser(withUserIds userIds: [String], completion: @escaping (Result<[User], Error>) -> Void) {
-        
-        guard
-            userIds.count > 0
-        
-        else {
-            
-            completion(.success([]))
-            
-            return
-        }
-        
-        db.collection(FirebaseCollectionType.user.rawValue)
-            .whereField("id", in: userIds)
-            .addSnapshotListener { snapshot, error in
-                
-                guard
-                    let snapshot = snapshot else {
-                        
-                        completion(.failure(error!))
-                        
-                        return
-                    }
-                
-                do {
-                    
-                    let users = try snapshot.documents.map { try $0.data(as: User.self) }
-                    
-                    completion(.success(users))
-                    
-                } catch {
-                    
-                    completion(.failure(error))
-                }
-            }
-    }
-    
     func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Error?) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(id)")
@@ -723,5 +657,4 @@ class UserFirebaseManager {
         
         viewModels.value = UserFirebaseManager.shared.convertUserToViewModels(from: users)
     }
-    
 }

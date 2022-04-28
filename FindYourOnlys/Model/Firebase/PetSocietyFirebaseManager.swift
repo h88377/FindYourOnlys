@@ -292,53 +292,48 @@ class PetSocietyFirebaseManager {
             }
         }
     
-    func leaveComment(withArticleId articleId: String, comment: Comment, completion: @escaping (Error?) -> Void) {
-        
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
-        fetchArticle(withArticleId: articleId) { [weak self] result in
-            
-            guard
-                let self = self else { return }
-
-            switch result {
-
-            case .success(var article):
-
-                article.comments.append(comment)
-                
-                do {
-                    try self.db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
-                } catch {
-                    
-                    completion(error)
-                }
-
-            case .failure(let error):
-
-                completion(error)
-            }
-        }
-        
-//        let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
+//    func leaveComment(withArticleId articleId: String, comment: Comment, completion: @escaping (Error?) -> Void) {
 //
-//        do {
+//        guard
+//            let currentUser = UserFirebaseManager.shared.currentUser else { return }
 //
-//            comment.articleId = articleId
+//        fetchArticle(withArticleId: articleId) { [weak self] result in
 //
-//            comment.userId = currentUser.id
+//            guard
+//                let self = self else { return }
 //
-//            comment.createdTime = NSDate().timeIntervalSince1970
+//            switch result {
 //
+//            case .success(var article):
 //
+//                article.comments.append(comment)
 //
-//            try documentReference.setData(from: comment)
+//                do {
+//                    try self.db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
 //
-//        } catch {
+//                } catch {
 //
-//            completion(error)
+//                    completion(error)
+//                }
+//
+//            case .failure(let error):
+//
+//                completion(error)
+//            }
 //        }
+//    }
+    
+    func leaveComment(withArticle article: inout Article, comment: Comment, completion: @escaping (Error?) -> Void) {
+        
+        article.comments.append(comment)
+        
+        do {
+            try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
+            
+        } catch {
+            
+            completion(error)
+        }
     }
     
     // MARK: - ChatRoom

@@ -160,7 +160,12 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.commentViewModels.value.count
+        guard
+            viewModel.commentViewModels.value.count == viewModel.senderViewModels.value.count
+                
+        else { return 0 }
+        
+        return viewModel.commentViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

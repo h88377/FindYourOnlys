@@ -73,7 +73,7 @@ class PetSocietyCommentViewModel {
     func leaveComment() {
         
         guard
-            let article = article,
+            var article = article,
             let currentUser = UserFirebaseManager.shared.currentUser
                 
         else { return }
@@ -84,7 +84,7 @@ class PetSocietyCommentViewModel {
 
         comment.createdTime = NSDate().timeIntervalSince1970
 
-        PetSocietyFirebaseManager.shared.leaveComment(withArticleId: article.id, comment: comment) { [weak self] error in
+        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] error in
             
             guard
                 error == nil
@@ -103,7 +103,7 @@ class PetSocietyCommentViewModel {
 
         let userIds = article.comments.map { $0.userId }
         
-        UserFirebaseManager.shared.fetchUser(withUserIds: userIds) { [weak self] result in
+        UserFirebaseManager.shared.fetchUser { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -112,11 +112,22 @@ class PetSocietyCommentViewModel {
                 
             case .success(let users):
                 
-                UserFirebaseManager.shared.setUsers(with: self.senderViewModels, users: users)
+                var senders = [User]()
+                
+                for userId in userIds {
+                    
+                    for user in users where userId == user.id {
+                            
+                        senders.append(user)
+                    }
+                }
+                
+                UserFirebaseManager.shared.setUsers(with: self.senderViewModels, users: senders)
                 
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
             }
         }
     }
