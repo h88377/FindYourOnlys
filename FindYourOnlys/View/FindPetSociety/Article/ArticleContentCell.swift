@@ -9,7 +9,15 @@ import UIKit
 
 class ArticleContentCell: UITableViewCell {
 
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton! {
+        
+        didSet {
+            
+            likeButton.setImage(UIImage.system(.addToFavorite), for: .normal)
+            
+            likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
+        }
+    }
     
     @IBOutlet weak var leaveCommentButton: UIButton!
     
@@ -31,11 +39,16 @@ class ArticleContentCell: UITableViewCell {
  
     @IBOutlet weak var colorLabel: UILabel!
     
-    var leaveMessageHandler: (() -> Void)?
+    var leaveCommentHandler: (() -> Void)?
     
-    var toggleFavoriteHandler: (() -> Void)?
+    var likeArticleHandler: (() -> Void)?
+    
+    var unlikeArticleHandler: (() -> Void)?
     
     func configureCell(with viewModel: ArticleViewModel) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         likeCountLabel.text = "\(viewModel.article.likeUserIds.count)"
         
@@ -46,17 +59,30 @@ class ArticleContentCell: UITableViewCell {
         contentLabel.text = viewModel.article.content
         
         colorLabel.text = viewModel.article.color
+        
+        likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
          
     }
     
-    @IBAction func leaveMessage(_ sender: UIButton) {
+    @IBAction func leaveComment(_ sender: UIButton) {
         
-        leaveMessageHandler?()
+        leaveCommentHandler?()
     }
     
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
-        toggleFavoriteHandler?()
+        switch likeButton.isSelected {
+            
+        case true:
+            
+            unlikeArticleHandler?()
+            
+        case false:
+            
+            likeArticleHandler?()
+            
+        }
+        
     }
     
 }

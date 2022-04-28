@@ -41,6 +41,38 @@ class ShareSocietyViewModel {
         
     }
     
+    func likeArticle(with articleViewModel: ArticleViewModel) {
+        
+        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
+        }
+    }
+    
+    func unlikeArticle(with articleViewModel: ArticleViewModel) {
+        
+        PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
+        }
+    }
+    
     private func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
