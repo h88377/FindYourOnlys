@@ -155,9 +155,7 @@ class ChatRoomMessageViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: ChatRoomMessageCell.identifier)
         
     }
-    
-   
-    
+       
     @IBAction func sendMessage(_ sender: UIButton) {
         
         viewModel.changedContent(with: messageTextView.text)

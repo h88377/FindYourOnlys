@@ -9,7 +9,9 @@ import Foundation
 
 class PetSocietyCommentViewModel {
     
-    var article: Article?
+    var selectedArticle: Article?
+    
+    var selectedArticleViewModel: Box<ArticleViewModel?> = Box(nil)
     
     var commentViewModels = Box([CommentViewModel]())
     
@@ -30,6 +32,8 @@ class PetSocietyCommentViewModel {
     
     var endEditCommentHandler: (() -> Void)?
     
+    var scrollToBottomHandler: (() -> Void)?
+    
     func editMessage() {
         
         editCommentHandler?()
@@ -45,12 +49,17 @@ class PetSocietyCommentViewModel {
         endEditCommentHandler?()
     }
     
+    func scrollToBottom() {
+        
+        scrollToBottomHandler?()
+    }
+    
     func fetchComments() {
 
         guard
-            let article = article else { return }
+            let selectedArticle = selectedArticle else { return }
 
-        PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: article.id) { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: selectedArticle.id) { [weak self] result in
 
             guard
                 let self = self else { return }
@@ -58,6 +67,8 @@ class PetSocietyCommentViewModel {
             switch result {
 
             case .success(let article):
+                
+                self.selectedArticleViewModel.value = ArticleViewModel(model: article)
 
                 PetSocietyFirebaseManager.shared.setComments(with: self.commentViewModels, comments: article.comments)
                 
@@ -73,7 +84,7 @@ class PetSocietyCommentViewModel {
     func leaveComment() {
         
         guard
-            var article = article,
+            var article = selectedArticleViewModel.value?.article,
             let currentUser = UserFirebaseManager.shared.currentUser
                 
         else { return }
@@ -96,7 +107,6 @@ class PetSocietyCommentViewModel {
                 return
             }
         }
-        
     }
     
     private func fetchSenders(withArticle article: Article) {

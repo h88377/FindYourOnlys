@@ -76,18 +76,31 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         viewModel.senderViewModels.bind { [weak self] _ in
             
+            guard
+                let self = self,
+                self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
+                    
+            else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
+                    
+                self.viewModel.scrollToBottom()
             }
-            
         }
         
         viewModel.commentViewModels.bind { [weak self] _ in
             
+            guard
+                let self = self,
+                self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
+                    
+            else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
             }
             
         }
@@ -120,6 +133,25 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 self?.commentTextView.textColor = UIColor.black
             }
         }
+        
+        viewModel.scrollToBottomHandler = { [weak self] in
+            
+            guard
+                let commentCount = self?.viewModel.commentViewModels.value.count,
+                commentCount > 0
+                    
+            else { return }
+            
+            let indexPath = IndexPath(row: commentCount - 1, section: 0)
+            
+            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        commentTextView.layer.cornerRadius = 5
     }
     
     override func setupTableView() {
@@ -161,7 +193,7 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard
-            viewModel.commentViewModels.value.count == viewModel.senderViewModels.value.count
+             viewModel.commentViewModels.value.count == viewModel.senderViewModels.value.count
                 
         else { return 0 }
         
