@@ -17,7 +17,7 @@ class ShareSocietyViewModel {
     
     func fetchSharedArticles() {
         
-        PetSocietyFirebaseManager.shared.fetchSharedArticle() { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .share) { [weak self] result in
             
             guard
                 let self = self else { return }

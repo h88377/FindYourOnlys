@@ -270,7 +270,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
     
 }
 
-// MARK: - FindPetSocietyViewController
+// MARK: - UIViewControllerTransitioningDelegate
 extension FindPetSocietyViewController: UIViewControllerTransitioningDelegate {
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {

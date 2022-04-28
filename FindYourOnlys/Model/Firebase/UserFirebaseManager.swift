@@ -448,22 +448,22 @@ class UserFirebaseManager {
             }
             
             // SharedArticle
-            group.enter()
-            PetSocietyFirebaseManager.shared.deleteSharedArticle(with: user.uid) { error in
-                
-                guard
-                    error == nil
-                        
-                else {
-                    
-                    completion(DeleteDataError.deleteArticleError)
-                    
-                    group.leave()
-                    
-                    return
-                }
-                group.leave()
-            }
+//            group.enter()
+//            PetSocietyFirebaseManager.shared.deleteSharedArticle(with: user.uid) { error in
+//                
+//                guard
+//                    error == nil
+//                        
+//                else {
+//                    
+//                    completion(DeleteDataError.deleteArticleError)
+//                    
+//                    group.leave()
+//                    
+//                    return
+//                }
+//                group.leave()
+//            }
             
             // ChatRoom
             group.enter()
