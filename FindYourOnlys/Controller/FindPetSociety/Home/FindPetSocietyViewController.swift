@@ -102,6 +102,27 @@ class FindPetSocietyViewController: BaseViewController {
         }
         
         viewModel.fetchArticles()
+        
+        viewModel.shareHanlder = { [weak self] articleViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            // Generate the screenshot
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            
+            self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
+            
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            let items: [Any] = [image]
+            
+            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            
+            self.present(activityVC, animated: true)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -268,6 +289,11 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 petSocietyCommentVC.viewModel.selectedAuthor = authorCellViewModel.user
                 
                 self?.present(petSocietyCommentVC, animated: true)
+            }
+            
+            cell.shareHandler = { [weak self] in
+                
+                self?.viewModel.shareArticle(with: cellViewModel)
             }
             
             return cell

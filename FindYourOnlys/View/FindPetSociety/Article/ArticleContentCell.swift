@@ -45,6 +45,8 @@ class ArticleContentCell: UITableViewCell {
     
     var unlikeArticleHandler: (() -> Void)?
     
+    var shareHandler: (() -> Void)?
+    
     func configureCell(with viewModel: ArticleViewModel) {
         
         guard
@@ -83,6 +85,23 @@ class ArticleContentCell: UITableViewCell {
             
         }
         
+    }
+    
+    @IBAction func share(_ sender: UIButton) {
+           
+        shareHandler?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        shareHandler = nil
+        
+        unlikeArticleHandler = nil
+        
+        likeArticleHandler = nil
+        
+        leaveCommentHandler = nil
     }
     
 }
