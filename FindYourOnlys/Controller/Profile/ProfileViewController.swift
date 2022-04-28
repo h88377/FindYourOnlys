@@ -60,8 +60,83 @@ class ProfileViewController: BaseViewController {
         
         collectionView.registerCellWithIdentifier(identifier: ProfileArticleCell.identifier)
         
+        collectionView.registerHeaderViewWithIdentifier(identifier: ProfileArticleHeaderView.getIdentifier())
+        
+//        collectionView.collectionViewLayout = configureCollectionViewLayout()
+        
         setupCollectionViewLayout()
     }
+    
+    // UICollectionViewCompositionalLayout
+//    func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+//
+//        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+//
+//          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+//          let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//          item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+//
+//          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.3))
+//          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+//
+//          let section = NSCollectionLayoutSection(group: group)
+//          section.orthogonalScrollingBehavior = .groupPaging
+//          section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+//          section.interGroupSpacing = 10
+//
+//          let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+//          let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+//          section.boundarySupplementaryItems = [sectionHeader]
+//
+//          return section
+//        }
+//        let sectionProvider = { (
+//            sectionIndex: Int,
+//            layoutEnvironment: NSCollectionLayoutEnvironment)
+//            -> NSCollectionLayoutSection? in
+//
+//            let itemSize = NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1.0),
+//                heightDimension: .fractionalHeight(1.0)
+//            )
+//
+//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//
+//            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
+//
+//            let groupSize = NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1 / 3),
+//                heightDimension: .fractionalHeight(0.75)
+//            )
+//
+//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 2)
+//
+//            let section = NSCollectionLayoutSection(group: group)
+//
+//            section.interGroupSpacing = 8
+//
+//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+//
+//            section.orthogonalScrollingBehavior = .groupPaging
+//
+//            let headerSize = NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1.0),
+//                heightDimension: .estimated(44)
+//            )
+//
+//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+//                layoutSize: headerSize,
+//                elementKind: UICollectionView.elementKindSectionHeader,
+//                alignment: .topLeading
+//            )
+//
+//            section.boundarySupplementaryItems = [sectionHeader]
+//
+//            return section
+//        }
+        
+//        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+//    }
     
     private func setupCollectionViewLayout() {
 
@@ -136,7 +211,7 @@ class ProfileViewController: BaseViewController {
 }
 
 // MARK: - UICollectionViewDataSource and Delegate
-extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         
@@ -148,9 +223,15 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         viewModel.profileArticleViewModels.value[section].profileArticle.articles.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileArticleCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ProfileArticleCell.identifier,
+            for: indexPath
+        )
         
         guard
             let profileArticleCell = cell as? ProfileArticleCell else { return cell }
@@ -161,12 +242,48 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         return profileArticleCell
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath)
+    -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: ProfileArticleHeaderView.getIdentifier(),
+            for: indexPath
+        )
+        
+        guard
+            let profileArticleHeaderView = headerView as? ProfileArticleHeaderView
+                
+        else { return headerView }
+        
+        let cellViewModel = viewModel.profileArticleViewModels.value[indexPath.section]
+        
+        profileArticleHeaderView.configureView(with: cellViewModel.profileArticle)
+        
+        return profileArticleHeaderView
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int)
+    -> CGSize {
+        
+        CGSize(width: collectionView.frame.width, height: 44)
+    }
+    
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
 extension ProfileViewController: UIViewControllerTransitioningDelegate {
     
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?, source: UIViewController)
+    -> UIPresentationController? {
         
         PresentationController(presentedViewController: presented, presenting: presenting)
     }

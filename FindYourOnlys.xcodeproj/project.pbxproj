@@ -30,6 +30,8 @@
 		987D8B5A281AAD39000D1F95 /* ProfileArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B59281AAD39000D1F95 /* ProfileArticleCell.xib */; };
 		987D8B5C281AAE3B000D1F95 /* ProfileArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B5B281AAE3B000D1F95 /* ProfileArticle.swift */; };
 		987D8B5E281AAEE1000D1F95 /* ProfileArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */; };
+		987D8B61281ABD95000D1F95 /* ProfileArticleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B5F281ABD95000D1F95 /* ProfileArticleHeaderView.swift */; };
+		987D8B64281ABDD0000D1F95 /* ProfileArticleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B63281ABDD0000D1F95 /* ProfileArticleHeaderView.xib */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -203,6 +205,8 @@
 		987D8B59281AAD39000D1F95 /* ProfileArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileArticleCell.xib; sourceTree = "<group>"; };
 		987D8B5B281AAE3B000D1F95 /* ProfileArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArticle.swift; sourceTree = "<group>"; };
 		987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArticleViewModel.swift; sourceTree = "<group>"; };
+		987D8B5F281ABD95000D1F95 /* ProfileArticleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArticleHeaderView.swift; sourceTree = "<group>"; };
+		987D8B63281ABDD0000D1F95 /* ProfileArticleHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileArticleHeaderView.xib; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -597,6 +601,8 @@
 				9896D931280D6694003D4A16 /* FriendRequestCell.xib */,
 				987D8B55281AAD02000D1F95 /* ProfileArticleCell.swift */,
 				987D8B59281AAD39000D1F95 /* ProfileArticleCell.xib */,
+				987D8B5F281ABD95000D1F95 /* ProfileArticleHeaderView.swift */,
+				987D8B63281ABDD0000D1F95 /* ProfileArticleHeaderView.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1019,6 +1025,7 @@
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
 				9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */,
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
+				987D8B64281ABDD0000D1F95 /* ProfileArticleHeaderView.xib in Resources */,
 				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
@@ -1173,6 +1180,7 @@
 				98CC15C728017A3700B9FDC6 /* UITableView+Extension.swift in Sources */,
 				989399F7280FB10E004312F1 /* MapManager.swift in Sources */,
 				98CC15FB28028D3400B9FDC6 /* LSPet+CoreDataClass.swift in Sources */,
+				987D8B61281ABD95000D1F95 /* ProfileArticleHeaderView.swift in Sources */,
 				98CC166A2806C14200B9FDC6 /* PetSocietyFirebaseManager.swift in Sources */,
 				98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */,
 				98CC164428059EE800B9FDC6 /* PublishSelectionCell.swift in Sources */,
