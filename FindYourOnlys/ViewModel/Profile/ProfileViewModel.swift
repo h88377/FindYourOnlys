@@ -11,6 +11,46 @@ class ProfileViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
+    var profileArticleViewModels = Box([ProfileArticleViewModel]())
+    
+    func fetchProfileArticle() {
+        
+        PetSocietyFirebaseManager.shared.fetchArticle() { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let articles):
+                
+                var missingProfileArticles = ProfileArticle(articleType: .missing, articles: [Article]())
+                
+                var shareProfileArticles = ProfileArticle(articleType: .share, articles: [Article]())
+                
+                for article in articles {
+                    
+                    switch article.postType != nil {
+                        
+                    case true:
+                        
+                        missingProfileArticles.articles.append(article)
+                        
+                    case false:
+                        
+                        shareProfileArticles.articles.append(article)
+                    }
+                }
+                
+                PetSocietyFirebaseManager.shared.setProfileArticles(with: self.profileArticleViewModels, profileArticles: [missingProfileArticles, shareProfileArticles])
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    
     func signOut() {
         
         UserFirebaseManager.shared.signOut { [weak self] error in

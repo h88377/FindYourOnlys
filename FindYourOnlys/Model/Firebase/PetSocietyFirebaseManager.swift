@@ -26,67 +26,108 @@ class PetSocietyFirebaseManager {
     private let storage = Storage.storage()
     
     // MARK: - Article
-    func fetchArticle(articleType: ArticleType,
-        with condition: FindPetSocietyFilterCondition? = nil,
-        completion: @escaping (Result<[Article], Error>) -> Void) {
-            
-            db.collection(FirebaseCollectionType.article.rawValue)
-                .order(by: "createdTime", descending: true)
-                .addSnapshotListener { snapshot, error in
-                    
-                    guard
-                        let snapshot = snapshot else { return }
-                    
-                    var articles = [Article]()
-                    
-                    for document in snapshot.documents {
+    func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        db.collection(FirebaseCollectionType.article.rawValue)
+            .whereField("userId", isEqualTo: currentUser.id)
+            .order(by: "createdTime", descending: true)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot
                         
-                        do {
+                else {
+                    
+                    completion(.failure(error!))
+                    
+                    return
+                }
+                
+                do {
+                    
+                    let articles = try snapshot.documents.map { try $0.data(as: Article.self)}
+                    
+                    completion(.success(articles))
+                    
+                } catch {
+                    
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func fetchArticle(articleType: ArticleType,
+                      with condition: FindPetSocietyFilterCondition? = nil,
+                      completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.article.rawValue)
+            .order(by: "createdTime", descending: true)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot
+                
+                else {
+                        
+                        completion(.failure(error!))
+                        
+                        return
+                        
+                    }
+                
+                var articles = [Article]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let article = try document.data(as: Article.self)
+                        
+                        switch articleType {
                             
-                            let article = try document.data(as: Article.self)
+                        case .missing:
                             
-                            switch articleType {
+                            switch condition == nil {
                                 
-                            case .missing:
+                            case true:
                                 
-                                switch condition == nil {
+                                if article.postType != nil {
                                     
-                                case true:
-                                    
-                                    if article.postType != nil {
-                                        
-                                        articles.append(article)
-                                    }
-                                    
-                                case false:
-                                    
-                                    // All conditions are filled in.
-                                    if article.postType == condition?.postType
-                                        && article.petKind == condition?.petKind
-                                        && article.city == condition?.city
-                                        && article.color == condition?.color {
-                                        
-                                        articles.append(article)
-                                    }
+                                    articles.append(article)
                                 }
                                 
-                            case .share:
+                            case false:
                                 
-                                if article.postType == nil {
+                                // All conditions are filled in.
+                                if article.postType == condition?.postType
+                                    && article.petKind == condition?.petKind
+                                    && article.city == condition?.city
+                                    && article.color == condition?.color {
                                     
                                     articles.append(article)
                                 }
                             }
                             
-                        } catch {
+                        case .share:
                             
-                            completion(.failure(error))
+                            if article.postType == nil {
+                                
+                                articles.append(article)
+                            }
                         }
+                        
+                    } catch {
+                        
+                        completion(.failure(error))
                     }
-                    
-                    completion(.success(articles))
                 }
-        }
+                
+                completion(.success(articles))
+            }
+    }
     
     func fetchArticle(
         withArticleId id: String,
@@ -605,6 +646,26 @@ class PetSocietyFirebaseManager {
     func setComments(with viewModels: Box<[CommentViewModel]>, comments: [Comment]) {
         
         viewModels.value = convertCommentsToViewModels(from: comments)
+    }
+    
+    private func convertProfileArticlesToViewModels(from profileArticles: [ProfileArticle]) -> [ProfileArticleViewModel] {
+        
+        var viewModels = [ProfileArticleViewModel]()
+        
+        for profileArticle in profileArticles {
+            
+            let viewModel = ProfileArticleViewModel(model: profileArticle)
+            
+            viewModels.append(viewModel)
+            
+        }
+        
+        return viewModels
+    }
+    
+    func setProfileArticles(with viewModels: Box<[ProfileArticleViewModel]>, profileArticles: [ProfileArticle]) {
+        
+        viewModels.value = convertProfileArticlesToViewModels(from: profileArticles)
     }
     
 }
