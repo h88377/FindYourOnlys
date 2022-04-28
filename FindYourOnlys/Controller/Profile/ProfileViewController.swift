@@ -275,6 +275,10 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
         CGSize(width: collectionView.frame.width, height: 44)
     }
     
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        <#code#>
+//    }
+    
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
