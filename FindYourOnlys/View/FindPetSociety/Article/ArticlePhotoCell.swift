@@ -40,6 +40,8 @@ class ArticlePhotoCell: UITableViewCell {
     
     @IBOutlet weak var cityLabel: UILabel!
     
+    var editHandler: (() -> Void)?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -83,17 +85,14 @@ class ArticlePhotoCell: UITableViewCell {
         }   
     }
     
-//    func formateTime(with time: TimeInterval) -> String {
-//
-//        let formatter = DateFormatter()
-//
-//        formatter.dateFormat = "yyyy.MM.dd hh:mm"
-//
-//        let date = NSDate(timeIntervalSince1970: time)
-//
-//        let dateString = formatter.string(from: date as Date)
-//
-//        return dateString
-//    }
+    @IBAction func edit(_ sender: UIButton) {
+        
+        editHandler?()
+    }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        editHandler = nil
+    }
 }

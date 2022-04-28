@@ -123,6 +123,52 @@ class FindPetSocietyViewController: BaseViewController {
             
             self.present(activityVC, animated: true)
         }
+        
+        viewModel.editHandler = { [weak self] articleViewModel, authorViewModel in
+            
+            guard
+                let currentUser = UserFirebaseManager.shared.currentUser,
+                articleViewModel.article.userId == currentUser.id
+                    
+            else {
+                
+                self?.showAlertWindow(title: "只有作者才能夠編輯文章喔！", message: "")
+                
+                return
+            }
+            
+            let alert = UIAlertController(title: "請選擇要執行的項目", message: "", preferredStyle: .actionSheet)
+            
+            let editAction = UIAlertAction(title: "編輯文章", style: .default) { _ in
+                
+                let storyboard = UIStoryboard.profile
+                
+                guard
+                    let profileSelectedArticleVC = storyboard.instantiateViewController(withIdentifier: ProfileSelectedArticleViewController.identifier) as? ProfileSelectedArticleViewController
+                
+                else { return }
+                
+                profileSelectedArticleVC.viewModel.articleViewModel.value = articleViewModel
+                
+                profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
+                
+                self?.navigationController?.pushViewController(profileSelectedArticleVC, animated: true)
+            }
+            
+            let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { _ in
+                
+            }
+            
+            let cancel = UIAlertAction(title: "取消", style: .cancel)
+            
+            alert.addAction(editAction)
+            
+            alert.addAction(deleteAction)
+            
+            alert.addAction(cancel)
+            
+            self?.present(alert, animated: true)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -247,6 +293,11 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             else { return UITableViewCell() }
             
             cell.configureCell(with: cellViewModel, authorViewModel: authorCellViewModel)
+            
+            cell.editHandler = { [weak self] in
+                
+                self?.viewModel.editArticle(with: cellViewModel, authorViewModel: authorCellViewModel)
+            }
             
             return cell
             

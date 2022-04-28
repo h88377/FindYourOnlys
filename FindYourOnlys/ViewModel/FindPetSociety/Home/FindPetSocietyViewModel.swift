@@ -17,6 +17,8 @@ class FindPetSocietyViewModel {
     
     var shareHanlder: ((ArticleViewModel) -> Void)?
     
+    var editHandler: ((ArticleViewModel, UserViewModel) -> Void)?
+    
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .missing, with: condition) { [weak self] result in
@@ -78,6 +80,11 @@ class FindPetSocietyViewModel {
     func shareArticle(with articleViewModel: ArticleViewModel) {
         
         shareHanlder?(articleViewModel)
+    }
+    
+    func editArticle(with articleViewModel: ArticleViewModel, authorViewModel: UserViewModel) {
+        
+        editHandler?(articleViewModel, authorViewModel)
     }
     
     private func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
