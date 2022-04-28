@@ -12,8 +12,28 @@ class ProfileViewController: BaseViewController {
 
     let viewModel = ProfileViewModel()
     
+    @IBOutlet weak var collectionView: UICollectionView! {
+        
+        didSet {
+            
+            collectionView.delegate = self
+            
+            collectionView.dataSource = self
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.fetchProfileArticle()
+        
+        viewModel.profileArticleViewModels.bind { [weak self] _ in
+            
+            DispatchQueue.main.async {
+                
+                self?.collectionView.reloadData()
+            }
+        }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
@@ -33,6 +53,32 @@ class ProfileViewController: BaseViewController {
                 
             }
         }
+    }
+    
+    override func setupCollectionView() {
+        super.setupCollectionView()
+        
+        collectionView.registerCellWithIdentifier(identifier: ProfileArticleCell.identifier)
+        
+        setupCollectionViewLayout()
+    }
+    
+    private func setupCollectionViewLayout() {
+
+        let flowLayout = UICollectionViewFlowLayout()
+
+        flowLayout.itemSize = CGSize(
+            width: Int((UIScreen.main.bounds.width - 32 - 10) / 3),
+            height: Int((UIScreen.main.bounds.width - 32 - 10) / 3)
+        )
+
+        flowLayout.sectionInset = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0)
+
+        flowLayout.minimumInteritemSpacing = 5
+
+        flowLayout.minimumLineSpacing = 5
+
+        collectionView.collectionViewLayout = flowLayout
     }
     
     @IBAction func goToFriendRequest(_ sender: UIButton) {
@@ -87,6 +133,34 @@ class ProfileViewController: BaseViewController {
         present(alert, animated: true)
     }
     
+}
+
+// MARK: - UICollectionViewDataSource and Delegate
+extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
+        viewModel.profileArticleViewModels.value.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        viewModel.profileArticleViewModels.value[section].profileArticle.articles.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileArticleCell.identifier, for: indexPath)
+        
+        guard
+            let profileArticleCell = cell as? ProfileArticleCell else { return cell }
+        
+        let article = viewModel.profileArticleViewModels.value[indexPath.section].profileArticle.articles[indexPath.row]
+        
+        profileArticleCell.configureCell(with: article)
+        
+        return profileArticleCell
+    }
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
