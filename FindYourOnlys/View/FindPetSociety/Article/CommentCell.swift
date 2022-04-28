@@ -17,7 +17,6 @@ class CommentCell: UITableViewCell {
     
     @IBOutlet weak var userImageView: UIImageView!
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
