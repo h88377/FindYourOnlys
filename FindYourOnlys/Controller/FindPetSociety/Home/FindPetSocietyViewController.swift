@@ -240,7 +240,17 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             
             cell.configureCell(with: cellViewModel)
             
-            cell.leaveMessageHandler = { [weak self] in
+            cell.likeArticleHandler = { [weak self] in
+                
+                self?.viewModel.likeArticle(with: cellViewModel)
+            }
+            
+            cell.unlikeArticleHandler = { [weak self] in
+                 
+                self?.viewModel.unlikeArticle(with: cellViewModel)
+            }
+            
+            cell.leaveCommentHandler = { [weak self] in
                 
                 let storyboard = UIStoryboard.findPetSociety
                 
