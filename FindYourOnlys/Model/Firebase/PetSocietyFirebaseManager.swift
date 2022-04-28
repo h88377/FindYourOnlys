@@ -10,11 +10,11 @@ import Firebase
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-enum ArticleType {
+enum ArticleType: String {
     
-    case missing
+    case missing = "協尋文章"
     
-    case share
+    case share = "分享文章"
 }
 
 class PetSocietyFirebaseManager {
@@ -32,7 +32,7 @@ class PetSocietyFirebaseManager {
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         db.collection(FirebaseCollectionType.article.rawValue)
-            .whereField("userId", isEqualTo: currentUser.id)
+//            .whereField("userId", isEqualTo: currentUser.id)
             .order(by: "createdTime", descending: true)
             .addSnapshotListener { snapshot, error in
                 
