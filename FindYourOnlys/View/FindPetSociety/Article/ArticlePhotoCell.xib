@@ -87,13 +87,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="cityLabel" destination="VQb-6o-DKm" id="76B-3E-Jyf"/>
-                <outlet property="locationImage" destination="0Xz-52-cTh" id="FGC-UE-oz8"/>
-                <outlet property="postTypeLabel" destination="MU7-US-9A9" id="GF2-91-fsx"/>
+                <outlet property="cityLabel" destination="VQb-6o-DKm" id="rsF-mI-8PW"/>
+                <outlet property="locationImage" destination="0Xz-52-cTh" id="sRs-dT-vQK"/>
+                <outlet property="postTypeLabel" destination="MU7-US-9A9" id="pFj-uk-caQ"/>
                 <outlet property="postedImageView" destination="Dm8-sv-5x4" id="swl-jj-Ted"/>
-                <outlet property="timeLabel" destination="L8H-TX-9O6" id="mOm-nf-gai"/>
-                <outlet property="userButton" destination="urq-VJ-thk" id="FIJ-fa-mbM"/>
-                <outlet property="userNameLabel" destination="tug-lT-ZdT" id="3P2-hA-GBC"/>
+                <outlet property="timeLabel" destination="L8H-TX-9O6" id="u9o-LG-6YC"/>
+                <outlet property="userButton" destination="urq-VJ-thk" id="0Zw-bD-QXQ"/>
+                <outlet property="userNameLabel" destination="tug-lT-ZdT" id="pFj-fo-btw"/>
             </connections>
             <point key="canvasLocation" x="189.13043478260872" y="348.21428571428572"/>
         </tableViewCell>
