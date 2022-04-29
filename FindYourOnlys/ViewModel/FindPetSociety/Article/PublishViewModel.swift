@@ -40,38 +40,6 @@ class PublishViewModel {
         return true
     }
     
-    func cityChanged(with city: String) {
-        
-        self.article.city = city
-    }
-    
-    func colorChanged(with color: String) {
-        
-        self.article.color = color
-    }
-    
-    func petKindChanged(with petKind: String) {
-        
-        self.article.petKind = petKind
-    }
-    
-    func postTypeChanged(with type: String) {
-        
-        if type == PostType.missing.rawValue {
-            
-            self.article.postType = 0
-            
-        } else {
-            
-            self.article.postType = 1
-        }
-    }
-    
-    func contentChanged(with content: String) {
-        
-        self.article.content = content
-    }
-    
     private func publish(completion: @escaping (Error?)-> Void) {
         
         checkPublishedContent?(isValidPublishedContent)
@@ -145,5 +113,40 @@ class PublishViewModel {
             
             completion(nil)
         }
+    }
+}
+
+extension PublishViewModel {
+    
+    func cityChanged(with city: String) {
+        
+        self.article.city = city
+    }
+    
+    func colorChanged(with color: String) {
+        
+        self.article.color = color
+    }
+    
+    func petKindChanged(with petKind: String) {
+        
+        self.article.petKind = petKind
+    }
+    
+    func postTypeChanged(with type: String) {
+        
+        if type == PostType.missing.rawValue {
+            
+            self.article.postType = 0
+            
+        } else {
+            
+            self.article.postType = 1
+        }
+    }
+    
+    func contentChanged(with content: String) {
+        
+        self.article.content = content
     }
 }

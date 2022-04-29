@@ -1,118 +1,132 @@
 //
-//  PublishViewController.swift
+//  EditArticleViewController.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/12.
+//  Created by 鄭昭韋 on 2022/4/29.
 //
 
+import Foundation
 import UIKit
 
-class PublishViewController: BaseViewController {
+class EditArticleViewController: BaseViewController {
     
-    let viewModel = PublishViewModel()
+    var viewModel = EditArticleViewModel()
+    
+//    init(model: EditArticleViewModel) {
+//        super.init()
+//
+//        self.viewModel = model
+//    }
+    
+    
+
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     @IBOutlet weak var tableView: UITableView! {
         
-        didSet {
-            
-            tableView.delegate = self
+        didSet{
             
             tableView.dataSource = self
+            
+            tableView.delegate = self
         }
     }
     
     override var isHiddenTabBar: Bool { return true }
     
-    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.checkPublishedContent = { [weak self] isValid in
+        viewModel.checkEditedContent = { [weak self] isValid in
             
             if !isValid {
                 
-                self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再發布文章喔！")
+                self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再更新文章喔！")
             }
             
         }
-    }
-    
-    override func setupTableView() {
         
-        tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
-    }
-    
-    @IBAction func publish(_ sender: UIBarButtonItem) {
-        
-        viewModel.tapPublish { [weak self] error in
-            
-            if error != nil {
-                
-                print(error)
-                
-                return
-            }
+        viewModel.dismissHandler = { [weak self] in
             
             self?.navigationController?.popViewController(animated: true)
         }
     }
+    
+    override func setupTableView() {
+        super.setupTableView()
+        
+        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        let barButtonItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(edit))
+        
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+    
+    @objc func edit(sender: UIBarButtonItem) {
+        
+        viewModel.tapEdit()
+        
+    }
 }
 
 // MARK: - UITableViewDelegate and DataSource
-extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
+extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        let publishContentCategory = viewModel.publishContentCategory
-
-        return publishContentCategory.count
+        viewModel.editContentCategory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let publishContentCategory = viewModel.publishContentCategory
+        let category = viewModel.editContentCategory[indexPath.row]
+        
+        let cell = category.cellForIndexPath(indexPath, tableView: tableView)
         
         guard
-            let cell = publishContentCategory[indexPath.row]
-                .cellForIndexPath(indexPath, tableView: tableView)
-                as? PublishBasicCell
-                
-        else { return UITableViewCell() }
+            let editCell = cell as? PublishBasicCell else { return cell }
         
-        cell.delegate = self
+        editCell.delegate = self
         
-        cell.galleryHandler = { [weak self] in
+        editCell.galleryHandler = { [weak self] in
             
             self?.openGallery()
             
             self?.viewModel.updateImage = { image in
                 
-                cell.layoutCellWith(image: image)
+                editCell.layoutCellWith(image: image)
             }
         }
         
-        cell.cameraHandler = { [weak self] in
+        editCell.cameraHandler = { [weak self] in
             
             self?.openCamera()
             
             self?.viewModel.updateImage = { image in
                 
-                cell.layoutCellWith(image: image)
+                editCell.layoutCellWith(image: image)
             }
         }
-        return cell
+        
+        return editCell
+        
+        
     }
-    
 }
 
 // MARK: - PublishSelectionCellDelegate
-extension PublishViewController: PublishBasicCellDelegate {
+extension EditArticleViewController: PublishBasicCellDelegate {
     
     func didChangeCity(_ cell: PublishBasicCell, with city: String) {
         
@@ -141,7 +155,7 @@ extension PublishViewController: PublishBasicCellDelegate {
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(
         _ picker: UIImagePickerController,
@@ -205,3 +219,4 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
     }
 }
+

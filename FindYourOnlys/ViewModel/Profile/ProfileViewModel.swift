@@ -24,7 +24,7 @@ class ProfileViewModel {
                 
             case .success(let articles):
                 
-                var missingProfileArticles = ProfileArticle(articleType: .missing, articles: [Article]())
+                var missingProfileArticles = ProfileArticle(articleType: .find, articles: [Article]())
                 
                 var shareProfileArticles = ProfileArticle(articleType: .share, articles: [Article]())
                 
@@ -42,7 +42,10 @@ class ProfileViewModel {
                     }
                 }
                 
-                PetSocietyFirebaseManager.shared.setProfileArticles(with: self.profileArticleViewModels, profileArticles: [missingProfileArticles, shareProfileArticles])
+                PetSocietyFirebaseManager.shared.setProfileArticles(
+                    with: self.profileArticleViewModels,
+                    profileArticles: [missingProfileArticles, shareProfileArticles]
+                )
                 
             case .failure(let error):
                 

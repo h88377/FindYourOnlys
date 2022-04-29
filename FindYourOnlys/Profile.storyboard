@@ -200,6 +200,36 @@
             </objects>
             <point key="canvasLocation" x="1864" y="804"/>
         </scene>
+        <!--Edit Article View Controller-->
+        <scene sceneID="EsS-Cq-DKP">
+            <objects>
+                <viewController storyboardIdentifier="EditArticleViewController" id="WF9-jI-Gz6" customClass="EditArticleViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kD0-jZ-Dhj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fpA-aY-wbc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hmA-yg-UVH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hmA-yg-UVH" firstAttribute="bottom" secondItem="fpA-aY-wbc" secondAttribute="bottom" id="aoH-R9-uUt"/>
+                            <constraint firstItem="fpA-aY-wbc" firstAttribute="leading" secondItem="hmA-yg-UVH" secondAttribute="leading" id="grE-PN-4bd"/>
+                            <constraint firstItem="fpA-aY-wbc" firstAttribute="top" secondItem="hmA-yg-UVH" secondAttribute="top" id="jZ0-Za-t89"/>
+                            <constraint firstItem="hmA-yg-UVH" firstAttribute="trailing" secondItem="fpA-aY-wbc" secondAttribute="trailing" id="mC2-Bx-OWd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="fpA-aY-wbc" id="7Ez-0L-IlT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eb1-dx-jBF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2641" y="804"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
