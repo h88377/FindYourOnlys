@@ -92,7 +92,7 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         let category = viewModel.editContentCategory[indexPath.row]
         
-        let cell = category.cellForIndexPath(indexPath, tableView: tableView)
+        let cell = category.cellForIndexPath(indexPath, tableView: tableView, article: viewModel.article)
         
         guard
             let editCell = cell as? PublishBasicCell else { return cell }
@@ -120,7 +120,6 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         }
         
         return editCell
-        
         
     }
 }

@@ -22,7 +22,7 @@ class PublishUserCell: PublishBasicCell {
     //no need
     @IBOutlet weak var timeLabel: UILabel!
     
-    override func layoutCell() {
+    override func layoutCell(article: Article? = nil) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }

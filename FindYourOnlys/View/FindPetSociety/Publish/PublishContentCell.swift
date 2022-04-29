@@ -65,6 +65,19 @@ class PublishContentCell: PublishBasicCell {
         contentImageView.image = image
     }
     
+    override func layoutCell(article: Article? = nil) {
+        
+        if
+            let article = article {
+            
+            contentTextView.text = article.content
+            
+            contentTextView.textColor = .black
+            
+            contentImageView.loadImage(article.imageURLString)
+        }
+    }
+    
     func customDoneToolBar() -> UIToolbar {
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
