@@ -40,6 +40,14 @@ class ArticlePhotoCell: UITableViewCell {
     
     @IBOutlet weak var cityLabel: UILabel!
     
+    @IBOutlet weak var editButton: UIButton! {
+        
+        didSet {
+            
+            editButton.isHidden = true
+        }
+    }
+    
     var editHandler: (() -> Void)?
     
     override func layoutSubviews() {
@@ -118,6 +126,11 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.text = ""
         }
+    }
+    
+    func showEditButton() {
+        
+        editButton.isHidden = false
     }
     
     @IBAction func edit(_ sender: UIButton) {
