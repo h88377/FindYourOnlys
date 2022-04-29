@@ -56,12 +56,7 @@ class EditArticleViewModel {
     
     var isValidEditedContent: Bool {
         
-        guard
-            article.content != ""
-        
-        else { return false }
-            
-        return true
+        return article.content != "" && article.content != "請輸入你的內文"
     }
     
     private func edit(completion: @escaping (Error?)-> Void) {
@@ -86,7 +81,10 @@ class EditArticleViewModel {
                 
             case true:
                 
-                PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: self.selectedImage!, with: FirebaseCollectionType.article.rawValue) { result in
+                PetSocietyFirebaseManager
+                    .shared
+                    .fetchDownloadImageURL(
+                        image: self.selectedImage!, with: FirebaseCollectionType.article.rawValue) { result in
                     
                     switch result {
                         
@@ -124,7 +122,6 @@ class EditArticleViewModel {
                 
                 completion(nil)
                 
-                semaphore.signal()
             }
             
         }
