@@ -85,6 +85,41 @@ class ArticlePhotoCell: UITableViewCell {
         }   
     }
     
+    func configureCell(with viewModel: ArticleViewModel) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        let userImageView = UIImageView()
+        
+        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        userButton.setImage(userImageView.image, for: .normal)
+        
+        userNameLabel.text = currentUser.nickName
+        
+        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        
+        timeLabel.text =  viewModel.article.createdTime.formatedTime
+        
+        cityLabel.text = viewModel.article.city
+        
+        switch viewModel.article.postType {
+            
+        case 0:
+            
+            postTypeLabel.text = PostType.allCases[0].rawValue
+            
+        case 1:
+            
+            postTypeLabel.text = PostType.allCases[1].rawValue
+            
+        default:
+            
+            postTypeLabel.text = ""
+        }
+    }
+    
     @IBAction func edit(_ sender: UIButton) {
         
         editHandler?()

@@ -7,12 +7,28 @@
 
 import Foundation
 
-class ProfileSelectedArticleViewModel {
+class ProfileSelectedArticleViewModel: BaseSocietyViewModel {
     
     var articleViewModel: Box<ArticleViewModel?> = Box(nil)
     
-    var authorViewModel: Box<UserViewModel?> = Box(nil)
-    
-    
+    func fetchArticle() {
+        
+        guard
+            let article = articleViewModel.value?.article else { return }
+        
+        PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: article.id) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let article):
+                
+                self?.articleViewModel.value = ArticleViewModel(model: article)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
     
 }

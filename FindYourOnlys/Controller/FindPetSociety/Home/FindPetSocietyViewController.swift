@@ -141,18 +141,7 @@ class FindPetSocietyViewController: BaseViewController {
             
             let editAction = UIAlertAction(title: "編輯文章", style: .default) { _ in
                 
-                let storyboard = UIStoryboard.profile
                 
-                guard
-                    let profileSelectedArticleVC = storyboard.instantiateViewController(withIdentifier: ProfileSelectedArticleViewController.identifier) as? ProfileSelectedArticleViewController
-                
-                else { return }
-                
-                profileSelectedArticleVC.viewModel.articleViewModel.value = articleViewModel
-                
-                profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
-                
-                self?.navigationController?.pushViewController(profileSelectedArticleVC, animated: true)
             }
             
             let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { _ in
