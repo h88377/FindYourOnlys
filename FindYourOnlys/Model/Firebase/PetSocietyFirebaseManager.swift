@@ -148,9 +148,12 @@ class PetSocietyFirebaseManager {
                     }
                     do {
                         
-                        let article = try snapshot.documents.map { try $0.data(as: Article.self) }[0]
-                        
-                        completion(.success(article))
+                        if snapshot.documents.count > 0 {
+                            
+                            let article = try snapshot.documents.map { try $0.data(as: Article.self) }[0]
+                            
+                            completion(.success(article))
+                        }
                         
                     } catch {
                         
@@ -236,6 +239,26 @@ class PetSocietyFirebaseManager {
                 completion(nil)
             }
         }
+    
+    func deleteArticle(withArticleId articleId: String, completion: @escaping (Error?) -> Void) {
+        
+        db.collection(
+            FirebaseCollectionType.article.rawValue)
+            .document(articleId).delete() { error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                completion(error)
+                
+                return
+            }
+            
+            completion(nil)
+        }
+    }
     
     func fetchDownloadImageURL(
         image: UIImage,

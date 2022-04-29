@@ -96,11 +96,24 @@ class ProfileSelectedArticleViewController: BaseViewController {
                 self.navigationController?.pushViewController(editVC, animated: true)
             }
             
-            let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { _ in
+            let cancel = UIAlertAction(title: "取消", style: .cancel)
+            
+            let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+                
+                let deleteAlert = UIAlertController(title: "注意!", message: "將刪除此篇文章", preferredStyle: .alert)
+                
+                let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+                    
+                    self?.viewModel.deleteArticle()
+                }
+                
+                deleteAlert.addAction(cancel)
+                
+                deleteAlert.addAction(deleteConfirmAction)
+                
+                self?.present(deleteAlert, animated: true)
                 
             }
-            
-            let cancel = UIAlertAction(title: "取消", style: .cancel)
             
             alert.addAction(editAction)
             
@@ -109,6 +122,14 @@ class ProfileSelectedArticleViewController: BaseViewController {
             alert.addAction(cancel)
             
             self?.present(alert, animated: true)
+        }
+        
+        viewModel.dismissHandler = { [weak self] in
+            
+            DispatchQueue.main.async {
+                
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
