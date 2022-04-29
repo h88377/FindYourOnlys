@@ -174,6 +174,8 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
                 self?.viewModel.editArticle(with: articleCellViewModel, authorViewModel: UserViewModel(model: currentUser))
             }
             
+            articlePhotoCell.showEditButton()
+            
             return articlePhotoCell
             
         } else {

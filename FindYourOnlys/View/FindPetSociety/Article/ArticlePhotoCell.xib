@@ -104,6 +104,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cityLabel" destination="VQb-6o-DKm" id="rsF-mI-8PW"/>
+                <outlet property="editButton" destination="0st-OR-bk2" id="Pj8-OK-WxR"/>
                 <outlet property="locationImage" destination="0Xz-52-cTh" id="sRs-dT-vQK"/>
                 <outlet property="postTypeLabel" destination="MU7-US-9A9" id="pFj-uk-caQ"/>
                 <outlet property="postedImageView" destination="Dm8-sv-5x4" id="swl-jj-Ted"/>
