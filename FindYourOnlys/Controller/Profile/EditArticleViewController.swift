@@ -50,7 +50,11 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            self?.navigationController?.popViewController(animated: true)
+            DispatchQueue.main.async {
+                
+                self?.navigationController?.popViewController(animated: true)
+            }
+            
         }
     }
     
@@ -77,7 +81,6 @@ class EditArticleViewController: BaseViewController {
     @objc func edit(sender: UIBarButtonItem) {
         
         viewModel.tapEdit()
-        
     }
 }
 

@@ -190,6 +190,8 @@ class PetSocietyFirebaseManager {
             
             try documentReference.setData(from: article)
             
+            completion(nil)
+            
         } catch {
             
             completion(error)
