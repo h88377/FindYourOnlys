@@ -275,9 +275,24 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
         CGSize(width: collectionView.frame.width, height: 44)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard.profile
+        
+        guard
+            let profileSelectedArticleVC = storyboard.instantiateViewController(
+                withIdentifier: ProfileSelectedArticleViewController.identifier)
+                as? ProfileSelectedArticleViewController
+        
+        else { return }
+        
+        
+        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(model: viewModel.profileArticleViewModels.value[indexPath.section].profileArticle.articles[indexPath.row])
+        
+//        profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
+        
+        navigationController?.pushViewController(profileSelectedArticleVC, animated: true)
+    }
     
 }
 

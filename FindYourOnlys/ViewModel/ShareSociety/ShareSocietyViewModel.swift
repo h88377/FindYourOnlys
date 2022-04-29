@@ -7,15 +7,11 @@
 
 import Foundation
 
-class ShareSocietyViewModel {
+class ShareSocietyViewModel: BaseSocietyViewModel {
     
     let articleViewModels = Box([ArticleViewModel]())
     
     let authorViewModels = Box([UserViewModel]())
-    
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
-    var shareHanlder: ((ArticleViewModel) -> Void)?
     
     func fetchSharedArticles() {
         
@@ -41,43 +37,6 @@ class ShareSocietyViewModel {
             }
         }
         
-    }
-    
-    func likeArticle(with articleViewModel: ArticleViewModel) {
-        
-        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                self.errorViewModel.value = ErrorViewModel(model: error!)
-                
-                return
-            }
-        }
-    }
-    
-    func unlikeArticle(with articleViewModel: ArticleViewModel) {
-        
-        PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                self.errorViewModel.value = ErrorViewModel(model: error!)
-                
-                return
-            }
-        }
-    }
-    
-    func shareArticle(with articleViewModel: ArticleViewModel) {
-        
-        shareHanlder?(articleViewModel)
     }
     
     private func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
