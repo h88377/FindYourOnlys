@@ -39,6 +39,7 @@ enum PublishContentCategory: String, CaseIterable {
     static func getCategory(with type: ArticleType) -> [PublishContentCategory] {
         
         switch type {
+            
         case .find:
             
             return PublishContentCategory.allCases
