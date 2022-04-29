@@ -50,7 +50,7 @@ enum PublishContentCategory: String, CaseIterable {
         }
     }
     
-    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
+    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, article: Article? = nil) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
 
@@ -61,27 +61,27 @@ enum PublishContentCategory: String, CaseIterable {
             
         case .user:
             
-            basicCell.layoutCell()
+            basicCell.layoutCell(article: article)
             
         case .city:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, article: article)
             
         case .color:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, article: article)
             
         case .petKind:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, article: article)
             
         case .postType:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, article: article)
             
         case .content:
             
-            basicCell.layoutCell()
+            basicCell.layoutCell(article: article)
         }
 
         return basicCell
