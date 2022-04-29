@@ -12,7 +12,7 @@ import FirebaseStorage
 
 enum ArticleType: String {
     
-    case missing = "協尋文章"
+    case find = "協尋文章"
     
     case share = "分享文章"
 }
@@ -32,7 +32,7 @@ class PetSocietyFirebaseManager {
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         db.collection(FirebaseCollectionType.article.rawValue)
-//            .whereField("userId", isEqualTo: currentUser.id)
+            .whereField("userId", isEqualTo: currentUser.id)
             .order(by: "createdTime", descending: true)
             .addSnapshotListener { snapshot, error in
                 
@@ -88,7 +88,7 @@ class PetSocietyFirebaseManager {
                         
                         switch articleType {
                             
-                        case .missing:
+                        case .find:
                             
                             switch condition == nil {
                                 
@@ -174,6 +174,22 @@ class PetSocietyFirebaseManager {
             article.createdTime = NSDate().timeIntervalSince1970
             
             try documentReference.setData(from: article, encoder: Firestore.Encoder())
+        } catch {
+            
+            completion(error)
+        }
+    }
+    
+    func editArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
+        
+        let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document(article.id)
+        
+        do {
+            
+            article.createdTime = NSDate().timeIntervalSince1970
+            
+            try documentReference.setData(from: article)
+            
         } catch {
             
             completion(error)

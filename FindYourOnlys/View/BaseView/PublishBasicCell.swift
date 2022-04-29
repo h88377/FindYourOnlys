@@ -76,6 +76,5 @@ extension PublishBasicCellDelegate {
     
     func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
         
-        
     }
 }

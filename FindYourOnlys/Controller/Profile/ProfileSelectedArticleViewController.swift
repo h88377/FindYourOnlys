@@ -77,9 +77,23 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             let alert = UIAlertController(title: "請選擇要執行的項目", message: "", preferredStyle: .actionSheet)
             
-            let editAction = UIAlertAction(title: "編輯文章", style: .default) { _ in
+            let editAction = UIAlertAction(title: "編輯文章", style: .default) { [weak self] _ in
                 
+                let storyboard = UIStoryboard.profile
                 
+                guard
+                    let editVC = storyboard.instantiateViewController(
+                        withIdentifier: EditArticleViewController.identifier)
+                        as? EditArticleViewController,
+                    let self = self,
+                    let article = self.viewModel.articleViewModel.value?.article
+                
+                else { return }
+                
+//                editVC.viewModel = EditArticleViewModel(model: article)
+                editVC.viewModel.article = article
+                
+                self.navigationController?.pushViewController(editVC, animated: true)
             }
             
             let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { _ in
@@ -133,6 +147,11 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             else { return cell }
             
             articlePhotoCell.configureCell(with: articleCellViewModel)
+            
+            articlePhotoCell.editHandler = { [weak self] in
+                
+                self?.viewModel.editArticle(with: articleCellViewModel, authorViewModel: UserViewModel(model: currentUser))
+            }
             
             return articlePhotoCell
             

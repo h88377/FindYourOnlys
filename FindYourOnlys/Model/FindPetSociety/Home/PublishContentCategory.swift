@@ -36,6 +36,19 @@ enum PublishContentCategory: String, CaseIterable {
         }
     }
     
+    static func getCategory(with type: ArticleType) -> [PublishContentCategory] {
+        
+        switch type {
+        case .find:
+            
+            return PublishContentCategory.allCases
+            
+        case .share:
+            
+            return [.user, .city, .petKind, .content]
+        }
+    }
+    
     func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)

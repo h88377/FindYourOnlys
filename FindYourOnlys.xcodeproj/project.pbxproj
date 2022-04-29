@@ -35,6 +35,8 @@
 		987D8B66281AD922000D1F95 /* ProfileSelectedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */; };
 		987D8B68281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B67281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift */; };
 		987D8B6A281B98B7000D1F95 /* BaseSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */; };
+		987D8B6C281BB188000D1F95 /* EditArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */; };
+		987D8B6E281BB2B3000D1F95 /* EditArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -213,6 +215,8 @@
 		987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectedArticleViewController.swift; sourceTree = "<group>"; };
 		987D8B67281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectedArticleViewModel.swift; sourceTree = "<group>"; };
 		987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSocietyViewModel.swift; sourceTree = "<group>"; };
+		987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewController.swift; sourceTree = "<group>"; };
+		987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -597,6 +601,7 @@
 				9896D92B280D6127003D4A16 /* ProfileViewController.swift */,
 				987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */,
 				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
+				987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -622,6 +627,7 @@
 				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
 				987D8B67281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift */,
 				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
+				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
 				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
 			);
 			path = Profile;
@@ -1134,6 +1140,7 @@
 				9896D964280EDC98003D4A16 /* Direction.swift in Sources */,
 				98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */,
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
+				987D8B6C281BB188000D1F95 /* EditArticleViewController.swift in Sources */,
 				9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */,
 				989399F9280FD707004312F1 /* Shelter.swift in Sources */,
 				9896D92E280D6164003D4A16 /* ProfileFriendRequestViewController.swift in Sources */,
@@ -1145,6 +1152,7 @@
 				98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */,
 				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
 				9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */,
+				987D8B6E281BB2B3000D1F95 /* EditArticleViewModel.swift in Sources */,
 				987D8B4B28195F15000D1F95 /* BaseModalViewController.swift in Sources */,
 				987D8B5E281AAEE1000D1F95 /* ProfileArticleViewModel.swift in Sources */,
 				98CC162B280554E500B9FDC6 /* UIImage+Extension.swift in Sources */,

@@ -15,7 +15,7 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
     
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
-        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .missing, with: condition) { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .find, with: condition) { [weak self] result in
             
             guard
                 let self = self else { return }
