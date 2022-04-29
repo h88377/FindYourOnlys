@@ -9,7 +9,7 @@ import UIKit.UIImage
 
 class SharePublishViewModel {
     
-    let shareContentCategory = ShareContentCategory.allCases
+    let shareContentCategory = PublishContentCategory.getCategory(with: .share)
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
