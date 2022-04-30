@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class SearchFriendViewController: BaseViewController {
     
@@ -191,6 +190,31 @@ extension SearchFriendViewController: UITextFieldDelegate {
             case .success(let searchResult):
                 
                 DispatchQueue.main.async {
+                    
+                    // Present friendProfile and move cases to profile friend logic
+                    
+                    let storyboard = UIStoryboard.profile
+                    
+                    guard
+                        let friendProfileVC = storyboard.instantiateViewController(
+                            withIdentifier: FriendProfileViewController.identifier)
+                            as? FriendProfileViewController,
+                        searchResult != .noRelativeId
+                    
+                    else {
+                        
+                        self.toggleSearchedUserInfo(isExisted: false)
+                        
+                        self.updateSearchedUserInfo(with: self.viewModel, result: .noRelativeId)
+                        
+                        return
+                    }
+                    
+                    friendProfileVC.viewModel = FriendProfileViewModel(model: self.viewModel.user, result: searchResult)
+                    
+                    friendProfileVC.modalPresentationStyle = .overFullScreen
+                    
+                    self.present(friendProfileVC, animated: true)
                     
                     switch searchResult {
                         
