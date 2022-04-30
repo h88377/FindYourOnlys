@@ -34,38 +34,6 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var userImageView: UIImageView! {
-        
-        didSet {
-            
-            userImageView.isHidden = true
-        }
-    }
-    
-    @IBOutlet weak var userNickNameLabel: UILabel! {
-        
-        didSet {
-            
-            userNickNameLabel.isHidden = true
-        }
-    }
-    
-    @IBOutlet weak var statusLabel: UILabel! {
-        
-        didSet {
-            
-            statusLabel.isHidden = true
-        }
-    }
-    
-    @IBOutlet weak var requestButton: UIButton! {
-        
-        didSet {
-            
-            requestButton.isHidden = true
-        }
-    }
-    
     @IBOutlet weak var errorMessageLabel: UILabel! {
         
         didSet {
@@ -83,93 +51,6 @@ class SearchFriendViewController: BaseViewController {
         
         navigationItem.title = "搜尋好友"
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
-    }
-    
-    @IBAction func sendFriendRequest(_ sender: UIButton) {
-        
-//        viewModel.sendFriendRequest { error in
-//            
-//            if error != nil { print(error)
-//                
-//            } else {
-//                
-//                sender.isEnabled = false
-//                
-//                sender.setTitle(SearchFriendResult.sentRequest.rawValue, for: .disabled)
-//            }
-//        }
-    }
-    
-    func toggleSearchedUserInfo(isExisted: Bool) {
-        
-        userImageView.isHidden = !isExisted
-        
-        userNickNameLabel.isHidden = !isExisted
-        
-        statusLabel.isHidden = !isExisted
-        
-        requestButton.isHidden = !isExisted
-        
-        requestButton.isEnabled = isExisted
-        
-        errorMessageLabel.isHidden = isExisted
-    }
-    
-    func updateSearchedUserInfo(with viewModel: SearchFriendViewModel, result: SearchFriendResult) {
-        
-        let user = viewModel.user
-        
-        userImageView.loadImage(user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
-        
-        userNickNameLabel.text = user.nickName
-        
-        statusLabel.text = result.rawValue
-        
-        errorMessageLabel.text = result.rawValue
-        
-        switch result {
-            
-        case .currentUser:
-            
-            requestButton.isHidden = true
-            
-        case .friend:
-            
-            requestButton.isHidden = true
-            
-        case .normalUser:
-            
-            requestButton.isHidden = false
-            
-        case .noRelativeId:
-            
-            requestButton.isHidden = true
-            
-        case .sentRequest:
-            
-            requestButton.isEnabled = false
-            
-            requestButton.setTitleColor(.systemGray2, for: .disabled)
-            
-        case .receivedRequest:
-            
-            requestButton.isEnabled = false
-            
-            requestButton.setTitleColor(.systemGray2, for: .disabled)
-            
-        case .limitedUser:
-            
-            requestButton.isEnabled = false
-            
-            requestButton.setTitleColor(.systemGray2, for: .disabled)
-        }
-    }
-    
 }
 
 // MARK: - UITextFieldDelegate
@@ -191,8 +72,6 @@ extension SearchFriendViewController: UITextFieldDelegate {
                 
                 DispatchQueue.main.async {
                     
-                    // Present friendProfile and move cases to profile friend logic
-                    
                     let storyboard = UIStoryboard.profile
                     
                     guard
@@ -200,66 +79,23 @@ extension SearchFriendViewController: UITextFieldDelegate {
                             withIdentifier: FriendProfileViewController.identifier)
                             as? FriendProfileViewController,
                         searchResult != .noRelativeId
-                    
+                            
                     else {
                         
-                        self.toggleSearchedUserInfo(isExisted: false)
+                        self.errorMessageLabel.isHidden = false
                         
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .noRelativeId)
+                        self.errorMessageLabel.text = SearchFriendResult.noRelativeId.rawValue
                         
                         return
                     }
+                    
+                    self.errorMessageLabel.isHidden = true
                     
                     friendProfileVC.viewModel = FriendProfileViewModel(model: self.viewModel.user, result: searchResult)
                     
                     friendProfileVC.modalPresentationStyle = .overFullScreen
                     
                     self.present(friendProfileVC, animated: true)
-                    
-                    switch searchResult {
-                        
-                    case .currentUser:
-                        
-                        self.toggleSearchedUserInfo(isExisted: true)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .currentUser)
-                        
-                    case .friend:
-                        
-                        self.toggleSearchedUserInfo(isExisted: true)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .friend)
-                        
-                    case .normalUser:
-                        
-                        self.toggleSearchedUserInfo(isExisted: true)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .normalUser)
-                        
-                    case .noRelativeId:
-                        
-                        self.toggleSearchedUserInfo(isExisted: false)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .noRelativeId)
-                        
-                    case .sentRequest:
-                        
-                        self.toggleSearchedUserInfo(isExisted: true)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .sentRequest)
-                        
-                    case .receivedRequest:
-                        
-                        self.toggleSearchedUserInfo(isExisted: true)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .receivedRequest)
-                        
-                    case .limitedUser:
-                        
-                        self.toggleSearchedUserInfo(isExisted: true)
-                        
-                        self.updateSearchedUserInfo(with: self.viewModel, result: .limitedUser)
-                    }
                 }
                 
             case.failure(let error):
@@ -268,5 +104,4 @@ extension SearchFriendViewController: UITextFieldDelegate {
             }
         }
     }
-    
 }
