@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-import MapKit
 
 class SearchFriendViewModel {
     

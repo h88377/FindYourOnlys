@@ -39,6 +39,8 @@
 		987D8B6E281BB2B3000D1F95 /* EditArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */; };
 		987D8B70281CED61000D1F95 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */; };
 		987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */; };
+		987D8B74281D1848000D1F95 /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */; };
+		987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -220,6 +222,8 @@
 		987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewModel.swift; sourceTree = "<group>"; };
 		987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
+		987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -595,6 +599,7 @@
 				9896D92B280D6127003D4A16 /* ProfileViewController.swift */,
 				987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */,
 				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
+				987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */,
 				987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */,
 				987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */,
 			);
@@ -622,6 +627,7 @@
 				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
 				987D8B67281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift */,
 				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
+				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
 				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
 				987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */,
 				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
@@ -1154,6 +1160,7 @@
 				9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */,
 				987D8B3B2816C23D000D1F95 /* RegisterViewModel.swift in Sources */,
 				987D8B57281AAD02000D1F95 /* ProfileArticleCell.swift in Sources */,
+				987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,
 				987D8B6A281B98B7000D1F95 /* BaseSocietyViewModel.swift in Sources */,
@@ -1250,6 +1257,7 @@
 				9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */,
 				989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */,
 				98CC164828059F0C00B9FDC6 /* PublishUserCell.swift in Sources */,
+				987D8B74281D1848000D1F95 /* FriendProfileViewController.swift in Sources */,
 				987D8B5C281AAE3B000D1F95 /* ProfileArticle.swift in Sources */,
 				9896D92C280D6127003D4A16 /* ProfileViewController.swift in Sources */,
 				989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */,
