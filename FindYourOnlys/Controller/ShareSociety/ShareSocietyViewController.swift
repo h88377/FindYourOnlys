@@ -68,12 +68,33 @@ class ShareSocietyViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.errorViewModel.bind { errorViewModel in
             
             guard
                 errorViewModel?.error != nil else { return }
             
             print(errorViewModel?.error.localizedDescription)
+        }
+        
+        viewModel.shareHanlder = { [weak self] articleViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            // Generate the screenshot
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            
+            self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
+            
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            let items: [Any] = [image]
+            
+            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            
+            self.present(activityVC, animated: true)
         }
     }
     
@@ -133,7 +154,6 @@ class ShareSocietyViewController: BaseViewController {
         navigationController?.pushViewController(addFriendVC, animated: true)
     }
     
-    
 }
 
 // MARK: - ShareSocietyViewController UITableViewDelegate and DataSource
@@ -152,7 +172,8 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
         return viewModel.articleViewModels.value.count * registeredCellCount
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let registeredCellCount = 2
         
@@ -190,11 +211,55 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configureCell(with: cellViewModel)
             
+            cell.likeArticleHandler = { [weak self] in
+                
+                self?.viewModel.likeArticle(with: cellViewModel)
+            }
+            
+            cell.unlikeArticleHandler = { [weak self] in
+                 
+                self?.viewModel.unlikeArticle(with: cellViewModel)
+            }
+            
+            cell.leaveCommentHandler = { [weak self] in
+                
+                let storyboard = UIStoryboard.findPetSociety
+                
+                guard
+                    let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController
+                        
+                else { return }
+                
+                petSocietyCommentVC.modalPresentationStyle = .custom
+                
+                petSocietyCommentVC.transitioningDelegate = self
+                
+                petSocietyCommentVC.viewModel.selectedArticle = cellViewModel.article
+                
+                petSocietyCommentVC.viewModel.selectedAuthor = authorCellViewModel.user
+                
+                self?.present(petSocietyCommentVC, animated: true)
+            }
+            
+            cell.shareHandler = { [weak self] in
+                
+                self?.viewModel.shareArticle(with: cellViewModel)
+            }
+            
             return cell
             
         default:
         
             return UITableViewCell()
         }
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension ShareSocietyViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

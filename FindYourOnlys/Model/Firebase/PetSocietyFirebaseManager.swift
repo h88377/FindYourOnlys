@@ -10,6 +10,13 @@ import Firebase
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
+enum ArticleType: String {
+    
+    case find = "協尋文章"
+    
+    case share = "分享文章"
+}
+
 class PetSocietyFirebaseManager {
     
     static let shared = PetSocietyFirebaseManager()
@@ -19,30 +26,78 @@ class PetSocietyFirebaseManager {
     private let storage = Storage.storage()
     
     // MARK: - Article
-    func fetchArticle(
-        with condition: FindPetSocietyFilterCondition? = nil,
-        completion: @escaping (Result<[Article], Error>) -> Void) {
-            
-            db.collection(FirebaseCollectionType.article.rawValue)
-                .order(by: "createdTime", descending: true)
-                .addSnapshotListener { snapshot, error in
-                    
-                    guard
-                        let snapshot = snapshot else { return }
-                    
-                    var articles = [Article]()
-                    
-                    for document in snapshot.documents {
+    func fetchArticle(completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        db.collection(FirebaseCollectionType.article.rawValue)
+            .whereField("userId", isEqualTo: currentUser.id)
+            .order(by: "createdTime", descending: true)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot
                         
-                        do {
+                else {
+                    
+                    completion(.failure(error!))
+                    
+                    return
+                }
+                
+                do {
+                    
+                    let articles = try snapshot.documents.map { try $0.data(as: Article.self)}
+                    
+                    completion(.success(articles))
+                    
+                } catch {
+                    
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func fetchArticle(articleType: ArticleType,
+                      with condition: FindPetSocietyFilterCondition? = nil,
+                      completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.article.rawValue)
+            .order(by: "createdTime", descending: true)
+            .addSnapshotListener { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot
+                
+                else {
+                        
+                        completion(.failure(error!))
+                        
+                        return
+                        
+                    }
+                
+                var articles = [Article]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let article = try document.data(as: Article.self)
+                        
+                        switch articleType {
                             
-                            let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                        case .find:
                             
                             switch condition == nil {
                                 
                             case true:
                                 
-                                articles.append(article)
+                                if article.postType != nil {
+                                    
+                                    articles.append(article)
+                                }
                                 
                             case false:
                                 
@@ -56,14 +111,55 @@ class PetSocietyFirebaseManager {
                                 }
                             }
                             
-                        } catch {
+                        case .share:
                             
-                            completion(.failure(error))
+                            if article.postType == nil {
+                                
+                                articles.append(article)
+                            }
                         }
+                        
+                    } catch {
+                        
+                        completion(.failure(error))
                     }
-                    
-                    completion(.success(articles))
                 }
+                
+                completion(.success(articles))
+            }
+    }
+    
+    func fetchArticle(
+        withArticleId id: String,
+        completion: @escaping (Result<Article, Error>) -> Void) {
+            
+            db.collection(FirebaseCollectionType.article.rawValue)
+                .whereField("id", isEqualTo: id)
+                .addSnapshotListener { snapshot, error in
+                
+                    guard
+                        let snapshot = snapshot
+                            
+                    else {
+                        
+                        completion(.failure(error!))
+                        
+                        return
+                    }
+                    do {
+                        
+                        if snapshot.documents.count > 0 {
+                            
+                            let article = try snapshot.documents.map { try $0.data(as: Article.self) }[0]
+                            
+                            completion(.success(article))
+                        }
+                        
+                    } catch {
+                        
+                        completion(.failure(error))
+                    }
+            }
         }
     
     func publishArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
@@ -87,55 +183,23 @@ class PetSocietyFirebaseManager {
         }
     }
     
-    func publishSharedArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
+    func editArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
         
-        let documentReference = db.collection(FirebaseCollectionType.sharedArticle.rawValue).document()
-        
-        let documentId = documentReference.documentID
+        let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document(article.id)
         
         do {
             
-            article.userId = userId
-            
-            article.id = documentId
-            
             article.createdTime = NSDate().timeIntervalSince1970
             
-            try documentReference.setData(from: article, encoder: Firestore.Encoder())
+            try documentReference.setData(from: article)
+            
+            completion(nil)
+            
         } catch {
             
             completion(error)
         }
     }
-    
-    func fetchSharedArticle(
-        completion: @escaping (Result<[Article], Error>) -> Void) {
-            
-            db.collection(FirebaseCollectionType.sharedArticle.rawValue)
-                .order(by: "createdTime", descending: true)
-                .addSnapshotListener { snapshot, error in
-                    
-                    guard
-                        let snapshot = snapshot else { return }
-                    
-                    var articles = [Article]()
-                    
-                    for document in snapshot.documents {
-                        
-                        do {
-                            
-                            let article = try document.data(as: Article.self, decoder: Firestore.Decoder())
-                            
-                            articles.append(article)
-                            
-                        } catch {
-                            
-                            completion(.failure(error))
-                        }
-                    }
-                    completion(.success(articles))
-                }
-        }
     
     func deleteArticle(
         with userId: String,
@@ -176,78 +240,25 @@ class PetSocietyFirebaseManager {
             }
         }
     
-    func deleteSharedArticle(
-        with userId: String,
-        completion: @escaping (Error?) -> Void) {
+    func deleteArticle(withArticleId articleId: String, completion: @escaping (Error?) -> Void) {
+        
+        db.collection(
+            FirebaseCollectionType.article.rawValue)
+            .document(articleId).delete() { error in
             
-            db.collection(FirebaseCollectionType.sharedArticle.rawValue).getDocuments { snapshot, error in
-                
-                guard
-                    let snapshot = snapshot else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
-                
-                for index in 0..<snapshot.documents.count {
+            guard
+                error == nil
                     
-                    do {
-                        
-                        let deleteArticle = try snapshot.documents[index].data(as: Article.self)
-                        
-                        let currentUserId = UserFirebaseManager.shared.currentUser?.id
-                        
-                        if deleteArticle.userId == currentUserId {
-                            
-                            let docID = snapshot.documents[index].documentID
-                            
-                            self.db.collection(FirebaseCollectionType.sharedArticle.rawValue).document("\(docID)").delete()
-                        }
-                    } catch {
-                        
-                        completion(error)
-                    }
-                    
-                }
+            else {
                 
-                completion(nil)
+                completion(error)
+                
+                return
             }
-        }
-    
-    func deleteFriend(
-        withCurrent userId: String,
-        completion: @escaping (Error?) -> Void) {
             
-            db.collection(FirebaseCollectionType.user.rawValue).whereField("friends", arrayContains: userId).getDocuments { snapshot, error in
-                
-                guard
-                    let snapshot = snapshot else {
-                        
-                        completion(error)
-                        
-                        return
-                    }
-                
-                do {
-
-                    var users = try snapshot.documents.map { try $0.data(as: User.self) }
-                    
-                    for index in 0..<users.count {
-                        
-                        users[index].friends = users[index].friends.filter { $0 != userId }
-                        
-                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(users[index].id).setData(from: users[index])
-                    }
-                    
-                    completion(nil)
-
-                } catch {
-
-                    completion(error)
-                }
-            }
+            completion(nil)
         }
+    }
     
     func fetchDownloadImageURL(
         image: UIImage,
@@ -295,6 +306,58 @@ class PetSocietyFirebaseManager {
                 }
             }
         }
+    
+    func leaveComment(withArticle article: inout Article, comment: Comment, completion: @escaping (Error?) -> Void) {
+        
+        article.comments.append(comment)
+        
+        do {
+            try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
+            
+        } catch {
+            
+            completion(error)
+        }
+    }
+    
+    func likeArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        article.likeUserIds.append(currentUser.id)
+        
+        do {
+            
+            try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
+            
+        } catch {
+            
+            completion(error)
+        }
+    }
+    
+    func unlikeArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        article.likeUserIds.removeAll { userId in
+            
+            let isRemove = userId == currentUser.id
+            
+            return isRemove
+        }
+        
+        do {
+            
+            try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
+            
+        } catch {
+            
+            completion(error)
+        }
+    }
     
     // MARK: - ChatRoom
     func fetchChatRoom(completion: @escaping (Result<[ChatRoom], Error>) -> Void) {
@@ -497,7 +560,7 @@ class PetSocietyFirebaseManager {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue)
             .order(by: "createdTime", descending: false)
-            .addSnapshotListener { snapshot, error in
+            .getDocuments { snapshot, error in
                 
                 guard
                     let snapshot = snapshot else { return }
@@ -545,6 +608,8 @@ class PetSocietyFirebaseManager {
             friendRequest.createdTime = NSDate().timeIntervalSince1970
             
             try documentReference.setData(from: friendRequest)
+            
+            completion(nil)
         }
         
         catch {
@@ -554,6 +619,39 @@ class PetSocietyFirebaseManager {
     }
     
     
+    func deleteFriend(
+        withCurrent userId: String,
+        completion: @escaping (Error?) -> Void) {
+            
+            db.collection(FirebaseCollectionType.user.rawValue).whereField("friends", arrayContains: userId).getDocuments { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else {
+                        
+                        completion(error)
+                        
+                        return
+                    }
+                
+                do {
+
+                    var users = try snapshot.documents.map { try $0.data(as: User.self) }
+                    
+                    for index in 0..<users.count {
+                        
+                        users[index].friends = users[index].friends.filter { $0 != userId }
+                        
+                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(users[index].id).setData(from: users[index])
+                    }
+                    
+                    completion(nil)
+
+                } catch {
+
+                    completion(error)
+                }
+            }
+        }
     
     // MARK: - Convert functions
     
@@ -573,6 +671,44 @@ class PetSocietyFirebaseManager {
     func setArticles(with viewModels: Box<[ArticleViewModel]>, articles: [Article]) {
         
         viewModels.value = convertArticlesToViewModels(from: articles)
+    }
+    
+    private func convertCommentsToViewModels(from comments: [Comment]) -> [CommentViewModel] {
+        
+        var viewModels = [CommentViewModel]()
+        
+        for comment in comments {
+            
+            let viewModel = CommentViewModel(model: comment)
+            
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setComments(with viewModels: Box<[CommentViewModel]>, comments: [Comment]) {
+        
+        viewModels.value = convertCommentsToViewModels(from: comments)
+    }
+    
+    private func convertProfileArticlesToViewModels(from profileArticles: [ProfileArticle]) -> [ProfileArticleViewModel] {
+        
+        var viewModels = [ProfileArticleViewModel]()
+        
+        for profileArticle in profileArticles {
+            
+            let viewModel = ProfileArticleViewModel(model: profileArticle)
+            
+            viewModels.append(viewModel)
+            
+        }
+        
+        return viewModels
+    }
+    
+    func setProfileArticles(with viewModels: Box<[ProfileArticleViewModel]>, profileArticles: [ProfileArticle]) {
+        
+        viewModels.value = convertProfileArticlesToViewModels(from: profileArticles)
     }
     
 }

@@ -9,7 +9,7 @@ import UIKit.UIImage
 
 class SharePublishViewModel {
     
-    let shareContentCategory = ShareContentCategory.allCases
+    let shareContentCategory = PublishContentCategory.getCategory(with: .share)
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
@@ -96,7 +96,7 @@ extension SharePublishViewModel {
             
 
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishSharedArticle(
+            PetSocietyFirebaseManager.shared.publishArticle(
                 currentUser.id, with: &self.article) { error in
 
                 guard

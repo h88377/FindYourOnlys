@@ -39,7 +39,7 @@ class PublishKindCell: PublishBasicCell {
     
     var buttons: [UIButton] = []
     
-    override func layoutCell(category: String) {
+    override func layoutCell(category: String, article: Article? = nil) {
         
         kindLabel.text = category
         
@@ -51,15 +51,34 @@ class PublishKindCell: PublishBasicCell {
 
             for index in 0..<petKinds.count {
 
-                createButton(with: petKinds[index].rawValue, index: index)
+                if
+                    let article = article {
+                    
+                    let isSelected = article.petKind == petKinds[index].rawValue
+                    
+                    createButton(with: petKinds[index].rawValue, index: index, isSelected: isSelected)
+                } else {
+                    
+                    createButton(with: petKinds[index].rawValue, index: index)
+                }
             }
         case PublishContentCategory.postType.rawValue:
             
             let postTypes = PostType.allCases
 
             for index in 0..<postTypes.count {
-
-                createButton(with: postTypes[index].rawValue, index: index)
+                
+                if
+                    let article = article {
+                    
+                    let isSelected = article.postType == index
+                    
+                    createButton(with: postTypes[index].rawValue, index: index, isSelected: isSelected)
+                    
+                } else {
+                    
+                    createButton(with: postTypes[index].rawValue, index: index)
+                }
             }
             
         default:
@@ -74,7 +93,7 @@ class PublishKindCell: PublishBasicCell {
         }
     }
     
-    func createButton(with title: String, index: Int) {
+    func createButton(with title: String, index: Int, isSelected: Bool = false) {
         
         let screenWidth = UIScreen.main.bounds.width
         
@@ -97,6 +116,8 @@ class PublishKindCell: PublishBasicCell {
         
         button.setTitleColor(.black, for: .selected)
         
+        button.isSelected = isSelected
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(toggleButton), for: .touchUpInside)
@@ -107,8 +128,6 @@ class PublishKindCell: PublishBasicCell {
 
         NSLayoutConstraint.activate(
             [
-//                button.widthAnchor.constraint(equalToConstant: (screenWidth - 32) / 3),
-                
                 button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
                 
                 button.widthAnchor.constraint(equalToConstant: 40),
@@ -117,7 +136,10 @@ class PublishKindCell: PublishBasicCell {
                 
                 button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
                 
-                button.leadingAnchor.constraint(equalTo: kindStackView.leadingAnchor, constant: ((screenWidth - 32) / 3) * CGFloat(index) )
+                button.leadingAnchor.constraint(
+                    equalTo: kindStackView.leadingAnchor,
+                    constant: ((screenWidth - 32) / 3) * CGFloat(index)
+                )
             ]
         )
     }

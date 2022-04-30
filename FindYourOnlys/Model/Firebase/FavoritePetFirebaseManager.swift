@@ -59,9 +59,7 @@ class FavoritePetFirebaseManager {
             pet.userID = userID
             
             try documentReference.setData(from: pet, encoder: Firestore.Encoder())
-        }
-        
-        catch {
+        } catch {
             
             completion(error)
         }
