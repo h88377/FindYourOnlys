@@ -31,6 +31,11 @@ class SearchFriendViewModel {
                 
             case .success(let users):
                 
+                if users.count == 0 {
+                    
+                    completion(.success(.noRelativeId))
+                }
+                
                 for user in users {
                     
                     if user.id == userId {
@@ -39,7 +44,7 @@ class SearchFriendViewModel {
                             
                             completion(.success(.friend))
                             
-                        } else if currentUser.limitedUsers.contains (userId){
+                        } else if currentUser.limitedUsers.contains(userId) {
                             
                             completion(.success(.limitedUser))
                             
@@ -92,21 +97,4 @@ class SearchFriendViewModel {
             }
         }
     }
-    
-//    func sendFriendRequest(completion: @escaping (Error?) -> Void) {
-//        
-//        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { error in
-//            
-//            if error != nil {
-//                
-//                completion(error)
-//                
-//            } else {
-//                completion(nil)
-//            }
-//            
-//        }
-//        
-//    }
-    
 }
