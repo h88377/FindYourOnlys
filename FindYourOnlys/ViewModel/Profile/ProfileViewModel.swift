@@ -9,9 +9,38 @@ import Foundation
 
 class ProfileViewModel {
     
+    var userViewModel: Box<UserViewModel?> = Box(nil)
+    
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var profileArticleViewModels = Box([ProfileArticleViewModel]())
+    
+    func fetchCurrentUser() {
+        
+        guard
+            let currentUserId = UserFirebaseManager.shared.initialUser?.uid
+                
+        else { return }
+        
+        UserFirebaseManager.shared.fetchUser { [weak self] result in
+            
+            switch result {
+                
+            case .success(let users):
+                
+                for user in users where user.id == currentUserId {
+                    
+                    self?.userViewModel.value = UserViewModel(model: user)
+                    
+                    break
+                }
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
     
     func fetchProfileArticle() {
         
@@ -74,23 +103,23 @@ class ProfileViewModel {
         }
     }
     
-    func deleteUser() {
-        
-        UserFirebaseManager.shared.deleteAuthUser { [weak self] error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
-                
-                return
-            }
-            
-            print("Delete user successfully.")
-            
-            UserFirebaseManager.shared.currentUser = nil
-        }
-    }
+//    func deleteUser() {
+//
+//        UserFirebaseManager.shared.deleteAuthUser { [weak self] error in
+//
+//            guard
+//                error == nil
+//
+//            else {
+//
+//                self?.errorViewModel.value = ErrorViewModel(model: error!)
+//
+//                return
+//            }
+//
+//            print("Delete user successfully.")
+//
+//            UserFirebaseManager.shared.currentUser = nil
+//        }
+//    }
 }
