@@ -35,6 +35,8 @@ class AdoptListViewController: BaseViewController {
             collectionView.dataSource = self
             
             collectionView.delegate = self
+            
+            collectionView.backgroundColor = .projectBackgroundColor
         }
     }
     
@@ -42,7 +44,7 @@ class AdoptListViewController: BaseViewController {
         
         didSet {
             
-            mapButton.backgroundColor = .projectTintColor
+            mapButton.backgroundColor = .projectIconColor1
             
             mapButton.tintColor = .white
         }
@@ -52,11 +54,9 @@ class AdoptListViewController: BaseViewController {
         
         didSet {
             
-            filterButton.tintColor = .projectTintColor
+            filterButton.tintColor = .projectIconColor2
         }
     }
-    
-    
     private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {

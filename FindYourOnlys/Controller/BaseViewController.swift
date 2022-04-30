@@ -44,6 +44,7 @@ class BaseViewController: UIViewController {
         
         setupTableView()
         
+        view.backgroundColor = .systemGray6
     }
     
     
