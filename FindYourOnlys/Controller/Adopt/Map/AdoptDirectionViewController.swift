@@ -58,7 +58,8 @@ class AdoptDirectionViewController: BaseViewController {
         
         tableView.registerCellWithIdentifier(identifier: DirectionCell.identifier)
         
-        tableView.register(UINib(nibName: "\(DirectionHeaderView.self)", bundle: nil), forHeaderFooterViewReuseIdentifier: "\(DirectionHeaderView.self)")
+        tableView.registerViewWithIdentifier(identifier: DirectionHeaderView.identifier)
+//        tableView.register(UINib(nibName: "\(DirectionHeaderView.self)", bundle: nil), forHeaderFooterViewReuseIdentifier: "\(DirectionHeaderView.self)")
     }
 }
 
@@ -98,7 +99,7 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(DirectionHeaderView.self)") as? DirectionHeaderView
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DirectionHeaderView.identifier) as? DirectionHeaderView
                 
         else { return nil }
         

@@ -6,15 +6,13 @@
 //
 
 import UIKit
-//import IQKeyboardManagerSwift
 
 class ChatRoomMessageViewController: BaseViewController {
     
     private enum MessageType: String {
         
         case placeHolder = "請輸入訊息"
-        
-//        case empty = ""
+
     }
     
     @IBOutlet weak var messageTextView: UITextView! {
@@ -157,9 +155,7 @@ class ChatRoomMessageViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: ChatRoomMessageCell.identifier)
         
     }
-    
-   
-    
+       
     @IBAction func sendMessage(_ sender: UIButton) {
         
         viewModel.changedContent(with: messageTextView.text)

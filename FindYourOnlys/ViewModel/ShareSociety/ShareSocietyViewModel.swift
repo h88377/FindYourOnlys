@@ -7,17 +7,15 @@
 
 import Foundation
 
-class ShareSocietyViewModel {
+class ShareSocietyViewModel: BaseSocietyViewModel {
     
     let articleViewModels = Box([ArticleViewModel]())
     
     let authorViewModels = Box([UserViewModel]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
     func fetchSharedArticles() {
         
-        PetSocietyFirebaseManager.shared.fetchSharedArticle() { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .share) { [weak self] result in
             
             guard
                 let self = self else { return }

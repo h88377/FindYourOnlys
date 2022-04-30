@@ -9,7 +9,15 @@ import UIKit
 
 class ArticleContentCell: UITableViewCell {
 
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton! {
+        
+        didSet {
+            
+            likeButton.setImage(UIImage.system(.addToFavorite), for: .normal)
+            
+            likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
+        }
+    }
     
     @IBOutlet weak var leaveCommentButton: UIButton!
     
@@ -18,23 +26,6 @@ class ArticleContentCell: UITableViewCell {
     @IBOutlet weak var likeCountLabel: UILabel!
     
     @IBOutlet weak var commentCountLabel: UILabel!
-    
-    @IBOutlet weak var postTypeLabel: UILabel! {
-        
-        didSet {
-            
-            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        }
-    }
-    @IBOutlet weak var locationImage: UIImageView! {
-        
-        didSet {
-            
-            locationImage.tintColor = .systemGray2
-        }
-    }
-    
-    @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var kindLabel: UILabel! {
         
@@ -48,13 +39,19 @@ class ArticleContentCell: UITableViewCell {
  
     @IBOutlet weak var colorLabel: UILabel!
     
+    var leaveCommentHandler: (() -> Void)?
+    
+    var likeArticleHandler: (() -> Void)?
+    
+    var unlikeArticleHandler: (() -> Void)?
+    
+    var shareHandler: (() -> Void)?
+    
     func configureCell(with viewModel: ArticleViewModel) {
         
         likeCountLabel.text = "\(viewModel.article.likeUserIds.count)"
         
         commentCountLabel.text = "\(viewModel.article.comments.count)"
-        
-//        cityLabel.text = viewModel.article.city
         
         kindLabel.text = viewModel.article.petKind
         
@@ -62,19 +59,53 @@ class ArticleContentCell: UITableViewCell {
         
         colorLabel.text = viewModel.article.color
         
-//        switch viewModel.article.postType {
-//            
-//        case 0:
-//            
-//            postTypeLabel.text = PostType.allCases[0].rawValue
-//            
-//        case 1:
-//            
-//            postTypeLabel.text = PostType.allCases[1].rawValue
-//            
-//        default:
-//            
-//            postTypeLabel.text = "error type."
-//        }   
+        if
+            let currentUser = UserFirebaseManager.shared.currentUser {
+            
+            likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
+            
+        } else {
+            
+            likeButton.isSelected = false
+        }
     }
+    
+    @IBAction func leaveComment(_ sender: UIButton) {
+        
+        leaveCommentHandler?()
+    }
+    
+    @IBAction func toggleFavorite(_ sender: UIButton) {
+        
+        switch likeButton.isSelected {
+            
+        case true:
+            
+            unlikeArticleHandler?()
+            
+        case false:
+            
+            likeArticleHandler?()
+            
+        }
+        
+    }
+    
+    @IBAction func share(_ sender: UIButton) {
+           
+        shareHandler?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        shareHandler = nil
+        
+        unlikeArticleHandler = nil
+        
+        likeArticleHandler = nil
+        
+        leaveCommentHandler = nil
+    }
+    
 }

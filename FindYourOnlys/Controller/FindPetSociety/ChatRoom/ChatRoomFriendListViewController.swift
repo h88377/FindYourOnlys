@@ -54,6 +54,20 @@ class ChatRoomFriendListViewController: BaseViewController {
         super.setupNavigationTitle()
         
         navigationItem.title = "聊天室"
+        
+        let barButtonItem = UIBarButtonItem(title: "好友邀請", style: .done, target: self, action: #selector(checkFriendRequest))
+        
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+    
+    @objc func checkFriendRequest(sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard.profile
+        
+        let friendRequestVC = storyboard.instantiateViewController(
+            withIdentifier: ProfileFriendRequestViewController.identifier)
+        
+        navigationController?.pushViewController(friendRequestVC, animated: true)
     }
 }
 

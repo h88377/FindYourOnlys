@@ -31,10 +31,10 @@ class PublishBasicCell: UITableViewCell {
     var galleryHandler: (() -> Void)?
 
     // Implement by child class
-    func layoutCell() {
+    func layoutCell(article: Article? = nil) {
 
     }
-    func layoutCell(category: String) {
+    func layoutCell(category: String, article: Article? = nil) {
 
     }
     
@@ -75,7 +75,6 @@ extension PublishBasicCellDelegate {
     }
     
     func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
-        
         
     }
 }
