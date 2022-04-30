@@ -92,17 +92,17 @@ class SearchFriendViewController: BaseViewController {
     
     @IBAction func sendFriendRequest(_ sender: UIButton) {
         
-        viewModel.sendFriendRequest { error in
-            
-            if error != nil { print(error)
-                
-            } else {
-                
-                sender.isEnabled = false
-                
-                sender.setTitle(SearchFriendResult.sentRequest.rawValue, for: .disabled)
-            }
-        }
+//        viewModel.sendFriendRequest { error in
+//            
+//            if error != nil { print(error)
+//                
+//            } else {
+//                
+//                sender.isEnabled = false
+//                
+//                sender.setTitle(SearchFriendResult.sentRequest.rawValue, for: .disabled)
+//            }
+//        }
     }
     
     func toggleSearchedUserInfo(isExisted: Bool) {

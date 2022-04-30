@@ -15,7 +15,9 @@ class FriendProfileViewModel {
     
     var searchFriendResult: SearchFriendResult
     
-    var friendRequest: FriendRequest?
+    var friendRequest = FriendRequest(requestUserId: "", requestedUserId: "", createdTime: -1)
+    
+    var dismissHandler: (() -> Void)?
     
     init(model: User, result: SearchFriendResult) {
         
@@ -25,10 +27,6 @@ class FriendProfileViewModel {
     }
     
     func sendFriendRequest() {
-        
-        guard
-            var friendRequest = friendRequest else { return }
-
         
         PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { [weak self] error in
             
@@ -42,6 +40,7 @@ class FriendProfileViewModel {
                 return
             }
             
+            self?.dismissHandler?()
         }
         
     }

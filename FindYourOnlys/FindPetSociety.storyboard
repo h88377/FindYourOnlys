@@ -216,9 +216,6 @@
                                         <rect key="frame" x="23" y="209" width="92" height="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="發送好友邀請"/>
-                                        <connections>
-                                            <action selector="sendFriendRequest:" destination="1VF-nO-BQ1" eventType="touchUpInside" id="4fs-kX-ACu"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -246,9 +243,6 @@
                         <outlet property="errorMessageLabel" destination="OoJ-kg-xcR" id="9KN-JI-roJ"/>
                         <outlet property="requestButton" destination="vnY-9K-nY7" id="1Gi-TQ-7IX"/>
                         <outlet property="searchTextField" destination="X9Q-co-MBk" id="Z3M-fI-Tcf"/>
-                        <outlet property="statusLabel" destination="eIr-65-oa8" id="L6O-4Q-Kgk"/>
-                        <outlet property="userImageView" destination="hyx-B0-4T5" id="fBH-VJ-jKn"/>
-                        <outlet property="userNickNameLabel" destination="mCt-Zd-SXH" id="7Ai-l3-pSK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZNh-zU-3of" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

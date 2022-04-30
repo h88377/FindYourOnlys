@@ -44,6 +44,15 @@ class FriendProfileViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var cancelButton: UIButton! {
+        
+        didSet {
+            
+            cancelButton.setTitleColor(.black, for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var baseView: UIView!
     
     
     override func viewDidLoad() {
@@ -56,12 +65,37 @@ class FriendProfileViewController: UIViewController {
 
         
         updateSearchedUserInfo(with: viewModel, result: viewModel.searchFriendResult)
+        
+        viewModel.errorViewModel.bind(listener: { errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+            
+            else {
+                
+                print(errorViewModel?.error.localizedDescription)
+                
+                return
+            }
+        })
+        
+        viewModel.dismissHandler = { [weak self] in
+            
+            self?.dismiss(animated: true)
+            
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        
+        baseView.layer.cornerRadius = 15
+        
+        requestButton.layer.cornerRadius = 15
+        
+        cancelButton.layer.cornerRadius = 15
     }
     
 //    func setupFriend() {

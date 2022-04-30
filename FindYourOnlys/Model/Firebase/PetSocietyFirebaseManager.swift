@@ -560,7 +560,7 @@ class PetSocietyFirebaseManager {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue)
             .order(by: "createdTime", descending: false)
-            .addSnapshotListener { snapshot, error in
+            .getDocuments { snapshot, error in
                 
                 guard
                     let snapshot = snapshot else { return }
@@ -608,6 +608,8 @@ class PetSocietyFirebaseManager {
             friendRequest.createdTime = NSDate().timeIntervalSince1970
             
             try documentReference.setData(from: friendRequest)
+            
+            completion(nil)
         }
         
         catch {
