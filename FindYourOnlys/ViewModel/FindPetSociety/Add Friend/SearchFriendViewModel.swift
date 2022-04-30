@@ -25,7 +25,7 @@ class SearchFriendViewModel {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        UserFirebaseManager.shared.fetchUser { [weak self] result in
+        UserFirebaseManager.shared.fetchUser(with: userId) { [weak self] result in
             
             switch result {
                 
@@ -93,20 +93,20 @@ class SearchFriendViewModel {
         }
     }
     
-    func sendFriendRequest(completion: @escaping (Error?) -> Void) {
-        
-        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { error in
-            
-            if error != nil {
-                
-                completion(error)
-                
-            } else {
-                completion(nil)
-            }
-            
-        }
-        
-    }
+//    func sendFriendRequest(completion: @escaping (Error?) -> Void) {
+//        
+//        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { error in
+//            
+//            if error != nil {
+//                
+//                completion(error)
+//                
+//            } else {
+//                completion(nil)
+//            }
+//            
+//        }
+//        
+//    }
     
 }

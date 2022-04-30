@@ -598,6 +598,34 @@ class UserFirebaseManager {
             }
     }
     
+    func fetchUser(with userId: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.user.rawValue)
+            .whereField("id", isEqualTo: userId)
+            .getDocuments { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else { return }
+                
+                var users = [User]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let user = try document.data(as: User.self)
+                        
+                        users.append(user)
+                    } catch {
+                        
+                        completion(.failure(error))
+                    }
+                }
+                
+                completion(.success(users))
+            }
+    }
+    
     func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Error?) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(id)")
