@@ -375,24 +375,6 @@ class UserFirebaseManager {
         
         DispatchQueue.global().async {
             
-            // User
-            group.enter()
-            self.deleteUser(with: user.uid) { error in
-                
-                guard
-                    error == nil
-                        
-                else {
-                          
-                    completion(DeleteDataError.deleteUserError)
-                    
-                    group.leave()
-                    
-                    return
-                }
-                group.leave()
-            }
-            
             // Favorite pet
             group.enter()
             FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
@@ -446,24 +428,6 @@ class UserFirebaseManager {
                 }
                 group.leave()
             }
-            
-            // SharedArticle
-//            group.enter()
-//            PetSocietyFirebaseManager.shared.deleteSharedArticle(with: user.uid) { error in
-//                
-//                guard
-//                    error == nil
-//                        
-//                else {
-//                    
-//                    completion(DeleteDataError.deleteArticleError)
-//                    
-//                    group.leave()
-//                    
-//                    return
-//                }
-//                group.leave()
-//            }
             
             // ChatRoom
             group.enter()
@@ -520,7 +484,10 @@ class UserFirebaseManager {
             }
             
             // Need all delete process finish to end the delete process.
-            group.notify(queue: DispatchQueue.main) {
+            group.notify(queue: DispatchQueue.global()) {
+                
+                let semaphore = DispatchSemaphore(value: 0)
+                
                 // Account
                 user.delete { error in
                     
@@ -559,6 +526,23 @@ class UserFirebaseManager {
                         }
                         
                         completion(DeleteAccountError.unexpectedError)
+                        
+                        return
+                    }
+                    
+                    semaphore.signal()
+                }
+                
+                semaphore.wait()
+                // User
+                self.deleteUser(with: user.uid) { error in
+                    
+                    guard
+                        error == nil
+                            
+                    else {
+                              
+                        completion(DeleteDataError.deleteUserError)
                         
                         return
                     }

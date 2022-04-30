@@ -12,6 +12,20 @@ class ProfileViewController: BaseViewController {
 
     let viewModel = ProfileViewModel()
     
+    @IBOutlet weak var userImageView: UIImageView!
+    
+    @IBOutlet weak var userIdLabel: UILabel! {
+        
+        didSet {
+            
+            userIdLabel.font = UIFont.systemFont(ofSize: 14)
+            
+            userIdLabel.textColor = .systemGray
+        }
+    }
+    
+    @IBOutlet weak var userNickNameLabel: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         
         didSet {
@@ -25,7 +39,20 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.fetchCurrentUser()
+        
         viewModel.fetchProfileArticle()
+        
+        viewModel.userViewModel.bind { [weak self] userViewModel in
+            
+            guard
+                let userViewModel = userViewModel else { return }
+            
+            DispatchQueue.main.async {
+                
+                self?.setupProfile(with: userViewModel)
+            }
+        }
         
         viewModel.profileArticleViewModels.bind { [weak self] _ in
             
@@ -35,24 +62,40 @@ class ProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-            
-            guard
-                errorViewModel?.error != nil else { return }
-            
-            if
-                let deleteDataError = errorViewModel?.error as? DeleteDataError {
-                
-                self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
-                
-            } else if
-                
-                let deleteAccountError = errorViewModel?.error as? DeleteAccountError {
-                
-                self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
-                
-            }
-        }
+//        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+//
+//            guard
+//                errorViewModel?.error != nil else { return }
+//
+//            if
+//                let deleteDataError = errorViewModel?.error as? DeleteDataError {
+//
+//                self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
+//
+//            } else if
+//
+//                let deleteAccountError = errorViewModel?.error as? DeleteAccountError {
+//
+//                self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
+//
+//            }
+//        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "個人頁"
+        
+        let barButtonItem = UIBarButtonItem(title: "登出", style: .plain, target: self, action: #selector(signOut))
+        
+        navigationItem.rightBarButtonItem = barButtonItem
     }
     
     override func setupCollectionView() {
@@ -62,81 +105,8 @@ class ProfileViewController: BaseViewController {
         
         collectionView.registerHeaderViewWithIdentifier(identifier: ProfileArticleHeaderView.getIdentifier())
         
-//        collectionView.collectionViewLayout = configureCollectionViewLayout()
-        
         setupCollectionViewLayout()
     }
-    
-    // UICollectionViewCompositionalLayout
-//    func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-//
-//        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-//
-//          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//          let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//          item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-//
-//          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.3))
-//          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-//
-//          let section = NSCollectionLayoutSection(group: group)
-//          section.orthogonalScrollingBehavior = .groupPaging
-//          section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-//          section.interGroupSpacing = 10
-//
-//          let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-//          let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
-//          section.boundarySupplementaryItems = [sectionHeader]
-//
-//          return section
-//        }
-//        let sectionProvider = { (
-//            sectionIndex: Int,
-//            layoutEnvironment: NSCollectionLayoutEnvironment)
-//            -> NSCollectionLayoutSection? in
-//
-//            let itemSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .fractionalHeight(1.0)
-//            )
-//
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
-//
-//            let groupSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1 / 3),
-//                heightDimension: .fractionalHeight(0.75)
-//            )
-//
-//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 2)
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//
-//            section.interGroupSpacing = 8
-//
-//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
-//
-//            section.orthogonalScrollingBehavior = .groupPaging
-//
-//            let headerSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .estimated(44)
-//            )
-//
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: headerSize,
-//                elementKind: UICollectionView.elementKindSectionHeader,
-//                alignment: .topLeading
-//            )
-//
-//            section.boundarySupplementaryItems = [sectionHeader]
-//
-//            return section
-//        }
-        
-//        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
-//    }
     
     private func setupCollectionViewLayout() {
 
@@ -156,19 +126,32 @@ class ProfileViewController: BaseViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
-    @IBAction func goToFriendRequest(_ sender: UIButton) {
+    func setupProfile(with userViewModel: UserViewModel) {
+                
+        let currentUser = userViewModel.user
         
-        let storyboard = UIStoryboard.profile
+        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        let friendRequestVC = storyboard.instantiateViewController(
-            withIdentifier: ProfileFriendRequestViewController.identifier)
+        userIdLabel.text = currentUser.id
         
-        navigationController?.pushViewController(friendRequestVC, animated: true)
+        userNickNameLabel.text = "暱稱: \(currentUser.nickName)"
     }
     
-    @IBAction func signOut(_ sender: UIButton) {
+    @objc func signOut(sender: UIBarButtonItem) {
         
-        viewModel.signOut()
+        let signOutAlert = UIAlertController(title: "即將登出", message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let signOut = UIAlertAction(title: "登出", style: .destructive) { [weak self] _ in
+            
+            self?.viewModel.signOut()
+        }
+        signOutAlert.addAction(signOut)
+        
+        signOutAlert.addAction(cancel)
+        
+        present(signOutAlert, animated: true)
     }
     
     @IBAction func showAuth(_ sender: UIButton) {
@@ -187,26 +170,35 @@ class ProfileViewController: BaseViewController {
     
     @IBAction func deleteUser(_ sender: UIButton) {
         
-        showDeleteWindow(title: "警告", message: "您將刪除個人帳號，確定要刪除帳號嗎？")
+//        showDeleteWindow(title: "警告", message: "您將刪除個人帳號，確定要刪除帳號嗎？")
     }
     
-    func showDeleteWindow(title: String, message: String) {
+    @IBAction func editProfile(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let storyboard = UIStoryboard.profile
         
-        let delete = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
-            
-            self?.viewModel.deleteUser()
-        }
+        let editProfileVC = storyboard.instantiateViewController(withIdentifier: EditProfileViewController.identifier)
         
-        let cancel = UIAlertAction(title: "取消", style: .cancel)
-        
-        alert.addAction(cancel)
-        
-        alert.addAction(delete)
-        
-        present(alert, animated: true)
+        navigationController?.pushViewController(editProfileVC, animated: true)
     }
+    
+//    func showDeleteWindow(title: String, message: String) {
+//
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//
+//        let delete = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
+//
+//            self?.viewModel.deleteUser()
+//        }
+//
+//        let cancel = UIAlertAction(title: "取消", style: .cancel)
+//
+//        alert.addAction(cancel)
+//
+//        alert.addAction(delete)
+//
+//        present(alert, animated: true)
+//    }
     
 }
 
@@ -307,3 +299,81 @@ extension ProfileViewController: UIViewControllerTransitioningDelegate {
         PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
+
+
+
+// UICollectionViewCompositionalLayout
+
+
+//        collectionView.collectionViewLayout = configureCollectionViewLayout()
+
+
+//    func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+//
+//        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+//
+//          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+//          let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//          item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+//
+//          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.3))
+//          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+//
+//          let section = NSCollectionLayoutSection(group: group)
+//          section.orthogonalScrollingBehavior = .groupPaging
+//          section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+//          section.interGroupSpacing = 10
+//
+//          let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+//          let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+//          section.boundarySupplementaryItems = [sectionHeader]
+//
+//          return section
+//        }
+//        let sectionProvider = { (
+//            sectionIndex: Int,
+//            layoutEnvironment: NSCollectionLayoutEnvironment)
+//            -> NSCollectionLayoutSection? in
+//
+//            let itemSize = NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1.0),
+//                heightDimension: .fractionalHeight(1.0)
+//            )
+//
+//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//
+//            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
+//
+//            let groupSize = NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1 / 3),
+//                heightDimension: .fractionalHeight(0.75)
+//            )
+//
+//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 2)
+//
+//            let section = NSCollectionLayoutSection(group: group)
+//
+//            section.interGroupSpacing = 8
+//
+//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+//
+//            section.orthogonalScrollingBehavior = .groupPaging
+//
+//            let headerSize = NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1.0),
+//                heightDimension: .estimated(44)
+//            )
+//
+//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+//                layoutSize: headerSize,
+//                elementKind: UICollectionView.elementKindSectionHeader,
+//                alignment: .topLeading
+//            )
+//
+//            section.boundarySupplementaryItems = [sectionHeader]
+//
+//            return section
+//        }
+    
+//        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+//    }

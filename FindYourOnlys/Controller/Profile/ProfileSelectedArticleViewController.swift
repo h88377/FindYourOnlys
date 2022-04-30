@@ -75,7 +75,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
                 return
             }
             
-            let alert = UIAlertController(title: "請選擇要執行的項目", message: "", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
             
             let editAction = UIAlertAction(title: "編輯文章", style: .default) { [weak self] _ in
                 

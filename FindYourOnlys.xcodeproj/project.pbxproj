@@ -37,6 +37,8 @@
 		987D8B6A281B98B7000D1F95 /* BaseSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */; };
 		987D8B6C281BB188000D1F95 /* EditArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */; };
 		987D8B6E281BB2B3000D1F95 /* EditArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */; };
+		987D8B70281CED61000D1F95 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */; };
+		987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -216,6 +218,8 @@
 		987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSocietyViewModel.swift; sourceTree = "<group>"; };
 		987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewController.swift; sourceTree = "<group>"; };
 		987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewModel.swift; sourceTree = "<group>"; };
+		987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -592,6 +596,7 @@
 				987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */,
 				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
 				987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */,
+				987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				987D8B67281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift */,
 				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
+				987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */,
 				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
 			);
 			path = Profile;
@@ -1156,8 +1162,10 @@
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
 				98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */,
 				9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */,
+				987D8B70281CED61000D1F95 /* EditProfileViewController.swift in Sources */,
 				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,
+				987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */,
 				98CC161428030F8100B9FDC6 /* AdoptDetailContentCategory.swift in Sources */,
 				98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */,
 				98CC15E32801D71300B9FDC6 /* PetViewModel.swift in Sources */,

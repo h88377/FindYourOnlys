@@ -49,9 +49,6 @@ class ArticleContentCell: UITableViewCell {
     
     func configureCell(with viewModel: ArticleViewModel) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
         likeCountLabel.text = "\(viewModel.article.likeUserIds.count)"
         
         commentCountLabel.text = "\(viewModel.article.comments.count)"
@@ -62,8 +59,15 @@ class ArticleContentCell: UITableViewCell {
         
         colorLabel.text = viewModel.article.color
         
-        likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
-         
+        if
+            let currentUser = UserFirebaseManager.shared.currentUser {
+            
+            likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
+            
+        } else {
+            
+            likeButton.isSelected = false
+        }
     }
     
     @IBAction func leaveComment(_ sender: UIButton) {
