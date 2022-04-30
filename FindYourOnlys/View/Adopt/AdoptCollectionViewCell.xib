@@ -106,6 +106,7 @@
                 <outlet property="cityLabel" destination="qRL-VK-FVf" id="T0b-9Z-Oqj"/>
                 <outlet property="idLabel" destination="d5s-3D-HpG" id="CQ7-je-VR2"/>
                 <outlet property="kindLabel" destination="KJt-gH-lUe" id="gWa-IO-rlV"/>
+                <outlet property="locationImageView" destination="q5r-gb-K2g" id="5Kq-Ca-zVY"/>
                 <outlet property="photoImageView" destination="2yM-jF-9xz" id="DIe-3N-MWr"/>
                 <outlet property="sexLabel" destination="Rtc-x0-3Yn" id="AHS-ZG-0wW"/>
                 <outlet property="statusLabel" destination="31d-Fh-RIG" id="gcz-KB-sLx"/>

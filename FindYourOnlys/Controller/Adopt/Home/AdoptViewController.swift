@@ -34,7 +34,13 @@ class AdoptViewController: BaseViewController {
     
     let viewModel = AdoptViewModel()
     
-    @IBOutlet weak var indicatorView: UIView!
+    @IBOutlet weak var indicatorView: UIView! {
+        
+        didSet {
+            
+            indicatorView.backgroundColor = .projectIconColor1
+        }
+    }
     
     @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
     
@@ -50,7 +56,7 @@ class AdoptViewController: BaseViewController {
                 
                 $0.setTitleColor(.systemGray2, for: .normal)
                 
-                $0.setTitleColor(.black, for: .selected)
+                $0.setTitleColor(.projectIconColor1, for: .selected)
             }
         }
     }
@@ -115,9 +121,16 @@ class AdoptViewController: BaseViewController {
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {
         
-        adoptButtons.forEach { $0.isSelected = false }
+        adoptButtons.forEach {
+            
+            $0.isSelected = false
+            
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        }
         
         sender.isSelected = true
+        
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         
         moveIndicatorView(to: sender)
         

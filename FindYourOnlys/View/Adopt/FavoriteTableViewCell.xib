@@ -51,7 +51,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                     <constraints>
                         <constraint firstItem="5TK-Rx-5Cs" firstAttribute="top" secondItem="6gd-0k-9d4" secondAttribute="top" constant="20" id="17N-wk-SGK"/>
                         <constraint firstItem="UbV-Ql-Dug" firstAttribute="leading" secondItem="5TK-Rx-5Cs" secondAttribute="leading" id="77K-T3-czj"/>
@@ -106,9 +105,6 @@
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

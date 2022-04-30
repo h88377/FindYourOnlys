@@ -10,7 +10,13 @@ import UIKit
 
 class AdoptCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var baseView: UIView!
+    @IBOutlet weak var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .white
+        }
+    }
     
     @IBOutlet weak var photoImageView: UIImageView! {
         
@@ -43,6 +49,14 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         didSet {
             
             sexLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        }
+    }
+    
+    @IBOutlet weak var locationImageView: UIImageView! {
+        
+        didSet {
+            
+            locationImageView.tintColor = .projectIconColor1
         }
     }
     
