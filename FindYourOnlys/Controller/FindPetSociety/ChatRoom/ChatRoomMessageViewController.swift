@@ -46,8 +46,8 @@ class ChatRoomMessageViewController: BaseViewController {
         didSet {
             
             sendMessageButton.tintColor = sendMessageButton.isEnabled
-            ? .systemBlue
-            : .gray
+            ? .projectIconColor1
+            : .projectPlaceHolderColor
         }
     }
     

@@ -13,7 +13,13 @@ class ChatRoomMessageCell: UITableViewCell {
     
     @IBOutlet weak var friendImageView: UIImageView!
     
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel! {
+        
+        didSet {
+            
+            contentLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var contentImageView: UIImageView! {
         
@@ -23,30 +29,62 @@ class ChatRoomMessageCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var messageBubbleView: UIView!
+    @IBOutlet weak var messageBubbleView: UIView! {
+        
+        didSet {
+            
+            messageBubbleView.backgroundColor = .projectBackgroundColor2
+        }
+    }
     
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var rightTimeLabel: UILabel! {
+        
+        didSet {
+            
+            rightTimeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            
+            rightTimeLabel.textColor = .projectPlaceHolderColor
+        }
+    }
     
     func configureCell(with viewModel: MessageViewModel, friend: User) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        friendImageView.isHidden = currentUser.id == viewModel.message.senderId
-        ? true
-        : false
+        if currentUser.id == viewModel.message.senderId {
+            
+            rightTimeLabel.textAlignment = .right
+            
+            contentLabel.textAlignment = .right
+            
+            friendImageView.isHidden = true
+            
+        } else {
+            
+            rightTimeLabel.textAlignment = .left
+            
+            contentLabel.textAlignment = .left
+           
+            friendImageView.isHidden = false
+        }
         
-        friendImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        friendImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
         userImageView.isHidden = friendImageView.isHidden
         ? false
         : true
+        
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
+        rightTimeLabel.text = viewModel.message.createdTime.formatedTime
         
         messageBubbleView.isHidden = true
         
         contentImageView.isHidden = true
+        
         if
             let content = viewModel.message.content,
             content != "" {
