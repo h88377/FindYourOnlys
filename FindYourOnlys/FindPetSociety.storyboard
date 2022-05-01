@@ -436,7 +436,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ChG-1C-qqZ">
-                        <barButtonItem key="rightBarButtonItem" title="發布" style="plain" id="aj0-wi-iKb">
+                        <barButtonItem key="rightBarButtonItem" title="發布" style="done" id="aj0-wi-iKb">
                             <connections>
                                 <action selector="publish:" destination="Ppr-a4-Qod" id="UHh-yK-nKJ"/>
                             </connections>

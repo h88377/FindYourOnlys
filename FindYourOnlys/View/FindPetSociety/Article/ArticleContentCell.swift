@@ -16,28 +16,68 @@ class ArticleContentCell: UITableViewCell {
             likeButton.setImage(UIImage.system(.addToFavorite), for: .normal)
             
             likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
+            
+            likeButton.tintColor = .projectIconColor1
         }
     }
     
-    @IBOutlet weak var leaveCommentButton: UIButton!
+    @IBOutlet weak var leaveCommentButton: UIButton! {
+        
+        didSet {
+            
+            leaveCommentButton.tintColor = .projectIconColor1
+        }
+    }
     
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton! {
+        
+        didSet {
+            
+            shareButton.tintColor = .projectIconColor1
+        }
+    }
     
-    @IBOutlet weak var likeCountLabel: UILabel!
+    @IBOutlet weak var likeCountLabel: UILabel! {
+        
+        didSet {
+            
+            likeCountLabel.textColor = .projectIconColor2
+        }
+    }
     
-    @IBOutlet weak var commentCountLabel: UILabel!
+    @IBOutlet weak var commentCountLabel: UILabel! {
+        
+        didSet {
+            
+            commentCountLabel.textColor = .projectIconColor2
+        }
+    }
     
     @IBOutlet weak var kindLabel: UILabel! {
         
         didSet {
             
             kindLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            
+            kindLabel.textColor = .projectTextColor
         }
     }
     
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel! {
+        
+        didSet {
+            
+            contentLabel.textColor = .projectTextColor
+        }
+    }
  
-    @IBOutlet weak var colorLabel: UILabel!
+    @IBOutlet weak var colorLabel: UILabel! {
+        
+        didSet {
+            
+            colorLabel.textColor = .projectTextColor
+        }
+    }
     
     var leaveCommentHandler: (() -> Void)?
     

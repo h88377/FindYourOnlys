@@ -40,11 +40,25 @@
                         <rect key="frame" x="16" y="96" width="351" height="306.5"/>
                         <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PostType" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MU7-US-9A9">
-                        <rect key="frame" x="296" y="33.5" width="71" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PostType" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MU7-US-9A9" customClass="PaddingableUILabel" customModule="FindYourOnlys" customModuleProvider="target">
+                        <rect key="frame" x="296" y="28" width="71" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQb-6o-DKm">
                         <rect key="frame" x="336.5" y="62" width="30.5" height="20.5"/>
@@ -91,10 +105,10 @@
                     <constraint firstItem="tug-lT-ZdT" firstAttribute="top" secondItem="urq-VJ-thk" secondAttribute="top" constant="10" id="SKp-6v-XIj"/>
                     <constraint firstItem="L8H-TX-9O6" firstAttribute="top" secondItem="tug-lT-ZdT" secondAttribute="bottom" constant="5" id="VTb-zH-50a"/>
                     <constraint firstItem="Dm8-sv-5x4" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.8" id="W5r-Mi-NPH"/>
-                    <constraint firstItem="MU7-US-9A9" firstAttribute="top" secondItem="0st-OR-bk2" secondAttribute="bottom" constant="5.5" id="WVw-i8-ieU"/>
+                    <constraint firstItem="MU7-US-9A9" firstAttribute="top" secondItem="0st-OR-bk2" secondAttribute="bottom" id="WVw-i8-ieU"/>
                     <constraint firstItem="L8H-TX-9O6" firstAttribute="leading" secondItem="tug-lT-ZdT" secondAttribute="leading" id="ZpQ-8N-Vc2"/>
                     <constraint firstItem="VQb-6o-DKm" firstAttribute="bottom" secondItem="L8H-TX-9O6" secondAttribute="bottom" id="bfV-X8-2b1"/>
-                    <constraint firstItem="VQb-6o-DKm" firstAttribute="top" secondItem="MU7-US-9A9" secondAttribute="bottom" constant="8" id="iiF-do-cPc"/>
+                    <constraint firstItem="VQb-6o-DKm" firstAttribute="top" secondItem="MU7-US-9A9" secondAttribute="bottom" constant="4" id="iiF-do-cPc"/>
                     <constraint firstItem="0Xz-52-cTh" firstAttribute="bottom" secondItem="VQb-6o-DKm" secondAttribute="bottom" id="jzD-5q-fsU"/>
                     <constraint firstItem="Dm8-sv-5x4" firstAttribute="top" secondItem="urq-VJ-thk" secondAttribute="bottom" constant="16" id="ltK-ta-uW5"/>
                     <constraint firstItem="0st-OR-bk2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="tj8-h2-pB4"/>

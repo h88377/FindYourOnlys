@@ -24,6 +24,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBO-ir-I49">
+                        <rect key="frame" x="16" y="64" width="407" height="350"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Gs-cn-kbY">
                         <rect key="frame" x="16" y="64" width="407" height="350"/>
                         <constraints>
@@ -75,18 +79,24 @@
                     </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="BBO-ir-I49" firstAttribute="trailing" secondItem="9Gs-cn-kbY" secondAttribute="trailing" id="3EW-gq-7gf"/>
                     <constraint firstItem="CfR-cp-4e6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5KC-wz-fHX"/>
                     <constraint firstItem="JZT-Wg-e6F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5yD-Se-8xb"/>
                     <constraint firstItem="9Gs-cn-kbY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Cox-jA-ARL"/>
                     <constraint firstAttribute="trailing" secondItem="JZT-Wg-e6F" secondAttribute="trailing" constant="16" id="GEH-Or-QNT"/>
                     <constraint firstItem="cE5-JW-0cb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="OHr-rp-Tpy"/>
                     <constraint firstItem="cE5-JW-0cb" firstAttribute="top" secondItem="9Gs-cn-kbY" secondAttribute="bottom" constant="16" id="OOy-bt-PJP"/>
+                    <constraint firstItem="BBO-ir-I49" firstAttribute="leading" secondItem="9Gs-cn-kbY" secondAttribute="leading" id="Uh2-KG-HYQ"/>
                     <constraint firstAttribute="trailing" secondItem="9Gs-cn-kbY" secondAttribute="trailing" constant="16" id="b5I-gp-hzl"/>
+                    <constraint firstItem="BBO-ir-I49" firstAttribute="width" secondItem="9Gs-cn-kbY" secondAttribute="width" id="c3b-7t-Zu4"/>
+                    <constraint firstItem="BBO-ir-I49" firstAttribute="top" secondItem="9Gs-cn-kbY" secondAttribute="top" id="gYj-Iu-j50"/>
                     <constraint firstItem="CfR-cp-4e6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="jUT-av-UIx"/>
                     <constraint firstAttribute="trailing" secondItem="2Bv-pv-vQT" secondAttribute="trailing" constant="16" id="m9i-S8-v1h"/>
                     <constraint firstItem="9Gs-cn-kbY" firstAttribute="top" secondItem="CfR-cp-4e6" secondAttribute="bottom" constant="16" id="pzV-5s-S8V"/>
+                    <constraint firstItem="BBO-ir-I49" firstAttribute="height" secondItem="9Gs-cn-kbY" secondAttribute="height" id="qFy-Sh-uH1"/>
                     <constraint firstItem="9Gs-cn-kbY" firstAttribute="top" secondItem="2Bv-pv-vQT" secondAttribute="bottom" constant="16" id="qre-Mf-V3H"/>
                     <constraint firstItem="2Bv-pv-vQT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="tex-yg-vqP"/>
+                    <constraint firstItem="BBO-ir-I49" firstAttribute="bottom" secondItem="9Gs-cn-kbY" secondAttribute="bottom" id="uet-GD-BG5"/>
                     <constraint firstItem="JZT-Wg-e6F" firstAttribute="top" secondItem="cE5-JW-0cb" secondAttribute="bottom" constant="16" id="v7V-i1-a9r"/>
                     <constraint firstAttribute="bottom" secondItem="JZT-Wg-e6F" secondAttribute="bottom" constant="16" id="vmM-Io-1oQ"/>
                 </constraints>
@@ -95,8 +105,11 @@
             <connections>
                 <outlet property="cameraButton" destination="fT2-EQ-SbR" id="cZe-yy-loI"/>
                 <outlet property="contentImageView" destination="9Gs-cn-kbY" id="eRJ-7B-3yG"/>
+                <outlet property="contentLabel" destination="cE5-JW-0cb" id="Hhr-6Z-0Tb"/>
                 <outlet property="contentTextView" destination="JZT-Wg-e6F" id="202-H1-fuu"/>
                 <outlet property="galleryButton" destination="ckv-Oa-S3d" id="XuJ-Wy-dQv"/>
+                <outlet property="imageBaseView" destination="BBO-ir-I49" id="Out-PS-2Jy"/>
+                <outlet property="photoLabel" destination="CfR-cp-4e6" id="qFO-Jx-2kv"/>
             </connections>
             <point key="canvasLocation" x="-123.91304347826087" y="327.79017857142856"/>
         </tableViewCell>
