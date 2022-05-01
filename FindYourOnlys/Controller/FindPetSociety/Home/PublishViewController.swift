@@ -18,6 +18,8 @@ class PublishViewController: BaseViewController {
             tableView.delegate = self
             
             tableView.dataSource = self
+            
+            tableView.separatorStyle = .none
         }
     }
     

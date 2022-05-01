@@ -25,16 +25,16 @@ class ShareSocietyViewController: BaseViewController {
         
         didSet {
             
-            addArticleButton.tintColor = .systemGray2
+            addArticleButton.tintColor = .white
             
-            addArticleButton.backgroundColor = .darkGray
+            addArticleButton.backgroundColor = .projectIconColor2
         }
     }
     @IBOutlet weak var chatButton: UIButton! {
         
         didSet {
             
-            chatButton.tintColor = .projectPlaceHolderColor
+            chatButton.tintColor = .projectIconColor2
         }
     }
     
@@ -42,7 +42,7 @@ class ShareSocietyViewController: BaseViewController {
         
         didSet {
             
-            addFriendButton.tintColor = .projectPlaceHolderColor
+            addFriendButton.tintColor = .projectIconColor2
         }
     }
     
