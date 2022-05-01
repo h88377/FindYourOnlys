@@ -1,13 +1,13 @@
 //
-//  ChatRoomCell.swift
+//  ChatRoomFriendMessageCell.swift
 //  FindYourOnlys
 //
-//  Created by 鄭昭韋 on 2022/4/14.
+//  Created by 鄭昭韋 on 2022/5/1.
 //
 
 import UIKit
 
-class ChatRoomMessageCell: UITableViewCell {
+class ChatRoomFriendMessageCell: UITableViewCell {
     
     @IBOutlet weak var userImageView: UIImageView!
     
@@ -18,6 +18,8 @@ class ChatRoomMessageCell: UITableViewCell {
         didSet {
             
             contentLabel.textColor = .projectTextColor
+            
+            contentLabel.backgroundColor = .projectBackgroundColor2
         }
     }
     
@@ -29,25 +31,17 @@ class ChatRoomMessageCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var messageBubbleView: UIView! {
+    @IBOutlet weak var timeLabel: UILabel! {
         
         didSet {
             
-            messageBubbleView.backgroundColor = .projectBackgroundColor2
+            timeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            
+            timeLabel.textColor = .projectPlaceHolderColor
         }
     }
     
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var rightTimeLabel: UILabel! {
-        
-        didSet {
-            
-            rightTimeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-            
-            rightTimeLabel.textColor = .projectPlaceHolderColor
-        }
-    }
     
     func configureCell(with viewModel: MessageViewModel, friend: User) {
         
@@ -56,32 +50,32 @@ class ChatRoomMessageCell: UITableViewCell {
         
         if currentUser.id == viewModel.message.senderId {
             
-            rightTimeLabel.textAlignment = .right
+            timeLabel.textAlignment = .right
             
             contentLabel.textAlignment = .right
             
             friendImageView.isHidden = true
             
+            userImageView.isHidden = !friendImageView.isHidden
+            
         } else {
             
-            rightTimeLabel.textAlignment = .left
+            timeLabel.textAlignment = .left
             
             contentLabel.textAlignment = .left
            
             friendImageView.isHidden = false
+            
+            userImageView.isHidden = !friendImageView.isHidden
         }
         
         friendImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        userImageView.isHidden = friendImageView.isHidden
-        ? false
-        : true
-        
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        rightTimeLabel.text = viewModel.message.createdTime.formatedTime
+        timeLabel.text = viewModel.message.createdTime.formatedTime
         
-        messageBubbleView.isHidden = true
+        contentLabel.isHidden = true
         
         contentImageView.isHidden = true
         
@@ -91,7 +85,7 @@ class ChatRoomMessageCell: UITableViewCell {
             
             contentLabel.text = content
             
-            messageBubbleView.isHidden = false
+            contentLabel.isHidden = false
             
             imageViewHeightConstraint.constant = 0
             
@@ -114,8 +108,11 @@ class ChatRoomMessageCell: UITableViewCell {
 
         friendImageView.layer.cornerRadius = userImageView.frame.height / 2
         
-        messageBubbleView.layer.cornerRadius = 12
+        contentLabel.layer.cornerRadius = 12
+        
+        contentLabel.clipsToBounds = true
         
         contentImageView.layer.cornerRadius = 12
     }
+    
 }
