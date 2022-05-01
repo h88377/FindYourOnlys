@@ -35,8 +35,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         didSet {
             
             sendButton.tintColor = sendButton.isEnabled
-            ? .systemBlue
-            : .gray
+            ? .projectIconColor1
+            : .projectPlaceHolderColor
         }
     }
     
@@ -152,6 +152,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         super.viewDidLayoutSubviews()
         
         commentTextView.layer.cornerRadius = 5
+        
+        commentTextView.centerVertically()
     }
     
     override func setupTableView() {
