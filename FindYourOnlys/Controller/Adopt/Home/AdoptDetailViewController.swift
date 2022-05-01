@@ -30,7 +30,7 @@ class AdoptDetailViewController: BaseViewController {
         
         didSet {
             
-            photoImageView.tintColor = .projectTintColor
+            photoImageView.tintColor = .projectPlaceHolderColor
         }
     }
     

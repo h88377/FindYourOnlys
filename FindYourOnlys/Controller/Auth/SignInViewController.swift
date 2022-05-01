@@ -35,7 +35,7 @@ class SignInViewController: BaseViewController {
             
             signInButton.tintColor = .black
             
-            signInButton.backgroundColor = .projectTintColor
+            signInButton.backgroundColor = .projectPlaceHolderColor
         }
     }
     

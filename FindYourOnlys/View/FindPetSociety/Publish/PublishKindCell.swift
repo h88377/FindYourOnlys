@@ -9,16 +9,22 @@ import UIKit
 
 class PublishKindCell: PublishBasicCell {
 
-    @IBOutlet weak var kindLabel: UILabel!
+    @IBOutlet weak var kindLabel: UILabel! {
+        
+        didSet {
+            
+            kindLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var kindStackView: UIStackView!
     
     var petImages: [UIImage] {
         
         guard
-            let catImage = UIImage.asset(.cat)?.withTintColor(.projectTintColor, renderingMode: .alwaysOriginal),
-            let dogImage = UIImage.asset(.dog)?.withTintColor(.projectTintColor, renderingMode: .alwaysOriginal),
-            let othersImage = UIImage.asset(.others)?.withTintColor(.projectTintColor, renderingMode: .alwaysOriginal)
+            let catImage = UIImage.asset(.cat)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal),
+            let dogImage = UIImage.asset(.dog)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal),
+            let othersImage = UIImage.asset(.others)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal)
                 
         else { return [] }
         
@@ -28,9 +34,9 @@ class PublishKindCell: PublishBasicCell {
     var selectedPetImages: [UIImage] {
         
         guard
-            let catImage = UIImage.asset(.cat)?.withTintColor(.black, renderingMode: .alwaysOriginal),
-            let dogImage = UIImage.asset(.dog)?.withTintColor(.black, renderingMode: .alwaysOriginal),
-            let othersImage = UIImage.asset(.others)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+            let catImage = UIImage.asset(.cat)?.withTintColor(.white, renderingMode: .alwaysOriginal),
+            let dogImage = UIImage.asset(.dog)?.withTintColor(.white, renderingMode: .alwaysOriginal),
+            let othersImage = UIImage.asset(.others)?.withTintColor(.white, renderingMode: .alwaysOriginal)
                 
         else { return [] }
         
@@ -38,6 +44,12 @@ class PublishKindCell: PublishBasicCell {
     }
     
     var buttons: [UIButton] = []
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        buttons.forEach { $0.layer.cornerRadius = 15}
+    }
     
     override func layoutCell(category: String, article: Article? = nil) {
         
@@ -62,6 +74,7 @@ class PublishKindCell: PublishBasicCell {
                     createButton(with: petKinds[index].rawValue, index: index)
                 }
             }
+            
         case PublishContentCategory.postType.rawValue:
             
             let postTypes = PostType.allCases
@@ -105,18 +118,24 @@ class PublishKindCell: PublishBasicCell {
             
             button.setImage(selectedPetImages[index], for: .selected)
             
+            button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            
             button.setTitle(title, for: .normal)
+            
+            button.titleLabel?.alpha = 0
             
         } else {
             
             button.setTitle(title, for: .normal)
         }
 
-        button.setTitleColor(.systemGray2, for: .normal)
+        button.setTitleColor(.projectPlaceHolderColor, for: .normal)
         
-        button.setTitleColor(.black, for: .selected)
+        button.setTitleColor(.white, for: .selected)
         
         button.isSelected = isSelected
+        
+        button.backgroundColor = .projectBackgroundColor
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -130,9 +149,9 @@ class PublishKindCell: PublishBasicCell {
             [
                 button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
                 
-                button.widthAnchor.constraint(equalToConstant: 40),
+                button.widthAnchor.constraint(equalToConstant: 60),
                 
-                button.heightAnchor.constraint(equalToConstant: 40),
+                button.heightAnchor.constraint(equalToConstant: 60),
                 
                 button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
                 
@@ -152,10 +171,15 @@ class PublishKindCell: PublishBasicCell {
         else { return }
         
         buttons.forEach {
+            
             $0.isSelected = false
+            
+            $0.backgroundColor = .projectBackgroundColor
         }
         
         sender.isSelected = true
+        
+        sender.backgroundColor = .projectIconColor1
         
         switch kindLabel.text {
             

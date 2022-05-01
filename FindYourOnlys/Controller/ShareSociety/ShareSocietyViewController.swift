@@ -34,7 +34,7 @@ class ShareSocietyViewController: BaseViewController {
         
         didSet {
             
-            chatButton.tintColor = .projectTintColor
+            chatButton.tintColor = .projectPlaceHolderColor
         }
     }
     
@@ -42,7 +42,7 @@ class ShareSocietyViewController: BaseViewController {
         
         didSet {
             
-            addFriendButton.tintColor = .projectTintColor
+            addFriendButton.tintColor = .projectPlaceHolderColor
         }
     }
     

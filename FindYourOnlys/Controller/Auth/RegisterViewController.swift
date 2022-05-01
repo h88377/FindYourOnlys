@@ -45,7 +45,7 @@ class RegisterViewController: BaseViewController {
             
             registerButton.tintColor = .black
             
-            registerButton.backgroundColor = .projectTintColor
+            registerButton.backgroundColor = .projectPlaceHolderColor
         }
     }
     

@@ -17,7 +17,7 @@ extension UIColor {
     
     static let closeAdopt = systemRed
     
-    static let projectTintColor = systemGray
+    static let projectPlaceHolderColor = systemGray
     
     static let projectBackgroundColor = UIColor.systemGray6
     
