@@ -10,11 +10,21 @@ import MapKit
 
 class DirectionHeaderView: UITableViewHeaderFooterView {
     
+    @IBOutlet weak var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .projectIconColor1
+        }
+    }
+    
     @IBOutlet weak var headerLabel: UILabel! {
         
         didSet {
             
             headerLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            
+            headerLabel.textColor = .white
         }
     }
     
@@ -23,6 +33,8 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         didSet {
             
             informationLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            
+            informationLabel.textColor = .white
         }
     }
     
@@ -31,6 +43,8 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         didSet {
             
             routeLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            routeLabel.textColor = .white
         }
     }
     
