@@ -21,6 +21,8 @@ extension UIColor {
     
     static let projectBackgroundColor = UIColor.systemGray6
     
+    static let projectBackgroundColor2 = hexStringToUIColor(hex: "f4f7f7")
+    
     static let projectTextColor = UIColor.darkGray
     
     static let objectBackgroundColor = hexStringToUIColor(hex: "F2F9F1")

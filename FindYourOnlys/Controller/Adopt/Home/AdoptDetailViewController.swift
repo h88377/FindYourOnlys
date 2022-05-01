@@ -38,7 +38,9 @@ class AdoptDetailViewController: BaseViewController {
         
         didSet {
             
-            favoriteButton.tintColor = .systemGray2
+            favoriteButton.tintColor = .white
+            
+            favoriteButton.backgroundColor = .projectIconColor1
         }
     }
     
@@ -46,9 +48,13 @@ class AdoptDetailViewController: BaseViewController {
         
         didSet {
             
-            phoneCallButton.setTitleColor(.gray, for: .highlighted)
+            phoneCallButton.setTitleColor(.white, for: .normal)
             
-            phoneCallButton.setTitleColor(.black, for: .normal)
+            phoneCallButton.setTitleColor(.projectTextColor, for: .highlighted)
+            
+            phoneCallButton.backgroundColor = .projectIconColor1
+            
+            phoneCallButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         }
     }
     
@@ -56,9 +62,13 @@ class AdoptDetailViewController: BaseViewController {
         
         didSet {
             
-            checkLocationButton.setTitleColor(.gray, for: .highlighted)
+            checkLocationButton.setTitleColor(.white, for: .normal)
             
-            checkLocationButton.setTitleColor(.black, for: .normal)
+            checkLocationButton.setTitleColor(.projectTextColor, for: .highlighted)
+            
+            checkLocationButton.backgroundColor = .projectIconColor1
+            
+            checkLocationButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         }
     }
     
@@ -70,7 +80,14 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-
+    @IBOutlet weak var bottomBaseView: UIView! {
+        
+        didSet {
+            
+            bottomBaseView.backgroundColor = .projectBackgroundColor2
+        }
+    }
+    
     
     
     @IBOutlet weak var tableView: UITableView! {
@@ -130,7 +147,15 @@ class AdoptDetailViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+        
+        bottomBaseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+        
+        phoneCallButton.layer.cornerRadius = 15
+        
+        checkLocationButton.layer.cornerRadius = 15
+        
+        favoriteButton.layer.cornerRadius = 15
     }
     
     
