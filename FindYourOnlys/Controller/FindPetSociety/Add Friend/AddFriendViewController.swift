@@ -9,11 +9,35 @@ import UIKit
 
 class AddFriendViewController: BaseViewController {
     
+    @IBOutlet weak var searchLabel: UILabel! {
+        
+        didSet {
+            
+            searchLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var qrCodeLabel: UILabel! {
+        
+        didSet {
+            
+            qrCodeLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var myCodeLabel: UILabel! {
+        
+        didSet {
+            
+            myCodeLabel.textColor = .projectTextColor
+        }
+    }
+    
     @IBOutlet weak var searchButton: UIButton! {
         
         didSet {
             
-            searchButton.imageView?.tintColor = .systemGray2
+            searchButton.imageView?.tintColor = .projectIconColor1
         }
     }
     
@@ -21,11 +45,17 @@ class AddFriendViewController: BaseViewController {
         
         didSet {
             
-            qrCodeButton.imageView?.tintColor = .systemGray2
+            qrCodeButton.imageView?.tintColor = .projectIconColor1
         }
     }
     
-    @IBOutlet weak var myQRCodeImageView: UIImageView!
+    @IBOutlet weak var myQRCodeImageView: UIImageView! {
+        
+        didSet {
+            
+            myQRCodeImageView.tintColor = .projectIconColor1
+        }
+    }
     
     override var isHiddenTabBar: Bool { return true }
     

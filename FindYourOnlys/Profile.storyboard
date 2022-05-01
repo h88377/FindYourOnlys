@@ -276,7 +276,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywh-bm-FQ2">
-                                        <rect key="frame" x="20" y="530" width="165.5" height="50"/>
+                                        <rect key="frame" x="20" y="530" width="207" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="eaB-Ez-afJ"/>
@@ -294,7 +294,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2av-SP-obk">
-                                        <rect key="frame" x="228.5" y="530" width="165.5" height="50"/>
+                                        <rect key="frame" x="256" y="530" width="138" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="取消"/>
@@ -323,10 +323,10 @@
                                     <constraint firstAttribute="trailing" secondItem="2av-SP-obk" secondAttribute="trailing" constant="20" id="ZyL-5i-AaU"/>
                                     <constraint firstItem="BWO-rx-kOD" firstAttribute="centerX" secondItem="Cgo-4P-mlS" secondAttribute="centerX" id="gQJ-Dt-IKb"/>
                                     <constraint firstItem="7qw-gL-XYU" firstAttribute="leading" secondItem="FUQ-H2-vU4" secondAttribute="leading" id="gZP-T0-9nt"/>
-                                    <constraint firstItem="2av-SP-obk" firstAttribute="width" secondItem="Ywh-bm-FQ2" secondAttribute="width" id="p7S-RS-doy"/>
+                                    <constraint firstItem="2av-SP-obk" firstAttribute="width" secondItem="Ywh-bm-FQ2" secondAttribute="width" multiplier="2/3" id="p7S-RS-doy"/>
                                     <constraint firstItem="Ywh-bm-FQ2" firstAttribute="leading" secondItem="Cgo-4P-mlS" secondAttribute="leading" constant="20" id="qfl-FH-v79"/>
                                     <constraint firstItem="2av-SP-obk" firstAttribute="bottom" secondItem="Ywh-bm-FQ2" secondAttribute="bottom" id="rlr-gC-TEO"/>
-                                    <constraint firstItem="Ywh-bm-FQ2" firstAttribute="width" secondItem="Cgo-4P-mlS" secondAttribute="width" multiplier="0.4" id="v9R-01-7rB"/>
+                                    <constraint firstItem="Ywh-bm-FQ2" firstAttribute="width" secondItem="Cgo-4P-mlS" secondAttribute="width" multiplier="0.5" id="v9R-01-7rB"/>
                                 </constraints>
                             </view>
                         </subviews>

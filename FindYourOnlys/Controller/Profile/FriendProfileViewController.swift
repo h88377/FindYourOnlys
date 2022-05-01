@@ -19,6 +19,8 @@ class FriendProfileViewController: UIViewController {
         didSet {
             
             nickNameLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+            
+            nickNameLabel.textColor = .projectTextColor
         }
     }
     
@@ -32,15 +34,25 @@ class FriendProfileViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel! {
+        
+        didSet {
+            
+            statusLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var requestButton: UIButton! {
         
         didSet {
             
-            requestButton.setTitleColor(.black, for: .normal)
+            requestButton.setTitleColor(.white, for: .normal)
             
-            requestButton.setTitleColor(.systemGray, for: .disabled)
+            requestButton.setTitleColor(.projectIconColor2, for: .disabled)
+            
+            requestButton.backgroundColor = .projectIconColor1
+            
+            requestButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         }
     }
     
@@ -48,17 +60,25 @@ class FriendProfileViewController: UIViewController {
         
         didSet {
             
-            cancelButton.setTitleColor(.black, for: .normal)
+            cancelButton.setTitleColor(.white, for: .normal)
+            
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            cancelButton.backgroundColor = .projectIconColor1
         }
     }
     
-    @IBOutlet weak var baseView: UIView!
+    @IBOutlet weak var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .projectBackgroundColor2
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        setupFriend()
         
         guard
             let viewModel = viewModel else { return }
@@ -97,18 +117,6 @@ class FriendProfileViewController: UIViewController {
         
         cancelButton.layer.cornerRadius = 15
     }
-    
-//    func setupFriend() {
-//
-//        guard
-//            let friend = viewModel?.user else { return }
-//
-//        userImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
-//
-//        nickNameLabel.text = friend.nickName
-//
-//        idLabel.text = friend.id
-//    }
     
     func updateSearchedUserInfo(with viewModel: FriendProfileViewModel, result: SearchFriendResult) {
         

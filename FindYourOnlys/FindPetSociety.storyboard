@@ -211,6 +211,7 @@
                     <connections>
                         <outlet property="errorMessageLabel" destination="OoJ-kg-xcR" id="9KN-JI-roJ"/>
                         <outlet property="searchTextField" destination="X9Q-co-MBk" id="Z3M-fI-Tcf"/>
+                        <outlet property="userIdLabel" destination="Ses-0Z-fW3" id="pie-sI-yr9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZNh-zU-3of" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -300,9 +301,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="myCodeLabel" destination="aM4-UC-Ryf" id="u2x-9x-Nw3"/>
                         <outlet property="myQRCodeImageView" destination="os1-HY-ECy" id="4Ee-I3-jPA"/>
                         <outlet property="qrCodeButton" destination="LZC-dE-hCF" id="r8B-vJ-cMV"/>
+                        <outlet property="qrCodeLabel" destination="EsO-DR-KGD" id="Jid-ri-Wya"/>
                         <outlet property="searchButton" destination="5Qc-aP-Zbp" id="zxN-xI-zJ7"/>
+                        <outlet property="searchLabel" destination="EsO-DR-KGD" id="ugz-me-dOB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ta3-zB-uIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
