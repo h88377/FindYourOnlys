@@ -11,15 +11,61 @@ class FriendRequestCell: UITableViewCell {
 
     @IBOutlet weak var userImageVIew: UIImageView!
     
-    @IBOutlet weak var nickNameLabel: UILabel!
+    @IBOutlet weak var nickNameLabel: UILabel! {
+        
+        didSet {
+            
+            nickNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            nickNameLabel.textColor = .projectTextColor
+        }
+    }
     
-    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel! {
+        
+        didSet {
+            
+            idLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            
+            idLabel.textColor = .projectPlaceHolderColor
+        }
+    }
     
-    @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var acceptButton: UIButton! {
+        
+        didSet {
+            
+            acceptButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            acceptButton.backgroundColor = .projectIconColor1
+            
+            acceptButton.setTitleColor(.white, for: .normal)
+            
+            acceptButton.setTitleColor(.projectIconColor2, for: .highlighted)
+        }
+    }
     
-    @IBOutlet weak var rejectButton: UIButton!
+    @IBOutlet weak var rejectButton: UIButton! {
+        
+        didSet {
+            
+            rejectButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            rejectButton.backgroundColor = .projectIconColor1
+            
+            rejectButton.setTitleColor(.white, for: .normal)
+            
+            rejectButton.setTitleColor(.projectIconColor2, for: .highlighted)
+        }
+    }
     
-    @IBOutlet weak var waitAcceptButton: UILabel!
+    @IBOutlet weak var waitAcceptButton: UILabel! {
+        
+        didSet {
+            
+            waitAcceptButton.textColor = .projectTextColor
+        }
+    }
     
     var acceptHandler: (() -> Void)?
     
@@ -57,6 +103,10 @@ class FriendRequestCell: UITableViewCell {
         super.layoutSubviews()
         
         userImageVIew.layer.cornerRadius = userImageVIew.frame.height / 2
+        
+        acceptButton.layer.cornerRadius = 12
+        
+        rejectButton.layer.cornerRadius = 12
     }
     
     @IBAction func accept(_ sender: UIButton) {

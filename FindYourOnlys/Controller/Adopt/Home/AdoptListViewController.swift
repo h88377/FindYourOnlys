@@ -72,8 +72,6 @@ class AdoptListViewController: BaseViewController {
                 self.collectionView.reloadData()
                 
                 self.collectionView.isHidden = petViewModels.count == 0
-                ? true
-                : false
                 
 //                self.remindLabel.alpha =
 //                self.collectionView.isHidden
