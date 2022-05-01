@@ -9,11 +9,33 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
-    @IBOutlet weak var nickNameLabel: UILabel!
+    @IBOutlet weak var nickNameLabel: UILabel! {
+        
+        didSet {
+            
+            nickNameLabel.textColor = .projectTextColor
+            
+            nickNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
     
-    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel! {
+        
+        didSet {
+            
+            commentLabel.textColor = .projectTextColor
+        }
+    }
     
-    @IBOutlet weak var createdTimeLabel: UILabel!
+    @IBOutlet weak var createdTimeLabel: UILabel! {
+        
+        didSet {
+            
+            createdTimeLabel.textColor = .projectPlaceHolderColor
+            
+            createdTimeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        }
+    }
     
     @IBOutlet weak var userImageView: UIImageView!
     

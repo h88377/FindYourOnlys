@@ -15,6 +15,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lEr-13-bz9">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3t-vo-gdV">
                     <rect key="frame" x="16" y="16" width="41" height="40"/>
                     <constraints>
@@ -51,20 +55,25 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <viewLayoutGuide key="safeArea" id="GgP-NL-MAT"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="cfU-m2-AQS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="Ca5-gx-5kP"/>
                 <constraint firstItem="cfU-m2-AQS" firstAttribute="leading" secondItem="y3t-vo-gdV" secondAttribute="trailing" constant="8" symbolic="YES" id="EQ3-Hh-a1F"/>
-                <constraint firstItem="vGX-FC-poF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Ea0-a2-ggp"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vGX-FC-poF" secondAttribute="bottom" constant="16" id="HV0-Jc-2uc"/>
+                <constraint firstItem="vGX-FC-poF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Ea0-a2-ggp"/>
+                <constraint firstAttribute="bottom" secondItem="vGX-FC-poF" secondAttribute="bottom" constant="16" id="HV0-Jc-2uc"/>
                 <constraint firstItem="y3t-vo-gdV" firstAttribute="top" secondItem="cfU-m2-AQS" secondAttribute="top" id="Mf7-ZL-ELJ"/>
-                <constraint firstItem="y3t-vo-gdV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="QzB-09-Vvy"/>
+                <constraint firstItem="y3t-vo-gdV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="QzB-09-Vvy"/>
                 <constraint firstItem="vGX-FC-poF" firstAttribute="top" secondItem="cfU-m2-AQS" secondAttribute="bottom" constant="10" id="U7h-AX-AOE"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vGX-FC-poF" secondAttribute="trailing" constant="16" id="XOz-Yp-fe6"/>
+                <constraint firstAttribute="trailing" secondItem="lEr-13-bz9" secondAttribute="trailing" id="UHJ-lI-8AV"/>
+                <constraint firstAttribute="trailing" secondItem="vGX-FC-poF" secondAttribute="trailing" constant="16" id="XOz-Yp-fe6"/>
+                <constraint firstItem="lEr-13-bz9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hlX-CQ-WOg"/>
+                <constraint firstAttribute="bottom" secondItem="lEr-13-bz9" secondAttribute="bottom" id="iJb-un-ttP"/>
+                <constraint firstItem="lEr-13-bz9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="px0-ft-Yb8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="baseView" destination="lEr-13-bz9" id="Wlf-bx-bPv"/>
                 <outlet property="contentLabel" destination="vGX-FC-poF" id="XvR-WS-RpD"/>
                 <outlet property="timeLabel" destination="wUV-LR-K9u" id="d8g-sU-Id0"/>
                 <outlet property="userButton" destination="y3t-vo-gdV" id="fOq-LD-Yh1"/>

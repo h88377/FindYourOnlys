@@ -9,13 +9,51 @@ import UIKit
 
 class CommentHeaderView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var userButton: UIButton!
+    @IBOutlet weak var userButton: UIButton! {
+        
+        didSet {
+            
+            userButton.tintColor = .white
+        }
+    }
     
-    @IBOutlet weak var userNickNameLabel: UILabel!
+    @IBOutlet weak var userNickNameLabel: UILabel! {
+        
+        didSet {
+            
+            userNickNameLabel.textColor = .white
+            
+            userNickNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
     
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel! {
+        
+        didSet {
+            
+            timeLabel.textColor = .white
+            
+            timeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        }
+    }
     
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel! {
+        
+        didSet {
+            
+            contentLabel.textColor = .white
+            
+            contentLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        }
+    }
+    
+    @IBOutlet weak var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .projectIconColor1
+        }
+    }
     
     func configureView(with article: Article, author: User) {
         
