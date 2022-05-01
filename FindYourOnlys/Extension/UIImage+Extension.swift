@@ -50,6 +50,8 @@ enum ImageAsset: String {
     
     case others
     
+    case location
+    
     case pickerDropDown = "Icons_24px_DropDown"
 }
 

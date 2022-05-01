@@ -96,6 +96,7 @@
                     <navigationItem key="navigationItem" id="bwD-x1-Nga"/>
                     <connections>
                         <outlet property="adoptFavoriteContainerView" destination="Y5o-jx-SJD" id="n7D-SX-IRt"/>
+                        <outlet property="adoptListButton" destination="ZSA-1x-9d2" id="1Ti-oI-opM"/>
                         <outlet property="adoptListContainerView" destination="RUu-Tx-dxK" id="1Au-Ul-HdP"/>
                         <outlet property="indicatorCenterXConstraint" destination="NFC-QZ-KAE" id="3st-aW-PZv"/>
                         <outlet property="indicatorView" destination="kMm-ww-4HI" id="bdH-fe-o4e"/>
