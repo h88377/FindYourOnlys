@@ -19,6 +19,16 @@ class ProfileFriendRequestViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+            remindLabel.textColor = .projectTextColor
+        }
+    }
+    
+    override var isHiddenTabBar: Bool { return true }
+    
     let viewModel = ProfileFriendRequestViewModel()
     
     override func viewDidLoad() {
@@ -26,11 +36,16 @@ class ProfileFriendRequestViewController: BaseViewController {
 
         viewModel.fetchFriendRequestList()
         
-        viewModel.friendRequestListViewModels.bind { [weak self] _ in
+        viewModel.friendRequestListViewModels.bind { [weak self] friendRequestViewModels in
+            
+            guard
+                let self = self else { return }
             
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.count == 0
+                
+                self.tableView.reloadData()
             }
         }
         
