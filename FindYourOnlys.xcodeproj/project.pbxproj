@@ -41,6 +41,7 @@
 		987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */; };
 		987D8B74281D1848000D1F95 /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */; };
 		987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */; };
+		987D8B78281E2126000D1F95 /* PaddingableUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -224,6 +225,7 @@
 		987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
 		987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewModel.swift; sourceTree = "<group>"; };
+		987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingableUILabel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */,
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
 				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
+				987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1172,6 +1175,7 @@
 				987D8B70281CED61000D1F95 /* EditProfileViewController.swift in Sources */,
 				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,
+				987D8B78281E2126000D1F95 /* PaddingableUILabel.swift in Sources */,
 				987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */,
 				98CC161428030F8100B9FDC6 /* AdoptDetailContentCategory.swift in Sources */,
 				98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */,

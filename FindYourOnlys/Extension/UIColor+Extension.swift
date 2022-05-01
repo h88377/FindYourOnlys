@@ -21,11 +21,15 @@ extension UIColor {
     
     static let projectBackgroundColor = UIColor.systemGray6
     
+    static let projectTextColor = UIColor.darkGray
+    
     static let objectBackgroundColor = hexStringToUIColor(hex: "F2F9F1")
     
-    static let projectIconColor1 = hexStringToUIColor(hex: "4B6587")
+    static let projectIconColor1 = hexStringToUIColor(hex: "#578c93")
     
-    static let projectIconColor2 = hexStringToUIColor(hex: "494949")
+    static let projectIconColor2 = hexStringToUIColor(hex: "#98b9bd")
+    
+    static let projectIconColor3 = hexStringToUIColor(hex: "#ffcb65")
     
     static func hexStringToUIColor(hex: String) -> UIColor {
 

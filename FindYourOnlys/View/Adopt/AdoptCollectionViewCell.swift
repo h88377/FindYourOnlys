@@ -33,6 +33,8 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         didSet {
             
             cityLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            cityLabel.textColor = .projectTextColor
         }
     }
     
@@ -40,7 +42,9 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         didSet {
             
-            kindLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+            kindLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+            
+            kindLabel.textColor = .projectTextColor
         }
     }
     
@@ -48,7 +52,11 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         didSet {
             
-            sexLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            sexLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+            
+            sexLabel.textColor = .projectIconColor3
+            
+//            sexLabel.backgroundColor = .projectIconColor3
         }
     }
     
@@ -56,7 +64,13 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         didSet {
             
+//            let locationImage = UIImage.asset(.location)?.withTintColor(.projectIconColor1, renderingMode: .alwaysOriginal)
+//
+//            locationImageView.image = locationImage
+            
             locationImageView.tintColor = .projectIconColor1
+            
+            
         }
     }
     
@@ -64,7 +78,17 @@ class AdoptCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var idLabel: UILabel!
     
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel! {
+        
+        didSet {
+            
+            statusLabel.textColor = .projectTextColor
+            
+            statusLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            
+//            statusLabel.backgroundColor = .systemGray4
+        }
+    }
     
     func configureCell(with viewModel: PetViewModel) {
         
@@ -91,13 +115,17 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         if viewModel.pet.sex == "M" {
             
-            sexLabel.text = Sex.male.rawValue
+            sexLabel.text = "♂"
+            
+//            sexLabel.text = Sex.male.rawValue
             
 //            sexLabel.textColor = .maleColor
             
         } else {
             
-            sexLabel.text = Sex.female.rawValue
+            sexLabel.text = "♀"
+            
+//            sexLabel.text = Sex.female.rawValue
             
 //            sexLabel.textColor = .femaleColor
         }

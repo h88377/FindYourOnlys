@@ -38,7 +38,7 @@ class AdoptViewController: BaseViewController {
         
         didSet {
             
-            indicatorView.backgroundColor = .projectIconColor1
+            indicatorView.backgroundColor = .black
         }
     }
     
@@ -48,6 +48,18 @@ class AdoptViewController: BaseViewController {
     
     @IBOutlet weak var adoptFavoriteContainerView: UIView!
     
+    @IBOutlet weak var adoptListButton: UIButton! {
+        
+        didSet {
+            
+            adoptListButton.setTitleColor(.white, for: .selected)
+            
+            adoptListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            
+            adoptListButton.backgroundColor = .projectIconColor1
+        }
+    }
+    
     @IBOutlet var adoptButtons: [UIButton]! {
         
         didSet {
@@ -56,7 +68,7 @@ class AdoptViewController: BaseViewController {
                 
                 $0.setTitleColor(.systemGray2, for: .normal)
                 
-                $0.setTitleColor(.projectIconColor1, for: .selected)
+                $0.setTitleColor(.white, for: .selected)
             }
         }
     }
@@ -126,11 +138,15 @@ class AdoptViewController: BaseViewController {
             $0.isSelected = false
             
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            
+            $0.backgroundColor = .white
         }
         
         sender.isSelected = true
         
         sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        
+        sender.backgroundColor = .projectIconColor1
         
         moveIndicatorView(to: sender)
         
