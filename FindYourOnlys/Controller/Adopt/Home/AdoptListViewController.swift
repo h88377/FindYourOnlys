@@ -44,7 +44,7 @@ class AdoptListViewController: BaseViewController {
         
         didSet {
             
-            mapButton.backgroundColor = .projectIconColor1
+            mapButton.backgroundColor = .projectIconColor2
             
             mapButton.tintColor = .white
         }

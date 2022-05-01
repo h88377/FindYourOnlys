@@ -55,8 +55,6 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             sexLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
             
             sexLabel.textColor = .projectIconColor3
-            
-//            sexLabel.backgroundColor = .projectIconColor3
         }
     }
     
@@ -64,13 +62,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         didSet {
             
-//            let locationImage = UIImage.asset(.location)?.withTintColor(.projectIconColor1, renderingMode: .alwaysOriginal)
-//
-//            locationImageView.image = locationImage
-            
             locationImageView.tintColor = .projectIconColor1
-            
-            
         }
     }
     
@@ -85,8 +77,6 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             statusLabel.textColor = .projectTextColor
             
             statusLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-            
-//            statusLabel.backgroundColor = .systemGray4
         }
     }
     

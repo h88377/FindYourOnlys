@@ -11,29 +11,57 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel! {
+        
+        didSet {
+            
+            cityLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            cityLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var kindLabel: UILabel! {
         
         didSet {
             
-            kindLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            kindLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+            
+            kindLabel.textColor = .projectTextColor
         }
     }
     
-    @IBOutlet weak var sexLabel: UILabel!
-    
-    @IBOutlet weak var varietyLabel: UILabel!
-    
-    @IBOutlet weak var statusLabel: UILabel! {
+    @IBOutlet weak var sexLabel: UILabel! {
         
         didSet {
             
-            statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            sexLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+            
+            sexLabel.textColor = .projectIconColor3
+        }
+    }
+    
+    @IBOutlet weak var varietyLabel: UILabel!
+    
+    @IBOutlet weak var statusLabel: UILabel!  {
+        
+        didSet {
+            
+            statusLabel.textColor = .projectTextColor
+            
+            statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         }
     }
     
     @IBOutlet weak var baseView: UIView!
+    
+    @IBOutlet weak var locationImageView: UIImageView!  {
+        
+        didSet {
+            
+            locationImageView.tintColor = .projectIconColor1
+        }
+    }
     
     func configureCell(with viewModel: FavoriteLSPetViewModel) {
         
@@ -62,15 +90,11 @@ class FavoriteTableViewCell: UITableViewCell {
         
         if viewModel.lsPet.sex == "M" {
             
-            sexLabel.text = Sex.male.rawValue
-            
-//            sexLabel.textColor = .maleColor
+            sexLabel.text = "♂"
             
         } else {
             
-            sexLabel.text = Sex.female.rawValue
-            
-//            sexLabel.textColor = .femaleColor
+            sexLabel.text = "♀"
         }
     }
     
@@ -101,15 +125,11 @@ class FavoriteTableViewCell: UITableViewCell {
         
         if viewModel.pet.sex == "M" {
             
-            sexLabel.text = Sex.male.rawValue
-            
-//            sexLabel.textColor = .maleColor
+            sexLabel.text = "♂"
             
         } else {
             
-            sexLabel.text = Sex.female.rawValue
-            
-//            sexLabel.textColor = .femaleColor
+            sexLabel.text = "♀"
         }
     }
     
