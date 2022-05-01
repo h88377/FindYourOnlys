@@ -22,6 +22,10 @@ class AdoptFilterViewController: BaseViewController {
         
         tableView.dataSource = self
         
+        tableView.backgroundColor = .projectBackgroundColor
+        
+        tableView.separatorStyle = .none
+        
         tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)

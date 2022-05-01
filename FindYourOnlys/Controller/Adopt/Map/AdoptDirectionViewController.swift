@@ -25,7 +25,7 @@ class AdoptDirectionViewController: BaseViewController {
         
         didSet {
             
-            closeButton.tintColor = .projectTintColor
+            closeButton.tintColor = .projectPlaceHolderColor
         }
     }
     

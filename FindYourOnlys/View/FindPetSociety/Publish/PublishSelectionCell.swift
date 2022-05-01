@@ -92,7 +92,13 @@ class PublishSelectionCell: PublishBasicCell {
         
     }
 
-    @IBOutlet weak var selectionLabel: UILabel!
+    @IBOutlet weak var selectionLabel: UILabel! {
+        
+        didSet {
+            
+            selectionLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var selectionTextField: ContentInsetTextField! {
         
@@ -123,6 +129,7 @@ class PublishSelectionCell: PublishBasicCell {
             
             selectionTextField.delegate = self
             
+            selectionTextField.textColor = .projectTextColor
         }
     }
     
