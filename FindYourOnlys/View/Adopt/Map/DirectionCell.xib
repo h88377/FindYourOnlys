@@ -18,16 +18,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="j5O-Wh-Y6W">
-                        <rect key="frame" x="10" y="10" width="300" height="86"/>
+                        <rect key="frame" x="16" y="10" width="288" height="86"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWv-Aq-gMB">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deX-aM-Jfg">
-                                <rect key="frame" x="0.0" y="43" width="300" height="43"/>
+                                <rect key="frame" x="0.0" y="43" width="288" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,8 +38,8 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="j5O-Wh-Y6W" secondAttribute="bottom" constant="10" id="UOs-AP-Qpa"/>
                     <constraint firstItem="j5O-Wh-Y6W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jwn-04-eUq"/>
-                    <constraint firstItem="j5O-Wh-Y6W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="kSi-4C-dv5"/>
-                    <constraint firstAttribute="trailing" secondItem="j5O-Wh-Y6W" secondAttribute="trailing" constant="10" id="uC4-Un-gnr"/>
+                    <constraint firstItem="j5O-Wh-Y6W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kSi-4C-dv5"/>
+                    <constraint firstAttribute="trailing" secondItem="j5O-Wh-Y6W" secondAttribute="trailing" constant="16" id="uC4-Un-gnr"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

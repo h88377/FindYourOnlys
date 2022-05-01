@@ -25,13 +25,21 @@ class AdoptPetsLocationViewController: BaseViewController {
     
     @IBOutlet var directionView: UIView!
     
+    @IBOutlet weak var backButton: UIButton! {
+        
+        didSet {
+            
+            backButton.tintColor = .projectBackgroundColor
+        }
+    }
+    
     @IBOutlet weak var navigateButton: UIButton! {
         
         didSet {
             
-            navigateButton.tintColor = .systemBlue
+            navigateButton.tintColor = .white
             
-            navigateButton.backgroundColor = .white
+            navigateButton.backgroundColor = .projectIconColor1
         }
     }
     
@@ -127,7 +135,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         navigateButton.layer.cornerRadius = navigateButton.frame.height / 2
         
-        directionView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+        directionView.roundCorners(corners: [.topLeft, .topRight], radius: 25)
     }
     
     // Pets
