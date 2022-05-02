@@ -123,6 +123,8 @@
 		9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */; };
 		9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */; };
 		9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */; };
+		98BC4753282006BD00740855 /* ladyCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4751282006BC00740855 /* ladyCat.json */; };
+		98BC4754282006BD00740855 /* manCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4752282006BD00740855 /* manCat.json */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -312,6 +314,8 @@
 		9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewModel.swift; sourceTree = "<group>"; };
 		9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionHeaderView.swift; sourceTree = "<group>"; };
 		9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionHeaderView.xib; sourceTree = "<group>"; };
+		98BC4751282006BC00740855 /* ladyCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ladyCat.json; sourceTree = "<group>"; };
+		98BC4752282006BD00740855 /* manCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manCat.json; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -432,6 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				987D8B7E281F9A85000D1F95 /* loading.json */,
+				98BC4751282006BC00740855 /* ladyCat.json */,
+				98BC4752282006BD00740855 /* manCat.json */,
 			);
 			path = AnimationSource;
 			sourceTree = "<group>";
@@ -1068,6 +1074,7 @@
 				9896D8D9280841EC003D4A16 /* ChatRoomUserMessageCell.xib in Resources */,
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
 				987D8B64281ABDD0000D1F95 /* ProfileArticleHeaderView.xib in Resources */,
+				98BC4754282006BD00740855 /* manCat.json in Resources */,
 				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
@@ -1082,6 +1089,7 @@
 				9896D95E280EB5CB003D4A16 /* DirectionCell.xib in Resources */,
 				987D8B5A281AAD39000D1F95 /* ProfileArticleCell.xib in Resources */,
 				9896D929280D60C1003D4A16 /* Profile.storyboard in Resources */,
+				98BC4753282006BD00740855 /* ladyCat.json in Resources */,
 				98CC161E28054A7600B9FDC6 /* FindPetSociety.storyboard in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
 				98CC164D28059FCB00B9FDC6 /* PublishContentCell.xib in Resources */,
