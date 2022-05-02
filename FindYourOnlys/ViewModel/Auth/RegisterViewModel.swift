@@ -13,7 +13,13 @@ class RegisterViewModel {
     
     var dismissHandler: (() -> Void)?
     
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
     func register(with nickName: String, with email: String, with password: String) {
+        
+        startLoadingHandler?()
         
         UserFirebaseManager.shared.register(with: nickName, with: email, with: password) { [weak self] result in
             
@@ -31,6 +37,8 @@ class RegisterViewModel {
 
                             UserFirebaseManager.shared.currentUser = user
                             
+                            self?.stopLoadingHandler?()
+                            
                             self?.dismissHandler?()
                             
                             break
@@ -39,12 +47,16 @@ class RegisterViewModel {
                     case .failure(let error):
 
                         self?.errorViewModel.value = ErrorViewModel(model: error)
+                        
+                        self?.stopLoadingHandler?()
                     }
                 }
                 
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
         }
     }
