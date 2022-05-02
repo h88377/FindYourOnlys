@@ -19,6 +19,8 @@ class PublishViewModel {
         content: "", imageURLString: "", comments: []
     )
     
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
     var updateImage: ((UIImage) -> Void)?
     
     var selectedImage: UIImage?
@@ -39,6 +41,8 @@ class PublishViewModel {
             
         return true
     }
+    
+    var dismissHandler: (() -> Void)?
     
     var startLoadingHandler: (() -> Void)?
     
@@ -115,21 +119,21 @@ class PublishViewModel {
         }
     }
     
-    func tapPublish(completion: @escaping (Error?)-> Void) {
+    func tapPublish() {
         
-        publish { error in
+        publish { [weak self] error in
             
             guard
                 error == nil
             
             else {
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
                 
                 return
                 }
             
-            completion(nil)
+            self?.dismissHandler?()
         }
     }
 }
