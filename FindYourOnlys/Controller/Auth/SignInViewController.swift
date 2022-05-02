@@ -77,8 +77,6 @@ class SignInViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        configureAnimationView()
-        
         view.backgroundColor = .signInBackGroundColor
 
         viewModel.errorViewModel.bind { errorViewModel in
@@ -120,37 +118,6 @@ class SignInViewController: BaseViewController {
         
     }
     
-    func configureAnimationView() {
-        
-        let animationView = AnimationView(name: LottieName.ladyCat.rawValue)
-        
-        animationView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        
-        animationView.contentMode = .scaleAspectFill
-        
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(animationView)
-        
-        NSLayoutConstraint.activate(
-            [
-                animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                
-                animationView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 30),
-                
-                animationView.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -40),
-                
-                animationView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-                
-                animationView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
-            ]
-        )
-        
-        animationView.play()
-        
-        animationView.loopMode = .loop
-    }
-    
     @IBAction func signIn(_ sender: UIButton) {
         
         guard
@@ -165,8 +132,7 @@ class SignInViewController: BaseViewController {
             
             return
         }
-                
-                
+                     
         viewModel.signIn(withEmail: email, password: password)
     }
     
