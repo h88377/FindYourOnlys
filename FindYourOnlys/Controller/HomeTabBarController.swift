@@ -93,6 +93,5 @@ class HomeTabBarController: UITabBarController {
         viewControllers = tabs.map({ $0.controller() })
         
         tabBar.tintColor = .projectIconColor1
-        
     }
 }
