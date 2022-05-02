@@ -86,30 +86,39 @@ class ProfileViewController: BaseViewController {
             
             DispatchQueue.main.async {
                 
-                self?.collectionView.isHidden = profileArticleViewModels.flatMap { $0.profileArticle.articles }.count == 0
+                self?.collectionView.isHidden = profileArticleViewModels
+                    .flatMap { $0.profileArticle.articles }
+                    .count == 0
                 
                 self?.collectionView.reloadData()
             }
         }
         
-//        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-//
-//            guard
-//                errorViewModel?.error != nil else { return }
-//
-//            if
-//                let deleteDataError = errorViewModel?.error as? DeleteDataError {
-//
-//                self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
-//
-//            } else if
-//
-//                let deleteAccountError = errorViewModel?.error as? DeleteAccountError {
-//
-//                self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
-//
-//            }
-//        }
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
+        }
+        
+        viewModel.errorViewModel.bind { errorViewModel in
+
+            guard
+                errorViewModel?.error == nil else { return }
+
+            print(errorViewModel?.error)
+        }
     }
     
     override func viewDidLayoutSubviews() {
