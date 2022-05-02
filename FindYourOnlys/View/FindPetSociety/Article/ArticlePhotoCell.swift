@@ -145,6 +145,8 @@ class ArticlePhotoCell: UITableViewCell {
         default:
             
             postTypeLabel.text = ""
+            
+            postTypeLabel.backgroundColor = .white
         }
     }
     
