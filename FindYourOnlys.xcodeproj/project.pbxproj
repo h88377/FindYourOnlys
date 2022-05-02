@@ -44,6 +44,9 @@
 		987D8B78281E2126000D1F95 /* PaddingableUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */; };
 		987D8B7B281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */; };
 		987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */; };
+		987D8B7F281F9A85000D1F95 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7E281F9A85000D1F95 /* loading.json */; };
+		987D8B81281FC703000D1F95 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B80281FC703000D1F95 /* LoadingView.swift */; };
+		987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -230,6 +233,9 @@
 		987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingableUILabel.swift; sourceTree = "<group>"; };
 		987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendMessageCell.swift; sourceTree = "<group>"; };
 		987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomFriendMessageCell.xib; sourceTree = "<group>"; };
+		987D8B7E281F9A85000D1F95 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		987D8B80281FC703000D1F95 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationWrapper.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -420,6 +426,14 @@
 				987D8B4F281962BF000D1F95 /* CommentViewModel.swift */,
 			);
 			path = Article;
+			sourceTree = "<group>";
+		};
+		987D8B7D281F9A67000D1F95 /* AnimationSource */ = {
+			isa = PBXGroup;
+			children = (
+				987D8B7E281F9A85000D1F95 /* loading.json */,
+			);
+			path = AnimationSource;
 			sourceTree = "<group>";
 		};
 		989399F5280FB0F6004312F1 /* Map */ = {
@@ -732,6 +746,7 @@
 				987D8B2D2816807C000D1F95 /* FindYourOnlys.entitlements */,
 				98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */,
 				98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */,
+				987D8B7D281F9A67000D1F95 /* AnimationSource */,
 				98CC15E92802855E00B9FDC6 /* Third party framework wrapper */,
 				98CC15E82802855600B9FDC6 /* Box */,
 				98CC15C528017A2500B9FDC6 /* Extension */,
@@ -838,6 +853,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */,
+				987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */,
 			);
 			path = "Third party framework wrapper";
 			sourceTree = "<group>";
@@ -951,6 +967,7 @@
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
 				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
 				987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */,
+				987D8B80281FC703000D1F95 /* LoadingView.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1058,6 +1075,7 @@
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC16522806585F00B9FDC6 /* ArticlePhotoCell.xib in Resources */,
 				98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */,
+				987D8B7F281F9A85000D1F95 /* loading.json in Resources */,
 				98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */,
 				98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
@@ -1222,6 +1240,7 @@
 				98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */,
 				98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
+				987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */,
 				9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */,
 				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
 				9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */,
@@ -1235,6 +1254,7 @@
 				98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */,
 				98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */,
 				9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */,
+				987D8B81281FC703000D1F95 /* LoadingView.swift in Sources */,
 				9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */,
 				9896D956280E9C3F003D4A16 /* RouteAnnotation.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
