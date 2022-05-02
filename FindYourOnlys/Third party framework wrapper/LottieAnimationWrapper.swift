@@ -11,6 +11,10 @@ import Lottie
 enum LottieName: String {
     
     case loading
+    
+    case ladyCat
+    
+    case manCat
 }
 
 class LottieAnimationWrapper {

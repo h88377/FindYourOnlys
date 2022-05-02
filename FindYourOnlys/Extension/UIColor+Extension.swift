@@ -33,6 +33,8 @@ extension UIColor {
     
     static let projectIconColor3 = hexStringToUIColor(hex: "#ffcb65")
     
+    static let signInBackGroundColor = hexStringToUIColor(hex: "f3f8ee")
+    
     static func hexStringToUIColor(hex: String) -> UIColor {
 
         var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

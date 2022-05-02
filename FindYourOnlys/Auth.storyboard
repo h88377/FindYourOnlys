@@ -105,22 +105,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歡迎回來" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkg-ox-Ygq">
-                                <rect key="frame" x="156" y="94" width="102" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZRV-IG-xyu">
-                                <rect key="frame" x="103.5" y="154" width="207" height="179"/>
-                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rkJ-Mn-0RN">
-                                <rect key="frame" x="40" y="373" width="334" height="40"/>
+                                <rect key="frame" x="40" y="428.5" width="334" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-zg-tfE">
-                                <rect key="frame" x="40" y="433" width="334" height="40"/>
+                                <rect key="frame" x="40" y="488.5" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="eE9-kQ-PRH"/>
                                 </constraints>
@@ -139,28 +130,43 @@
                                     <action selector="signIn:" destination="PMN-DF-ZxW" eventType="touchUpInside" id="YnZ-2Q-Vfa"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nF-LZ-7jb" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="ladyCat"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歡迎回來" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkg-ox-Ygq">
+                                <rect key="frame" x="156" y="368.5" width="102" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5br-zR-RA3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4Ks-PF-nU1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IUd-zg-tfE" secondAttribute="bottom" constant="20" id="3Bb-Ar-dWN"/>
+                            <constraint firstItem="2nF-LZ-7jb" firstAttribute="top" secondItem="ERx-hS-RSA" secondAttribute="top" id="3By-bw-q29"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="rkJ-Mn-0RN" secondAttribute="trailing" constant="40" id="B4u-1v-Uo5"/>
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" constant="40" id="CI7-cj-qrZ"/>
                             <constraint firstItem="rkJ-Mn-0RN" firstAttribute="height" secondItem="IUd-zg-tfE" secondAttribute="height" id="DLQ-zM-ZZ0"/>
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="top" secondItem="rkJ-Mn-0RN" secondAttribute="bottom" constant="20" id="FN4-70-895"/>
-                            <constraint firstItem="ZRV-IG-xyu" firstAttribute="height" secondItem="ERx-hS-RSA" secondAttribute="height" multiplier="0.2" id="GlU-Dz-cLg"/>
+                            <constraint firstItem="2nF-LZ-7jb" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" id="L83-OF-gKH"/>
                             <constraint firstItem="rkJ-Mn-0RN" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" constant="40" id="LKK-5y-NHl"/>
+                            <constraint firstItem="rkJ-Mn-0RN" firstAttribute="top" secondItem="rkg-ox-Ygq" secondAttribute="bottom" constant="30" id="MON-6C-TIO"/>
                             <constraint firstItem="4Ks-PF-nU1" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="Nb1-Ur-oVy"/>
-                            <constraint firstItem="ZRV-IG-xyu" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="PF5-WM-Nxo"/>
+                            <constraint firstItem="rkg-ox-Ygq" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="f7M-Uh-C9h"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="IUd-zg-tfE" secondAttribute="trailing" constant="40" id="fsB-Ag-4Xz"/>
-                            <constraint firstItem="rkg-ox-Ygq" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="hjc-gy-gX7"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="bottom" secondItem="4Ks-PF-nU1" secondAttribute="bottom" constant="100" id="j0f-ww-QS6"/>
-                            <constraint firstItem="ZRV-IG-xyu" firstAttribute="width" secondItem="ERx-hS-RSA" secondAttribute="width" multiplier="0.5" id="lHc-E2-L2U"/>
-                            <constraint firstItem="rkJ-Mn-0RN" firstAttribute="top" secondItem="ZRV-IG-xyu" secondAttribute="bottom" constant="40" id="lKG-B3-j07"/>
-                            <constraint firstItem="ZRV-IG-xyu" firstAttribute="top" secondItem="rkg-ox-Ygq" secondAttribute="bottom" constant="30" id="oqD-gv-n9M"/>
-                            <constraint firstItem="rkg-ox-Ygq" firstAttribute="top" secondItem="5br-zR-RA3" secondAttribute="top" constant="50" id="rtE-FF-ZMy"/>
+                            <constraint firstItem="rkg-ox-Ygq" firstAttribute="top" secondItem="2nF-LZ-7jb" secondAttribute="bottom" constant="10" id="pHn-Pm-NZo"/>
+                            <constraint firstItem="2nF-LZ-7jb" firstAttribute="height" secondItem="ERx-hS-RSA" secondAttribute="height" multiplier="0.4" id="s6A-nj-o9C"/>
+                            <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="2nF-LZ-7jb" secondAttribute="trailing" id="w6n-te-9e6"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="animationView" destination="2nF-LZ-7jb" id="eEm-3H-wJx"/>
                         <outlet property="emailTextField" destination="rkJ-Mn-0RN" id="tV1-jI-rgB"/>
                         <outlet property="passwordTextField" destination="IUd-zg-tfE" id="BcY-bb-5eG"/>
                         <outlet property="signInButton" destination="4Ks-PF-nU1" id="yNG-xy-6vX"/>
