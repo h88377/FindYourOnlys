@@ -53,31 +53,51 @@ private enum Tab: CaseIterable {
             
         case .adopt:
             
-            return UITabBarItem(
+            let item = UITabBarItem(
                 title: nil,
                 image: UIImage.system(.adoptItem),
                 selectedImage: UIImage.system(.adoptSelectedItem)
             )
             
+            item.title = "領養"
+            
+            return item
+            
         case .findPetSociety:
-            return UITabBarItem(
+            
+            let item = UITabBarItem(
                 title: nil,
                 image: UIImage.system(.findPetSocietyItem),
                 selectedImage: UIImage.system(.findPetSocietySelectedItem)
             )
+            
+            item.title = "協尋"
+            
+            return item
+            
         case .shareSociety:
-            return UITabBarItem(
+            
+            let item = UITabBarItem(
                 title: nil,
                 image: UIImage.system(.shareSocietyItem),
                 selectedImage: UIImage.system(.shareSocietySelectedItem)
             )
             
+            item.title = "分享"
+            
+            return item
+            
         case .profile:
-            return UITabBarItem(
+            
+            let item = UITabBarItem(
                 title: nil,
                 image: UIImage.system(.profileItem),
                 selectedImage: UIImage.system(.profileSelectedItem)
             )
+            
+            item.title = "個人"
+            
+            return item
         }
     }
     

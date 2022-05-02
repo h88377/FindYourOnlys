@@ -97,6 +97,8 @@ class ProfileViewModel {
     
     func signOut() {
         
+        startLoadingHandler?()
+        
         UserFirebaseManager.shared.signOut { [weak self] error in
             
             guard
@@ -106,10 +108,14 @@ class ProfileViewModel {
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error!)
                 
+                self?.stopLoadingHandler?()
+                
                 return
             }
             
             print("Sign out successfully.")
+            
+            self?.stopLoadingHandler?()
             
             UserFirebaseManager.shared.currentUser = nil
         }
