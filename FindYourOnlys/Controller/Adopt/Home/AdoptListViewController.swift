@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Lottie
 
 class AdoptListViewController: BaseViewController {
     
@@ -87,6 +88,8 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.fetchPet()
         
+        LottieAnimationWrapper.shared.startLoading(at: view)
+        
         viewModel.errorViewModel.bind { errorViewModel in
             
             guard
@@ -96,6 +99,24 @@ class AdoptListViewController: BaseViewController {
         }
         
         activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
+        }
         
         viewModel.startIndicatorHandler = { [weak self] in
             
