@@ -26,7 +26,7 @@ class SharePublishViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.finishPublishHandler = { [weak self] in
+        viewModel.dismissHandler = { [weak self] in
             
             self?.navigationController?.popViewController(animated: true)
         }

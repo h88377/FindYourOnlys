@@ -37,6 +37,14 @@ class PublishViewController: BaseViewController {
             }
         }
         
+        viewModel.dismissHandler = { [weak self] in
+            
+            DispatchQueue.main.async {
+                
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+        
         viewModel.startLoadingHandler = { [weak self] in
 
             guard
@@ -69,17 +77,7 @@ class PublishViewController: BaseViewController {
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
         
-        viewModel.tapPublish { [weak self] error in
-            
-            if error != nil {
-                
-                print(error)
-                
-                return
-            }
-            
-            self?.navigationController?.popViewController(animated: true)
-        }
+        viewModel.tapPublish()
     }
 }
 

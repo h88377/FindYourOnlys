@@ -22,7 +22,7 @@ class SharePublishViewModel {
     
     var updateImage: ((UIImage) -> Void)?
     
-    var finishPublishHandler: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     var selectedImage: UIImage?
     
@@ -147,7 +147,7 @@ extension SharePublishViewModel {
                 
                 }
             
-            self?.finishPublishHandler?()
+            self?.dismissHandler?()
         }
     }
 }
