@@ -29,7 +29,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         didSet {
             
-            backButton.tintColor = .projectBackgroundColor
+            backButton.tintColor = .projectIconColor1
         }
     }
     
@@ -112,7 +112,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showDirectionHandler = { [weak self] in
             
-            self?.showProductDirectionView()
+            self?.showDirectionView()
         }
         
         viewModel.showAlertHandler = { [weak self] in
@@ -128,6 +128,26 @@ class AdoptPetsLocationViewController: BaseViewController {
             self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
         }
         
+        viewModel.startLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            DispatchQueue.main.async {
+                
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+            
+        }
+        
+        viewModel.stopLoadingHandler = {
+            
+            DispatchQueue.main.async {
+                
+                LottieAnimationWrapper.shared.stopLoading()
+            }
+            
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -213,7 +233,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
     }
     
-    func showProductDirectionView() {
+    func showDirectionView() {
         
         let maxY = mapView.frame.maxY
         
