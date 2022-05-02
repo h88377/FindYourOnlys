@@ -35,7 +35,24 @@ class PublishViewController: BaseViewController {
                 
                 self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再發布文章喔！")
             }
-            
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
         }
     }
     

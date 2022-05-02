@@ -24,6 +24,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         tableView.separatorStyle = .none
         
+        tableView.allowsSelection = false
+        
         tableView.backgroundColor = .projectBackgroundColor
         
         tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
