@@ -15,12 +15,18 @@ class ProfileViewModel {
     
     var profileArticleViewModels = Box([ProfileArticleViewModel]())
     
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
     func fetchCurrentUser() {
         
         guard
             let currentUserId = UserFirebaseManager.shared.initialUser?.uid
                 
         else { return }
+        
+        startLoadingHandler?()
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
@@ -38,6 +44,8 @@ class ProfileViewModel {
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
         }
     }
@@ -76,9 +84,13 @@ class ProfileViewModel {
                     profileArticles: [missingProfileArticles, shareProfileArticles]
                 )
                 
+                self.stopLoadingHandler?()
+                
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
             }
         }
     }
