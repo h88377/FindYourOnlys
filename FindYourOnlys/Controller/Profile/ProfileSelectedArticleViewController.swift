@@ -25,6 +25,8 @@ class ProfileSelectedArticleViewController: BaseViewController {
         }
     }
     
+    override var isHiddenTabBar: Bool { return true }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
