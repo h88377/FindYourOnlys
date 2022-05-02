@@ -128,14 +128,16 @@ class PublishKindCell: PublishBasicCell {
             
             button.setTitle(title, for: .normal)
         }
-
+        
         button.setTitleColor(.projectPlaceHolderColor, for: .normal)
         
         button.setTitleColor(.white, for: .selected)
         
         button.isSelected = isSelected
         
-        button.backgroundColor = .projectBackgroundColor
+        button.backgroundColor = isSelected
+        ? .projectIconColor1
+        : .projectBackgroundColor
         
         button.translatesAutoresizingMaskIntoConstraints = false
         

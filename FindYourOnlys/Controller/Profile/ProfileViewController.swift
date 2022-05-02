@@ -20,11 +20,31 @@ class ProfileViewController: BaseViewController {
             
             userIdLabel.font = UIFont.systemFont(ofSize: 14)
             
-            userIdLabel.textColor = .systemGray
+            userIdLabel.textColor = .placeholderText
         }
     }
     
-    @IBOutlet weak var userNickNameLabel: UILabel!
+    @IBOutlet weak var editButton: UIButton! {
+        
+        didSet {
+            
+            editButton.setTitleColor(.white, for: .normal)
+            
+            editButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            editButton.backgroundColor = .projectIconColor1
+        }
+    }
+    
+    @IBOutlet weak var userNickNameLabel: UILabel! {
+        
+        didSet {
+            
+            userNickNameLabel.textColor = .projectTextColor
+            
+            userNickNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
     
     @IBOutlet weak var collectionView: UICollectionView! {
         
@@ -33,6 +53,14 @@ class ProfileViewController: BaseViewController {
             collectionView.delegate = self
             
             collectionView.dataSource = self
+        }
+    }
+    
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+            remindLabel.textColor = .projectTextColor
         }
     }
     
@@ -54,9 +82,11 @@ class ProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.profileArticleViewModels.bind { [weak self] _ in
+        viewModel.profileArticleViewModels.bind { [weak self] profileArticleViewModels in
             
             DispatchQueue.main.async {
+                
+                self?.collectionView.isHidden = profileArticleViewModels.flatMap { $0.profileArticle.articles }.count == 0
                 
                 self?.collectionView.reloadData()
             }
@@ -86,6 +116,8 @@ class ProfileViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         
         userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        
+        editButton.layer.cornerRadius = 12
     }
     
     override func setupNavigationTitle() {
@@ -93,7 +125,7 @@ class ProfileViewController: BaseViewController {
         
         navigationItem.title = "個人頁"
         
-        let barButtonItem = UIBarButtonItem(title: "登出", style: .plain, target: self, action: #selector(signOut))
+        let barButtonItem = UIBarButtonItem(title: "登出", style: .done, target: self, action: #selector(signOut))
         
         navigationItem.rightBarButtonItem = barButtonItem
     }

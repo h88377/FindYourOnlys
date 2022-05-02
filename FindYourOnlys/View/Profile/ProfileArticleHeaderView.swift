@@ -9,7 +9,13 @@ import UIKit
 
 class ProfileArticleHeaderView: UICollectionReusableView {
 
-    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel! {
+        
+        didSet {
+            
+            headerLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var checkAllButton: UIButton!
     

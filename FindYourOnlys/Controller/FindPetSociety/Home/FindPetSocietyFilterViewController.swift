@@ -15,7 +15,6 @@ class FindPetSocietyFilterViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
 
-    
     override func setupTableView() {
         super.setupTableView()
 
@@ -24,6 +23,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
         tableView.dataSource = self
         
         tableView.separatorStyle = .none
+        
+        tableView.backgroundColor = .projectBackgroundColor
         
         tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
 

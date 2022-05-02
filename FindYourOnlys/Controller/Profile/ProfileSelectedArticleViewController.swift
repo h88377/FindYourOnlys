@@ -18,6 +18,10 @@ class ProfileSelectedArticleViewController: BaseViewController {
             tableView.dataSource = self
             
             tableView.delegate = self
+            
+            tableView.backgroundColor = .projectBackgroundColor
+            
+            tableView.separatorColor = .projectBackgroundColor
         }
     }
     
