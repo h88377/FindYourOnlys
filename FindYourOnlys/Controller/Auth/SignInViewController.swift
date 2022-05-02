@@ -11,11 +11,26 @@ class SignInViewController: BaseViewController {
     
     let viewModel = SignInViewModel()
     
+    
+    @IBOutlet weak var welcomeLabel: UILabel! {
+        
+        didSet {
+            
+            welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+            
+            welcomeLabel.textColor = .projectTextColor
+        }
+    }
+    
     @IBOutlet weak var emailTextField: ContentInsetTextField! {
         
         didSet {
             
             emailTextField.placeholder = "電子信箱"
+            
+            emailTextField.textColor = .projectTextColor
+            
+            emailTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -24,6 +39,10 @@ class SignInViewController: BaseViewController {
         didSet {
             
             passwordTextField.placeholder = "密碼"
+            
+            passwordTextField.textColor = .projectTextColor
+            
+            passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -33,9 +52,13 @@ class SignInViewController: BaseViewController {
             
             signInButton.setTitle("登入", for: .normal)
             
-            signInButton.tintColor = .black
+            signInButton.setTitleColor(.white, for: .normal)
             
-            signInButton.backgroundColor = .projectPlaceHolderColor
+            signInButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            signInButton.backgroundColor = .projectIconColor1
+            
+            signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         }
     }
     

@@ -11,11 +11,25 @@ class RegisterViewController: BaseViewController {
     
     let viewModel = RegisterViewModel()
     
+    @IBOutlet weak var registerLabel: UILabel! {
+        
+        didSet {
+            
+            registerLabel.textColor = .projectTextColor
+            
+            registerLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        }
+    }
+    
     @IBOutlet weak var nickNameTextField: ContentInsetTextField! {
         
         didSet {
             
             nickNameTextField.placeholder = "暱稱"
+            
+            nickNameTextField.textColor = .projectTextColor
+            
+            nickNameTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -24,6 +38,10 @@ class RegisterViewController: BaseViewController {
         didSet {
             
             emailTextField.placeholder = "電子信箱"
+            
+            emailTextField.textColor = .projectTextColor
+            
+            emailTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -33,7 +51,10 @@ class RegisterViewController: BaseViewController {
             
             passwordTextField.placeholder = "密碼"
             
-            passwordTextField.textContentType = .newPassword
+//            passwordTextField.textContentType = .newPassword
+            passwordTextField.textColor = .projectTextColor
+            
+            passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -43,9 +64,13 @@ class RegisterViewController: BaseViewController {
             
             registerButton.setTitle("註冊", for: .normal)
             
-            registerButton.tintColor = .black
+            registerButton.setTitleColor(.white, for: .normal)
             
-            registerButton.backgroundColor = .projectPlaceHolderColor
+            registerButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            registerButton.backgroundColor = .projectIconColor1
+            
+            registerButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         }
     }
     
