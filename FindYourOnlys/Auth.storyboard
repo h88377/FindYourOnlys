@@ -115,12 +115,15 @@
                                 <rect key="frame" x="103.5" y="154" width="207" height="179"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rkJ-Mn-0RN">
-                                <rect key="frame" x="40" y="353" width="334" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="40" y="373" width="334" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-zg-tfE">
-                                <rect key="frame" x="40" y="407" width="334" height="34"/>
+                                <rect key="frame" x="40" y="433" width="334" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eE9-kQ-PRH"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -142,6 +145,7 @@
                         <constraints>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="rkJ-Mn-0RN" secondAttribute="trailing" constant="40" id="B4u-1v-Uo5"/>
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" constant="40" id="CI7-cj-qrZ"/>
+                            <constraint firstItem="rkJ-Mn-0RN" firstAttribute="height" secondItem="IUd-zg-tfE" secondAttribute="height" id="DLQ-zM-ZZ0"/>
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="top" secondItem="rkJ-Mn-0RN" secondAttribute="bottom" constant="20" id="FN4-70-895"/>
                             <constraint firstItem="ZRV-IG-xyu" firstAttribute="height" secondItem="ERx-hS-RSA" secondAttribute="height" multiplier="0.2" id="GlU-Dz-cLg"/>
                             <constraint firstItem="rkJ-Mn-0RN" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" constant="40" id="LKK-5y-NHl"/>
@@ -151,7 +155,7 @@
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="hjc-gy-gX7"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="bottom" secondItem="4Ks-PF-nU1" secondAttribute="bottom" constant="100" id="j0f-ww-QS6"/>
                             <constraint firstItem="ZRV-IG-xyu" firstAttribute="width" secondItem="ERx-hS-RSA" secondAttribute="width" multiplier="0.5" id="lHc-E2-L2U"/>
-                            <constraint firstItem="rkJ-Mn-0RN" firstAttribute="top" secondItem="ZRV-IG-xyu" secondAttribute="bottom" constant="20" id="lKG-B3-j07"/>
+                            <constraint firstItem="rkJ-Mn-0RN" firstAttribute="top" secondItem="ZRV-IG-xyu" secondAttribute="bottom" constant="40" id="lKG-B3-j07"/>
                             <constraint firstItem="ZRV-IG-xyu" firstAttribute="top" secondItem="rkg-ox-Ygq" secondAttribute="bottom" constant="30" id="oqD-gv-n9M"/>
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="top" secondItem="5br-zR-RA3" secondAttribute="top" constant="50" id="rtE-FF-ZMy"/>
                         </constraints>
@@ -160,6 +164,7 @@
                         <outlet property="emailTextField" destination="rkJ-Mn-0RN" id="tV1-jI-rgB"/>
                         <outlet property="passwordTextField" destination="IUd-zg-tfE" id="BcY-bb-5eG"/>
                         <outlet property="signInButton" destination="4Ks-PF-nU1" id="yNG-xy-6vX"/>
+                        <outlet property="welcomeLabel" destination="rkg-ox-Ygq" id="Uoj-FL-Hue"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wUt-6R-9BG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -175,17 +180,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qdd-uY-G85">
-                                <rect key="frame" x="40" y="353" width="334" height="34"/>
+                                <rect key="frame" x="40" y="373" width="334" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="bbO-s3-3gw"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXh-Ef-6NP">
-                                <rect key="frame" x="40" y="407" width="334" height="34"/>
+                                <rect key="frame" x="40" y="433" width="334" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kbW-rD-pJd">
-                                <rect key="frame" x="40" y="461" width="334" height="34"/>
+                                <rect key="frame" x="40" y="493" width="334" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -217,13 +225,16 @@
                             <constraint firstItem="EDI-6m-zdM" firstAttribute="top" secondItem="Whb-8n-Dqn" secondAttribute="bottom" constant="30" id="6j4-Q8-PJY"/>
                             <constraint firstItem="EDI-6m-zdM" firstAttribute="height" secondItem="UqQ-oY-YQf" secondAttribute="height" multiplier="0.2" id="85f-iC-Zjl"/>
                             <constraint firstItem="Whb-8n-Dqn" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="9gH-8I-khm"/>
+                            <constraint firstItem="kbW-rD-pJd" firstAttribute="height" secondItem="qdd-uY-G85" secondAttribute="height" id="Fty-dh-C2o"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="top" secondItem="TXh-Ef-6NP" secondAttribute="bottom" constant="20" id="G9W-aL-sTX"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="top" secondItem="qdd-uY-G85" secondAttribute="bottom" constant="20" id="IvK-ig-CyE"/>
-                            <constraint firstItem="qdd-uY-G85" firstAttribute="top" secondItem="EDI-6m-zdM" secondAttribute="bottom" constant="20" id="LxU-E2-SbT"/>
+                            <constraint firstItem="qdd-uY-G85" firstAttribute="top" secondItem="EDI-6m-zdM" secondAttribute="bottom" constant="40" id="LxU-E2-SbT"/>
+                            <constraint firstItem="TXh-Ef-6NP" firstAttribute="height" secondItem="qdd-uY-G85" secondAttribute="height" id="PZf-0z-42l"/>
                             <constraint firstItem="EDI-6m-zdM" firstAttribute="width" secondItem="UqQ-oY-YQf" secondAttribute="width" multiplier="0.5" id="RZh-uZ-Xgc"/>
                             <constraint firstItem="NkE-gi-sMy" firstAttribute="trailing" secondItem="qdd-uY-G85" secondAttribute="trailing" constant="40" id="XHw-c3-Vt1"/>
                             <constraint firstItem="Whb-8n-Dqn" firstAttribute="top" secondItem="NkE-gi-sMy" secondAttribute="top" constant="50" id="Xmw-Fn-3sZ"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="leading" secondItem="qdd-uY-G85" secondAttribute="leading" id="aIH-ld-APf"/>
+                            <constraint firstItem="9iT-HQ-n9q" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kbW-rD-pJd" secondAttribute="bottom" constant="20" id="aQS-vn-jQC"/>
                             <constraint firstItem="qdd-uY-G85" firstAttribute="leading" secondItem="NkE-gi-sMy" secondAttribute="leading" constant="40" id="cNZ-Jb-CNk"/>
                             <constraint firstItem="9iT-HQ-n9q" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="hmL-lV-MYK"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="trailing" secondItem="qdd-uY-G85" secondAttribute="trailing" id="qaO-CI-ogI"/>
@@ -238,6 +249,7 @@
                         <outlet property="nickNameTextField" destination="qdd-uY-G85" id="spx-OZ-jDx"/>
                         <outlet property="passwordTextField" destination="kbW-rD-pJd" id="3xM-wt-xlU"/>
                         <outlet property="registerButton" destination="9iT-HQ-n9q" id="Q9M-aU-RZi"/>
+                        <outlet property="registerLabel" destination="Whb-8n-Dqn" id="wWG-fC-NIn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6NZ-eQ-3Jt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
