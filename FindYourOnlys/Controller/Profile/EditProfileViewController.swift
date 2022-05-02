@@ -10,6 +10,8 @@ import UIKit
 class EditProfileViewController: BaseViewController {
     
     let viewModel = EditProfileViewModel()
+    
+    override var isHiddenTabBar: Bool { return true }
 
     override func viewDidLoad() {
         super.viewDidLoad()
