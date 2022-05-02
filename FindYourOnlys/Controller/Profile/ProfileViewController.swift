@@ -115,9 +115,13 @@ class ProfileViewController: BaseViewController {
         viewModel.errorViewModel.bind { errorViewModel in
 
             guard
-                errorViewModel?.error == nil else { return }
+                errorViewModel?.error == nil else {
+                    
+                    print(errorViewModel?.error)
+                    
+                    return
+                }
 
-            print(errorViewModel?.error)
         }
     }
     

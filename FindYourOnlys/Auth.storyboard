@@ -119,7 +119,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ks-PF-nU1">
-                                <rect key="frame" x="82" y="702" width="250" height="60"/>
+                                <rect key="frame" x="82" y="742" width="250" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="BpW-Px-79m"/>
                                     <constraint firstAttribute="width" constant="250" id="Z2U-lS-iVo"/>
@@ -159,7 +159,7 @@
                             <constraint firstItem="4Ks-PF-nU1" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="Nb1-Ur-oVy"/>
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="f7M-Uh-C9h"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="IUd-zg-tfE" secondAttribute="trailing" constant="40" id="fsB-Ag-4Xz"/>
-                            <constraint firstItem="5br-zR-RA3" firstAttribute="bottom" secondItem="4Ks-PF-nU1" secondAttribute="bottom" constant="100" id="j0f-ww-QS6"/>
+                            <constraint firstItem="5br-zR-RA3" firstAttribute="bottom" secondItem="4Ks-PF-nU1" secondAttribute="bottom" constant="60" id="j0f-ww-QS6"/>
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="top" secondItem="2nF-LZ-7jb" secondAttribute="bottom" constant="10" id="pHn-Pm-NZo"/>
                             <constraint firstItem="2nF-LZ-7jb" firstAttribute="height" secondItem="ERx-hS-RSA" secondAttribute="height" multiplier="0.4" id="s6A-nj-o9C"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="2nF-LZ-7jb" secondAttribute="trailing" id="w6n-te-9e6"/>
@@ -185,8 +185,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zi-N8-G3a" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="manCat"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qdd-uY-G85">
-                                <rect key="frame" x="40" y="373" width="334" height="40"/>
+                                <rect key="frame" x="40" y="428.5" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="bbO-s3-3gw"/>
                                 </constraints>
@@ -194,17 +201,17 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXh-Ef-6NP">
-                                <rect key="frame" x="40" y="433" width="334" height="40"/>
+                                <rect key="frame" x="40" y="488.5" width="334" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kbW-rD-pJd">
-                                <rect key="frame" x="40" y="493" width="334" height="40"/>
+                                <rect key="frame" x="40" y="548.5" width="334" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iT-HQ-n9q">
-                                <rect key="frame" x="82" y="702" width="250" height="60"/>
+                                <rect key="frame" x="82" y="742" width="250" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ShB-N5-uJW"/>
                                     <constraint firstAttribute="width" constant="250" id="aTF-5I-Xfd"/>
@@ -216,41 +223,39 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="註冊新帳戶" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Whb-8n-Dqn">
-                                <rect key="frame" x="143.5" y="94" width="127" height="30"/>
+                                <rect key="frame" x="143.5" y="368.5" width="127" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EDI-6m-zdM">
-                                <rect key="frame" x="103.5" y="154" width="207" height="179"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NkE-gi-sMy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="EDI-6m-zdM" firstAttribute="top" secondItem="Whb-8n-Dqn" secondAttribute="bottom" constant="30" id="6j4-Q8-PJY"/>
-                            <constraint firstItem="EDI-6m-zdM" firstAttribute="height" secondItem="UqQ-oY-YQf" secondAttribute="height" multiplier="0.2" id="85f-iC-Zjl"/>
                             <constraint firstItem="Whb-8n-Dqn" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="9gH-8I-khm"/>
+                            <constraint firstItem="0zi-N8-G3a" firstAttribute="top" secondItem="UqQ-oY-YQf" secondAttribute="top" id="BtH-L8-NVg"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="height" secondItem="qdd-uY-G85" secondAttribute="height" id="Fty-dh-C2o"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="top" secondItem="TXh-Ef-6NP" secondAttribute="bottom" constant="20" id="G9W-aL-sTX"/>
+                            <constraint firstItem="0zi-N8-G3a" firstAttribute="leading" secondItem="NkE-gi-sMy" secondAttribute="leading" id="Ga9-iV-hwu"/>
+                            <constraint firstItem="qdd-uY-G85" firstAttribute="top" secondItem="Whb-8n-Dqn" secondAttribute="bottom" constant="30" id="IN9-nC-RGo"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="top" secondItem="qdd-uY-G85" secondAttribute="bottom" constant="20" id="IvK-ig-CyE"/>
-                            <constraint firstItem="qdd-uY-G85" firstAttribute="top" secondItem="EDI-6m-zdM" secondAttribute="bottom" constant="40" id="LxU-E2-SbT"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="height" secondItem="qdd-uY-G85" secondAttribute="height" id="PZf-0z-42l"/>
-                            <constraint firstItem="EDI-6m-zdM" firstAttribute="width" secondItem="UqQ-oY-YQf" secondAttribute="width" multiplier="0.5" id="RZh-uZ-Xgc"/>
                             <constraint firstItem="NkE-gi-sMy" firstAttribute="trailing" secondItem="qdd-uY-G85" secondAttribute="trailing" constant="40" id="XHw-c3-Vt1"/>
-                            <constraint firstItem="Whb-8n-Dqn" firstAttribute="top" secondItem="NkE-gi-sMy" secondAttribute="top" constant="50" id="Xmw-Fn-3sZ"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="leading" secondItem="qdd-uY-G85" secondAttribute="leading" id="aIH-ld-APf"/>
                             <constraint firstItem="9iT-HQ-n9q" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kbW-rD-pJd" secondAttribute="bottom" constant="20" id="aQS-vn-jQC"/>
                             <constraint firstItem="qdd-uY-G85" firstAttribute="leading" secondItem="NkE-gi-sMy" secondAttribute="leading" constant="40" id="cNZ-Jb-CNk"/>
                             <constraint firstItem="9iT-HQ-n9q" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="hmL-lV-MYK"/>
+                            <constraint firstItem="Whb-8n-Dqn" firstAttribute="top" secondItem="0zi-N8-G3a" secondAttribute="bottom" constant="10" id="mjY-F5-8JN"/>
+                            <constraint firstItem="NkE-gi-sMy" firstAttribute="trailing" secondItem="0zi-N8-G3a" secondAttribute="trailing" id="noT-F4-g8z"/>
+                            <constraint firstItem="0zi-N8-G3a" firstAttribute="height" secondItem="UqQ-oY-YQf" secondAttribute="height" multiplier="0.4" id="pyp-Jn-gVM"/>
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="trailing" secondItem="qdd-uY-G85" secondAttribute="trailing" id="qaO-CI-ogI"/>
-                            <constraint firstItem="EDI-6m-zdM" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="r3b-gS-3lP"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="leading" secondItem="qdd-uY-G85" secondAttribute="leading" id="rTV-4S-WNe"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="trailing" secondItem="qdd-uY-G85" secondAttribute="trailing" id="xzE-LH-bxi"/>
-                            <constraint firstItem="NkE-gi-sMy" firstAttribute="bottom" secondItem="9iT-HQ-n9q" secondAttribute="bottom" constant="100" id="yFJ-eN-T9Z"/>
+                            <constraint firstItem="NkE-gi-sMy" firstAttribute="bottom" secondItem="9iT-HQ-n9q" secondAttribute="bottom" constant="60" id="yFJ-eN-T9Z"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="animationView" destination="0zi-N8-G3a" id="I5e-eI-9fm"/>
                         <outlet property="emailTextField" destination="TXh-Ef-6NP" id="EnY-Rn-iaz"/>
                         <outlet property="nickNameTextField" destination="qdd-uY-G85" id="spx-OZ-jDx"/>
                         <outlet property="passwordTextField" destination="kbW-rD-pJd" id="3xM-wt-xlU"/>

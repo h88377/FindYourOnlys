@@ -6,10 +6,23 @@
 //
 
 import UIKit
+import Lottie
 
 class RegisterViewController: BaseViewController {
     
     let viewModel = RegisterViewModel()
+    
+    @IBOutlet weak var animationView: AnimationView! {
+        
+        didSet {
+            
+            animationView.loopMode = .loop
+            
+            animationView.play()
+            
+            animationView.contentMode = .scaleAspectFill
+        }
+    }
     
     @IBOutlet weak var registerLabel: UILabel! {
         
@@ -77,6 +90,8 @@ class RegisterViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .white
+        
         viewModel.errorViewModel.bind { errorViewModel in
 
             guard
