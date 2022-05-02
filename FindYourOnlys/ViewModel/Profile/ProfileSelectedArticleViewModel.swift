@@ -18,6 +18,8 @@ class ProfileSelectedArticleViewModel: BaseSocietyViewModel {
         guard
             let article = articleViewModel.value?.article else { return }
         
+        startLoadingHandler?()
+        
         PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: article.id) { [weak self] result in
             
             switch result {
@@ -26,9 +28,13 @@ class ProfileSelectedArticleViewModel: BaseSocietyViewModel {
                 
                 self?.articleViewModel.value = ArticleViewModel(model: article)
                 
+                self?.stopLoadingHandler?()
+                
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
         }
     }
@@ -40,6 +46,8 @@ class ProfileSelectedArticleViewModel: BaseSocietyViewModel {
                 
         else { return }
         
+        startLoadingHandler?()
+        
         PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] error in
             
             guard
@@ -49,8 +57,12 @@ class ProfileSelectedArticleViewModel: BaseSocietyViewModel {
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error!)
                 
+                self?.stopLoadingHandler?()
+                
                 return
             }
+            
+            self?.stopLoadingHandler?()
             
             self?.dismissHandler?()
         }
