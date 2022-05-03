@@ -148,6 +148,8 @@ class AdoptPetsLocationViewController: BaseViewController {
             }
 
         }
+        
+        setupGesture()
     }
     
     override func viewDidLayoutSubviews() {
@@ -238,7 +240,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         let maxY = mapView.frame.maxY
         
         directionView.frame = CGRect(
-            x: 0, y: maxY, width: UIScreen.main.bounds.height, height: 0.0
+            x: 0, y: maxY, width: UIScreen.main.bounds.width, height: 0.0
         )
         
         view.addSubview(directionView)
@@ -250,7 +252,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 guard
                     let strongSelf = self else { return }
                 
-                let height = strongSelf.view.frame.height * 0.33
+                let height = strongSelf.view.frame.height * 0.4
                 
                 self?.directionView.frame = CGRect(
                     x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
@@ -278,6 +280,14 @@ class AdoptPetsLocationViewController: BaseViewController {
         )
     }
     
+    func setupGesture() {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapDirectionView))
+        
+        directionView.addGestureRecognizer(tapGesture)
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard
@@ -292,6 +302,44 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
         
         self.adoptDirectionVC = adoptDirectionVC
+    }
+    
+    @objc func tapDirectionView(sender: UITapGestureRecognizer) {
+        
+        let maxY = mapView.frame.maxY
+        
+        let highHeight = view.frame.height * 0.7
+        
+        let lowHeight = view.frame.height * 0.4
+        
+        if sender.state == .ended {
+            
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                
+                if self?.directionView.frame.height == lowHeight {
+                    
+                    self?.directionView.frame = CGRect(
+                        x: 0, y: maxY - highHeight, width: UIScreen.main.bounds.width, height: highHeight
+                    )
+                    
+                } else {
+                    
+                    self?.directionView.frame = CGRect(
+                        x: 0, y: maxY - lowHeight, width: UIScreen.main.bounds.width, height: highHeight
+                    )
+                }
+                
+            } completion: { [weak self] _ in
+                
+                if self?.directionView.frame.minY == maxY - lowHeight {
+                    
+                    self?.directionView.frame = CGRect(
+                        x: 0, y: maxY - lowHeight, width: UIScreen.main.bounds.width, height: lowHeight
+                    )
+                }
+            }
+
+        }
     }
     
 }

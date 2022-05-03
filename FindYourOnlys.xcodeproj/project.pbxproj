@@ -45,7 +45,6 @@
 		987D8B7B281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */; };
 		987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */; };
 		987D8B7F281F9A85000D1F95 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7E281F9A85000D1F95 /* loading.json */; };
-		987D8B81281FC703000D1F95 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B80281FC703000D1F95 /* LoadingView.swift */; };
 		987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
@@ -236,7 +235,6 @@
 		987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendMessageCell.swift; sourceTree = "<group>"; };
 		987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomFriendMessageCell.xib; sourceTree = "<group>"; };
 		987D8B7E281F9A85000D1F95 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
-		987D8B80281FC703000D1F95 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationWrapper.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
@@ -973,7 +971,6 @@
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
 				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
 				987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */,
-				987D8B80281FC703000D1F95 /* LoadingView.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1262,7 +1259,6 @@
 				98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */,
 				98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */,
 				9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */,
-				987D8B81281FC703000D1F95 /* LoadingView.swift in Sources */,
 				9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */,
 				9896D956280E9C3F003D4A16 /* RouteAnnotation.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
