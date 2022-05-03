@@ -123,8 +123,7 @@ class AdoptPetsLocationViewModel {
         startLoadingHandler?()
         
         PetProvider.shared.fetchPet(
-            with: AdoptFilterCondition(city: city, petKind: "", sex: "", color: ""))
-        { [weak self] result in
+            with: AdoptFilterCondition(city: city, petKind: "", sex: "", color: "")) { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -164,7 +163,11 @@ class AdoptPetsLocationViewModel {
                             otherPetCount.count += 1
                         }
                         
-                        shelter = Shelter(title: shelterName, address: pet.address, petCounts: [catPetCount, dogPetCount, otherPetCount])
+                        shelter = Shelter(
+                            title: shelterName,
+                            address: pet.address,
+                            petCounts: [catPetCount, dogPetCount, otherPetCount]
+                        )
                     }
                     if shelter.title != "" {
                         
