@@ -7,13 +7,12 @@
 
 import MapKit
 
-
-
 class MapManager {
     
     static let shared = MapManager()
     
-    func convertAddress(with address: String, completion: @escaping (CLLocation) -> Void) {
+//    func convertAddress(with address: String, completion: @escaping (CLLocation) -> Void) {
+    func convertAddress(with address: String, completion: @escaping (Result<CLLocation, Error>) -> Void) {
         
         let geoCoder = CLGeocoder()
         
@@ -21,41 +20,40 @@ class MapManager {
             
             guard
                 let placemarks = placemarks,
-                
-                    let location = placemarks.first?.location
+                let location = placemarks.first?.location
                     
             else {
                 
-                print(error)
+                completion(.failure(error!))
                 
                 return
                 
             }
             
-            completion(location)
+            completion(.success(location))
         }
     }
     
     // PetsLocation
-    func addAnimationWithPetKind(in mapView: MKMapView, with viewModel: PetViewModel) {
-        
-        let pet = viewModel.pet
-        
-        convertAddress(with: pet.address) { location in
-            
-            let mapAnnotation = MapAnnotation(
-                title: pet.kind,
-                subtitle: pet.address,
-                location: pet.location,
-                coordinate: CLLocationCoordinate2D(
-                    latitude: location.coordinate.latitude,
-                    longitude: location.coordinate.longitude
-                )
-            )
-            
-            mapView.addAnnotation(mapAnnotation)
-        }
-    }
+//    func addAnimationWithPetKind(in mapView: MKMapView, with viewModel: PetViewModel) {
+//
+//        let pet = viewModel.pet
+//
+//        convertAddress(with: pet.address) { location in
+//
+//            let mapAnnotation = MapAnnotation(
+//                title: pet.kind,
+//                subtitle: pet.address,
+//                location: pet.location,
+//                coordinate: CLLocationCoordinate2D(
+//                    latitude: location.coordinate.latitude,
+//                    longitude: location.coordinate.longitude
+//                )
+//            )
+//
+//            mapView.addAnnotation(mapAnnotation)
+//        }
+//    }
     
     // PetsLocation
 //    func addAnimationWithPetKind(with viewModel: PetViewModel, compl) {

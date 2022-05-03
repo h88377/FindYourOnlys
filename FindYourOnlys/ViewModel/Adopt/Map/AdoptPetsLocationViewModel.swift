@@ -32,23 +32,38 @@ class AdoptPetsLocationViewModel {
         
         guard
             !isShelterMap else { return }
+        
+        startLoadingHandler?()
             
-        MapManager.shared.convertAddress(with: "\(petViewModel.value.pet.address)") { [weak self] location in
+        MapManager.shared.convertAddress(with: "\(petViewModel.value.pet.address)") { [weak self] result in
             
             guard
                 let self = self else { return }
             
-            self.locationViewModel.value.location = location
-            
-            let pet = self.petViewModel.value.pet
-            
-            self.selectedMapAnnotation.value.mapAnnotation = MapAnnotation(
-                title: pet.kind, subtitle: pet.address,
-                location: pet.address,
-                coordinate: location.coordinate
-            )
-            
-            self.getPetLocationHandler?()
+            switch result {
+                
+            case .success(let location):
+                
+                self.locationViewModel.value.location = location
+                
+                let pet = self.petViewModel.value.pet
+                
+                self.selectedMapAnnotation.value.mapAnnotation = MapAnnotation(
+                    title: pet.kind, subtitle: pet.address,
+                    location: pet.address,
+                    coordinate: location.coordinate
+                )
+                
+                self.getPetLocationHandler?()
+                
+                self.stopLoadingHandler?()
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
+            }
         }
     }
     
@@ -187,23 +202,33 @@ class AdoptPetsLocationViewModel {
         
         shelters.forEach { shelter in
             
-            MapManager.shared.convertAddress(with: shelter.address) { [weak self] location in
+            MapManager.shared.convertAddress(with: shelter.address) { [weak self] result in
                 
                 guard
                     let self = self else { return }
                 
-                let petCounts = shelter.petCounts
-                
-                let mapAnnotation = MapAnnotation(
-                    title: shelter.title,
-                    subtitle: "\(petCounts[0].petKind): \(petCounts[0].count), \(petCounts[1].petKind): \(petCounts[1].count), \(petCounts[2].petKind): \(petCounts[2].count)" ,
-                    location: shelter.address,
-                    coordinate: CLLocationCoordinate2D(
-                        latitude: location.coordinate.latitude,
-                        longitude: location.coordinate.longitude
+                switch result {
+                    
+                case .success(let location):
+                    
+                    let petCounts = shelter.petCounts
+                    
+                    let mapAnnotation = MapAnnotation(
+                        title: shelter.title,
+                        subtitle: "\(petCounts[0].petKind): \(petCounts[0].count), \(petCounts[1].petKind): \(petCounts[1].count), \(petCounts[2].petKind): \(petCounts[2].count)" ,
+                        location: shelter.address,
+                        coordinate: CLLocationCoordinate2D(
+                            latitude: location.coordinate.latitude,
+                            longitude: location.coordinate.longitude
+                        )
                     )
-                )
-                MapManager.shared.appendMapAnnotation(in: self.mapAnnotationViewModels, annotation: mapAnnotation)
+                    MapManager.shared.appendMapAnnotation(in: self.mapAnnotationViewModels, annotation: mapAnnotation)
+                    
+                case .failure(let error):
+                    
+                    self.errorViewModel.value = ErrorViewModel(model: error)
+                    
+                }
             }
         }
     }

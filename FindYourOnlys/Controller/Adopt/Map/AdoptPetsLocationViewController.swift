@@ -56,6 +56,18 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+
+        }
+        
         // Pet
         viewModel.convertAddress()
         
@@ -128,25 +140,13 @@ class AdoptPetsLocationViewController: BaseViewController {
             self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
         }
         
-        viewModel.startLoadingHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            DispatchQueue.main.async {
-                
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
-            
-        }
-        
         viewModel.stopLoadingHandler = {
-            
+
             DispatchQueue.main.async {
-                
+
                 LottieAnimationWrapper.shared.stopLoading()
             }
-            
+
         }
     }
     

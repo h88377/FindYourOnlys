@@ -30,10 +30,6 @@ class ArticlePhotoCell: UITableViewCell {
         didSet {
             
             postTypeLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-            
-            postTypeLabel.textColor = .white
-            
-            postTypeLabel.backgroundColor = .projectIconColor1
         }
     }
     @IBOutlet weak var locationImage: UIImageView! {
@@ -101,9 +97,17 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.text = PostType.allCases[0].rawValue
             
+            postTypeLabel.textColor = .projectTextColor
+            
+            postTypeLabel.backgroundColor = .projectIconColor3
+            
         case 1:
             
             postTypeLabel.text = PostType.allCases[1].rawValue
+            
+            postTypeLabel.textColor = .white
+            
+            postTypeLabel.backgroundColor = .projectIconColor1
             
         default:
             
@@ -138,9 +142,17 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.text = PostType.allCases[0].rawValue
             
+            postTypeLabel.textColor = .white
+            
+            postTypeLabel.backgroundColor = .projectTextColor
+            
         case 1:
             
             postTypeLabel.text = PostType.allCases[1].rawValue
+            
+            postTypeLabel.textColor = .white
+            
+            postTypeLabel.backgroundColor = .projectIconColor1
             
         default:
             
