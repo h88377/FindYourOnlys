@@ -50,6 +50,60 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
+    @IBOutlet weak var userImageView: UIImageView! {
+        
+        didSet {
+            
+            userImageView.contentMode = .scaleAspectFill
+        }
+    }
+    
+    @IBOutlet weak var nickNameLabel: UILabel! {
+        
+        didSet {
+            
+            nickNameLabel.textColor = .white
+            
+            nickNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
+    
+    @IBOutlet weak var createdTimeLabel: UILabel! {
+        
+        didSet {
+            
+            createdTimeLabel.textColor = .white
+            
+            createdTimeLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        }
+    }
+    
+    @IBOutlet weak var contentLabel: UILabel! {
+        
+        didSet {
+            
+            contentLabel.textColor = .white
+            
+            contentLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        }
+    }
+    
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+            remindLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .projectIconColor1
+        }
+    }
+    
     let viewModel = PetSocietyCommentViewModel()
     
     override var isHiddenIQKeyboardToolBar: Bool { return true }
@@ -74,7 +128,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
             }
         }
         
-        viewModel.senderViewModels.bind { [weak self] _ in
+        viewModel.senderViewModels.bind { [weak self] senderViewModels in
             
             guard
                 let self = self,
@@ -85,8 +139,12 @@ class PetSocietyCommentViewController: BaseModalViewController {
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
+                
+                self.setupArticleContent()
                     
                 self.viewModel.scrollToBottom()
+                
+                self.tableView.isHidden = senderViewModels.count == 0
             }
         }
         
@@ -101,6 +159,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
+                
+                self.setupArticleContent()
             }
             
         }
@@ -153,6 +213,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         commentTextView.layer.cornerRadius = 5
         
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        
         commentTextView.centerVertically()
     }
     
@@ -161,7 +223,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         tableView.registerCellWithIdentifier(identifier: CommentCell.identifier)
         
-        tableView.registerViewWithIdentifier(identifier: CommentHeaderView.identifier)
+//        tableView.registerViewWithIdentifier(identifier: CommentHeaderView.identifier)
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -188,6 +250,17 @@ class PetSocietyCommentViewController: BaseModalViewController {
             
             sendButton.isEnabled = false
         }
+    }
+    
+    func setupArticleContent() {
+        
+        userImageView.loadImage(viewModel.selectedAuthor?.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        nickNameLabel.text = viewModel.selectedAuthor?.nickName
+        
+        createdTimeLabel.text = viewModel.selectedArticle?.createdTime.formatedTime
+        
+        contentLabel.text = viewModel.selectedArticle?.content
     }
 }
 
