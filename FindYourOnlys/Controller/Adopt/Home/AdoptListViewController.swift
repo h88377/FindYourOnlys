@@ -7,12 +7,11 @@
 
 import Foundation
 import UIKit
+import Lottie
 
 class AdoptListViewController: BaseViewController {
     
     let viewModel = AdoptListViewModel()
-    
-    var isLogin = false
     
     @IBOutlet weak var remindLabel: UILabel! {
         
@@ -37,6 +36,8 @@ class AdoptListViewController: BaseViewController {
             collectionView.dataSource = self
             
             collectionView.delegate = self
+            
+            collectionView.backgroundColor = .projectBackgroundColor
         }
     }
     
@@ -44,7 +45,7 @@ class AdoptListViewController: BaseViewController {
         
         didSet {
             
-            mapButton.backgroundColor = .projectTintColor
+            mapButton.backgroundColor = .projectIconColor2
             
             mapButton.tintColor = .white
         }
@@ -54,11 +55,9 @@ class AdoptListViewController: BaseViewController {
         
         didSet {
             
-            filterButton.tintColor = .projectTintColor
+            filterButton.tintColor = .projectIconColor2
         }
     }
-    
-    
     private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {
@@ -74,8 +73,6 @@ class AdoptListViewController: BaseViewController {
                 self.collectionView.reloadData()
                 
                 self.collectionView.isHidden = petViewModels.count == 0
-                ? true
-                : false
                 
 //                self.remindLabel.alpha =
 //                self.collectionView.isHidden
@@ -91,6 +88,8 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.fetchPet()
         
+        LottieAnimationWrapper.shared.startLoading(at: view)
+        
         viewModel.errorViewModel.bind { errorViewModel in
             
             guard
@@ -100,6 +99,24 @@ class AdoptListViewController: BaseViewController {
         }
         
         activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
+        }
         
         viewModel.startIndicatorHandler = { [weak self] in
             
@@ -256,7 +273,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value = viewModel.petViewModels.value[indexPath.item]
         
-        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser
+        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser?.id
         
 //        adoptDetaiVC.delegate = adoptFavoriteVC
         

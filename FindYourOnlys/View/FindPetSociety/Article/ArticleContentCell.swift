@@ -9,44 +9,83 @@ import UIKit
 
 class ArticleContentCell: UITableViewCell {
 
-    @IBOutlet weak var likeButton: UIButton!
-    
-    @IBOutlet weak var leaveCommentButton: UIButton!
-    
-    @IBOutlet weak var shareButton: UIButton!
-    
-    @IBOutlet weak var likeCountLabel: UILabel!
-    
-    @IBOutlet weak var commentCountLabel: UILabel!
-    
-    @IBOutlet weak var postTypeLabel: UILabel! {
+    @IBOutlet weak var likeButton: UIButton! {
         
         didSet {
             
-            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        }
-    }
-    @IBOutlet weak var locationImage: UIImageView! {
-        
-        didSet {
+            likeButton.setImage(UIImage.system(.addToFavorite), for: .normal)
             
-            locationImage.tintColor = .systemGray2
+            likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
+            
+            likeButton.tintColor = .projectIconColor1
         }
     }
     
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var leaveCommentButton: UIButton! {
+        
+        didSet {
+            
+            leaveCommentButton.tintColor = .projectIconColor1
+        }
+    }
+    
+    @IBOutlet weak var shareButton: UIButton! {
+        
+        didSet {
+            
+            shareButton.tintColor = .projectIconColor1
+        }
+    }
+    
+    @IBOutlet weak var likeCountLabel: UILabel! {
+        
+        didSet {
+            
+            likeCountLabel.textColor = .projectIconColor2
+        }
+    }
+    
+    @IBOutlet weak var commentCountLabel: UILabel! {
+        
+        didSet {
+            
+            commentCountLabel.textColor = .projectIconColor2
+        }
+    }
     
     @IBOutlet weak var kindLabel: UILabel! {
         
         didSet {
             
             kindLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            
+            kindLabel.textColor = .projectTextColor
         }
     }
     
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel! {
+        
+        didSet {
+            
+            contentLabel.textColor = .projectTextColor
+        }
+    }
  
-    @IBOutlet weak var colorLabel: UILabel!
+    @IBOutlet weak var colorLabel: UILabel! {
+        
+        didSet {
+            
+            colorLabel.textColor = .projectTextColor
+        }
+    }
+    
+    var leaveCommentHandler: (() -> Void)?
+    
+    var likeArticleHandler: (() -> Void)?
+    
+    var unlikeArticleHandler: (() -> Void)?
+    
+    var shareHandler: (() -> Void)?
     
     func configureCell(with viewModel: ArticleViewModel) {
         
@@ -54,27 +93,59 @@ class ArticleContentCell: UITableViewCell {
         
         commentCountLabel.text = "\(viewModel.article.comments.count)"
         
-//        cityLabel.text = viewModel.article.city
-        
         kindLabel.text = viewModel.article.petKind
         
         contentLabel.text = viewModel.article.content
         
         colorLabel.text = viewModel.article.color
         
-//        switch viewModel.article.postType {
-//            
-//        case 0:
-//            
-//            postTypeLabel.text = PostType.allCases[0].rawValue
-//            
-//        case 1:
-//            
-//            postTypeLabel.text = PostType.allCases[1].rawValue
-//            
-//        default:
-//            
-//            postTypeLabel.text = "error type."
-//        }   
+        if
+            let currentUser = UserFirebaseManager.shared.currentUser {
+            
+            likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
+            
+        } else {
+            
+            likeButton.isSelected = false
+        }
     }
+    
+    @IBAction func leaveComment(_ sender: UIButton) {
+        
+        leaveCommentHandler?()
+    }
+    
+    @IBAction func toggleFavorite(_ sender: UIButton) {
+        
+        switch likeButton.isSelected {
+            
+        case true:
+            
+            unlikeArticleHandler?()
+            
+        case false:
+            
+            likeArticleHandler?()
+            
+        }
+        
+    }
+    
+    @IBAction func share(_ sender: UIButton) {
+           
+        shareHandler?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        shareHandler = nil
+        
+        unlikeArticleHandler = nil
+        
+        likeArticleHandler = nil
+        
+        leaveCommentHandler = nil
+    }
+    
 }

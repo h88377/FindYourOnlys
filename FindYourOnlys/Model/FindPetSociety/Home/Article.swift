@@ -33,9 +33,3 @@ struct Article: Codable {
     var comments: [Comment]
 }
 
-struct Comment: Codable {
-    
-    let userId: String
-    
-    let content: String
-}

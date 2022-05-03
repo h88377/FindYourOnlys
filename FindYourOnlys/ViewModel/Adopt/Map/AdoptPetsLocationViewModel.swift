@@ -96,12 +96,20 @@ class AdoptPetsLocationViewModel {
     
     var showDirectionHandler: (() -> Void)?
     
+    var stopLoadingHandler: (() -> Void)?
+    
+    var startLoadingHandler: (() -> Void)?
+    
     func fetchShelter(with city: String) {
         
         guard
             isShelterMap else { return }
         
-        PetProvider.shared.fetchPet(with: AdoptFilterCondition(city: city, petKind: "", sex: "", color: "")) { [weak self] result in
+        startLoadingHandler?()
+        
+        PetProvider.shared.fetchPet(
+            with: AdoptFilterCondition(city: city, petKind: "", sex: "", color: ""))
+        { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -155,15 +163,21 @@ class AdoptPetsLocationViewModel {
                     
                     self.mapAnnotationViewModels.value = []
                     
+                    self.stopLoadingHandler?()
+                    
                 } else {
                     
                     self.appendMapAnnotationsInViewModels(with: shelters)
+                    
+                    self.stopLoadingHandler?()
                 }
                 
               
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
             }
             
         }
@@ -206,6 +220,8 @@ class AdoptPetsLocationViewModel {
             return
         }
         
+        startLoadingHandler?()
+        
         MapManager.shared.calculateRoute(
             currentCoordinate: currentMapAnnotation.value.mapAnnotation.coordinate,
             stopCoordinate: selectedMapAnnotation.value.mapAnnotation.coordinate) { [weak self] result in
@@ -225,9 +241,13 @@ class AdoptPetsLocationViewModel {
                 
                 self.showDirectionHandler?()
                 
+                self.stopLoadingHandler?()
+                
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
             }
         }
     }

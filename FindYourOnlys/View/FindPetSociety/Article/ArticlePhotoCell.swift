@@ -16,6 +16,8 @@ class ArticlePhotoCell: UITableViewCell {
         didSet {
             
             userNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            userNameLabel.textColor = .projectTextColor
         }
     }
     
@@ -27,18 +29,40 @@ class ArticlePhotoCell: UITableViewCell {
         
         didSet {
             
-            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            postTypeLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            postTypeLabel.textColor = .white
+            
+            postTypeLabel.backgroundColor = .projectIconColor1
         }
     }
     @IBOutlet weak var locationImage: UIImageView! {
         
         didSet {
             
-            locationImage.tintColor = .systemGray2
+            locationImage.tintColor = .projectIconColor2
         }
     }
     
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel! {
+        
+        didSet {
+            
+            cityLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var editButton: UIButton! {
+        
+        didSet {
+            
+            editButton.isHidden = true
+            
+            editButton.tintColor = .projectIconColor1
+        }
+    }
+    
+    var editHandler: (() -> Void)?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -49,6 +73,10 @@ class ArticlePhotoCell: UITableViewCell {
         userButton.imageView?.layer.cornerRadius = imageView.layer.frame.height / 2
         
         postedImageView.layer.cornerRadius = 15
+        
+        postTypeLabel.layer.cornerRadius = 12
+        
+        postTypeLabel.clipsToBounds = true
     }
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
@@ -63,7 +91,7 @@ class ArticlePhotoCell: UITableViewCell {
         
         postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
         
-        timeLabel.text = formateTime(with: viewModel.article.createdTime)
+        timeLabel.text =  viewModel.article.createdTime.formatedTime
         
         cityLabel.text = viewModel.article.city
         
@@ -80,20 +108,61 @@ class ArticlePhotoCell: UITableViewCell {
         default:
             
             postTypeLabel.text = ""
+            
+            postTypeLabel.backgroundColor = .white
         }   
     }
     
-    func formateTime(with time: TimeInterval) -> String {
+    func configureCell(with viewModel: ArticleViewModel) {
         
-        let formatter = DateFormatter()
-
-        formatter.dateFormat = "yyyy.MM.dd hh:mm"
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        let date = NSDate(timeIntervalSince1970: time)
-
-        let dateString = formatter.string(from: date as Date)
+        let userImageView = UIImageView()
         
-        return dateString
+        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        userButton.setImage(userImageView.image, for: .normal)
+        
+        userNameLabel.text = currentUser.nickName
+        
+        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        
+        timeLabel.text =  viewModel.article.createdTime.formatedTime
+        
+        cityLabel.text = viewModel.article.city
+        
+        switch viewModel.article.postType {
+            
+        case 0:
+            
+            postTypeLabel.text = PostType.allCases[0].rawValue
+            
+        case 1:
+            
+            postTypeLabel.text = PostType.allCases[1].rawValue
+            
+        default:
+            
+            postTypeLabel.text = ""
+            
+            postTypeLabel.backgroundColor = .white
+        }
     }
     
+    func showEditButton() {
+        
+        editButton.isHidden = false
+    }
+    
+    @IBAction func edit(_ sender: UIButton) {
+        
+        editHandler?()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        editHandler = nil
+    }
 }

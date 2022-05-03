@@ -18,6 +18,8 @@ class AdoptDirectionViewController: BaseViewController {
             tableView.dataSource = self
             
             tableView.delegate = self
+            
+            tableView.backgroundColor = .projectBackgroundColor2
         }
     }
     
@@ -25,7 +27,7 @@ class AdoptDirectionViewController: BaseViewController {
         
         didSet {
             
-            closeButton.tintColor = .projectTintColor
+            closeButton.tintColor = .white
         }
     }
     
@@ -58,7 +60,7 @@ class AdoptDirectionViewController: BaseViewController {
         
         tableView.registerCellWithIdentifier(identifier: DirectionCell.identifier)
         
-        tableView.register(UINib(nibName: "\(DirectionHeaderView.self)", bundle: nil), forHeaderFooterViewReuseIdentifier: "\(DirectionHeaderView.self)")
+        tableView.registerViewWithIdentifier(identifier: DirectionHeaderView.identifier)
     }
 }
 
@@ -69,7 +71,9 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         
         let directionViewModel = viewModel.directionViewModel
         
-        return directionViewModel.value.direction.mapRoutes.isEmpty ? 0 : directionViewModel.value.direction.mapRoutes.count
+        return directionViewModel.value.direction.mapRoutes.isEmpty
+        ? 0
+        : directionViewModel.value.direction.mapRoutes.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,7 +88,10 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: DirectionCell.identifier, for: indexPath) as? DirectionCell
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: DirectionCell.identifier,
+                for: indexPath)
+                as? DirectionCell
                 
         else { return UITableViewCell() }
         
@@ -98,7 +105,9 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(DirectionHeaderView.self)") as? DirectionHeaderView
+            let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: DirectionHeaderView.identifier)
+                as? DirectionHeaderView
                 
         else { return nil }
         
@@ -109,4 +118,3 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         return headerView
     }
 }
-

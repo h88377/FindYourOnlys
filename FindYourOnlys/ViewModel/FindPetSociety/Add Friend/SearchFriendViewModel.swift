@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-import MapKit
 
 class SearchFriendViewModel {
     
@@ -24,31 +22,39 @@ class SearchFriendViewModel {
     
     func searchUserId(with userId: String, completion: @escaping (Result<SearchFriendResult, Error>) -> Void) {
         
-        UserFirebaseManager.shared.fetchUser { [weak self] result in
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        UserFirebaseManager.shared.fetchUser(with: userId) { [weak self] result in
             
             switch result {
                 
             case .success(let users):
                 
+                if users.count == 0 {
+                    
+                    completion(.success(.noRelativeId))
+                }
+                
                 for user in users {
                     
                     if user.id == userId {
                         
-                        if UserFirebaseManager.shared.currentUserInfo.friends.contains(userId) {
+                        if currentUser.friends.contains(userId) {
                             
                             completion(.success(.friend))
                             
-                        } else if UserFirebaseManager.shared.currentUserInfo.limitedUsers.contains (userId){
+                        } else if currentUser.limitedUsers.contains(userId) {
                             
                             completion(.success(.limitedUser))
                             
-                        } else if userId  == UserFirebaseManager.shared.currentUser{
+                        } else if userId  == currentUser.id {
                             
                             completion(.success(.currentUser))
                             
                         } else {
                             
-                            PetSocietyFirebaseManager.shared.fetchFriendRequest(with: userId) { result in
+                            PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: userId) { result in
                                 
                                 switch result {
                                     
@@ -91,21 +97,4 @@ class SearchFriendViewModel {
             }
         }
     }
-    
-    func sendFriendRequest(completion: @escaping (Error?) -> Void) {
-        
-        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { error in
-            
-            if error != nil {
-                
-                completion(error)
-                
-            } else {
-                completion(nil)
-            }
-            
-        }
-        
-    }
-    
 }

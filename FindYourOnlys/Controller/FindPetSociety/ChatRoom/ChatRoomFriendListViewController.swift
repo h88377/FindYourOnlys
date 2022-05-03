@@ -19,6 +19,14 @@ class ChatRoomFriendListViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+            remindLabel.textColor = .projectTextColor
+        }
+    }
+    
     let viewModel = ChatRoomFriendListViewModel()
     
     override var isHiddenTabBar: Bool { return true }
@@ -34,12 +42,16 @@ class ChatRoomFriendListViewController: BaseViewController {
             }
         }
         
-        viewModel.chatRoomViewModels.bind { [weak self] _ in
+        viewModel.chatRoomViewModels.bind { [weak self] chatRoomViewModels in
+            
+            self?.tableView.isHidden = chatRoomViewModels.count == 0
             
             self?.tableView.reloadData()
         }
         
-        viewModel.friendViewModels.bind { [weak self] _ in
+        viewModel.friendViewModels.bind { [weak self] friendViewModels in
+            
+            self?.tableView.isHidden = friendViewModels.count == 0
             
             self?.tableView.reloadData()
         }
@@ -54,6 +66,20 @@ class ChatRoomFriendListViewController: BaseViewController {
         super.setupNavigationTitle()
         
         navigationItem.title = "聊天室"
+        
+        let barButtonItem = UIBarButtonItem(title: "好友邀請", style: .done, target: self, action: #selector(checkFriendRequest))
+        
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+    
+    @objc func checkFriendRequest(sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard.profile
+        
+        let friendRequestVC = storyboard.instantiateViewController(
+            withIdentifier: ProfileFriendRequestViewController.identifier)
+        
+        navigationController?.pushViewController(friendRequestVC, animated: true)
     }
 }
 

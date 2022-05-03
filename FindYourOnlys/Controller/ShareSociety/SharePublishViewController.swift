@@ -26,7 +26,7 @@ class SharePublishViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.finishPublishHandler = { [weak self] in
+        viewModel.dismissHandler = { [weak self] in
             
             self?.navigationController?.popViewController(animated: true)
         }
@@ -38,6 +38,24 @@ class SharePublishViewController: BaseViewController {
                 self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再發布文章喔！")
             }
             
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
         }
     }
      

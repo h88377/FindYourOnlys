@@ -13,7 +13,9 @@ class AdoptFavoriteViewModel {
     
     let favoritePetViewModels = Box([PetViewModel]())
     
-    func fetchFavoritePetFromLS(completion: (Error?) -> Void ) {
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
+    func fetchFavoritePetFromLS() {
         
         StorageManager.shared.fetchPet { result in
             
@@ -25,12 +27,15 @@ class AdoptFavoriteViewModel {
                 
             case .failure(let error):
                 
-                completion(error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
     
-    func fetchFavoritePetFromFB(completion: @escaping (Error?) -> Void ) {
+    func fetchFavoritePetFromFB() {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
@@ -38,15 +43,22 @@ class AdoptFavoriteViewModel {
                 
             case .success(let pets):
                 
-                self?.setPets(pets)
-            
+                var favoritePets: [Pet] = []
+                
+                for pet in pets where pet.userID == currentUser.id {
+                    
+                    favoritePets.append(pet)
+                }
+                
+                self?.setPets(favoritePets)
+                
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
-
+    
     
     private func convertLsPetsToViewModels(from lsPets: [LSPet]) -> [FavoriteLSPetViewModel] {
         

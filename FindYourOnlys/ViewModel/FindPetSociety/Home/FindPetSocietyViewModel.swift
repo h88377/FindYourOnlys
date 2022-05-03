@@ -7,17 +7,17 @@
 
 import Foundation
 
-class FindPetSocietyViewModel {
+class FindPetSocietyViewModel: BaseSocietyViewModel {
     
     let articleViewModels = Box([ArticleViewModel]())
     
     let authorViewModels = Box([UserViewModel]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
-        PetSocietyFirebaseManager.shared.fetchArticle(with: condition) { [weak self] result in
+        startLoadingHandler?()
+        
+        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .find, with: condition) { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -36,6 +36,8 @@ class FindPetSocietyViewModel {
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
             }
         }
         
@@ -67,10 +69,13 @@ class FindPetSocietyViewModel {
                 
                 UserFirebaseManager.shared.setUsers(with: self.authorViewModels, users: authors)
                 
+                self.stopLoadingHandler?()
+                
             case .failure(let error):
                 
                 completion(error)
                 
+                self.stopLoadingHandler?()
             }
         }
     }

@@ -17,9 +17,29 @@ extension UICollectionView {
         register(nib, forCellWithReuseIdentifier: identifier)
     }
     
+    func registerHeaderViewWithIdentifier(identifier: String) {
+        
+        let nib = UINib(nibName: identifier, bundle: nil)
+        
+        register(
+            nib,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: identifier
+        )
+        
+    }
+    
 }
 
 extension UICollectionViewCell {
     
     static var identifier: String { return "\(self.self)"}
+}
+
+extension UICollectionReusableView {
+    
+    static func getIdentifier() -> String {
+        
+      return "\(self.self)"
+    }
 }

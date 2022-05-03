@@ -18,8 +18,11 @@ class ChatRoomMessageViewModel {
     var selectedFriend: User?
     
     var message = Message(
-        chatRoomId: "", senderId: "", content: "",
-        contentImageURLString: "", createdTime: -1
+        chatRoomId: "",
+        senderId: "",
+        content: "",
+        contentImageURLString: "",
+        createdTime: -1
     )
     
     var editMessageHandler: (() -> Void)?
@@ -59,7 +62,10 @@ class ChatRoomMessageViewModel {
     
     func sendMessage(completion: @escaping (Error?) -> Void) {
         
-        PetSocietyFirebaseManager.shared.sendMessage(UserFirebaseManager.shared.currentUser, with: &message) { error in
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &message) { error in
             
             completion(error)
         }
@@ -108,6 +114,9 @@ class ChatRoomMessageViewModel {
     }
     
     func changeContent(with contextImage: UIImage, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
           
         DispatchQueue.global().async {
             
@@ -131,7 +140,7 @@ class ChatRoomMessageViewModel {
             }
             
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.sendMessage(UserFirebaseManager.shared.currentUser, with: &self.message) { error in
+            PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &self.message) { error in
                 
                 completion(error)
                 

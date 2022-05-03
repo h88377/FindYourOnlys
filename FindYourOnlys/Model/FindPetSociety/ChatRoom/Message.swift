@@ -19,3 +19,4 @@ struct Message: Codable {
     
     var createdTime: TimeInterval
 }
+

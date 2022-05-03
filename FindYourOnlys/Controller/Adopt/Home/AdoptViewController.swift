@@ -32,13 +32,33 @@ class AdoptViewController: BaseViewController {
     
     var adoptListVC: AdoptListViewController?
     
-    @IBOutlet weak var indicatorView: UIView!
+    let viewModel = AdoptViewModel()
+    
+    @IBOutlet weak var indicatorView: UIView! {
+        
+        didSet {
+            
+            indicatorView.backgroundColor = .black
+        }
+    }
     
     @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var adoptListContainerView: UIView!
     
     @IBOutlet weak var adoptFavoriteContainerView: UIView!
+    
+    @IBOutlet weak var adoptListButton: UIButton! {
+        
+        didSet {
+            
+            adoptListButton.setTitleColor(.white, for: .selected)
+            
+            adoptListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            
+            adoptListButton.backgroundColor = .projectIconColor1
+        }
+    }
     
     @IBOutlet var adoptButtons: [UIButton]! {
         
@@ -48,7 +68,7 @@ class AdoptViewController: BaseViewController {
                 
                 $0.setTitleColor(.systemGray2, for: .normal)
                 
-                $0.setTitleColor(.black, for: .selected)
+                $0.setTitleColor(.white, for: .selected)
             }
         }
     }
@@ -56,6 +76,25 @@ class AdoptViewController: BaseViewController {
     var containerViews: [UIView] {
         
         [adoptListContainerView, adoptFavoriteContainerView]
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        viewModel.errorViewModel.bind { errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                print(errorViewModel?.error)
+                
+                return
+            }
+        }
+        
+        viewModel.fetchCurrentUser()
     }
     
     override func setupNavigationTitle() {
@@ -94,9 +133,20 @@ class AdoptViewController: BaseViewController {
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {
         
-        adoptButtons.forEach { $0.isSelected = false }
+        adoptButtons.forEach {
+            
+            $0.isSelected = false
+            
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            
+            $0.backgroundColor = .white
+        }
         
         sender.isSelected = true
+        
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        
+        sender.backgroundColor = .projectIconColor1
         
         moveIndicatorView(to: sender)
         

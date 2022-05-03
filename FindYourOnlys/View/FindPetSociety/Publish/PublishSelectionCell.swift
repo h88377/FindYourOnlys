@@ -92,7 +92,13 @@ class PublishSelectionCell: PublishBasicCell {
         
     }
 
-    @IBOutlet weak var selectionLabel: UILabel!
+    @IBOutlet weak var selectionLabel: UILabel! {
+        
+        didSet {
+            
+            selectionLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var selectionTextField: ContentInsetTextField! {
         
@@ -121,32 +127,34 @@ class PublishSelectionCell: PublishBasicCell {
             
             selectionTextField.rightViewMode = .always
             
-//            selectionTextField.inputAccessoryView = customDoneToolBar()
-            
             selectionTextField.delegate = self
             
+            selectionTextField.textColor = .projectTextColor
         }
     }
     
-    override func layoutCell(category: String) {
+    override func layoutCell(category: String, article: Article? = nil) {
         
         selectionLabel.text = category
         
-    }
-    
-    func customDoneToolBar() -> UIToolbar {
-        
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        
-        toolbar.sizeToFit()
-        
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        
-        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
-        
-        toolbar.setItems([flexibleSpace, doneBtn], animated: true)
-        
-        return toolbar
+        if
+            let article = article {
+            
+            switch category {
+                
+            case PublishContentCategory.city.rawValue:
+                
+                selectionTextField.text = article.city
+                
+            case PublishContentCategory.color.rawValue:
+                
+                selectionTextField.text = article.color
+                
+            default:
+                
+                selectionTextField.text = ""
+            }
+        }
     }
     
     func passData() {

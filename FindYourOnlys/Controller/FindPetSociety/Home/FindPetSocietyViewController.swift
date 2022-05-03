@@ -29,7 +29,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            chatButton.tintColor = .projectTintColor
+            chatButton.tintColor = .projectIconColor2
         }
     }
     
@@ -37,7 +37,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            addFriendButton.tintColor = .projectTintColor
+            addFriendButton.tintColor = .projectIconColor2
         }
     }
     
@@ -45,7 +45,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            searchButton.tintColor = .systemGray2
+            searchButton.tintColor = .projectIconColor2
         }
     }
     
@@ -53,9 +53,9 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            addArticleButton.tintColor = .systemGray2
+            addArticleButton.tintColor = .white
             
-            addArticleButton.backgroundColor = .darkGray
+            addArticleButton.backgroundColor = .projectIconColor2
         }
     }
     
@@ -95,10 +95,52 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { errorViewModel in
             
-            print(errorViewModel?.error)
+            guard
+                errorViewModel?.error != nil else { return }
+            
+            print(errorViewModel?.error.localizedDescription)
         }
         
         viewModel.fetchArticles()
+        
+        viewModel.shareHanlder = { [weak self] articleViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            // Generate the screenshot
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            
+            self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
+            
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            let items: [Any] = [image]
+            
+            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            
+            self.present(activityVC, animated: true)
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -237,11 +279,56 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             
             cell.configureCell(with: cellViewModel)
             
+            cell.likeArticleHandler = { [weak self] in
+                
+                self?.viewModel.likeArticle(with: cellViewModel)
+            }
+            
+            cell.unlikeArticleHandler = { [weak self] in
+                 
+                self?.viewModel.unlikeArticle(with: cellViewModel)
+            }
+            
+            cell.leaveCommentHandler = { [weak self] in
+                
+                let storyboard = UIStoryboard.findPetSociety
+                
+                guard
+                    let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController
+                        
+                else { return }
+                
+                petSocietyCommentVC.modalPresentationStyle = .custom
+                
+                petSocietyCommentVC.transitioningDelegate = self
+                
+                petSocietyCommentVC.viewModel.selectedArticle = cellViewModel.article
+                
+                petSocietyCommentVC.viewModel.selectedAuthor = authorCellViewModel.user
+                
+                self?.present(petSocietyCommentVC, animated: true)
+            }
+            
+            cell.shareHandler = { [weak self] in
+                
+                self?.viewModel.shareArticle(with: cellViewModel)
+            }
+            
             return cell
             
         default:
         
             return UITableViewCell()
         }
+    }
+    
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension FindPetSocietyViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

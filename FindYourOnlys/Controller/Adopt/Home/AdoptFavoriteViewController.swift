@@ -22,21 +22,30 @@ class AdoptFavoriteViewController: BaseViewController {
             tableView.dataSource = self
             
             tableView.delegate = self
+            
+            tableView.backgroundColor = .projectBackgroundColor
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.errorViewModel.bind { errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                print(errorViewModel?.error.localizedDescription)
+                
+                return
+            }
+        }
+        
         if !didLogin {
             
-            viewModel.fetchFavoritePetFromLS { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromLS()
             
             viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
                 
@@ -53,13 +62,7 @@ class AdoptFavoriteViewController: BaseViewController {
             
         } else {
             
-            viewModel.fetchFavoritePetFromFB { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromFB()
             
             viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
                 
@@ -158,22 +161,11 @@ extension AdoptFavoriteViewController: AdoptDetailViewControllerDelegate {
         
         if !didLogin {
             
-            viewModel.fetchFavoritePetFromLS { error in
-
-                if error != nil {
-
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromLS()
+            
         } else {
             
-            viewModel.fetchFavoritePetFromFB { error in
-
-                if error != nil {
-
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromFB()
         }
         tableView.reloadData()
     }
@@ -186,22 +178,10 @@ extension AdoptFavoriteViewController: AdoptViewControllerDelegate {
         
         if !didLogin {
             
-            viewModel.fetchFavoritePetFromLS { error in
-
-                if error != nil {
-
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromLS()
         } else {
             
-            viewModel.fetchFavoritePetFromFB { error in
-
-                if error != nil {
-
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromFB()
         }
     }
 }

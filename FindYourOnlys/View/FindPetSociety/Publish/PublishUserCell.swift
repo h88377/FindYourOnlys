@@ -17,16 +17,27 @@ class PublishUserCell: PublishBasicCell {
         }
     }
     
-    @IBOutlet weak var userNickName: UILabel!
+    @IBOutlet weak var userNickName: UILabel! {
+        
+        didSet {
+            
+            userNickName.textColor = .projectTextColor
+            
+            userNickName.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
     
     //no need
     @IBOutlet weak var timeLabel: UILabel!
     
-    override func layoutCell() {
+    override func layoutCell(article: Article? = nil) {
         
-        userImageView.loadImage(UserFirebaseManager.shared.currentUserImageURL, placeHolder: UIImage.system(.personPlaceHolder))
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        userNickName.text = UserFirebaseManager.shared.currentUserInfo.nickName
+        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        userNickName.text = currentUser.nickName
 
         
 //        timeLabel.text = formateTime(with: viewModel.article.createdTime)

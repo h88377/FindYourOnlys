@@ -7,17 +7,17 @@
 
 import Foundation
 
-class ShareSocietyViewModel {
+class ShareSocietyViewModel: BaseSocietyViewModel {
     
     let articleViewModels = Box([ArticleViewModel]())
     
     let authorViewModels = Box([UserViewModel]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
     func fetchSharedArticles() {
         
-        PetSocietyFirebaseManager.shared.fetchSharedArticle() { [weak self] result in
+        startLoadingHandler?()
+        
+        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .share) { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -36,6 +36,8 @@ class ShareSocietyViewModel {
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
             }
         }
         
@@ -67,10 +69,13 @@ class ShareSocietyViewModel {
                 
                 UserFirebaseManager.shared.setUsers(with: self.authorViewModels, users: authors)
                 
+                self.stopLoadingHandler?()
+                
             case .failure(let error):
                 
                 completion(error)
                 
+                self.stopLoadingHandler?()
             }
         }
     }
