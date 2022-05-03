@@ -83,8 +83,7 @@ class FriendProfileViewController: UIViewController {
             baseView.backgroundColor = .projectBackgroundColor2
         }
     }
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
