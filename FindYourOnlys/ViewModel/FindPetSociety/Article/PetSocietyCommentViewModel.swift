@@ -126,12 +126,38 @@ class PetSocietyCommentViewModel {
                 
                 var senders = [User]()
                 
+//                for userId in userIds {
+//
+//                    for user in users where userId == user.id {
+//
+//                        senders.append(user)
+//                    }
+//                }
+                
                 for userId in userIds {
-                    
-                    for user in users where userId == user.id {
+                        
+                    if !users.map({ $0.id }).contains(userId) {
+                        
+                        let deletedUser = User(
+                            id: "", nickName: "不存在使用者",
+                            email: "",
+                            imageURLString: "",
+                            friends: [],
+                            limitedUsers: []
+                        )
+
+                        senders.append(deletedUser)
+                        
+                    } else {
+                        
+                        for user in users where user.id == userId {
                             
-                        senders.append(user)
+                            senders.append(user)
+                            
+                            break
+                        }
                     }
+                           
                 }
                 
                 UserFirebaseManager.shared.setUsers(with: self.senderViewModels, users: senders)
