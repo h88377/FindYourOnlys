@@ -15,6 +15,8 @@ class SearchFriendViewController: BaseViewController {
             
             searchTextField.delegate = self
             
+            searchTextField.textColor = .projectTextColor
+            
             let button = UIButton(type: .custom)
             
             button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
@@ -39,6 +41,16 @@ class SearchFriendViewController: BaseViewController {
         didSet {
             
             errorMessageLabel.isHidden = true
+        }
+    }
+    
+    @IBOutlet weak var userIdLabel: UILabel! {
+        
+        didSet {
+            
+            userIdLabel.textColor = .projectTextColor
+            
+            userIdLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         }
     }
     

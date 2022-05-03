@@ -54,6 +54,10 @@ class EditArticleViewModel {
     
     var dismissHandler: (() -> Void)?
     
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
     var isValidEditedContent: Bool {
         
         return article.content != "" && article.content != "請輸入你的內文"
@@ -77,6 +81,8 @@ class EditArticleViewModel {
             
             let semaphore = DispatchSemaphore(value: 0)
             
+            self.startLoadingHandler?()
+            
             switch self.selectedImage != nil {
                 
             case true:
@@ -97,6 +103,8 @@ class EditArticleViewModel {
                     case .failure(let error):
                         
                         completion(error)
+                        
+                        self.stopLoadingHandler?()
                     }
 
                     semaphore.signal()
@@ -117,11 +125,14 @@ class EditArticleViewModel {
                     
                     completion(error)
                     
+                    self.stopLoadingHandler?()
+                    
                     return
                     }
                 
                 completion(nil)
                 
+                self.stopLoadingHandler?()
             }
             
         }

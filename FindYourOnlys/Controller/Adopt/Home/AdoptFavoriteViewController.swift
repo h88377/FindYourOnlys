@@ -22,6 +22,8 @@ class AdoptFavoriteViewController: BaseViewController {
             tableView.dataSource = self
             
             tableView.delegate = self
+            
+            tableView.backgroundColor = .projectBackgroundColor
         }
     }
     

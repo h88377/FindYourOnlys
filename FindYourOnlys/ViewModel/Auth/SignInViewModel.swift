@@ -13,7 +13,13 @@ class SignInViewModel {
     
     var dismissHandler: (() -> Void)?
     
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
     func signIn(withEmail email: String, password: String) {
+        
+        startLoadingHandler?()
         
         UserFirebaseManager.shared.signIn(withEmail: email, password: password) { [weak self] result in
             
@@ -31,6 +37,8 @@ class SignInViewModel {
 
                             UserFirebaseManager.shared.currentUser = user
                             
+                            self?.stopLoadingHandler?()
+                            
                             self?.dismissHandler?()
                             
                             break
@@ -45,6 +53,8 @@ class SignInViewModel {
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
             
         }

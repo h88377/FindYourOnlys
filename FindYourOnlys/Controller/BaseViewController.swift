@@ -44,6 +44,7 @@ class BaseViewController: UIViewController {
         
         setupTableView()
         
+        view.backgroundColor = .systemGray6
     }
     
     
@@ -124,7 +125,7 @@ class BaseViewController: UIViewController {
     
     func setupNavigationTitle() {
 
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.projectTextColor]
         
         navigationController?.navigationBar.titleTextAttributes = textAttributes
 

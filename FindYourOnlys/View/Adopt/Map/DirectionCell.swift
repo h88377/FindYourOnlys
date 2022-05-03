@@ -10,9 +10,21 @@ import MapKit
 
 class DirectionCell: UITableViewCell {
 
-    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel! {
+        
+        didSet {
+            
+            distanceLabel.textColor = .projectTextColor
+        }
+    }
     
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel! {
+        
+        didSet {
+            
+            descriptionLabel.textColor = .projectTextColor
+        }
+    }
     
     private let distanceFormatter = MKDistanceFormatter()
     

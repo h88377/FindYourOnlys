@@ -41,6 +41,12 @@
 		987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */; };
 		987D8B74281D1848000D1F95 /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */; };
 		987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */; };
+		987D8B78281E2126000D1F95 /* PaddingableUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */; };
+		987D8B7B281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */; };
+		987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */; };
+		987D8B7F281F9A85000D1F95 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7E281F9A85000D1F95 /* loading.json */; };
+		987D8B81281FC703000D1F95 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B80281FC703000D1F95 /* LoadingView.swift */; };
+		987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -70,8 +76,8 @@
 		98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */; };
 		98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A3528154A12004312F1 /* UIColor+Extension.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
-		9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */; };
-		9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */; };
+		9896D8D8280841EC003D4A16 /* ChatRoomUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8D6280841EC003D4A16 /* ChatRoomUserMessageCell.swift */; };
+		9896D8D9280841EC003D4A16 /* ChatRoomUserMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8D7280841EC003D4A16 /* ChatRoomUserMessageCell.xib */; };
 		9896D8DB28084795003D4A16 /* ChatRoomFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8DA28084795003D4A16 /* ChatRoomFriendListViewController.swift */; };
 		9896D8DD28084A49003D4A16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8DC28084A49003D4A16 /* User.swift */; };
 		9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8DE28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift */; };
@@ -117,6 +123,8 @@
 		9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */; };
 		9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */; };
 		9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */; };
+		98BC4753282006BD00740855 /* ladyCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4751282006BC00740855 /* ladyCat.json */; };
+		98BC4754282006BD00740855 /* manCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4752282006BD00740855 /* manCat.json */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -224,6 +232,12 @@
 		987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
 		987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewModel.swift; sourceTree = "<group>"; };
+		987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingableUILabel.swift; sourceTree = "<group>"; };
+		987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendMessageCell.swift; sourceTree = "<group>"; };
+		987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomFriendMessageCell.xib; sourceTree = "<group>"; };
+		987D8B7E281F9A85000D1F95 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		987D8B80281FC703000D1F95 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationWrapper.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -253,8 +267,8 @@
 		98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreActivityIndicator.swift; sourceTree = "<group>"; };
 		98939A3528154A12004312F1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageCell.swift; sourceTree = "<group>"; };
-		9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomMessageCell.xib; sourceTree = "<group>"; };
+		9896D8D6280841EC003D4A16 /* ChatRoomUserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomUserMessageCell.swift; sourceTree = "<group>"; };
+		9896D8D7280841EC003D4A16 /* ChatRoomUserMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomUserMessageCell.xib; sourceTree = "<group>"; };
 		9896D8DA28084795003D4A16 /* ChatRoomFriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendListViewController.swift; sourceTree = "<group>"; };
 		9896D8DC28084A49003D4A16 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9896D8DE28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendListViewModel.swift; sourceTree = "<group>"; };
@@ -300,6 +314,8 @@
 		9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewModel.swift; sourceTree = "<group>"; };
 		9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionHeaderView.swift; sourceTree = "<group>"; };
 		9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionHeaderView.xib; sourceTree = "<group>"; };
+		98BC4751282006BC00740855 /* ladyCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ladyCat.json; sourceTree = "<group>"; };
+		98BC4752282006BD00740855 /* manCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manCat.json; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -416,6 +432,16 @@
 			path = Article;
 			sourceTree = "<group>";
 		};
+		987D8B7D281F9A67000D1F95 /* AnimationSource */ = {
+			isa = PBXGroup;
+			children = (
+				987D8B7E281F9A85000D1F95 /* loading.json */,
+				98BC4751282006BC00740855 /* ladyCat.json */,
+				98BC4752282006BD00740855 /* manCat.json */,
+			);
+			path = AnimationSource;
+			sourceTree = "<group>";
+		};
 		989399F5280FB0F6004312F1 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,8 +554,10 @@
 			children = (
 				9896D8EA28094E84003D4A16 /* ChatRoomFriendListCell.swift */,
 				9896D8EB28094E84003D4A16 /* ChatRoomFriendListCell.xib */,
-				9896D8D6280841EC003D4A16 /* ChatRoomMessageCell.swift */,
-				9896D8D7280841EC003D4A16 /* ChatRoomMessageCell.xib */,
+				9896D8D6280841EC003D4A16 /* ChatRoomUserMessageCell.swift */,
+				9896D8D7280841EC003D4A16 /* ChatRoomUserMessageCell.xib */,
+				987D8B79281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift */,
+				987D8B7A281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib */,
 			);
 			path = ChatRoom;
 			sourceTree = "<group>";
@@ -724,6 +752,7 @@
 				987D8B2D2816807C000D1F95 /* FindYourOnlys.entitlements */,
 				98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */,
 				98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */,
+				987D8B7D281F9A67000D1F95 /* AnimationSource */,
 				98CC15E92802855E00B9FDC6 /* Third party framework wrapper */,
 				98CC15E82802855600B9FDC6 /* Box */,
 				98CC15C528017A2500B9FDC6 /* Extension */,
@@ -830,6 +859,7 @@
 			isa = PBXGroup;
 			children = (
 				98CC15EA2802857500B9FDC6 /* KingfisherWrapper.swift */,
+				987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */,
 			);
 			path = "Third party framework wrapper";
 			sourceTree = "<group>";
@@ -942,6 +972,8 @@
 				98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */,
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
 				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
+				987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */,
+				987D8B80281FC703000D1F95 /* LoadingView.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1039,9 +1071,10 @@
 				987D8B2F281681B9000D1F95 /* Auth.storyboard in Resources */,
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
-				9896D8D9280841EC003D4A16 /* ChatRoomMessageCell.xib in Resources */,
+				9896D8D9280841EC003D4A16 /* ChatRoomUserMessageCell.xib in Resources */,
 				98CC16122803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib in Resources */,
 				987D8B64281ABDD0000D1F95 /* ProfileArticleHeaderView.xib in Resources */,
+				98BC4754282006BD00740855 /* manCat.json in Resources */,
 				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
@@ -1049,12 +1082,14 @@
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC16522806585F00B9FDC6 /* ArticlePhotoCell.xib in Resources */,
 				98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */,
+				987D8B7F281F9A85000D1F95 /* loading.json in Resources */,
 				98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */,
 				98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
 				9896D95E280EB5CB003D4A16 /* DirectionCell.xib in Resources */,
 				987D8B5A281AAD39000D1F95 /* ProfileArticleCell.xib in Resources */,
 				9896D929280D60C1003D4A16 /* Profile.storyboard in Resources */,
+				98BC4753282006BD00740855 /* ladyCat.json in Resources */,
 				98CC161E28054A7600B9FDC6 /* FindPetSociety.storyboard in Resources */,
 				98CC16042802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib in Resources */,
 				98CC164D28059FCB00B9FDC6 /* PublishContentCell.xib in Resources */,
@@ -1062,6 +1097,7 @@
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
+				987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */,
 				9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1162,6 +1198,7 @@
 				987D8B57281AAD02000D1F95 /* ProfileArticleCell.swift in Sources */,
 				987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
+				987D8B7B281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,
 				987D8B6A281B98B7000D1F95 /* BaseSocietyViewModel.swift in Sources */,
 				98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */,
@@ -1172,6 +1209,7 @@
 				987D8B70281CED61000D1F95 /* EditProfileViewController.swift in Sources */,
 				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,
+				987D8B78281E2126000D1F95 /* PaddingableUILabel.swift in Sources */,
 				987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */,
 				98CC161428030F8100B9FDC6 /* AdoptDetailContentCategory.swift in Sources */,
 				98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */,
@@ -1210,6 +1248,7 @@
 				98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */,
 				98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
+				987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */,
 				9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */,
 				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
 				9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */,
@@ -1223,6 +1262,7 @@
 				98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */,
 				98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */,
 				9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */,
+				987D8B81281FC703000D1F95 /* LoadingView.swift in Sources */,
 				9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */,
 				9896D956280E9C3F003D4A16 /* RouteAnnotation.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
@@ -1243,7 +1283,7 @@
 				987D8B412817EC6E000D1F95 /* AdoptViewModel.swift in Sources */,
 				98939A21281398CB004312F1 /* FindPetSocietyFilterViewModel.swift in Sources */,
 				9896D945280DBD53003D4A16 /* PostType.swift in Sources */,
-				9896D8D8280841EC003D4A16 /* ChatRoomMessageCell.swift in Sources */,
+				9896D8D8280841EC003D4A16 /* ChatRoomUserMessageCell.swift in Sources */,
 				9896D960280EBF6E003D4A16 /* CLPlacemark+Extension.swift in Sources */,
 				9896D8DD28084A49003D4A16 /* User.swift in Sources */,
 				989399FB280FE065004312F1 /* ShelterProvider.swift in Sources */,

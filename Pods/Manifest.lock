@@ -313,6 +313,7 @@ PODS:
   - IQKeyboardManagerSwift (6.5.9)
   - Kingfisher (7.1.2)
   - leveldb-library (1.22.1)
+  - lottie-ios (3.3.0)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -329,6 +330,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift (= 8.14.0-beta)
   - IQKeyboardManagerSwift
   - Kingfisher (~> 7.0)
+  - lottie-ios (~> 3.3)
   - SwiftLint
 
 SPEC REPOS:
@@ -351,6 +353,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - Kingfisher
     - leveldb-library
+    - lottie-ios
     - nanopb
     - PromisesObjC
     - SwiftLint
@@ -374,10 +377,11 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
 
-PODFILE CHECKSUM: 5d6fa27d67fc7c7e12b88371e33078b61dbe43bc
+PODFILE CHECKSUM: 1f14b2b880e324d1ea716034cfdf77c4d6989744
 
 COCOAPODS: 1.11.2

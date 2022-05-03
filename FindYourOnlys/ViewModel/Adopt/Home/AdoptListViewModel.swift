@@ -28,6 +28,10 @@ class AdoptListViewModel {
     
     var startIndicatorHandler: (() -> Void)?
     
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
     var resetPetHandler: (() -> Void)?
     
     var noMorePetHandler: (() -> Void)?
@@ -35,7 +39,7 @@ class AdoptListViewModel {
     func fetchPet() {
         
         // Need to change header loader
-        startIndicatorHandler?()
+//        startIndicatorHandler?()
         
         PetProvider.shared.fetchPet(with: filterConditionViewModel.value, paging: currentPage + 1) { [weak self] result in
             
@@ -49,6 +53,8 @@ class AdoptListViewModel {
                     
                     self?.stopIndicatorHandler?()
                     
+                    self?.stopLoadingHandler?()
+                    
                     self?.currentPage += 1
                     
                 } else {
@@ -57,6 +63,8 @@ class AdoptListViewModel {
                     
                     self?.stopIndicatorHandler?()
                     
+                    self?.stopLoadingHandler?()
+                    
                     return
                 }
                 
@@ -64,6 +72,10 @@ class AdoptListViewModel {
             case .failure(let error):
                 
                 self?.errorViewModel = Box(ErrorViewModel(model: error))
+                
+                self?.stopIndicatorHandler?()
+                
+                self?.stopLoadingHandler?()
             }
         }
         
@@ -72,7 +84,8 @@ class AdoptListViewModel {
     func resetFetchPet() {
         
         // Need to change header loader
-        startIndicatorHandler?()
+//        startIndicatorHandler?()
+        startLoadingHandler?()
         
         resetPetHandler?()
         
@@ -86,14 +99,19 @@ class AdoptListViewModel {
                 
                 self?.stopIndicatorHandler?()
                 
+                self?.stopLoadingHandler?()
+                
                 self?.currentPage += 1
                 
             case .failure(let error):
                 
                 self?.errorViewModel = Box(ErrorViewModel(model: error))
+                
+                self?.stopIndicatorHandler?()
+                
+                self?.stopLoadingHandler?()
             }
         }
-        
     }
     
     func resetFilterCondition() {

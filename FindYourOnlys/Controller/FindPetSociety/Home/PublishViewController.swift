@@ -18,6 +18,8 @@ class PublishViewController: BaseViewController {
             tableView.delegate = self
             
             tableView.dataSource = self
+            
+            tableView.separatorStyle = .none
         }
     }
     
@@ -33,7 +35,32 @@ class PublishViewController: BaseViewController {
                 
                 self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再發布文章喔！")
             }
+        }
+        
+        viewModel.dismissHandler = { [weak self] in
             
+            DispatchQueue.main.async {
+                
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
         }
     }
     
@@ -50,17 +77,7 @@ class PublishViewController: BaseViewController {
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
         
-        viewModel.tapPublish { [weak self] error in
-            
-            if error != nil {
-                
-                print(error)
-                
-                return
-            }
-            
-            self?.navigationController?.popViewController(animated: true)
-        }
+        viewModel.tapPublish()
     }
 }
 

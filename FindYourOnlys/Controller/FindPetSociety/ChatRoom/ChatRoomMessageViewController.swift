@@ -46,8 +46,8 @@ class ChatRoomMessageViewController: BaseViewController {
         didSet {
             
             sendMessageButton.tintColor = sendMessageButton.isEnabled
-            ? .systemBlue
-            : .gray
+            ? .projectIconColor1
+            : .projectPlaceHolderColor
         }
     }
     
@@ -152,7 +152,9 @@ class ChatRoomMessageViewController: BaseViewController {
     
     override func setupTableView() {
         
-        tableView.registerCellWithIdentifier(identifier: ChatRoomMessageCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: ChatRoomUserMessageCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: ChatRoomFriendMessageCell.identifier)
         
     }
        
@@ -186,19 +188,32 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: ChatRoomMessageCell.identifier, for: indexPath) as? ChatRoomMessageCell,
+            let userCell = tableView.dequeueReusableCell(
+                withIdentifier: ChatRoomUserMessageCell.identifier, for: indexPath)
+                as? ChatRoomUserMessageCell,
+            let friendCell = tableView.dequeueReusableCell(
+                withIdentifier: ChatRoomFriendMessageCell.identifier, for: indexPath)
+                as? ChatRoomFriendMessageCell,
             let selectedFriend = viewModel.selectedFriend
                 
         else { return UITableViewCell() }
         
         let cellViewModel = viewModel.messageViewModels.value[indexPath.row]
         
-        cell.configureCell(with: cellViewModel, friend: selectedFriend)
-        
-        return cell
+        if cellViewModel.message.senderId == selectedFriend.id {
+            
+            friendCell.configureCell(with: cellViewModel, friend: selectedFriend)
+            
+            return friendCell
+            
+        } else {
+            
+            userCell.configureCell(with: cellViewModel, friend: selectedFriend)
+            
+            return userCell
+        }
     }
 }
-
 
 // MARK: - UITextViewDelegate
 extension ChatRoomMessageViewController: UITextViewDelegate {

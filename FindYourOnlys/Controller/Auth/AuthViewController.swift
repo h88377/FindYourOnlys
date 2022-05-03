@@ -12,7 +12,13 @@ class AuthViewController: BaseModalViewController {
     
     let viewModel = AuthViewModel()
     
-    @IBOutlet weak var indicatorView: UIView!
+    @IBOutlet weak var indicatorView: UIView! {
+        
+        didSet {
+            
+            indicatorView.backgroundColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var signInWithAppleButton: ASAuthorizationAppleIDButton! {
         
@@ -26,11 +32,13 @@ class AuthViewController: BaseModalViewController {
         
         didSet {
             
-            registerButton.backgroundColor = .white
+            registerButton.backgroundColor = .projectIconColor1
             
             registerButton.setTitle("註冊", for: .normal)
             
-            registerButton.tintColor = .black
+            registerButton.setTitleColor(.white, for: .normal)
+            
+            registerButton.setTitleColor(.projectIconColor2, for: .highlighted)
             
             registerButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         }
@@ -40,18 +48,25 @@ class AuthViewController: BaseModalViewController {
         
         didSet {
             
-            signInButton.backgroundColor = .white
+            signInButton.backgroundColor = .projectIconColor1
             
             signInButton.setTitle("登入", for: .normal)
             
-            signInButton.tintColor = .black
+            signInButton.setTitleColor(.white, for: .normal)
+            
+            signInButton.setTitleColor(.projectIconColor2, for: .highlighted)
             
             signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         }
     }
     
-    
-    
+    @IBOutlet weak var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .projectBackgroundColor2
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

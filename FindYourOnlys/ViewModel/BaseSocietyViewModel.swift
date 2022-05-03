@@ -15,6 +15,10 @@ class BaseSocietyViewModel {
     
     var editHandler: ((ArticleViewModel, UserViewModel) -> Void)?
     
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
     func likeArticle(with articleViewModel: ArticleViewModel) {
         
         PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { error in
