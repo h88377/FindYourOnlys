@@ -24,13 +24,21 @@ class FriendProfileViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var idLabel: UILabel! {
+    @IBOutlet weak var emailTitleLabel: UILabel! {
         
         didSet {
             
-            idLabel.font = UIFont.systemFont(ofSize: 14)
+            emailTitleLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var emailLabel: UILabel! {
+        
+        didSet {
             
-            idLabel.textColor = .systemGray
+            emailLabel.font = UIFont.systemFont(ofSize: 14)
+            
+            emailLabel.textColor = .systemGray
         }
     }
     
@@ -126,7 +134,7 @@ class FriendProfileViewController: UIViewController {
         
         nickNameLabel.text = "暱稱: \(user.nickName)"
         
-        idLabel.text = user.id
+        emailLabel.text = user.email
         
         statusLabel.text = result.rawValue
         
@@ -144,7 +152,7 @@ class FriendProfileViewController: UIViewController {
             
             requestButton.isEnabled = true
             
-        case .noRelativeId:
+        case .noRelativeEmail:
             
             requestButton.isEnabled = false
             
