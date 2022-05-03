@@ -14,13 +14,21 @@ class ProfileViewController: BaseViewController {
     
     @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userIdLabel: UILabel! {
+    @IBOutlet weak var userEmailTitleLabel: UILabel! {
         
         didSet {
             
-            userIdLabel.font = UIFont.systemFont(ofSize: 14)
+            userEmailTitleLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var userEmailLabel: UILabel! {
+        
+        didSet {
             
-            userIdLabel.textColor = .placeholderText
+            userEmailLabel.font = UIFont.systemFont(ofSize: 14)
+            
+            userEmailLabel.textColor = .placeholderText
         }
     }
     
@@ -177,7 +185,7 @@ class ProfileViewController: BaseViewController {
         
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        userIdLabel.text = currentUser.id
+        userEmailLabel.text = currentUser.email
         
         userNickNameLabel.text = "暱稱: \(currentUser.nickName)"
     }

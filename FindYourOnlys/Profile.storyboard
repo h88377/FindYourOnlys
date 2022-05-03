@@ -26,7 +26,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7la-cU-U46">
-                                <rect key="frame" x="140" y="108" width="73" height="51"/>
+                                <rect key="frame" x="140" y="108" width="101.5" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暱稱" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btu-gt-xda">
                                         <rect key="frame" x="0.0" y="0.0" width="35" height="20.5"/>
@@ -34,8 +34,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用者ID:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LG4-Cj-hhX">
-                                        <rect key="frame" x="0.0" y="30.5" width="73" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用者 email:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LG4-Cj-hhX">
+                                        <rect key="frame" x="0.0" y="30.5" width="101.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -123,7 +123,8 @@
                         <outlet property="collectionView" destination="4gn-Za-LBN" id="uND-vE-FKv"/>
                         <outlet property="editButton" destination="vcB-Yn-5CT" id="HJk-WG-b9v"/>
                         <outlet property="remindLabel" destination="Ezh-uw-65m" id="rM6-DI-zVt"/>
-                        <outlet property="userIdLabel" destination="4NZ-aX-rjN" id="bqa-Qm-XQp"/>
+                        <outlet property="userEmailLabel" destination="4NZ-aX-rjN" id="bqa-Qm-XQp"/>
+                        <outlet property="userEmailTitleLabel" destination="LG4-Cj-hhX" id="sQH-fP-CIn"/>
                         <outlet property="userImageView" destination="7If-yP-VuD" id="VOR-Nm-y1a"/>
                         <outlet property="userNickNameLabel" destination="btu-gt-xda" id="bFA-xf-0kR"/>
                     </connections>
