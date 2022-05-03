@@ -10,6 +10,8 @@ import UIKit
 class EditProfileViewController: BaseViewController {
     
     let viewModel = EditProfileViewModel()
+    
+    override var isHiddenTabBar: Bool { return true }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,32 @@ class EditProfileViewController: BaseViewController {
                 
                 self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
                 
+            }
+        }
+        
+        viewModel.dismissHandler = { [weak self] in
+            
+            DispatchQueue.main.async {
+                
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
             }
         }
     }

@@ -17,7 +17,15 @@ class PublishUserCell: PublishBasicCell {
         }
     }
     
-    @IBOutlet weak var userNickName: UILabel!
+    @IBOutlet weak var userNickName: UILabel! {
+        
+        didSet {
+            
+            userNickName.textColor = .projectTextColor
+            
+            userNickName.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
     
     //no need
     @IBOutlet weak var timeLabel: UILabel!

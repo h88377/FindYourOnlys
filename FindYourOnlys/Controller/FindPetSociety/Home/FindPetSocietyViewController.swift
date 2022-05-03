@@ -29,7 +29,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            chatButton.tintColor = .projectTintColor
+            chatButton.tintColor = .projectIconColor2
         }
     }
     
@@ -37,7 +37,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            addFriendButton.tintColor = .projectTintColor
+            addFriendButton.tintColor = .projectIconColor2
         }
     }
     
@@ -45,7 +45,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            searchButton.tintColor = .systemGray2
+            searchButton.tintColor = .projectIconColor2
         }
     }
     
@@ -53,9 +53,9 @@ class FindPetSocietyViewController: BaseViewController {
         
         didSet {
             
-            addArticleButton.tintColor = .systemGray2
+            addArticleButton.tintColor = .white
             
-            addArticleButton.backgroundColor = .darkGray
+            addArticleButton.backgroundColor = .projectIconColor2
         }
     }
     
@@ -122,6 +122,24 @@ class FindPetSocietyViewController: BaseViewController {
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             
             self.present(activityVC, animated: true)
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
         }
     }
     

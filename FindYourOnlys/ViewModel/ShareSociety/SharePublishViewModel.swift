@@ -22,7 +22,7 @@ class SharePublishViewModel {
     
     var updateImage: ((UIImage) -> Void)?
     
-    var finishPublishHandler: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     var selectedImage: UIImage?
     
@@ -40,6 +40,10 @@ class SharePublishViewModel {
             
         return true
     }
+    
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
 }
 
 extension SharePublishViewModel {
@@ -70,9 +74,14 @@ extension SharePublishViewModel {
                 
         else { return }
         
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
+            
+            guard
+                let self = self else { return }
             
             let semaphore = DispatchSemaphore(value: 0)
+            
+            self.startLoadingHandler?()
             
             PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
                 image: selectedImage,
@@ -89,6 +98,8 @@ extension SharePublishViewModel {
                 case .failure(let error):
                     
                     completion(error)
+                    
+                    self.stopLoadingHandler?()
                 }
 
                 semaphore.signal()
@@ -98,21 +109,25 @@ extension SharePublishViewModel {
             semaphore.wait()
             PetSocietyFirebaseManager.shared.publishArticle(
                 currentUser.id, with: &self.article) { error in
-
-                guard
-                    error == nil
-                
-                else {
                     
-                    completion(error)
-                    
-                    return
+                    guard
+                        error == nil
+                            
+                    else {
+                        
+                        completion(error)
+                        
+                        self.stopLoadingHandler?()
+                        
+                        return
                     }
-                
-                completion(nil)
-                
-                semaphore.signal()
-            }
+                    
+                    completion(nil)
+                    
+                    self.stopLoadingHandler?()
+                    
+                    semaphore.signal()
+                }
             
         }
     }
@@ -132,7 +147,7 @@ extension SharePublishViewModel {
                 
                 }
             
-            self?.finishPublishHandler?()
+            self?.dismissHandler?()
         }
     }
 }

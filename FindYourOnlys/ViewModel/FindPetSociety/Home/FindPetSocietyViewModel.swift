@@ -15,6 +15,8 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
     
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
+        startLoadingHandler?()
+        
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .find, with: condition) { [weak self] result in
             
             guard
@@ -34,6 +36,8 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
             }
         }
         
@@ -65,10 +69,13 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                 
                 UserFirebaseManager.shared.setUsers(with: self.authorViewModels, users: authors)
                 
+                self.stopLoadingHandler?()
+                
             case .failure(let error):
                 
                 completion(error)
                 
+                self.stopLoadingHandler?()
             }
         }
     }

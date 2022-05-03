@@ -16,6 +16,8 @@ class ArticlePhotoCell: UITableViewCell {
         didSet {
             
             userNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            userNameLabel.textColor = .projectTextColor
         }
     }
     
@@ -27,24 +29,36 @@ class ArticlePhotoCell: UITableViewCell {
         
         didSet {
             
-            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            postTypeLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            
+            postTypeLabel.textColor = .white
+            
+            postTypeLabel.backgroundColor = .projectIconColor1
         }
     }
     @IBOutlet weak var locationImage: UIImageView! {
         
         didSet {
             
-            locationImage.tintColor = .systemGray2
+            locationImage.tintColor = .projectIconColor2
         }
     }
     
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel! {
+        
+        didSet {
+            
+            cityLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var editButton: UIButton! {
         
         didSet {
             
             editButton.isHidden = true
+            
+            editButton.tintColor = .projectIconColor1
         }
     }
     
@@ -59,6 +73,10 @@ class ArticlePhotoCell: UITableViewCell {
         userButton.imageView?.layer.cornerRadius = imageView.layer.frame.height / 2
         
         postedImageView.layer.cornerRadius = 15
+        
+        postTypeLabel.layer.cornerRadius = 12
+        
+        postTypeLabel.clipsToBounds = true
     }
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
@@ -90,6 +108,8 @@ class ArticlePhotoCell: UITableViewCell {
         default:
             
             postTypeLabel.text = ""
+            
+            postTypeLabel.backgroundColor = .white
         }   
     }
     
@@ -125,6 +145,8 @@ class ArticlePhotoCell: UITableViewCell {
         default:
             
             postTypeLabel.text = ""
+            
+            postTypeLabel.backgroundColor = .white
         }
     }
     

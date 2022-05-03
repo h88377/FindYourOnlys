@@ -14,16 +14,48 @@ class AdoptDetailTableViewCell: UITableViewCell {
         didSet {
             
             statusLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            
+            statusLabel.textColor = .projectTextColor
         }
     }
     
-    @IBOutlet weak var kindLabel: UILabel!
+    @IBOutlet weak var kindLabel: UILabel! {
+        
+        didSet {
+            
+            kindLabel.textColor = .projectTextColor
+            
+            kindLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        }
+    }
     
-    @IBOutlet weak var sexLabel: UILabel!
+    @IBOutlet weak var sexLabel: UILabel! {
+        
+        didSet {
+            
+            sexLabel.textColor = .projectIconColor3
+            
+            sexLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+        }
+    }
     
-    @IBOutlet weak var varietyLabel: UILabel!
+    @IBOutlet weak var varietyLabel: UILabel! {
+        
+        didSet {
+            
+            varietyLabel.textColor = .projectTextColor
+            
+            varietyLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        }
+    }
     
-    @IBOutlet var baseViews: [UIView]!
+    @IBOutlet var baseViews: [UIView]! {
+        
+        didSet {
+            
+            baseViews.forEach { $0.backgroundColor = .projectBackgroundColor }
+        }
+    }
     
     func configureCell(with viewModel: PetViewModel) {
         
@@ -46,15 +78,11 @@ class AdoptDetailTableViewCell: UITableViewCell {
         
         if viewModel.pet.sex == "M" {
             
-            sexLabel.text = Sex.male.rawValue
-            
-//            sexLabel.textColor = .maleColor
+            sexLabel.text = "♂"
             
         } else {
             
-            sexLabel.text = Sex.female.rawValue
-            
-//            sexLabel.textColor = .femaleColor
+            sexLabel.text = "♀"
         }
     }
     

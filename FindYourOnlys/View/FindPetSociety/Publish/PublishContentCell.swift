@@ -9,6 +9,31 @@ import UIKit
 
 class PublishContentCell: PublishBasicCell {
     
+    @IBOutlet weak var photoLabel: UILabel! {
+        
+        didSet {
+            
+            photoLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var contentLabel: UILabel! {
+        
+        didSet {
+            
+            contentLabel.textColor = .projectTextColor
+        }
+    }
+    @IBOutlet weak var imageBaseView: UIView! {
+        
+        didSet {
+            
+            imageBaseView.layer.borderColor = UIColor.projectIconColor2.cgColor
+            
+            imageBaseView.layer.borderWidth = 1
+        }
+    }
+    
     @IBOutlet weak var contentImageView: UIImageView!
     
     @IBOutlet weak var contentTextView: UITextView! {
@@ -32,14 +57,14 @@ class PublishContentCell: PublishBasicCell {
         
         didSet {
             
-            cameraButton.tintColor = .systemGray2
+            cameraButton.tintColor = .projectIconColor1
         }
     }
     @IBOutlet weak var galleryButton: UIButton! {
         
         didSet {
             
-            galleryButton.tintColor = .systemGray2
+            galleryButton.tintColor = .projectIconColor1
         }
     }
     

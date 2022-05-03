@@ -6,16 +6,43 @@
 //
 
 import UIKit
+import Lottie
 
 class SignInViewController: BaseViewController {
     
     let viewModel = SignInViewModel()
+    
+    @IBOutlet weak var animationView: AnimationView! {
+        
+        didSet {
+            
+            animationView.loopMode = .loop
+            
+            animationView.play()
+            
+            animationView.contentMode = .scaleAspectFill
+        }
+    }
+    
+    @IBOutlet weak var welcomeLabel: UILabel! {
+        
+        didSet {
+            
+            welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+            
+            welcomeLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var emailTextField: ContentInsetTextField! {
         
         didSet {
             
             emailTextField.placeholder = "電子信箱"
+            
+            emailTextField.textColor = .projectTextColor
+            
+            emailTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -24,6 +51,10 @@ class SignInViewController: BaseViewController {
         didSet {
             
             passwordTextField.placeholder = "密碼"
+            
+            passwordTextField.textColor = .projectTextColor
+            
+            passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
     }
     
@@ -33,14 +64,20 @@ class SignInViewController: BaseViewController {
             
             signInButton.setTitle("登入", for: .normal)
             
-            signInButton.tintColor = .black
+            signInButton.setTitleColor(.white, for: .normal)
             
-            signInButton.backgroundColor = .projectTintColor
+            signInButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            signInButton.backgroundColor = .projectIconColor1
+            
+            signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .signInBackGroundColor
 
         viewModel.errorViewModel.bind { errorViewModel in
             
@@ -53,6 +90,24 @@ class SignInViewController: BaseViewController {
         viewModel.dismissHandler = { [weak self] in
             
             self?.dismiss(animated: true)
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
         }
     }
     
@@ -77,8 +132,7 @@ class SignInViewController: BaseViewController {
             
             return
         }
-                
-                
+                     
         viewModel.signIn(withEmail: email, password: password)
     }
     

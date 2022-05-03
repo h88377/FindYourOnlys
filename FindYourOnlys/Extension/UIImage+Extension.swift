@@ -10,21 +10,21 @@ import UIKit
 enum SystemImageAsset: String {
 
     // Profile tab - Tab
-    case adoptItem = "doc.fill"
+    case adoptItem = "house"
     
-    case adoptSelectedItem = "doc.text.image.fill"
+    case adoptSelectedItem = "house.fill"
     
-    case findPetSocietyItem = "person.3"
+    case findPetSocietyItem = "magnifyingglass.circle"
     
-    case findPetSocietySelectedItem = "person.3.fill"
+    case findPetSocietySelectedItem = "magnifyingglass.circle.fill"
     
-    case shareSocietyItem = "person.2"
+    case shareSocietyItem = "person.3"
     
-    case shareSocietySelectedItem = "person.2.fill"
+    case shareSocietySelectedItem = "person.3.fill"
     
-    case profileItem = "person"
+    case profileItem = "person.crop.circle"
     
-    case profileSelectedItem = "person.fill"
+    case profileSelectedItem = "person.crop.circle.fill"
     
     // PlaceHolder
     case personPlaceHolder = "person.circle"
@@ -49,6 +49,10 @@ enum ImageAsset: String {
     case dog
     
     case others
+    
+    case location
+    
+    case rightArrow
     
     case pickerDropDown = "Icons_24px_DropDown"
 }

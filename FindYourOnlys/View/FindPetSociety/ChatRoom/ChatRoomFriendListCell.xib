@@ -30,6 +30,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Du3-04-bWJ">
+                        <rect key="frame" x="305" y="39.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="LYp-7c-8sC"/>
+                            <constraint firstAttribute="width" constant="30" id="zF3-z3-H3C"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="URh-ad-0Zn" firstAttribute="centerY" secondItem="wQC-xf-OHk" secondAttribute="centerY" id="1LC-D7-ezk"/>
@@ -37,6 +44,8 @@
                     <constraint firstItem="URh-ad-0Zn" firstAttribute="leading" secondItem="wQC-xf-OHk" secondAttribute="trailing" constant="16" id="lqd-QN-plW"/>
                     <constraint firstItem="wQC-xf-OHk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="r2p-Jd-K9u"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wQC-xf-OHk" secondAttribute="bottom" constant="16" id="veO-rm-EBk"/>
+                    <constraint firstItem="Du3-04-bWJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wrI-G6-Uyn"/>
+                    <constraint firstAttribute="trailing" secondItem="Du3-04-bWJ" secondAttribute="trailing" constant="8" id="xG7-4X-KFT"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -47,4 +56,7 @@
             <point key="canvasLocation" x="148.55072463768118" y="118.86160714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="rightArrow" width="24" height="24"/>
+    </resources>
 </document>

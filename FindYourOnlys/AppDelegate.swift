@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.enable = true
         
+        IQKeyboardManager.shared.toolbarTintColor = .projectIconColor1
+        
         if
             let user = Auth.auth().currentUser {
             
@@ -32,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             UserFirebaseManager.shared.initialUser = user
         }
+        
+        
         
         return true
     }
