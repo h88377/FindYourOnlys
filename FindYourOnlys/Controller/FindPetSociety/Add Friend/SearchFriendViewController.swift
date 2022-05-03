@@ -92,13 +92,13 @@ extension SearchFriendViewController: UITextFieldDelegate {
                         let friendProfileVC = storyboard.instantiateViewController(
                             withIdentifier: FriendProfileViewController.identifier)
                             as? FriendProfileViewController,
-                        searchResult != .noRelativeId
+                        searchResult != .noRelativeEmail
                             
                     else {
                         
                         self.errorMessageLabel.isHidden = false
                         
-                        self.errorMessageLabel.text = SearchFriendResult.noRelativeId.rawValue
+                        self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
                         
                         return
                     }

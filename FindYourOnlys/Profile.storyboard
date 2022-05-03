@@ -276,7 +276,7 @@
                                 <rect key="frame" x="0.0" y="148" width="414" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FUQ-H2-vU4">
-                                        <rect key="frame" x="87" y="280" width="77" height="51"/>
+                                        <rect key="frame" x="87" y="280" width="101.5" height="51"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暱稱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcc-47-Nrd">
                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="20.5"/>
@@ -284,8 +284,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用者 ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-uj-66o">
-                                                <rect key="frame" x="0.0" y="30.5" width="77" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用者 email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-uj-66o">
+                                                <rect key="frame" x="0.0" y="30.5" width="101.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -366,7 +366,8 @@
                     <connections>
                         <outlet property="baseView" destination="Cgo-4P-mlS" id="YDx-pd-tCH"/>
                         <outlet property="cancelButton" destination="2av-SP-obk" id="O6M-du-11f"/>
-                        <outlet property="idLabel" destination="7qw-gL-XYU" id="wff-7p-cPc"/>
+                        <outlet property="emailLabel" destination="7qw-gL-XYU" id="wff-7p-cPc"/>
+                        <outlet property="emailTitleLabel" destination="GCg-uj-66o" id="CzM-36-0MG"/>
                         <outlet property="nickNameLabel" destination="kcc-47-Nrd" id="5sc-lx-iFU"/>
                         <outlet property="requestButton" destination="Ywh-bm-FQ2" id="eXT-nI-QKN"/>
                         <outlet property="statusLabel" destination="BWO-rx-kOD" id="9kW-h9-ate"/>

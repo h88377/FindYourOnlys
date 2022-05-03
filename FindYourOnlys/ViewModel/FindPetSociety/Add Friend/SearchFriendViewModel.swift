@@ -33,7 +33,7 @@ class SearchFriendViewModel {
                 
                 if users.count == 0 {
                     
-                    completion(.success(.noRelativeId))
+                    completion(.success(.noRelativeEmail))
                 }
                 
                 for user in users {
@@ -88,7 +88,7 @@ class SearchFriendViewModel {
                         
                         break
                     }
-                    completion(.success(.noRelativeId))
+                    completion(.success(.noRelativeEmail))
                 }
                 
             case .failure(let error):
