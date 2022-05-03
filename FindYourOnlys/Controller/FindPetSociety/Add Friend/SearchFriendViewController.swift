@@ -32,7 +32,7 @@ class SearchFriendViewController: BaseViewController {
             
             searchTextField.rightViewMode = .always
             
-            searchTextField.placeholder = "請輸入 User ID 查詢使用者"
+            searchTextField.placeholder = "請輸入 User email 查詢使用者"
         }
     }
     
@@ -71,10 +71,12 @@ extension SearchFriendViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         guard
-            let userId = textField.text else { return }
+//            let userId = textField.text else { return }
+        let userEmail = textField.text else { return }
         
-        viewModel.searchUserId(with: userId) { [weak self] result in
+//        viewModel.searchUserId(with: userId) { [weak self] result in
             
+        viewModel.searchUserEmail(with: userEmail) { [weak self] result in
             guard
                 let self = self else { return }
             

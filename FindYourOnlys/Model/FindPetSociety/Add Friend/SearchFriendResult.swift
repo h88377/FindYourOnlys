@@ -13,7 +13,7 @@ enum SearchFriendResult: String {
     
     case friend = "已加入好友"
     
-    case noRelativeId = "查無此 User ID 的使用者"
+    case noRelativeId = "查無此 User email 的使用者"
     
     case sentRequest = "已傳送好友邀請"
     
