@@ -87,7 +87,7 @@ class UserFirebaseManager {
     
     static let shared = UserFirebaseManager()
     
-    private let db = Firestore.firestore()
+    let db = Firestore.firestore()
     
     // Unhashed nonce.
     var currentNonce: String?
@@ -571,49 +571,6 @@ class UserFirebaseManager {
         }
     }
     
-    func blockUser(with userId: String, completion: @escaping (Error?) -> Void) {
-        
-        guard
-            let currentUser = currentUser else { return }
-
-        db.collection(FirebaseCollectionType.user.rawValue)
-            .whereField(FirebaseFieldType.id.rawValue, isEqualTo: currentUser.id)
-            .getDocuments { [weak self] snapshot, error in
-                
-                guard
-                    error == nil,
-                    let snapshot = snapshot,
-                    let self = self
-                        
-                else {
-                    
-                    completion(error)
-                    
-                    return
-                }
-                
-                do {
-                    
-                    let users = try snapshot.documents.map { try $0.data(as: User.self) }
-                    
-                    for var user in users where user.id == currentUser.id {
-                        
-                        user.blockedUsers.append(userId)
-                        
-                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(currentUser.id).setData(from: user)
-                        
-                        break
-                    }
-                    
-                } catch {
-                    
-                    completion(error)
-                }
-                
-                completion(nil)
-            }
-    }
-    
     func fetchUser(completion: @escaping (Result<[User], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.user.rawValue)
@@ -641,34 +598,6 @@ class UserFirebaseManager {
             }
     }
     
-//    func fetchUser(with userId: String, completion: @escaping (Result<[User], Error>) -> Void) {
-//        
-//        db.collection(FirebaseCollectionType.user.rawValue)
-//            .whereField("id", isEqualTo: userId)
-//            .getDocuments { snapshot, error in
-//                
-//                guard
-//                    let snapshot = snapshot else { return }
-//                
-//                var users = [User]()
-//                
-//                for document in snapshot.documents {
-//                    
-//                    do {
-//                        
-//                        let user = try document.data(as: User.self)
-//                        
-//                        users.append(user)
-//                    } catch {
-//                        
-//                        completion(.failure(error))
-//                    }
-//                }
-//                
-//                completion(.success(users))
-//            }
-//    }
-    
     func fetchUser(with userEmail: String, completion: @escaping (Result<[User], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.user.rawValue)
@@ -695,6 +624,17 @@ class UserFirebaseManager {
                 
                 completion(.success(users))
             }
+    }
+    
+    func blockUser(with userId: String, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = currentUser else { return }
+        
+        db
+            .collection(FirebaseCollectionType.user.rawValue)
+            .document(currentUser.id)
+            .updateData([FirebaseFieldType.blockedUsers.rawValue: FieldValue.arrayUnion([userId])])
     }
     
     func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Error?) -> Void) {
