@@ -360,8 +360,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             guard
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
-                    as? ArticlePhotoCell,
-                let currentUser = UserFirebaseManager.shared.currentUser
+                    as? ArticlePhotoCell
                     
             else { return UITableViewCell() }
             
@@ -369,7 +368,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             
             cell.editHandler = { [weak self] in
                 
-                self?.viewModel.editArticle(with: cellViewModel, authorViewModel: UserViewModel(model: currentUser))
+                self?.viewModel.editArticle(with: cellViewModel, authorViewModel: authorCellViewModel)
             }
             
             return cell
