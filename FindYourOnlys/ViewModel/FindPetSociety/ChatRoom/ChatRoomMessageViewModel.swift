@@ -186,25 +186,14 @@ class ChatRoomMessageViewModel {
     func checkIsBlocked() {
         
         guard
-            let friend = selectedFriend else { return }
+            let friend = selectedFriend,
+            let currentUser = UserFirebaseManager.shared.currentUser
         
-        UserFirebaseManager.shared.fetchUser { [weak self] result in
-            
-            switch result {
-                
-            case .success(let users):
-                
-                let isBlocked = users.map { $0.blockedUsers.contains(friend.id) }.contains(true)
-                
-                self?.isBlocked = isBlocked
-                
-                self?.checkIsBlockHandler?()
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-            }
-        }
+        else { return }
+        
+        isBlocked = currentUser.blockedUsers.contains(friend.id)
+        
+        checkIsBlockHandler?()
     }
     
     // MARK: - Convert functions

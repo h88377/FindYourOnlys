@@ -64,12 +64,12 @@ class ChatRoomMessageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.checkIsBlocked()
-        
         viewModel.checkIsBlockHandler = { [weak self] in
             
             self?.checkIsBlock()
         }
+        
+        viewModel.checkIsBlocked()
         
         viewModel.fetchMessage()
         

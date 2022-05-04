@@ -32,8 +32,8 @@ class PetSocietyFirebaseManager {
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         db.collection(FirebaseCollectionType.article.rawValue)
-            .whereField("userId", isEqualTo: currentUser.id)
-            .order(by: "createdTime", descending: true)
+            .whereField(FirebaseFieldType.userId.rawValue, isEqualTo: currentUser.id)
+            .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
             .addSnapshotListener { snapshot, error in
                 
                 guard
