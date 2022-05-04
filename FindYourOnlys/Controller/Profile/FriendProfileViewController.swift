@@ -163,7 +163,7 @@ class FriendProfileViewController: UIViewController {
             
             requestButton.isEnabled = false
             
-        case .limitedUser:
+        case .blockedUser:
             
             requestButton.isEnabled = false
         }

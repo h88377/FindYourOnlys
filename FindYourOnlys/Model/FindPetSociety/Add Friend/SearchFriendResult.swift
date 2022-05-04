@@ -19,7 +19,7 @@ enum SearchFriendResult: String {
     
     case receivedRequest = "待接受好友邀請"
     
-    case limitedUser = "封鎖名單使用者"
+    case blockedUser = "封鎖名單使用者"
     
     case normalUser = "發送好友邀請吧"
 }

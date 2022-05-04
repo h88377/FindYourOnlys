@@ -257,7 +257,7 @@ class UserFirebaseManager {
                                 email: user.email ?? "",
                                 imageURLString: "",
                                 friends: [],
-                                limitedUsers: []
+                                blockedUsers: []
                             )
                             
                             completion(nil)
@@ -571,6 +571,49 @@ class UserFirebaseManager {
         }
     }
     
+    func blockUser(with userId: String, completion: @escaping (Error?) -> Void) {
+        
+        guard
+            let currentUser = currentUser else { return }
+
+        db.collection(FirebaseCollectionType.user.rawValue)
+            .whereField(FirebaseFieldType.id.rawValue, isEqualTo: currentUser.id)
+            .getDocuments { [weak self] snapshot, error in
+                
+                guard
+                    error == nil,
+                    let snapshot = snapshot,
+                    let self = self
+                        
+                else {
+                    
+                    completion(error)
+                    
+                    return
+                }
+                
+                do {
+                    
+                    let users = try snapshot.documents.map { try $0.data(as: User.self) }
+                    
+                    for var user in users where user.id == currentUser.id {
+                        
+                        user.blockedUsers.append(userId)
+                        
+                        try self.db.collection(FirebaseCollectionType.user.rawValue).document(currentUser.id).setData(from: user)
+                        
+                        break
+                    }
+                    
+                } catch {
+                    
+                    completion(error)
+                }
+                
+                completion(nil)
+            }
+    }
+    
     func fetchUser(completion: @escaping (Result<[User], Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.user.rawValue)
@@ -666,7 +709,7 @@ class UserFirebaseManager {
                 email: email,
                 imageURLString: "",
                 friends: [],
-                limitedUsers: []
+                blockedUsers: []
             )
             
             try documentReference.setData(from: user, encoder: Firestore.Encoder())
