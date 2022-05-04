@@ -84,22 +84,33 @@ class ChatRoomMessageViewModel {
     func fetchMessage() {
         
         guard
-            let selectedChatRoomId = selectedChatRoom?.id else { return }
+            let selectedChatRoom = selectedChatRoom,
+            let currentUser = UserFirebaseManager.shared.currentUser
+                
+        else { return }
         
-        PetSocietyFirebaseManager.shared.fetchMessage(with: selectedChatRoomId) { [weak self] result in
+        let isBlocked = selectedChatRoom.userIds.map { currentUser.blockedUsers.contains($0) }.contains(true)
             
-            switch result {
+        if isBlocked {
+            
+            messageViewModels.value = []
+            
+        } else {
+            
+            PetSocietyFirebaseManager.shared.fetchMessage(with: selectedChatRoom.id) { [weak self] result in
                 
-            case .success(let messages):
-                
-                self?.setMessages(messages)
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                switch result {
+                    
+                case .success(let messages):
+                    
+                    self?.setMessages(messages)
+                    
+                case .failure(let error):
+                    
+                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                }
             }
         }
-        
     }
     
     func changedSelectedChatRoom(with selectedChatRoom: ChatRoom) {
