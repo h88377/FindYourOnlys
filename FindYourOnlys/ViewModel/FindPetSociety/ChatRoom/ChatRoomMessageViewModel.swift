@@ -25,7 +25,7 @@ class ChatRoomMessageViewModel {
         createdTime: -1
     )
     
-    var editMessageHandler: (() -> Void)?
+    var changeMessageHandler: (() -> Void)?
     
     var beginEditMessageHander: (() -> Void)?
     
@@ -35,9 +35,9 @@ class ChatRoomMessageViewModel {
     
     var enableIQKeyboardHandler: (() -> Void)?
     
-    func editMessage() {
+    func changeMessage() {
         
-        editMessageHandler?()
+        changeMessageHandler?()
     }
     
     func beginEditMessage() {

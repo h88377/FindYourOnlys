@@ -143,7 +143,7 @@ class BaseViewController: UIViewController {
 
     }
     
-    func showAlertWindow(title: String, message: String) {
+    func showAlertWindow(title: String, message: String?) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
