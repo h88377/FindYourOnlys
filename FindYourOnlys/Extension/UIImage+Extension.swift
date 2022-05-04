@@ -54,6 +54,8 @@ enum ImageAsset: String {
     
     case rightArrow
     
+    case findYourOnlysPlaceHolder = "FYOsPlaceHolder"
+    
     case pickerDropDown = "Icons_24px_DropDown"
 }
 
