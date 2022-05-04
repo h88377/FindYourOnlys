@@ -31,7 +31,8 @@ class PetSocietyFirebaseManager {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        db.collection(FirebaseCollectionType.article.rawValue)
+        db
+            .collection(FirebaseCollectionType.article.rawValue)
             .whereField(FirebaseFieldType.userId.rawValue, isEqualTo: currentUser.id)
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
             .addSnapshotListener { snapshot, error in
@@ -48,7 +49,7 @@ class PetSocietyFirebaseManager {
                 
                 do {
                     
-                    let articles = try snapshot.documents.map { try $0.data(as: Article.self)}
+                    let articles = try snapshot.documents.map { try $0.data(as: Article.self) }
                     
                     completion(.success(articles))
                     
@@ -63,8 +64,9 @@ class PetSocietyFirebaseManager {
                       with condition: FindPetSocietyFilterCondition? = nil,
                       completion: @escaping (Result<[Article], Error>) -> Void) {
         
-        db.collection(FirebaseCollectionType.article.rawValue)
-            .order(by: "createdTime", descending: true)
+        db
+            .collection(FirebaseCollectionType.article.rawValue)
+            .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
             .addSnapshotListener { snapshot, error in
                 
                 guard
@@ -96,7 +98,20 @@ class PetSocietyFirebaseManager {
                                 
                                 if article.postType != nil {
                                     
-                                    articles.append(article)
+                                    if
+                                        let currentUser = UserFirebaseManager.shared.currentUser {
+                                        
+                                        let isBlock = currentUser.blockedUsers.contains(article.userId)
+                                        
+                                        if !isBlock {
+                                            
+                                            articles.append(article)
+                                        }
+                                        
+                                    } else {
+                                        
+                                        articles.append(article)
+                                    }
                                 }
                                 
                             case false:
@@ -107,7 +122,20 @@ class PetSocietyFirebaseManager {
                                     && article.city == condition?.city
                                     && article.color == condition?.color {
                                     
-                                    articles.append(article)
+                                    if
+                                        let currentUser = UserFirebaseManager.shared.currentUser {
+                                        
+                                        let isBlock = currentUser.blockedUsers.contains(article.userId)
+                                        
+                                        if !isBlock {
+                                            
+                                            articles.append(article)
+                                        }
+                                        
+                                    } else {
+                                        
+                                        articles.append(article)
+                                    }
                                 }
                             }
                             
@@ -115,7 +143,20 @@ class PetSocietyFirebaseManager {
                             
                             if article.postType == nil {
                                 
-                                articles.append(article)
+                                if
+                                    let currentUser = UserFirebaseManager.shared.currentUser {
+                                    
+                                    let isBlock = currentUser.blockedUsers.contains(article.userId)
+                                    
+                                    if !isBlock {
+                                        
+                                        articles.append(article)
+                                    }
+                                    
+                                } else {
+                                    
+                                    articles.append(article)
+                                }
                             }
                         }
                         
@@ -623,7 +664,9 @@ class PetSocietyFirebaseManager {
         withCurrent userId: String,
         completion: @escaping (Error?) -> Void) {
             
-            db.collection(FirebaseCollectionType.user.rawValue).whereField("friends", arrayContains: userId).getDocuments { snapshot, error in
+            db.collection(FirebaseCollectionType.user.rawValue)
+                .whereField("friends", arrayContains: userId)
+                .getDocuments { snapshot, error in
                 
                 guard
                     let snapshot = snapshot else {
