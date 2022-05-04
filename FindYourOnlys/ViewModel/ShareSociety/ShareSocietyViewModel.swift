@@ -79,4 +79,50 @@ class ShareSocietyViewModel: BaseSocietyViewModel {
             }
         }
     }
+    
+    func deleteArticle(with viewModel: ArticleViewModel) {
+        
+        let article = viewModel.article
+        
+        startLoadingHandler?()
+        
+        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                self?.stopLoadingHandler?()
+                
+                return
+            }
+            
+            self?.stopLoadingHandler?()
+        }
+    }
+    
+    func blockUser(with viewModel: ArticleViewModel) {
+        
+        let article = viewModel.article
+        
+        startLoadingHandler?()
+        
+        UserFirebaseManager.shared.blockUser(with: article.userId) { [weak self] error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
+        }
+        
+        stopLoadingHandler?()
+    }
 }
