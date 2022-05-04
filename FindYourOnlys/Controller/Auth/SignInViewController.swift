@@ -20,7 +20,19 @@ class SignInViewController: BaseViewController {
             
             animationView.play()
             
-            animationView.contentMode = .scaleAspectFill
+            animationView.contentMode = .scaleAspectFit
+            
+            animationView.backgroundColor = .signInBackGroundColor
+        }
+    }
+    
+    @IBOutlet weak var titleLabel: UILabel! {
+        
+        didSet {
+            
+            titleLabel.font = UIFont(name: "Thonburi Bold", size: 30)
+            
+            titleLabel.textColor = .projectTextColor
         }
     }
     
@@ -28,7 +40,7 @@ class SignInViewController: BaseViewController {
         
         didSet {
             
-            welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+            welcomeLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
             
             welcomeLabel.textColor = .projectTextColor
         }

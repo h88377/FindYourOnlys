@@ -24,13 +24,23 @@ class RegisterViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var titleLabel: UILabel! {
+        
+        didSet {
+            
+            titleLabel.font = UIFont(name: "Thonburi Bold", size: 30)
+            
+            titleLabel.textColor = .projectTextColor
+        }
+    }
+    
     @IBOutlet weak var registerLabel: UILabel! {
         
         didSet {
             
             registerLabel.textColor = .projectTextColor
             
-            registerLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+            registerLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         }
     }
     
