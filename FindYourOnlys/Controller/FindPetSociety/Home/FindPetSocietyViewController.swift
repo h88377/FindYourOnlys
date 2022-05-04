@@ -11,7 +11,13 @@ class FindPetSocietyViewController: BaseViewController {
     
     let viewModel = FindPetSocietyViewModel()
     
-    @IBOutlet weak var remindLabel: UILabel!
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+            remindLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var reFetchButton: UIButton!
     
@@ -62,7 +68,7 @@ class FindPetSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.articleViewModels.bind { [weak self] articleViewModel in
+        viewModel.articleViewModels.bind { [weak self] articleViewModels in
             
             guard
                 let self = self else { return }
@@ -71,7 +77,7 @@ class FindPetSocietyViewController: BaseViewController {
                 
                 self.tableView.reloadData()
                 
-                self.tableView.isHidden = articleViewModel.count == 0
+                self.tableView.isHidden = articleViewModels.count == 0
                 ? true
                 : false
                 
