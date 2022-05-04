@@ -134,8 +134,26 @@ class ChatRoomMessageViewController: BaseViewController {
         super.setupNavigationTitle()
         
         navigationItem.title = viewModel.selectedFriend?.nickName
+        
+        let editImage = UIImage.asset(.edit)?.withTintColor(.projectIconColor1, renderingMode: .alwaysOriginal)
+        
+        let itemImage = UIImage.resizeImage(image: editImage!, targetSize: CGSize(width: 20, height: 20))
+        
+        let editItem = UIBarButtonItem(
+            image: itemImage,
+            style: .plain,
+            target: self,
+            action: #selector(edit)
+        )
+        
+        navigationItem.rightBarButtonItem = editItem
     }
-
+    
+    @objc func edit(sender: UIBarButtonItem) {
+        
+        
+        
+    }
     
     func checkMessageButton() {
         

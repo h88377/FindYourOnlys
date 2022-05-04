@@ -52,8 +52,6 @@ class ArticlePhotoCell: UITableViewCell {
         
         didSet {
             
-            editButton.isHidden = true
-            
             editButton.tintColor = .projectIconColor1
         }
     }
@@ -160,11 +158,6 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.backgroundColor = .white
         }
-    }
-    
-    func showEditButton() {
-        
-        editButton.isHidden = false
     }
     
     @IBAction func edit(_ sender: UIButton) {
