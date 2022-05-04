@@ -79,14 +79,22 @@ class PetSocietyCommentViewModel {
 
             switch result {
 
-            case .success(let article):
+            case .success(var article):
                 
+                if
+                    let currentUser = UserFirebaseManager.shared.currentUser {
+                    
+                    let filteredComments = article.comments.filter { !currentUser.blockedUsers.contains($0.userId) }
+                    
+                    article.comments = filteredComments
+                }
+                    
                 self.selectedArticleViewModel.value = ArticleViewModel(model: article)
-
+                
                 PetSocietyFirebaseManager.shared.setComments(with: self.commentViewModels, comments: article.comments)
                 
                 self.fetchSenders(withArticle: article)
-
+                
             case .failure(let error):
 
                 self.errorViewModel.value = ErrorViewModel(model: error)
