@@ -57,6 +57,8 @@ class ShareSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addCurrentUserObserver()
+        
         viewModel.fetchSharedArticles()
         
         viewModel.articleViewModels.bind { [weak self] articleViewModels in
@@ -142,6 +144,16 @@ class ShareSocietyViewController: BaseViewController {
                 LottieAnimationWrapper.shared.stopLoading()
             }
         }
+    }
+    
+    func addCurrentUserObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+    }
+    
+    @objc func currentUserDidSet(_ notification: Notification) {
+        
+        viewModel.fetchSharedArticles()
     }
     
     override func viewDidLayoutSubviews() {

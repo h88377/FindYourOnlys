@@ -94,7 +94,13 @@ class UserFirebaseManager {
     
     var initialUser = Auth.auth().currentUser
         
-    var currentUser: User?
+    var currentUser: User? {
+        
+        didSet {
+            
+            NotificationCenter.default.post(name: .didSetCurrentUser, object: nil)
+        }
+    }
     
     // Sign in with Apple
     func createAppleIdRequest() -> ASAuthorizationAppleIDRequest {
