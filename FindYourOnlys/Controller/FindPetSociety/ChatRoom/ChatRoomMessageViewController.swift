@@ -12,6 +12,8 @@ class ChatRoomMessageViewController: BaseViewController {
     private enum MessageType: String {
         
         case placeHolder = "請輸入訊息"
+        
+        case block = "該用戶已經被您封鎖"
 
     }
     
@@ -207,13 +209,14 @@ class ChatRoomMessageViewController: BaseViewController {
         
         if viewModel.isBlocked {
             
-            messageTextView.text = "該用戶已經被您封鎖"
+            messageTextView.text = MessageType.block.rawValue
         }
     }
     
     func checkMessageButton() {
         
         if messageTextView.text != MessageType.placeHolder.rawValue
+            && messageTextView.text != MessageType.block.rawValue 
             && messageTextView.text?.isEmpty == false {
             
             sendMessageButton.isEnabled = true
