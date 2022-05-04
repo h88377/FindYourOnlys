@@ -46,16 +46,28 @@ class ShareSocietyViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var remindLabel: UILabel! {
+        
+        didSet {
+            
+            remindLabel.textColor = .projectTextColor
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewModel.fetchSharedArticles()
         
-        viewModel.articleViewModels.bind { [weak self] _ in
+        viewModel.articleViewModels.bind { [weak self] articleViewModels in
             
             DispatchQueue.main.async {
                 
                 self?.tableView.reloadData()
+                
+                self?.tableView.isHidden = articleViewModels.count == 0
+                ? true
+                : false
             }
             
         }
