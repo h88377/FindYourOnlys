@@ -61,7 +61,7 @@ class SearchFriendViewController: BaseViewController {
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         
-        navigationItem.title = "搜尋好友"
+        navigationItem.title = "搜尋用戶"
     }
 }
 

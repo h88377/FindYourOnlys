@@ -124,6 +124,7 @@
 		9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */; };
 		98BC4753282006BD00740855 /* ladyCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4751282006BC00740855 /* ladyCat.json */; };
 		98BC4754282006BD00740855 /* manCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4752282006BD00740855 /* manCat.json */; };
+		98BC47562822D90300740855 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC47552822D90300740855 /* Notification+Extension.swift */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -314,6 +315,7 @@
 		9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionHeaderView.xib; sourceTree = "<group>"; };
 		98BC4751282006BC00740855 /* ladyCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ladyCat.json; sourceTree = "<group>"; };
 		98BC4752282006BD00740855 /* manCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manCat.json; sourceTree = "<group>"; };
+		98BC47552822D90300740855 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 				9896D961280EBFA5003D4A16 /* MKMapView+Extension.swift */,
 				989399ED280F9F74004312F1 /* TimeInterval.swift */,
 				98939A3528154A12004312F1 /* UIColor+Extension.swift */,
+				98BC47552822D90300740855 /* Notification+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1245,6 +1248,7 @@
 				98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */,
 				98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
+				98BC47562822D90300740855 /* Notification+Extension.swift in Sources */,
 				987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */,
 				9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */,
 				98CC16002802E87D00B9FDC6 /* AdoptDetailViewController.swift in Sources */,
