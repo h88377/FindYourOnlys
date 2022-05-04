@@ -24,4 +24,8 @@ enum FirebaseCollectionType: String {
     case friendRequest
 }
 
+enum FirebaseFieldType: String {
+    
+    case id
+}
 

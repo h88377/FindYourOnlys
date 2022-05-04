@@ -141,6 +141,102 @@ class FindPetSocietyViewController: BaseViewController {
                 LottieAnimationWrapper.shared.stopLoading()
             }
         }
+        
+        viewModel.editHandler = { [weak self] articleViewModel, _ in
+            
+            guard
+                let currentUser = UserFirebaseManager.shared.currentUser,
+                articleViewModel.article.userId == currentUser.id
+                    
+            else {
+                
+                self?.presentBlockActionSheet(with: articleViewModel)
+                
+                return
+            }
+            
+            self?.presentEditActionSheet(with: articleViewModel)
+        }
+    }
+    
+    func presentBlockActionSheet(with articleViewModel: ArticleViewModel) {
+        
+        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let blockAction = UIAlertAction(title: "封鎖發文使用者", style: .destructive) { [weak self] _ in
+            
+            let blockAlert = UIAlertController(title: "注意!", message: "將封鎖此發文的使用者，未來將看不到該用戶相關文章", preferredStyle: .alert)
+            
+            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.blockUser(with: articleViewModel)
+            }
+            
+            blockAlert.addAction(cancel)
+            
+            blockAlert.addAction(blockConfirmAction)
+            
+            self?.present(blockAlert, animated: true)
+        }
+        
+        alert.addAction(blockAction)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
+    }
+    
+    func presentEditActionSheet(with articleViewModel: ArticleViewModel) {
+        
+        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        
+        let editAction = UIAlertAction(title: "編輯文章", style: .default) { [weak self] _ in
+            
+            let storyboard = UIStoryboard.profile
+            
+            guard
+                let editVC = storyboard.instantiateViewController(
+                    withIdentifier: EditArticleViewController.identifier)
+                    as? EditArticleViewController,
+                let self = self
+            
+            else { return }
+            
+            let article = articleViewModel.article
+            
+            editVC.viewModel.article = article
+            
+            self.navigationController?.pushViewController(editVC, animated: true)
+        }
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+            
+            let deleteAlert = UIAlertController(title: "注意!", message: "將刪除此篇文章", preferredStyle: .alert)
+            
+            let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.deleteArticle(with: articleViewModel)
+            }
+            
+            deleteAlert.addAction(cancel)
+            
+            deleteAlert.addAction(deleteConfirmAction)
+            
+            self?.present(deleteAlert, animated: true)
+            
+        }
+        
+        alert.addAction(editAction)
+        
+        alert.addAction(deleteAction)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -260,11 +356,17 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             guard
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
-                    as? ArticlePhotoCell
+                    as? ArticlePhotoCell,
+                let currentUser = UserFirebaseManager.shared.currentUser
                     
             else { return UITableViewCell() }
             
             cell.configureCell(with: cellViewModel, authorViewModel: authorCellViewModel)
+            
+            cell.editHandler = { [weak self] in
+                
+                self?.viewModel.editArticle(with: cellViewModel, authorViewModel: UserViewModel(model: currentUser))
+            }
             
             return cell
             

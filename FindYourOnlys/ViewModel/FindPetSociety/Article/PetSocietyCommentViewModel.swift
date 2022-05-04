@@ -143,7 +143,7 @@ class PetSocietyCommentViewModel {
                             email: "",
                             imageURLString: "",
                             friends: [],
-                            limitedUsers: []
+                            blockedUsers: []
                         )
 
                         senders.append(deletedUser)

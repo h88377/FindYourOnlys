@@ -13,7 +13,7 @@ class SearchFriendViewModel {
     
     var user = User(
         id: "", nickName: "", email: "",
-        imageURLString: "", friends: [], limitedUsers: []
+        imageURLString: "", friends: [], blockedUsers: []
     )
     
     var friendRequest = FriendRequest(
@@ -44,9 +44,9 @@ class SearchFriendViewModel {
                             
                             completion(.success(.friend))
                             
-                        } else if currentUser.limitedUsers.contains(user.id) {
+                        } else if currentUser.blockedUsers.contains(user.id) {
                             
-                            completion(.success(.limitedUser))
+                            completion(.success(.blockedUser))
                             
                         } else if user.id  == currentUser.id {
                             
