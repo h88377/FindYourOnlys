@@ -417,6 +417,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="30D-Ne-cqf"/>
                     <connections>
+                        <outlet property="cameraButton" destination="juV-ih-l4A" id="c3d-wA-RH0"/>
+                        <outlet property="galleryButton" destination="Fkw-em-XuW" id="oj9-8x-u13"/>
                         <outlet property="messageTextView" destination="FiS-f5-6Fr" id="5Ch-NU-hM4"/>
                         <outlet property="sendMessageButton" destination="u13-Qg-eaz" id="b2F-BW-oxM"/>
                         <outlet property="tableView" destination="2PP-5h-Sld" id="E84-Ap-9Ft"/>

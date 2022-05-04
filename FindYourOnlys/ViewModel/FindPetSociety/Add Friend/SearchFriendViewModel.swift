@@ -40,13 +40,13 @@ class SearchFriendViewModel {
                     
                     if user.email == userEmail {
                         
-                        if currentUser.friends.contains(user.id) {
-                            
-                            completion(.success(.friend))
-                            
-                        } else if currentUser.blockedUsers.contains(user.id) {
+                        if currentUser.blockedUsers.contains(user.id) {
                             
                             completion(.success(.blockedUser))
+                            
+                        } else if currentUser.friends.contains(user.id) {
+                            
+                            completion(.success(.friend))
                             
                         } else if user.id  == currentUser.id {
                             

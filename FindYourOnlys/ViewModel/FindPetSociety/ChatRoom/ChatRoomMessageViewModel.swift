@@ -13,6 +13,8 @@ class ChatRoomMessageViewModel {
     
     let messageViewModels = Box([MessageViewModel]())
     
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
     private var selectedChatRoom: ChatRoom?
     
     var selectedFriend: User?
@@ -25,6 +27,8 @@ class ChatRoomMessageViewModel {
         createdTime: -1
     )
     
+    var isBlocked: Bool = false
+    
     var changeMessageHandler: (() -> Void)?
     
     var beginEditMessageHander: (() -> Void)?
@@ -34,6 +38,12 @@ class ChatRoomMessageViewModel {
     var endEditMessageHandler: (() -> Void)?
     
     var enableIQKeyboardHandler: (() -> Void)?
+    
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
+    var checkIsBlockHandler: (() -> Void)?
     
     func changeMessage() {
         
@@ -71,7 +81,7 @@ class ChatRoomMessageViewModel {
         }
     }
     
-    func fetchMessage(completion: @escaping (Error?) -> Void) {
+    func fetchMessage() {
         
         guard
             let selectedChatRoomId = selectedChatRoom?.id else { return }
@@ -86,7 +96,7 @@ class ChatRoomMessageViewModel {
                 
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
@@ -145,6 +155,54 @@ class ChatRoomMessageViewModel {
                 completion(error)
                 
                 semaphore.signal()
+            }
+        }
+    }
+    
+    // MARK: - Block
+    func blockUser() {
+        
+        guard
+            let friend = selectedFriend else { return }
+        
+        startLoadingHandler?()
+        
+        UserFirebaseManager.shared.blockUser(with: friend.id) { [weak self] error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
+        }
+        
+        stopLoadingHandler?()
+    }
+    
+    func checkIsBlocked() {
+        
+        guard
+            let friend = selectedFriend else { return }
+        
+        UserFirebaseManager.shared.fetchUser { [weak self] result in
+            
+            switch result {
+                
+            case .success(let users):
+                
+                let isBlocked = users.map { $0.blockedUsers.contains(friend.id) }.contains(true)
+                
+                self?.isBlocked = isBlocked
+                
+                self?.checkIsBlockHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
