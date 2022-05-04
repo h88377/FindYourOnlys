@@ -88,7 +88,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         kindLabel.text = viewModel.pet.kind
         
-        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
+        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         if viewModel.pet.status == "OPEN" {
             

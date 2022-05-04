@@ -92,7 +92,7 @@ class ChatRoomFriendMessageCell: UITableViewCell {
         } else if
             let imageURLString = viewModel.message.contentImageURLString {
             
-            contentImageView.loadImage(imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+            contentImageView.loadImage(imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
             
             contentImageView.isHidden = false
             
