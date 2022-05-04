@@ -51,6 +51,10 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var galleryButton: UIButton!
+    
+    @IBOutlet weak var cameraButton: UIButton!
+    
     let viewModel = ChatRoomMessageViewModel()
     
     override var isHiddenTabBar: Bool { return true }
@@ -60,9 +64,26 @@ class ChatRoomMessageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.fetchMessage { error in
+        viewModel.checkIsBlocked()
+        
+        viewModel.checkIsBlockHandler = { [weak self] in
             
-            if error != nil { print(error) }
+            self?.checkIsBlock()
+        }
+        
+        viewModel.fetchMessage()
+        
+        viewModel.errorViewModel.bind { errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                print(errorViewModel?.error.localizedDescription)
+                
+                return
+            }
         }
         
         viewModel.messageViewModels.bind { [weak self] _ in
@@ -119,6 +140,24 @@ class ChatRoomMessageViewController: BaseViewController {
             //Wait handle content out of screen when user tap textView.
         }
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
+            }
+        }
+        
         checkMessageButton()
     }
     
@@ -151,8 +190,25 @@ class ChatRoomMessageViewController: BaseViewController {
     
     @objc func block(sender: UIBarButtonItem) {
         
+        presentBlockActionSheet()
+    }
+    
+    func checkIsBlock() {
         
+        navigationItem.rightBarButtonItem?.isEnabled = !viewModel.isBlocked
         
+        cameraButton.isEnabled = !viewModel.isBlocked
+        
+        galleryButton.isEnabled = !viewModel.isBlocked
+        
+        sendMessageButton.isEnabled = !viewModel.isBlocked
+        
+        messageTextView.isEditable = !viewModel.isBlocked
+        
+        if viewModel.isBlocked {
+            
+            messageTextView.text = "該用戶已經被您封鎖"
+        }
     }
     
     func checkMessageButton() {
@@ -190,6 +246,39 @@ class ChatRoomMessageViewController: BaseViewController {
         messageTextView.textColor = UIColor.systemGray3
 
         checkMessageButton()
+    }
+    
+    private func presentBlockActionSheet() {
+        
+        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let blockAction = UIAlertAction(title: "封鎖使用者", style: .destructive) { [weak self] _ in
+            
+            let blockAlert = UIAlertController(
+                title: "注意!",
+                message: "將封鎖此使用者，未來將看不到該用戶相關資訊",
+                preferredStyle: .alert
+            )
+            
+            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.blockUser()
+            }
+            
+            blockAlert.addAction(cancel)
+            
+            blockAlert.addAction(blockConfirmAction)
+            
+            self?.present(blockAlert, animated: true)
+        }
+        
+        alert.addAction(blockAction)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
     }
 }
 
