@@ -159,7 +159,31 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
-    func presentBlockActionSheet(with articleViewModel: ArticleViewModel) {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        addArticleButton.layer.cornerRadius = addArticleButton.frame.height / 2
+    }
+    
+    override func setupTableView() {
+        
+        tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "尋寵物啟示"
+    }
+    
+    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
+        
+        Int(index / count)
+    }
+    
+    private func presentBlockActionSheet(with articleViewModel: ArticleViewModel) {
         
         let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
         
@@ -167,7 +191,11 @@ class FindPetSocietyViewController: BaseViewController {
         
         let blockAction = UIAlertAction(title: "封鎖發文使用者", style: .destructive) { [weak self] _ in
             
-            let blockAlert = UIAlertController(title: "注意!", message: "將封鎖此發文的使用者，未來將看不到該用戶相關文章", preferredStyle: .alert)
+            let blockAlert = UIAlertController(
+                title: "注意!",
+                message: "將封鎖此發文的使用者，未來將看不到該用戶相關文章",
+                preferredStyle: .alert
+            )
             
             let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
                 
@@ -188,7 +216,7 @@ class FindPetSocietyViewController: BaseViewController {
         present(alert, animated: true)
     }
     
-    func presentEditActionSheet(with articleViewModel: ArticleViewModel) {
+    private func presentEditActionSheet(with articleViewModel: ArticleViewModel) {
         
         let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
         
@@ -237,30 +265,6 @@ class FindPetSocietyViewController: BaseViewController {
         alert.addAction(cancel)
         
         present(alert, animated: true)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        addArticleButton.layer.cornerRadius = addArticleButton.frame.height / 2
-    }
-    
-    override func setupTableView() {
-        
-        tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
-    }
-    
-    override func setupNavigationTitle() {
-        super.setupNavigationTitle()
-        
-        navigationItem.title = "尋寵物啟示"
-    }
-    
-    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
-        
-        Int(index / count)
     }
     
     @IBAction func addArticle(_ sender: UIButton) {
