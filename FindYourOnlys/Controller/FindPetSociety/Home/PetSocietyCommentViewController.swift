@@ -184,13 +184,31 @@ class PetSocietyCommentViewController: BaseModalViewController {
             }
         }
         
-        viewModel.editCommentHandler = { [weak self] in
+        viewModel.changeCommentHandler = { [weak self] in
             
             self?.checkCommentButton()
             
             if self?.commentTextView.textColor == UIColor.systemGray3 {
                 
                 self?.commentTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
+        viewModel.stopLoadingHandler = {
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.stopLoading()
             }
         }
         
@@ -205,6 +223,22 @@ class PetSocietyCommentViewController: BaseModalViewController {
             let indexPath = IndexPath(row: commentCount - 1, section: 0)
             
             self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
+        
+        viewModel.blockHandler = { [weak self] senderViewModel in
+            
+            guard
+                let currentUser = UserFirebaseManager.shared.currentUser,
+                currentUser.id != senderViewModel.user.id
+                    
+            else {
+                
+                self?.showAlertWindow(title: "無法封鎖自己喔！", message: nil)
+                
+                return
+            }
+            
+            self?.presentBlockActionSheet(with: senderViewModel)
         }
     }
     
@@ -239,7 +273,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         checkCommentButton()
     }
     
-    func checkCommentButton() {
+    private func checkCommentButton() {
         
         if commentTextView.text != MessageType.placeHolder.rawValue
             && commentTextView.text?.isEmpty == false {
@@ -252,7 +286,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    func setupArticleContent() {
+    private func setupArticleContent() {
         
         userImageView.loadImage(viewModel.selectedAuthor?.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
@@ -261,6 +295,39 @@ class PetSocietyCommentViewController: BaseModalViewController {
         createdTimeLabel.text = viewModel.selectedArticle?.createdTime.formatedTime
         
         contentLabel.text = viewModel.selectedArticle?.content
+    }
+    
+    private func presentBlockActionSheet(with senderViewModel: UserViewModel) {
+        
+        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let blockAction = UIAlertAction(title: "封鎖留言使用者", style: .destructive) { [weak self] _ in
+            
+            let blockAlert = UIAlertController(
+                title: "注意!",
+                message: "將封鎖此留言的使用者，未來將看不到該用戶相關資訊",
+                preferredStyle: .alert
+            )
+            
+            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.blockUser(with: senderViewModel)
+            }
+            
+            blockAlert.addAction(cancel)
+            
+            blockAlert.addAction(blockConfirmAction)
+            
+            self?.present(blockAlert, animated: true)
+        }
+        
+        alert.addAction(blockAction)
+        
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
     }
 }
 
@@ -281,14 +348,24 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath)
         
+        let commentViewModel = viewModel.commentViewModels.value[indexPath.row]
+        
+        let senderViewModel = viewModel.senderViewModels.value[indexPath.row]
+        
         guard
             let commentCell = cell as? CommentCell
                 
         else { return cell }
         
         commentCell.configure(
-            with: viewModel.commentViewModels.value[indexPath.row],
-            senderViewModel: viewModel.senderViewModels.value[indexPath.row])
+            with: commentViewModel,
+            senderViewModel: senderViewModel)
+        
+        commentCell.blockHandler = { [weak self] in
+            
+            self?.viewModel.block(with: senderViewModel)
+            
+        }
         
         return commentCell
     }
@@ -320,7 +397,7 @@ extension PetSocietyCommentViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
-        viewModel.editMessage()
+        viewModel.changeMessage()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

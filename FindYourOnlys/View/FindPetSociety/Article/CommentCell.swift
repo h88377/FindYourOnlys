@@ -41,15 +41,14 @@ class CommentCell: UITableViewCell {
         
         didSet {
             
-            let image = UIImage.asset(.edit)?.withTintColor(.projectIconColor1, renderingMode: .alwaysOriginal)
-            
-            editButton.imageView?.image = image
+            editButton.setTitleColor(.projectIconColor1, for: .normal)
+            editButton.setTitleColor(.projectIconColor2, for: .highlighted)
         }
     }
     
     @IBOutlet weak var userImageView: UIImageView!
     
-    var editHandler: (() -> Void)?
+    var blockHandler: (() -> Void)?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -68,8 +67,8 @@ class CommentCell: UITableViewCell {
         userImageView.loadImage(senderViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
     }
     
-    @IBAction func edit(_ sender: UIButton) {
+    @IBAction func block(_ sender: UIButton) {
         
-        editHandler?()
+        blockHandler?()
     }
 }

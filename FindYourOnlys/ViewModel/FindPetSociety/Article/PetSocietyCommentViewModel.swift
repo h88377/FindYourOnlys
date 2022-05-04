@@ -28,7 +28,7 @@ class PetSocietyCommentViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var editCommentHandler: (() -> Void)?
+    var changeCommentHandler: (() -> Void)?
     
     var beginEditCommentHander: (() -> Void)?
     
@@ -36,9 +36,15 @@ class PetSocietyCommentViewModel {
     
     var scrollToBottomHandler: (() -> Void)?
     
-    func editMessage() {
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
+    var blockHandler: ((UserViewModel) -> Void)?
+    
+    func changeMessage() {
         
-        editCommentHandler?()
+        changeCommentHandler?()
     }
     
     func beginEditMessage() {
@@ -54,6 +60,11 @@ class PetSocietyCommentViewModel {
     func scrollToBottom() {
         
         scrollToBottomHandler?()
+    }
+    
+    func block(with senderViewModel: UserViewModel) {
+        
+        blockHandler?(senderViewModel)
     }
     
     func fetchComments() {
@@ -168,6 +179,28 @@ class PetSocietyCommentViewModel {
                 
             }
         }
+    }
+    
+    func blockUser(with viewModel: UserViewModel) {
+        
+        let user = viewModel.user
+        
+        startLoadingHandler?()
+        
+        UserFirebaseManager.shared.blockUser(with: user.id) { [weak self] error in
+            
+            guard
+                error == nil
+                    
+            else {
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error!)
+                
+                return
+            }
+        }
+        
+        stopLoadingHandler?()
     }
 }
 

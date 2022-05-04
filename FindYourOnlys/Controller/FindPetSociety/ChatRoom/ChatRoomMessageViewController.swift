@@ -82,7 +82,7 @@ class ChatRoomMessageViewController: BaseViewController {
             }
         }
         
-        viewModel.editMessageHandler = { [weak self] in
+        viewModel.changeMessageHandler = { [weak self] in
             
             self?.checkMessageButton()
             
@@ -143,13 +143,13 @@ class ChatRoomMessageViewController: BaseViewController {
             image: itemImage,
             style: .plain,
             target: self,
-            action: #selector(edit)
+            action: #selector(block)
         )
         
         navigationItem.rightBarButtonItem = editItem
     }
     
-    @objc func edit(sender: UIBarButtonItem) {
+    @objc func block(sender: UIBarButtonItem) {
         
         
         
@@ -243,7 +243,7 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
-        viewModel.editMessage()
+        viewModel.changeMessage()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
