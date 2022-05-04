@@ -21,13 +21,13 @@ class FriendRequestCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var idLabel: UILabel! {
+    @IBOutlet weak var emailLabel: UILabel! {
         
         didSet {
             
-            idLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            emailLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
             
-            idLabel.textColor = .projectPlaceHolderColor
+            emailLabel.textColor = .projectPlaceHolderColor
         }
     }
     
@@ -75,7 +75,7 @@ class FriendRequestCell: UITableViewCell {
         
         nickNameLabel.text = user.nickName
         
-        idLabel.text = user.id
+        emailLabel.text = user.email
         
         userImageVIew.loadImage(user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
