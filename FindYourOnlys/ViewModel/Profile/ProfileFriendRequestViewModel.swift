@@ -51,7 +51,12 @@ class ProfileFriendRequestViewModel {
                     
                     if request.requestedUserId == currentUser.id {
                         
-                        requestedUsers.append(request.requestUserId)
+                        let isBlocked = currentUser.blockedUsers.contains(request.requestUserId)
+                        
+                        if !isBlocked {
+                         
+                            requestedUsers.append(request.requestUserId)
+                        }
                     }
                 }
                 
