@@ -437,10 +437,10 @@
             </objects>
             <point key="canvasLocation" x="4387" y="1319"/>
         </scene>
-        <!--Profile Friend Request View Controller-->
+        <!--Friend Request View Controller-->
         <scene sceneID="JBp-pe-OU2">
             <objects>
-                <viewController storyboardIdentifier="ProfileFriendRequestViewController" id="Ydd-z1-FtH" customClass="ProfileFriendRequestViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FriendRequestViewController" id="Ydd-z1-FtH" customClass="FriendRequestViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jn7-fY-hfU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
