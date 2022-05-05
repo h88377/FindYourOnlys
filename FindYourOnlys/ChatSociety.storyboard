@@ -66,7 +66,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z7V-gJ-uTY" customClass="ContentInsetTextField" customModule="FindYourOnlys" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Z7V-gJ-uTY" customClass="ContentInsetTextField" customModule="FindYourOnlys" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="46.5" width="382" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -83,18 +83,33 @@
                                 <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VpJ-LJ-z44" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="0.0" y="542" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="mWC-Yg-upS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="friendRequestCat"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zT7-lZ-ZUu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="zT7-lZ-ZUu" firstAttribute="bottom" secondItem="VpJ-LJ-z44" secondAttribute="bottom" constant="20" id="0ww-Ad-f8b"/>
                             <constraint firstItem="Rpz-sX-OZm" firstAttribute="leading" secondItem="zT7-lZ-ZUu" secondAttribute="leading" constant="16" id="8c3-dk-LeB"/>
                             <constraint firstItem="Rpz-sX-OZm" firstAttribute="top" secondItem="zT7-lZ-ZUu" secondAttribute="top" constant="30" id="JT5-QJ-ne1"/>
+                            <constraint firstItem="VpJ-LJ-z44" firstAttribute="centerX" secondItem="ehl-Ni-ks6" secondAttribute="centerX" id="Ker-7a-1Dz"/>
+                            <constraint firstItem="zT7-lZ-ZUu" firstAttribute="trailing" secondItem="VpJ-LJ-z44" secondAttribute="trailing" id="Sts-Vh-P3E"/>
                             <constraint firstItem="zT7-lZ-ZUu" firstAttribute="trailing" secondItem="Rpz-sX-OZm" secondAttribute="trailing" constant="16" id="nld-9b-tjv"/>
+                            <constraint firstItem="VpJ-LJ-z44" firstAttribute="leading" secondItem="zT7-lZ-ZUu" secondAttribute="leading" id="nro-5s-agU"/>
                             <constraint firstItem="01a-tk-t1C" firstAttribute="top" secondItem="Rpz-sX-OZm" secondAttribute="bottom" constant="20" id="r2t-jg-raY"/>
                             <constraint firstItem="01a-tk-t1C" firstAttribute="leading" secondItem="zT7-lZ-ZUu" secondAttribute="leading" constant="16" id="xRX-3n-Mym"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="animationView" destination="VpJ-LJ-z44" id="3qM-dX-9hT"/>
                         <outlet property="errorMessageLabel" destination="01a-tk-t1C" id="pe0-uk-cOT"/>
                         <outlet property="searchTextField" destination="Z7V-gJ-uTY" id="eOT-ur-RlO"/>
                         <outlet property="userEmailLabel" destination="k3Z-oN-GVz" id="Xd1-Ue-EOb"/>
