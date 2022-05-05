@@ -29,8 +29,6 @@ class ChatRoomFriendListViewController: BaseViewController {
     
     let viewModel = ChatRoomFriendListViewModel()
     
-    override var isHiddenTabBar: Bool { return true }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,19 +65,41 @@ class ChatRoomFriendListViewController: BaseViewController {
         
         navigationItem.title = "聊天室"
         
-        let barButtonItem = UIBarButtonItem(title: "好友邀請", style: .done, target: self, action: #selector(checkFriendRequest))
+        let requestItem = UIBarButtonItem(
+            title: "邀請",
+            style: .plain,
+            target: self,
+            action: #selector(checkFriendRequest)
+        )
         
-        navigationItem.rightBarButtonItem = barButtonItem
+        let searchItem = UIBarButtonItem(
+            title: "搜尋",
+            style: .plain,
+            target: self,
+            action: #selector(searchFriend)
+        )
+        
+        navigationItem.rightBarButtonItems = [searchItem, requestItem]
     }
     
     @objc func checkFriendRequest(sender: UIBarButtonItem) {
         
-        let storyboard = UIStoryboard.profile
+        let storyboard = UIStoryboard.chatSociety
         
         let friendRequestVC = storyboard.instantiateViewController(
             withIdentifier: ProfileFriendRequestViewController.identifier)
         
         navigationController?.pushViewController(friendRequestVC, animated: true)
+    }
+    
+    @objc func searchFriend(sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard.chatSociety
+        
+        let searchFriendVC = storyboard.instantiateViewController(
+            withIdentifier: SearchFriendViewController.identifier)
+        
+        navigationController?.pushViewController(searchFriendVC, animated: true)
     }
 }
 
@@ -94,7 +114,10 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: ChatRoomFriendListCell.identifier, for: indexPath) as? ChatRoomFriendListCell
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: ChatRoomFriendListCell.identifier,
+                for: indexPath)
+                as? ChatRoomFriendListCell
                 
         else { return UITableViewCell() }
         
@@ -107,10 +130,12 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyboard = UIStoryboard.findPetSociety
+        let storyboard = UIStoryboard.chatSociety
         
         guard
-            let chatRoomMessageVC = storyboard.instantiateViewController(withIdentifier: ChatRoomMessageViewController.identifier) as? ChatRoomMessageViewController
+            let chatRoomMessageVC = storyboard.instantiateViewController(
+                withIdentifier: ChatRoomMessageViewController.identifier)
+                as? ChatRoomMessageViewController
                 
         else { return }
         

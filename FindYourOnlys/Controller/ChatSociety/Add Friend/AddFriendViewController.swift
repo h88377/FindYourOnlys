@@ -75,7 +75,7 @@ class AddFriendViewController: BaseViewController {
     
     @IBAction func searchUserId(_ sender: UIButton) {
         
-        let storyboard = UIStoryboard.findPetSociety
+        let storyboard = UIStoryboard.chatSociety
         
         let searchFriendVC = storyboard.instantiateViewController(withIdentifier: SearchFriendViewController.identifier)
         
