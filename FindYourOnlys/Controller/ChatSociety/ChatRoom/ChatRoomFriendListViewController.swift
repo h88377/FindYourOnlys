@@ -65,15 +65,21 @@ class ChatRoomFriendListViewController: BaseViewController {
         
         navigationItem.title = "聊天室"
         
+//        let requestItem = UIBarButtonItem(
+//            title: "邀請",
+//            style: .plain,
+//            target: self,
+//            action: #selector(checkFriendRequest)
+//        )
         let requestItem = UIBarButtonItem(
-            title: "邀請",
+            image: UIImage.system(.addFriend),
             style: .plain,
             target: self,
             action: #selector(checkFriendRequest)
         )
         
         let searchItem = UIBarButtonItem(
-            title: "搜尋",
+            image: UIImage.system(.search),
             style: .plain,
             target: self,
             action: #selector(searchFriend)
@@ -87,7 +93,7 @@ class ChatRoomFriendListViewController: BaseViewController {
         let storyboard = UIStoryboard.chatSociety
         
         let friendRequestVC = storyboard.instantiateViewController(
-            withIdentifier: ProfileFriendRequestViewController.identifier)
+            withIdentifier: FriendRequestViewController.identifier)
         
         navigationController?.pushViewController(friendRequestVC, animated: true)
     }

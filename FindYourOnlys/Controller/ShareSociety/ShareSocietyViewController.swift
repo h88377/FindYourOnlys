@@ -363,7 +363,11 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
 // MARK: - UIViewControllerTransitioningDelegate
 extension ShareSocietyViewController: UIViewControllerTransitioningDelegate {
     
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController)
+    -> UIPresentationController? {
         
         PresentationController(presentedViewController: presented, presenting: presenting)
     }

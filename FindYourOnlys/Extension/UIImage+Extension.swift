@@ -39,7 +39,11 @@ enum SystemImageAsset: String {
     
     case removeFromFavorite = "heart.fill"
     
+    // Society
+    
     case search = "magnifyingglass"
+    
+    case addFriend = "person.badge.plus"
 }
 
 enum ImageAsset: String {

@@ -14,7 +14,7 @@ enum FriendRequestType: String, CaseIterable {
     case request = "待同意"
 }
 
-class ProfileFriendRequestViewModel {
+class FriendRequestViewModel {
     
     var friendRequestListViewModels = Box([FriendRequestListViewModel]())
     

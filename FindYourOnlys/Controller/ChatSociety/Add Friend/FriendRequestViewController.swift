@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileFriendRequestViewController: BaseViewController {
+class FriendRequestViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -29,7 +29,7 @@ class ProfileFriendRequestViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
     
-    let viewModel = ProfileFriendRequestViewModel()
+    let viewModel = FriendRequestViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +65,7 @@ class ProfileFriendRequestViewController: BaseViewController {
 }
 
 // MARK: - UITableViewDelegate and DataSource
-extension ProfileFriendRequestViewController: UITableViewDelegate, UITableViewDataSource {
+extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         

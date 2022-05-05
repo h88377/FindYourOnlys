@@ -97,10 +97,10 @@
 		9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D926280BD3DD003D4A16 /* FriendRequest.swift */; };
 		9896D929280D60C1003D4A16 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9896D928280D60C1003D4A16 /* Profile.storyboard */; };
 		9896D92C280D6127003D4A16 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D92B280D6127003D4A16 /* ProfileViewController.swift */; };
-		9896D92E280D6164003D4A16 /* ProfileFriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */; };
+		9896D92E280D6164003D4A16 /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D92D280D6164003D4A16 /* FriendRequestViewController.swift */; };
 		9896D932280D6694003D4A16 /* FriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D930280D6694003D4A16 /* FriendRequestCell.swift */; };
 		9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D931280D6694003D4A16 /* FriendRequestCell.xib */; };
-		9896D936280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */; };
+		9896D936280D6DC9003D4A16 /* FriendRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */; };
 		9896D938280D6E8E003D4A16 /* ProfileFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */; };
 		9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */; };
 		9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */; };
@@ -292,10 +292,10 @@
 		9896D926280BD3DD003D4A16 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		9896D928280D60C1003D4A16 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		9896D92B280D6127003D4A16 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendRequestViewController.swift; sourceTree = "<group>"; };
+		9896D92D280D6164003D4A16 /* FriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
 		9896D930280D6694003D4A16 /* FriendRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestCell.swift; sourceTree = "<group>"; };
 		9896D931280D6694003D4A16 /* FriendRequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestCell.xib; sourceTree = "<group>"; };
-		9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendRequestViewModel.swift; sourceTree = "<group>"; };
+		9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewModel.swift; sourceTree = "<group>"; };
 		9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFirebaseManager.swift; sourceTree = "<group>"; };
 		9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListViewModel.swift; sourceTree = "<group>"; };
@@ -576,7 +576,7 @@
 			children = (
 				9896D918280BC230003D4A16 /* AddFriendViewController.swift */,
 				9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */,
-				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
+				9896D92D280D6164003D4A16 /* FriendRequestViewController.swift */,
 				987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */,
 			);
 			path = "Add Friend";
@@ -628,7 +628,7 @@
 			children = (
 				9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */,
 				9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */,
-				9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */,
+				9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */,
 				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
 			);
@@ -1219,7 +1219,7 @@
 				98CC16592806651D00B9FDC6 /* ContentInsetTextField.swift in Sources */,
 				987D8B32281681EB000D1F95 /* AuthViewController.swift in Sources */,
 				9896D8EF280968C5003D4A16 /* ChatRoomMessageViewController.swift in Sources */,
-				9896D936280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift in Sources */,
+				9896D936280D6DC9003D4A16 /* FriendRequestViewModel.swift in Sources */,
 				9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */,
 				9896D964280EDC98003D4A16 /* Direction.swift in Sources */,
 				98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */,
@@ -1227,7 +1227,7 @@
 				987D8B6C281BB188000D1F95 /* EditArticleViewController.swift in Sources */,
 				9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */,
 				989399F9280FD707004312F1 /* Shelter.swift in Sources */,
-				9896D92E280D6164003D4A16 /* ProfileFriendRequestViewController.swift in Sources */,
+				9896D92E280D6164003D4A16 /* FriendRequestViewController.swift in Sources */,
 				9896D8E128084BA9003D4A16 /* UserViewModel.swift in Sources */,
 				987D8B52281A5BED000D1F95 /* CommentHeaderView.swift in Sources */,
 				9896D966280EDCC4003D4A16 /* AdoptDirectionViewModel.swift in Sources */,
