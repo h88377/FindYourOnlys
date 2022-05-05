@@ -47,6 +47,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
             tableView.delegate = self
             
             tableView.dataSource = self
+            
+            tableView.allowsSelection = false
         }
     }
     
