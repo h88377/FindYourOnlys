@@ -52,7 +52,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         didSet {
             
-            sexLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+            sexLabel.font = UIFont.systemFont(ofSize: 26, weight: .heavy)
             
             sexLabel.textColor = .projectIconColor3
         }
@@ -109,7 +109,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             
 //            sexLabel.text = Sex.male.rawValue
             
-//            sexLabel.textColor = .maleColor
+            sexLabel.textColor = .projectIconColor1
             
         } else {
             
@@ -117,7 +117,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             
 //            sexLabel.text = Sex.female.rawValue
             
-//            sexLabel.textColor = .femaleColor
+            sexLabel.textColor = .projectIconColor3
         }
     }
     

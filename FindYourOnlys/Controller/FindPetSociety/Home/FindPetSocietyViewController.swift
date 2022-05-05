@@ -47,11 +47,11 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var searchButton: UIButton! {
+    @IBOutlet weak var searchItem: UIBarButtonItem! {
         
         didSet {
             
-            searchButton.tintColor = .projectIconColor2
+            searchItem.tintColor = .projectIconColor2
         }
     }
     

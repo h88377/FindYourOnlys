@@ -93,11 +93,18 @@
                             <constraint firstItem="kMm-ww-4HI" firstAttribute="top" secondItem="ZSA-1x-9d2" secondAttribute="bottom" id="ymk-4o-iAj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="bwD-x1-Nga"/>
+                    <navigationItem key="navigationItem" id="bwD-x1-Nga">
+                        <barButtonItem key="rightBarButtonItem" image="magnifyingglass" catalog="system" style="plain" id="BBj-m6-TAK">
+                            <connections>
+                                <action selector="goToFilter:" destination="BYZ-38-t0r" id="Wud-FK-DfV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="adoptFavoriteContainerView" destination="Y5o-jx-SJD" id="n7D-SX-IRt"/>
                         <outlet property="adoptListButton" destination="ZSA-1x-9d2" id="1Ti-oI-opM"/>
                         <outlet property="adoptListContainerView" destination="RUu-Tx-dxK" id="1Au-Ul-HdP"/>
+                        <outlet property="filterButton" destination="BBj-m6-TAK" id="Uxv-qa-usB"/>
                         <outlet property="indicatorCenterXConstraint" destination="NFC-QZ-KAE" id="3st-aW-PZv"/>
                         <outlet property="indicatorView" destination="kMm-ww-4HI" id="bdH-fe-o4e"/>
                         <outletCollection property="adoptButtons" destination="ZSA-1x-9d2" collectionClass="NSMutableArray" id="h9c-Me-eUx"/>
@@ -361,20 +368,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcT-OB-vGr">
-                                <rect key="frame" x="358" y="0.0" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="1rk-6f-apX"/>
-                                    <constraint firstAttribute="height" constant="40" id="hOE-4k-v2f"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system" title=" ">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="28"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="goToFilter:" destination="1pB-aw-e5a" eventType="touchUpInside" id="Gay-0I-gmN"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjL-qO-zZE">
                                 <rect key="frame" x="176" y="400" width="62" height="30"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -384,7 +377,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
-                                <rect key="frame" x="0.0" y="40" width="414" height="699"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oiI-w8-EsT">
                                     <size key="itemSize" width="128" height="128"/>
@@ -412,10 +405,8 @@
                         <viewLayoutGuide key="safeArea" id="deQ-Dp-IuG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="AcT-OB-vGr" secondAttribute="trailing" constant="16" id="Enq-uU-9rt"/>
+                            <constraint firstItem="lPB-Hh-8hq" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" id="9ia-fX-9bz"/>
                             <constraint firstItem="lPB-Hh-8hq" firstAttribute="leading" secondItem="Lcu-Vf-T8C" secondAttribute="leading" id="GRe-YH-Lcr"/>
-                            <constraint firstItem="lPB-Hh-8hq" firstAttribute="top" secondItem="AcT-OB-vGr" secondAttribute="bottom" id="JOZ-1l-CbK"/>
-                            <constraint firstItem="AcT-OB-vGr" firstAttribute="top" secondItem="Lcu-Vf-T8C" secondAttribute="top" id="JZw-Vs-lzF"/>
                             <constraint firstItem="fjL-qO-zZE" firstAttribute="top" secondItem="Lgm-Ot-ZDv" secondAttribute="bottom" constant="20" id="S5e-l9-gtS"/>
                             <constraint firstItem="Lgm-Ot-ZDv" firstAttribute="centerX" secondItem="Lcu-Vf-T8C" secondAttribute="centerX" id="VsV-Fv-S9N"/>
                             <constraint firstItem="deQ-Dp-IuG" firstAttribute="trailing" secondItem="M35-Pu-lfS" secondAttribute="trailing" constant="20" id="Wb6-Nb-zzf"/>
@@ -428,7 +419,6 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="lPB-Hh-8hq" id="nn0-Tv-tuX"/>
-                        <outlet property="filterButton" destination="AcT-OB-vGr" id="StN-14-t0i"/>
                         <outlet property="mapButton" destination="M35-Pu-lfS" id="wfX-gZ-oEc"/>
                         <outlet property="refetchButton" destination="fjL-qO-zZE" id="pVk-vl-0Kk"/>
                         <outlet property="remindLabel" destination="Lgm-Ot-ZDv" id="3gF-zu-kSp"/>
