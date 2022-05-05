@@ -160,10 +160,6 @@
                             <constraint firstItem="N6m-JP-Ndo" firstAttribute="leading" secondItem="Bcx-Vb-ijP" secondAttribute="leading" id="xPC-Q4-49f"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="remindLabel" destination="huJ-7s-EsF" id="ktZ-2g-1HG"/>
-                        <outlet property="tableView" destination="N6m-JP-Ndo" id="DED-3Y-SP4"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVd-aL-Amy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -214,11 +210,6 @@
                             <constraint firstItem="OoJ-kg-xcR" firstAttribute="leading" secondItem="ctj-z9-69D" secondAttribute="leading" constant="16" id="yNi-WN-gDt"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="errorMessageLabel" destination="OoJ-kg-xcR" id="9KN-JI-roJ"/>
-                        <outlet property="searchTextField" destination="X9Q-co-MBk" id="Z3M-fI-Tcf"/>
-                        <outlet property="userIdLabel" destination="Ses-0Z-fW3" id="pie-sI-yr9"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZNh-zU-3of" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -243,9 +234,6 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48"/>
                                         </state>
-                                        <connections>
-                                            <action selector="searchQRCode:" destination="A0n-RD-52A" eventType="touchUpInside" id="caO-LQ-48q"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsO-DR-KGD">
                                         <rect key="frame" x="0.0" y="64.5" width="66" height="20.5"/>
@@ -279,9 +267,6 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48"/>
                                         </state>
-                                        <connections>
-                                            <action selector="searchUserId:" destination="A0n-RD-52A" eventType="touchUpInside" id="dWs-rZ-yP1"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜尋" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aU7-9i-hju">
                                         <rect key="frame" x="11" y="67.5" width="35" height="20.5"/>
@@ -306,14 +291,6 @@
                             <constraint firstItem="Sq1-By-PCY" firstAttribute="centerX" secondItem="Ema-6a-TMr" secondAttribute="leading" multiplier="4" id="o0c-g0-Yj0"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="myCodeLabel" destination="aM4-UC-Ryf" id="u2x-9x-Nw3"/>
-                        <outlet property="myQRCodeImageView" destination="os1-HY-ECy" id="4Ee-I3-jPA"/>
-                        <outlet property="qrCodeButton" destination="LZC-dE-hCF" id="r8B-vJ-cMV"/>
-                        <outlet property="qrCodeLabel" destination="EsO-DR-KGD" id="Jid-ri-Wya"/>
-                        <outlet property="searchButton" destination="5Qc-aP-Zbp" id="zxN-xI-zJ7"/>
-                        <outlet property="searchLabel" destination="EsO-DR-KGD" id="ugz-me-dOB"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ta3-zB-uIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -342,9 +319,6 @@
                                                         <state key="normal" image="camera" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="openCamera:" destination="nFF-Y7-H1d" eventType="touchUpInside" id="C7w-S8-Nnh"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fkw-em-XuW">
                                                         <rect key="frame" x="46" y="0.0" width="35" height="44"/>
@@ -352,9 +326,6 @@
                                                         <state key="normal" image="photo" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="openGallery:" destination="nFF-Y7-H1d" eventType="touchUpInside" id="ZMq-jh-CqB"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -371,9 +342,6 @@
                                                 <state key="normal" image="arrow.up.message" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="sendMessage:" destination="nFF-Y7-H1d" eventType="touchUpInside" id="8yZ-Vy-OAh"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -413,13 +381,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="30D-Ne-cqf"/>
-                    <connections>
-                        <outlet property="cameraButton" destination="juV-ih-l4A" id="c3d-wA-RH0"/>
-                        <outlet property="galleryButton" destination="Fkw-em-XuW" id="oj9-8x-u13"/>
-                        <outlet property="messageTextView" destination="FiS-f5-6Fr" id="5Ch-NU-hM4"/>
-                        <outlet property="sendMessageButton" destination="u13-Qg-eaz" id="b2F-BW-oxM"/>
-                        <outlet property="tableView" destination="2PP-5h-Sld" id="E84-Ap-9Ft"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hO-vf-pqQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

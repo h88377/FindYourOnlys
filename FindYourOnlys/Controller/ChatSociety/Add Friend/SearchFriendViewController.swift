@@ -44,13 +44,13 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var userIdLabel: UILabel! {
+    @IBOutlet weak var userEmailLabel: UILabel! {
         
         didSet {
             
-            userIdLabel.textColor = .projectTextColor
+            userEmailLabel.textColor = .projectTextColor
             
-            userIdLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            userEmailLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         }
     }
     
@@ -86,7 +86,7 @@ extension SearchFriendViewController: UITextFieldDelegate {
                 
                 DispatchQueue.main.async {
                     
-                    let storyboard = UIStoryboard.profile
+                    let storyboard = UIStoryboard.chatSociety
                     
                     guard
                         let friendProfileVC = storyboard.instantiateViewController(

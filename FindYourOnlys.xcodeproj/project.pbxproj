@@ -576,6 +576,8 @@
 			children = (
 				9896D918280BC230003D4A16 /* AddFriendViewController.swift */,
 				9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */,
+				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
+				987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -635,8 +637,6 @@
 			children = (
 				9896D92B280D6127003D4A16 /* ProfileViewController.swift */,
 				987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */,
-				9896D92D280D6164003D4A16 /* ProfileFriendRequestViewController.swift */,
-				987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */,
 				987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */,
 				987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */,
 			);

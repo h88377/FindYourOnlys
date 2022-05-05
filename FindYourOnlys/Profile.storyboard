@@ -125,7 +125,7 @@
                         <outlet property="remindLabel" destination="Ezh-uw-65m" id="rM6-DI-zVt"/>
                         <outlet property="userEmailLabel" destination="4NZ-aX-rjN" id="bqa-Qm-XQp"/>
                         <outlet property="userEmailTitleLabel" destination="LG4-Cj-hhX" id="sQH-fP-CIn"/>
-                        <outlet property="userImageView" destination="7If-yP-VuD" id="VOR-Nm-y1a"/>
+                        <outlet property="userImageView" destination="7If-yP-VuD" id="vkU-dY-qho"/>
                         <outlet property="userNickNameLabel" destination="btu-gt-xda" id="bFA-xf-0kR"/>
                     </connections>
                 </viewController>
@@ -163,10 +163,6 @@
                             <constraint firstItem="CDQ-vj-qgw" firstAttribute="top" secondItem="8S0-Fo-E3R" secondAttribute="top" id="glA-H6-fEP"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="remindLabel" destination="uO3-jb-svl" id="PGy-YT-OYF"/>
-                        <outlet property="tableView" destination="CDQ-vj-qgw" id="UNh-1t-pSC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YS-hz-cHl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -307,9 +303,6 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="發送好友邀請"/>
-                                        <connections>
-                                            <action selector="sendFriendRequest:" destination="H6f-Ed-k4h" eventType="touchUpInside" id="6xd-6W-IMw"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="idLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qw-gL-XYU">
                                         <rect key="frame" x="87" y="336" width="55.5" height="20.5"/>
@@ -322,9 +315,6 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="取消"/>
-                                        <connections>
-                                            <action selector="cancel:" destination="H6f-Ed-k4h" eventType="touchUpInside" id="I0J-GI-VZq"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-rx-kOD">
                                         <rect key="frame" x="186.5" y="376.5" width="41.5" height="20.5"/>
@@ -364,16 +354,6 @@
                             <constraint firstItem="Cgo-4P-mlS" firstAttribute="height" secondItem="TUa-MS-AWn" secondAttribute="height" multiplier="0.67" id="vO9-d3-z8c"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="baseView" destination="Cgo-4P-mlS" id="YDx-pd-tCH"/>
-                        <outlet property="cancelButton" destination="2av-SP-obk" id="O6M-du-11f"/>
-                        <outlet property="emailLabel" destination="7qw-gL-XYU" id="wff-7p-cPc"/>
-                        <outlet property="emailTitleLabel" destination="GCg-uj-66o" id="CzM-36-0MG"/>
-                        <outlet property="nickNameLabel" destination="kcc-47-Nrd" id="5sc-lx-iFU"/>
-                        <outlet property="requestButton" destination="Ywh-bm-FQ2" id="eXT-nI-QKN"/>
-                        <outlet property="statusLabel" destination="BWO-rx-kOD" id="9kW-h9-ate"/>
-                        <outlet property="userImageView" destination="giZ-ct-ZWp" id="A2W-35-s5N"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLy-Qf-MNi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
