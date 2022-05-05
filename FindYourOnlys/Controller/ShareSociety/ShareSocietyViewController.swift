@@ -146,16 +146,6 @@ class ShareSocietyViewController: BaseViewController {
         }
     }
     
-    func addCurrentUserObserver() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
-    }
-    
-    @objc func currentUserDidSet(_ notification: Notification) {
-        
-        viewModel.fetchSharedArticles()
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -259,6 +249,16 @@ class ShareSocietyViewController: BaseViewController {
         alert.addAction(cancel)
         
         present(alert, animated: true)
+    }
+    
+    private func addCurrentUserObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
+        
+        viewModel.fetchSharedArticles()
     }
 
     @IBAction func publish(_ sender: UIButton) {

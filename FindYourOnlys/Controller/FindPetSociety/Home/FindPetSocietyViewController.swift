@@ -68,6 +68,8 @@ class FindPetSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addCurrentUserObserver()
+        
         viewModel.articleViewModels.bind { [weak self] articleViewModels in
             
             guard
@@ -271,6 +273,16 @@ class FindPetSocietyViewController: BaseViewController {
         alert.addAction(cancel)
         
         present(alert, animated: true)
+    }
+    
+    private func addCurrentUserObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
+        
+        viewModel.fetchArticles()
     }
     
     @IBAction func addArticle(_ sender: UIButton) {
