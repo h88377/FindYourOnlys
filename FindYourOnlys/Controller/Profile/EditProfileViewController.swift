@@ -31,7 +31,6 @@ class EditProfileViewController: BaseViewController {
         }
     }
     
-    
     @IBOutlet weak var confirmButton: UIButton! {
         
         didSet {

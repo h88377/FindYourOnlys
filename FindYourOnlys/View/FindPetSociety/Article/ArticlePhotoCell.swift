@@ -11,6 +11,8 @@ class ArticlePhotoCell: UITableViewCell {
 
     @IBOutlet weak var userButton: UIButton!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var userNameLabel: UILabel! {
         
         didSet {
@@ -57,6 +59,16 @@ class ArticlePhotoCell: UITableViewCell {
     }
     
     var editHandler: (() -> Void)?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        scrollView.minimumZoomScale = 1
+        
+        scrollView.maximumZoomScale = 3.5
+        
+        scrollView.delegate = self
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -169,5 +181,13 @@ class ArticlePhotoCell: UITableViewCell {
         super.prepareForReuse()
         
         editHandler = nil
+    }
+}
+
+extension ArticlePhotoCell: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        
+        return postedImageView
     }
 }
