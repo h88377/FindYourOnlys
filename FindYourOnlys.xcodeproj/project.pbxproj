@@ -628,6 +628,9 @@
 			children = (
 				9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */,
 				9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */,
+				9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */,
+				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
+				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -646,8 +649,6 @@
 		9896D92F280D6671003D4A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9896D930280D6694003D4A16 /* FriendRequestCell.swift */,
-				9896D931280D6694003D4A16 /* FriendRequestCell.xib */,
 				987D8B55281AAD02000D1F95 /* ProfileArticleCell.swift */,
 				987D8B59281AAD39000D1F95 /* ProfileArticleCell.xib */,
 				987D8B5F281ABD95000D1F95 /* ProfileArticleHeaderView.swift */,
@@ -660,11 +661,8 @@
 			isa = PBXGroup;
 			children = (
 				987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */,
-				9896D935280D6DC9003D4A16 /* ProfileFriendRequestViewModel.swift */,
 				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
 				987D8B67281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift */,
-				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
-				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
 				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
 				987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */,
 				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
@@ -688,9 +686,7 @@
 		9896D942280DBCC3003D4A16 /* FindPetSociety */ = {
 			isa = PBXGroup;
 			children = (
-				9896D94A280DBDBD003D4A16 /* ChatRoom */,
 				9896D94B280DBDDB003D4A16 /* Home */,
-				9896D94C280DBDE7003D4A16 /* Add Friend */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";
@@ -698,7 +694,6 @@
 		9896D943280DBCE4003D4A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9896D93F280DBC98003D4A16 /* FriendRequestList.swift */,
 				987D8B5B281AAE3B000D1F95 /* ProfileArticle.swift */,
 			);
 			path = Profile;
@@ -731,6 +726,7 @@
 		9896D94C280DBDE7003D4A16 /* Add Friend */ = {
 			isa = PBXGroup;
 			children = (
+				9896D93F280DBC98003D4A16 /* FriendRequestList.swift */,
 				9896D926280BD3DD003D4A16 /* FriendRequest.swift */,
 				9896D948280DBD83003D4A16 /* SearchFriendResult.swift */,
 			);
@@ -742,6 +738,34 @@
 			children = (
 				9896D91D280BC6B7003D4A16 /* ChatRoom */,
 				9896D91C280BC6AB003D4A16 /* Add Friend */,
+			);
+			path = ChatSociety;
+			sourceTree = "<group>";
+		};
+		98BC47602823B1F700740855 /* ChatSociety */ = {
+			isa = PBXGroup;
+			children = (
+				9896D921280BC93B003D4A16 /* Add Friend */,
+				9896D91F280BC916003D4A16 /* ChatRoom */,
+			);
+			path = ChatSociety;
+			sourceTree = "<group>";
+		};
+		98BC47612823B29800740855 /* ChatSociety */ = {
+			isa = PBXGroup;
+			children = (
+				9896D94C280DBDE7003D4A16 /* Add Friend */,
+				9896D94A280DBDBD003D4A16 /* ChatRoom */,
+			);
+			path = ChatSociety;
+			sourceTree = "<group>";
+		};
+		98BC47622823B34800740855 /* ChatSociety */ = {
+			isa = PBXGroup;
+			children = (
+				9896D930280D6694003D4A16 /* FriendRequestCell.swift */,
+				9896D931280D6694003D4A16 /* FriendRequestCell.xib */,
+				9896D8D52808418D003D4A16 /* ChatRoom */,
 			);
 			path = ChatSociety;
 			sourceTree = "<group>";
@@ -815,6 +839,7 @@
 			children = (
 				98CC1657280664E300B9FDC6 /* BaseView */,
 				98CC162F28055F7B00B9FDC6 /* FindPetSociety */,
+				98BC47622823B34800740855 /* ChatSociety */,
 				98CC161F28054AB600B9FDC6 /* Adopt */,
 				9896D92F280D6671003D4A16 /* Profile */,
 			);
@@ -824,12 +849,13 @@
 		98CC15BF2801797F00B9FDC6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
+				98BC47602823B1F700740855 /* ChatSociety */,
 				987D8B3328169FAD000D1F95 /* Auth */,
 				98939A2E281433DA004312F1 /* ShareSociety */,
 				9896D934280D6D95003D4A16 /* Profile */,
 				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
 				98CC162128054ADB00B9FDC6 /* Adopt */,
-				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -840,6 +866,7 @@
 				9896D8DC28084A49003D4A16 /* User.swift */,
 				9896D941280DBCB0003D4A16 /* Adopt */,
 				9896D942280DBCC3003D4A16 /* FindPetSociety */,
+				98BC47612823B29800740855 /* ChatSociety */,
 				9896D943280DBCE4003D4A16 /* Profile */,
 				98CC16172804276300B9FDC6 /* HTTPClient */,
 				98CC16182804278700B9FDC6 /* Firebase */,
@@ -963,7 +990,6 @@
 		98CC162F28055F7B00B9FDC6 /* FindPetSociety */ = {
 			isa = PBXGroup;
 			children = (
-				9896D8D52808418D003D4A16 /* ChatRoom */,
 				9896D8D028083F01003D4A16 /* Article */,
 				98CC164E2805BF1C00B9FDC6 /* Publish */,
 			);
@@ -1003,8 +1029,6 @@
 			children = (
 				987D8B4E2819629B000D1F95 /* Article */,
 				9896D920280BC92C003D4A16 /* Home */,
-				9896D91F280BC916003D4A16 /* ChatRoom */,
-				9896D921280BC93B003D4A16 /* Add Friend */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";
