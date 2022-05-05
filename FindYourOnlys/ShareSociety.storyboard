@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jqY-35-8Fa">
-                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqx-8B-Whv">
@@ -41,60 +41,23 @@
                                     <action selector="publish:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="vIn-Ua-G57"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="N9r-EL-M06">
-                                <rect key="frame" x="293" y="88" width="105" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChV-bt-eOY">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="2dc-Pb-3up"/>
-                                            <constraint firstAttribute="width" constant="40" id="jZA-Bp-q83"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="person.badge.plus" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addFriend:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="FqI-We-gf9"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCM-Sx-hjX">
-                                        <rect key="frame" x="65" y="0.0" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="D0l-K9-DsN"/>
-                                            <constraint firstAttribute="height" constant="40" id="hE1-3H-zcl"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="message" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="goToChat:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gpn-tY-ZCJ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jqY-35-8Fa" secondAttribute="bottom" id="0rO-5X-lqo"/>
                             <constraint firstItem="7nh-OR-lwI" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="9j3-B4-RWJ"/>
-                            <constraint firstItem="N9r-EL-M06" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="L6z-4T-hg7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jqY-35-8Fa" secondAttribute="trailing" id="MIf-Sr-PJs"/>
                             <constraint firstItem="7nh-OR-lwI" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="OfU-9f-agf"/>
                             <constraint firstItem="jqY-35-8Fa" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Poq-7S-ie7"/>
-                            <constraint firstItem="jqY-35-8Fa" firstAttribute="top" secondItem="N9r-EL-M06" secondAttribute="bottom" id="UMs-xP-DA9"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="uqx-8B-Whv" secondAttribute="trailing" constant="20" id="f3t-Tp-wr9"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="N9r-EL-M06" secondAttribute="trailing" constant="16" id="jdl-EA-W6H"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="uqx-8B-Whv" secondAttribute="bottom" constant="20" id="pm5-gk-BeN"/>
+                            <constraint firstItem="jqY-35-8Fa" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="vmX-fq-zwg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P8h-p5-HtC"/>
                     <connections>
                         <outlet property="addArticleButton" destination="uqx-8B-Whv" id="Ap4-b7-Spf"/>
-                        <outlet property="addFriendButton" destination="ChV-bt-eOY" id="lY8-mm-kbe"/>
-                        <outlet property="chatButton" destination="PCM-Sx-hjX" id="ePt-cJ-uJL"/>
                         <outlet property="remindLabel" destination="7nh-OR-lwI" id="Dpa-6L-GHk"/>
                         <outlet property="tableView" destination="jqY-35-8Fa" id="JDw-Rb-fTZ"/>
                     </connections>
@@ -153,8 +116,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="message" catalog="system" width="128" height="113"/>
-        <image name="person.badge.plus" catalog="system" width="128" height="124"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

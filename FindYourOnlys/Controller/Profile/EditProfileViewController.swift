@@ -62,7 +62,6 @@ class EditProfileViewController: BaseViewController {
         }
     }
     
-
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         
