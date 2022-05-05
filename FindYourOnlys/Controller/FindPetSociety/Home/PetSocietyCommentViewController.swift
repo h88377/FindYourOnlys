@@ -57,6 +57,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         didSet {
             
             userImageView.contentMode = .scaleAspectFill
+            
+            userImageView.tintColor = .white
         }
     }
     

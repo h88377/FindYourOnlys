@@ -129,6 +129,8 @@
 		98BC475A282373AF00740855 /* FilterRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4759282373AF00740855 /* FilterRemindCell.xib */; };
 		98BC475C2823750500740855 /* curiousCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC475B2823750500740855 /* curiousCat.json */; };
 		98BC475E28239B9C00740855 /* ChatSociety.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98BC475D28239B9C00740855 /* ChatSociety.storyboard */; };
+		98BC47642823CE7500740855 /* friendRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC47632823CE7500740855 /* friendRequest.json */; };
+		98BC47662823D24900740855 /* friendRequestCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC47652823D24800740855 /* friendRequestCat.json */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -324,6 +326,8 @@
 		98BC4759282373AF00740855 /* FilterRemindCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterRemindCell.xib; sourceTree = "<group>"; };
 		98BC475B2823750500740855 /* curiousCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = curiousCat.json; sourceTree = "<group>"; };
 		98BC475D28239B9C00740855 /* ChatSociety.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChatSociety.storyboard; sourceTree = "<group>"; };
+		98BC47632823CE7500740855 /* friendRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = friendRequest.json; sourceTree = "<group>"; };
+		98BC47652823D24800740855 /* friendRequestCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = friendRequestCat.json; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -447,6 +451,8 @@
 				98BC4751282006BC00740855 /* ladyCat.json */,
 				98BC4752282006BD00740855 /* manCat.json */,
 				98BC475B2823750500740855 /* curiousCat.json */,
+				98BC47652823D24800740855 /* friendRequestCat.json */,
+				98BC47632823CE7500740855 /* friendRequest.json */,
 			);
 			path = AnimationSource;
 			sourceTree = "<group>";
@@ -1129,6 +1135,7 @@
 				98CC16522806585F00B9FDC6 /* ArticlePhotoCell.xib in Resources */,
 				98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */,
 				987D8B7F281F9A85000D1F95 /* loading.json in Resources */,
+				98BC47662823D24900740855 /* friendRequestCat.json in Resources */,
 				98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */,
 				98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
@@ -1146,6 +1153,7 @@
 				98BC475C2823750500740855 /* curiousCat.json in Resources */,
 				987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */,
 				9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */,
+				98BC47642823CE7500740855 /* friendRequest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

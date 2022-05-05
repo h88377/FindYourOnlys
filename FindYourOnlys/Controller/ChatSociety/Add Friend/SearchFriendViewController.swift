@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class SearchFriendViewController: BaseViewController {
     
@@ -16,21 +17,6 @@ class SearchFriendViewController: BaseViewController {
             searchTextField.delegate = self
             
             searchTextField.textColor = .projectTextColor
-            
-            let button = UIButton(type: .custom)
-            
-            button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-            
-            button.setBackgroundImage(
-                UIImage.system(.search),
-                for: .normal
-            )
-            
-            button.isUserInteractionEnabled = false
-            
-            searchTextField.rightView = button
-            
-            searchTextField.rightViewMode = .always
             
             searchTextField.placeholder = "請輸入 User email 查詢使用者"
         }
@@ -51,6 +37,18 @@ class SearchFriendViewController: BaseViewController {
             userEmailLabel.textColor = .projectTextColor
             
             userEmailLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        }
+    }
+    
+    @IBOutlet weak var animationView: AnimationView! {
+        
+        didSet {
+            
+            animationView.loopMode = .loop
+            
+            animationView.play()
+            
+            animationView.backgroundColor = .projectBackgroundColor
         }
     }
     
