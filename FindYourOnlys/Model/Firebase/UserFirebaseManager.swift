@@ -668,6 +668,22 @@ class UserFirebaseManager {
         }
     }
     
+    func saveUser(withUser user: User, completion: @escaping (Result<String, Error>) -> Void) {
+        
+        let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(user.id)")
+        
+        do {
+            
+            try documentReference.setData(from: user)
+            
+            completion(.success("success"))
+            
+        } catch {
+            
+            completion(.failure(error))
+        }
+    }
+    
     // MARK: - Convert functions
     private func convertUserToViewModels(from users: [User]) -> [UserViewModel] {
         

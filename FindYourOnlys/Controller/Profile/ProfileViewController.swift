@@ -225,7 +225,12 @@ class ProfileViewController: BaseViewController {
         
         let storyboard = UIStoryboard.profile
         
-        let editProfileVC = storyboard.instantiateViewController(withIdentifier: EditProfileViewController.identifier)
+        let viewController = storyboard.instantiateViewController(withIdentifier: EditProfileViewController.identifier)
+        
+        guard
+            let editProfileVC = viewController as? EditProfileViewController else { return }
+        
+        editProfileVC.viewModel.currentUser = UserFirebaseManager.shared.currentUser
         
         navigationController?.pushViewController(editProfileVC, animated: true)
     }

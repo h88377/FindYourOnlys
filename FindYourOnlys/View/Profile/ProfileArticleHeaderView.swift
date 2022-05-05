@@ -17,11 +17,6 @@ class ProfileArticleHeaderView: UICollectionReusableView {
         }
     }
     
-    @IBOutlet weak var checkAllButton: UIButton!
-    
-    @IBAction func checkAllArticles(_ sender: UIButton) {
-    }
-    
     func configureView(with profileArticle: ProfileArticle) {
         
         headerLabel.text = profileArticle.articleType.rawValue
