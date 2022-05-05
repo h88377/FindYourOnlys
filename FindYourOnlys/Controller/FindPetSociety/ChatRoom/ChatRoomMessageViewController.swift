@@ -65,6 +65,8 @@ class ChatRoomMessageViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addCurrentUserObserver()
 
         viewModel.checkIsBlockHandler = { [weak self] in
             
@@ -190,6 +192,14 @@ class ChatRoomMessageViewController: BaseViewController {
         navigationItem.rightBarButtonItem = editItem
     }
     
+    override func setupTableView() {
+        
+        tableView.registerCellWithIdentifier(identifier: ChatRoomUserMessageCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: ChatRoomFriendMessageCell.identifier)
+        
+    }
+    
     @objc func block(sender: UIBarButtonItem) {
         
         presentBlockActionSheet()
@@ -216,7 +226,7 @@ class ChatRoomMessageViewController: BaseViewController {
     func checkMessageButton() {
         
         if messageTextView.text != MessageType.placeHolder.rawValue
-            && messageTextView.text != MessageType.block.rawValue 
+            && messageTextView.text != MessageType.block.rawValue
             && messageTextView.text?.isEmpty == false {
             
             sendMessageButton.isEnabled = true
@@ -227,12 +237,16 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    override func setupTableView() {
+    private func addCurrentUserObserver() {
         
-        tableView.registerCellWithIdentifier(identifier: ChatRoomUserMessageCell.identifier)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
         
-        tableView.registerCellWithIdentifier(identifier: ChatRoomFriendMessageCell.identifier)
+        viewModel.fetchMessage()
         
+        viewModel.checkIsBlocked()
     }
        
     @IBAction func sendMessage(_ sender: UIButton) {
