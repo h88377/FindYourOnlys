@@ -70,6 +70,7 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstItem="31d-Fh-RIG" firstAttribute="leading" secondItem="j13-Oz-uef" secondAttribute="leading" constant="20" id="0RG-WX-3QU"/>
+                            <constraint firstItem="Rtc-x0-3Yn" firstAttribute="top" secondItem="KJt-gH-lUe" secondAttribute="top" id="64h-n3-6HT"/>
                             <constraint firstAttribute="trailing" secondItem="NQI-uY-xIU" secondAttribute="trailing" constant="20" id="7pZ-g8-axt"/>
                             <constraint firstItem="qRL-VK-FVf" firstAttribute="leading" secondItem="q5r-gb-K2g" secondAttribute="trailing" constant="10" id="EN6-1I-aEl"/>
                             <constraint firstItem="q5r-gb-K2g" firstAttribute="leading" secondItem="31d-Fh-RIG" secondAttribute="leading" id="L81-cX-zCn"/>
@@ -81,7 +82,6 @@
                             <constraint firstAttribute="trailing" secondItem="Rtc-x0-3Yn" secondAttribute="trailing" constant="10" id="nXR-ln-OxR"/>
                             <constraint firstItem="KJt-gH-lUe" firstAttribute="top" secondItem="j13-Oz-uef" secondAttribute="top" constant="20" id="paq-ti-zkH"/>
                             <constraint firstAttribute="bottom" secondItem="d5s-3D-HpG" secondAttribute="bottom" constant="20" id="tQ6-N2-dvy"/>
-                            <constraint firstItem="Rtc-x0-3Yn" firstAttribute="bottom" secondItem="KJt-gH-lUe" secondAttribute="bottom" id="yT2-N8-wxw"/>
                         </constraints>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2yM-jF-9xz">

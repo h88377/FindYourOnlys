@@ -51,13 +51,13 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var filterButton: UIButton! {
-        
-        didSet {
-            
-            filterButton.tintColor = .projectIconColor2
-        }
-    }
+//    @IBOutlet weak var filterButton: UIButton! {
+//        
+//        didSet {
+//            
+//            filterButton.tintColor = .projectIconColor2
+//        }
+//    }
     private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {
@@ -206,19 +206,19 @@ class AdoptListViewController: BaseViewController {
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }
     
-    @IBAction func goToFilter(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard.adopt
-        
-        guard
-            let adoptFilterLocationVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptFilterViewController.identifier)
-                as? AdoptFilterViewController
-        
-        else { return }
-        
-        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
-    }
+//    @IBAction func goToFilter(_ sender: UIButton) {
+//
+//        let storyboard = UIStoryboard.adopt
+//
+//        guard
+//            let adoptFilterLocationVC = storyboard.instantiateViewController(
+//                withIdentifier: AdoptFilterViewController.identifier)
+//                as? AdoptFilterViewController
+//
+//        else { return }
+//
+//        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
+//    }
     
     @IBAction func reFetchPetInfo(_ sender: UIButton) {
         

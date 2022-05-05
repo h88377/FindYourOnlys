@@ -32,25 +32,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="FMc-Os-2gs">
-                                <rect key="frame" x="228" y="88" width="170" height="40"/>
+                                <rect key="frame" x="293" y="88" width="105" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cG5-xY-Cch">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="LxZ-20-tNT"/>
-                                            <constraint firstAttribute="height" constant="40" id="oB2-bw-PBy"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="magnifyingglass" catalog="system">
-                                            <color key="titleColor" systemColor="tintColor"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="search:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="IY0-y4-X4G"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XN-eJ-RWz">
-                                        <rect key="frame" x="65" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="3Lc-Bi-W5n"/>
                                             <constraint firstAttribute="height" constant="40" id="tir-6h-juJ"/>
@@ -65,7 +50,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TK-h6-ZdP">
-                                        <rect key="frame" x="130" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="65" y="0.0" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="mW6-8h-QMn"/>
                                             <constraint firstAttribute="width" constant="40" id="oui-OX-AxU"/>
@@ -75,9 +60,6 @@
                                             <color key="titleColor" systemColor="tintColor"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                         </state>
-                                        <connections>
-                                            <action selector="goToChat:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="yf1-SQ-U3v"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -118,14 +100,29 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FMc-Os-2gs" secondAttribute="trailing" constant="16" id="y98-h8-bNZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="rGw-50-d36"/>
+                    <navigationItem key="navigationItem" id="rGw-50-d36">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="ABG-5G-rta">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cG5-xY-Cch">
+                                <rect key="frame" x="354" y="2" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="LxZ-20-tNT"/>
+                                    <constraint firstAttribute="height" constant="40" id="oB2-bw-PBy"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="magnifyingglass" catalog="system">
+                                    <color key="titleColor" systemColor="tintColor"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addArticleButton" destination="8J2-Ga-0zB" id="65V-Oq-ciL"/>
                         <outlet property="addFriendButton" destination="9XN-eJ-RWz" id="eoz-Rc-55y"/>
-                        <outlet property="chatButton" destination="7TK-h6-ZdP" id="vjr-Ve-lak"/>
                         <outlet property="reFetchButton" destination="4Fk-GN-dLv" id="WO0-lu-tlw"/>
                         <outlet property="remindLabel" destination="1qb-ni-Pzg" id="UoT-wS-VHv"/>
-                        <outlet property="searchButton" destination="cG5-xY-Cch" id="VHr-jo-z6m"/>
+                        <outlet property="searchItem" destination="ABG-5G-rta" id="LGK-rg-tKx"/>
                         <outlet property="tableView" destination="CU0-Df-4ll" id="Pwf-al-MzS"/>
                     </connections>
                 </viewController>

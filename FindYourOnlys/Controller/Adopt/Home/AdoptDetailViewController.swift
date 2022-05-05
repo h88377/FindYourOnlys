@@ -141,7 +141,7 @@ class AdoptDetailViewController: BaseViewController {
                 }
             }
         }
-        photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
+        photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
     }
  
     override func viewDidLayoutSubviews() {
