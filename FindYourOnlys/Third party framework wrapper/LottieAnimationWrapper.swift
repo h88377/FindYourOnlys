@@ -15,6 +15,8 @@ enum LottieName: String {
     case ladyCat
     
     case manCat
+    
+    case curiousCat
 }
 
 class LottieAnimationWrapper {

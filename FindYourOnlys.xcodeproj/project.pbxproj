@@ -125,6 +125,9 @@
 		98BC4753282006BD00740855 /* ladyCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4751282006BC00740855 /* ladyCat.json */; };
 		98BC4754282006BD00740855 /* manCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4752282006BD00740855 /* manCat.json */; };
 		98BC47562822D90300740855 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC47552822D90300740855 /* Notification+Extension.swift */; };
+		98BC4758282373A800740855 /* FilterRemindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC4757282373A800740855 /* FilterRemindCell.swift */; };
+		98BC475A282373AF00740855 /* FilterRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4759282373AF00740855 /* FilterRemindCell.xib */; };
+		98BC475C2823750500740855 /* curiousCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC475B2823750500740855 /* curiousCat.json */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -316,6 +319,9 @@
 		98BC4751282006BC00740855 /* ladyCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ladyCat.json; sourceTree = "<group>"; };
 		98BC4752282006BD00740855 /* manCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manCat.json; sourceTree = "<group>"; };
 		98BC47552822D90300740855 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
+		98BC4757282373A800740855 /* FilterRemindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRemindCell.swift; sourceTree = "<group>"; };
+		98BC4759282373AF00740855 /* FilterRemindCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterRemindCell.xib; sourceTree = "<group>"; };
+		98BC475B2823750500740855 /* curiousCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = curiousCat.json; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -438,6 +444,7 @@
 				987D8B7E281F9A85000D1F95 /* loading.json */,
 				98BC4751282006BC00740855 /* ladyCat.json */,
 				98BC4752282006BD00740855 /* manCat.json */,
+				98BC475B2823750500740855 /* curiousCat.json */,
 			);
 			path = AnimationSource;
 			sourceTree = "<group>";
@@ -974,6 +981,8 @@
 				98CC16652806AFAC00B9FDC6 /* PublishBasicCell.swift */,
 				98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */,
 				987D8B77281E2126000D1F95 /* PaddingableUILabel.swift */,
+				98BC4757282373A800740855 /* FilterRemindCell.swift */,
+				98BC4759282373AF00740855 /* FilterRemindCell.xib */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1076,6 +1085,7 @@
 				987D8B64281ABDD0000D1F95 /* ProfileArticleHeaderView.xib in Resources */,
 				98BC4754282006BD00740855 /* manCat.json in Resources */,
 				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
+				98BC475A282373AF00740855 /* FilterRemindCell.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */,
@@ -1097,6 +1107,7 @@
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
+				98BC475C2823750500740855 /* curiousCat.json in Resources */,
 				987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */,
 				9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */,
 			);
@@ -1310,6 +1321,7 @@
 				9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */,
 				9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */,
 				98939A172812890F004312F1 /* Sex.swift in Sources */,
+				98BC4758282373A800740855 /* FilterRemindCell.swift in Sources */,
 				98CC164C28059FCB00B9FDC6 /* PublishContentCell.swift in Sources */,
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 				9896D947280DBD63003D4A16 /* PetKind.swift in Sources */,
