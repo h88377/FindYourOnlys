@@ -56,6 +56,10 @@ enum ImageAsset: String {
     
     case edit
     
+    case chatSocietyItem = "chat"
+    
+    case chatSocietySelectedItem = "selectedChat"
+    
     case findYourOnlysPlaceHolder = "FYOsPlaceHolder"
     
     case pickerDropDown = "Icons_24px_DropDown"
