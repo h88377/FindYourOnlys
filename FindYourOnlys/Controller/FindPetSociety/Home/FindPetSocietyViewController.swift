@@ -31,22 +31,6 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var chatButton: UIButton! {
-        
-        didSet {
-            
-            chatButton.tintColor = .projectIconColor2
-        }
-    }
-    
-    @IBOutlet weak var addFriendButton: UIButton! {
-        
-        didSet {
-            
-            addFriendButton.tintColor = .projectIconColor2
-        }
-    }
-    
     @IBOutlet weak var searchItem: UIBarButtonItem! {
         
         didSet {
@@ -297,33 +281,7 @@ class FindPetSocietyViewController: BaseViewController {
         navigationController?.pushViewController(publishVC, animated: true)
     }
     
-    @IBAction func goToChat(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard.findPetSociety
-        
-        guard
-            let chatRoomFriendListVC = storyboard.instantiateViewController(withIdentifier: ChatRoomFriendListViewController.identifier) as? ChatRoomFriendListViewController
-                
-        else { return }
-        
-        navigationController?.pushViewController(chatRoomFriendListVC, animated: true)
-    }
-    
-    @IBAction func addFriend(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard.findPetSociety
-        
-        guard
-            let addFriendVC = storyboard
-                .instantiateViewController(withIdentifier: AddFriendViewController.identifier)
-                as? AddFriendViewController
-                
-        else { return }
-        
-        navigationController?.pushViewController(addFriendVC, animated: true)
-    }
-    
-    @IBAction func search(_ sender: UIButton) {
+    @IBAction func search(_ sender: UIBarButtonItem) {
         
         let storyboard = UIStoryboard.findPetSociety
         
