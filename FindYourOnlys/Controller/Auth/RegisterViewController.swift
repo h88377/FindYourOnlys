@@ -20,7 +20,7 @@ class RegisterViewController: BaseViewController {
             
             animationView.play()
             
-            animationView.contentMode = .scaleAspectFill
+            animationView.contentMode = .scaleAspectFit
         }
     }
     
@@ -40,7 +40,7 @@ class RegisterViewController: BaseViewController {
             
             registerLabel.textColor = .projectTextColor
             
-            registerLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+            registerLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         }
     }
     
@@ -77,6 +77,34 @@ class RegisterViewController: BaseViewController {
             passwordTextField.textColor = .projectTextColor
             
             passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            
+            passwordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @IBOutlet weak var checkPasswordTextField: ContentInsetTextField! {
+        
+        didSet {
+            
+            checkPasswordTextField.placeholder = "確認密碼"
+            
+            checkPasswordTextField.textColor = .projectTextColor
+            
+            checkPasswordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            
+            checkPasswordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @IBOutlet weak var errorLabel: UILabel! {
+        
+        didSet {
+            
+            errorLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            
+            errorLabel.textColor = .red
+            
+            errorLabel.isHidden = true
         }
     }
     
@@ -149,16 +177,31 @@ class RegisterViewController: BaseViewController {
             let nickName = nickNameTextField.text,
             let email = emailTextField.text,
             let password = passwordTextField.text,
+            let checkPassword = checkPasswordTextField.text,
             nickName != "",
             email != "",
-            password != ""
+            password != "",
+            checkPassword != ""
                 
         else {
             
-            showAlertWindow(title: "請填寫完整註冊資料喔！", message: "")
+            showAlertWindow(title: "請填寫完整註冊資料喔！", message: nil)
             
             return
         }
+        
+        errorLabel.isHidden = password == checkPassword
+        
+        if password != checkPassword {
+            
+            errorLabel.text = "密碼與確認密碼不同，請重新輸入"
+            
+            return
+        }
+        
+        
+        
+        
         
         viewModel.register(with: nickName, with: email, with: password)
     }
