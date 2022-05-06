@@ -264,17 +264,17 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.row == 0 {
-            
-            return 170
-            
-        } else {
-            
-            return tableView.estimatedRowHeight
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        if indexPath.row == 0 {
+//
+//            return tableView.estimatedRowHeight
+//
+//        } else {
+//
+//            return tableView.estimatedRowHeight
+//        }
+//    }
 }
 
 
