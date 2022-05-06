@@ -134,9 +134,9 @@ class ShareSocietyViewController: BaseViewController {
             
             let storyboard = UIStoryboard.shareSociety
             
-            let shareSocietyVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
+            let publishVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
             
-            self?.navigationController?.pushViewController(shareSocietyVC, animated: true)
+            self?.navigationController?.pushViewController(publishVC, animated: true)
         }
         
         viewModel.signInHandler = { [weak self] in

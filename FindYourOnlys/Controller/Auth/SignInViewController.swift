@@ -40,7 +40,7 @@ class SignInViewController: BaseViewController {
         
         didSet {
             
-            welcomeLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+            welcomeLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
             
             welcomeLabel.textColor = .projectTextColor
         }
@@ -67,6 +67,8 @@ class SignInViewController: BaseViewController {
             passwordTextField.textColor = .projectTextColor
             
             passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            
+            passwordTextField.isSecureTextEntry = true
         }
     }
     

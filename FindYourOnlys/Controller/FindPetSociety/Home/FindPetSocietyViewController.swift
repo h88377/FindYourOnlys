@@ -165,11 +165,12 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.tapAddArticleHandler = { [weak self] in
             
-            let storyboard = UIStoryboard.shareSociety
+            let storyboard = UIStoryboard.findPetSociety
             
-            let shareSocietyVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
+            let publishVC = storyboard
+                .instantiateViewController(withIdentifier: PublishViewController.identifier)
             
-            self?.navigationController?.pushViewController(shareSocietyVC, animated: true)
+            self?.navigationController?.pushViewController(publishVC, animated: true)
         }
     }
     

@@ -102,7 +102,10 @@ class ArticlePhotoCell: UITableViewCell {
         
         postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text =  viewModel.article.createdTime.formatedTime
+        timeLabel.text =  viewModel
+            .article
+            .createdTime
+            .formatedTime
         
         cityLabel.text = viewModel.article.city
         
@@ -137,15 +140,13 @@ class ArticlePhotoCell: UITableViewCell {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        let userImageView = UIImageView()
-        
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
         userNameLabel.text = currentUser.nickName
         
         postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text =  viewModel.article.createdTime.formatedTime
+        timeLabel.text = viewModel.article.createdTime.formatedTime
         
         cityLabel.text = viewModel.article.city
         
@@ -155,9 +156,9 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.text = PostType.allCases[0].rawValue
             
-            postTypeLabel.textColor = .white
+            postTypeLabel.textColor = .projectTextColor
             
-            postTypeView.backgroundColor = .projectTextColor
+            postTypeView.backgroundColor = .projectIconColor3
             
         case 1:
             
