@@ -86,6 +86,8 @@ class SignInViewController: BaseViewController {
         }
     }
     
+    var dismissHandler: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,6 +104,8 @@ class SignInViewController: BaseViewController {
         viewModel.dismissHandler = { [weak self] in
             
             self?.dismiss(animated: true)
+            
+            self?.dismissHandler?()
         }
         
         viewModel.startLoadingHandler = { [weak self] in

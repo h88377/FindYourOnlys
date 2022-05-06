@@ -149,6 +149,28 @@ class FindPetSocietyViewController: BaseViewController {
             
             self?.presentEditActionSheet(with: articleViewModel)
         }
+        
+        viewModel.signInHandler = { [weak self] in
+            
+            let storyboard = UIStoryboard.auth
+            
+            let authVC = storyboard.instantiateViewController(withIdentifier: AuthViewController.identifier)
+
+            authVC.modalPresentationStyle = .custom
+            
+            authVC.transitioningDelegate = self
+
+            self?.present(authVC, animated: true)
+        }
+        
+        viewModel.tapAddArticleHandler = { [weak self] in
+            
+            let storyboard = UIStoryboard.shareSociety
+            
+            let shareSocietyVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
+            
+            self?.navigationController?.pushViewController(shareSocietyVC, animated: true)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -271,14 +293,7 @@ class FindPetSocietyViewController: BaseViewController {
     
     @IBAction func addArticle(_ sender: UIButton) {
         
-        let storyboard = UIStoryboard.findPetSociety
-        
-        guard
-            let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController
-                
-        else { return }
-        
-        navigationController?.pushViewController(publishVC, animated: true)
+        viewModel.tapAddArticle()
     }
     
     @IBAction func search(_ sender: UIBarButtonItem) {

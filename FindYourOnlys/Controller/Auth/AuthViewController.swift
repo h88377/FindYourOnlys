@@ -79,9 +79,11 @@ class AuthViewController: BaseModalViewController {
             print(errorViewModel?.error.localizedDescription)
         }
         
-        viewModel.dismissHandler = {
+        viewModel.dismissHandler = { [weak self] in
             
             print("Sign in with Apple successfully.")
+            
+            self?.dismiss(animated: true)
         }
          
     }
@@ -121,19 +123,34 @@ class AuthViewController: BaseModalViewController {
         
         let storyboard = UIStoryboard.auth
         
-        let registerVC = storyboard.instantiateViewController(withIdentifier: RegisterViewController.identifier)
+        let viewController = storyboard.instantiateViewController(withIdentifier: RegisterViewController.identifier)
+        
+        guard
+            let registerVC = viewController as? RegisterViewController else { return }
         
         present(registerVC, animated: true)
         
+        registerVC.dismissHandler = { [weak self] in
+            
+            self?.dismiss(animated: true)
+        }
     }
     
     @IBAction func signInWithFirebase(_ sender: UIButton) {
         
         let storyboard = UIStoryboard.auth
         
-        let signInVC = storyboard.instantiateViewController(withIdentifier: SignInViewController.identifier)
+        let viewController = storyboard.instantiateViewController(withIdentifier: SignInViewController.identifier)
+        
+        guard
+            let signInVC = viewController as? SignInViewController else { return }
         
         present(signInVC, animated: true)
+        
+        signInVC.dismissHandler = { [weak self] in
+            
+            self?.dismiss(animated: true)
+        }
     }
  
 }

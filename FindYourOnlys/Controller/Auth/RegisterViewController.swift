@@ -74,7 +74,6 @@ class RegisterViewController: BaseViewController {
             
             passwordTextField.placeholder = "密碼"
             
-//            passwordTextField.textContentType = .newPassword
             passwordTextField.textColor = .projectTextColor
             
             passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -97,6 +96,8 @@ class RegisterViewController: BaseViewController {
         }
     }
     
+    var dismissHandler: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -112,7 +113,9 @@ class RegisterViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            self?.dismiss(animated: true)
+            self?.presentingViewController?.dismiss(animated: true)
+            
+            self?.dismissHandler?()
         }
         
         viewModel.startLoadingHandler = { [weak self] in
