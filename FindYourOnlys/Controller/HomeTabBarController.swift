@@ -131,5 +131,53 @@ class HomeTabBarController: UITabBarController {
         viewControllers = tabs.map({ $0.controller() })
         
         tabBar.tintColor = .projectIconColor1
+        
+        delegate = self
+    }
+}
+
+// MARK: - UITabBarDelegate
+extension HomeTabBarController: UITabBarControllerDelegate {
+    
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        shouldSelect viewController: UIViewController
+    ) -> Bool {
+
+        guard
+            let navVC = viewController as? UINavigationController,
+            navVC.viewControllers.first is ProfileViewController
+                || navVC.viewControllers.first is ChatRoomFriendListViewController
+                
+        else { return true }
+
+        guard UserFirebaseManager.shared.currentUser != nil else {
+
+            if
+                let authVC = UIStoryboard.auth.instantiateInitialViewController() as? AuthViewController {
+
+                authVC.modalPresentationStyle = .custom
+                
+                authVC.transitioningDelegate = self
+
+                present(authVC, animated: true)
+            }
+
+            return false
+        }
+
+        return true
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension HomeTabBarController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?, source: UIViewController)
+    -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

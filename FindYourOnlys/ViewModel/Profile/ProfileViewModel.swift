@@ -19,6 +19,8 @@ class ProfileViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
+    var backToHomeHandler: (() -> Void)?
+    
     func fetchCurrentUser() {
         
         guard
@@ -116,6 +118,8 @@ class ProfileViewModel {
             print("Sign out successfully.")
             
             self?.stopLoadingHandler?()
+            
+            self?.backToHomeHandler?()
             
             UserFirebaseManager.shared.currentUser = nil
         }

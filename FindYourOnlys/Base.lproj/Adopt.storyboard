@@ -535,6 +535,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cDj-Tj-2Xz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="P2u-vO-Cgn" firstAttribute="top" secondItem="tmW-1A-WbM" secondAttribute="top" constant="20" id="4F7-lw-Wnq"/>

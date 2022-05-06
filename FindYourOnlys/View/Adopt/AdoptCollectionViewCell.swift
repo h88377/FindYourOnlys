@@ -109,7 +109,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             
 //            sexLabel.text = Sex.male.rawValue
             
-            sexLabel.textColor = .projectIconColor1
+            sexLabel.textColor = .maleColor
             
         } else {
             
