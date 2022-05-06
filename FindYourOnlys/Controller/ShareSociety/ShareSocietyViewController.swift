@@ -129,6 +129,28 @@ class ShareSocietyViewController: BaseViewController {
                 LottieAnimationWrapper.shared.stopLoading()
             }
         }
+        
+        viewModel.tapAddArticleHandler = { [weak self] in
+            
+            let storyboard = UIStoryboard.shareSociety
+            
+            let shareSocietyVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
+            
+            self?.navigationController?.pushViewController(shareSocietyVC, animated: true)
+        }
+        
+        viewModel.signInHandler = { [weak self] in
+            
+            let storyboard = UIStoryboard.auth
+            
+            let authVC = storyboard.instantiateViewController(withIdentifier: AuthViewController.identifier)
+
+            authVC.modalPresentationStyle = .custom
+            
+            authVC.transitioningDelegate = self
+
+            self?.present(authVC, animated: true)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -248,11 +270,7 @@ class ShareSocietyViewController: BaseViewController {
 
     @IBAction func publish(_ sender: UIButton) {
         
-        let storyboard = UIStoryboard.shareSociety
-        
-        let shareSocietyVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
-        
-        navigationController?.pushViewController(shareSocietyVC, animated: true)
+        viewModel.tapAddArticle()
     }
 }
 
@@ -361,14 +379,14 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
-extension ShareSocietyViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController?,
-        source: UIViewController)
-    -> UIPresentationController? {
-        
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
+//extension ShareSocietyViewController: UIViewControllerTransitioningDelegate {
+//    
+//    func presentationController(
+//        forPresented presented: UIViewController,
+//        presenting: UIViewController?,
+//        source: UIViewController)
+//    -> UIPresentationController? {
+//        
+//        PresentationController(presentedViewController: presented, presenting: presenting)
+//    }
+//}

@@ -15,11 +15,25 @@ class BaseSocietyViewModel {
     
     var editHandler: ((ArticleViewModel, UserViewModel) -> Void)?
     
+    var tapAddArticleHandler: (() -> Void)?
+    
+    var signInHandler: (() -> Void)?
+    
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
     
     func likeArticle(with articleViewModel: ArticleViewModel) {
+        
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
         
         PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { error in
             
@@ -36,6 +50,16 @@ class BaseSocietyViewModel {
     }
     
     func unlikeArticle(with articleViewModel: ArticleViewModel) {
+        
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
         
         PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { error in
             
@@ -58,6 +82,31 @@ class BaseSocietyViewModel {
     
     func editArticle(with articleViewModel: ArticleViewModel, authorViewModel: UserViewModel) {
         
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
+        
         editHandler?(articleViewModel, authorViewModel)
+    }
+    
+    func tapAddArticle() {
+        
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
+        
+        tapAddArticleHandler?()
     }
 }

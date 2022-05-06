@@ -136,4 +136,6 @@ class ShareSocietyViewModel: BaseSocietyViewModel {
         
         stopLoadingHandler?()
     }
+    
+    
 }

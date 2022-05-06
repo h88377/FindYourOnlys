@@ -251,11 +251,3 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
     }
 }
 
-// MARK: - UIViewControllerTransitioningDelegate
-extension ProfileSelectedArticleViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}

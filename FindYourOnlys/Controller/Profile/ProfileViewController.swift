@@ -69,6 +69,8 @@ class ProfileViewController: BaseViewController {
         
         viewModel.fetchProfileArticle()
         
+        addCurrentUserObserver()
+        
         viewModel.userViewModel.bind { [weak self] userViewModel in
             
             guard
@@ -201,6 +203,22 @@ class ProfileViewController: BaseViewController {
         present(signOutAlert, animated: true)
     }
     
+    private func addCurrentUserObserver() {
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
+        
+        viewModel.fetchCurrentUser()
+        
+        viewModel.fetchProfileArticle()
+    }
+    
     @IBAction func editProfile(_ sender: UIButton) {
         
         let storyboard = UIStoryboard.profile
@@ -293,7 +311,12 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
         else { return }
         
         
-        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(model: viewModel.profileArticleViewModels.value[indexPath.section].profileArticle.articles[indexPath.row])
+        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(
+            model: viewModel
+                .profileArticleViewModels
+                .value[indexPath.section]
+                .profileArticle.articles[indexPath.row]
+        )
         
 //        profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
         
@@ -301,20 +324,6 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
     }
     
 }
-
-// MARK: - UIViewControllerTransitioningDelegate
-extension ProfileViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController?, source: UIViewController)
-    -> UIPresentationController? {
-        
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-
 
 // UICollectionViewCompositionalLayout
 

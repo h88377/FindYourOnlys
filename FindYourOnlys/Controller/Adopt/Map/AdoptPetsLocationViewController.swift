@@ -429,12 +429,3 @@ extension AdoptPetsLocationViewController: MKMapViewDelegate {
         
     }
 }
-
-
-// MARK: - UIViewControllerTransitioningDelegate
-extension AdoptPetsLocationViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
