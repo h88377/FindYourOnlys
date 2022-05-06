@@ -43,71 +43,71 @@ class AdoptFavoriteViewController: BaseViewController {
             }
         }
         
-        viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
-            
-            DispatchQueue.main.async {
-                
-                self?.tableView.reloadData()
-                
-                self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
-                ? true
-                : false
-            }
-        }
-        
-        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-            
-            DispatchQueue.main.async {
-                
-                self?.tableView.reloadData()
-                
-                self?.tableView.isHidden = favoritePetViewModels.count == 0
-                ? true
-                : false
-            }
-        }
-        
-        if !viewModel.didSignIn {
-            
-            viewModel.fetchFavoritePetFromLS()
-            
-        } else {
-            
-            viewModel.fetchFavoritePetFromFB()
-        }
-        
+//        viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+//
+//            DispatchQueue.main.async {
+//
+//                self?.tableView.reloadData()
+//
+//                self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
+//                ? true
+//                : false
+//            }
+//        }
+//
+//        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+//
+//            DispatchQueue.main.async {
+//
+//                self?.tableView.reloadData()
+//
+//                self?.tableView.isHidden = favoritePetViewModels.count == 0
+//                ? true
+//                : false
+//            }
+//        }
+//
 //        if !viewModel.didSignIn {
 //
 //            viewModel.fetchFavoritePetFromLS()
 //
-//            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
-//
-//                DispatchQueue.main.async {
-//
-//                    self?.tableView.reloadData()
-//
-//                    self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
-//                    ? true
-//                    : false
-//                }
-//            }
-//
 //        } else {
 //
 //            viewModel.fetchFavoritePetFromFB()
-//
-//            viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-//
-//                DispatchQueue.main.async {
-//
-//                    self?.tableView.reloadData()
-//
-//                    self?.tableView.isHidden = favoritePetViewModels.count == 0
-//                    ? true
-//                    : false
-//                }
-//            }
 //        }
+        
+        if !viewModel.didSignIn {
+
+            viewModel.fetchFavoritePetFromLS()
+
+            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+
+                DispatchQueue.main.async {
+
+                    self?.tableView.reloadData()
+
+                    self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
+                    ? true
+                    : false
+                }
+            }
+
+        } else {
+
+            viewModel.fetchFavoritePetFromFB()
+
+            viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+
+                DispatchQueue.main.async {
+
+                    self?.tableView.reloadData()
+
+                    self?.tableView.isHidden = favoritePetViewModels.count == 0
+                    ? true
+                    : false
+                }
+            }
+        }
         
     }
     
@@ -128,13 +128,46 @@ class AdoptFavoriteViewController: BaseViewController {
     @objc private func currentUserDidSet(_ notification: Notification) {
         
         if !viewModel.didSignIn {
-            
+
             viewModel.fetchFavoritePetFromLS()
-            
+
+            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+
+                DispatchQueue.main.async {
+
+                    self?.tableView.reloadData()
+
+                    self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
+                    ? true
+                    : false
+                }
+            }
+
         } else {
-            
+
             viewModel.fetchFavoritePetFromFB()
+
+            viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+
+                DispatchQueue.main.async {
+
+                    self?.tableView.reloadData()
+
+                    self?.tableView.isHidden = favoritePetViewModels.count == 0
+                    ? true
+                    : false
+                }
+            }
         }
+        
+//        if !viewModel.didSignIn {
+//
+//            viewModel.fetchFavoritePetFromLS()
+//
+//        } else {
+//
+//            viewModel.fetchFavoritePetFromFB()
+//        }
     }
     
 }

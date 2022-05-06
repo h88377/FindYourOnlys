@@ -9,7 +9,15 @@ import UIKit
 
 class ArticlePhotoCell: UITableViewCell {
 
-    @IBOutlet weak var userButton: UIButton!
+    @IBOutlet weak var userImageView: UIImageView! {
+        
+        didSet {
+            
+            userImageView.backgroundColor = .projectBackgroundColor
+            
+            userImageView.contentMode = .scaleAspectFill
+        }
+    }
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -27,11 +35,13 @@ class ArticlePhotoCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var postTypeView: UIView!
+    
     @IBOutlet weak var postTypeLabel: UILabel! {
         
         didSet {
             
-            postTypeLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         }
     }
     @IBOutlet weak var locationImage: UIImageView! {
@@ -54,7 +64,9 @@ class ArticlePhotoCell: UITableViewCell {
         
         didSet {
             
-            editButton.tintColor = .projectIconColor1
+            editButton.setImage(UIImage.asset(.edit)?.withTintColor(.projectIconColor1), for: .normal)
+            
+            editButton.setImage(UIImage.asset(.edit)?.withTintColor(.projectIconColor2), for: .highlighted)
         }
     }
     
@@ -73,25 +85,18 @@ class ArticlePhotoCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard
-            let imageView = userButton.imageView else { return }
-        
-        userButton.imageView?.layer.cornerRadius = imageView.layer.frame.height / 2
+        userImageView.layer.cornerRadius = userImageView.layer.frame.height / 2
         
         postedImageView.layer.cornerRadius = 15
         
-        postTypeLabel.layer.cornerRadius = 12
+        postTypeView.layer.cornerRadius = 15
         
-        postTypeLabel.clipsToBounds = true
+        postTypeView.clipsToBounds = true
     }
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
-        
-        let userImageView = UIImageView()
-        
+
         userImageView.loadImage(authorViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
-        
-        userButton.setImage(userImageView.image, for: .normal)
         
         userNameLabel.text = authorViewModel.user.nickName
         
@@ -109,7 +114,7 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.textColor = .projectTextColor
             
-            postTypeLabel.backgroundColor = .projectIconColor3
+            postTypeView.backgroundColor = .projectIconColor3
             
         case 1:
             
@@ -117,13 +122,13 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.textColor = .white
             
-            postTypeLabel.backgroundColor = .projectIconColor1
+            postTypeView.backgroundColor = .projectIconColor1
             
         default:
             
-            postTypeLabel.text = ""
+            postTypeLabel.isHidden = true
             
-            postTypeLabel.backgroundColor = .white
+            postTypeView.isHidden = true
         }   
     }
     
@@ -135,8 +140,6 @@ class ArticlePhotoCell: UITableViewCell {
         let userImageView = UIImageView()
         
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
-        
-        userButton.setImage(userImageView.image, for: .normal)
         
         userNameLabel.text = currentUser.nickName
         
@@ -154,7 +157,7 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.textColor = .white
             
-            postTypeLabel.backgroundColor = .projectTextColor
+            postTypeView.backgroundColor = .projectTextColor
             
         case 1:
             
@@ -162,13 +165,13 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.textColor = .white
             
-            postTypeLabel.backgroundColor = .projectIconColor1
+            postTypeView.backgroundColor = .projectIconColor1
             
         default:
             
-            postTypeLabel.text = ""
+            postTypeLabel.isHidden = true
             
-            postTypeLabel.backgroundColor = .white
+            postTypeView.isHidden = true
         }
     }
     
