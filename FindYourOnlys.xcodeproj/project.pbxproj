@@ -1530,11 +1530,16 @@
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1561,11 +1566,16 @@
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
