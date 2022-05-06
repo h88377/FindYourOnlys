@@ -17,7 +17,10 @@ class AdoptDetailViewModel {
         case remove = "Remove"
     }
     
-    var didLogin: Bool = true
+    var didSignIn: Bool {
+        
+        return UserFirebaseManager.shared.currentUser != nil
+    }
     
     let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     
@@ -105,15 +108,10 @@ class AdoptDetailViewModel {
     func removeFavoriteFromLS() {
         
         let removeId = petViewModel.value.pet.id
+        
+        for favoritePetFromLS in favoritePetsFromLS where favoritePetFromLS.id == removeId {
             
-        for favoritePetFromLS in favoritePetsFromLS {
-            
-            if favoritePetFromLS.id == removeId {
-                
-                StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)
-                
-                break
-            }
+            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)
         }
     }
     
@@ -168,39 +166,22 @@ class AdoptDetailViewModel {
     // Use for AdoptDetailVC viewDidLoad
     func checkFavoriteButton(with favoriteButton: UIButton) {
         
-//        favoriteButton.setTitle(FavoriteType.add.rawValue, for: .normal)
-        
         favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
         
-        if !didLogin {
+        if !didSignIn {
             
-            for favoriteLSPetViewModel in favoriteLSPetViewModels.value {
+            for favoriteLSPetViewModel in favoriteLSPetViewModels.value where favoriteLSPetViewModel.lsPet.id == petViewModel.value.pet.id {
                 
-                if favoriteLSPetViewModel.lsPet.id == petViewModel.value.pet.id {
-                    
-//                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
-                    
-                    favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-                    
-                    break
-                }
+                favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
             }
             
         } else {
             
-            for favoritePetViewModel in favoritePetViewModels.value {
+            for favoritePetViewModel in favoritePetViewModels.value where favoritePetViewModel.pet.id == petViewModel.value.pet.id {
                 
-                if favoritePetViewModel.pet.id == petViewModel.value.pet.id {
-                    
-//                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
-                    
-                    favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-                    
-                    break
-                }
+                favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
             }
         }
-        
     }
     
     // Use for when user tap add/remove favorite
@@ -208,10 +189,9 @@ class AdoptDetailViewModel {
         
         // Save data
         if favoriteButton.currentImage == UIImage.system(.addToFavorite)
-//        if favoriteButton.currentTitle == FavoriteType.add.rawValue
         {
             
-            if !didLogin {
+            if !didSignIn {
                 
                 addToFavoriteInLS()
                 
@@ -226,7 +206,7 @@ class AdoptDetailViewModel {
         // Remove data
         } else {
             
-            if !didLogin {
+            if !didSignIn {
                 
                 removeFavoriteFromLS()
                 
@@ -236,21 +216,12 @@ class AdoptDetailViewModel {
             }
         }
         
-//        favoriteButton.setTitle(
-//            favoriteButton.currentTitle == FavoriteType.add.rawValue
-//            ? FavoriteType.remove.rawValue
-//            : FavoriteType.add.rawValue, for: .normal
-//        )
-        
         favoriteButton.setImage(
             favoriteButton.currentImage == UIImage.system(.addToFavorite)
             ? UIImage.system(.removeFromFavorite)
             : UIImage.system(.addToFavorite), for: .normal
         )
     }
-    
-    
-    
     
     // MARK: - Private functions
     // Local storage

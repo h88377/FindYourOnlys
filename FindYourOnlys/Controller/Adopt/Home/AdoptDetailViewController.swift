@@ -18,8 +18,6 @@ class AdoptDetailViewController: BaseViewController {
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
-    var didLogin: Bool = true
-    
     override var isHiddenTabBar: Bool { return true }
     
     override var isHiddenNavigationBar: Bool { return true }
@@ -88,8 +86,6 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -112,7 +108,7 @@ class AdoptDetailViewController: BaseViewController {
         }
         
         //Create a function to replace
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             viewModel.fetchFavoritePetFromLS { error in
                 
@@ -141,7 +137,10 @@ class AdoptDetailViewController: BaseViewController {
                 }
             }
         }
-        photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
+        photoImageView.loadImage(
+            viewModel.petViewModel.value.pet.photoURLString,
+            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
+        )
     }
  
     override func viewDidLayoutSubviews() {
@@ -158,7 +157,6 @@ class AdoptDetailViewController: BaseViewController {
         favoriteButton.layer.cornerRadius = 15
     }
     
-    
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
@@ -168,7 +166,7 @@ class AdoptDetailViewController: BaseViewController {
     
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             // Local Storage
             viewModel.fetchFavoritePetFromLS { error in
@@ -207,7 +205,6 @@ class AdoptDetailViewController: BaseViewController {
         viewModel.makePhoneCall(self)
     }
     
-    
     @IBAction func back(_ sender: UIButton) {
         
         navigationController?.popViewController(animated: true)
@@ -217,15 +214,10 @@ class AdoptDetailViewController: BaseViewController {
         
         let storyboard = UIStoryboard.adopt
         
-//        guard
-//            let petLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetLocationViewController.identifier) as? AdoptPetLocationViewController
-//
-//        else { return }
-//
-//        petLocationVC.viewModel.petViewModel = viewModel.petViewModel
-        
         guard
-            let petsLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetsLocationViewController.identifier) as? AdoptPetsLocationViewController
+            let petsLocationVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptPetsLocationViewController.identifier)
+                as? AdoptPetsLocationViewController
         
         else { return }
         
