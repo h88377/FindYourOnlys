@@ -244,6 +244,23 @@ class PetSocietyCommentViewController: BaseModalViewController {
             
             self?.presentBlockActionSheet(with: senderViewModel)
         }
+        
+        viewModel.signInHandler = { [weak self] in
+            
+            self?.commentTextView.isEditable = false
+            
+            self?.commentTextView.text = "請先登入才能留言喔！"
+            
+            let storyboard = UIStoryboard.auth
+            
+            let authVC = storyboard.instantiateViewController(withIdentifier: AuthViewController.identifier)
+
+            authVC.modalPresentationStyle = .custom
+            
+            authVC.transitioningDelegate = self
+
+            self?.present(authVC, animated: true)
+        }
     }
     
     override func viewDidLayoutSubviews() {

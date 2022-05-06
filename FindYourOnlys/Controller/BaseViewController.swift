@@ -154,3 +154,16 @@ class BaseViewController: UIViewController {
         present(alert, animated: true)
     }
 }
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension BaseViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController)
+    -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}

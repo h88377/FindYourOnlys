@@ -40,6 +40,8 @@ class PetSocietyCommentViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
+    var signInHandler: (() -> Void)?
+    
     var blockHandler: ((UserViewModel) -> Void)?
     
     func changeMessage() {
@@ -48,6 +50,16 @@ class PetSocietyCommentViewModel {
     }
     
     func beginEditMessage() {
+        
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
         
         beginEditCommentHander?()
     }

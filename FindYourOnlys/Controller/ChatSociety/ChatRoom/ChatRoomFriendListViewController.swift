@@ -33,6 +33,8 @@ class ChatRoomFriendListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addCurrentUserObserver()
 
         viewModel.fetchChatRoom { error in
             
@@ -67,12 +69,6 @@ class ChatRoomFriendListViewController: BaseViewController {
         
         navigationItem.title = "聊天室"
         
-//        let requestItem = UIBarButtonItem(
-//            title: "邀請",
-//            style: .plain,
-//            target: self,
-//            action: #selector(checkFriendRequest)
-//        )
         let requestItem = UIBarButtonItem(
             image: UIImage.system(.addFriend),
             style: .plain,
@@ -108,6 +104,26 @@ class ChatRoomFriendListViewController: BaseViewController {
             withIdentifier: SearchFriendViewController.identifier)
         
         navigationController?.pushViewController(searchFriendVC, animated: true)
+    }
+    
+    private func addCurrentUserObserver() {
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
+        
+        viewModel.fetchChatRoom { error in
+            
+            if error != nil {
+                
+                print(error)
+            }
+        }
     }
 }
 
