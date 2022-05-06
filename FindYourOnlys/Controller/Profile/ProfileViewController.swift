@@ -14,21 +14,11 @@ class ProfileViewController: BaseViewController {
     
     @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userEmailTitleLabel: UILabel! {
-        
-        didSet {
-            
-            userEmailTitleLabel.textColor = .projectTextColor
-        }
-    }
-    
     @IBOutlet weak var userEmailLabel: UILabel! {
         
         didSet {
             
-            userEmailLabel.font = UIFont.systemFont(ofSize: 14)
-            
-            userEmailLabel.textColor = .placeholderText
+            userEmailLabel.textColor = .projectTextColor
         }
     }
     
@@ -191,7 +181,7 @@ class ProfileViewController: BaseViewController {
         
         userEmailLabel.text = currentUser.email
         
-        userNickNameLabel.text = "暱稱: \(currentUser.nickName)"
+        userNickNameLabel.text = currentUser.nickName
     }
     
     @objc func signOut(sender: UIBarButtonItem) {
@@ -209,20 +199,6 @@ class ProfileViewController: BaseViewController {
         signOutAlert.addAction(cancel)
         
         present(signOutAlert, animated: true)
-    }
-    
-    @IBAction func showAuth(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard.auth
-        
-        let authVC = storyboard.instantiateViewController(
-            withIdentifier: AuthViewController.identifier)
-        
-        authVC.modalPresentationStyle = .custom
-        
-        authVC.transitioningDelegate = self
-        
-        present(authVC, animated: true)
     }
     
     @IBAction func editProfile(_ sender: UIButton) {
