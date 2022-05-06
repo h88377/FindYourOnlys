@@ -90,6 +90,17 @@ class ProfileViewController: BaseViewController {
             }
         }
         
+        viewModel.errorViewModel.bind { errorViewModel in
+
+            guard
+                errorViewModel?.error == nil else {
+                    
+                    print(errorViewModel?.error)
+                    
+                    return
+                }
+        }
+        
         viewModel.profileArticleViewModels.bind { [weak self] profileArticleViewModels in
             
             DispatchQueue.main.async {
@@ -120,16 +131,9 @@ class ProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { errorViewModel in
-
-            guard
-                errorViewModel?.error == nil else {
-                    
-                    print(errorViewModel?.error)
-                    
-                    return
-                }
-
+        viewModel.backToHomeHandler = { [weak self] in
+            
+            self?.tabBarController?.selectedIndex = 0
         }
     }
     

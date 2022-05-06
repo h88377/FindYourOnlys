@@ -9,7 +9,7 @@ import UIKit
 
 extension UIColor {
     
-    static let maleColor = systemBlue
+    static let maleColor = hexStringToUIColor(hex: "398AB9")
     
     static let femaleColor = systemPink
     
@@ -27,11 +27,11 @@ extension UIColor {
     
     static let objectBackgroundColor = hexStringToUIColor(hex: "F2F9F1")
     
-    static let projectIconColor1 = hexStringToUIColor(hex: "#578c93")
+    static let projectIconColor1 = hexStringToUIColor(hex: "578c93")
     
-    static let projectIconColor2 = hexStringToUIColor(hex: "#98b9bd")
+    static let projectIconColor2 = hexStringToUIColor(hex: "98b9bd")
     
-    static let projectIconColor3 = hexStringToUIColor(hex: "#ffcb65")
+    static let projectIconColor3 = hexStringToUIColor(hex: "ffcb65")
     
     static let signInBackGroundColor = hexStringToUIColor(hex: "f3f8ee")
     
