@@ -16,8 +16,4 @@ class UserViewModel {
         self.user = model
     }
     
-    var didSignIn: Bool {
-        
-        return UserFirebaseManager.shared.currentUser != nil
-    }
 }

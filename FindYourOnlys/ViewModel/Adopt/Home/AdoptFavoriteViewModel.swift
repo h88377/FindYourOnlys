@@ -9,11 +9,17 @@ import Foundation
 
 class AdoptFavoriteViewModel {
     
+    // Combine LS and FB into one viewModel when refactor
     let favoriteLSPetViewModels = Box([FavoriteLSPetViewModel]())
     
     let favoritePetViewModels = Box([PetViewModel]())
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
+    var didSignIn: Bool {
+        
+        return UserFirebaseManager.shared.currentUser != nil
+    }
     
     func fetchFavoritePetFromLS() {
         

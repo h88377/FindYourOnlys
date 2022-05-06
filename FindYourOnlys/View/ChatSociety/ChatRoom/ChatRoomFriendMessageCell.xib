@@ -13,7 +13,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="93" id="KGk-i7-Jjw" customClass="ChatRoomFriendMessageCell" customModule="FindYourOnlys" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="270" height="93"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="270" height="93"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -25,9 +25,8 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CqM-Ut-Fu3">
-                        <rect key="frame" x="56" y="8" width="150" height="20"/>
+                        <rect key="frame" x="56" y="8" width="158" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="150" id="0os-QK-wik"/>
                             <constraint firstAttribute="height" constant="20" id="S0c-Xe-hAZ"/>
                         </constraints>
                     </imageView>
@@ -55,14 +54,14 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pPV-Tz-czb">
-                        <rect key="frame" x="214" y="8" width="40" height="40"/>
+                        <rect key="frame" x="222" y="8" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="NMc-m3-2ZA"/>
                             <constraint firstAttribute="height" constant="40" id="Xu6-id-Wlr"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-ji-SWq">
-                        <rect key="frame" x="56" y="36" width="158" height="49"/>
+                        <rect key="frame" x="56" y="36" width="166" height="49"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
