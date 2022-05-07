@@ -76,10 +76,13 @@ class AuthViewController: BaseModalViewController {
             guard
                 errorViewModel?.error == nil else {
                     
-                    print(errorViewModel?.error.localizedDescription)
+                    if
+                        let authError = errorViewModel?.error as? AuthError {
+                        
+                        self?.showAlertWindow(title: "異常", message: authError.errorMessage)
+                    }
                     
                     return
-                    
                 }
         }
         
@@ -156,7 +159,23 @@ class AuthViewController: BaseModalViewController {
             self?.dismiss(animated: true)
         }
     }
- 
+    
+    @IBAction func goToPolicy(_ sender: UIButton) {
+        
+        guard
+            let url = URL(string: "https://pages.flycricket.io/findyouronlys/privacy.html") else { return }
+        
+        UIApplication.shared.open(url)
+    }
+    
+    @IBAction func goToEula(_ sender: UIButton) {
+        
+        guard
+            let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") else { return }
+        
+        UIApplication.shared.open(url)
+    }
+    
 }
 
 // MARK: - ASAuthorizationControllerDelegate
