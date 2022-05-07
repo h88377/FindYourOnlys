@@ -71,12 +71,16 @@ class AuthViewController: BaseModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+                errorViewModel?.error == nil else {
+                    
+                    print(errorViewModel?.error.localizedDescription)
+                    
+                    return
+                    
+                }
         }
         
         viewModel.dismissHandler = { [weak self] in

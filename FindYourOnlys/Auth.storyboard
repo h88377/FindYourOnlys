@@ -149,6 +149,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWI-1U-sIV">
+                                <rect key="frame" x="40" y="553" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5br-zR-RA3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -165,8 +171,10 @@
                             <constraint firstItem="rkJ-Mn-0RN" firstAttribute="top" secondItem="rkg-ox-Ygq" secondAttribute="bottom" constant="30" id="MON-6C-TIO"/>
                             <constraint firstItem="4Ks-PF-nU1" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="Nb1-Ur-oVy"/>
                             <constraint firstItem="2nF-LZ-7jb" firstAttribute="top" secondItem="adj-mg-lJZ" secondAttribute="bottom" constant="10" id="TxU-YR-7V7"/>
+                            <constraint firstItem="CWI-1U-sIV" firstAttribute="top" secondItem="IUd-zg-tfE" secondAttribute="bottom" constant="10" id="cea-WG-Imc"/>
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="f7M-Uh-C9h"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="IUd-zg-tfE" secondAttribute="trailing" constant="40" id="fsB-Ag-4Xz"/>
+                            <constraint firstItem="CWI-1U-sIV" firstAttribute="leading" secondItem="IUd-zg-tfE" secondAttribute="leading" id="fyI-4n-yOc"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="bottom" secondItem="4Ks-PF-nU1" secondAttribute="bottom" constant="40" id="j0f-ww-QS6"/>
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="top" secondItem="2nF-LZ-7jb" secondAttribute="bottom" constant="10" id="pHn-Pm-NZo"/>
                             <constraint firstItem="2nF-LZ-7jb" firstAttribute="height" secondItem="ERx-hS-RSA" secondAttribute="height" multiplier="0.3" id="s6A-nj-o9C"/>
@@ -176,6 +184,7 @@
                     <connections>
                         <outlet property="animationView" destination="2nF-LZ-7jb" id="eEm-3H-wJx"/>
                         <outlet property="emailTextField" destination="rkJ-Mn-0RN" id="tV1-jI-rgB"/>
+                        <outlet property="errorLabel" destination="CWI-1U-sIV" id="zzx-Fb-iv4"/>
                         <outlet property="passwordTextField" destination="IUd-zg-tfE" id="BcY-bb-5eG"/>
                         <outlet property="signInButton" destination="4Ks-PF-nU1" id="yNG-xy-6vX"/>
                         <outlet property="titleLabel" destination="adj-mg-lJZ" id="Goq-MG-QZR"/>

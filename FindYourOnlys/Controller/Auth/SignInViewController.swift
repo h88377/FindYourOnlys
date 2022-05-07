@@ -88,6 +88,18 @@ class SignInViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var errorLabel: UILabel! {
+        
+        didSet {
+            
+            errorLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            
+            errorLabel.textColor = .red
+            
+            errorLabel.isHidden = true
+        }
+    }
+    
     var dismissHandler: (() -> Void)?
     
     override func viewDidLoad() {
@@ -95,12 +107,23 @@ class SignInViewController: BaseViewController {
         
         view.backgroundColor = .signInBackGroundColor
 
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                errorViewModel?.error != nil else { return }
+                errorViewModel?.error == nil else {
+                    
+                    if
+                        let authError = errorViewModel?.error as? AuthError {
+                        
+                        self?.errorLabel.text = authError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
+                    }
+                    
+                    return
+                }
             
-            print(errorViewModel?.error.localizedDescription)
+            self?.errorLabel.isHidden = true
         }
         
         viewModel.dismissHandler = { [weak self] in

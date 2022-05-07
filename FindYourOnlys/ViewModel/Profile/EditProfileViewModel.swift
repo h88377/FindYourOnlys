@@ -17,6 +17,8 @@ class EditProfileViewModel {
     
     var dismissHandler: (() -> Void)?
     
+    var backToHomeHandler: (() -> Void)?
+    
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
@@ -56,7 +58,7 @@ class EditProfileViewModel {
             
             self?.stopLoadingHandler?()
             
-            self?.dismissHandler?()
+            self?.backToHomeHandler?()
         }
     }
     

@@ -131,12 +131,22 @@ class RegisterViewController: BaseViewController {
 
         view.backgroundColor = .white
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
             guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+                errorViewModel?.error == nil else {
+                    
+                    if
+                        let authError = errorViewModel?.error as? AuthError {
+                        
+                        self?.errorLabel.text = authError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
+                    }
+                    return
+                    
+                }
+            self?.errorLabel.isHidden = true
         }
         
         viewModel.dismissHandler = { [weak self] in

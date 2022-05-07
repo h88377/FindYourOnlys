@@ -10,78 +10,7 @@ import Firebase
 import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
-
-enum DeleteDataError: Error {
-    
-    case deleteUserError
-    
-    case deleteArticleError
-    
-    case deleteFriendRequestError
-    
-    case deleteChatRoomError
-    
-    case deleteFavoritePetError
-    
-    case deleteMessageError
-    
-    case deleteFriendError
-    
-    var errorMessage: String {
-        
-        switch self {
-            
-        case .deleteUserError:
-            
-            return "刪除使用者資料失敗，請再嘗試一次"
-            
-        case .deleteArticleError:
-            
-            return "刪除使用者文章失敗，請再嘗試一次"
-            
-        case .deleteFriendRequestError:
-            
-            return "刪除使用者好友邀請失敗，請再嘗試一次"
-            
-        case .deleteChatRoomError:
-            
-            return "刪除使用者聊天室失敗，請再嘗試一次"
-            
-        case .deleteFavoritePetError:
-            
-            return "刪除使用者收藏寵物失敗，請再嘗試一次"
-            
-        case .deleteMessageError:
-            
-            return "刪除使用者聊天訊息失敗，請再嘗試一次"
-            
-        case .deleteFriendError:
-            
-            return "刪除使用者好友失敗，請再嘗試一次"
-        }
-    }
-}
-
-enum DeleteAccountError: Error {
-    
-    case deleteUserAccountError
-    
-    case unexpectedError
-    
-    var errorMessage: String {
-        
-        switch self {
-            
-        case .deleteUserAccountError:
-            
-            return "刪除使用者帳號失敗，請重新登入後再嘗試一次"
-            
-        case .unexpectedError:
-            
-            return "刪除使用者帳號發生預期外的錯誤，請再嘗試一次"
-        }
-    }
-}
+import CoreMedia
 
 class UserFirebaseManager {
     
@@ -169,7 +98,7 @@ class UserFirebaseManager {
     }
     
     // Sign in with Apple
-    func didCompleteWithAuthorization(with authorization: ASAuthorization, completion: @escaping (Error?) -> Void) {
+    func didCompleteWithAuthorization(with authorization: ASAuthorization, completion: @escaping (Result<String, Error>) -> Void) {
         
         if
             let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
@@ -181,6 +110,8 @@ class UserFirebaseManager {
                 
                 print("Error, a login callback was recevie, but no request was sent.")
                 
+                completion(.failure(AuthError.appleTokenError))
+                
                 return
             }
             
@@ -190,6 +121,8 @@ class UserFirebaseManager {
             else {
                 print("Can't fetch identity token.")
                 
+                completion(.failure(AuthError.appleTokenError))
+                
                 return
             }
             
@@ -198,6 +131,8 @@ class UserFirebaseManager {
                     
             else {
                 print("Unable to encode appleIdToken: \(appleIdToken)")
+                
+                completion(.failure(AuthError.appleTokenError))
                 
                 return
             }
@@ -216,7 +151,54 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(error)
+                    if
+                        let error = error as NSError? {
+                        
+                        guard
+                            let errorCode = AuthErrorCode(rawValue: error.code)
+                                
+                        else {
+                            
+                            completion(.failure(AuthError.unexpectedError))
+                            
+                            return
+                        }
+                        
+                        switch errorCode {
+                            
+                        case .invalidEmail:
+                            
+                            completion(.failure(AuthError.invalidEmail))
+                            
+                            return
+                            
+                        case .wrongPassword:
+                            
+                            completion(.failure(AuthError.wrongPassword))
+                            
+                            return
+                            
+                        case .invalidCredential:
+                            
+                            completion(.failure(AuthError.invalidCredential))
+
+                            return
+                            
+                        case .emailAlreadyInUse:
+                            
+                            completion(.failure(AuthError.emailAlreadyInUse))
+                            
+                            return
+                            
+                        default:
+                            
+                            completion(.failure(AuthError.unexpectedError))
+                            
+                            return
+                        }
+                    }
+                    
+                    completion(.failure(AuthError.unexpectedError))
                     
                     return
                 }
@@ -240,7 +222,7 @@ class UserFirebaseManager {
                                 break
                             }
                             
-                            completion(nil)
+                            completion(.success("success"))
                             
                             return
                         }
@@ -252,7 +234,7 @@ class UserFirebaseManager {
                             
                             else {
                                 
-                                completion(error)
+                                completion(.failure(error!))
                                 
                                 return
                             }
@@ -266,12 +248,12 @@ class UserFirebaseManager {
                                 blockedUsers: []
                             )
                             
-                            completion(nil)
+                            completion(.success("success"))
                         }
                         
                     case .failure(let error):
                         
-                        completion(error)
+                        completion(.failure(error))
                     }
                 }
             }
@@ -306,7 +288,48 @@ class UserFirebaseManager {
             
             else {
                 
-                completion(.failure(error!))
+                if
+                    let error = error as NSError? {
+                    
+                    guard
+                        let errorCode = AuthErrorCode(rawValue: error.code)
+                            
+                    else {
+                        
+                        completion(.failure(AuthError.unexpectedError))
+                        
+                        return
+                    }
+                    
+                    switch errorCode {
+                        
+                    case .invalidEmail:
+                        
+                        completion(.failure(AuthError.invalidEmail))
+                        
+                        return
+                        
+                    case .weakPassword:
+                        
+                        completion(.failure(AuthError.weakPassword))
+
+                        return
+                        
+                    case .emailAlreadyInUse:
+                        
+                        completion(.failure(AuthError.emailAlreadyInUse))
+                        
+                        return
+                        
+                    default:
+                        
+                        completion(.failure(AuthError.unexpectedError))
+                        
+                        return
+                    }
+                }
+                
+                completion(.failure(AuthError.unexpectedError))
                 
                 return
             }
@@ -339,7 +362,48 @@ class UserFirebaseManager {
             
             else {
                 
-                completion(.failure(error!))
+                if
+                    let error = error as NSError? {
+                    
+                    guard
+                        let errorCode = AuthErrorCode(rawValue: error.code)
+                            
+                    else {
+                        
+                        completion(.failure(AuthError.unexpectedError))
+                        
+                        return
+                    }
+                    
+                    switch errorCode {
+                        
+                    case .invalidEmail:
+                        
+                        completion(.failure(AuthError.invalidEmail))
+                        
+                        return
+                        
+                    case .wrongPassword:
+                        
+                        completion(.failure(AuthError.wrongPassword))
+                        
+                        return
+                        
+                    case .userNotFound:
+                        
+                        completion(.failure(AuthError.authNotFound))
+                        
+                        return
+                        
+                    default:
+                        
+                        completion(.failure(AuthError.unexpectedError))
+                        
+                        return
+                    }
+                }
+                
+                completion(.failure(AuthError.unexpectedError))
                 
                 return
             }
@@ -350,7 +414,7 @@ class UserFirebaseManager {
     }
     
     // Sign out
-    func signOut(completion: @escaping (Error?) -> Void) {
+    func signOut(completion: @escaping (Result<String, Error>) -> Void) {
         
         let firebaseAuth = Auth.auth()
         
@@ -358,11 +422,42 @@ class UserFirebaseManager {
             
             try firebaseAuth.signOut()
             
-            completion(nil)
+            completion(.success("success"))
             
         } catch {
             
-            completion(error)
+            if
+                let error = error as NSError? {
+                
+                guard
+                    let errorCode = AuthErrorCode(rawValue: error.code)
+                        
+                else {
+                    
+                    completion(.failure(AuthError.unexpectedError))
+                    
+                    return
+                }
+                
+                switch errorCode {
+                    
+                case .keychainError:
+                    
+                    completion(.failure(AuthError.keychainError))
+                    
+                    return
+                    
+                default:
+                    
+                    completion(.failure(AuthError.unexpectedError))
+                    
+                    return
+                }
+            }
+            
+            completion(.failure(AuthError.unexpectedError))
+            
+            return
         }
     }
     
