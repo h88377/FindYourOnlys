@@ -72,7 +72,7 @@ class EditProfileViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                errorViewModel?.error != nil else { return }
+                errorViewModel?.error == nil else { return }
             
             if
                 let deleteDataError = errorViewModel?.error as? DeleteDataError {
@@ -122,6 +122,11 @@ class EditProfileViewController: BaseViewController {
         viewModel.openCameraHandler = { [weak self] in
             
             self?.openCamera()
+        }
+        
+        viewModel.backToHomeHandler = { [weak self] in
+            
+            self?.tabBarController?.selectedIndex = 0
         }
     }
     

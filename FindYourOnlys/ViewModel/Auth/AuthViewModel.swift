@@ -7,6 +7,7 @@
 
 import Foundation
 import AuthenticationServices
+import AVFoundation
 
 class AuthViewModel {
     
@@ -16,19 +17,18 @@ class AuthViewModel {
     
     func didCompleteWithAuthorization(with authorization: ASAuthorization) {
         
-        UserFirebaseManager.shared.didCompleteWithAuthorization(with: authorization) { [weak self] error in
+        UserFirebaseManager.shared.didCompleteWithAuthorization(with: authorization) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
-                return
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
-            
-            self?.dismissHandler?()
         }
     }
 }

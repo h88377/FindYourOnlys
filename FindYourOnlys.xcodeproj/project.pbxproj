@@ -131,6 +131,7 @@
 		98BC475E28239B9C00740855 /* ChatSociety.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98BC475D28239B9C00740855 /* ChatSociety.storyboard */; };
 		98BC47642823CE7500740855 /* friendRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC47632823CE7500740855 /* friendRequest.json */; };
 		98BC47662823D24900740855 /* friendRequestCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC47652823D24800740855 /* friendRequestCat.json */; };
+		98BC4768282587D200740855 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC4767282587D200740855 /* AuthError.swift */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -328,6 +329,7 @@
 		98BC475D28239B9C00740855 /* ChatSociety.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChatSociety.storyboard; sourceTree = "<group>"; };
 		98BC47632823CE7500740855 /* friendRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = friendRequest.json; sourceTree = "<group>"; };
 		98BC47652823D24800740855 /* friendRequestCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = friendRequestCat.json; sourceTree = "<group>"; };
+		98BC4767282587D200740855 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -877,6 +879,7 @@
 				98CC16172804276300B9FDC6 /* HTTPClient */,
 				98CC16182804278700B9FDC6 /* Firebase */,
 				98CC15EF280289C900B9FDC6 /* Local Storage */,
+				98BC4767282587D200740855 /* AuthError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1347,6 +1350,7 @@
 				98CC15FC28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift in Sources */,
 				98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */,
 				98CC15CC2801B1ED00B9FDC6 /* FavoriteTableViewCell.swift in Sources */,
+				98BC4768282587D200740855 /* AuthError.swift in Sources */,
 				98CC15DB2801C09900B9FDC6 /* Pet.swift in Sources */,
 				9896D95A280EA7AA003D4A16 /* AdoptDirectionViewController.swift in Sources */,
 				9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */,

@@ -101,27 +101,26 @@ class ProfileViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.signOut { [weak self] error in
+        UserFirebaseManager.shared.signOut { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
+                
+                print("Sign out successfully.")
                 
                 self?.stopLoadingHandler?()
                 
-                return
+                self?.backToHomeHandler?()
+                
+                UserFirebaseManager.shared.currentUser = nil
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
-            
-            print("Sign out successfully.")
-            
-            self?.stopLoadingHandler?()
-            
-            self?.backToHomeHandler?()
-            
-            UserFirebaseManager.shared.currentUser = nil
         }
     }
     
