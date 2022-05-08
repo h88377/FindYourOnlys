@@ -17,6 +17,8 @@ enum HTTPClientError: Error {
     
     case serverError
     
+    case internetError
+    
     case unexpectedError
 }
 
@@ -137,7 +139,7 @@ class PetHTTPClient {
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
-            guard error == nil else { return completion(.failure(error!)) }
+            guard error == nil else { return completion(.failure(HTTPClientError.internetError)) }
             
             // swiftlint:disable force_cast
             let httpResponse = response as! HTTPURLResponse

@@ -126,7 +126,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showAlertHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "異常訊息", message: "請先選擇想要前往的收容所喔！")
+            self?.showAlertWindow(title: "異常訊息", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
                 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in

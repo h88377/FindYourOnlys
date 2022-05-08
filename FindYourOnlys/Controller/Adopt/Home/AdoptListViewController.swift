@@ -92,14 +92,13 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
                     
-            else {
-                
-                self?.showAlertWindow(title: "異常", message: "\(String(describing: errorViewModel?.error))")
-                
-                return
+                    self?.showAlertWindow(title: "異常", message: "\(String(describing: error))")
+                }
             }
         }
         

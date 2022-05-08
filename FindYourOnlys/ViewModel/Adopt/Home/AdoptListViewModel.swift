@@ -67,11 +67,10 @@ class AdoptListViewModel {
                     
                     return
                 }
-                
-                
+                  
             case .failure(let error):
                 
-                self?.errorViewModel = Box(ErrorViewModel(model: error))
+                self?.errorViewModel.value = ErrorViewModel(model: error)
                 
                 self?.stopIndicatorHandler?()
                 
@@ -105,7 +104,7 @@ class AdoptListViewModel {
                 
             case .failure(let error):
                 
-                self?.errorViewModel = Box(ErrorViewModel(model: error))
+                self?.errorViewModel.value = ErrorViewModel(model: error)
                 
                 self?.stopIndicatorHandler?()
                 
