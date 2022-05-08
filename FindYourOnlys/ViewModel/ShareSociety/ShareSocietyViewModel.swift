@@ -97,21 +97,20 @@ class ShareSocietyViewModel: BaseSocietyViewModel {
         
         startLoadingHandler?()
         
-        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] error in
+        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
                 self?.stopLoadingHandler?()
                 
-                return
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
-            
-            self?.stopLoadingHandler?()
         }
     }
     
@@ -121,18 +120,7 @@ class ShareSocietyViewModel: BaseSocietyViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.blockUser(with: article.userId) { [weak self] error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
-                
-                return
-            }
-        }
+        UserFirebaseManager.shared.blockUser(with: article.userId)
         
         stopLoadingHandler?()
     }

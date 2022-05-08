@@ -128,16 +128,17 @@ class PetSocietyCommentViewModel {
 
         comment.createdTime = NSDate().timeIntervalSince1970
 
-        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] error in
+        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(let success):
                 
-                return
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -207,18 +208,7 @@ class PetSocietyCommentViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.blockUser(with: user.id) { [weak self] error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
-                
-                return
-            }
-        }
+        UserFirebaseManager.shared.blockUser(with: user.id)
         
         stopLoadingHandler?()
     }

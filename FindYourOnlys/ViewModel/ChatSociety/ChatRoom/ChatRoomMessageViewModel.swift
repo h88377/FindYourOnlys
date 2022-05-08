@@ -70,14 +70,23 @@ class ChatRoomMessageViewModel {
         enableIQKeyboardHandler?()
     }
     
-    func sendMessage(completion: @escaping (Error?) -> Void) {
+    func sendMessage() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &message) { error in
+        PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &message) { [weak self] result in
             
-            completion(error)
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
         }
     }
     
@@ -134,7 +143,7 @@ class ChatRoomMessageViewModel {
         message.contentImageURLString = ""
     }
     
-    func changeContent(with contextImage: UIImage, completion: @escaping (Error?) -> Void) {
+    func changeContent(with contextImage: UIImage) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -143,7 +152,10 @@ class ChatRoomMessageViewModel {
             
             let semaphore = DispatchSemaphore(value: 0)
             
-            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: contextImage, with: FirebaseCollectionType.message.rawValue) { result in
+            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: contextImage, with: FirebaseCollectionType.message.rawValue) { [weak self] result in
+                
+                guard
+                    let self = self else { return }
                 
                 switch result {
                     
@@ -155,15 +167,27 @@ class ChatRoomMessageViewModel {
                     
                 case .failure(let error):
                     
-                    completion(error)
+                    self.errorViewModel.value = ErrorViewModel(model: error)
                 }
                 semaphore.signal()
             }
             
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &self.message) { error in
+            PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &self.message) { [weak self] result in
                 
-                completion(error)
+                guard
+                    let self = self else { return }
+                
+                switch result {
+                    
+                case .success(let success):
+                    
+                    print(success)
+                    
+                case .failure(let error):
+                    
+                    self.errorViewModel.value = ErrorViewModel(model: error)
+                }
                 
                 semaphore.signal()
             }
@@ -178,18 +202,7 @@ class ChatRoomMessageViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.blockUser(with: friend.id) { [weak self] error in
-            
-            guard
-                error == nil
-                    
-            else {
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
-                
-                return
-            }
-        }
+        UserFirebaseManager.shared.blockUser(with: friend.id)
         
         stopLoadingHandler?()
     }

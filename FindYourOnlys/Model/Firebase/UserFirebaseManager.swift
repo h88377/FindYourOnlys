@@ -12,6 +12,8 @@ import FirebaseAuth
 import CryptoKit
 import CoreMedia
 
+// swiftlint: disable file_length
+
 class UserFirebaseManager {
     
     static let shared = UserFirebaseManager()
@@ -227,28 +229,27 @@ class UserFirebaseManager {
                             return
                         }
                             
-                        self.saveUser(with: user.displayName ?? "初來乍到", with: user.email ?? "", with: user.uid) { error in
+                        self.saveUser(with: user.displayName ?? "初來乍到", with: user.email ?? "", with: user.uid) { result in
                             
-                            guard
-                                error == nil
-                            
-                            else {
+                            switch result {
                                 
-                                completion(.failure(error!))
+                            case .success(let success):
                                 
-                                return
+                                UserFirebaseManager.shared.currentUser = User(
+                                    id: user.uid,
+                                    nickName: user.displayName ?? "初來乍到",
+                                    email: user.email ?? "",
+                                    imageURLString: "",
+                                    friends: [],
+                                    blockedUsers: []
+                                )
+                                
+                                completion(.success(success))
+                                
+                            case .failure(let error):
+                                
+                                completion(.failure(error))
                             }
-                            
-                            UserFirebaseManager.shared.currentUser = User(
-                                id: user.uid,
-                                nickName: user.displayName ?? "初來乍到",
-                                email: user.email ?? "",
-                                imageURLString: "",
-                                friends: [],
-                                blockedUsers: []
-                            )
-                            
-                            completion(.success("success"))
                         }
                         
                     case .failure(let error):
@@ -335,16 +336,17 @@ class UserFirebaseManager {
             }
             
             // Save User on firebase
-            self.saveUser(with: nickName, with: email, with: user.uid) { error in
+            self.saveUser(with: nickName, with: email, with: user.uid) { result in
                 
-                if
-                    let error = error {
+                switch result {
                     
-                    completion(.failure(error))
-                    
-                } else {
+                case .success(_):
                     
                     completion(.success(user.uid))
+                    
+                case .failure(let error):
+                    
+                    completion(.failure(error))
                 }
             }
         }
@@ -462,7 +464,7 @@ class UserFirebaseManager {
     }
     
     // Delete User
-    func deleteAuthUser(completion: @escaping (Error?) -> Void) {
+    func deleteAuthUser(completion: @escaping (Result<String, Error>) -> Void) {
         
         guard
             let user = Auth.auth().currentUser
@@ -485,7 +487,7 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(DeleteDataError.deleteFavoritePetError)
+                    completion(.failure(DeleteDataError.deleteFavoritePetError))
                     
                     group.leave()
                     
@@ -503,7 +505,7 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(DeleteDataError.deleteFriendRequestError)
+                    completion(.failure(DeleteDataError.deleteFriendRequestError))
                     
                     group.leave()
                     
@@ -521,7 +523,7 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(DeleteDataError.deleteArticleError)
+                    completion(.failure(DeleteDataError.deleteArticleError))
                     
                     group.leave()
                     
@@ -539,7 +541,7 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(DeleteDataError.deleteChatRoomError)
+                    completion(.failure(DeleteDataError.deleteChatRoomError))
                     
                     group.leave()
                     
@@ -557,7 +559,7 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(DeleteDataError.deleteChatRoomError)
+                    completion(.failure(DeleteDataError.deleteChatRoomError))
                     
                     group.leave()
                     
@@ -575,7 +577,7 @@ class UserFirebaseManager {
                         
                 else {
                     
-                    completion(DeleteDataError.deleteFriendError)
+                    completion(.failure(DeleteDataError.deleteFriendError))
                     
                     group.leave()
                     
@@ -605,7 +607,7 @@ class UserFirebaseManager {
                                     
                             else {
                                 
-                                completion(DeleteAccountError.unexpectedError)
+                                completion(.failure(DeleteAccountError.unexpectedError))
                                 
                                 return
                             }
@@ -614,19 +616,19 @@ class UserFirebaseManager {
                                 
                             case .requiresRecentLogin:
                                 
-                                completion(DeleteAccountError.deleteUserAccountError)
+                                completion(.failure(DeleteAccountError.deleteUserAccountError))
                                 
                                 return
                                 
                             default:
                                 
-                                completion(DeleteAccountError.unexpectedError)
+                                completion(.failure(DeleteAccountError.unexpectedError))
                                 
                                 return
                             }
                         }
                         
-                        completion(DeleteAccountError.unexpectedError)
+                        completion(.failure(DeleteAccountError.unexpectedError))
                         
                         return
                     }
@@ -643,18 +645,18 @@ class UserFirebaseManager {
                             
                     else {
                               
-                        completion(DeleteDataError.deleteUserError)
+                        completion(.failure(DeleteDataError.deleteUserError))
                         
                         return
                     }
                     
-                    completion(nil)
+                    completion(.success("success"))
                 }
             }
         }
     }
     
-    func deleteUser(with userId: String, completion: @escaping (Error?) -> Void) {
+    func deleteUser(with userId: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.user.rawValue).document(userId).delete() { error in
             
@@ -663,12 +665,12 @@ class UserFirebaseManager {
                     
             else {
                 
-                completion(error)
+                completion(.failure(FirebaseError.deleteUserError))
                 
                 return
             }
             
-            completion(nil)
+            completion(.success("success"))
         }
     }
     
@@ -678,7 +680,13 @@ class UserFirebaseManager {
             .addSnapshotListener { snapshot, error in
                 
                 guard
-                    let snapshot = snapshot else { return }
+                    let snapshot = snapshot else {
+                        
+                        completion(.failure(FirebaseError.fetchUserError))
+                        
+                        return
+                        
+                    }
                 
                 var users = [User]()
                 
@@ -689,9 +697,10 @@ class UserFirebaseManager {
                         let user = try document.data(as: User.self)
                         
                         users.append(user)
+                        
                     } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodeUserError))
                     }
                 }
                 
@@ -706,7 +715,13 @@ class UserFirebaseManager {
             .getDocuments { snapshot, error in
                 
                 guard
-                    let snapshot = snapshot else { return }
+                    let snapshot = snapshot else {
+                        
+                        completion(.failure(FirebaseError.fetchUserError))
+                        
+                        return
+                        
+                    }
                 
                 var users = [User]()
                 
@@ -717,9 +732,10 @@ class UserFirebaseManager {
                         let user = try document.data(as: User.self)
                         
                         users.append(user)
+                        
                     } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodeUserError))
                     }
                 }
                 
@@ -727,7 +743,7 @@ class UserFirebaseManager {
             }
     }
     
-    func blockUser(with userId: String, completion: @escaping (Error?) -> Void) {
+    func blockUser(with userId: String) {
         
         guard
             let currentUser = currentUser else { return }
@@ -738,7 +754,7 @@ class UserFirebaseManager {
             .updateData([FirebaseFieldType.blockedUsers.rawValue: FieldValue.arrayUnion([userId])])
     }
     
-    func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Error?) -> Void) {
+    func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(id)")
         
@@ -753,13 +769,13 @@ class UserFirebaseManager {
                 blockedUsers: []
             )
             
-            try documentReference.setData(from: user, encoder: Firestore.Encoder())
+            try documentReference.setData(from: user)
             
-            completion(nil)
+            completion(.success("success"))
             
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.createUserError))
         }
     }
     
@@ -775,7 +791,7 @@ class UserFirebaseManager {
             
         } catch {
             
-            completion(.failure(error))
+            completion(.failure(FirebaseError.updateUserError))
         }
     }
     
@@ -798,3 +814,5 @@ class UserFirebaseManager {
         viewModels.value = UserFirebaseManager.shared.convertUserToViewModels(from: users)
     }
 }
+
+// swiftlint:enable file_length

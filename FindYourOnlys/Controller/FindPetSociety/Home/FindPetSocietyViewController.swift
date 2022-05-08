@@ -85,12 +85,16 @@ class FindPetSocietyViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    self?.showAlertWindow(title: "異常", message: "\(error)")
+                }
+            }
         }
         
         viewModel.fetchArticles()

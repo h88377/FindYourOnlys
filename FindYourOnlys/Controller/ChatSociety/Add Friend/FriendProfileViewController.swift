@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FriendProfileViewController: UIViewController {
+class FriendProfileViewController: BaseViewController {
     
     var viewModel: FriendProfileViewModel?
     
@@ -93,16 +93,14 @@ class FriendProfileViewController: UIViewController {
         
         updateSearchedUserInfo(with: viewModel, result: viewModel.searchFriendResult)
         
-        viewModel.errorViewModel.bind(listener: { errorViewModel in
+        viewModel.errorViewModel.bind(listener: { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil
-            
-            else {
+            if
+                let error = errorViewModel?.error {
                 
-                print(errorViewModel?.error.localizedDescription)
-                
-                return
+                DispatchQueue.main.async {
+                    self?.showAlertWindow(title: "異常", message: "\(error)")
+                }
             }
         })
         

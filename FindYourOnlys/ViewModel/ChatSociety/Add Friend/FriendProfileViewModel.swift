@@ -28,20 +28,18 @@ class FriendProfileViewModel {
     
     func sendFriendRequest() {
         
-        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { [weak self] error in
+        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
-                return
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
-            
-            self?.dismissHandler?()
         }
-        
     }
 }

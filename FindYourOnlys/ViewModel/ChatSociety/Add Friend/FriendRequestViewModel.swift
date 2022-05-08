@@ -102,20 +102,30 @@ class FriendRequestViewModel {
         removeFriendRequest(at: indexPath)
         
         // Add friend into each user's friend array
-        ProfileFirebaseManager.shared.addFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { error in
+        ProfileFirebaseManager.shared.addFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { result in
             
-            if
-                let error = error {
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
                 
                 self.errorViewModel = Box(ErrorViewModel(model: error))
             }
         }
         
         // Create chatroom (including created time)
-        ProfileFirebaseManager.shared.createChatRoom(with: friendRequestListViewModels.value, at: indexPath) { error in
+        ProfileFirebaseManager.shared.createChatRoom(with: friendRequestListViewModels.value, at: indexPath) { result in
             
-            if
-                let error = error {
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
                 
                 self.errorViewModel = Box(ErrorViewModel(model: error))
             }
@@ -125,10 +135,15 @@ class FriendRequestViewModel {
     func removeFriendRequest(at indexPath: IndexPath) {
         
         // Remove friend request
-        ProfileFirebaseManager.shared.removeFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { error in
+        ProfileFirebaseManager.shared.removeFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { result in
             
-            if
-                let error = error {
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
                 
                 self.errorViewModel = Box(ErrorViewModel(model: error))
             }

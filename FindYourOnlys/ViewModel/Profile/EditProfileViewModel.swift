@@ -38,27 +38,26 @@ class EditProfileViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.deleteAuthUser { [weak self] error in
+        UserFirebaseManager.shared.deleteAuthUser { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
+                
+                print("Delete user successfully.")
+                
+                UserFirebaseManager.shared.currentUser = nil
                 
                 self?.stopLoadingHandler?()
                 
-                return
+                self?.backToHomeHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
-            
-            print("Delete user successfully.")
-            
-            UserFirebaseManager.shared.currentUser = nil
-            
-            self?.stopLoadingHandler?()
-            
-            self?.backToHomeHandler?()
         }
     }
     

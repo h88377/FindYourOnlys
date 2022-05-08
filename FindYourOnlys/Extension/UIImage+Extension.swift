@@ -71,8 +71,6 @@ enum ImageAsset: String {
     case pickerDropDown = "Icons_24px_DropDown"
 }
 
-// swiftlint:enable identifier_name
-
 extension UIImage {
     
     static func system(_ system: SystemImageAsset) -> UIImage? {
