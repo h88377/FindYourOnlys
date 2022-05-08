@@ -95,7 +95,7 @@ class ShelterProvider {
         return viewModels
     }
     
-    func setShelters(with viewModels: Box<[ShelterViewModel]>, shelter: [Shelter]) {
+    func setShelters(with viewModels: Box<[ShelterViewModel]?>, shelter: [Shelter]) {
         
         viewModels.value = convertSheltersToViewModels(from: shelter)
     }
