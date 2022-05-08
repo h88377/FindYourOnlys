@@ -402,7 +402,12 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                     let firstPlace = places?.first,
                     let self = self
                         
-                else { return }
+                else {
+                    
+                    self?.showAlertWindow(title: "異常", message: "無法取得所在位置，請確認網路連線")
+                    
+                    return
+                }
                 
                 let currentAnnotation = MapAnnotation(
                     title: "現在位置", subtitle: "\(firstPlace.abbreviation)", location: "\(firstPlace)",
