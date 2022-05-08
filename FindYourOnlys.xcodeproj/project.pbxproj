@@ -134,6 +134,8 @@
 		98BC4768282587D200740855 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC4767282587D200740855 /* AuthError.swift */; };
 		98BC476A2827643D00740855 /* PolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC47692827643D00740855 /* PolicyViewController.swift */; };
 		98BC476C282766DF00740855 /* PolicyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC476B282766DF00740855 /* PolicyViewModel.swift */; };
+		98BC476E2827FBAA00740855 /* FriendRequestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC476D2827FBAA00740855 /* FriendRequestHeaderView.swift */; };
+		98BC47702827FBB800740855 /* FriendRequestHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98BC476F2827FBB800740855 /* FriendRequestHeaderView.xib */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -334,6 +336,8 @@
 		98BC4767282587D200740855 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		98BC47692827643D00740855 /* PolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyViewController.swift; sourceTree = "<group>"; };
 		98BC476B282766DF00740855 /* PolicyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyViewModel.swift; sourceTree = "<group>"; };
+		98BC476D2827FBAA00740855 /* FriendRequestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestHeaderView.swift; sourceTree = "<group>"; };
+		98BC476F2827FBB800740855 /* FriendRequestHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestHeaderView.xib; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -752,6 +756,8 @@
 			children = (
 				9896D91D280BC6B7003D4A16 /* ChatRoom */,
 				9896D91C280BC6AB003D4A16 /* Add Friend */,
+				98BC476D2827FBAA00740855 /* FriendRequestHeaderView.swift */,
+				98BC476F2827FBB800740855 /* FriendRequestHeaderView.xib */,
 			);
 			path = ChatSociety;
 			sourceTree = "<group>";
@@ -1147,6 +1153,7 @@
 				98BC47662823D24900740855 /* friendRequestCat.json in Resources */,
 				98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */,
 				98CC164928059F0C00B9FDC6 /* PublishUserCell.xib in Resources */,
+				98BC47702827FBB800740855 /* FriendRequestHeaderView.xib in Resources */,
 				98CC15C428017A1C00B9FDC6 /* AdoptCollectionViewCell.xib in Resources */,
 				9896D95E280EB5CB003D4A16 /* DirectionCell.xib in Resources */,
 				987D8B5A281AAD39000D1F95 /* ProfileArticleCell.xib in Resources */,
@@ -1259,6 +1266,7 @@
 				987D8B5E281AAEE1000D1F95 /* ProfileArticleViewModel.swift in Sources */,
 				98CC162B280554E500B9FDC6 /* UIImage+Extension.swift in Sources */,
 				9896D962280EBFA5003D4A16 /* MKMapView+Extension.swift in Sources */,
+				98BC476E2827FBAA00740855 /* FriendRequestHeaderView.swift in Sources */,
 				987D8B3B2816C23D000D1F95 /* RegisterViewModel.swift in Sources */,
 				987D8B57281AAD02000D1F95 /* ProfileArticleCell.swift in Sources */,
 				987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */,

@@ -128,7 +128,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLj-Ge-Eku">
-                                <rect key="frame" x="4" y="802" width="406" height="60"/>
+                                <rect key="frame" x="4" y="792" width="406" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xg1-1A-wXt">
                                         <rect key="frame" x="10" y="8" width="386" height="44"/>
@@ -192,7 +192,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eRS-GW-23C">
-                                <rect key="frame" x="0.0" y="44" width="414" height="758"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="748"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -209,7 +209,7 @@
                             <constraint firstItem="eRS-GW-23C" firstAttribute="leading" secondItem="4e3-hV-vVQ" secondAttribute="leading" id="bzP-YS-7qa"/>
                             <constraint firstItem="4e3-hV-vVQ" firstAttribute="trailing" secondItem="jLj-Ge-Eku" secondAttribute="trailing" constant="4" id="cmL-hc-RMr"/>
                             <constraint firstItem="4e3-hV-vVQ" firstAttribute="trailing" secondItem="XX1-DD-jFO" secondAttribute="trailing" id="gVn-iw-D2e"/>
-                            <constraint firstItem="4e3-hV-vVQ" firstAttribute="bottom" secondItem="jLj-Ge-Eku" secondAttribute="bottom" id="nyc-vc-eEn"/>
+                            <constraint firstItem="4e3-hV-vVQ" firstAttribute="bottom" secondItem="jLj-Ge-Eku" secondAttribute="bottom" constant="10" id="nyc-vc-eEn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DXZ-vD-qeR"/>
@@ -472,7 +472,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CW7-l9-WCE"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8Xw-qd-kna" firstAttribute="leading" secondItem="CW7-l9-WCE" secondAttribute="leading" id="ACa-L9-WuP"/>
                             <constraint firstItem="HSw-Se-IAp" firstAttribute="centerY" secondItem="Jn7-fY-hfU" secondAttribute="centerY" id="BCC-H2-gk9"/>
