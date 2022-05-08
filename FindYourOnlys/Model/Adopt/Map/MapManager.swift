@@ -7,6 +7,33 @@
 
 import MapKit
 
+enum MapError: Error {
+    
+    case convertAddressError
+    
+    case calculateRouteError
+    
+    case unexpectedError
+    
+    var errorMessage: String {
+        
+        switch self {
+            
+        case .convertAddressError:
+            
+            return "讀取地址失敗，請稍後再試"
+            
+        case .calculateRouteError:
+            
+            return "計算導航路徑失敗，請稍後再試"
+            
+        case .unexpectedError:
+            
+            return "發生預期外的異常，請稍後再試"
+        }
+    }
+}
+
 class MapManager {
     
     static let shared = MapManager()
@@ -24,7 +51,7 @@ class MapManager {
                     
             else {
                 
-                completion(.failure(error!))
+                completion(.failure(MapError.convertAddressError))
                 
                 return
                 
@@ -106,64 +133,64 @@ class MapManager {
 //
 //    }
     
-    func calculateRouteNew(currentLocation: CLLocation, stopLocation: CLLocation, completion: @escaping (Result<(route: Route, mapRoute: MKRoute), Error>) -> Void) {
-            
-        let currentSegment: RouteBuilder.Segment = .location(currentLocation)
-        
-        let stopSegments: [RouteBuilder.Segment] = [.location(stopLocation)]
-        
-        RouteBuilder.buildRoute(
-            origin: currentSegment,
-            stops: stopSegments, within: nil
-        ) { result in
-            
-            switch result {
-            case .success(let route):
-                
-                guard
-                    let firstStop = route.stops.first else { return }
-                
-                let group: (startItem: MKMapItem, endItem: MKMapItem) = (route.origin, firstStop)
-                
-                let request = MKDirections.Request()
-                
-                request.source = group.startItem
-                
-                request.destination = group.endItem
-                
-                let directions = MKDirections(request: request)
-                
-                directions.calculate { response, error in
-                    
-                    guard
-                        let mapRoute = response?.routes.first
-                            
-                    else {
-                        
-                        print(error)
-                        
-                        return
-                    }
-                    
-                    completion(.success((route, mapRoute)))
-                }
-                
-            case .failure(let error):
-                
-                let errorMessage: String
-                
-                switch error {
-                    
-                case .invalidSegment(let reason):
-                    
-                    errorMessage = "There was an error with: \(reason)."
-                }
-                
-                completion(.failure(error))
-            }
-        }
-        
-    }
+//    func calculateRouteNew(currentLocation: CLLocation, stopLocation: CLLocation, completion: @escaping (Result<(route: Route, mapRoute: MKRoute), Error>) -> Void) {
+//
+//        let currentSegment: RouteBuilder.Segment = .location(currentLocation)
+//
+//        let stopSegments: [RouteBuilder.Segment] = [.location(stopLocation)]
+//
+//        RouteBuilder.buildRoute(
+//            origin: currentSegment,
+//            stops: stopSegments, within: nil
+//        ) { result in
+//
+//            switch result {
+//            case .success(let route):
+//
+//                guard
+//                    let firstStop = route.stops.first else { return }
+//
+//                let group: (startItem: MKMapItem, endItem: MKMapItem) = (route.origin, firstStop)
+//
+//                let request = MKDirections.Request()
+//
+//                request.source = group.startItem
+//
+//                request.destination = group.endItem
+//
+//                let directions = MKDirections(request: request)
+//
+//                directions.calculate { response, error in
+//
+//                    guard
+//                        let mapRoute = response?.routes.first
+//
+//                    else {
+//
+//                        completion(.failure(MapError.calculateRouteError))
+//
+//                        return
+//                    }
+//
+//                    completion(.success((route, mapRoute)))
+//                }
+//
+//            case .failure(let error):
+//
+//                let errorMessage: String
+//
+//                switch error {
+//
+//                case .invalidSegment(let reason):
+//
+//                    errorMessage = "There was an error with: \(reason)."
+//                }
+//
+//                completion(.failure(MapError.calculateRouteError))
+//            }
+//        }
+//
+//    }
     
     func calculateRoute(currentCoordinate: CLLocationCoordinate2D, stopCoordinate: CLLocationCoordinate2D, completion: @escaping (Result<(route: Route, mapRoute: MKRoute), Error>) -> Void) {
         
@@ -211,7 +238,7 @@ class MapManager {
                             
                     else {
                         
-                        completion(.failure(error!))
+                        completion(.failure(MapError.calculateRouteError))
                         
                         return
                     }
@@ -230,7 +257,7 @@ class MapManager {
                     errorMessage = "There was an error with: \(reason)."
                 }
                 
-                completion(.failure(error))
+                completion(.failure(MapError.calculateRouteError))
             }
         }
         

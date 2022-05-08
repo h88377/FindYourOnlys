@@ -107,7 +107,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-                    self.showAlertWindow(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
+                    self.showAlertWindowAndBack(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
                     
                 } else {
                     
@@ -126,7 +126,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showAlertHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "異常訊息", message: "請先選擇你的目的地喔！")
+            self?.showAlertWindow(title: "異常訊息", message: "請先選擇想要前往的收容所喔！")
         }
                 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
@@ -349,6 +349,20 @@ class AdoptPetsLocationViewController: BaseViewController {
             }
 
         }
+    }
+    
+    func showAlertWindowAndBack(title: String, message: String?) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
     }
     
 }
