@@ -91,6 +91,8 @@ class ProfileFirebaseManager {
                 } catch {
                     
                     completion(.failure(FirebaseError.deleteFriendRequestError))
+                    
+                    return
                 }
                 
             }

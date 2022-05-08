@@ -196,14 +196,15 @@ class FavoritePetFirebaseManager {
                         self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
                     }
                     
-                    completion(.success("success"))
-                    
                 } catch {
                     
                     completion(.failure(FirebaseError.decodePetError))
+                    
+                    return
                 }
             }
 //            completion(nil)
+            completion(.success("success"))
         }
     }
 }

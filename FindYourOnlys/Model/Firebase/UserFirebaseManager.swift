@@ -480,110 +480,110 @@ class UserFirebaseManager {
             
             // Favorite pet
             group.enter()
-            FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { error in
+            FavoritePetFirebaseManager.shared.removeFavoritePet(with: user.uid) { result in
                 
-                guard
-                    error == nil
-                        
-                else {
+                switch result {
+                    
+                case .success(_):
+                    
+                    group.leave()
+                    
+                case .failure(_):
                     
                     completion(.failure(DeleteDataError.deleteFavoritePetError))
                     
                     group.leave()
-                    
-                    return
                 }
-                group.leave()
             }
             
             // FriendRequest
             group.enter()
-            ProfileFirebaseManager.shared.removeFriendRequest(with: user.uid) { error in
+            ProfileFirebaseManager.shared.removeFriendRequest(with: user.uid) { result in
                 
-                guard
-                    error == nil
-                        
-                else {
+                switch result {
+                    
+                case .success(_):
+                    
+                    group.leave()
+                    
+                case .failure(_):
                     
                     completion(.failure(DeleteDataError.deleteFriendRequestError))
                     
                     group.leave()
-                    
-                    return
                 }
-                group.leave()
             }
             
             // Article
             group.enter()
-            PetSocietyFirebaseManager.shared.deleteArticle(with: user.uid) { error in
+            PetSocietyFirebaseManager.shared.deleteArticle(with: user.uid) { result in
                 
-                guard
-                    error == nil
-                        
-                else {
+                switch result {
+                    
+                case .success(_):
+                    
+                    group.leave()
+                    
+                case .failure(_):
                     
                     completion(.failure(DeleteDataError.deleteArticleError))
                     
                     group.leave()
-                    
-                    return
                 }
-                group.leave()
             }
             
             // ChatRoom
             group.enter()
-            PetSocietyFirebaseManager.shared.deleteChatRoom(with: user.uid) { error in
+            PetSocietyFirebaseManager.shared.deleteChatRoom(with: user.uid) { result in
                 
-                guard
-                    error == nil
-                        
-                else {
+                switch result {
+                    
+                case .success(_):
+                    
+                    group.leave()
+                    
+                case .failure(_):
                     
                     completion(.failure(DeleteDataError.deleteChatRoomError))
                     
                     group.leave()
-                    
-                    return
                 }
-                group.leave()
             }
             
             // Message
             group.enter()
-            PetSocietyFirebaseManager.shared.deleteMessage(with: user.uid) { error in
+            PetSocietyFirebaseManager.shared.deleteMessage(with: user.uid) { result in
                 
-                guard
-                    error == nil
-                        
-                else {
+                switch result {
                     
-                    completion(.failure(DeleteDataError.deleteChatRoomError))
+                case .success(_):
                     
                     group.leave()
                     
-                    return
+                case .failure(_):
+                    
+                    completion(.failure(DeleteDataError.deleteMessageError))
+                    
+                    group.leave()
                 }
-                group.leave()
             }
             
             //Friend
             group.enter()
-            PetSocietyFirebaseManager.shared.deleteFriend(withCurrent: user.uid) { error in
+            PetSocietyFirebaseManager.shared.deleteFriend(withCurrent: user.uid) { result in
                 
-                guard
-                    error == nil
-                        
-                else {
+                switch result {
+                    
+                case .success(_):
+                    
+                    group.leave()
+                    
+                case .failure(_):
                     
                     completion(.failure(DeleteDataError.deleteFriendError))
                     
                     group.leave()
-                    
-                    return
                 }
-                group.leave()
             }
             
             // Need all delete process finish to end the delete process.
@@ -638,19 +638,18 @@ class UserFirebaseManager {
                 
                 semaphore.wait()
                 // User
-                self.deleteUser(with: user.uid) { error in
+                self.deleteUser(with: user.uid) { result in
                     
-                    guard
-                        error == nil
-                            
-                    else {
-                              
-                        completion(.failure(DeleteDataError.deleteUserError))
+                    switch result {
                         
-                        return
+                    case .success(let success):
+                        
+                        completion(.success(success))
+                        
+                    case .failure(_):
+                        
+                        completion(.failure(DeleteDataError.deleteUserError))
                     }
-                    
-                    completion(.success("success"))
                 }
             }
         }
