@@ -137,18 +137,11 @@ class AdoptDetailViewController: BaseViewController {
             
         } else {
             
-            viewModel.fetchFavoriteFromFB { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                    
-                } else {
-                    
-                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
-                }
-            }
+            viewModel.fetchFavoriteFromFB()
+            
+//                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
         }
+        
         photoImageView.loadImage(
             viewModel.petViewModel.value.pet.photoURLString,
             placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
@@ -186,22 +179,10 @@ class AdoptDetailViewController: BaseViewController {
         } else {
             
             // Firebase
-            viewModel.fetchFavoriteFromFB { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoriteFromFB()
         }
         
-        viewModel.toggleFavoriteButton(with: sender) { error in
-            
-            if error != nil {
-
-                print(error)
-            }
-        }
+        viewModel.toggleFavoriteButton(with: sender)
         
         self.delegate?.toggleFavorite()
     }

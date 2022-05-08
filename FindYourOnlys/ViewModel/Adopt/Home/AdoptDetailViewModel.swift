@@ -143,12 +143,12 @@ class AdoptDetailViewModel {
     }
     
     // MARK: - Firebase functions
-    func fetchFavoriteFromFB(completion: @escaping (Error?) -> Void) {
+    func fetchFavoriteFromFB() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        FavoritePetFirebaseManager.shared.fetchFavoritePets { result in
+        FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
             switch result {
                 
@@ -161,31 +161,54 @@ class AdoptDetailViewModel {
                     favoritePets.append(pet)
                 }
                 
-                self.setPets(favoritePets)
+                self?.setPets(favoritePets)
                 
-                completion(nil)
+//                completion(nil)
+                
+                self?.checkFavoriateButtonHandler?()
                 
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
     
-    func addToFavoriteInFB(completion: @escaping (Error?) -> Void) {
+    func addToFavoriteInFB() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: petViewModel.value) { error in
+        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: petViewModel.value) { [weak self] result in
             
-            completion(error)
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
         }
     }
     
     func removeFavoriteFromFB() {
         
-        FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value)
+        FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
     }
     
     
@@ -212,7 +235,7 @@ class AdoptDetailViewModel {
     }
     
     // Use for when user tap add/remove favorite
-    func toggleFavoriteButton(with favoriteButton: UIButton, completion: @escaping (Error?) -> Void) {
+    func toggleFavoriteButton(with favoriteButton: UIButton) {
         
         // Save data
         if favoriteButton.currentImage == UIImage.system(.addToFavorite)
@@ -224,10 +247,7 @@ class AdoptDetailViewModel {
                 
             } else {
                 
-                addToFavoriteInFB { error in
-                    
-                    completion(error)
-                }
+                addToFavoriteInFB()
             }
             
         // Remove data
