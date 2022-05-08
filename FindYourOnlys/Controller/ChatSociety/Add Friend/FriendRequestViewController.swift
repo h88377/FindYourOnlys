@@ -16,6 +16,8 @@ class FriendRequestViewController: BaseViewController {
             tableView.delegate = self
             
             tableView.dataSource = self
+            
+            tableView.separatorStyle = .none
         }
     }
     
@@ -63,6 +65,8 @@ class FriendRequestViewController: BaseViewController {
         super.setupTableView()
         
         tableView.registerCellWithIdentifier(identifier: FriendRequestCell.identifier)
+        
+        tableView.registerViewWithIdentifier(identifier: FriendRequestHeaderView.identifier)
     }
     
 }
@@ -105,8 +109,20 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendRequestHeaderView.identifier)
+        
+        guard
+            let headerView = view as? FriendRequestHeaderView else { return view }
+        
+        headerView.configureView(with: viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue)
+        
+        return headerView
     }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+//        return viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue
+//    }
 }
