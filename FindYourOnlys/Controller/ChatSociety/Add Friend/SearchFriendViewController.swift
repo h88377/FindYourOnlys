@@ -18,7 +18,7 @@ class SearchFriendViewController: BaseViewController {
             
             searchTextField.textColor = .projectTextColor
             
-            searchTextField.placeholder = "請輸入 User email 查詢使用者"
+            searchTextField.placeholder = "請輸入電子信箱查詢使用者"
         }
     }
     
