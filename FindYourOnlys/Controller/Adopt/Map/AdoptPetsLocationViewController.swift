@@ -65,7 +65,6 @@ class AdoptPetsLocationViewController: BaseViewController {
 
                 LottieAnimationWrapper.shared.startLoading(at: self.view)
             }
-
         }
         
         // Pet
@@ -80,9 +79,7 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
         }
-        
-        
-        
+           
         // Pets
         viewModel.getUserLocationHandler = { [weak self] in
             
@@ -137,7 +134,19 @@ class AdoptPetsLocationViewController: BaseViewController {
             guard
                 let errorViewModel = errorViewModel else { return }
             
-            self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+            // Check user's location have shelters' information
+            if self?.viewModel.shelterViewModels.value != nil {
+                
+                // Filter out error message when occured error but already have annotations on the map to enhance UX.
+                if self?.viewModel.mapAnnotationViewModels.value == nil {
+                    
+                    self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+                }
+                
+            } else {
+                
+                self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+            }
         }
         
         viewModel.stopLoadingHandler = {
@@ -391,7 +400,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 // Mock location because Taipei don't have any shelter.
                 
-                self.viewModel.fetchShelter(with: "新北市")
+                self.viewModel.fetchShelter(with: "台北市")
                 
                 //                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
             }

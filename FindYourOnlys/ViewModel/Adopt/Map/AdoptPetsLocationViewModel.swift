@@ -69,7 +69,9 @@ class AdoptPetsLocationViewModel {
     
     // Pets
     
-    var shelterViewModels = Box([ShelterViewModel]())
+//    var shelterViewModels = Box([ShelterViewModel]())
+    
+    var shelterViewModels: Box<[ShelterViewModel]?> = Box(nil)
     
     var mapAnnotationViewModels: Box<[MapAnnotationViewModel]?> = Box(nil)
     
@@ -169,13 +171,14 @@ class AdoptPetsLocationViewModel {
                             petCounts: [catPetCount, dogPetCount, otherPetCount]
                         )
                     }
+                    
                     if shelter.title != "" {
                         
                         shelters.append(shelter)
                     }
                 }
                 
-                ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
+//                ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
                 
                 if shelters.count == 0 {
                     
@@ -185,12 +188,13 @@ class AdoptPetsLocationViewModel {
                     
                 } else {
                     
+                    ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
+                    
                     self.appendMapAnnotationsInViewModels(with: shelters)
                     
                     self.stopLoadingHandler?()
                 }
                 
-              
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
@@ -225,6 +229,7 @@ class AdoptPetsLocationViewModel {
                             longitude: location.coordinate.longitude
                         )
                     )
+                    
                     MapManager.shared.appendMapAnnotation(in: self.mapAnnotationViewModels, annotation: mapAnnotation)
                     
                 case .failure(let error):

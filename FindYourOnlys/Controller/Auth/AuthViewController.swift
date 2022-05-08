@@ -98,7 +98,6 @@ class AuthViewController: BaseModalViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        
         registerButton.layer.cornerRadius = 15
         
         signInButton.layer.cornerRadius = 15
@@ -167,7 +166,9 @@ class AuthViewController: BaseModalViewController {
         guard
             let policyVC = storyboard.instantiateViewController(
                 withIdentifier: PolicyViewController.identifier)
-                as? PolicyViewController else { return }
+                as? PolicyViewController
+        
+        else { return }
         
         policyVC.viewModel = PolicyViewModel(urlString: "https://pages.flycricket.io/findyouronlys/privacy.html")
         
@@ -181,7 +182,9 @@ class AuthViewController: BaseModalViewController {
         guard
             let policyVC = storyboard.instantiateViewController(
                 withIdentifier: PolicyViewController.identifier)
-                as? PolicyViewController else { return }
+                as? PolicyViewController
+        
+        else { return }
         
         policyVC.viewModel = PolicyViewModel(
             urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
