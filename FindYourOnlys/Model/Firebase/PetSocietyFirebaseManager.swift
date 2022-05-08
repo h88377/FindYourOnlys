@@ -17,6 +17,7 @@ enum ArticleType: String {
     case share = "分享文章"
 }
 
+// swiftlint:disable file_length
 class PetSocietyFirebaseManager {
     
     static let shared = PetSocietyFirebaseManager()
@@ -35,14 +36,14 @@ class PetSocietyFirebaseManager {
             .collection(FirebaseCollectionType.article.rawValue)
             .whereField(FirebaseFieldType.userId.rawValue, isEqualTo: currentUser.id)
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot
                         
                 else {
                     
-                    completion(.failure(error!))
+                    completion(.failure(FirebaseError.fetchArticleError))
                     
                     return
                 }
@@ -55,7 +56,7 @@ class PetSocietyFirebaseManager {
                     
                 } catch {
                     
-                    completion(.failure(error))
+                    completion(.failure(FirebaseError.decodeArticleError))
                 }
             }
     }
@@ -74,7 +75,7 @@ class PetSocietyFirebaseManager {
                 
                 else {
                         
-                        completion(.failure(error!))
+                    completion(.failure(FirebaseError.fetchArticleError))
                         
                         return
                         
@@ -162,7 +163,7 @@ class PetSocietyFirebaseManager {
                         
                     } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodeArticleError))
                     }
                 }
                 
@@ -176,14 +177,14 @@ class PetSocietyFirebaseManager {
             
             db.collection(FirebaseCollectionType.article.rawValue)
                 .whereField("id", isEqualTo: id)
-                .addSnapshotListener { snapshot, error in
+                .addSnapshotListener { snapshot, _ in
                 
                     guard
                         let snapshot = snapshot
                             
                     else {
                         
-                        completion(.failure(error!))
+                        completion(.failure(FirebaseError.fetchArticleError))
                         
                         return
                     }
@@ -198,12 +199,15 @@ class PetSocietyFirebaseManager {
                         
                     } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodeArticleError))
                     }
             }
         }
     
-    func publishArticle(_ userId: String, with article: inout Article, completion: @escaping (Error?) -> Void) {
+    func publishArticle(_ userId: String,
+                        with article: inout Article,
+                        completion: @escaping (Result<String, Error>)
+                        -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
         
@@ -217,14 +221,17 @@ class PetSocietyFirebaseManager {
             
             article.createdTime = NSDate().timeIntervalSince1970
             
-            try documentReference.setData(from: article, encoder: Firestore.Encoder())
+            try documentReference.setData(from: article)
+            
+            completion(.success("success"))
+            
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.publishArticleError))
         }
     }
     
-    func editArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
+    func editArticle(with article: inout Article, completion: @escaping (Result<String, Error>) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document(article.id)
         
@@ -234,24 +241,24 @@ class PetSocietyFirebaseManager {
             
             try documentReference.setData(from: article)
             
-            completion(nil)
+            completion(.success("success"))
             
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.updateArticleError))
         }
     }
     
     func deleteArticle(
         with userId: String,
-        completion: @escaping (Error?) -> Void) {
+        completion: @escaping (Result<String, Error>) -> Void) {
             
-            db.collection(FirebaseCollectionType.article.rawValue).getDocuments { snapshot, error in
+            db.collection(FirebaseCollectionType.article.rawValue).getDocuments { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.fetchArticleError))
                         
                         return
                     }
@@ -270,18 +277,22 @@ class PetSocietyFirebaseManager {
                             
                             self.db.collection(FirebaseCollectionType.article.rawValue).document("\(docID)").delete()
                         }
+                        
                     } catch {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.deleteArticleError))
+                        
+                        return
                     }
                     
                 }
                 
-                completion(nil)
+                completion(.success("success"))
+//                completion(nil)
             }
         }
     
-    func deleteArticle(withArticleId articleId: String, completion: @escaping (Error?) -> Void) {
+    func deleteArticle(withArticleId articleId: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         db.collection(
             FirebaseCollectionType.article.rawValue)
@@ -292,12 +303,12 @@ class PetSocietyFirebaseManager {
                     
             else {
                 
-                completion(error)
+                completion(.failure(FirebaseError.deleteArticleError))
                 
                 return
             }
             
-            completion(nil)
+                completion(.success("success"))
         }
     }
     
@@ -316,7 +327,13 @@ class PetSocietyFirebaseManager {
             )
             
             guard
-                let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+                let imageData = image.jpegData(compressionQuality: 0.5) else {
+                    
+                    completion(.failure(FirebaseError.encodeImageError))
+                    
+                    return
+                    
+                }
             
             imageRef.putData(imageData, metadata: nil) { _, error in
                 
@@ -325,7 +342,7 @@ class PetSocietyFirebaseManager {
                         
                 else {
                     
-                    completion(.failure(error!))
+                    completion(.failure(FirebaseError.uploadImageError))
                     
                     return
                 }
@@ -338,7 +355,7 @@ class PetSocietyFirebaseManager {
                             
                     else {
                         
-                        completion(.failure(error!))
+                        completion(.failure(FirebaseError.fetchImageURLError))
                         
                         return
                     }
@@ -348,20 +365,25 @@ class PetSocietyFirebaseManager {
             }
         }
     
-    func leaveComment(withArticle article: inout Article, comment: Comment, completion: @escaping (Error?) -> Void) {
+    func leaveComment(withArticle article: inout Article,
+                      comment: Comment,
+                      completion: @escaping (Result<String, Error>)
+                      -> Void) {
         
         article.comments.append(comment)
         
         do {
             try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
             
+            completion(.success("success"))
+            
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.leaveCommentError))
         }
     }
     
-    func likeArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
+    func likeArticle(with article: inout Article, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -372,13 +394,15 @@ class PetSocietyFirebaseManager {
             
             try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
             
+            completion(.success("success"))
+            
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.toggleLikeArticleError))
         }
     }
     
-    func unlikeArticle(with article: inout Article, completion: @escaping (Error?) -> Void) {
+    func unlikeArticle(with article: inout Article, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -394,9 +418,11 @@ class PetSocietyFirebaseManager {
             
             try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
             
+            completion(.success("success"))
+            
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.toggleLikeArticleError))
         }
     }
     
@@ -405,7 +431,7 @@ class PetSocietyFirebaseManager {
         
         db.collection(FirebaseCollectionType.chatRoom.rawValue)
             .order(by: "createdTime", descending: true)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else { return }
@@ -419,10 +445,10 @@ class PetSocietyFirebaseManager {
                         let chatRoom = try document.data(as: ChatRoom.self)
                         
                         chatRooms.append(chatRoom)
-                    }
-                    catch {
                         
-                        completion(.failure(error))
+                    } catch {
+                        
+                        completion(.failure(FirebaseError.fetchChatRoomError))
                     }
                 }
                 
@@ -432,17 +458,17 @@ class PetSocietyFirebaseManager {
     
     func deleteChatRoom(
         with userId: String,
-        completion: @escaping (Error?) -> Void) {
+        completion: @escaping (Result<String, Error>) -> Void) {
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
-            db.collection(FirebaseCollectionType.chatRoom.rawValue).getDocuments { snapshot, error in
+            db.collection(FirebaseCollectionType.chatRoom.rawValue).getDocuments { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.fetchChatRoomError))
                         
                         return
                     }
@@ -461,12 +487,14 @@ class PetSocietyFirebaseManager {
                         }
                     } catch {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.deleteChatRoomError))
+                        
+                        return
                     }
                     
                 }
                 
-                completion(nil)
+                completion(.success("success"))
             }
         }
     
@@ -474,7 +502,7 @@ class PetSocietyFirebaseManager {
         
         db.collection(FirebaseCollectionType.message.rawValue)
             .order(by: "createdTime", descending: false)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else { return }
@@ -491,10 +519,9 @@ class PetSocietyFirebaseManager {
                             
                             messages.append(message)
                         }
-                    }
-                    catch {
+                    } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.fetchMessageError))
                     }
                 }
                 
@@ -504,17 +531,17 @@ class PetSocietyFirebaseManager {
     
     func deleteMessage(
         with userId: String,
-        completion: @escaping (Error?) -> Void) {
+        completion: @escaping (Result<String, Error>) -> Void) {
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
-            db.collection(FirebaseCollectionType.message.rawValue).getDocuments { snapshot, error in
+            db.collection(FirebaseCollectionType.message.rawValue).getDocuments { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.fetchMessageError))
                         
                         return
                     }
@@ -531,16 +558,22 @@ class PetSocietyFirebaseManager {
                             
                             self.db.collection(FirebaseCollectionType.message.rawValue).document("\(docID)").delete()
                         }
+                        
                     } catch {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.deleteMessageError))
+                        
+                        return
                     }
                 }
-                completion(nil)
+                completion(.success("success"))
             }
         }
     
-    func sendMessage(_ senderId: String, with message: inout Message, completion: @escaping (Error?) -> Void) {
+    func sendMessage(_ senderId: String,
+                     with message: inout Message,
+                     completion: @escaping (Result<String, Error>)
+                     -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.message.rawValue).document()
         
@@ -551,11 +584,11 @@ class PetSocietyFirebaseManager {
             message.createdTime = NSDate().timeIntervalSince1970
             
             try documentReference.setData(from: message)
-        }
-        
-        catch {
             
-            completion(error)
+            completion(.success("success"))
+        } catch {
+            
+            completion(.failure(FirebaseError.sendMessageError))
         }
     }
     
@@ -565,10 +598,16 @@ class PetSocietyFirebaseManager {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue)
             .order(by: "createdTime", descending: false)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { snapshot, _ in
                 
                 guard
-                    let snapshot = snapshot else { return }
+                    let snapshot = snapshot else {
+                        
+                        completion(.failure(FirebaseError.fetchFriendRequestError))
+                        
+                        return
+                        
+                    }
                 
                 var friendRequests = [FriendRequest]()
                 
@@ -582,10 +621,11 @@ class PetSocietyFirebaseManager {
                             
                             friendRequests.append(friendRequest)
                         }
-                    }
-                    catch {
+                    } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodeFriendRequestError))
+                        
+                        return
                     }
                 }
                 
@@ -594,17 +634,25 @@ class PetSocietyFirebaseManager {
         
     }
     
-    func fetchFriendRequest(withRequest userId: String, completion: @escaping (Result<[FriendRequest], Error>) -> Void) {
+    func fetchFriendRequest(withRequest userId: String,
+                            completion: @escaping (Result<[FriendRequest], Error>)
+                            -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue)
             .order(by: "createdTime", descending: false)
-            .getDocuments { snapshot, error in
+            .getDocuments { snapshot, _ in
                 
                 guard
-                    let snapshot = snapshot else { return }
+                    let snapshot = snapshot else {
+                        
+                        completion(.failure(FirebaseError.fetchFriendRequestError))
+                        
+                        return
+                        
+                    }
                 
                 var friendRequests = [FriendRequest]()
                 
@@ -624,7 +672,7 @@ class PetSocietyFirebaseManager {
                         }
                     } catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodeFriendRequestError))
                     }
                 }
                 
@@ -633,7 +681,7 @@ class PetSocietyFirebaseManager {
         
     }
     
-    func sendFriendRequest(_ userId: String, with friendRequest: inout FriendRequest, completion: @escaping (Error?) -> Void) {
+    func sendFriendRequest(_ userId: String, with friendRequest: inout FriendRequest, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -650,19 +698,19 @@ class PetSocietyFirebaseManager {
             
             try documentReference.setData(from: friendRequest)
             
-            completion(nil)
+            completion(.success("success"))
         }
         
         catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.sendFriendRequestError))
         }
     }
     
     
     func deleteFriend(
         withCurrent userId: String,
-        completion: @escaping (Error?) -> Void) {
+        completion: @escaping (Result<String, Error>) -> Void) {
             
             db.collection(FirebaseCollectionType.user.rawValue)
                 .whereField("friends", arrayContains: userId)
@@ -671,7 +719,7 @@ class PetSocietyFirebaseManager {
                 guard
                     let snapshot = snapshot else {
                         
-                        completion(error)
+                        completion(.failure(FirebaseError.fetchUserError))
                         
                         return
                     }
@@ -687,11 +735,11 @@ class PetSocietyFirebaseManager {
                         try self.db.collection(FirebaseCollectionType.user.rawValue).document(users[index].id).setData(from: users[index])
                     }
                     
-                    completion(nil)
+                    completion(.success("success"))
 
                 } catch {
 
-                    completion(error)
+                    completion(.failure(FirebaseError.deleteUserError))
                 }
             }
         }
@@ -756,4 +804,4 @@ class PetSocietyFirebaseManager {
     
 }
 
-
+// swiftlint:enable file_length

@@ -18,12 +18,18 @@ class ProfileFirebaseManager {
     
     func removeFriendRequest(
         with viewModels: [FriendRequestListViewModel],
-        at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
+        at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
             guard
-                let snapshot = snapshot else { return }
+                let snapshot = snapshot else {
+                    
+                    completion(.failure(FirebaseError.fetchFriendRequestError))
+                    
+                    return
+                    
+                }
             
             for index in 0..<snapshot.documents.count {
                 
@@ -41,25 +47,29 @@ class ProfileFirebaseManager {
                         
                         self.db.collection(FirebaseCollectionType.friendRequest.rawValue).document("\(docID)").delete()
                     }
+                    
                 } catch {
                     
-                    completion(error)
+                    completion(.failure(FirebaseError.deleteFriendRequestError))
+                    
+                    return
                 }
-                
             }
+            
+            completion(.success("success"))
         }
     }
     
     func removeFriendRequest(
         with userId: String,
-        completion: @escaping (Error?) -> Void) {
+        completion: @escaping (Result<String, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
             guard
                 let snapshot = snapshot else {
                     
-                    completion(error)
+                    completion(.failure(FirebaseError.fetchFriendRequestError))
                     
                     return
                 }
@@ -80,16 +90,16 @@ class ProfileFirebaseManager {
                     }
                 } catch {
                     
-                    completion(error)
+                    completion(.failure(FirebaseError.deleteFriendRequestError))
                 }
                 
             }
             
-            completion(nil)
+            completion(.success("success"))
         }
     }
     
-    func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
+    func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -107,13 +117,15 @@ class ProfileFirebaseManager {
             
             try db.collection(FirebaseCollectionType.user.rawValue).document(requestedUser.id).setData(from: requestedUser)
             
+            completion(.success("success"))
+            
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.addFriendRequestError))
         }
     }
     
-    func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Error?) -> Void) {
+    func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -135,11 +147,13 @@ class ProfileFirebaseManager {
             )
             
             try documentReference.setData(from: chatRoom)
+            
+            completion(.success("success"))
         }
         
         catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.createChatRoomError))
         }
     }
     

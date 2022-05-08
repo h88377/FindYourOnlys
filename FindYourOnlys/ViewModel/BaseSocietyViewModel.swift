@@ -35,16 +35,17 @@ class BaseSocietyViewModel {
             return
         }
         
-        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { error in
+        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(let success):
                 
-                return
+                print(success)
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -61,16 +62,17 @@ class BaseSocietyViewModel {
             return
         }
         
-        PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { error in
+        PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(let success):
                 
-                return
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }

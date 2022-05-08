@@ -82,15 +82,16 @@ class ProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
-            guard
-                errorViewModel?.error == nil else {
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
                     
-                    print(errorViewModel?.error)
-                    
-                    return
+                    self?.showAlertWindow(title: "異常", message: "\(error)")
                 }
+            }
         }
         
         viewModel.profileArticleViewModels.bind { [weak self] profileArticleViewModels in

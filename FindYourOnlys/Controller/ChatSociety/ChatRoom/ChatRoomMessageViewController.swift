@@ -77,16 +77,15 @@ class ChatRoomMessageViewController: BaseViewController {
         
         viewModel.fetchMessage()
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
                     
-            else {
-                
-                print(errorViewModel?.error.localizedDescription)
-                
-                return
+                    self?.showAlertWindow(title: "異常", message: "\(error)")
+                }
             }
         }
         
@@ -253,10 +252,7 @@ class ChatRoomMessageViewController: BaseViewController {
         
         viewModel.changedContent(with: messageTextView.text)
         
-        viewModel.sendMessage { error in
-            
-            print(error)
-        }
+        viewModel.sendMessage()
         
         messageTextView.text = ""
 
@@ -368,18 +364,12 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
         if
             let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
-            viewModel.changeContent(with: editedImage) { error in
-                
-                print(error)
-            }
+            viewModel.changeContent(with: editedImage)
             
         } else if
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
         
-            viewModel.changeContent(with: image) { error in
-                
-                print(error)
-            }
+            viewModel.changeContent(with: image)
         }
     }
     

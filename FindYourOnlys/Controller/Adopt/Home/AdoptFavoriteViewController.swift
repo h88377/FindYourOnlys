@@ -30,16 +30,15 @@ class AdoptFavoriteViewController: BaseViewController {
         
         addCurrentUserObserver()
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
                     
-            else {
-                
-                print(errorViewModel?.error.localizedDescription)
-                
-                return
+                    self?.showAlertWindow(title: "異常", message: "\(error)")
+                }
             }
         }
         

@@ -11,7 +11,7 @@ extension UIColor {
     
     static let maleColor = hexStringToUIColor(hex: "398AB9")
     
-    static let femaleColor = systemPink
+    static let femaleColor = hexStringToUIColor(hex: "ffcb65")
     
     static let openAdopt = systemGreen
     

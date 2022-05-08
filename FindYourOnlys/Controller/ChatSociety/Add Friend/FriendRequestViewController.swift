@@ -49,9 +49,12 @@ class FriendRequestViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel?.bind(listener: { errorViewModel in
+        viewModel.errorViewModel?.bind(listener: { [weak self] errorViewModel in
             
-            print(errorViewModel.error)
+            DispatchQueue.main.async {
+                
+                self?.showAlertWindow(title: "異常", message: "\(errorViewModel.error)")
+            }
         })
         
     }
