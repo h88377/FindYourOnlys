@@ -162,18 +162,32 @@ class AuthViewController: BaseModalViewController {
     
     @IBAction func goToPolicy(_ sender: UIButton) {
         
-        guard
-            let url = URL(string: "https://pages.flycricket.io/findyouronlys/privacy.html") else { return }
+        let storyboard = UIStoryboard.auth
         
-        UIApplication.shared.open(url)
+        guard
+            let policyVC = storyboard.instantiateViewController(
+                withIdentifier: PolicyViewController.identifier)
+                as? PolicyViewController else { return }
+        
+        policyVC.viewModel = PolicyViewModel(urlString: "https://pages.flycricket.io/findyouronlys/privacy.html")
+        
+        present(policyVC, animated: true)
     }
     
     @IBAction func goToEula(_ sender: UIButton) {
         
-        guard
-            let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") else { return }
+        let storyboard = UIStoryboard.auth
         
-        UIApplication.shared.open(url)
+        guard
+            let policyVC = storyboard.instantiateViewController(
+                withIdentifier: PolicyViewController.identifier)
+                as? PolicyViewController else { return }
+        
+        policyVC.viewModel = PolicyViewModel(
+            urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+        )
+        
+        present(policyVC, animated: true)
     }
     
 }
