@@ -107,21 +107,33 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            guard
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                self?.showAlertWindow(title: "異常", message: "\(String(describing: errorViewModel?.error))")
+                
+                return
+            }
+        }
+        
+        viewModel.checkFavoriateButtonHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+        }
+        
         //Create a function to replace
         if !viewModel.didSignIn {
             
-            viewModel.fetchFavoritePetFromLS { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                    
-                } else {
-                    
-                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
-                }
-                
-            }
+            viewModel.fetchFavoritePetFromLS()
+            
+//            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
             
         } else {
             
@@ -169,13 +181,7 @@ class AdoptDetailViewController: BaseViewController {
         if !viewModel.didSignIn {
             
             // Local Storage
-            viewModel.fetchFavoritePetFromLS { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromLS()
             
         } else {
             
