@@ -176,7 +176,6 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
         return !viewModel.didSignIn
         ? viewModel.favoriteLSPetViewModels.value.count
         : viewModel.favoritePetViewModels.value.count
