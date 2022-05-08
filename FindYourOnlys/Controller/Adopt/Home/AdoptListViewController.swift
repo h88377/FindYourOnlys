@@ -90,15 +90,24 @@ class AdoptListViewController: BaseViewController {
         
         LottieAnimationWrapper.shared.startLoading(at: view)
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let errorViewModel = errorViewModel else { return }
-            
-            print(errorViewModel.error)
+                errorViewModel?.error == nil
+                    
+            else {
+                
+                self?.showAlertWindow(title: "異常", message: "\(String(describing: errorViewModel?.error))")
+                
+                return
+            }
         }
         
-        activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
+        activityIndicator = LoadMoreActivityIndicator(
+            scrollView: collectionView,
+            spacingFromLastCell: 10,
+            spacingFromLastCellWhenLoadMoreActionStart: 60
+        )
         
         viewModel.startLoadingHandler = { [weak self] in
 

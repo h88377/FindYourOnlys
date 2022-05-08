@@ -7,6 +7,14 @@
 
 import Foundation
 import CoreData
+import SwiftUI
+
+enum LocalStorageError: Error {
+    
+    case fetchPetError
+    
+    case updatePetError
+}
 
 class StorageManager {
     
@@ -23,29 +31,43 @@ class StorageManager {
     lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "FindYourOnlys")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        
+        container.loadPersistentStores(completionHandler: { (_, error) in
             
-            if let error = error as NSError? {
+            if
+                let error = error as NSError? {
+                
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
         return container
     }()
     
-    func saveContext() {
+    func saveContext(completion: (Result<String, Error>) -> Void) {
+        
         let context = StorageManager.shared.persistentContainer.viewContext
         
         if context.hasChanges {
+            
             do {
+                
                 try context.save()
+                
+                completion(.success("success"))
+                
             } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                
+                completion(.failure(LocalStorageError.updatePetError))
+                
+//                let nserror = error as NSError
+//
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
     
-    func savePetInFavorite(with petViewModel: PetViewModel) {
+    func savePetInFavorite(with petViewModel: PetViewModel, completion: (Result<String, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -95,16 +117,40 @@ class StorageManager {
         
         lsPet.shelterName = pet.shelterName
         
-        saveContext()
+        saveContext { result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                completion(.success(success))
+                
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
     }
     
-    func removePetfromFavorite(lsPet: LSPet) {
+    func removePetfromFavorite(lsPet: LSPet, completion: (Result<String, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
         context.delete(lsPet)
         
-        saveContext()
+        saveContext { result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                completion(.success(success))
+                
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
     }
     
     func fetchPet(completion: ((Result<[LSPet], Error>) -> Void)) {
@@ -120,7 +166,7 @@ class StorageManager {
         
         catch {
             
-            completion(.failure(error))
+            completion(.failure(LocalStorageError.fetchPetError))
         }
     }
 }

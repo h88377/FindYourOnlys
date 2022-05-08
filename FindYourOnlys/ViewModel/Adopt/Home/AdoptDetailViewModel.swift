@@ -46,6 +46,8 @@ class AdoptDetailViewModel {
         )
     )
     
+    var checkFavoriateButtonHandler: (() -> Void)?
+    
     func makePhoneCall(_ viewController: UIViewController) {
         
         let phoneNumber = petViewModel.value.pet.telephone
@@ -78,23 +80,24 @@ class AdoptDetailViewModel {
     }
     
     // MARK: - Local Storage functions
-    func fetchFavoritePetFromLS(completion: (Error?) -> Void ) {
+    func fetchFavoritePetFromLS() {
         
-        StorageManager.shared.fetchPet { result in
+        StorageManager.shared.fetchPet { [weak self] result in
             
             switch result {
                 
             case .success(let lsPets):
                 
-                self.setPets(with: lsPets)
+                self?.setPets(with: lsPets)
                 
-                self.favoritePetsFromLS = lsPets
+                self?.favoritePetsFromLS = lsPets
                 
-                completion(nil)
+//                completion(nil)
+                self?.checkFavoriateButtonHandler?()
                 
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
@@ -102,7 +105,19 @@ class AdoptDetailViewModel {
     
     func addToFavoriteInLS() {
         
-        StorageManager.shared.savePetInFavorite(with: petViewModel.value)
+        StorageManager.shared.savePetInFavorite(with: petViewModel.value) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
     }
     
     func removeFavoriteFromLS() {
@@ -111,7 +126,19 @@ class AdoptDetailViewModel {
         
         for favoritePetFromLS in favoritePetsFromLS where favoritePetFromLS.id == removeId {
             
-            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)
+            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)  { [weak self] result in
+                
+                switch result {
+                    
+                case .success(let success):
+                    
+                    print(success)
+                    
+                case .failure(let error):
+                    
+                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                }
+            }
         }
     }
     
