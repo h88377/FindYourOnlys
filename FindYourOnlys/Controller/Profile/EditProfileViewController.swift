@@ -100,6 +100,7 @@ class EditProfileViewController: BaseViewController {
 
             guard
                 let self = self else { return }
+            
             DispatchQueue.main.async {
 
                 LottieAnimationWrapper.shared.startLoading(at: self.view)
