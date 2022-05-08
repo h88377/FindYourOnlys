@@ -132,6 +132,8 @@
 		98BC47642823CE7500740855 /* friendRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC47632823CE7500740855 /* friendRequest.json */; };
 		98BC47662823D24900740855 /* friendRequestCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC47652823D24800740855 /* friendRequestCat.json */; };
 		98BC4768282587D200740855 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC4767282587D200740855 /* AuthError.swift */; };
+		98BC476A2827643D00740855 /* PolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC47692827643D00740855 /* PolicyViewController.swift */; };
+		98BC476C282766DF00740855 /* PolicyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC476B282766DF00740855 /* PolicyViewModel.swift */; };
 		98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */; };
 		98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */; };
 		98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC15AA28005B6C00B9FDC6 /* AdoptViewController.swift */; };
@@ -330,6 +332,8 @@
 		98BC47632823CE7500740855 /* friendRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = friendRequest.json; sourceTree = "<group>"; };
 		98BC47652823D24800740855 /* friendRequestCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = friendRequestCat.json; sourceTree = "<group>"; };
 		98BC4767282587D200740855 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		98BC47692827643D00740855 /* PolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyViewController.swift; sourceTree = "<group>"; };
+		98BC476B282766DF00740855 /* PolicyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyViewModel.swift; sourceTree = "<group>"; };
 		98CC15A328005B6C00B9FDC6 /* FindYourOnlys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourOnlys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98CC15A628005B6C00B9FDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98CC15A828005B6C00B9FDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -421,6 +425,7 @@
 				987D8B31281681EB000D1F95 /* AuthViewController.swift */,
 				987D8B362816BC1B000D1F95 /* RegisterViewController.swift */,
 				987D8B382816BC25000D1F95 /* SignInViewController.swift */,
+				98BC47692827643D00740855 /* PolicyViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -431,6 +436,7 @@
 				987D8B3428169FE5000D1F95 /* AuthViewModel.swift */,
 				987D8B3A2816C23D000D1F95 /* RegisterViewModel.swift */,
 				987D8B3C281792B1000D1F95 /* SignInViewModel.swift */,
+				98BC476B282766DF00740855 /* PolicyViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1247,6 +1253,7 @@
 				98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */,
 				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
 				9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */,
+				98BC476C282766DF00740855 /* PolicyViewModel.swift in Sources */,
 				987D8B6E281BB2B3000D1F95 /* EditArticleViewModel.swift in Sources */,
 				987D8B4B28195F15000D1F95 /* BaseModalViewController.swift in Sources */,
 				987D8B5E281AAEE1000D1F95 /* ProfileArticleViewModel.swift in Sources */,
@@ -1342,6 +1349,7 @@
 				98939A21281398CB004312F1 /* FindPetSocietyFilterViewModel.swift in Sources */,
 				9896D945280DBD53003D4A16 /* PostType.swift in Sources */,
 				9896D8D8280841EC003D4A16 /* ChatRoomUserMessageCell.swift in Sources */,
+				98BC476A2827643D00740855 /* PolicyViewController.swift in Sources */,
 				9896D960280EBF6E003D4A16 /* CLPlacemark+Extension.swift in Sources */,
 				9896D8DD28084A49003D4A16 /* User.swift in Sources */,
 				989399FB280FE065004312F1 /* ShelterProvider.swift in Sources */,
