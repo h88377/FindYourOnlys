@@ -366,7 +366,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ci-cr-X2O">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ci-cr-X2O" customClass="ProportionSizeImageView" customModule="FindYourOnlys" customModuleProvider="target">
                                         <rect key="frame" x="87" y="20" width="240" height="240"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9ci-cr-X2O" secondAttribute="height" multiplier="1:1" id="Fdd-6Q-Oeb"/>
@@ -428,7 +428,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9wU-U3-33k"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29027835260000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.50183671357615889" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9wU-U3-33k" firstAttribute="trailing" secondItem="ZpS-Oz-cuJ" secondAttribute="trailing" id="4jk-9N-1uK"/>
                             <constraint firstItem="ZpS-Oz-cuJ" firstAttribute="centerX" secondItem="LNz-EQ-IVo" secondAttribute="centerX" id="7nY-2x-yOw"/>
@@ -492,6 +492,9 @@
             <point key="canvasLocation" x="2838" y="-82"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="VpJ-LJ-z44"/>
+    </designables>
     <resources>
         <image name="arrow.up.message" catalog="system" width="128" height="113"/>
         <image name="camera" catalog="system" width="128" height="94"/>
