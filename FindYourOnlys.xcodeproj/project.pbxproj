@@ -1087,6 +1087,7 @@
 				98CC15A128005B6C00B9FDC6 /* Resources */,
 				98CC15BA2800689D00B9FDC6 /* ShellScript */,
 				6DB016886865862642893970 /* [CP] Embed Pods Frameworks */,
+				9808D98828290D190059DDF5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1217,6 +1218,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9808D98828290D190059DDF5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		98CC15BA2800689D00B9FDC6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1551,6 +1571,7 @@
 				CODE_SIGN_ENTITLEMENTS = FindYourOnlys/FindYourOnlys.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;

@@ -419,9 +419,9 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 // Mock location because Taipei don't have any shelter.
                 
-                self.viewModel.fetchShelter(with: "新北市")
+//                self.viewModel.fetchShelter(with: "新北市")
                 
-//                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
+                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
             }
         }
     
@@ -431,8 +431,6 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
     }
     
 }
-
-
 
 // MARK: - MKMapViewDelegate
 
