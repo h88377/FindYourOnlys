@@ -71,24 +71,21 @@ class EditProfileViewController: BaseViewController {
 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil else { return }
-            
             if
-                let deleteDataError = errorViewModel?.error as? DeleteDataError {
+                let error = errorViewModel?.error {
                 
-                self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
-                
-            } else if
-                
-                let deleteAccountError = errorViewModel?.error as? DeleteAccountError {
-                
-                self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
-                
-            } else {
-                
-                self?.showAlertWindow(title: "異常", message: "發生預期外的錯誤，請重試一次")
-                
+                if
+                    let deleteDataError = error as? DeleteDataError {
+                    
+                    self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
+                    
+                } else if
+                    
+                    let deleteAccountError = error as? DeleteAccountError {
+                    
+                    self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
+                    
+                } 
             }
         }
         
