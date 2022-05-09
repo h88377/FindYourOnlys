@@ -37,9 +37,19 @@ class AdoptFavoriteViewController: BaseViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self?.showAlertWindow(title: "異常", message: "\(error)")
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let localStorageError = error as? LocalStorageError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
+                    }
                 }
             }
+            
         }
         
 //        viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in

@@ -131,22 +131,61 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let errorViewModel = errorViewModel else { return }
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    // Check user's location have shelters' information
+                    if self?.viewModel.shelterViewModels.value != nil {
+                        
+                        // Filter out error message when occured error but already have annotations on the map to enhance UX.
+                        if self?.viewModel.mapAnnotationViewModels.value == nil {
+                            
+                            if
+                                let httpClientError = error as? HTTPClientError {
+                                
+                                self?.showAlertWindow(title: "異常訊息", message: "\(httpClientError.errorMessage)")
+                                
+                            } else if
+                                let mapError = error as? MapError {
+                                
+                                self?.showAlertWindow(title: "異常訊息", message: "\(mapError.errorMessage)")
+                            }
+                        }
+                        
+                    } else {
+                        
+                        if
+                            let httpClientError = error as? HTTPClientError {
+                            
+                            self?.showAlertWindow(title: "異常訊息", message: "\(httpClientError.errorMessage)")
+                            
+                        } else if
+                            let mapError = error as? MapError {
+                            
+                            self?.showAlertWindow(title: "異常訊息", message: "\(mapError.errorMessage)")
+                        }
+                    }
+                }
+            }
+            
+//            guard
+//                let errorViewModel = errorViewModel else { return }
             
             // Check user's location have shelters' information
-            if self?.viewModel.shelterViewModels.value != nil {
+//            if self?.viewModel.shelterViewModels.value != nil {
                 
                 // Filter out error message when occured error but already have annotations on the map to enhance UX.
-                if self?.viewModel.mapAnnotationViewModels.value == nil {
-                    
-                    self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
-                }
-                
-            } else {
-                
-                self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
-            }
+//                if self?.viewModel.mapAnnotationViewModels.value == nil {
+//
+//                    self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+//                }
+//
+//            } else {
+//
+//                self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+//            }
         }
         
         viewModel.stopLoadingHandler = {

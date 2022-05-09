@@ -14,6 +14,19 @@ enum LocalStorageError: Error {
     case fetchPetError
     
     case updatePetError
+    
+    var errorMessage: String {
+        
+        switch self {
+        case .fetchPetError:
+            
+            return "讀取資料失敗"
+            
+        case .updatePetError:
+            
+            return "更新資料失敗"
+        }
+    }
 }
 
 class StorageManager {

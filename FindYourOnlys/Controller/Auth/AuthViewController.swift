@@ -73,17 +73,23 @@ class AuthViewController: BaseModalViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil else {
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
                     
                     if
-                        let authError = errorViewModel?.error as? AuthError {
+                        let firebaseError = error as? FirebaseError {
                         
-                        self?.showAlertWindow(title: "異常", message: authError.errorMessage)
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let authError = error as? AuthError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(authError.errorMessage)")
                     }
-                    
-                    return
                 }
+            }
         }
         
         viewModel.dismissHandler = { [weak self] in
