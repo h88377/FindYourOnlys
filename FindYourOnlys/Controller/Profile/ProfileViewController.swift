@@ -14,13 +14,11 @@ class ProfileViewController: BaseViewController {
     
     @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userIdLabel: UILabel! {
+    @IBOutlet weak var userEmailLabel: UILabel! {
         
         didSet {
             
-            userIdLabel.font = UIFont.systemFont(ofSize: 14)
-            
-            userIdLabel.textColor = .placeholderText
+            userEmailLabel.textColor = .projectTextColor
         }
     }
     
@@ -71,6 +69,8 @@ class ProfileViewController: BaseViewController {
         
         viewModel.fetchProfileArticle()
         
+        addCurrentUserObserver()
+        
         viewModel.userViewModel.bind { [weak self] userViewModel in
             
             guard
@@ -79,6 +79,27 @@ class ProfileViewController: BaseViewController {
             DispatchQueue.main.async {
                 
                 self?.setupProfile(with: userViewModel)
+            }
+        }
+        
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let authError = error as? AuthError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(authError.errorMessage)")
+                    }
+                }
             }
         }
         
@@ -112,16 +133,9 @@ class ProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { errorViewModel in
-
-            guard
-                errorViewModel?.error == nil else {
-                    
-                    print(errorViewModel?.error)
-                    
-                    return
-                }
-
+        viewModel.backToHomeHandler = { [weak self] in
+            
+            self?.tabBarController?.selectedIndex = 0
         }
     }
     
@@ -177,9 +191,9 @@ class ProfileViewController: BaseViewController {
         
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        userIdLabel.text = currentUser.id
+        userEmailLabel.text = currentUser.email
         
-        userNickNameLabel.text = "暱稱: \(currentUser.nickName)"
+        userNickNameLabel.text = currentUser.nickName
     }
     
     @objc func signOut(sender: UIBarButtonItem) {
@@ -196,55 +210,49 @@ class ProfileViewController: BaseViewController {
         
         signOutAlert.addAction(cancel)
         
+        // iPad specific code
+        signOutAlert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        signOutAlert.popoverPresentationController?.sourceRect = popoverRect
+        
+        signOutAlert.popoverPresentationController?.permittedArrowDirections = .up
+        
         present(signOutAlert, animated: true)
     }
     
-    @IBAction func showAuth(_ sender: UIButton) {
+    private func addCurrentUserObserver() {
         
-        let storyboard = UIStoryboard.auth
-        
-        let authVC = storyboard.instantiateViewController(
-            withIdentifier: AuthViewController.identifier)
-        
-        authVC.modalPresentationStyle = .custom
-        
-        authVC.transitioningDelegate = self
-        
-        present(authVC, animated: true)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
     }
     
-    @IBAction func deleteUser(_ sender: UIButton) {
+    @objc private func currentUserDidSet(_ notification: Notification) {
         
-//        showDeleteWindow(title: "警告", message: "您將刪除個人帳號，確定要刪除帳號嗎？")
+        viewModel.fetchCurrentUser()
+        
+        viewModel.fetchProfileArticle()
     }
     
     @IBAction func editProfile(_ sender: UIButton) {
         
         let storyboard = UIStoryboard.profile
         
-        let editProfileVC = storyboard.instantiateViewController(withIdentifier: EditProfileViewController.identifier)
+        let viewController = storyboard.instantiateViewController(withIdentifier: EditProfileViewController.identifier)
+        
+        guard
+            let editProfileVC = viewController as? EditProfileViewController else { return }
+        
+        editProfileVC.viewModel.currentUser = UserFirebaseManager.shared.currentUser
         
         navigationController?.pushViewController(editProfileVC, animated: true)
     }
-    
-//    func showDeleteWindow(title: String, message: String) {
-//
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//
-//        let delete = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
-//
-//            self?.viewModel.deleteUser()
-//        }
-//
-//        let cancel = UIAlertAction(title: "取消", style: .cancel)
-//
-//        alert.addAction(cancel)
-//
-//        alert.addAction(delete)
-//
-//        present(alert, animated: true)
-//    }
-    
 }
 
 // MARK: - UICollectionViewDataSource and Delegate
@@ -324,7 +332,12 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
         else { return }
         
         
-        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(model: viewModel.profileArticleViewModels.value[indexPath.section].profileArticle.articles[indexPath.row])
+        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(
+            model: viewModel
+                .profileArticleViewModels
+                .value[indexPath.section]
+                .profileArticle.articles[indexPath.row]
+        )
         
 //        profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
         
@@ -332,20 +345,6 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
     }
     
 }
-
-// MARK: - UIViewControllerTransitioningDelegate
-extension ProfileViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController?, source: UIViewController)
-    -> UIPresentationController? {
-        
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-
 
 // UICollectionViewCompositionalLayout
 

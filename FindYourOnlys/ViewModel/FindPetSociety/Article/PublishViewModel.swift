@@ -48,7 +48,7 @@ class PublishViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
-    private func publish(completion: @escaping (Error?)-> Void) {
+    private func publish(completion: @escaping (Result<String, Error>) -> Void) {
         
         checkPublishedContent?(isValidPublishedContent)
         
@@ -81,13 +81,13 @@ class PublishViewModel {
                     
                     self.article.imageURLString = "\(url)"
                     
-                    completion(nil)
+//                    completion(nil)
                     
                 case .failure(let error):
                     
-                    completion(error)
+                    completion(.failure(error))
                     
-                    self.stopLoadingHandler?()
+//                    self.stopLoadingHandler?()
                 }
 
                 semaphore.signal()
@@ -95,23 +95,26 @@ class PublishViewModel {
             
 
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishArticle(currentUser.id, with: &self.article) { error in
+            PetSocietyFirebaseManager.shared.publishArticle(currentUser.id, with: &self.article) { result in
 
-                guard
-                    error == nil
-                
-                else {
+                switch result {
                     
-                    completion(error)
+                case .success(let success):
                     
-                    self.stopLoadingHandler?()
+//                    completion(nil)
                     
-                    return
-                    }
-                
-                completion(nil)
-                
-                self.stopLoadingHandler?()
+//                    self.stopLoadingHandler?()
+                    
+                    completion(.success(success))
+                    
+                case .failure(let error):
+                    
+                    completion(.failure(error))
+                    
+//                    self.errorViewModel.value = ErrorViewModel(model: error)
+//
+//                    self.stopLoadingHandler?()
+                }
                 
                 semaphore.signal()
             }
@@ -121,19 +124,20 @@ class PublishViewModel {
     
     func tapPublish() {
         
-        publish { [weak self] error in
+        publish { [weak self] result in
             
-            guard
-                error == nil
-            
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
-                return
-                }
-            
-            self?.dismissHandler?()
+                self?.stopLoadingHandler?()
+                
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
         }
     }
 }

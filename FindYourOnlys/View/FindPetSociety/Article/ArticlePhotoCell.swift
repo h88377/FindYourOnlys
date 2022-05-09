@@ -9,7 +9,17 @@ import UIKit
 
 class ArticlePhotoCell: UITableViewCell {
 
-    @IBOutlet weak var userButton: UIButton!
+    @IBOutlet weak var userImageView: UIImageView! {
+        
+        didSet {
+            
+            userImageView.backgroundColor = .projectBackgroundColor
+            
+            userImageView.contentMode = .scaleAspectFill
+        }
+    }
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var userNameLabel: UILabel! {
         
@@ -25,15 +35,13 @@ class ArticlePhotoCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var postTypeView: UIView!
+    
     @IBOutlet weak var postTypeLabel: UILabel! {
         
         didSet {
             
-            postTypeLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-            
-            postTypeLabel.textColor = .white
-            
-            postTypeLabel.backgroundColor = .projectIconColor1
+            postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         }
     }
     @IBOutlet weak var locationImage: UIImageView! {
@@ -56,42 +64,48 @@ class ArticlePhotoCell: UITableViewCell {
         
         didSet {
             
-            editButton.isHidden = true
+            editButton.setImage(UIImage.asset(.edit)?.withTintColor(.projectIconColor1), for: .normal)
             
-            editButton.tintColor = .projectIconColor1
+            editButton.setImage(UIImage.asset(.edit)?.withTintColor(.projectIconColor2), for: .highlighted)
         }
     }
     
     var editHandler: (() -> Void)?
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        scrollView.minimumZoomScale = 1
+        
+        scrollView.maximumZoomScale = 3.5
+        
+        scrollView.delegate = self
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard
-            let imageView = userButton.imageView else { return }
-        
-        userButton.imageView?.layer.cornerRadius = imageView.layer.frame.height / 2
+        userImageView.layer.cornerRadius = userImageView.layer.frame.height / 2
         
         postedImageView.layer.cornerRadius = 15
         
-        postTypeLabel.layer.cornerRadius = 12
+        postTypeView.layer.cornerRadius = 15
         
-        postTypeLabel.clipsToBounds = true
+        postTypeView.clipsToBounds = true
     }
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
-        
-        let userImageView = UIImageView()
-        
+
         userImageView.loadImage(authorViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
-        
-        userButton.setImage(userImageView.image, for: .normal)
         
         userNameLabel.text = authorViewModel.user.nickName
         
-        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text =  viewModel.article.createdTime.formatedTime
+        timeLabel.text =  viewModel
+            .article
+            .createdTime
+            .formatedTime
         
         cityLabel.text = viewModel.article.city
         
@@ -101,15 +115,23 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.text = PostType.allCases[0].rawValue
             
+            postTypeLabel.textColor = .projectTextColor
+            
+            postTypeView.backgroundColor = .projectIconColor3
+            
         case 1:
             
             postTypeLabel.text = PostType.allCases[1].rawValue
             
+            postTypeLabel.textColor = .white
+            
+            postTypeView.backgroundColor = .projectIconColor1
+            
         default:
             
-            postTypeLabel.text = ""
+            postTypeLabel.isHidden = true
             
-            postTypeLabel.backgroundColor = .white
+            postTypeView.isHidden = true
         }   
     }
     
@@ -118,17 +140,13 @@ class ArticlePhotoCell: UITableViewCell {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        let userImageView = UIImageView()
-        
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
-        
-        userButton.setImage(userImageView.image, for: .normal)
         
         userNameLabel.text = currentUser.nickName
         
-        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.system(.messagePlaceHolder))
+        postedImageView.loadImage(viewModel.article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text =  viewModel.article.createdTime.formatedTime
+        timeLabel.text = viewModel.article.createdTime.formatedTime
         
         cityLabel.text = viewModel.article.city
         
@@ -138,21 +156,24 @@ class ArticlePhotoCell: UITableViewCell {
             
             postTypeLabel.text = PostType.allCases[0].rawValue
             
+            postTypeLabel.textColor = .projectTextColor
+            
+            postTypeView.backgroundColor = .projectIconColor3
+            
         case 1:
             
             postTypeLabel.text = PostType.allCases[1].rawValue
             
+            postTypeLabel.textColor = .white
+            
+            postTypeView.backgroundColor = .projectIconColor1
+            
         default:
             
-            postTypeLabel.text = ""
+            postTypeLabel.isHidden = true
             
-            postTypeLabel.backgroundColor = .white
+            postTypeView.isHidden = true
         }
-    }
-    
-    func showEditButton() {
-        
-        editButton.isHidden = false
     }
     
     @IBAction func edit(_ sender: UIButton) {
@@ -164,5 +185,13 @@ class ArticlePhotoCell: UITableViewCell {
         super.prepareForReuse()
         
         editHandler = nil
+    }
+}
+
+extension ArticlePhotoCell: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        
+        return postedImageView
     }
 }

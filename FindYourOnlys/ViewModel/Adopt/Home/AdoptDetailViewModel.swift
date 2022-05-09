@@ -17,7 +17,10 @@ class AdoptDetailViewModel {
         case remove = "Remove"
     }
     
-    var didLogin: Bool = true
+    var didSignIn: Bool {
+        
+        return UserFirebaseManager.shared.currentUser != nil
+    }
     
     let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     
@@ -42,6 +45,8 @@ class AdoptDetailViewModel {
             )
         )
     )
+    
+    var checkFavoriateButtonHandler: (() -> Void)?
     
     func makePhoneCall(_ viewController: UIViewController) {
         
@@ -75,23 +80,24 @@ class AdoptDetailViewModel {
     }
     
     // MARK: - Local Storage functions
-    func fetchFavoritePetFromLS(completion: (Error?) -> Void ) {
+    func fetchFavoritePetFromLS() {
         
-        StorageManager.shared.fetchPet { result in
+        StorageManager.shared.fetchPet { [weak self] result in
             
             switch result {
                 
             case .success(let lsPets):
                 
-                self.setPets(with: lsPets)
+                self?.setPets(with: lsPets)
                 
-                self.favoritePetsFromLS = lsPets
+                self?.favoritePetsFromLS = lsPets
                 
-                completion(nil)
+//                completion(nil)
+                self?.checkFavoriateButtonHandler?()
                 
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
@@ -99,31 +105,50 @@ class AdoptDetailViewModel {
     
     func addToFavoriteInLS() {
         
-        StorageManager.shared.savePetInFavorite(with: petViewModel.value)
+        StorageManager.shared.savePetInFavorite(with: petViewModel.value) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
     }
     
     func removeFavoriteFromLS() {
         
         let removeId = petViewModel.value.pet.id
+        
+        for favoritePetFromLS in favoritePetsFromLS where favoritePetFromLS.id == removeId {
             
-        for favoritePetFromLS in favoritePetsFromLS {
-            
-            if favoritePetFromLS.id == removeId {
+            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)  { [weak self] result in
                 
-                StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)
-                
-                break
+                switch result {
+                    
+                case .success(let success):
+                    
+                    print(success)
+                    
+                case .failure(let error):
+                    
+                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                }
             }
         }
     }
     
     // MARK: - Firebase functions
-    func fetchFavoriteFromFB(completion: @escaping (Error?) -> Void) {
+    func fetchFavoriteFromFB() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        FavoritePetFirebaseManager.shared.fetchFavoritePets { result in
+        FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
             switch result {
                 
@@ -136,31 +161,54 @@ class AdoptDetailViewModel {
                     favoritePets.append(pet)
                 }
                 
-                self.setPets(favoritePets)
+                self?.setPets(favoritePets)
                 
-                completion(nil)
+//                completion(nil)
+                
+                self?.checkFavoriateButtonHandler?()
                 
             case .failure(let error):
                 
-                completion(error)
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
     
-    func addToFavoriteInFB(completion: @escaping (Error?) -> Void) {
+    func addToFavoriteInFB() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: petViewModel.value) { error in
+        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: petViewModel.value) { [weak self] result in
             
-            completion(error)
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
         }
     }
     
     func removeFavoriteFromFB() {
         
-        FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value)
+        FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
     }
     
     
@@ -168,65 +216,44 @@ class AdoptDetailViewModel {
     // Use for AdoptDetailVC viewDidLoad
     func checkFavoriteButton(with favoriteButton: UIButton) {
         
-//        favoriteButton.setTitle(FavoriteType.add.rawValue, for: .normal)
-        
         favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
         
-        if !didLogin {
+        if !didSignIn {
             
-            for favoriteLSPetViewModel in favoriteLSPetViewModels.value {
+            for favoriteLSPetViewModel in favoriteLSPetViewModels.value where favoriteLSPetViewModel.lsPet.id == petViewModel.value.pet.id {
                 
-                if favoriteLSPetViewModel.lsPet.id == petViewModel.value.pet.id {
-                    
-//                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
-                    
-                    favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-                    
-                    break
-                }
+                favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
             }
             
         } else {
             
-            for favoritePetViewModel in favoritePetViewModels.value {
+            for favoritePetViewModel in favoritePetViewModels.value where favoritePetViewModel.pet.id == petViewModel.value.pet.id {
                 
-                if favoritePetViewModel.pet.id == petViewModel.value.pet.id {
-                    
-//                    favoriteButton.setTitle(FavoriteType.remove.rawValue, for: .normal)
-                    
-                    favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-                    
-                    break
-                }
+                favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
             }
         }
-        
     }
     
     // Use for when user tap add/remove favorite
-    func toggleFavoriteButton(with favoriteButton: UIButton, completion: @escaping (Error?) -> Void) {
+    func toggleFavoriteButton(with favoriteButton: UIButton) {
         
         // Save data
         if favoriteButton.currentImage == UIImage.system(.addToFavorite)
-//        if favoriteButton.currentTitle == FavoriteType.add.rawValue
         {
             
-            if !didLogin {
+            if !didSignIn {
                 
                 addToFavoriteInLS()
                 
             } else {
                 
-                addToFavoriteInFB { error in
-                    
-                    completion(error)
-                }
+                addToFavoriteInFB()
             }
             
         // Remove data
         } else {
             
-            if !didLogin {
+            if !didSignIn {
                 
                 removeFavoriteFromLS()
                 
@@ -236,21 +263,12 @@ class AdoptDetailViewModel {
             }
         }
         
-//        favoriteButton.setTitle(
-//            favoriteButton.currentTitle == FavoriteType.add.rawValue
-//            ? FavoriteType.remove.rawValue
-//            : FavoriteType.add.rawValue, for: .normal
-//        )
-        
         favoriteButton.setImage(
             favoriteButton.currentImage == UIImage.system(.addToFavorite)
             ? UIImage.system(.removeFromFavorite)
             : UIImage.system(.addToFavorite), for: .normal
         )
     }
-    
-    
-    
     
     // MARK: - Private functions
     // Local storage

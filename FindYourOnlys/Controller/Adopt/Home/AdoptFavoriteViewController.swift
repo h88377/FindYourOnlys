@@ -11,8 +11,6 @@ class AdoptFavoriteViewController: BaseViewController {
     
     let viewModel = AdoptFavoriteViewModel()
     
-    var didLogin: Bool = true
-    
     @IBOutlet weak var remindLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView! {
@@ -30,46 +28,89 @@ class AdoptFavoriteViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { errorViewModel in
-            
-            guard
-                errorViewModel?.error == nil
-                    
-            else {
-                
-                print(errorViewModel?.error.localizedDescription)
-                
-                return
-            }
-        }
+        addCurrentUserObserver()
         
-        if !didLogin {
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            viewModel.fetchFavoritePetFromLS()
-            
-            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+            if
+                let error = errorViewModel?.error {
                 
                 DispatchQueue.main.async {
                     
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let localStorageError = error as? LocalStorageError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
+                    }
+                }
+            }
+            
+        }
+        
+//        viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+//
+//            DispatchQueue.main.async {
+//
+//                self?.tableView.reloadData()
+//
+//                self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
+//                ? true
+//                : false
+//            }
+//        }
+//
+//        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+//
+//            DispatchQueue.main.async {
+//
+//                self?.tableView.reloadData()
+//
+//                self?.tableView.isHidden = favoritePetViewModels.count == 0
+//                ? true
+//                : false
+//            }
+//        }
+//
+//        if !viewModel.didSignIn {
+//
+//            viewModel.fetchFavoritePetFromLS()
+//
+//        } else {
+//
+//            viewModel.fetchFavoritePetFromFB()
+//        }
+        
+        if !viewModel.didSignIn {
+
+            viewModel.fetchFavoritePetFromLS()
+
+            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+
+                DispatchQueue.main.async {
+
                     self?.tableView.reloadData()
-                    
+
                     self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
                     ? true
                     : false
                 }
             }
-            
-            
+
         } else {
-            
+
             viewModel.fetchFavoritePetFromFB()
-            
+
             viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-                
+
                 DispatchQueue.main.async {
-                    
+
                     self?.tableView.reloadData()
-                    
+
                     self?.tableView.isHidden = favoritePetViewModels.count == 0
                     ? true
                     : false
@@ -84,6 +125,60 @@ class AdoptFavoriteViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: FavoriteTableViewCell.identifier)
     }
     
+    private func addCurrentUserObserver() {
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
+        
+        if !viewModel.didSignIn {
+
+            viewModel.fetchFavoritePetFromLS()
+
+            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
+
+                DispatchQueue.main.async {
+
+                    self?.tableView.reloadData()
+
+                    self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
+                    ? true
+                    : false
+                }
+            }
+
+        } else {
+
+            viewModel.fetchFavoritePetFromFB()
+
+            viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+
+                DispatchQueue.main.async {
+
+                    self?.tableView.reloadData()
+
+                    self?.tableView.isHidden = favoritePetViewModels.count == 0
+                    ? true
+                    : false
+                }
+            }
+        }
+        
+//        if !viewModel.didSignIn {
+//
+//            viewModel.fetchFavoritePetFromLS()
+//
+//        } else {
+//
+//            viewModel.fetchFavoritePetFromFB()
+//        }
+    }
+    
 }
 
 // MARK: - UITableViewDataSource & Delegate
@@ -91,8 +186,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
-        return !didLogin
+        return !viewModel.didSignIn
         ? viewModel.favoriteLSPetViewModels.value.count
         : viewModel.favoritePetViewModels.value.count
     }
@@ -104,7 +198,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return UITableViewCell() }
         
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             let cellViewModel = viewModel.favoriteLSPetViewModels.value[indexPath.item]
             
@@ -131,7 +225,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return }
         
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             let lsPet = viewModel.favoriteLSPetViewModels.value[indexPath.row].lsPet
             
@@ -159,7 +253,7 @@ extension AdoptFavoriteViewController: AdoptDetailViewControllerDelegate {
     
     func toggleFavorite() {
         
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             viewModel.fetchFavoritePetFromLS()
             
@@ -176,7 +270,7 @@ extension AdoptFavoriteViewController: AdoptViewControllerDelegate {
     
     func fetchFavoritePet() {
         
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             viewModel.fetchFavoritePetFromLS()
         } else {

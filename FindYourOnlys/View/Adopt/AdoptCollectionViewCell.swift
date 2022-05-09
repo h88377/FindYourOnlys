@@ -52,7 +52,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         didSet {
             
-            sexLabel.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+            sexLabel.font = UIFont.systemFont(ofSize: 26, weight: .heavy)
             
             sexLabel.textColor = .projectIconColor3
         }
@@ -88,7 +88,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         kindLabel.text = viewModel.pet.kind
         
-        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
+        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         if viewModel.pet.status == "OPEN" {
             
@@ -109,7 +109,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             
 //            sexLabel.text = Sex.male.rawValue
             
-//            sexLabel.textColor = .maleColor
+            sexLabel.textColor = .maleColor
             
         } else {
             
@@ -117,7 +117,7 @@ class AdoptCollectionViewCell: UICollectionViewCell {
             
 //            sexLabel.text = Sex.female.rawValue
             
-//            sexLabel.textColor = .femaleColor
+            sexLabel.textColor = .femaleColor
         }
     }
     

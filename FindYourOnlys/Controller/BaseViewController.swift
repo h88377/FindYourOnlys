@@ -143,7 +143,7 @@ class BaseViewController: UIViewController {
 
     }
     
-    func showAlertWindow(title: String, message: String) {
+    func showAlertWindow(title: String, message: String?) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -152,5 +152,18 @@ class BaseViewController: UIViewController {
         alert.addAction(action)
         
         present(alert, animated: true)
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension BaseViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController)
+    -> UIPresentationController? {
+        
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

@@ -19,5 +19,5 @@ struct User: Codable {
     
     var friends: [String]
     
-    var limitedUsers: [String]
+    var blockedUsers: [String]
 }

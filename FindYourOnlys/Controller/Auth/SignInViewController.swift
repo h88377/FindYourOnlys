@@ -20,7 +20,19 @@ class SignInViewController: BaseViewController {
             
             animationView.play()
             
-            animationView.contentMode = .scaleAspectFill
+            animationView.contentMode = .scaleAspectFit
+            
+            animationView.backgroundColor = .signInBackGroundColor
+        }
+    }
+    
+    @IBOutlet weak var titleLabel: UILabel! {
+        
+        didSet {
+            
+            titleLabel.font = UIFont(name: "Thonburi Bold", size: 30)
+            
+            titleLabel.textColor = .projectTextColor
         }
     }
     
@@ -28,7 +40,7 @@ class SignInViewController: BaseViewController {
         
         didSet {
             
-            welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+            welcomeLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
             
             welcomeLabel.textColor = .projectTextColor
         }
@@ -55,6 +67,8 @@ class SignInViewController: BaseViewController {
             passwordTextField.textColor = .projectTextColor
             
             passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            
+            passwordTextField.isSecureTextEntry = true
         }
     }
     
@@ -74,22 +88,55 @@ class SignInViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var errorLabel: UILabel! {
+        
+        didSet {
+            
+            errorLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            
+            errorLabel.textColor = .red
+            
+            errorLabel.isHidden = true
+        }
+    }
+    
+    var dismissHandler: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .signInBackGroundColor
 
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+                errorViewModel?.error == nil else {
+                    
+                    if
+                        let authError = errorViewModel?.error as? AuthError {
+                        
+                        self?.errorLabel.text = authError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
+                        
+                    } else if
+                        let firebaseError = errorViewModel?.error as? FirebaseError {
+                        
+                        self?.errorLabel.text = firebaseError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
+                    }
+                    return
+                }
         }
         
         viewModel.dismissHandler = { [weak self] in
             
+            self?.errorLabel.isHidden = true
+            
             self?.dismiss(animated: true)
+            
+            self?.dismissHandler?()
         }
         
         viewModel.startLoadingHandler = { [weak self] in

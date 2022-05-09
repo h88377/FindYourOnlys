@@ -51,13 +51,13 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var filterButton: UIButton! {
-        
-        didSet {
-            
-            filterButton.tintColor = .projectIconColor2
-        }
-    }
+//    @IBOutlet weak var filterButton: UIButton! {
+//        
+//        didSet {
+//            
+//            filterButton.tintColor = .projectIconColor2
+//        }
+//    }
     private var activityIndicator: LoadMoreActivityIndicator!
     
     override func viewDidLoad() {
@@ -90,15 +90,28 @@ class AdoptListViewController: BaseViewController {
         
         LottieAnimationWrapper.shared.startLoading(at: view)
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let errorViewModel = errorViewModel else { return }
-            
-            print(errorViewModel.error)
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    if
+                        let httpClientError = error as? HTTPClientError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(httpClientError.errorMessage)")
+                        
+                    }
+                }
+            }
         }
         
-        activityIndicator = LoadMoreActivityIndicator(scrollView: collectionView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
+        activityIndicator = LoadMoreActivityIndicator(
+            scrollView: collectionView,
+            spacingFromLastCell: 10,
+            spacingFromLastCellWhenLoadMoreActionStart: 60
+        )
         
         viewModel.startLoadingHandler = { [weak self] in
 
@@ -206,19 +219,19 @@ class AdoptListViewController: BaseViewController {
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }
     
-    @IBAction func goToFilter(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard.adopt
-        
-        guard
-            let adoptFilterLocationVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptFilterViewController.identifier)
-                as? AdoptFilterViewController
-        
-        else { return }
-        
-        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
-    }
+//    @IBAction func goToFilter(_ sender: UIButton) {
+//
+//        let storyboard = UIStoryboard.adopt
+//
+//        guard
+//            let adoptFilterLocationVC = storyboard.instantiateViewController(
+//                withIdentifier: AdoptFilterViewController.identifier)
+//                as? AdoptFilterViewController
+//
+//        else { return }
+//
+//        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
+//    }
     
     @IBAction func reFetchPetInfo(_ sender: UIButton) {
         
