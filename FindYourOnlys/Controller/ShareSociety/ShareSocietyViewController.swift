@@ -208,6 +208,17 @@ class ShareSocietyViewController: BaseViewController {
         
         alert.addAction(cancel)
         
+        // iPad specific code
+        alert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        alert.popoverPresentationController?.sourceRect = popoverRect
+        
+        alert.popoverPresentationController?.permittedArrowDirections = .up
+        
         present(alert, animated: true)
     }
     
@@ -258,6 +269,17 @@ class ShareSocietyViewController: BaseViewController {
         alert.addAction(deleteAction)
         
         alert.addAction(cancel)
+        
+        // iPad specific code
+        alert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        alert.popoverPresentationController?.sourceRect = popoverRect
+        
+        alert.popoverPresentationController?.permittedArrowDirections = .up
         
         present(alert, animated: true)
     }

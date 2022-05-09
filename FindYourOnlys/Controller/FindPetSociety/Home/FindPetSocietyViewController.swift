@@ -117,6 +117,17 @@ class FindPetSocietyViewController: BaseViewController {
             
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             
+            // iPad specific code
+            activityVC.popoverPresentationController?.sourceView = self.view
+            
+            let xOrigin = self.view.bounds.width / 2
+            
+            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+            
+            activityVC.popoverPresentationController?.sourceRect = popoverRect
+            
+            activityVC.popoverPresentationController?.permittedArrowDirections = .up
+            
             self.present(activityVC, animated: true)
         }
         
@@ -232,6 +243,17 @@ class FindPetSocietyViewController: BaseViewController {
         
         alert.addAction(cancel)
         
+        // iPad specific code
+        alert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        alert.popoverPresentationController?.sourceRect = popoverRect
+        
+        alert.popoverPresentationController?.permittedArrowDirections = .up
+        
         present(alert, animated: true)
     }
     
@@ -282,6 +304,17 @@ class FindPetSocietyViewController: BaseViewController {
         alert.addAction(deleteAction)
         
         alert.addAction(cancel)
+        
+        // iPad specific code
+        alert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        alert.popoverPresentationController?.sourceRect = popoverRect
+        
+        alert.popoverPresentationController?.permittedArrowDirections = .up
         
         present(alert, animated: true)
     }

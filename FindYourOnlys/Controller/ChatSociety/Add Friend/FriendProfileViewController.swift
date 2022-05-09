@@ -12,7 +12,7 @@ class FriendProfileViewController: BaseViewController {
     
     var viewModel: FriendProfileViewModel?
     
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userImageView: ProportionSizeImageView!
     
     @IBOutlet weak var nickNameLabel: UILabel! {
         
@@ -87,9 +87,10 @@ class FriendProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        
         guard
             let viewModel = viewModel else { return }
-
         
         updateSearchedUserInfo(with: viewModel, result: viewModel.searchFriendResult)
         
@@ -114,7 +115,7 @@ class FriendProfileViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+//        userImageView.layer.cornerRadius = userImageView.frame.height / 2
         
         baseView.layer.cornerRadius = 15
         

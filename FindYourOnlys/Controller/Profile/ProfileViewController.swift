@@ -201,6 +201,17 @@ class ProfileViewController: BaseViewController {
         
         signOutAlert.addAction(cancel)
         
+        // iPad specific code
+        signOutAlert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        signOutAlert.popoverPresentationController?.sourceRect = popoverRect
+        
+        signOutAlert.popoverPresentationController?.permittedArrowDirections = .up
+        
         present(signOutAlert, animated: true)
     }
     
