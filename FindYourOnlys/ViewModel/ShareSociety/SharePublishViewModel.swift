@@ -63,7 +63,7 @@ extension SharePublishViewModel {
         self.article.content = content
     }
     
-    private func publish(completion: @escaping (Error?) -> Void) {
+    private func publish(completion: @escaping (Result<String, Error>) -> Void) {
         
         checkPublishedContent?(isValidPublishedContent)
         
@@ -93,13 +93,15 @@ extension SharePublishViewModel {
                     
                     self.article.imageURLString = "\(url)"
                     
-                    completion(nil)
+//                    completion(nil)
                     
                 case .failure(let error):
                     
-                    completion(error)
+                    completion(.failure(error))
                     
-                    self.stopLoadingHandler?()
+//                    completion(error)
+//
+//                    self.stopLoadingHandler?()
                 }
 
                 semaphore.signal()
@@ -108,46 +110,50 @@ extension SharePublishViewModel {
 
             semaphore.wait()
             PetSocietyFirebaseManager.shared.publishArticle(
-                currentUser.id, with: &self.article) { error in
+                currentUser.id, with: &self.article) { result in
                     
-                    guard
-                        error == nil
-                            
-                    else {
+                    switch result {
                         
-                        completion(error)
+                    case .success(let success):
                         
-                        self.stopLoadingHandler?()
+                        completion(.success(success))
                         
-                        return
+                        
+//                        completion(nil)
+//
+//                        self.stopLoadingHandler?()
+                        
+                    case .failure(let error):
+                        
+                        completion(.failure(error))
+                        
+                        
+//                        completion(error)
+//
+//                        self.stopLoadingHandler?()
                     }
-                    
-                    completion(nil)
-                    
-                    self.stopLoadingHandler?()
                     
                     semaphore.signal()
                 }
-            
         }
     }
     
     func tapPublish() {
         
-        publish { [weak self] error in
+        publish { [weak self] result in
             
-            guard
-                error == nil
-            
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
-                return
+                self?.stopLoadingHandler?()
                 
-                }
-            
-            self?.dismissHandler?()
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
         }
     }
 }

@@ -71,24 +71,38 @@ class AuthViewController: BaseModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let authError = error as? AuthError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(authError.errorMessage)")
+                    }
+                }
+            }
         }
         
-        viewModel.dismissHandler = {
+        viewModel.dismissHandler = { [weak self] in
             
             print("Sign in with Apple successfully.")
+            
+            self?.dismiss(animated: true)
         }
          
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         
         registerButton.layer.cornerRadius = 15
         
@@ -121,21 +135,70 @@ class AuthViewController: BaseModalViewController {
         
         let storyboard = UIStoryboard.auth
         
-        let registerVC = storyboard.instantiateViewController(withIdentifier: RegisterViewController.identifier)
+        let viewController = storyboard.instantiateViewController(withIdentifier: RegisterViewController.identifier)
+        
+        guard
+            let registerVC = viewController as? RegisterViewController else { return }
         
         present(registerVC, animated: true)
         
+        registerVC.dismissHandler = { [weak self] in
+            
+            self?.dismiss(animated: true)
+        }
     }
     
     @IBAction func signInWithFirebase(_ sender: UIButton) {
         
         let storyboard = UIStoryboard.auth
         
-        let signInVC = storyboard.instantiateViewController(withIdentifier: SignInViewController.identifier)
+        let viewController = storyboard.instantiateViewController(withIdentifier: SignInViewController.identifier)
+        
+        guard
+            let signInVC = viewController as? SignInViewController else { return }
         
         present(signInVC, animated: true)
+        
+        signInVC.dismissHandler = { [weak self] in
+            
+            self?.dismiss(animated: true)
+        }
     }
- 
+    
+    @IBAction func goToPolicy(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.auth
+        
+        guard
+            let policyVC = storyboard.instantiateViewController(
+                withIdentifier: PolicyViewController.identifier)
+                as? PolicyViewController
+        
+        else { return }
+        
+        policyVC.viewModel = PolicyViewModel(urlString: "https://pages.flycricket.io/findyouronlys/privacy.html")
+        
+        present(policyVC, animated: true)
+    }
+    
+    @IBAction func goToEula(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard.auth
+        
+        guard
+            let policyVC = storyboard.instantiateViewController(
+                withIdentifier: PolicyViewController.identifier)
+                as? PolicyViewController
+        
+        else { return }
+        
+        policyVC.viewModel = PolicyViewModel(
+            urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+        )
+        
+        present(policyVC, animated: true)
+    }
+    
 }
 
 // MARK: - ASAuthorizationControllerDelegate

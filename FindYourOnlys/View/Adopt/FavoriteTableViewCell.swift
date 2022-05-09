@@ -92,9 +92,13 @@ class FavoriteTableViewCell: UITableViewCell {
             
             sexLabel.text = "♂"
             
+            sexLabel.textColor = UIColor.maleColor
+            
         } else {
             
             sexLabel.text = "♀"
+            
+            sexLabel.textColor = UIColor.femaleColor
         }
     }
     
@@ -127,9 +131,13 @@ class FavoriteTableViewCell: UITableViewCell {
             
             sexLabel.text = "♂"
             
+            sexLabel.textColor = UIColor.maleColor
+            
         } else {
             
             sexLabel.text = "♀"
+            
+            sexLabel.textColor = UIColor.femaleColor
         }
     }
     

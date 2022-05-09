@@ -20,7 +20,17 @@ class RegisterViewController: BaseViewController {
             
             animationView.play()
             
-            animationView.contentMode = .scaleAspectFill
+            animationView.contentMode = .scaleAspectFit
+        }
+    }
+    
+    @IBOutlet weak var titleLabel: UILabel! {
+        
+        didSet {
+            
+            titleLabel.font = UIFont(name: "Thonburi Bold", size: 30)
+            
+            titleLabel.textColor = .projectTextColor
         }
     }
     
@@ -30,7 +40,7 @@ class RegisterViewController: BaseViewController {
             
             registerLabel.textColor = .projectTextColor
             
-            registerLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+            registerLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         }
     }
     
@@ -64,10 +74,37 @@ class RegisterViewController: BaseViewController {
             
             passwordTextField.placeholder = "密碼"
             
-//            passwordTextField.textContentType = .newPassword
             passwordTextField.textColor = .projectTextColor
             
             passwordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            
+            passwordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @IBOutlet weak var checkPasswordTextField: ContentInsetTextField! {
+        
+        didSet {
+            
+            checkPasswordTextField.placeholder = "確認密碼"
+            
+            checkPasswordTextField.textColor = .projectTextColor
+            
+            checkPasswordTextField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            
+            checkPasswordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @IBOutlet weak var errorLabel: UILabel! {
+        
+        didSet {
+            
+            errorLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            
+            errorLabel.textColor = .red
+            
+            errorLabel.isHidden = true
         }
     }
     
@@ -87,22 +124,43 @@ class RegisterViewController: BaseViewController {
         }
     }
     
+    var dismissHandler: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
             guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+                errorViewModel?.error == nil else {
+                    
+                    if
+                        let authError = errorViewModel?.error as? AuthError {
+                        
+                        self?.errorLabel.text = authError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
+                        
+                    } else if
+                        let firebaseError = errorViewModel?.error as? FirebaseError {
+                        
+                        self?.errorLabel.text = firebaseError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
+                    }
+                    return
+                }
         }
         
         viewModel.dismissHandler = { [weak self] in
             
-            self?.dismiss(animated: true)
+            self?.errorLabel.isHidden = true
+            
+            self?.presentingViewController?.dismiss(animated: true)
+            
+            self?.dismissHandler?()
         }
         
         viewModel.startLoadingHandler = { [weak self] in
@@ -136,16 +194,31 @@ class RegisterViewController: BaseViewController {
             let nickName = nickNameTextField.text,
             let email = emailTextField.text,
             let password = passwordTextField.text,
+            let checkPassword = checkPasswordTextField.text,
             nickName != "",
             email != "",
-            password != ""
+            password != "",
+            checkPassword != ""
                 
         else {
             
-            showAlertWindow(title: "請填寫完整註冊資料喔！", message: "")
+            showAlertWindow(title: "請填寫完整註冊資料喔！", message: nil)
             
             return
         }
+        
+        errorLabel.isHidden = password == checkPassword
+        
+        if password != checkPassword {
+            
+            errorLabel.text = "密碼與確認密碼不同，請重新輸入"
+            
+            return
+        }
+        
+        
+        
+        
         
         viewModel.register(with: nickName, with: email, with: password)
     }
