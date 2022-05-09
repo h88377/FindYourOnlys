@@ -133,25 +133,24 @@ class RegisterViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
-            guard
-                errorViewModel?.error == nil else {
+            if
+                let error = errorViewModel?.error {
+                
+                if
+                    let authError = error as? AuthError {
                     
-                    if
-                        let authError = errorViewModel?.error as? AuthError {
-                        
-                        self?.errorLabel.text = authError.errorMessage
-                        
-                        self?.errorLabel.isHidden = false
-                        
-                    } else if
-                        let firebaseError = errorViewModel?.error as? FirebaseError {
-                        
-                        self?.errorLabel.text = firebaseError.errorMessage
-                        
-                        self?.errorLabel.isHidden = false
-                    }
-                    return
+                    self?.errorLabel.text = authError.errorMessage
+                    
+                    self?.errorLabel.isHidden = false
+                    
+                } else if
+                    let firebaseError = error as? FirebaseError {
+                    
+                    self?.errorLabel.text = firebaseError.errorMessage
+                    
+                    self?.errorLabel.isHidden = false
                 }
+            }
         }
         
         viewModel.dismissHandler = { [weak self] in
