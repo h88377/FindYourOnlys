@@ -142,14 +142,21 @@ class RegisterViewController: BaseViewController {
                         self?.errorLabel.text = authError.errorMessage
                         
                         self?.errorLabel.isHidden = false
+                        
+                    } else if
+                        let firebaseError = errorViewModel?.error as? FirebaseError {
+                        
+                        self?.errorLabel.text = firebaseError.errorMessage
+                        
+                        self?.errorLabel.isHidden = false
                     }
                     return
-                    
                 }
-            self?.errorLabel.isHidden = true
         }
         
         viewModel.dismissHandler = { [weak self] in
+            
+            self?.errorLabel.isHidden = true
             
             self?.presentingViewController?.dismiss(animated: true)
             

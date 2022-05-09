@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80B017278C10374F5E895CDD /* Pods_FindYourOnlys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */; };
 		9808D987282902F70059DDF5 /* ProportionSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808D986282902F70059DDF5 /* ProportionSizeImageView.swift */; };
+		9808D98A282914190059DDF5 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808D989282914190059DDF5 /* FirebaseError.swift */; };
 		987D8B2F281681B9000D1F95 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B2E281681B9000D1F95 /* Auth.storyboard */; };
 		987D8B32281681EB000D1F95 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B31281681EB000D1F95 /* AuthViewController.swift */; };
 		987D8B3528169FE5000D1F95 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3428169FE5000D1F95 /* AuthViewModel.swift */; };
@@ -211,6 +212,7 @@
 		0DE5B635AC6994CD5CEA68B5 /* Pods-FindYourOnlys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.debug.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.debug.xcconfig"; sourceTree = "<group>"; };
 		6AAA99A8BC5FA9600A080C81 /* Pods-FindYourOnlys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.release.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.release.xcconfig"; sourceTree = "<group>"; };
 		9808D986282902F70059DDF5 /* ProportionSizeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProportionSizeImageView.swift; sourceTree = "<group>"; };
+		9808D989282914190059DDF5 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		987D8B2D2816807C000D1F95 /* FindYourOnlys.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FindYourOnlys.entitlements; sourceTree = "<group>"; };
 		987D8B2E281681B9000D1F95 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		987D8B31281681EB000D1F95 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -895,6 +897,7 @@
 				98CC16182804278700B9FDC6 /* Firebase */,
 				98CC15EF280289C900B9FDC6 /* Local Storage */,
 				98BC4767282587D200740855 /* AuthError.swift */,
+				9808D989282914190059DDF5 /* FirebaseError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1351,6 +1354,7 @@
 				9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */,
 				987D8B3D281792B1000D1F95 /* SignInViewModel.swift in Sources */,
 				9896D8EC28094E84003D4A16 /* ChatRoomFriendListCell.swift in Sources */,
+				9808D98A282914190059DDF5 /* FirebaseError.swift in Sources */,
 				98CC16512806585F00B9FDC6 /* ArticlePhotoCell.swift in Sources */,
 				9896D95D280EB5CB003D4A16 /* DirectionCell.swift in Sources */,
 				987D8B49281924E6000D1F95 /* Comment.swift in Sources */,

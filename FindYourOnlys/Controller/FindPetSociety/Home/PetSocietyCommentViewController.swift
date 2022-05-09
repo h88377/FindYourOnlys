@@ -126,7 +126,12 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self?.showAlertWindow(title: "異常", message: "\(error)")
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    }
                 }
             }
         }

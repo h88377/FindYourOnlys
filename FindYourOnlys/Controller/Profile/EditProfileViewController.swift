@@ -85,6 +85,10 @@ class EditProfileViewController: BaseViewController {
                 
                 self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
                 
+            } else {
+                
+                self?.showAlertWindow(title: "異常", message: "發生預期外的錯誤，請重試一次")
+                
             }
         }
         

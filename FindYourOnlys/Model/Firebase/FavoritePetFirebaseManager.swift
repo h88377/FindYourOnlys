@@ -9,67 +9,6 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-enum FirebaseError: Error {
-    
-    case fetchPetError
-    
-    case decodePetError
-    
-    case updatePetError
-    
-    case fetchArticleError
-    
-    case updateArticleError
-    
-    case publishArticleError
-    
-    case decodeArticleError
-    
-    case deleteArticleError
-    
-    case uploadImageError
-    
-    case encodeImageError
-    
-    case fetchImageURLError
-    
-    case leaveCommentError
-    
-    case toggleLikeArticleError
-    
-    case fetchChatRoomError
-    
-    case deleteChatRoomError
-    
-    case fetchMessageError
-    
-    case deleteMessageError
-    
-    case sendMessageError
-    
-    case fetchFriendRequestError
-    
-    case decodeFriendRequestError
-    
-    case sendFriendRequestError
-    
-    case fetchUserError
-    
-    case deleteUserError
-    
-    case decodeUserError
-    
-    case createUserError
-    
-    case updateUserError
-    
-    case deleteFriendRequestError
-    
-    case addFriendRequestError
-    
-    case createChatRoomError
-}
-
 class FavoritePetFirebaseManager {
     
     static let shared = FavoritePetFirebaseManager()

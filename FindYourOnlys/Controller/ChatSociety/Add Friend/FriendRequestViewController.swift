@@ -53,12 +53,17 @@ class FriendRequestViewController: BaseViewController {
         
         viewModel.errorViewModel?.bind(listener: { [weak self] errorViewModel in
             
+            let error = errorViewModel.error
+            
             DispatchQueue.main.async {
                 
-                self?.showAlertWindow(title: "異常", message: "\(errorViewModel.error)")
+                if
+                    let firebaseError = error as? FirebaseError {
+                    
+                    self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                }
             }
         })
-        
     }
     
     override func setupTableView() {

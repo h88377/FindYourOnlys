@@ -97,7 +97,12 @@ class AdoptListViewController: BaseViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self?.showAlertWindow(title: "異常", message: "\(String(describing: error))")
+                    if
+                        let httpClientError = error as? HTTPClientError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(httpClientError.errorMessage)")
+                        
+                    }
                 }
             }
         }
