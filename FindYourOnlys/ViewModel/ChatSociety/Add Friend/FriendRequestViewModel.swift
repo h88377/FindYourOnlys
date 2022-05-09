@@ -18,7 +18,7 @@ class FriendRequestViewModel {
     
     var friendRequestListViewModels = Box([FriendRequestListViewModel]())
     
-    var errorViewModel: Box<ErrorViewModel>?
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     func fetchFriendRequestList() {
         
@@ -83,14 +83,14 @@ class FriendRequestViewModel {
                         
                     case .failure(let error):
                         
-                        self.errorViewModel = Box(ErrorViewModel(model: error))
+                        self.errorViewModel.value = ErrorViewModel(model: error)
                     }
                     
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel = Box(ErrorViewModel(model: error))
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
@@ -112,7 +112,7 @@ class FriendRequestViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel = Box(ErrorViewModel(model: error))
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
@@ -127,7 +127,7 @@ class FriendRequestViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel = Box(ErrorViewModel(model: error))
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -145,7 +145,7 @@ class FriendRequestViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel = Box(ErrorViewModel(model: error))
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
