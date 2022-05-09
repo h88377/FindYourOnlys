@@ -30,6 +30,8 @@ class AdoptFilterViewController: BaseViewController {
         
         tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
         
+        tableView.registerCellWithIdentifier(identifier: FilterRemindCell.identifier)
+        
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,26 +87,45 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.adoptFilterCategory.count
+        viewModel.adoptFilterCategory.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let adoptFilterCategory = viewModel.adoptFilterCategory
         
-        guard
+        if indexPath.row + 1 <= adoptFilterCategory.count {
+            
             let cell = adoptFilterCategory[indexPath.row].cellForIndexPath(
                 indexPath,
                 tableView: tableView
-            ) as? PublishBasicCell
-                
-        else { return UITableViewCell() }
-                
-        cell.delegate = self
-        
-        cell.selectionStyle = .none
-        
-        return cell
+            )
+            
+            
+            guard
+                let basicCell = cell as? PublishBasicCell
+                    
+            else { return cell }
+            
+            basicCell.delegate = self
+            
+            basicCell.selectionStyle = .none
+            
+            return basicCell
+            
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterRemindCell.identifier, for: indexPath)
+            
+            guard
+                let remindCell = cell as? FilterRemindCell
+            
+            else { return cell }
+            
+            remindCell.configureCell(with: .allowOneCondition)
+            
+            return remindCell
+        }
     }
 }
 

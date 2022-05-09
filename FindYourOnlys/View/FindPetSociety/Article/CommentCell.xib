@@ -47,8 +47,24 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQJ-JE-5XF">
+                        <rect key="frame" x="284" y="10" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="LB4-Zx-sSN"/>
+                            <constraint firstAttribute="height" constant="20" id="ycO-Z4-fNe"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="...">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="block:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="szB-1n-e6Y"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hQJ-JE-5XF" secondAttribute="trailing" constant="16" id="Cck-QB-d3F"/>
                     <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="LIq-8P-mSS"/>
                     <constraint firstItem="iUS-YB-Kky" firstAttribute="leading" secondItem="Bgq-Bs-6Lf" secondAttribute="trailing" constant="20" id="OkN-QM-vW3"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="leading" secondItem="iUS-YB-Kky" secondAttribute="trailing" constant="20" id="SyL-ky-Bwp"/>
@@ -57,12 +73,14 @@
                     <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="top" secondItem="iUS-YB-Kky" secondAttribute="top" id="dsN-4n-PAd"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="bottom" secondItem="iUS-YB-Kky" secondAttribute="bottom" id="kSj-Rs-FxC"/>
                     <constraint firstItem="iUS-YB-Kky" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="stP-O3-oCf"/>
+                    <constraint firstItem="hQJ-JE-5XF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="tre-OG-KY9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="commentLabel" destination="etA-bQ-gFd" id="qaO-jH-XSD"/>
                 <outlet property="createdTimeLabel" destination="hoZ-cx-9qs" id="6A3-fh-OCv"/>
+                <outlet property="editButton" destination="hQJ-JE-5XF" id="o6z-Wi-f04"/>
                 <outlet property="nickNameLabel" destination="wIY-fc-RT9" id="MNf-rx-M66"/>
                 <outlet property="userImageView" destination="Bgq-Bs-6Lf" id="Rnh-1K-26U"/>
             </connections>

@@ -48,23 +48,22 @@ class ProfileSelectedArticleViewModel: BaseSocietyViewModel {
         
         startLoadingHandler?()
         
-        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] error in
+        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
                 self?.stopLoadingHandler?()
                 
-                return
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
             }
-            
-            self?.stopLoadingHandler?()
-            
-            self?.dismissHandler?()
         }
     }
     

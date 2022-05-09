@@ -56,6 +56,17 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+
+            DispatchQueue.main.async {
+
+                LottieAnimationWrapper.shared.startLoading(at: self.view)
+            }
+        }
+        
         // Pet
         viewModel.convertAddress()
         
@@ -68,9 +79,7 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
         }
-        
-        
-        
+           
         // Pets
         viewModel.getUserLocationHandler = { [weak self] in
             
@@ -98,7 +107,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-                    self.showAlertWindow(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
+                    self.showAlertWindowAndBack(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
                     
                 } else {
                     
@@ -117,37 +126,78 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showAlertHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "異常訊息", message: "請先選擇你的目的地喔！")
+            self?.showAlertWindow(title: "異常訊息", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
                 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let errorViewModel = errorViewModel else { return }
-            
-            self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            DispatchQueue.main.async {
+            if
+                let error = errorViewModel?.error {
                 
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
+                DispatchQueue.main.async {
+                    
+                    // Check user's location have shelters' information
+                    if self?.viewModel.shelterViewModels.value != nil {
+                        
+                        // Filter out error message when occured error but already have annotations on the map to enhance UX.
+                        if self?.viewModel.mapAnnotationViewModels.value == nil {
+                            
+                            if
+                                let httpClientError = error as? HTTPClientError {
+                                
+                                self?.showAlertWindow(title: "異常訊息", message: "\(httpClientError.errorMessage)")
+                                
+                            } else if
+                                let mapError = error as? MapError {
+                                
+                                self?.showAlertWindow(title: "異常訊息", message: "\(mapError.errorMessage)")
+                            }
+                        }
+                        
+                    } else {
+                        
+                        if
+                            let httpClientError = error as? HTTPClientError {
+                            
+                            self?.showAlertWindow(title: "異常訊息", message: "\(httpClientError.errorMessage)")
+                            
+                        } else if
+                            let mapError = error as? MapError {
+                            
+                            self?.showAlertWindow(title: "異常訊息", message: "\(mapError.errorMessage)")
+                        }
+                    }
+                }
             }
             
+//            guard
+//                let errorViewModel = errorViewModel else { return }
+            
+            // Check user's location have shelters' information
+//            if self?.viewModel.shelterViewModels.value != nil {
+                
+                // Filter out error message when occured error but already have annotations on the map to enhance UX.
+//                if self?.viewModel.mapAnnotationViewModels.value == nil {
+//
+//                    self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+//                }
+//
+//            } else {
+//
+//                self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
+//            }
         }
         
         viewModel.stopLoadingHandler = {
-            
+
             DispatchQueue.main.async {
-                
+
                 LottieAnimationWrapper.shared.stopLoading()
             }
-            
+
         }
+        
+        setupGesture()
     }
     
     override func viewDidLayoutSubviews() {
@@ -238,7 +288,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         let maxY = mapView.frame.maxY
         
         directionView.frame = CGRect(
-            x: 0, y: maxY, width: UIScreen.main.bounds.height, height: 0.0
+            x: 0, y: maxY, width: UIScreen.main.bounds.width, height: 0.0
         )
         
         view.addSubview(directionView)
@@ -250,7 +300,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 guard
                     let strongSelf = self else { return }
                 
-                let height = strongSelf.view.frame.height * 0.33
+                let height = strongSelf.view.frame.height * 0.4
                 
                 self?.directionView.frame = CGRect(
                     x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
@@ -278,6 +328,14 @@ class AdoptPetsLocationViewController: BaseViewController {
         )
     }
     
+    func setupGesture() {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapDirectionView))
+        
+        directionView.addGestureRecognizer(tapGesture)
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard
@@ -292,6 +350,58 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
         
         self.adoptDirectionVC = adoptDirectionVC
+    }
+    
+    @objc func tapDirectionView(sender: UITapGestureRecognizer) {
+        
+        let maxY = mapView.frame.maxY
+        
+        let highHeight = view.frame.height * 0.7
+        
+        let lowHeight = view.frame.height * 0.4
+        
+        if sender.state == .ended {
+            
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                
+                if self?.directionView.frame.height == lowHeight {
+                    
+                    self?.directionView.frame = CGRect(
+                        x: 0, y: maxY - highHeight, width: UIScreen.main.bounds.width, height: highHeight
+                    )
+                    
+                } else {
+                    
+                    self?.directionView.frame = CGRect(
+                        x: 0, y: maxY - lowHeight, width: UIScreen.main.bounds.width, height: highHeight
+                    )
+                }
+                
+            } completion: { [weak self] _ in
+                
+                if self?.directionView.frame.minY == maxY - lowHeight {
+                    
+                    self?.directionView.frame = CGRect(
+                        x: 0, y: maxY - lowHeight, width: UIScreen.main.bounds.width, height: lowHeight
+                    )
+                }
+            }
+
+        }
+    }
+    
+    func showAlertWindowAndBack(title: String, message: String?) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
     }
     
 }
@@ -331,7 +441,12 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                     let firstPlace = places?.first,
                     let self = self
                         
-                else { return }
+                else {
+                    
+                    self?.showAlertWindow(title: "異常", message: "無法取得所在位置，請確認網路連線")
+                    
+                    return
+                }
                 
                 let currentAnnotation = MapAnnotation(
                     title: "現在位置", subtitle: "\(firstPlace.abbreviation)", location: "\(firstPlace)",
@@ -343,9 +458,9 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 // Mock location because Taipei don't have any shelter.
                 
-                self.viewModel.fetchShelter(with: "新北市")
+//                self.viewModel.fetchShelter(with: "新北市")
                 
-                //                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市", mapView: self.mapView)
+                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
             }
         }
     
@@ -355,8 +470,6 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
     }
     
 }
-
-
 
 // MARK: - MKMapViewDelegate
 
@@ -379,14 +492,5 @@ extension AdoptPetsLocationViewController: MKMapViewDelegate {
         
         viewModel.selectedMapAnnotation.value.mapAnnotation = selectedMapAnnotation
         
-    }
-}
-
-
-// MARK: - UIViewControllerTransitioningDelegate
-extension AdoptPetsLocationViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

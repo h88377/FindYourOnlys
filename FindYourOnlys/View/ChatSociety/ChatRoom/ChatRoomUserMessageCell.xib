@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="KGk-i7-Jjw" customClass="ChatRoomUserMessageCell" customModule="FindYourOnlys" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="253" height="59"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="253" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ipn-rG-FJJ">
+                        <rect key="frame" x="8" y="8.5" width="40" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="fIH-cL-vGJ"/>
+                            <constraint firstAttribute="width" constant="40" id="xY9-GW-Juf"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="40U-Hb-rfe">
+                        <rect key="frame" x="56" y="8" width="141" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="gE9-cg-vJN"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="256" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90R-H0-7a5" customClass="PaddingableUILabel" customModule="FindYourOnlys" customModuleProvider="target">
+                        <rect key="frame" x="161" y="8" width="36" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="8RQ-fe-2B1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k4B-Jk-7SN">
+                        <rect key="frame" x="205" y="8" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="jcJ-68-p2u"/>
+                            <constraint firstAttribute="width" constant="40" id="u2Z-8S-i2C"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2R-6A-Dau">
+                        <rect key="frame" x="56" y="36" width="141" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="D2R-6A-Dau" firstAttribute="trailing" secondItem="k4B-Jk-7SN" secondAttribute="leading" constant="-8" id="1eR-FT-8wD"/>
+                    <constraint firstItem="D2R-6A-Dau" firstAttribute="top" secondItem="90R-H0-7a5" secondAttribute="bottom" constant="5" id="4kr-zv-zCg"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ipn-rG-FJJ" secondAttribute="bottom" constant="8" id="5d4-ec-9Rc"/>
+                    <constraint firstAttribute="bottom" secondItem="D2R-6A-Dau" secondAttribute="bottom" constant="8" id="6o4-dn-YYh"/>
+                    <constraint firstItem="Ipn-rG-FJJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="C9K-EM-5ME"/>
+                    <constraint firstItem="k4B-Jk-7SN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="EuV-iQ-N3N"/>
+                    <constraint firstAttribute="trailing" secondItem="k4B-Jk-7SN" secondAttribute="trailing" constant="8" id="FJZ-t7-j4l"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="40U-Hb-rfe" secondAttribute="bottom" constant="8" id="G5k-dt-jFt"/>
+                    <constraint firstItem="40U-Hb-rfe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NDj-fO-9PP"/>
+                    <constraint firstItem="90R-H0-7a5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ipn-rG-FJJ" secondAttribute="trailing" constant="8" id="R6S-qa-ovA"/>
+                    <constraint firstItem="D2R-6A-Dau" firstAttribute="leading" secondItem="Ipn-rG-FJJ" secondAttribute="trailing" constant="8" id="UF1-W3-TK6"/>
+                    <constraint firstItem="Ipn-rG-FJJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Wr1-Eb-Gga"/>
+                    <constraint firstItem="40U-Hb-rfe" firstAttribute="leading" secondItem="Ipn-rG-FJJ" secondAttribute="trailing" constant="8" id="c8f-vh-oTu"/>
+                    <constraint firstItem="k4B-Jk-7SN" firstAttribute="leading" secondItem="90R-H0-7a5" secondAttribute="trailing" constant="8" id="dbv-R5-S4e"/>
+                    <constraint firstItem="k4B-Jk-7SN" firstAttribute="leading" secondItem="40U-Hb-rfe" secondAttribute="trailing" constant="8" id="eFD-sB-X78"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="k4B-Jk-7SN" secondAttribute="bottom" constant="8" id="hXr-qQ-JuL"/>
+                    <constraint firstAttribute="bottom" secondItem="D2R-6A-Dau" secondAttribute="bottom" constant="8" id="oax-nE-Wo1"/>
+                    <constraint firstItem="90R-H0-7a5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="qOE-is-8As"/>
+                    <constraint firstItem="D2R-6A-Dau" firstAttribute="top" relation="greaterThanOrEqual" secondItem="40U-Hb-rfe" secondAttribute="bottom" constant="8" id="s5j-Ew-b43"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="contentImageView" destination="40U-Hb-rfe" id="xbK-LS-0hC"/>
+                <outlet property="contentLabel" destination="90R-H0-7a5" id="WvY-Ry-yeh"/>
+                <outlet property="friendImageView" destination="Ipn-rG-FJJ" id="ulg-9E-NwZ"/>
+                <outlet property="imageViewHeightConstraint" destination="gE9-cg-vJN" id="a0A-iA-h7r"/>
+                <outlet property="timeLabel" destination="D2R-6A-Dau" id="R3f-Si-INH"/>
+                <outlet property="userImageView" destination="k4B-Jk-7SN" id="ZNt-nK-f2n"/>
+            </connections>
+            <point key="canvasLocation" x="83.333333333333343" y="65.959821428571431"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="questionmark.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

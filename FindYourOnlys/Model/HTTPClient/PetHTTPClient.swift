@@ -17,7 +17,38 @@ enum HTTPClientError: Error {
     
     case serverError
     
+    case internetError
+    
     case unexpectedError
+    
+    var errorMessage: String {
+        
+        switch self {
+        case .urlError:
+            
+            return "網路異常，請稍後再嘗試一次"
+            
+        case .decodeDataFail:
+            
+            return "讀取資料失敗，請稍後再嘗試一次"
+            
+        case .clientError(_):
+            
+            return "網路異常，請確認網路狀態"
+            
+        case .serverError:
+            
+            return "伺服器異常，請稍後再嘗試一次"
+            
+        case .internetError:
+            
+            return "網路異常，請確認網路狀態"
+            
+        case .unexpectedError:
+            
+            return "發生預期外的異常，請稍後再嘗試一次"
+        }
+    }
 }
 
 class PetHTTPClient {
@@ -137,7 +168,7 @@ class PetHTTPClient {
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
-            guard error == nil else { return completion(.failure(error!)) }
+            guard error == nil else { return completion(.failure(HTTPClientError.internetError)) }
             
             // swiftlint:disable force_cast
             let httpResponse = response as! HTTPURLResponse

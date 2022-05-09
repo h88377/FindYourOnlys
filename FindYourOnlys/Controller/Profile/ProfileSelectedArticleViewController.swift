@@ -39,12 +39,21 @@ class ProfileSelectedArticleViewController: BaseViewController {
                 self?.tableView.reloadData()
             }
         }
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error != nil else { return }
-            
-            print(errorViewModel?.error.localizedDescription)
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    }
+                }
+            }
         }
         
         viewModel.shareHanlder = { [weak self] articleViewModel in
@@ -65,6 +74,17 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             
+            // iPad specific code
+            activityVC.popoverPresentationController?.sourceView = self.view
+            
+            let xOrigin = self.view.bounds.width / 2
+            
+            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+            
+            activityVC.popoverPresentationController?.sourceRect = popoverRect
+            
+            activityVC.popoverPresentationController?.permittedArrowDirections = .up
+            
             self.present(activityVC, animated: true)
         }
         
@@ -72,7 +92,8 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
-                articleViewModel.article.userId == currentUser.id
+                articleViewModel.article.userId == currentUser.id,
+                let self = self
                     
             else {
                 
@@ -127,7 +148,18 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             alert.addAction(cancel)
             
-            self?.present(alert, animated: true)
+            // iPad specific code
+            alert.popoverPresentationController?.sourceView = self.view
+            
+            let xOrigin = self.view.bounds.width / 2
+            
+            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+            
+            alert.popoverPresentationController?.sourceRect = popoverRect
+            
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+            
+            self.present(alert, animated: true)
         }
         
         viewModel.dismissHandler = { [weak self] in
@@ -198,8 +230,6 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
                 self?.viewModel.editArticle(with: articleCellViewModel, authorViewModel: UserViewModel(model: currentUser))
             }
             
-            articlePhotoCell.showEditButton()
-            
             return articlePhotoCell
             
         } else {
@@ -253,11 +283,3 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
     }
 }
 
-// MARK: - UIViewControllerTransitioningDelegate
-extension ProfileSelectedArticleViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}

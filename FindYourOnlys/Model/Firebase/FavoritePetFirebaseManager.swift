@@ -21,7 +21,13 @@ class FavoritePetFirebaseManager {
             .addSnapshotListener { snapshot, error in
                 
                 guard
-                    let snapshot = snapshot else { return }
+                    let snapshot = snapshot else {
+                        
+                        completion(.failure(FirebaseError.fetchPetError))
+                        
+                        return
+                        
+                    }
                 
                 var pets = [Pet]()
                 
@@ -35,7 +41,7 @@ class FavoritePetFirebaseManager {
                     }
                     catch {
                         
-                        completion(.failure(error))
+                        completion(.failure(FirebaseError.decodePetError))
                     }
                 }
                 
@@ -43,7 +49,7 @@ class FavoritePetFirebaseManager {
             }
     }
     
-    func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Error?) -> Void) {
+    func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Result<String, Error>) -> Void) {
         
         // Check if there have existed same pet on firestore when call this func in viewModel
         let documentReference = db.collection(FirebaseCollectionType.favoritePet.rawValue).document()
@@ -58,44 +64,61 @@ class FavoritePetFirebaseManager {
             
             pet.userID = userID
             
-            try documentReference.setData(from: pet, encoder: Firestore.Encoder())
+            try documentReference.setData(from: pet)
+            
+            completion(.success("sucess"))
+            
         } catch {
             
-            completion(error)
+            completion(.failure(FirebaseError.updatePetError))
         }
     }
     
-    func removeFavoritePet(with petViewModel: PetViewModel) {
-        
-        db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
-            
-            guard
-                let snapshot = snapshot else { return }
-            
-            for index in 0..<snapshot.documents.count {
-                
-                let removePet = try? snapshot.documents[index].data(as: Pet.self)
-                
-                if petViewModel.pet.userID == removePet?.userID
-                    && petViewModel.pet.id == removePet?.id {
-                    
-                    let docID = snapshot.documents[index].documentID
-                    
-                    self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
-                    
-                }
-            }
-        }
-    }
-    
-    func removeFavoritePet(with userId: String, completion: @escaping (Error?) -> Void) {
+    func removeFavoritePet(with petViewModel: PetViewModel, completion: @escaping (Result<String, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
             
             guard
                 let snapshot = snapshot else {
                     
-                    completion(error)
+                    completion(.failure(FirebaseError.fetchPetError))
+                    
+                    return
+                    
+                }
+            
+            for index in 0..<snapshot.documents.count {
+                
+                do {
+                    
+                    let removePet = try snapshot.documents[index].data(as: Pet.self)
+                    
+                    if petViewModel.pet.userID == removePet.userID
+                        && petViewModel.pet.id == removePet.id {
+                        
+                        let docID = snapshot.documents[index].documentID
+                        
+                        self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
+                        
+                        completion(.success("success"))
+                    }
+                    
+                } catch {
+                    
+                    completion(.failure(FirebaseError.decodePetError))
+                }
+            }
+        }
+    }
+    
+    func removeFavoritePet(with userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+        db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
+            
+            guard
+                let snapshot = snapshot else {
+                    
+                    completion(.failure(FirebaseError.fetchPetError))
                     
                     return
                 }
@@ -114,10 +137,13 @@ class FavoritePetFirebaseManager {
                     
                 } catch {
                     
-                    completion(error)
+                    completion(.failure(FirebaseError.decodePetError))
+                    
+                    return
                 }
             }
-            completion(nil)
+//            completion(nil)
+            completion(.success("success"))
         }
     }
 }

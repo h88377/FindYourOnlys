@@ -24,7 +24,18 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
             
             switch result {
                 
-            case .success(let articles):
+            case .success(var articles):
+                
+                if
+                    let currentUser = UserFirebaseManager.shared.currentUser {
+                    
+                    for index in 0..<articles.count {
+                        
+                        let filteredComments = articles[index].comments.filter { !currentUser.blockedUsers.contains($0.userId) }
+                        
+                        articles[index].comments = filteredComments
+                    }
+                }
                 
                 PetSocietyFirebaseManager.shared.setArticles(with: self.articleViewModels, articles: articles)
                 
@@ -80,4 +91,37 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
         }
     }
     
+    func deleteArticle(with viewModel: ArticleViewModel) {
+        
+        let article = viewModel.article
+        
+        startLoadingHandler?()
+        
+        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] result in
+            
+            switch result {
+                
+            case .success(_):
+                
+                self?.stopLoadingHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
+            }
+        }
+    }
+    
+    func blockUser(with viewModel: ArticleViewModel) {
+        
+        let article = viewModel.article
+        
+        startLoadingHandler?()
+        
+        UserFirebaseManager.shared.blockUser(with: article.userId)
+        
+        stopLoadingHandler?()
+    }
 }

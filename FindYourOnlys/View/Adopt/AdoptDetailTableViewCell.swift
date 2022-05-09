@@ -80,9 +80,13 @@ class AdoptDetailTableViewCell: UITableViewCell {
             
             sexLabel.text = "♂"
             
+            sexLabel.textColor = .maleColor
+            
         } else {
             
             sexLabel.text = "♀"
+            
+            sexLabel.textColor = .femaleColor
         }
     }
     

@@ -37,7 +37,18 @@ class CommentCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var editButton: UIButton! {
+        
+        didSet {
+            
+            editButton.setTitleColor(.projectIconColor1, for: .normal)
+            editButton.setTitleColor(.projectIconColor2, for: .highlighted)
+        }
+    }
+    
     @IBOutlet weak var userImageView: UIImageView!
+    
+    var blockHandler: (() -> Void)?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -54,5 +65,10 @@ class CommentCell: UITableViewCell {
         createdTimeLabel.text = viewModel.comment.createdTime.formatedTime
         
         userImageView.loadImage(senderViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+    }
+    
+    @IBAction func block(_ sender: UIButton) {
+        
+        blockHandler?()
     }
 }

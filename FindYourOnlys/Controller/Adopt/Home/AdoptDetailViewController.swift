@@ -18,8 +18,6 @@ class AdoptDetailViewController: BaseViewController {
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
-    var didLogin: Bool = true
-    
     override var isHiddenTabBar: Bool { return true }
     
     override var isHiddenNavigationBar: Bool { return true }
@@ -88,8 +86,6 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -111,37 +107,53 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
-        //Create a function to replace
-        if !didLogin {
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            viewModel.fetchFavoritePetFromLS { error in
+            if
+                let error = errorViewModel?.error {
                 
-                if error != nil {
+                DispatchQueue.main.async {
                     
-                    print(error)
-                    
-                } else {
-                    
-                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
-                }
-                
-            }
-            
-        } else {
-            
-            viewModel.fetchFavoriteFromFB { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                    
-                } else {
-                    
-                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let localStorageError = error as? LocalStorageError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
+                    }
                 }
             }
         }
-        photoImageView.loadImage(viewModel.petViewModel.value.pet.photoURLString, placeHolder: UIImage.system(.petPlaceHolder))
+        
+        viewModel.checkFavoriateButtonHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+        }
+        
+        //Create a function to replace
+        if !viewModel.didSignIn {
+            
+            viewModel.fetchFavoritePetFromLS()
+            
+//            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+            
+        } else {
+            
+            viewModel.fetchFavoriteFromFB()
+            
+//                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+        }
+        
+        photoImageView.loadImage(
+            viewModel.petViewModel.value.pet.photoURLString,
+            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
+        )
     }
  
     override func viewDidLayoutSubviews() {
@@ -158,7 +170,6 @@ class AdoptDetailViewController: BaseViewController {
         favoriteButton.layer.cornerRadius = 15
     }
     
-    
     override func setupTableView() {
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
@@ -168,36 +179,18 @@ class AdoptDetailViewController: BaseViewController {
     
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
-        if !didLogin {
+        if !viewModel.didSignIn {
             
             // Local Storage
-            viewModel.fetchFavoritePetFromLS { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoritePetFromLS()
             
         } else {
             
             // Firebase
-            viewModel.fetchFavoriteFromFB { error in
-                
-                if error != nil {
-                    
-                    print(error)
-                }
-            }
+            viewModel.fetchFavoriteFromFB()
         }
         
-        viewModel.toggleFavoriteButton(with: sender) { error in
-            
-            if error != nil {
-
-                print(error)
-            }
-        }
+        viewModel.toggleFavoriteButton(with: sender)
         
         self.delegate?.toggleFavorite()
     }
@@ -206,7 +199,6 @@ class AdoptDetailViewController: BaseViewController {
         
         viewModel.makePhoneCall(self)
     }
-    
     
     @IBAction func back(_ sender: UIButton) {
         
@@ -217,15 +209,10 @@ class AdoptDetailViewController: BaseViewController {
         
         let storyboard = UIStoryboard.adopt
         
-//        guard
-//            let petLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetLocationViewController.identifier) as? AdoptPetLocationViewController
-//
-//        else { return }
-//
-//        petLocationVC.viewModel.petViewModel = viewModel.petViewModel
-        
         guard
-            let petsLocationVC = storyboard.instantiateViewController(withIdentifier: AdoptPetsLocationViewController.identifier) as? AdoptPetsLocationViewController
+            let petsLocationVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptPetsLocationViewController.identifier)
+                as? AdoptPetsLocationViewController
         
         else { return }
         
@@ -272,17 +259,17 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.row == 0 {
-            
-            return 170
-            
-        } else {
-            
-            return tableView.estimatedRowHeight
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        if indexPath.row == 0 {
+//
+//            return tableView.estimatedRowHeight
+//
+//        } else {
+//
+//            return tableView.estimatedRowHeight
+//        }
+//    }
 }
 
 

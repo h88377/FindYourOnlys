@@ -31,6 +31,14 @@ class AdoptDirectionViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var indicatorImageView: UIImageView! {
+        
+        didSet {
+            
+            indicatorImageView.tintColor = .white
+        }
+    }
+    
     let viewModel = AdoptDirectionViewModel()
     
     var closeHandler: (() -> Void)?
@@ -38,7 +46,7 @@ class AdoptDirectionViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.directionViewModel.bind(listener: { [weak self] directionViewModel in
+        viewModel.directionViewModel.bind(listener: { [weak self] _ in
             
             guard
                 let self = self else { return }

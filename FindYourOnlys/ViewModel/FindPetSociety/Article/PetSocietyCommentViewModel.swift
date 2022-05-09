@@ -28,7 +28,7 @@ class PetSocietyCommentViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var editCommentHandler: (() -> Void)?
+    var changeCommentHandler: (() -> Void)?
     
     var beginEditCommentHander: (() -> Void)?
     
@@ -36,12 +36,30 @@ class PetSocietyCommentViewModel {
     
     var scrollToBottomHandler: (() -> Void)?
     
-    func editMessage() {
+    var startLoadingHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
+    var signInHandler: (() -> Void)?
+    
+    var blockHandler: ((UserViewModel) -> Void)?
+    
+    func changeMessage() {
         
-        editCommentHandler?()
+        changeCommentHandler?()
     }
     
     func beginEditMessage() {
+        
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
         
         beginEditCommentHander?()
     }
@@ -56,6 +74,11 @@ class PetSocietyCommentViewModel {
         scrollToBottomHandler?()
     }
     
+    func block(with senderViewModel: UserViewModel) {
+        
+        blockHandler?(senderViewModel)
+    }
+    
     func fetchComments() {
 
         guard
@@ -68,14 +91,22 @@ class PetSocietyCommentViewModel {
 
             switch result {
 
-            case .success(let article):
+            case .success(var article):
                 
+                if
+                    let currentUser = UserFirebaseManager.shared.currentUser {
+                    
+                    let filteredComments = article.comments.filter { !currentUser.blockedUsers.contains($0.userId) }
+                    
+                    article.comments = filteredComments
+                }
+                    
                 self.selectedArticleViewModel.value = ArticleViewModel(model: article)
-
+                
                 PetSocietyFirebaseManager.shared.setComments(with: self.commentViewModels, comments: article.comments)
                 
                 self.fetchSenders(withArticle: article)
-
+                
             case .failure(let error):
 
                 self.errorViewModel.value = ErrorViewModel(model: error)
@@ -97,16 +128,17 @@ class PetSocietyCommentViewModel {
 
         comment.createdTime = NSDate().timeIntervalSince1970
 
-        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] error in
+        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] result in
             
-            guard
-                error == nil
-                    
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(let success):
                 
-                return
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -126,12 +158,38 @@ class PetSocietyCommentViewModel {
                 
                 var senders = [User]()
                 
+//                for userId in userIds {
+//
+//                    for user in users where userId == user.id {
+//
+//                        senders.append(user)
+//                    }
+//                }
+                
                 for userId in userIds {
-                    
-                    for user in users where userId == user.id {
+                        
+                    if !users.map({ $0.id }).contains(userId) {
+                        
+                        let deletedUser = User(
+                            id: "", nickName: "不存在使用者",
+                            email: "",
+                            imageURLString: "",
+                            friends: [],
+                            blockedUsers: []
+                        )
+
+                        senders.append(deletedUser)
+                        
+                    } else {
+                        
+                        for user in users where user.id == userId {
                             
-                        senders.append(user)
+                            senders.append(user)
+                            
+                            break
+                        }
                     }
+                           
                 }
                 
                 UserFirebaseManager.shared.setUsers(with: self.senderViewModels, users: senders)
@@ -142,6 +200,17 @@ class PetSocietyCommentViewModel {
                 
             }
         }
+    }
+    
+    func blockUser(with viewModel: UserViewModel) {
+        
+        let user = viewModel.user
+        
+        startLoadingHandler?()
+        
+        UserFirebaseManager.shared.blockUser(with: user.id)
+        
+        stopLoadingHandler?()
     }
 }
 

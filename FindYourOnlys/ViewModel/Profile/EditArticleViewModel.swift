@@ -63,7 +63,7 @@ class EditArticleViewModel {
         return article.content != "" && article.content != "請輸入你的內文"
     }
     
-    private func edit(completion: @escaping (Error?)-> Void) {
+    private func edit(completion: @escaping (Result<String, Error>)-> Void) {
         
         checkEditedContent?(isValidEditedContent)
         
@@ -98,13 +98,15 @@ class EditArticleViewModel {
                         
                         self.article.imageURLString = "\(url)"
                         
-                        completion(nil)
+//                        completion(nil)
                         
                     case .failure(let error):
                         
-                        completion(error)
+                        completion(.failure(error))
                         
-                        self.stopLoadingHandler?()
+//                        completion(error)
+                        
+//                        self.stopLoadingHandler?()
                     }
 
                     semaphore.signal()
@@ -116,44 +118,46 @@ class EditArticleViewModel {
             }
      
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.editArticle(with: &self.article) { error in
+            PetSocietyFirebaseManager.shared.editArticle(with: &self.article) { result in
 
-                guard
-                    error == nil
-                
-                else {
+                switch result {
                     
-                    completion(error)
+                case .success(let success):
                     
-                    self.stopLoadingHandler?()
+//                    self?.stopLoadingHandler?()
                     
-                    return
-                    }
-                
-                completion(nil)
-                
-                self.stopLoadingHandler?()
+                    completion(.success(success))
+                    
+                case .failure(let error):
+                    
+                    completion(.failure(error))
+                    
+//                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                    
+//                    self?.stopLoadingHandler?()
+                }
             }
-            
         }
     }
     
     func tapEdit() {
         
-        edit { [weak self] error in
+        edit { [weak self] result in
             
-            guard
-                error == nil
-            
-            else {
+            switch result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error!)
+            case .success(_):
                 
-                return
+                self?.stopLoadingHandler?()
                 
-                }
-            
-            self?.dismissHandler?()
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
+            }
         }
     }
 }

@@ -54,7 +54,7 @@ class AdoptViewController: BaseViewController {
             
             adoptListButton.setTitleColor(.white, for: .selected)
             
-            adoptListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            adoptListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
             
             adoptListButton.backgroundColor = .projectIconColor1
         }
@@ -78,19 +78,31 @@ class AdoptViewController: BaseViewController {
         [adoptListContainerView, adoptFavoriteContainerView]
     }
     
+    @IBOutlet weak var filterButton: UIBarButtonItem! {
+        
+        didSet {
+            
+            filterButton.tintColor = .projectIconColor1
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                errorViewModel?.error == nil
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
                     
-            else {
-                
-                print(errorViewModel?.error)
-                
-                return
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    }   
+                }
             }
         }
         
@@ -117,18 +129,6 @@ class AdoptViewController: BaseViewController {
             
             self.adoptListVC = adoptListVC
         }
-        
-//        guard
-//            segue.identifier == Segue.favorite,
-//            segue.identifier == Segue.list,
-//            
-//            
-//                
-//        else { return }
-        
-        
-        
-        
     }
     
     @IBAction func pressAdoptButton(_ sender: UIButton) {
@@ -144,7 +144,7 @@ class AdoptViewController: BaseViewController {
         
         sender.isSelected = true
         
-        sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         
         sender.backgroundColor = .projectIconColor1
         
@@ -190,5 +190,19 @@ class AdoptViewController: BaseViewController {
             
             adoptFavoriteContainerView.isHidden = false
         }
+    }
+    
+    @IBAction func goToFilter(_ sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard.adopt
+        
+        guard
+            let adoptFilterLocationVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptFilterViewController.identifier)
+                as? AdoptFilterViewController
+        
+        else { return }
+        
+        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
     }
 }
