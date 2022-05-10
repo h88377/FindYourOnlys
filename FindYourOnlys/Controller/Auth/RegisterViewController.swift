@@ -124,6 +124,14 @@ class RegisterViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var dismissButton: UIButton! {
+        
+        didSet {
+            
+            dismissButton.tintColor = .projectTextColor
+        }
+    }
+    
     var dismissHandler: (() -> Void)?
     
     override func viewDidLoad() {
@@ -207,11 +215,12 @@ class RegisterViewController: BaseViewController {
             return
         }
         
-        
-        
-        
-        
         viewModel.register(with: nickName, with: email, with: password)
+    }
+    
+    @IBAction func dismiss(_ sender: UIButton) {
+        
+        self.dismiss(animated: true)
     }
     
 }
