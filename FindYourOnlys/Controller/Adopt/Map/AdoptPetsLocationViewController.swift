@@ -107,7 +107,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-                    self.showAlertWindowAndBack(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
+                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
                     
                 } else {
                     
@@ -126,7 +126,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showAlertHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "異常訊息", message: "請先選擇想要前往的收容所或動物的位置喔！")
+            self?.showAlertWindow(title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
                 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
