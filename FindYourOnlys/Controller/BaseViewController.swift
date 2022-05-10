@@ -153,6 +153,22 @@ class BaseViewController: UIViewController {
         
         present(alert, animated: true)
     }
+    
+    func startLoading() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.startLoading()
+        }
+    }
+    
+    func stopLoading() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.stopLoading()
+        }
+    }
 }
 
 // MARK: - UIViewControllerTransitioningDelegate

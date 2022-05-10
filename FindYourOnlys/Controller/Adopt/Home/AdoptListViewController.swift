@@ -76,7 +76,7 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.fetchPet()
         
-        LottieAnimationWrapper.shared.startLoading(at: view)
+        startLoading()
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
@@ -103,20 +103,12 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
+            self?.startLoading()
         }
         
-        viewModel.stopLoadingHandler = {
+        viewModel.stopLoadingHandler = { [weak self] in
 
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
+            self?.stopLoading()
         }
         
         viewModel.startIndicatorHandler = { [weak self] in
