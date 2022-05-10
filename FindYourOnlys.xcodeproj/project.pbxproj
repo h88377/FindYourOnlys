@@ -1528,7 +1528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1583,7 +1583,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1606,9 +1606,9 @@
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限。";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限，您的相機照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置，您的位置資訊僅用來計算前往收容所路線的用途。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限，您的照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1642,9 +1642,9 @@
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限。";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限，您的相機照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置，您的位置資訊僅用來計算前往收容所路線的用途。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限，您的照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
