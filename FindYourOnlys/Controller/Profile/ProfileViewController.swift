@@ -65,6 +65,16 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+
+            self?.stopLoading()
+        }
+        
         viewModel.fetchCurrentUser()
         
         viewModel.fetchProfileArticle()
@@ -113,16 +123,6 @@ class ProfileViewController: BaseViewController {
                 
                 self?.collectionView.reloadData()
             }
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-
-            self?.stopLoading()
         }
         
         viewModel.backToHomeHandler = { [weak self] in

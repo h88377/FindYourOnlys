@@ -73,6 +73,16 @@ class ChatRoomMessageViewController: BaseViewController {
             self?.checkIsBlock()
         }
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
+        }
+        
         viewModel.checkIsBlocked()
         
         viewModel.fetchMessage()
@@ -146,16 +156,6 @@ class ChatRoomMessageViewController: BaseViewController {
         viewModel.enableIQKeyboardHandler = { [weak self] in
             
             //Wait handle content out of screen when user tap textView.
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
         }
         
         checkMessageButton()

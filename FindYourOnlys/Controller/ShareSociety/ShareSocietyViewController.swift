@@ -44,6 +44,16 @@ class ShareSocietyViewController: BaseViewController {
 
         addCurrentUserObserver()
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
+        }
+        
         viewModel.fetchSharedArticles()
         
         viewModel.articleViewModels.bind { [weak self] articleViewModels in
@@ -119,16 +129,6 @@ class ShareSocietyViewController: BaseViewController {
             }
             
             self?.presentEditActionSheet(with: articleViewModel)
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
         }
         
         viewModel.tapAddArticleHandler = { [weak self] in
