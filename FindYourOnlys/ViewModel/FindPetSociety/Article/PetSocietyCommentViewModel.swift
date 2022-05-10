@@ -32,7 +32,7 @@ class PetSocietyCommentViewModel {
     
     var beginEditCommentHander: (() -> Void)?
     
-    var endEditCommentHandler: (() -> Void)?
+//    var endEditCommentHandler: (() -> Void)?
     
     var scrollToBottomHandler: (() -> Void)?
     
@@ -64,10 +64,10 @@ class PetSocietyCommentViewModel {
         beginEditCommentHander?()
     }
     
-    func endEditMessage() {
-        
-        endEditCommentHandler?()
-    }
+//    func endEditMessage() {
+//
+//        endEditCommentHandler?()
+//    }
     
     func scrollToBottom() {
         
