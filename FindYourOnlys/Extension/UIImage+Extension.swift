@@ -44,6 +44,8 @@ enum SystemImageAsset: String {
     case search = "magnifyingglass"
     
     case addFriend = "person.badge.plus"
+    
+    case notification = "bell"
 }
 
 enum ImageAsset: String {

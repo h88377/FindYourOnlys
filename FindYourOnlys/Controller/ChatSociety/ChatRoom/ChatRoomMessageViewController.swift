@@ -73,6 +73,16 @@ class ChatRoomMessageViewController: BaseViewController {
             self?.checkIsBlock()
         }
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
+        }
+        
         viewModel.checkIsBlocked()
         
         viewModel.fetchMessage()
@@ -134,36 +144,18 @@ class ChatRoomMessageViewController: BaseViewController {
             self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
         
-        viewModel.endEditMessageHandler = { [weak self] in
-            
-            self?.messageTextView.text = MessageType.placeHolder.rawValue
-
-            self?.messageTextView.textColor = UIColor.systemGray3
-            
-            self?.checkMessageButton()
-        }
+//        viewModel.endEditMessageHandler = { [weak self] in
+//
+//            self?.messageTextView.text = MessageType.placeHolder.rawValue
+//
+//            self?.messageTextView.textColor = UIColor.systemGray3
+//
+//            self?.checkMessageButton()
+//        }
         
         viewModel.enableIQKeyboardHandler = { [weak self] in
             
             //Wait handle content out of screen when user tap textView.
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
-        }
-        
-        viewModel.stopLoadingHandler = {
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
         }
         
         checkMessageButton()
@@ -364,10 +356,10 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
         viewModel.changeMessage()
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        
-        viewModel.endEditMessage()
-    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//
+//        viewModel.endEditMessage()
+//    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate

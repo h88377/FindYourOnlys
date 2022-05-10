@@ -57,21 +57,13 @@ class EditArticleViewController: BaseViewController {
         }
         
         viewModel.startLoadingHandler = { [weak self] in
-
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
+            
+            self?.startLoading()
         }
         
-        viewModel.stopLoadingHandler = {
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
         }
     }
     

@@ -100,6 +100,14 @@ class SignInViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var dismissButton: UIButton! {
+        
+        didSet {
+            
+            dismissButton.tintColor = .projectTextColor
+        }
+    }
+    
     var dismissHandler: (() -> Void)?
     
     override func viewDidLoad() {
@@ -141,20 +149,12 @@ class SignInViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
+            self?.startLoading()
         }
         
-        viewModel.stopLoadingHandler = {
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
         }
     }
     
@@ -181,6 +181,11 @@ class SignInViewController: BaseViewController {
         }
                      
         viewModel.signIn(withEmail: email, password: password)
+    }
+    
+    @IBAction func dismiss(_ sender: UIButton) {
+        
+        dismiss(animated: true)
     }
     
 }

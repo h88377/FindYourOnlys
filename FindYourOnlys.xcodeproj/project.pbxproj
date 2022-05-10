@@ -10,6 +10,8 @@
 		80B017278C10374F5E895CDD /* Pods_FindYourOnlys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */; };
 		9808D987282902F70059DDF5 /* ProportionSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808D986282902F70059DDF5 /* ProportionSizeImageView.swift */; };
 		9808D98A282914190059DDF5 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808D989282914190059DDF5 /* FirebaseError.swift */; };
+		9808D98E282A19540059DDF5 /* multipleSimulators.config in Resources */ = {isa = PBXBuildFile; fileRef = 9808D98C282A19540059DDF5 /* multipleSimulators.config */; };
+		9808D98F282A19540059DDF5 /* multipleSimulatorsStartup.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9808D98D282A19540059DDF5 /* multipleSimulatorsStartup.sh */; };
 		987D8B2F281681B9000D1F95 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B2E281681B9000D1F95 /* Auth.storyboard */; };
 		987D8B32281681EB000D1F95 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B31281681EB000D1F95 /* AuthViewController.swift */; };
 		987D8B3528169FE5000D1F95 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B3428169FE5000D1F95 /* AuthViewModel.swift */; };
@@ -213,6 +215,8 @@
 		6AAA99A8BC5FA9600A080C81 /* Pods-FindYourOnlys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlys.release.xcconfig"; path = "Target Support Files/Pods-FindYourOnlys/Pods-FindYourOnlys.release.xcconfig"; sourceTree = "<group>"; };
 		9808D986282902F70059DDF5 /* ProportionSizeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProportionSizeImageView.swift; sourceTree = "<group>"; };
 		9808D989282914190059DDF5 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		9808D98C282A19540059DDF5 /* multipleSimulators.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multipleSimulators.config; sourceTree = "<group>"; };
+		9808D98D282A19540059DDF5 /* multipleSimulatorsStartup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = multipleSimulatorsStartup.sh; sourceTree = "<group>"; };
 		987D8B2D2816807C000D1F95 /* FindYourOnlys.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FindYourOnlys.entitlements; sourceTree = "<group>"; };
 		987D8B2E281681B9000D1F95 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		987D8B31281681EB000D1F95 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -797,6 +801,8 @@
 		98CC159A28005B6C00B9FDC6 = {
 			isa = PBXGroup;
 			children = (
+				9808D98C282A19540059DDF5 /* multipleSimulators.config */,
+				9808D98D282A19540059DDF5 /* multipleSimulatorsStartup.sh */,
 				98CC15A528005B6C00B9FDC6 /* FindYourOnlys */,
 				98CC15A428005B6C00B9FDC6 /* Products */,
 				DD46BB83A3A5D507D07D9598 /* Pods */,
@@ -1091,6 +1097,7 @@
 				98CC15BA2800689D00B9FDC6 /* ShellScript */,
 				6DB016886865862642893970 /* [CP] Embed Pods Frameworks */,
 				9808D98828290D190059DDF5 /* ShellScript */,
+				9808D98B282A174A0059DDF5 /* Multiple Simulators */,
 			);
 			buildRules = (
 			);
@@ -1142,6 +1149,7 @@
 				987D8B4728192176000D1F95 /* CommentCell.xib in Resources */,
 				987D8B2F281681B9000D1F95 /* Auth.storyboard in Resources */,
 				98BC475E28239B9C00740855 /* ChatSociety.storyboard in Resources */,
+				9808D98E282A19540059DDF5 /* multipleSimulators.config in Resources */,
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
 				9896D8D9280841EC003D4A16 /* ChatRoomUserMessageCell.xib in Resources */,
@@ -1153,6 +1161,7 @@
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,
 				98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */,
+				9808D98F282A19540059DDF5 /* multipleSimulatorsStartup.sh in Resources */,
 				98CC15B028005B6C00B9FDC6 /* Assets.xcassets in Resources */,
 				98CC16522806585F00B9FDC6 /* ArticlePhotoCell.xib in Resources */,
 				98CC164128059EBD00B9FDC6 /* PublishKindCell.xib in Resources */,
@@ -1240,6 +1249,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		9808D98B282A174A0059DDF5 /* Multiple Simulators */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Multiple Simulators";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "custom_sim=`xcrun simctl list | grep 'Multiple Simulators' | awk -F'[()]' '{print $2}'`\nif [ ! -z \"${custom_sim}\" ] && [ \"${TARGET_DEVICE_IDENTIFIER}\" = \"${custom_sim}\" ]; then\n/bin/sh multipleSimulatorsStartup.sh &\nfi\n";
 		};
 		98CC15BA2800689D00B9FDC6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1501,7 +1528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1556,7 +1583,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1579,9 +1606,9 @@
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限。";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限，您的相機照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置，您的位置資訊僅用來計算前往收容所路線的用途。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限，您的照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1615,9 +1642,9 @@
 				DEVELOPMENT_TEAM = 6D8CRTN6K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindYourOnlys/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限。";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相機權限，您的相機照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "這個應用程式想要取得您現在所在位置，您的位置資訊僅用來計算前往收容所路線的用途。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "這個應用程式想要取得開啟您的裝置開啟相簿權限，您的照片僅用來發布您在應用程式中的文章、留言、訊息、個人頁等用途。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

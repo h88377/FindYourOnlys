@@ -52,6 +52,8 @@ class AdoptFavoriteViewController: BaseViewController {
             
         }
         
+        fetchPet()
+        
 //        viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
 //
 //            DispatchQueue.main.async {
@@ -84,40 +86,6 @@ class AdoptFavoriteViewController: BaseViewController {
 //
 //            viewModel.fetchFavoritePetFromFB()
 //        }
-        
-        if !viewModel.didSignIn {
-
-            viewModel.fetchFavoritePetFromLS()
-
-            viewModel.favoriteLSPetViewModels.bind { [weak self] favoriteLSPetViewModels in
-
-                DispatchQueue.main.async {
-
-                    self?.tableView.reloadData()
-
-                    self?.tableView.isHidden = favoriteLSPetViewModels.count == 0
-                    ? true
-                    : false
-                }
-            }
-
-        } else {
-
-            viewModel.fetchFavoritePetFromFB()
-
-            viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-
-                DispatchQueue.main.async {
-
-                    self?.tableView.reloadData()
-
-                    self?.tableView.isHidden = favoritePetViewModels.count == 0
-                    ? true
-                    : false
-                }
-            }
-        }
-        
     }
     
     override func setupTableView() {
@@ -134,7 +102,7 @@ class AdoptFavoriteViewController: BaseViewController {
         )
     }
     
-    @objc private func currentUserDidSet(_ notification: Notification) {
+    private func fetchPet() {
         
         if !viewModel.didSignIn {
 
@@ -168,15 +136,11 @@ class AdoptFavoriteViewController: BaseViewController {
                 }
             }
         }
+    }
+    
+    @objc private func currentUserDidSet(_ notification: Notification) {
         
-//        if !viewModel.didSignIn {
-//
-//            viewModel.fetchFavoritePetFromLS()
-//
-//        } else {
-//
-//            viewModel.fetchFavoritePetFromFB()
-//        }
+        fetchPet()
     }
     
 }

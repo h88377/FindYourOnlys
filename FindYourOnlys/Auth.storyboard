@@ -63,8 +63,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Pug-TP-4jU">
                                 <rect key="frame" x="87" y="819" width="240.5" height="41.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="點擊登入鍵，代表您同意下列" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JwL-Tg-nxC">
-                                        <rect key="frame" x="40.5" y="0.0" width="159.5" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="點擊登入或註冊鍵，代表您同意下列" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JwL-Tg-nxC">
+                                        <rect key="frame" x="22" y="0.0" width="196.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -197,6 +197,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErP-UQ-rK6">
+                                <rect key="frame" x="366" y="70" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="JbJ-7S-ZKg"/>
+                                    <constraint firstAttribute="height" constant="32" id="wIv-C5-tdg"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="xmark.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss:" destination="PMN-DF-ZxW" eventType="touchUpInside" id="O3i-2g-dLw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5br-zR-RA3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -208,6 +222,7 @@
                             <constraint firstItem="2nF-LZ-7jb" firstAttribute="height" secondItem="ERx-hS-RSA" secondAttribute="height" multiplier="0.300223" id="DXl-9c-Upw"/>
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" constant="40" id="FQ5-D8-1jl"/>
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="height" secondItem="rkJ-Mn-0RN" secondAttribute="height" id="K3j-hX-5IV"/>
+                            <constraint firstItem="ErP-UQ-rK6" firstAttribute="top" secondItem="adj-mg-lJZ" secondAttribute="top" id="K5e-R1-Gmp"/>
                             <constraint firstItem="2nF-LZ-7jb" firstAttribute="top" secondItem="adj-mg-lJZ" secondAttribute="bottom" constant="10" id="MXh-CS-dQV"/>
                             <constraint firstItem="rkJ-Mn-0RN" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" constant="40" id="Mzh-fS-56m"/>
                             <constraint firstItem="rkg-ox-Ygq" firstAttribute="centerX" secondItem="ERx-hS-RSA" secondAttribute="centerX" id="NBf-Mw-L0K"/>
@@ -217,6 +232,7 @@
                             <constraint firstItem="IUd-zg-tfE" firstAttribute="top" secondItem="rkJ-Mn-0RN" secondAttribute="bottom" constant="20" id="fVM-He-hMv"/>
                             <constraint firstItem="CWI-1U-sIV" firstAttribute="leading" secondItem="IUd-zg-tfE" secondAttribute="leading" id="fhW-Mx-Fhf"/>
                             <constraint firstItem="2nF-LZ-7jb" firstAttribute="leading" secondItem="5br-zR-RA3" secondAttribute="leading" id="lrm-uj-UJO"/>
+                            <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="ErP-UQ-rK6" secondAttribute="trailing" constant="16" id="nIE-Tw-zTh"/>
                             <constraint firstItem="rkJ-Mn-0RN" firstAttribute="top" secondItem="rkg-ox-Ygq" secondAttribute="bottom" constant="30" id="xwC-Rb-9qG"/>
                             <constraint firstItem="5br-zR-RA3" firstAttribute="trailing" secondItem="rkJ-Mn-0RN" secondAttribute="trailing" constant="40" id="y81-ck-Dib"/>
                             <constraint firstItem="4Ks-PF-nU1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IUd-zg-tfE" secondAttribute="bottom" constant="20" id="zjm-6e-VGG"/>
@@ -225,6 +241,7 @@
                     </view>
                     <connections>
                         <outlet property="animationView" destination="2nF-LZ-7jb" id="eEm-3H-wJx"/>
+                        <outlet property="dismissButton" destination="ErP-UQ-rK6" id="skC-Ae-F14"/>
                         <outlet property="emailTextField" destination="rkJ-Mn-0RN" id="tV1-jI-rgB"/>
                         <outlet property="errorLabel" destination="CWI-1U-sIV" id="zzx-Fb-iv4"/>
                         <outlet property="passwordTextField" destination="IUd-zg-tfE" id="BcY-bb-5eG"/>
@@ -339,12 +356,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orb-xa-Pvf">
+                                <rect key="frame" x="366" y="70" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="TEk-Hx-755"/>
+                                    <constraint firstAttribute="height" constant="32" id="XlJ-tL-Yhl"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="xmark.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss:" destination="PiJ-ri-75q" eventType="touchUpInside" id="gJS-xj-qOD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NkE-gi-sMy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Whb-8n-Dqn" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="9gH-8I-khm"/>
                             <constraint firstItem="ID5-3O-Grm" firstAttribute="top" secondItem="TRz-Yu-4tX" secondAttribute="bottom" constant="10" id="BRN-07-qgz"/>
+                            <constraint firstItem="NkE-gi-sMy" firstAttribute="trailing" secondItem="orb-xa-Pvf" secondAttribute="trailing" constant="16" id="DZQ-yB-4FE"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="height" secondItem="qdd-uY-G85" secondAttribute="height" id="Fty-dh-C2o"/>
                             <constraint firstItem="kbW-rD-pJd" firstAttribute="top" secondItem="TXh-Ef-6NP" secondAttribute="bottom" constant="20" id="G9W-aL-sTX"/>
                             <constraint firstItem="0zi-N8-G3a" firstAttribute="leading" secondItem="NkE-gi-sMy" secondAttribute="leading" id="Ga9-iV-hwu"/>
@@ -358,6 +390,7 @@
                             <constraint firstItem="TXh-Ef-6NP" firstAttribute="leading" secondItem="qdd-uY-G85" secondAttribute="leading" id="aIH-ld-APf"/>
                             <constraint firstItem="TRz-Yu-4tX" firstAttribute="top" secondItem="kbW-rD-pJd" secondAttribute="bottom" constant="20" id="aff-Hl-40V"/>
                             <constraint firstItem="qdd-uY-G85" firstAttribute="leading" secondItem="NkE-gi-sMy" secondAttribute="leading" constant="40" id="cNZ-Jb-CNk"/>
+                            <constraint firstItem="orb-xa-Pvf" firstAttribute="top" secondItem="xqf-HY-YwI" secondAttribute="top" id="ebR-ik-FEK"/>
                             <constraint firstItem="ID5-3O-Grm" firstAttribute="leading" secondItem="TRz-Yu-4tX" secondAttribute="leading" id="hBA-1s-IQQ"/>
                             <constraint firstItem="xqf-HY-YwI" firstAttribute="top" secondItem="NkE-gi-sMy" secondAttribute="top" constant="26" id="hWR-Yb-FCj"/>
                             <constraint firstItem="9iT-HQ-n9q" firstAttribute="centerX" secondItem="UqQ-oY-YQf" secondAttribute="centerX" id="hmL-lV-MYK"/>
@@ -376,6 +409,7 @@
                     <connections>
                         <outlet property="animationView" destination="0zi-N8-G3a" id="I5e-eI-9fm"/>
                         <outlet property="checkPasswordTextField" destination="TRz-Yu-4tX" id="DAE-cy-dlp"/>
+                        <outlet property="dismissButton" destination="orb-xa-Pvf" id="Ag4-eI-s1r"/>
                         <outlet property="emailTextField" destination="TXh-Ef-6NP" id="EnY-Rn-iaz"/>
                         <outlet property="errorLabel" destination="ID5-3O-Grm" id="UlN-5b-ltk"/>
                         <outlet property="nickNameTextField" destination="qdd-uY-G85" id="spx-OZ-jDx"/>
@@ -395,6 +429,7 @@
         <designable name="2nF-LZ-7jb"/>
     </designables>
     <resources>
+        <image name="xmark.circle" catalog="system" width="128" height="121"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
