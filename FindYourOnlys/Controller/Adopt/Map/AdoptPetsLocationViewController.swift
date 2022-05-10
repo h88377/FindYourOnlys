@@ -39,6 +39,10 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             navigateButton.tintColor = .white
             
+            navigateButton.setTitleColor(.white, for: .normal)
+            
+            navigateButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            
             navigateButton.backgroundColor = .projectIconColor1
         }
     }
@@ -58,13 +62,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
+            self?.startLoading()
         }
         
         // Pet
@@ -107,7 +105,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-                    self.showAlertWindowAndBack(title: "異常訊息", message: "你所在位置附近沒有收容所資訊喔！")
+                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
                     
                 } else {
                     
@@ -126,7 +124,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showAlertHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "異常訊息", message: "請先選擇想要前往的收容所或動物的位置喔！")
+            self?.showAlertWindow(title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
                 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
@@ -188,13 +186,9 @@ class AdoptPetsLocationViewController: BaseViewController {
 //            }
         }
         
-        viewModel.stopLoadingHandler = {
+        viewModel.stopLoadingHandler = { [weak self] in
 
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
-
+            self?.stopLoading()
         }
         
         setupGesture()
@@ -203,7 +197,7 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        navigateButton.layer.cornerRadius = navigateButton.frame.height / 2
+        navigateButton.layer.cornerRadius = 15
         
         directionView.roundCorners(corners: [.topLeft, .topRight], radius: 25)
     }
