@@ -178,10 +178,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDy-tJ-0um">
-                                <rect key="frame" x="20" y="74" width="34" height="33"/>
+                                <rect key="frame" x="20" y="74" width="40" height="39"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="chevron.backward.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="29"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="34"/>
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="63v-a2-Ckk" eventType="touchUpInside" id="BRf-z8-Y91"/>
@@ -448,23 +448,21 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="chevron.backward.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="34"/>
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="kc4-Rr-dBN" eventType="touchUpInside" id="x0H-pv-C7e"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29N-hb-QXl">
-                                <rect key="frame" x="344" y="792" width="50" height="50"/>
+                                <rect key="frame" x="132" y="797" width="150" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="9ld-UE-76h"/>
-                                    <constraint firstAttribute="height" constant="50" id="qNE-3J-4xa"/>
+                                    <constraint firstAttribute="width" constant="150" id="COa-cF-goz"/>
+                                    <constraint firstAttribute="height" constant="45" id="Q3n-FE-pJT"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemYellowColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="location.north.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                </state>
+                                <state key="normal" title="開始導航"/>
                                 <connections>
                                     <action selector="navigate:" destination="kc4-Rr-dBN" eventType="touchUpInside" id="60s-Gr-hye"/>
                                 </connections>
@@ -475,11 +473,11 @@
                         <constraints>
                             <constraint firstItem="lyd-z0-sNO" firstAttribute="top" secondItem="qxe-LX-2xw" secondAttribute="top" id="50E-NO-OfV"/>
                             <constraint firstItem="M20-jG-GhI" firstAttribute="bottom" secondItem="29N-hb-QXl" secondAttribute="bottom" constant="20" id="5j5-IP-KrK"/>
-                            <constraint firstItem="M20-jG-GhI" firstAttribute="trailing" secondItem="29N-hb-QXl" secondAttribute="trailing" constant="20" id="IHf-9j-AKE"/>
                             <constraint firstItem="lyd-z0-sNO" firstAttribute="leading" secondItem="M20-jG-GhI" secondAttribute="leading" id="SB4-1x-eBg"/>
                             <constraint firstItem="ytc-d5-9nS" firstAttribute="leading" secondItem="M20-jG-GhI" secondAttribute="leading" constant="20" id="SSS-s8-7A6"/>
                             <constraint firstItem="M20-jG-GhI" firstAttribute="trailing" secondItem="lyd-z0-sNO" secondAttribute="trailing" id="ed8-1s-a5O"/>
                             <constraint firstAttribute="bottom" secondItem="lyd-z0-sNO" secondAttribute="bottom" id="jWg-HB-xAK"/>
+                            <constraint firstItem="29N-hb-QXl" firstAttribute="centerX" secondItem="qxe-LX-2xw" secondAttribute="centerX" id="jqW-0z-PWB"/>
                             <constraint firstItem="ytc-d5-9nS" firstAttribute="top" secondItem="M20-jG-GhI" secondAttribute="top" constant="20" id="jsA-UF-Bds"/>
                         </constraints>
                     </view>
@@ -564,7 +562,6 @@
         <image name="arrow.up.arrow.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="location.north.fill" catalog="system" width="108" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>

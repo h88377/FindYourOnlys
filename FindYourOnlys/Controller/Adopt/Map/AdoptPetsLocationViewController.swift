@@ -39,6 +39,10 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             navigateButton.tintColor = .white
             
+            navigateButton.setTitleColor(.white, for: .normal)
+            
+            navigateButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            
             navigateButton.backgroundColor = .projectIconColor1
         }
     }
@@ -193,7 +197,7 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        navigateButton.layer.cornerRadius = navigateButton.frame.height / 2
+        navigateButton.layer.cornerRadius = 15
         
         directionView.roundCorners(corners: [.topLeft, .topRight], radius: 25)
     }
