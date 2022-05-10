@@ -70,14 +70,14 @@ class ChatRoomFriendListViewController: BaseViewController {
         navigationItem.title = "聊天室"
         
         let requestItem = UIBarButtonItem(
-            image: UIImage.system(.addFriend),
+            image: UIImage.system(.notification),
             style: .plain,
             target: self,
             action: #selector(checkFriendRequest)
         )
         
         let searchItem = UIBarButtonItem(
-            image: UIImage.system(.search),
+            image: UIImage.system(.addFriend),
             style: .plain,
             target: self,
             action: #selector(searchFriend)
