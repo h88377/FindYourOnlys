@@ -40,6 +40,8 @@ class ProfileViewModel {
                     
                     self?.userViewModel.value = UserViewModel(model: user)
                     
+                    self?.stopLoadingHandler?()
+                    
                     break
                 }
                 
