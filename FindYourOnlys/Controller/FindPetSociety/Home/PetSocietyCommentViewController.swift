@@ -112,6 +112,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
     
     override var isHiddenIQKeyboardToolBar: Bool { return true }
     
+    override var isEnableIQKeyboard: Bool { return false }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -128,6 +130,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         viewModel.fetchComments()
         
         checkCommentButton()
+        
+        setupKeyBoard()
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
@@ -256,6 +260,50 @@ class PetSocietyCommentViewController: BaseModalViewController {
             authVC.transitioningDelegate = self
 
             self?.present(authVC, animated: true)
+        }
+        
+    }
+    
+    func setupKeyBoard() {
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        let screenHeight = UIScreen.main.bounds.height
+        
+        if
+            let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+                                as? NSValue)?.cgRectValue {
+            
+            if lroundf(Float(view.frame.origin.y)) == lroundf(Float((screenHeight)) * 0.4) {
+                
+                view.frame.origin.y -= (keyboardSize.height)
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        let screenHeight = UIScreen.main.bounds.height
+        
+        if
+            lroundf(Float(view.frame.origin.y)) != lroundf(Float((screenHeight)) * 0.4) {
+            
+            view.frame.origin.y = (screenHeight) * 0.4
         }
     }
     
