@@ -102,6 +102,17 @@ class FindPetSocietyViewController: BaseViewController {
             }
         }
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
+        }
+        
         viewModel.fetchArticles()
         
         viewModel.shareHanlder = { [weak self] articleViewModel in
@@ -134,24 +145,6 @@ class FindPetSocietyViewController: BaseViewController {
             activityVC.popoverPresentationController?.permittedArrowDirections = .up
             
             self.present(activityVC, animated: true)
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
-        }
-        
-        viewModel.stopLoadingHandler = {
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
         }
         
         viewModel.editHandler = { [weak self] articleViewModel, _ in

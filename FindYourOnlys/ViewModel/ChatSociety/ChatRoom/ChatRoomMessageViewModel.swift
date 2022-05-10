@@ -35,7 +35,7 @@ class ChatRoomMessageViewModel {
     
     var scrollToBottomHandler: (() -> Void)?
     
-    var endEditMessageHandler: (() -> Void)?
+//    var endEditMessageHandler: (() -> Void)?
     
     var enableIQKeyboardHandler: (() -> Void)?
     
@@ -55,10 +55,10 @@ class ChatRoomMessageViewModel {
         beginEditMessageHander?()
     }
     
-    func endEditMessage() {
-        
-        endEditMessageHandler?()
-    }
+//    func endEditMessage() {
+//
+//        endEditMessageHandler?()
+//    }
     
     func scrollToBottom() {
         

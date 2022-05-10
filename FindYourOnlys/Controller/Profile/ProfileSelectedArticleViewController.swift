@@ -172,20 +172,12 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
+            self?.startLoading()
         }
         
-        viewModel.stopLoadingHandler = {
+        viewModel.stopLoadingHandler = { [weak self] in
 
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
+            self?.stopLoading()
         }
     }
     

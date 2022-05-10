@@ -44,6 +44,16 @@ class ShareSocietyViewController: BaseViewController {
 
         addCurrentUserObserver()
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
+        }
+        
         viewModel.fetchSharedArticles()
         
         viewModel.articleViewModels.bind { [weak self] articleViewModels in
@@ -119,24 +129,6 @@ class ShareSocietyViewController: BaseViewController {
             }
             
             self?.presentEditActionSheet(with: articleViewModel)
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
-        }
-        
-        viewModel.stopLoadingHandler = {
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
-            }
         }
         
         viewModel.tapAddArticleHandler = { [weak self] in

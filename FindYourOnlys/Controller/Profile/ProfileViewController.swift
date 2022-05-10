@@ -65,6 +65,16 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+
+            self?.stopLoading()
+        }
+        
         viewModel.fetchCurrentUser()
         
         viewModel.fetchProfileArticle()
@@ -112,24 +122,6 @@ class ProfileViewController: BaseViewController {
                     .count == 0
                 
                 self?.collectionView.reloadData()
-            }
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            guard
-                let self = self else { return }
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.startLoading(at: self.view)
-            }
-        }
-        
-        viewModel.stopLoadingHandler = {
-
-            DispatchQueue.main.async {
-
-                LottieAnimationWrapper.shared.stopLoading()
             }
         }
         

@@ -7,6 +7,7 @@
 
 import Foundation
 import Lottie
+import UIKit
 
 enum LottieName: String {
     
@@ -25,15 +26,29 @@ class LottieAnimationWrapper {
     
     private let loadingView = AnimationView(name: LottieName.loading.rawValue)
     
-    func startLoading(at view: UIView) {
+    lazy var blurView = UIView()
+    
+    func startLoading() {
+        
+        let width = UIScreen.main.bounds.width
+        
+        let height = UIScreen.main.bounds.height
+        
+        let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+        
+        blurView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        blurView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        
+        currentWindow?.addSubview(blurView)
         
         loadingView.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
         
-        loadingView.center = view.center
+        loadingView.center = currentWindow!.center
         
         loadingView.contentMode = .scaleAspectFill
         
-        view.addSubview(loadingView)
+        currentWindow?.addSubview(loadingView)
         
         loadingView.play()
         
@@ -44,6 +59,8 @@ class LottieAnimationWrapper {
         
         loadingView.removeFromSuperview()
 
+        blurView.removeFromSuperview()
+        
         loadingView.stop()
     }
     
