@@ -114,6 +114,16 @@ class PetSocietyCommentViewController: BaseModalViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            self?.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            self?.stopLoading()
+        }
 
         viewModel.fetchComments()
         
@@ -173,14 +183,14 @@ class PetSocietyCommentViewController: BaseModalViewController {
             
         }
         
-        viewModel.endEditCommentHandler = { [weak self] in
-            
-            self?.commentTextView.text = MessageType.placeHolder.rawValue
-
-            self?.commentTextView.textColor = UIColor.systemGray3
-            
-            self?.checkCommentButton()
-        }
+//        viewModel.endEditCommentHandler = { [weak self] in
+//            
+//            self?.commentTextView.text = MessageType.placeHolder.rawValue
+//
+//            self?.commentTextView.textColor = UIColor.systemGray3
+//            
+//            self?.checkCommentButton()
+//        }
         
         viewModel.beginEditCommentHander = { [weak self ] in
             
@@ -200,16 +210,6 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 
                 self?.commentTextView.textColor = UIColor.black
             }
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
         }
         
         viewModel.scrollToBottomHandler = { [weak self] in
@@ -427,9 +427,9 @@ extension PetSocietyCommentViewController: UITextViewDelegate {
         
         viewModel.changeMessage()
     }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        
-        viewModel.endEditMessage()
-    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//
+////        viewModel.endEditMessage()
+//    }
 }

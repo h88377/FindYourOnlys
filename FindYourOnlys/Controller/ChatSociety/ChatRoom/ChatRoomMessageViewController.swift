@@ -144,14 +144,14 @@ class ChatRoomMessageViewController: BaseViewController {
             self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
         
-        viewModel.endEditMessageHandler = { [weak self] in
-            
-            self?.messageTextView.text = MessageType.placeHolder.rawValue
-
-            self?.messageTextView.textColor = UIColor.systemGray3
-            
-            self?.checkMessageButton()
-        }
+//        viewModel.endEditMessageHandler = { [weak self] in
+//
+//            self?.messageTextView.text = MessageType.placeHolder.rawValue
+//
+//            self?.messageTextView.textColor = UIColor.systemGray3
+//
+//            self?.checkMessageButton()
+//        }
         
         viewModel.enableIQKeyboardHandler = { [weak self] in
             
@@ -356,10 +356,10 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
         viewModel.changeMessage()
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        
-        viewModel.endEditMessage()
-    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//
+//        viewModel.endEditMessage()
+//    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
