@@ -100,6 +100,14 @@ class SignInViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var dismissButton: UIButton! {
+        
+        didSet {
+            
+            dismissButton.tintColor = .projectTextColor
+        }
+    }
+    
     var dismissHandler: (() -> Void)?
     
     override func viewDidLoad() {
@@ -173,6 +181,11 @@ class SignInViewController: BaseViewController {
         }
                      
         viewModel.signIn(withEmail: email, password: password)
+    }
+    
+    @IBAction func dismiss(_ sender: UIButton) {
+        
+        dismiss(animated: true)
     }
     
 }
