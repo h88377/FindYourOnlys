@@ -128,6 +128,16 @@ class AdoptViewController: BaseViewController {
             
             let adoptListVC = segue.destination as? AdoptListViewController
             
+            adoptListVC?.resetConditionHandler = { [weak self] in
+                
+                self?.viewModel.adoptFilterCondition = AdoptFilterCondition(
+                    city: "",
+                    petKind: "",
+                    sex: "",
+                    color: ""
+                )
+            }
+            
             self.adoptListVC = adoptListVC
         }
     }

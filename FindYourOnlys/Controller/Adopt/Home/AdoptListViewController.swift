@@ -39,14 +39,9 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-//    @IBOutlet weak var filterButton: UIButton! {
-//        
-//        didSet {
-//            
-//            filterButton.tintColor = .projectIconColor2
-//        }
-//    }
     private var activityIndicator: LoadMoreActivityIndicator!
+    
+    var resetConditionHandler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,16 +56,6 @@ class AdoptListViewController: BaseViewController {
                 self.collectionView.reloadData()
                 
                 self.collectionView.isHidden = petViewModels.count == 0
-                
-//                self.remindLabel.alpha =
-//                self.collectionView.isHidden
-//                ? 1
-//                : 0
-//
-//                self.refetchButton.alpha =
-//                self.collectionView.isHidden
-//                ? 1
-//                : 0
             }
         }
         
@@ -139,6 +124,7 @@ class AdoptListViewController: BaseViewController {
                 
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
+            
         }
          
         viewModel.noMorePetHandler = { [weak self] in
@@ -198,25 +184,13 @@ class AdoptListViewController: BaseViewController {
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }
     
-//    @IBAction func goToFilter(_ sender: UIButton) {
-//
-//        let storyboard = UIStoryboard.adopt
-//
-//        guard
-//            let adoptFilterLocationVC = storyboard.instantiateViewController(
-//                withIdentifier: AdoptFilterViewController.identifier)
-//                as? AdoptFilterViewController
-//
-//        else { return }
-//
-//        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
-//    }
-    
     @IBAction func reFetchPetInfo(_ sender: UIButton) {
         
         viewModel.resetFilterCondition()
         
         viewModel.resetFetchPet()
+        
+        resetConditionHandler?()
     }
     
 }
