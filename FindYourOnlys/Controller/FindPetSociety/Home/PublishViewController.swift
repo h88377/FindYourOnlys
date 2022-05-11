@@ -89,7 +89,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard
             let cell = publishContentCategory[indexPath.row]
-                .cellForIndexPath(indexPath, tableView: tableView)
+                .cellForIndexPath(indexPath, tableView: tableView, article: viewModel.article)
                 as? PublishBasicCell
                 
         else { return UITableViewCell() }
