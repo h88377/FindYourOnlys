@@ -15,34 +15,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="選擇一項條件即可搜尋囉！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6f-VX-Kza">
-                    <rect key="frame" x="16" y="79.5" width="208" height="20.5"/>
+                    <rect key="frame" x="16" y="16" width="208" height="88"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ko9-jV-gCN" customClass="AnimationView" customModule="Lottie">
-                    <rect key="frame" x="298" y="0.0" width="100" height="100"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="100" id="3FZ-At-bir"/>
-                        <constraint firstAttribute="width" constant="100" id="JDz-eU-GWn"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="curiousCat"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ko9-jV-gCN" secondAttribute="bottom" constant="16" id="D4c-8Y-CWn"/>
-                <constraint firstItem="Ko9-jV-gCN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Gg5-oZ-3bb"/>
+                <constraint firstItem="c6f-VX-Kza" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="4e8-Ea-icH"/>
+                <constraint firstAttribute="bottom" secondItem="c6f-VX-Kza" secondAttribute="bottom" constant="16" id="HXX-nP-bkF"/>
                 <constraint firstItem="c6f-VX-Kza" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="MpH-Py-JQC"/>
-                <constraint firstItem="c6f-VX-Kza" firstAttribute="bottom" secondItem="Ko9-jV-gCN" secondAttribute="bottom" id="sVG-mL-kAr"/>
-                <constraint firstAttribute="trailing" secondItem="Ko9-jV-gCN" secondAttribute="trailing" constant="16" id="yZ6-hj-Q4I"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="animationView" destination="Ko9-jV-gCN" id="lD6-fC-935"/>
                 <outlet property="remindLabel" destination="c6f-VX-Kza" id="bTd-4Q-DoJ"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="-115.84821428571428"/>

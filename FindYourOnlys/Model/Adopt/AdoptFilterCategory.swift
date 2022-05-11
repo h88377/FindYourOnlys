@@ -11,11 +11,11 @@ enum AdoptFilterCategory: String, CaseIterable {
     
     case city = "請選擇縣市"
     
+    case color = "請選擇顏色"
+    
     case petKind = "請選擇類別"
     
     case sex = "選擇動物性別"
-    
-    case color = "請選擇顏色"
     
     func identifier() -> String {
 

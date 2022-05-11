@@ -260,7 +260,7 @@ class PublishKindCell: PublishBasicCell {
                 
                 button.leadingAnchor.constraint(
                     equalTo: kindStackView.leadingAnchor,
-                    constant: ((screenWidth - 32) / 3) * CGFloat(index)
+                    constant: (80 * CGFloat(index))
                 )
             ]
         )
@@ -312,5 +312,11 @@ class PublishKindCell: PublishBasicCell {
             
             delegate?.didChangeSex(self, with: currentTitle)
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        buttons.forEach { $0.removeFromSuperview() }
     }
 }
