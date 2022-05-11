@@ -38,7 +38,7 @@ class AdoptViewController: BaseViewController {
         
         didSet {
             
-            indicatorView.backgroundColor = .black
+            indicatorView.backgroundColor = .systemGray6
         }
     }
     
@@ -54,7 +54,7 @@ class AdoptViewController: BaseViewController {
             
             adoptListButton.setTitleColor(.white, for: .selected)
             
-            adoptListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+            adoptListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             
             adoptListButton.backgroundColor = .projectIconColor1
         }
@@ -69,6 +69,10 @@ class AdoptViewController: BaseViewController {
                 $0.setTitleColor(.systemGray2, for: .normal)
                 
                 $0.setTitleColor(.white, for: .selected)
+                
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+                
+//                $0.tintColor = .white
             }
         }
     }
@@ -110,6 +114,12 @@ class AdoptViewController: BaseViewController {
         viewModel.fetchCurrentUser()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+//        adoptButtons.forEach { $0.layer.cornerRadius = 15}
+    }
+    
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         
@@ -148,18 +158,18 @@ class AdoptViewController: BaseViewController {
             
             $0.isSelected = false
             
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             
-            $0.backgroundColor = .white
+            $0.backgroundColor = .systemGray6
         }
         
         sender.isSelected = true
         
-        sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         
         sender.backgroundColor = .projectIconColor1
         
-        moveIndicatorView(to: sender)
+//        moveIndicatorView(to: sender)
         
         guard
             let currentTitle = sender.currentTitle,
