@@ -34,7 +34,16 @@ class PublishBasicCell: UITableViewCell {
     func layoutCell(article: Article? = nil) {
 
     }
+    
+    func layoutCell(category: String) {
+
+    }
+    
     func layoutCell(category: String, article: Article? = nil) {
+
+    }
+    
+    func layoutCell(category: String, condition: AdoptFilterCondition? = nil) {
 
     }
     

@@ -131,7 +131,6 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.resetPetHandler = { [weak self] in
             
-            
             guard
                 let self = self,
                 self.viewModel.petViewModels.value.count > 0 else { return }
