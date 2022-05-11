@@ -6,14 +6,33 @@
 //
 
 import UIKit
+import Lottie
 
 class FindPetSocietyFilterViewController: BaseViewController {
     
     let tableView = UITableView()
     
+    let filterButton = UIButton()
+    
+    let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
+    
     let viewModel = FindPetSocietyFilterViewModel()
     
     override var isHiddenTabBar: Bool { return true }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupFilterButton()
+        
+        setupAnimationView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        filterButton.layer.cornerRadius = 15
+    }
 
     override func setupTableView() {
         super.setupTableView()
@@ -36,6 +55,10 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         view.addSubview(tableView)
         
+        view.addSubview(filterButton)
+        
+        view.addSubview(animationView)
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
@@ -46,7 +69,62 @@ class FindPetSocietyFilterViewController: BaseViewController {
                 
                 tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
                 
-                tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
+//                tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
+                tableView.topAnchor.constraint(equalTo: view.topAnchor),
+                
+                tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)
+            ]
+        )
+    }
+    
+    func setupFilterButton() {
+        
+        filterButton.setTitle("篩選", for: .normal)
+        
+        filterButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        
+        filterButton.setTitleColor(.white, for: .normal)
+        
+        filterButton.setTitleColor(UIColor.projectIconColor2, for: .highlighted)
+        
+        filterButton.backgroundColor = .projectIconColor1
+        
+        filterButton.tintColor = .white
+        
+        filterButton.addTarget(self, action: #selector(filter), for: .touchUpInside)
+        
+        filterButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                
+                filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+                
+                filterButton.widthAnchor.constraint(equalToConstant: 150),
+                
+                filterButton.heightAnchor.constraint(equalToConstant: 60)
+            ]
+        )
+    }
+    
+    func setupAnimationView() {
+        
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        animationView.play()
+        
+        animationView.loopMode = .loop
+        
+        NSLayoutConstraint.activate(
+            [
+                animationView.heightAnchor.constraint(equalToConstant: 150),
+                
+                animationView.bottomAnchor.constraint(equalTo: filterButton.bottomAnchor),
+                
+                animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                
+                animationView.leadingAnchor.constraint(equalTo: filterButton.trailingAnchor)
             ]
         )
     }
@@ -56,12 +134,24 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         navigationItem.title = "搜尋條件"
         
-        let filterButtonItem = UIBarButtonItem(title: "篩選", style: .done, target: self, action: #selector(filter))
+        let filterButtonItem = UIBarButtonItem(title: "清除條件", style: .done, target: self, action: #selector(clear))
         
         navigationItem.rightBarButtonItem = filterButtonItem
     }
     
-    @objc func filter(sender: UIBarButtonItem) {
+    @objc func clear(sender: UIBarButtonItem) {
+        
+        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
+            postType: -1,
+            city: "",
+            petKind: "",
+            color: ""
+        )
+        
+        tableView.reloadData()
+    }
+    
+    @objc func filter(sender: UIButton) {
         
         guard
             let petSocietyVC = navigationController?.viewControllers[0] as? FindPetSocietyViewController,
@@ -75,6 +165,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
         }
         
         petSocietyVC.viewModel.fetchArticles(with: viewModel.findPetSocietyFilterCondition)
+        
+        petSocietyVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
         
         navigationController?.popViewController(animated: true)
         
@@ -96,7 +188,8 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             
             let cell = viewModel.findPetSocietyFilterCategory[indexPath.row].cellForIndexPath(
                 indexPath,
-                tableView: tableView
+                tableView: tableView,
+                findCondition: viewModel.findPetSocietyFilterCondition
             )
             
             guard

@@ -28,7 +28,7 @@ enum FindPetSocietyFilterCategory: String, CaseIterable {
         }
     }
     
-    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
+    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, findCondition: FindPetSocietyFilterCondition? = nil) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
         
@@ -39,19 +39,19 @@ enum FindPetSocietyFilterCategory: String, CaseIterable {
             
         case .city:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, findCondition: findCondition)
             
         case .color:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, findCondition: findCondition)
             
         case .petKind:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, findCondition: findCondition)
             
         case .postType:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, findCondition: findCondition)
         }
         
         return basicCell

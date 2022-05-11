@@ -267,13 +267,22 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         let totalTravelTime = mapRoute.expectedTravelTime
         
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
+        adoptDirectionVC?.viewModel.directionViewModel.value = DirectionViewModel(
+            model: Direction(
+                route: viewModel.routeViewModel.value.route,
+                mapRoutes: [mapRoute],
+                totalDistance: totalDistance,
+                totalTravelTime: totalTravelTime
+            )
+        )
         
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
-        
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
-        
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
         
     }
     
@@ -461,6 +470,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
         print("=====Error requesting location: \(error.localizedDescription)")
+        showAlertWindow(title: "取得所在位置異常", message: "請確認網路狀況或者允許該應用程式取得您裝置的所在位置")
     }
     
 }
