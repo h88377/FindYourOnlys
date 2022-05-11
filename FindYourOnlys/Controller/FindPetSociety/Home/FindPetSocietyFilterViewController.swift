@@ -76,6 +76,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         petSocietyVC.viewModel.fetchArticles(with: viewModel.findPetSocietyFilterCondition)
         
+        petSocietyVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
+        
         navigationController?.popViewController(animated: true)
         
     }
@@ -96,7 +98,8 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             
             let cell = viewModel.findPetSocietyFilterCategory[indexPath.row].cellForIndexPath(
                 indexPath,
-                tableView: tableView
+                tableView: tableView,
+                findCondition: viewModel.findPetSocietyFilterCondition
             )
             
             guard

@@ -47,6 +47,10 @@ class PublishBasicCell: UITableViewCell {
 
     }
     
+    func layoutCell(category: String, findCondition: FindPetSocietyFilterCondition? = nil) {
+
+    }
+    
     func layoutCellWith(image: UIImage) {
         
     }
