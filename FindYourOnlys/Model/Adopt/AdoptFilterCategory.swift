@@ -28,7 +28,7 @@ enum AdoptFilterCategory: String, CaseIterable {
         }
     }
     
-    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
+    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, condition: AdoptFilterCondition? = nil) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
 
@@ -38,19 +38,19 @@ enum AdoptFilterCategory: String, CaseIterable {
             
         case .sex:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, condition: condition)
             
         case .city:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, condition: condition)
             
         case .color:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, condition: condition)
             
         case .petKind:
             
-            basicCell.layoutCell(category: rawValue)
+            basicCell.layoutCell(category: rawValue, condition: condition)
             
         }
 

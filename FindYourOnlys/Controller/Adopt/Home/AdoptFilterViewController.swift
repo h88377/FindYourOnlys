@@ -78,6 +78,8 @@ class AdoptFilterViewController: BaseViewController {
         
         adoptVC.adoptListVC?.viewModel.resetFetchPet()
         
+        adoptVC.viewModel.adoptFilterCondition = viewModel.adoptFilterCondition
+        
         navigationController?.popViewController(animated: true)
     }
 }
@@ -98,9 +100,9 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
             
             let cell = adoptFilterCategory[indexPath.row].cellForIndexPath(
                 indexPath,
-                tableView: tableView
+                tableView: tableView,
+                condition: viewModel.adoptFilterCondition
             )
-            
             
             guard
                 let basicCell = cell as? PublishBasicCell

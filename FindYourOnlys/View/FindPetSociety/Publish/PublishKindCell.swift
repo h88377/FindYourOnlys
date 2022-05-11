@@ -106,7 +106,53 @@ class PublishKindCell: PublishBasicCell {
         }
     }
     
-    func createButton(with title: String, index: Int, isSelected: Bool = false) {
+    override func layoutCell(category: String, condition: AdoptFilterCondition? = nil) {
+        
+        kindLabel.text = category
+        
+        switch category {
+            
+        case AdoptFilterCategory.petKind.rawValue:
+            
+            let petKinds = PetKind.allCases
+
+            for index in 0..<petKinds.count {
+
+                if
+                    let condition = condition {
+                    
+                    let isSelected = condition.petKind == petKinds[index].rawValue
+                    
+                    createButton(with: petKinds[index].rawValue, index: index, isSelected: isSelected)
+                } else {
+                    
+                    createButton(with: petKinds[index].rawValue, index: index)
+                }
+            }
+            
+        default:
+            
+            let sexTypes = Sex.allCases
+
+            for index in 0..<sexTypes.count {
+                
+                if
+                    let condition = condition {
+                    
+                    let isSelected = condition.sex == convertSex(with: sexTypes[index])
+                    
+                    createButton(with: sexTypes[index].rawValue, index: index, isSelected: isSelected)
+                    
+                } else {
+                    
+                    createButton(with: sexTypes[index].rawValue, index: index)
+                }
+            }
+            
+        }
+    }
+    
+    private func createButton(with title: String, index: Int, isSelected: Bool = false) {
         
         let screenWidth = UIScreen.main.bounds.width
         
@@ -163,6 +209,20 @@ class PublishKindCell: PublishBasicCell {
                 )
             ]
         )
+    }
+    
+    private func convertSex(with sexType: Sex) -> String {
+        
+        switch sexType {
+            
+        case .male:
+            
+            return "M"
+            
+        case .female:
+            
+            return "F"
+        }
     }
     
     @objc func toggleButton(_ sender: UIButton) {

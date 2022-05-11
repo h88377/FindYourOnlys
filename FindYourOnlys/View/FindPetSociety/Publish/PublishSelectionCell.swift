@@ -157,6 +157,30 @@ class PublishSelectionCell: PublishBasicCell {
         }
     }
     
+    override func layoutCell(category: String, condition: AdoptFilterCondition? = nil) {
+        
+        selectionLabel.text = category
+        
+        if
+            let condition = condition {
+            
+            switch category {
+                
+            case AdoptFilterCategory.city.rawValue:
+                
+                selectionTextField.text = condition.city
+                
+            case AdoptFilterCategory.color.rawValue:
+                
+                selectionTextField.text = condition.color
+                
+            default:
+                
+                selectionTextField.text = ""
+            }
+        }
+    }
+    
     func passData() {
         
         guard

@@ -83,6 +83,7 @@ class AdoptViewController: BaseViewController {
         didSet {
             
             filterButton.tintColor = .projectIconColor1
+            
         }
     }
     
@@ -131,7 +132,7 @@ class AdoptViewController: BaseViewController {
         }
     }
     
-    @IBAction func pressAdoptButton(_ sender: UIButton) {
+    @IBAction func toggleAdoptButton(_ sender: UIButton) {
         
         adoptButtons.forEach {
             
@@ -159,6 +160,12 @@ class AdoptViewController: BaseViewController {
         if type == .favorite {
         
             delegate?.fetchFavoritePet()
+            
+            filterButton.isEnabled = false
+            
+        } else {
+            
+            filterButton.isEnabled = true
         }
     }
     
@@ -197,12 +204,37 @@ class AdoptViewController: BaseViewController {
         let storyboard = UIStoryboard.adopt
         
         guard
-            let adoptFilterLocationVC = storyboard.instantiateViewController(
+            let adoptFilterVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptFilterViewController.identifier)
                 as? AdoptFilterViewController
         
         else { return }
         
-        navigationController?.pushViewController(adoptFilterLocationVC, animated: true)
+        adoptFilterVC.viewModel.adoptFilterCondition = viewModel.adoptFilterCondition
+        
+        navigationController?.pushViewController(adoptFilterVC, animated: true)
+    }
+}
+
+extension AdoptViewController: PublishBasicCellDelegate {
+    
+    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+        
+        viewModel.cityChanged(with: city)
+    }
+    
+    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+        
+        viewModel.colorChanged(with: color)
+    }
+    
+    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+        
+        viewModel.petKindChanged(with: petKind)
+    }
+    
+    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
+        
+        viewModel.sexChanged(with: sex)
     }
 }
