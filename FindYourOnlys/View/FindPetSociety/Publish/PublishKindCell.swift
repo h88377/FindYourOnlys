@@ -152,6 +152,61 @@ class PublishKindCell: PublishBasicCell {
         }
     }
     
+    override func layoutCell(category: String, findCondition: FindPetSocietyFilterCondition? = nil) {
+        
+        kindLabel.text = category
+        
+        switch category {
+            
+        case FindPetSocietyFilterCategory.petKind.rawValue:
+            
+            let petKinds = PetKind.allCases
+
+            for index in 0..<petKinds.count {
+
+                if
+                    let findCondition = findCondition {
+                    
+                    let isSelected = findCondition.petKind == petKinds[index].rawValue
+                    
+                    createButton(with: petKinds[index].rawValue, index: index, isSelected: isSelected)
+                } else {
+                    
+                    createButton(with: petKinds[index].rawValue, index: index)
+                }
+            }
+            
+        case FindPetSocietyFilterCategory.postType.rawValue:
+            
+            let postTypes = PostType.allCases
+
+            for index in 0..<postTypes.count {
+                
+                if
+                    let findCondition = findCondition {
+                    
+                    let isSelected = findCondition.postType == index
+                    
+                    createButton(with: postTypes[index].rawValue, index: index, isSelected: isSelected)
+                    
+                } else {
+                    
+                    createButton(with: postTypes[index].rawValue, index: index)
+                }
+            }
+            
+        default:
+            
+            let sexes = Sex.allCases
+
+            for index in 0..<sexes.count {
+
+                createButton(with: sexes[index].rawValue, index: index)
+            }
+            
+        }
+    }
+    
     private func createButton(with title: String, index: Int, isSelected: Bool = false) {
         
         let screenWidth = UIScreen.main.bounds.width

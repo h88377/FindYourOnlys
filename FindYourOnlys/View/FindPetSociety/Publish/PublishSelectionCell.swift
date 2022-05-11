@@ -181,6 +181,30 @@ class PublishSelectionCell: PublishBasicCell {
         }
     }
     
+    override func layoutCell(category: String, findCondition: FindPetSocietyFilterCondition? = nil) {
+        
+        selectionLabel.text = category
+        
+        if
+            let findCondition = findCondition {
+            
+            switch category {
+                
+            case FindPetSocietyFilterCategory.city.rawValue:
+                
+                selectionTextField.text = findCondition.city
+                
+            case FindPetSocietyFilterCategory.color.rawValue:
+                
+                selectionTextField.text = findCondition.color
+                
+            default:
+                
+                selectionTextField.text = ""
+            }
+        }
+    }
+    
     func passData() {
         
         guard
