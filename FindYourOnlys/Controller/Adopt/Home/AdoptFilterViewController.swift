@@ -85,6 +85,8 @@ class AdoptFilterViewController: BaseViewController {
         
         filterButton.setTitleColor(.white, for: .normal)
         
+        filterButton.setTitleColor(UIColor.projectIconColor2, for: .highlighted)
+        
         filterButton.backgroundColor = .projectIconColor1
         
         filterButton.tintColor = .white
