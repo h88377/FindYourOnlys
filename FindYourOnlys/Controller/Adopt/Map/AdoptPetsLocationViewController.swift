@@ -267,13 +267,22 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         let totalTravelTime = mapRoute.expectedTravelTime
         
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
+        adoptDirectionVC?.viewModel.directionViewModel.value = DirectionViewModel(
+            model: Direction(
+                route: viewModel.routeViewModel.value.route,
+                mapRoutes: [mapRoute],
+                totalDistance: totalDistance,
+                totalTravelTime: totalTravelTime
+            )
+        )
         
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
-        
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
-        
-        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
+//
+//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
         
     }
     
