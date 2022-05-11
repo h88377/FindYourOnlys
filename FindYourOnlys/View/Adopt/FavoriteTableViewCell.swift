@@ -73,7 +73,7 @@ class FavoriteTableViewCell: UITableViewCell {
         
         varietyLabel.text = viewModel.lsPet.variety
         
-        photoImageView.loadImage(viewModel.lsPet.photoURLString)
+        photoImageView.loadImage(viewModel.lsPet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         if viewModel.lsPet.status == "OPEN" {
             
@@ -112,7 +112,7 @@ class FavoriteTableViewCell: UITableViewCell {
         
         varietyLabel.text = viewModel.pet.variety
         
-        photoImageView.loadImage(viewModel.pet.photoURLString)
+        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         if viewModel.pet.status == "OPEN" {
             
