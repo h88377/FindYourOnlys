@@ -24,7 +24,7 @@ extension TimeInterval {
         
         let formatter = DateFormatter()
 
-        formatter.dateFormat = "yyyy.MM.dd hh:mm"
+        formatter.dateFormat = "yyyy.MM.dd HH:mm"
         
         let date = NSDate(timeIntervalSince1970: self)
 

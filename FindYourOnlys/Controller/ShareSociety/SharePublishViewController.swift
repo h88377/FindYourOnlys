@@ -90,7 +90,13 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = viewModel.shareContentCategory[indexPath.row].cellForIndexPath(indexPath, tableView: tableView)
+        let cell = viewModel
+            .shareContentCategory[indexPath.row]
+            .cellForIndexPath(
+                indexPath,
+                tableView: tableView,
+                article: viewModel.article
+            )
         
         guard
             let publishCell = cell as? PublishBasicCell else { return cell }

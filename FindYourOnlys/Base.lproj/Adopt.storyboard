@@ -12,7 +12,7 @@
         <!--Adopt View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AdoptViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdoptViewController" id="BYZ-38-t0r" customClass="AdoptViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,24 +21,24 @@
                                 <rect key="frame" x="0.0" y="88" width="207" height="34"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
                                 <state key="normal" title="領養列表">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressAdoptButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iy9-0k-wpk"/>
+                                    <action selector="toggleAdoptButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fzj-8M-ARy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4H-fi-IEa">
-                                <rect key="frame" x="207" y="88" width="207" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <rect key="frame" x="207" y="88" width="207" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
                                 <state key="normal" title="我的最愛">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressAdoptButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MVR-Fi-hA4"/>
+                                    <action selector="toggleAdoptButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nn1-iA-sQi"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2m6-3A-qQ1">
@@ -46,13 +46,6 @@
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="uuH-Ic-vfw"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMm-ww-4HI">
-                                <rect key="frame" x="0.0" y="122" width="207" height="1"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="YG6-kV-pyB"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5o-jx-SJD">
@@ -67,30 +60,47 @@
                                     <segue destination="1pB-aw-e5a" kind="embed" identifier="SegueList" id="8wU-TC-BLf"/>
                                 </connections>
                             </containerView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pawprint.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fan-iF-ai6">
+                                <rect key="frame" x="165" y="89.5" width="32" height="31"/>
+                                <color key="tintColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fan-iF-ai6" secondAttribute="height" multiplier="1:1" id="w0r-Kh-myh"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pawprint.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QEI-gB-m8F">
+                                <rect key="frame" x="370" y="88.5" width="34" height="33"/>
+                                <color key="tintColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QEI-gB-m8F" secondAttribute="height" multiplier="1:1" id="I17-6n-IcC"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Y5o-jx-SJD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="46c-eK-poC"/>
+                            <constraint firstItem="fan-iF-ai6" firstAttribute="centerY" secondItem="ZSA-1x-9d2" secondAttribute="centerY" id="57D-B8-TQ1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y5o-jx-SJD" secondAttribute="trailing" id="7IO-zH-Z88"/>
                             <constraint firstItem="ZSA-1x-9d2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GPL-G8-Ifh"/>
                             <constraint firstItem="U4H-fi-IEa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HTa-9b-1JE"/>
-                            <constraint firstItem="kMm-ww-4HI" firstAttribute="centerX" secondItem="ZSA-1x-9d2" secondAttribute="centerX" id="NFC-QZ-KAE"/>
+                            <constraint firstItem="QEI-gB-m8F" firstAttribute="centerY" secondItem="U4H-fi-IEa" secondAttribute="centerY" id="HZx-L4-1fe"/>
+                            <constraint firstItem="fan-iF-ai6" firstAttribute="trailing" secondItem="ZSA-1x-9d2" secondAttribute="trailing" constant="-10" id="Mkv-EQ-uz0"/>
                             <constraint firstItem="RUu-Tx-dxK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Tee-0D-sfR"/>
                             <constraint firstItem="2m6-3A-qQ1" firstAttribute="top" secondItem="ZSA-1x-9d2" secondAttribute="bottom" id="aRv-zZ-Emg"/>
                             <constraint firstItem="U4H-fi-IEa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="aeN-fS-jF1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Y5o-jx-SJD" secondAttribute="bottom" id="cRr-hf-9rJ"/>
-                            <constraint firstItem="kMm-ww-4HI" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="g0g-xL-qgT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QEI-gB-m8F" secondAttribute="trailing" constant="10" id="e5k-9q-sxi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RUu-Tx-dxK" secondAttribute="trailing" id="jlB-B8-UZn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2m6-3A-qQ1" secondAttribute="trailing" id="kDk-KM-mEg"/>
                             <constraint firstItem="ZSA-1x-9d2" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="m72-vU-Ogw"/>
                             <constraint firstItem="Y5o-jx-SJD" firstAttribute="top" secondItem="2m6-3A-qQ1" secondAttribute="bottom" id="nEv-xd-QE0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RUu-Tx-dxK" secondAttribute="bottom" id="o2C-bB-I2l"/>
+                            <constraint firstItem="QEI-gB-m8F" firstAttribute="height" secondItem="U4H-fi-IEa" secondAttribute="height" id="pjv-CO-7PE"/>
                             <constraint firstItem="RUu-Tx-dxK" firstAttribute="top" secondItem="2m6-3A-qQ1" secondAttribute="bottom" id="poW-3q-Vlt"/>
                             <constraint firstItem="2m6-3A-qQ1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pre-Ln-LfD"/>
                             <constraint firstItem="ZSA-1x-9d2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="q3J-iN-0mK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U4H-fi-IEa" secondAttribute="trailing" id="tev-zK-lsa"/>
-                            <constraint firstItem="kMm-ww-4HI" firstAttribute="top" secondItem="ZSA-1x-9d2" secondAttribute="bottom" id="ymk-4o-iAj"/>
+                            <constraint firstItem="fan-iF-ai6" firstAttribute="height" secondItem="ZSA-1x-9d2" secondAttribute="height" multiplier="0.941176" id="yTG-4v-iOg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bwD-x1-Nga">
@@ -105,15 +115,13 @@
                         <outlet property="adoptListButton" destination="ZSA-1x-9d2" id="1Ti-oI-opM"/>
                         <outlet property="adoptListContainerView" destination="RUu-Tx-dxK" id="1Au-Ul-HdP"/>
                         <outlet property="filterButton" destination="BBj-m6-TAK" id="Uxv-qa-usB"/>
-                        <outlet property="indicatorCenterXConstraint" destination="NFC-QZ-KAE" id="3st-aW-PZv"/>
-                        <outlet property="indicatorView" destination="kMm-ww-4HI" id="bdH-fe-o4e"/>
                         <outletCollection property="adoptButtons" destination="ZSA-1x-9d2" collectionClass="NSMutableArray" id="h9c-Me-eUx"/>
                         <outletCollection property="adoptButtons" destination="U4H-fi-IEa" collectionClass="NSMutableArray" id="VtT-bq-jPN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1303" y="64"/>
+            <point key="canvasLocation" x="1302.8985507246377" y="63.616071428571423"/>
         </scene>
         <!--Adopt Detail View Controller-->
         <scene sceneID="wd0-tT-9ec">
@@ -234,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gwr-iO-Ljl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2424.6376811594205" y="67.633928571428569"/>
+            <point key="canvasLocation" x="45" y="785"/>
         </scene>
         <!--Adopt Directions View Controller-->
         <scene sceneID="Jm7-KF-6Ho">
@@ -337,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXO-WX-Ybm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910" y="748"/>
+            <point key="canvasLocation" x="1675" y="748"/>
         </scene>
         <!--Adopt Filter View Controller-->
         <scene sceneID="0C1-cC-FgP">
@@ -352,7 +360,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCF-WN-POL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="1527"/>
+            <point key="canvasLocation" x="2104" y="64"/>
         </scene>
         <!--Adopt List View Controller-->
         <scene sceneID="gbF-yq-rBb">
@@ -426,7 +434,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E30-Vk-UiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="620" y="748"/>
+            <point key="canvasLocation" x="994" y="748"/>
         </scene>
         <!--Adopt Pets Location View Controller-->
         <scene sceneID="rQZ-tD-Vnp">
@@ -564,12 +572,16 @@
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="map" catalog="system" width="128" height="110"/>
+        <image name="pawprint.circle" catalog="system" width="128" height="121"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

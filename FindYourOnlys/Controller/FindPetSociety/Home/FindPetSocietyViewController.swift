@@ -343,12 +343,21 @@ class FindPetSocietyViewController: BaseViewController {
                 
         else { return }
         
+        filterVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
+        
         navigationController?.pushViewController(filterVC, animated: true)
     }
     
     @IBAction func reFetchArticle(_ sender: UIButton) {
         
         viewModel.fetchArticles()
+        
+        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
+            postType: -1,
+            city: "",
+            petKind: "",
+            color: ""
+        )
     }
 }
 
@@ -454,4 +463,28 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         }
     }
     
+}
+
+// MARK: - PublishBasicCellDelegate
+extension FindPetSocietyViewController: PublishBasicCellDelegate {
+    
+    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+        
+        viewModel.cityChanged(with: city)
+    }
+    
+    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+        
+        viewModel.colorChanged(with: color)
+    }
+    
+    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+        
+        viewModel.petKindChanged(with: petKind)
+    }
+    
+    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+        
+        viewModel.postTypeChanged(with: postType)
+    }
 }
