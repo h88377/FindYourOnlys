@@ -157,6 +157,54 @@ class PublishSelectionCell: PublishBasicCell {
         }
     }
     
+    override func layoutCell(category: String, condition: AdoptFilterCondition? = nil) {
+        
+        selectionLabel.text = category
+        
+        if
+            let condition = condition {
+            
+            switch category {
+                
+            case AdoptFilterCategory.city.rawValue:
+                
+                selectionTextField.text = condition.city
+                
+            case AdoptFilterCategory.color.rawValue:
+                
+                selectionTextField.text = condition.color
+                
+            default:
+                
+                selectionTextField.text = ""
+            }
+        }
+    }
+    
+    override func layoutCell(category: String, findCondition: FindPetSocietyFilterCondition? = nil) {
+        
+        selectionLabel.text = category
+        
+        if
+            let findCondition = findCondition {
+            
+            switch category {
+                
+            case FindPetSocietyFilterCategory.city.rawValue:
+                
+                selectionTextField.text = findCondition.city
+                
+            case FindPetSocietyFilterCategory.color.rawValue:
+                
+                selectionTextField.text = findCondition.color
+                
+            default:
+                
+                selectionTextField.text = ""
+            }
+        }
+    }
+    
     func passData() {
         
         guard

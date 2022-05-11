@@ -13,6 +13,13 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
     
     let authorViewModels = Box([UserViewModel]())
     
+    var findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
+        postType: -1,
+        city: "",
+        petKind: "",
+        color: ""
+    )
+    
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
         startLoadingHandler?()
@@ -123,5 +130,35 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
         UserFirebaseManager.shared.blockUser(with: article.userId)
         
         stopLoadingHandler?()
+    }
+}
+
+extension FindPetSocietyViewModel {
+    
+    func cityChanged(with city: String) {
+        
+        findPetSocietyFilterCondition.city = city
+    }
+    
+    func petKindChanged(with petKind: String) {
+        
+        findPetSocietyFilterCondition.petKind = petKind
+    }
+    
+    func postTypeChanged(with postType: String) {
+        
+        if postType == PostType.missing.rawValue {
+            
+            findPetSocietyFilterCondition.postType = 0
+            
+        } else {
+            
+            findPetSocietyFilterCondition.postType = 1
+        }
+    }
+    
+    func colorChanged(with color: String) {
+        
+        findPetSocietyFilterCondition.color = color
     }
 }
