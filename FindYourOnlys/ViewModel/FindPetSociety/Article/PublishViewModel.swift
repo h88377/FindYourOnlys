@@ -25,7 +25,7 @@ class PublishViewModel {
     
     var selectedImage: UIImage?
     
-    var checkPublishedContent: ((Bool) -> Void)?
+    var checkPublishedContent: ((Bool, Bool) -> Void)?
     
     var isValidPublishedContent: Bool {
         
@@ -42,19 +42,24 @@ class PublishViewModel {
         return true
     }
     
+    var isValidDetectResult: Bool = false
+    
     var dismissHandler: (() -> Void)?
     
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
     
+    var imageDetectHandler: (() -> Void)?
+    
     private func publish(completion: @escaping (Result<String, Error>) -> Void) {
         
-        checkPublishedContent?(isValidPublishedContent)
+        checkPublishedContent?(isValidPublishedContent, isValidDetectResult)
         
         guard
             isValidPublishedContent,
-              let selectedImage = selectedImage
+            isValidDetectResult,
+            let selectedImage = selectedImage
                 
         else { return }
         

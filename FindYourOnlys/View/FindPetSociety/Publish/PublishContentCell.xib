@@ -19,17 +19,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfR-cp-4e6">
-                        <rect key="frame" x="16" y="16" width="35" height="32"/>
+                        <rect key="frame" x="16" y="16" width="35" height="31"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBO-ir-I49">
-                        <rect key="frame" x="16" y="64" width="407" height="350"/>
+                        <rect key="frame" x="16" y="63" width="407" height="350"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Gs-cn-kbY">
-                        <rect key="frame" x="16" y="64" width="407" height="350"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FYOsPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="9Gs-cn-kbY">
+                        <rect key="frame" x="16" y="63" width="407" height="350"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="350" id="YlN-MP-DxT"/>
                         </constraints>
@@ -45,16 +45,16 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="內文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cE5-JW-0cb">
-                        <rect key="frame" x="16" y="430" width="35" height="27"/>
+                        <rect key="frame" x="16" y="429" width="35" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2Bv-pv-vQT">
-                        <rect key="frame" x="321" y="16" width="102" height="32"/>
+                        <rect key="frame" x="321" y="16" width="102" height="31"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fT2-EQ-SbR">
-                                <rect key="frame" x="0.0" y="0.0" width="43" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="43" height="31"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="camera" catalog="system">
                                     <color key="titleColor" systemColor="tintColor"/>
@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckv-Oa-S3d">
-                                <rect key="frame" x="59" y="0.0" width="43" height="32"/>
+                                <rect key="frame" x="59" y="0.0" width="43" height="31"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="photo" catalog="system">
                                     <color key="titleColor" systemColor="tintColor"/>
@@ -77,16 +77,30 @@
                             </button>
                         </subviews>
                     </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlI-Bq-k5K">
+                        <rect key="frame" x="323" y="429" width="100" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="Qhv-by-v03"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="照片辨識"/>
+                        <connections>
+                            <action selector="imageDetect:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rEY-VY-IA0"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BBO-ir-I49" firstAttribute="trailing" secondItem="9Gs-cn-kbY" secondAttribute="trailing" id="3EW-gq-7gf"/>
                     <constraint firstItem="CfR-cp-4e6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5KC-wz-fHX"/>
                     <constraint firstItem="JZT-Wg-e6F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5yD-Se-8xb"/>
+                    <constraint firstItem="YlI-Bq-k5K" firstAttribute="top" secondItem="BBO-ir-I49" secondAttribute="bottom" constant="16" id="By7-tX-1ga"/>
                     <constraint firstItem="9Gs-cn-kbY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Cox-jA-ARL"/>
                     <constraint firstAttribute="trailing" secondItem="JZT-Wg-e6F" secondAttribute="trailing" constant="16" id="GEH-Or-QNT"/>
+                    <constraint firstItem="JZT-Wg-e6F" firstAttribute="top" secondItem="YlI-Bq-k5K" secondAttribute="bottom" constant="16" id="KKy-bS-0sz"/>
                     <constraint firstItem="cE5-JW-0cb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="OHr-rp-Tpy"/>
                     <constraint firstItem="cE5-JW-0cb" firstAttribute="top" secondItem="9Gs-cn-kbY" secondAttribute="bottom" constant="16" id="OOy-bt-PJP"/>
                     <constraint firstItem="BBO-ir-I49" firstAttribute="leading" secondItem="9Gs-cn-kbY" secondAttribute="leading" id="Uh2-KG-HYQ"/>
+                    <constraint firstAttribute="trailing" secondItem="YlI-Bq-k5K" secondAttribute="trailing" constant="16" id="WHM-Li-a1h"/>
                     <constraint firstAttribute="trailing" secondItem="9Gs-cn-kbY" secondAttribute="trailing" constant="16" id="b5I-gp-hzl"/>
                     <constraint firstItem="BBO-ir-I49" firstAttribute="width" secondItem="9Gs-cn-kbY" secondAttribute="width" id="c3b-7t-Zu4"/>
                     <constraint firstItem="BBO-ir-I49" firstAttribute="top" secondItem="9Gs-cn-kbY" secondAttribute="top" id="gYj-Iu-j50"/>
@@ -107,6 +121,7 @@
                 <outlet property="contentImageView" destination="9Gs-cn-kbY" id="eRJ-7B-3yG"/>
                 <outlet property="contentLabel" destination="cE5-JW-0cb" id="Hhr-6Z-0Tb"/>
                 <outlet property="contentTextView" destination="JZT-Wg-e6F" id="202-H1-fuu"/>
+                <outlet property="detectButton" destination="YlI-Bq-k5K" id="z2a-dR-lHY"/>
                 <outlet property="galleryButton" destination="ckv-Oa-S3d" id="XuJ-Wy-dQv"/>
                 <outlet property="imageBaseView" destination="BBO-ir-I49" id="Out-PS-2Jy"/>
                 <outlet property="photoLabel" destination="CfR-cp-4e6" id="qFO-Jx-2kv"/>
@@ -115,6 +130,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="FYOsPlaceHolder" width="500" height="500"/>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">

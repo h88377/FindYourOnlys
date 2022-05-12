@@ -29,6 +29,8 @@ class PublishBasicCell: UITableViewCell {
     var cameraHandler: (() -> Void)?
     
     var galleryHandler: (() -> Void)?
+    
+    var imageDetectHandler: (() -> Void)?
 
     // Implement by child class
     func layoutCell(article: Article? = nil) {
