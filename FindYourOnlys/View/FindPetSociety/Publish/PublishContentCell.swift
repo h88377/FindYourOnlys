@@ -28,9 +28,9 @@ class PublishContentCell: PublishBasicCell {
         
         didSet {
             
-            imageBaseView.layer.borderColor = UIColor.projectIconColor2.cgColor
-            
-            imageBaseView.layer.borderWidth = 1
+//            imageBaseView.layer.borderColor = UIColor.projectIconColor2.cgColor
+//
+//            imageBaseView.layer.borderWidth = 1
         }
     }
     
@@ -82,12 +82,6 @@ class PublishContentCell: PublishBasicCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        contentImageView.image = UIImage.asset(.findYourOnlysPlaceHolder)
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -127,7 +121,7 @@ class PublishContentCell: PublishBasicCell {
             
             contentTextView.textColor = .black
             
-            contentImageView.loadImage(article.imageURLString)
+            contentImageView.loadImage(article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         }
     }
     
