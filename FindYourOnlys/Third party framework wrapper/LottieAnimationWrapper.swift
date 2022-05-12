@@ -18,6 +18,8 @@ enum LottieName: String {
     case manCat
     
     case curiousCat
+    
+    case imageScan
 }
 
 class LottieAnimationWrapper {
@@ -26,7 +28,9 @@ class LottieAnimationWrapper {
     
     private let loadingView = AnimationView(name: LottieName.loading.rawValue)
     
-    lazy var blurView = UIView()
+    private let scanView = AnimationView(name: LottieName.imageScan.rawValue)
+    
+    private lazy var blurView = UIView()
     
     func startLoading() {
         
@@ -58,6 +62,43 @@ class LottieAnimationWrapper {
     func stopLoading() {
         
         loadingView.removeFromSuperview()
+
+        blurView.removeFromSuperview()
+        
+        loadingView.stop()
+    }
+    
+    func startScanning() {
+        
+        let width = UIScreen.main.bounds.width
+        
+        let height = UIScreen.main.bounds.height
+        
+        let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+        
+        blurView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        blurView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        
+        currentWindow?.addSubview(blurView)
+        
+        scanView.frame = CGRect(x: 0, y: 0, width: width, height: height / 2)
+        
+        scanView.center = currentWindow!.center
+        
+        scanView.contentMode = .scaleAspectFill
+        
+        currentWindow?.addSubview(scanView)
+        
+        scanView.play()
+        
+        scanView.loopMode = .loop
+        
+    }
+    
+    func stopScanning() {
+        
+        scanView.removeFromSuperview()
 
         blurView.removeFromSuperview()
         

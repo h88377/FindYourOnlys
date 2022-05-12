@@ -6,7 +6,60 @@
 //
 
 import Foundation
-import UIKit
+import UIKit.UIImage
+
+enum ImageDetectDatabase: String, CaseIterable {
+    
+    case bird = "Bird"
+    
+    case pomacentridae = "Pomacentridae"
+    
+    case shetlandSheepdog = "Shetland sheepdog"
+    
+    case bear = "Bear"
+    
+    case cattle = "Cattle"
+    
+    case cat = "Cat"
+    
+    case dinosaur = "Dinosaur"
+    
+    case dragon = "Dragon"
+    
+    case jersey = "Jersey"
+    
+    case waterfowl = "Waterfowl"
+    
+    case cairnTerrier = "Cairn terrier"
+    
+    case horse = "Horse"
+    
+    case herd = "Herd"
+    
+    case insect = "Insect"
+    
+    case penguin = "Penguin"
+    
+    case pet = "Pet"
+    
+    case duck = "Duck"
+    
+    case turtle = "Turtle"
+    
+    case crocodile = "Crocodile"
+    
+    case dog = "Dog"
+    
+    case bull = "Bull"
+    
+    case butterfly = "Butterfly"
+    
+    case larva = "Larva"
+    
+    case sphynx = "Sphynx"
+    
+    case bassetHound = "Basset hound"
+}
 
 class PublishViewModel {
     

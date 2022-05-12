@@ -60,59 +60,6 @@ class PublishViewController: BaseViewController {
             self?.stopLoading()
         }
         
-        enum ImageDetectDatabase: String, CaseIterable {
-            
-            case bird = "Bird"
-            
-            case pomacentridae = "Pomacentridae"
-            
-            case shetlandSheepdog = "Shetland sheepdog"
-            
-            case bear = "Bear"
-            
-            case cattle = "Cattle"
-            
-            case cat = "Cat"
-            
-            case dinosaur = "Dinosaur"
-            
-            case dragon = "Dragon"
-            
-            case jersey = "Jersey"
-            
-            case waterfowl = "Waterfowl"
-            
-            case cairnTerrier = "Cairn terrier"
-            
-            case horse = "Horse"
-            
-            case herd = "Herd"
-            
-            case insect = "Insect"
-            
-            case penguin = "Penguin"
-            
-            case pet = "Pet"
-            
-            case duck = "Duck"
-            
-            case turtle = "Turtle"
-            
-            case crocodile = "Crocodile"
-            
-            case dog = "Dog"
-            
-            case bull = "Bull"
-            
-            case butterfly = "Butterfly"
-            
-            case larva = "Larva"
-            
-            case sphynx = "Sphynx"
-            
-            case bassetHound = "Basset hound"
-        }
-        
         viewModel.imageDetectHandler = { [weak self] in
             
             guard
@@ -127,7 +74,7 @@ class PublishViewController: BaseViewController {
                 
             }
             
-            self.startLoading()
+            self.startScanning()
             
             let visionImage = VisionImage(image: selectedImage)
             
@@ -152,7 +99,10 @@ class PublishViewController: BaseViewController {
                         self.showAlertWindow(title: "異常", message: "圖片辨識失敗，請重新嘗試或換照片後再嘗試一次。")
                     }
                     
-                    self.stopLoading()
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                        
+                        self.stopScanning()
+                    }
                     
                     return
                 }
@@ -167,7 +117,14 @@ class PublishViewController: BaseViewController {
                 
                 self.viewModel.isValidDetectResult = isValidResult
                 
-                self.stopLoading()
+                
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    
+                    self.stopScanning()
+                }
+                
+                print("====\(isValidResult)")
             }
             
         }

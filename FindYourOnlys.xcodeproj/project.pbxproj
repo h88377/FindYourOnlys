@@ -51,6 +51,7 @@
 		987D8B7F281F9A85000D1F95 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B7E281F9A85000D1F95 /* loading.json */; };
 		987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */; };
 		98822C6B282CB1EA006F8910 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C6A282CB1EA006F8910 /* Constant.swift */; };
+		98822C6D282CD7F8006F8910 /* imageScan.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C6C282CD7F8006F8910 /* imageScan.json */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -258,6 +259,7 @@
 		987D8B7E281F9A85000D1F95 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		987D8B82281FD0A3000D1F95 /* LottieAnimationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationWrapper.swift; sourceTree = "<group>"; };
 		98822C6A282CB1EA006F8910 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		98822C6C282CD7F8006F8910 /* imageScan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = imageScan.json; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				98BC475B2823750500740855 /* curiousCat.json */,
 				98BC47652823D24800740855 /* friendRequestCat.json */,
 				98BC47632823CE7500740855 /* friendRequest.json */,
+				98822C6C282CD7F8006F8910 /* imageScan.json */,
 			);
 			path = AnimationSource;
 			sourceTree = "<group>";
@@ -1186,6 +1189,7 @@
 				98CC15CF2801B22700B9FDC6 /* FavoriteTableViewCell.xib in Resources */,
 				98CC164528059EE800B9FDC6 /* PublishSelectionCell.xib in Resources */,
 				98CC15AE28005B6C00B9FDC6 /* Adopt.storyboard in Resources */,
+				98822C6D282CD7F8006F8910 /* imageScan.json in Resources */,
 				98BC475C2823750500740855 /* curiousCat.json in Resources */,
 				987D8B7C281EB92E000D1F95 /* ChatRoomFriendMessageCell.xib in Resources */,
 				9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */,
