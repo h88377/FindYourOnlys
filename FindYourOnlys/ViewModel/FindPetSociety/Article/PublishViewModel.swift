@@ -62,6 +62,8 @@ class PublishViewModel {
     
     var imageDetectHandler: (() -> Void)?
     
+    var successHandler: (() -> Void)?
+    
     private func publish(completion: @escaping (Result<String, Error>) -> Void) {
         
         checkPublishedContent?(isValidPublishedContent, isValidDetectResult)
@@ -197,7 +199,7 @@ class PublishViewModel {
                     
                     if isValidResult {
                         
-                        
+                        self.successHandler?()
                         
                     } else {
                         
@@ -209,7 +211,7 @@ class PublishViewModel {
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
                     
                     self.stopScanningHandler?()
                 }

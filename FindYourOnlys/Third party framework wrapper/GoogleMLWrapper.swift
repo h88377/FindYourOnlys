@@ -79,7 +79,7 @@ enum GoogleMLError: Error {
             
         case .detectFailure:
             
-            return "圖片辨識失敗，請重新嘗試或換照片後再嘗試一次。"
+            return "照片中無動物，請重新嘗試或換照片後再嘗試一次。"
             
         case .noImage:
             

@@ -20,6 +20,8 @@ enum LottieName: String {
     case curiousCat
     
     case imageScan
+    
+    case success
 }
 
 class LottieAnimationWrapper {
@@ -30,15 +32,17 @@ class LottieAnimationWrapper {
     
     private let scanView = AnimationView(name: LottieName.imageScan.rawValue)
     
+    private let successView = AnimationView(name: LottieName.success.rawValue)
+    
     private lazy var blurView = UIView()
     
+    private let width = UIScreen.main.bounds.width
+    
+    private let height = UIScreen.main.bounds.height
+    
+    private let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    
     func startLoading() {
-        
-        let width = UIScreen.main.bounds.width
-        
-        let height = UIScreen.main.bounds.height
-        
-        let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         
         blurView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
@@ -70,12 +74,6 @@ class LottieAnimationWrapper {
     
     func startScanning() {
         
-        let width = UIScreen.main.bounds.width
-        
-        let height = UIScreen.main.bounds.height
-        
-        let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
-        
         blurView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         blurView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
@@ -103,6 +101,27 @@ class LottieAnimationWrapper {
         blurView.removeFromSuperview()
         
         loadingView.stop()
+    }
+    
+    func success() {
+        
+        successView.frame = CGRect(x: 0, y: 0, width: 250, height: 250)
+        
+        successView.center = currentWindow!.center
+        
+        successView.contentMode = .scaleAspectFill
+        
+        currentWindow?.addSubview(successView)
+        
+        successView.play()
+        
+        successView.loopMode = .loop
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            
+            self?.successView.removeFromSuperview()
+        }
+        
     }
     
 }

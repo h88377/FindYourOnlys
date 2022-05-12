@@ -185,6 +185,14 @@ class BaseViewController: UIViewController {
             LottieAnimationWrapper.shared.stopScanning()
         }
     }
+    
+    func success() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.success()
+        }
+    }
 }
 
 // MARK: - UIViewControllerTransitioningDelegate

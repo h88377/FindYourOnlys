@@ -53,6 +53,7 @@
 		98822C6B282CB1EA006F8910 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C6A282CB1EA006F8910 /* Constant.swift */; };
 		98822C6D282CD7F8006F8910 /* imageScan.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C6C282CD7F8006F8910 /* imageScan.json */; };
 		98822C6F282CDEA1006F8910 /* GoogleMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C6E282CDEA1006F8910 /* GoogleMLWrapper.swift */; };
+		98822C71282CEA7B006F8910 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C70282CEA7B006F8910 /* success.json */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -262,6 +263,7 @@
 		98822C6A282CB1EA006F8910 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		98822C6C282CD7F8006F8910 /* imageScan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = imageScan.json; sourceTree = "<group>"; };
 		98822C6E282CDEA1006F8910 /* GoogleMLWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMLWrapper.swift; sourceTree = "<group>"; };
+		98822C70282CEA7B006F8910 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				98BC47652823D24800740855 /* friendRequestCat.json */,
 				98BC47632823CE7500740855 /* friendRequest.json */,
 				98822C6C282CD7F8006F8910 /* imageScan.json */,
+				98822C70282CEA7B006F8910 /* success.json */,
 			);
 			path = AnimationSource;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 				987D8B64281ABDD0000D1F95 /* ProfileArticleHeaderView.xib in Resources */,
 				98BC4754282006BD00740855 /* manCat.json in Resources */,
 				9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */,
+				98822C71282CEA7B006F8910 /* success.json in Resources */,
 				98BC475A282373AF00740855 /* FilterRemindCell.xib in Resources */,
 				9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */,
 				98CC15BC2801721000B9FDC6 /* GoogleService-Info.plist in Resources */,

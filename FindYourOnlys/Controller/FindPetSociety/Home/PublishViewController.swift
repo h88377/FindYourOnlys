@@ -70,71 +70,14 @@ class PublishViewController: BaseViewController {
             self?.stopScanning()
         }
         
+        viewModel.successHandler = { [weak self] in
+            
+            self?.success()
+        }
+        
         viewModel.imageDetectHandler = { [weak self] in
             
             self?.viewModel.detectImage()
-            
-//            guard
-//                let self = self,
-//                let selectedImage = self.viewModel.selectedImage
-//
-//            else {
-//
-//                self?.showAlertWindow(title: "注意", message: "請先選擇照片再進行辨識喔！")
-//
-//                return
-//
-//            }
-//
-//            self.startScanning()
-//
-//            let visionImage = VisionImage(image: selectedImage)
-//
-//            visionImage.orientation = selectedImage.imageOrientation
-//
-//            let options = ImageLabelerOptions()
-//
-//            options.confidenceThreshold = 0.7
-//
-//            let labeler = ImageLabeler.imageLabeler(options: options)
-//
-//            labeler.process(visionImage) { labels, error in
-//
-//                guard
-//                    error == nil,
-//                    let labels = labels
-//
-//                else {
-//
-//                    DispatchQueue.main.async {
-//
-//                        self.showAlertWindow(title: "異常", message: "圖片辨識失敗，請重新嘗試或換照片後再嘗試一次。")
-//                    }
-//
-//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-//
-//                        self.stopScanning()
-//                    }
-//
-//                    return
-//                }
-//
-//                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
-//
-//                let isValidResult = labels.map { label in
-//
-//                    imageDetectDatabase.contains(label.text)
-//
-//                }.contains(true)
-//
-//                self.viewModel.isValidDetectResult = isValidResult
-//
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-//
-//                    self.stopScanning()
-//                }
-//            }
-            
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
