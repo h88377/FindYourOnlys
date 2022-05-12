@@ -60,73 +60,102 @@ class PublishViewController: BaseViewController {
             self?.stopLoading()
         }
         
+        viewModel.startScanningHandler = { [weak self] in
+            
+            self?.startScanning()
+        }
+        
+        viewModel.stopScanningHandler = { [weak self] in
+            
+            self?.stopScanning()
+        }
+        
         viewModel.imageDetectHandler = { [weak self] in
             
-            guard
-                let self = self,
-                let selectedImage = self.viewModel.selectedImage
+            self?.viewModel.detectImage()
             
-            else {
+//            guard
+//                let self = self,
+//                let selectedImage = self.viewModel.selectedImage
+//
+//            else {
+//
+//                self?.showAlertWindow(title: "注意", message: "請先選擇照片再進行辨識喔！")
+//
+//                return
+//
+//            }
+//
+//            self.startScanning()
+//
+//            let visionImage = VisionImage(image: selectedImage)
+//
+//            visionImage.orientation = selectedImage.imageOrientation
+//
+//            let options = ImageLabelerOptions()
+//
+//            options.confidenceThreshold = 0.7
+//
+//            let labeler = ImageLabeler.imageLabeler(options: options)
+//
+//            labeler.process(visionImage) { labels, error in
+//
+//                guard
+//                    error == nil,
+//                    let labels = labels
+//
+//                else {
+//
+//                    DispatchQueue.main.async {
+//
+//                        self.showAlertWindow(title: "異常", message: "圖片辨識失敗，請重新嘗試或換照片後再嘗試一次。")
+//                    }
+//
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//
+//                        self.stopScanning()
+//                    }
+//
+//                    return
+//                }
+//
+//                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
+//
+//                let isValidResult = labels.map { label in
+//
+//                    imageDetectDatabase.contains(label.text)
+//
+//                }.contains(true)
+//
+//                self.viewModel.isValidDetectResult = isValidResult
+//
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//
+//                    self.stopScanning()
+//                }
+//            }
+            
+        }
+        
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            if
+                let error = errorViewModel?.error {
                 
-                self?.showAlertWindow(title: "注意", message: "請先選擇照片再進行辨識喔！")
-                
-                return
-                
-            }
-            
-            self.startScanning()
-            
-            let visionImage = VisionImage(image: selectedImage)
-            
-            visionImage.orientation = selectedImage.imageOrientation
-            
-            let options = ImageLabelerOptions()
-            
-            options.confidenceThreshold = 0.7
-            
-            let labeler = ImageLabeler.imageLabeler(options: options)
-            
-            labeler.process(visionImage) { labels, error in
-                
-                guard
-                    error == nil,
-                    let labels = labels
-                        
-                else {
+                DispatchQueue.main.async {
                     
-                    DispatchQueue.main.async {
+                    if
+                        let firebaseError = error as? FirebaseError {
                         
-                        self.showAlertWindow(title: "異常", message: "圖片辨識失敗，請重新嘗試或換照片後再嘗試一次。")
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let googleMLError = error as? GoogleMLError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(googleMLError.errorMessage)")
                     }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                        
-                        self.stopScanning()
-                    }
-                    
-                    return
                 }
-                
-                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
-                
-                let isValidResult = labels.map { label in
-                    
-                    imageDetectDatabase.contains(label.text)
-                    
-                }.contains(true)
-                
-                self.viewModel.isValidDetectResult = isValidResult
-                
-                
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                    
-                    self.stopScanning()
-                }
-                
-                print("====\(isValidResult)")
             }
-            
         }
     }
     
