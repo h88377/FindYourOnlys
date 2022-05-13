@@ -54,6 +54,8 @@ class AdoptPetsLocationViewController: BaseViewController {
             searchTextField.placeholder = "請輸入縣市進行收容所搜尋"
             
             searchTextField.textColor = .projectTextColor
+            
+            searchTextField.alpha = 0.8
         }
     }
     
@@ -82,7 +84,7 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCalculateViews()
+        setupSearchViews()
         
         viewModel.startLoadingHandler = { [weak self] in
 
@@ -130,7 +132,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 if mapAnnotations.count == 0 {
                     
 //                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
-                    self.showAlertWindow(title: "注意", message: "你所在位置附近沒有收容所資訊喔！可以使用搜尋功能前往想去的收容所")
+                    self.showAlertWindow(title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
                     
                 } else {
                     
@@ -224,6 +226,8 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         navigateButton.layer.cornerRadius = 15
         
+        searchButton.layer.cornerRadius = 15
+        
         directionView.roundCorners(corners: [.topLeft, .topRight], radius: 25)
     }
     
@@ -242,7 +246,8 @@ class AdoptPetsLocationViewController: BaseViewController {
     @IBAction func searchShelter(_ sender: UIButton) {
         
         guard
-            let searchText = searchTextField.text
+            let searchText = searchTextField.text,
+            searchText != ""
                 
         else {
             
@@ -254,7 +259,22 @@ class AdoptPetsLocationViewController: BaseViewController {
         viewModel.fetchShelter(with: searchText)
         
         viewModel.isSearch = true
+        
+        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
+            model: MapAnnotation(
+                title: "",
+                subtitle: "",
+                location: "",
+                coordinate: CLLocationCoordinate2D())
+        )
+        
         mapView.removeAnnotations(mapView.annotations)
+        
+        if
+            mapView.overlays.count != 0 {
+            
+            mapView.removeOverlay(mapView.overlays[0])
+        }
     }
     
     private func attemptLocationAccess() {
@@ -331,7 +351,7 @@ class AdoptPetsLocationViewController: BaseViewController {
     
     // Common
     
-    func setupCalculateViews() {
+    func setupSearchViews() {
         
         searchButton.isHidden = !viewModel.isShelterMap
         
