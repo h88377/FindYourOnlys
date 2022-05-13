@@ -70,13 +70,13 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var backButton: UIButton! {
-        
-        didSet {
-            
-            backButton.tintColor = .systemGray2
-        }
-    }
+//    @IBOutlet weak var backButton: UIButton! {
+//
+//        didSet {
+//
+//            backButton.tintColor = .systemGray2
+//        }
+//    }
     
     @IBOutlet weak var bottomBaseView: UIView! {
         
@@ -97,6 +97,8 @@ class AdoptDetailViewController: BaseViewController {
 //    }
     
     let tableView = UITableView()
+    
+    let backButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,9 +184,13 @@ class AdoptDetailViewController: BaseViewController {
         
         tableView.dataSource = self
         
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: bottomBaseView)
+        
+//        view.addSubview(tableView)
         
         tableView.separatorStyle = .none
+        
+        tableView.allowsSelection = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -196,7 +202,7 @@ class AdoptDetailViewController: BaseViewController {
                 
                 tableView.topAnchor.constraint(equalTo: view.topAnchor),
                 
-                tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor)
+                tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor, constant: 5)
             ]
         )
         
@@ -209,7 +215,40 @@ class AdoptDetailViewController: BaseViewController {
         
         tableView.tableHeaderView = header
         
+        setupButton()
+        
 //        tableView.registerViewWithIdentifier(identifier: AdoptDetailHeaderView.identifier)
+    }
+    
+    func setupButton() {
+        
+        view.addSubview(backButton)
+        
+        backButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+                
+                backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+                
+                backButton.heightAnchor.constraint(equalToConstant: 40),
+                
+                backButton.widthAnchor.constraint(equalToConstant: 40)
+            ]
+        )
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 34)
+        
+        let image = UIImage(systemName: SystemImageAsset.back.rawValue, withConfiguration: config)
+        
+        backButton.setImage(image, for: .normal)
+        
+        backButton.tintColor = .projectIconColor1
+        
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
     @IBAction func toggleFavorite(_ sender: UIButton) {
@@ -235,10 +274,17 @@ class AdoptDetailViewController: BaseViewController {
         viewModel.makePhoneCall(self)
     }
     
-    @IBAction func back(_ sender: UIButton) {
+//    @IBAction func back(_ sender: UIButton) {
+//
+//        navigationController?.popViewController(animated: true)
+//    }
+    
+    @objc func back(_ sender: UIButton) {
         
         navigationController?.popViewController(animated: true)
     }
+    
+    
     
     @IBAction func checkLocation(_ sender: UIButton) {
         

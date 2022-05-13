@@ -189,16 +189,6 @@
                                     <action selector="toggleFavorite:" destination="63v-a2-Ckk" eventType="touchUpInside" id="TBE-b7-OQl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDy-tJ-0um">
-                                <rect key="frame" x="20" y="74" width="40" height="39"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="chevron.backward.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="34"/>
-                                </state>
-                                <connections>
-                                    <action selector="back:" destination="63v-a2-Ckk" eventType="touchUpInside" id="BRf-z8-Y91"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbi-Ck-CiX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -212,17 +202,14 @@
                             <constraint firstAttribute="bottom" secondItem="jeU-cb-Hkv" secondAttribute="bottom" id="TEp-WE-2vl"/>
                             <constraint firstItem="gA4-hq-HPp" firstAttribute="bottom" secondItem="o95-Wj-WI0" secondAttribute="bottom" id="TpF-5y-hk3"/>
                             <constraint firstItem="hbi-Ck-CiX" firstAttribute="trailing" secondItem="jeU-cb-Hkv" secondAttribute="trailing" id="X28-Y6-zW0"/>
-                            <constraint firstItem="CDy-tJ-0um" firstAttribute="leading" secondItem="hbi-Ck-CiX" secondAttribute="leading" constant="20" id="Zx3-BQ-Xem"/>
                             <constraint firstItem="jeU-cb-Hkv" firstAttribute="top" secondItem="o95-Wj-WI0" secondAttribute="top" constant="-10" id="aeG-Um-CYa"/>
                             <constraint firstItem="gA4-hq-HPp" firstAttribute="leading" secondItem="8HM-Kq-jgR" secondAttribute="trailing" constant="20" id="bmR-24-AFl"/>
                             <constraint firstItem="8HM-Kq-jgR" firstAttribute="top" secondItem="o95-Wj-WI0" secondAttribute="top" id="ceP-du-XRY"/>
-                            <constraint firstItem="CDy-tJ-0um" firstAttribute="top" secondItem="hbi-Ck-CiX" secondAttribute="top" constant="30" id="edp-0N-uM8"/>
                             <constraint firstItem="gA4-hq-HPp" firstAttribute="height" secondItem="o95-Wj-WI0" secondAttribute="height" id="y4c-q4-cNB"/>
                             <constraint firstItem="8HM-Kq-jgR" firstAttribute="bottom" secondItem="o95-Wj-WI0" secondAttribute="bottom" id="z3R-zO-dMn"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="CDy-tJ-0um" id="KK0-qb-UBJ"/>
                         <outlet property="bottomBaseView" destination="jeU-cb-Hkv" id="zF6-RJ-xlV"/>
                         <outlet property="checkLocationButton" destination="gA4-hq-HPp" id="z9j-tw-MnC"/>
                         <outlet property="favoriteButton" destination="8HM-Kq-jgR" id="4pW-I8-RBm"/>

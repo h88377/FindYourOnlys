@@ -46,6 +46,10 @@ enum SystemImageAsset: String {
     case addFriend = "person.badge.plus"
     
     case notification = "bell"
+    
+    // Back
+    
+    case back = "chevron.backward.circle.fill"
 }
 
 enum ImageAsset: String {
