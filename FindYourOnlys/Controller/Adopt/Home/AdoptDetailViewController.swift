@@ -22,16 +22,6 @@ class AdoptDetailViewController: BaseViewController {
     
     override var isHiddenNavigationBar: Bool { return true }
     
-//    @IBOutlet weak var baseView: UIView!
-//
-//    @IBOutlet weak var photoImageView: UIImageView! {
-//
-//        didSet {
-//
-//            photoImageView.tintColor = .projectPlaceHolderColor
-//        }
-//    }
-    
     @IBOutlet weak var favoriteButton: UIButton! {
         
         didSet {
@@ -70,14 +60,6 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-//    @IBOutlet weak var backButton: UIButton! {
-//
-//        didSet {
-//
-//            backButton.tintColor = .systemGray2
-//        }
-//    }
-    
     @IBOutlet weak var bottomBaseView: UIView! {
         
         didSet {
@@ -86,16 +68,6 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-//    @IBOutlet weak var tableView: UITableView! {
-//
-//        didSet {
-//
-//            tableView.delegate = self
-//
-//            tableView.dataSource = self
-//        }
-//    }
-    
     let tableView = UITableView()
     
     let backButton = UIButton()
@@ -103,7 +75,7 @@ class AdoptDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.petViewModel.bind { [weak self] petViewModels in
+        viewModel.petViewModel.bind { [weak self] _ in
             
             DispatchQueue.main.async {
                 
@@ -140,30 +112,28 @@ class AdoptDetailViewController: BaseViewController {
             self.viewModel.checkFavoriteButton(with: self.favoriteButton)
         }
         
-        //Create a function to replace
+        // Create a function to replace
         if !viewModel.didSignIn {
             
             viewModel.fetchFavoritePetFromLS()
             
-//            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+            //            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
             
         } else {
             
             viewModel.fetchFavoriteFromFB()
             
-//                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+            //                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
         }
         
-//        photoImageView.loadImage(
-//            viewModel.petViewModel.value.pet.photoURLString,
-//            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-//        )
+        //        photoImageView.loadImage(
+        //            viewModel.petViewModel.value.pet.photoURLString,
+        //            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
+        //        )
     }
- 
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-//        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
         
         bottomBaseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
         
@@ -186,11 +156,9 @@ class AdoptDetailViewController: BaseViewController {
         
         view.insertSubview(tableView, belowSubview: bottomBaseView)
         
-//        view.addSubview(tableView)
-        
         tableView.separatorStyle = .none
         
-        tableView.allowsSelection = true
+        tableView.allowsSelection = false
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -206,9 +174,10 @@ class AdoptDetailViewController: BaseViewController {
             ]
         )
         
-        let header = AdoptDetailHeaderView(frame: CGRect(x: 0, y: 0,
-                                                         width: view.frame.width,
-                                                         height: view.frame.width)
+        let header = AdoptDetailHeaderView(frame: CGRect(
+            x: 0, y: 0,
+            width: view.frame.width,
+            height: view.frame.width)
         )
         
         header.configureView(with: viewModel.petViewModel.value)
@@ -216,8 +185,6 @@ class AdoptDetailViewController: BaseViewController {
         tableView.tableHeaderView = header
         
         setupButton()
-        
-//        tableView.registerViewWithIdentifier(identifier: AdoptDetailHeaderView.identifier)
     }
     
     func setupButton() {
@@ -274,17 +241,10 @@ class AdoptDetailViewController: BaseViewController {
         viewModel.makePhoneCall(self)
     }
     
-//    @IBAction func back(_ sender: UIButton) {
-//
-//        navigationController?.popViewController(animated: true)
-//    }
-    
     @objc func back(_ sender: UIButton) {
         
         navigationController?.popViewController(animated: true)
     }
-    
-    
     
     @IBAction func checkLocation(_ sender: UIButton) {
         
@@ -294,7 +254,7 @@ class AdoptDetailViewController: BaseViewController {
             let petsLocationVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptPetsLocationViewController.identifier)
                 as? AdoptPetsLocationViewController
-        
+                
         else { return }
         
         petsLocationVC.viewModel.petViewModel = viewModel.petViewModel
@@ -336,84 +296,51 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
         } else {
             
             return adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
-//            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, pet: cellViewModel.pet)
         }
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        let cellViewModel = viewModel.petViewModel.value
-//
-//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: AdoptDetailHeaderView.identifier)
-//
-//        guard
-//            let headerView = view as? AdoptDetailHeaderView
-//
-//        else { return view }
-//
-//        headerView.configureView(with: cellViewModel)
-//
-//        return headerView
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//
-//        return UIScreen.main.bounds.width
-//    }
-    
-//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-//        return UIScreen.main.bounds.width
-//    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: AdoptDetailHeaderView.identifier)
-//
-//        guard
-//            let headerView = view as? AdoptDetailHeaderView else { return }
-//
-//        headerView.scrollViewDidScroll(scrollView: tableView)
-                
-        guard
-            let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
-
-        header.scrollViewDidScroll(scrollView: tableView)
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            
+            guard
+                let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
+            
+            header.scrollViewDidScroll(scrollView: tableView)
+        }
+        
+        //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //
+        //        if indexPath.row == 0 {
+        //
+        //            return tableView.estimatedRowHeight
+        //
+        //        } else {
+        //
+        //            return tableView.estimatedRowHeight
+        //        }
+        //    }
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        if indexPath.row == 0 {
-//
-//            return tableView.estimatedRowHeight
-//
-//        } else {
-//
-//            return tableView.estimatedRowHeight
-//        }
-//    }
-}
-
-
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
     
-//        tableView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
-//    }
+    //    override func viewDidLayoutSubviews() {
+    //        super.viewDidLayoutSubviews()
+    
+    //        tableView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+    //    }
+    
+    //        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+    
+    //            self?.viewModel.isFavorite(with: &self!.favoriteButton)
+    //            self?.favoriteButton.setTitle("AddToFavorite", for: .normal)
+    //
+    //            for favoritePetViewModel in favoritePetViewModels {
+    //
+    //                if favoritePetViewModel.pet.id == self?.viewModel.petViewModel.value.pet.id {
+    //
+    //                    self?.favoriteButton.setTitle("RemoveFromFavorite", for: .normal)
+    //
+    //                    break
+    //                }
+    //
+    //
+    //            }
 
-//        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-            
-//            self?.viewModel.isFavorite(with: &self!.favoriteButton)
-//            self?.favoriteButton.setTitle("AddToFavorite", for: .normal)
-//
-//            for favoritePetViewModel in favoritePetViewModels {
-//
-//                if favoritePetViewModel.pet.id == self?.viewModel.petViewModel.value.pet.id {
-//
-//                    self?.favoriteButton.setTitle("RemoveFromFavorite", for: .normal)
-//
-//                    break
-//                }
-//
-//
-//            }
-//        }

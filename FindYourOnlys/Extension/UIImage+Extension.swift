@@ -68,6 +68,8 @@ enum ImageAsset: String {
     
     case launchIcon
     
+    case paw
+    
     case chatSocietyItem = "chat"
     
     case chatSocietySelectedItem = "selectedChat"

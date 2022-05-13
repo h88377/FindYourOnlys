@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSA-1x-9d2">
-                                <rect key="frame" x="0.0" y="88" width="207" height="34"/>
+                                <rect key="frame" x="0.0" y="88" width="207" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
@@ -30,7 +30,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4H-fi-IEa">
-                                <rect key="frame" x="207" y="88" width="207" height="34"/>
+                                <rect key="frame" x="207" y="88" width="207" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
@@ -42,36 +42,37 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2m6-3A-qQ1">
-                                <rect key="frame" x="0.0" y="122" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="124" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="uuH-Ic-vfw"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5o-jx-SJD">
-                                <rect key="frame" x="0.0" y="123" width="414" height="739"/>
+                                <rect key="frame" x="0.0" y="125" width="414" height="737"/>
                                 <connections>
                                     <segue destination="Dov-hS-zDy" kind="embed" identifier="SegueFavorite" id="E8S-Gd-kyw"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUu-Tx-dxK">
-                                <rect key="frame" x="0.0" y="123" width="414" height="739"/>
+                                <rect key="frame" x="0.0" y="125" width="414" height="737"/>
                                 <connections>
                                     <segue destination="1pB-aw-e5a" kind="embed" identifier="SegueList" id="8wU-TC-BLf"/>
                                 </connections>
                             </containerView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pawprint.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fan-iF-ai6">
-                                <rect key="frame" x="165" y="89.5" width="32" height="31"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paw" translatesAutoresizingMaskIntoConstraints="NO" id="fan-iF-ai6">
+                                <rect key="frame" x="163" y="89" width="34" height="34"/>
                                 <color key="tintColor" systemColor="systemGray6Color"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="Sbv-7Q-9OY"/>
                                     <constraint firstAttribute="width" secondItem="fan-iF-ai6" secondAttribute="height" multiplier="1:1" id="w0r-Kh-myh"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pawprint.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QEI-gB-m8F">
-                                <rect key="frame" x="370" y="88.5" width="34" height="33"/>
-                                <color key="tintColor" systemColor="systemGray6Color"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paw" translatesAutoresizingMaskIntoConstraints="NO" id="QEI-gB-m8F">
+                                <rect key="frame" x="370" y="88" width="34" height="36"/>
+                                <color key="tintColor" red="0.94876593350000005" green="0.94887346029999997" blue="0.96969157459999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="QEI-gB-m8F" secondAttribute="height" multiplier="1:1" id="I17-6n-IcC"/>
+                                    <constraint firstAttribute="width" constant="34" id="rPc-c4-gKc"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -86,9 +87,11 @@
                             <constraint firstItem="QEI-gB-m8F" firstAttribute="centerY" secondItem="U4H-fi-IEa" secondAttribute="centerY" id="HZx-L4-1fe"/>
                             <constraint firstItem="fan-iF-ai6" firstAttribute="trailing" secondItem="ZSA-1x-9d2" secondAttribute="trailing" constant="-10" id="Mkv-EQ-uz0"/>
                             <constraint firstItem="RUu-Tx-dxK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Tee-0D-sfR"/>
+                            <constraint firstItem="2m6-3A-qQ1" firstAttribute="top" secondItem="U4H-fi-IEa" secondAttribute="bottom" id="UQf-2C-YTb"/>
                             <constraint firstItem="2m6-3A-qQ1" firstAttribute="top" secondItem="ZSA-1x-9d2" secondAttribute="bottom" id="aRv-zZ-Emg"/>
                             <constraint firstItem="U4H-fi-IEa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="aeN-fS-jF1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Y5o-jx-SJD" secondAttribute="bottom" id="cRr-hf-9rJ"/>
+                            <constraint firstItem="U4H-fi-IEa" firstAttribute="leading" secondItem="ZSA-1x-9d2" secondAttribute="trailing" id="cgr-ZO-8nH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QEI-gB-m8F" secondAttribute="trailing" constant="10" id="e5k-9q-sxi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RUu-Tx-dxK" secondAttribute="trailing" id="jlB-B8-UZn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2m6-3A-qQ1" secondAttribute="trailing" id="kDk-KM-mEg"/>
@@ -289,17 +292,17 @@
             <objects>
                 <viewController storyboardIdentifier="AdoptFavoriteViewController" id="Dov-hS-zDy" customClass="AdoptFavoriteViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GFH-QV-cQs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="737"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目前沒有收藏的動物喔！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHK-z2-ths">
-                                <rect key="frame" x="111.5" y="359" width="191" height="21"/>
+                                <rect key="frame" x="111.5" y="358" width="191" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="55s-XO-3IO">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="737"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -343,17 +346,17 @@
             <objects>
                 <viewController id="1pB-aw-e5a" customClass="AdoptListViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lcu-Vf-T8C">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="737"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沒有符合條件的動物資訊喔！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgm-Ot-ZDv">
-                                <rect key="frame" x="94.5" y="359.5" width="225.5" height="20.5"/>
+                                <rect key="frame" x="94.5" y="358.5" width="225.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjL-qO-zZE">
-                                <rect key="frame" x="176" y="400" width="62" height="30"/>
+                                <rect key="frame" x="176" y="399" width="62" height="30"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="查看全部"/>
                                 <connections>
@@ -361,7 +364,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="739"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="737"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oiI-w8-EsT">
                                     <size key="itemSize" width="128" height="128"/>
@@ -372,7 +375,7 @@
                                 <cells/>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M35-Pu-lfS">
-                                <rect key="frame" x="344" y="669" width="50" height="50"/>
+                                <rect key="frame" x="344" y="667" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="laE-Iu-MhY"/>
                                     <constraint firstAttribute="height" constant="50" id="vSn-M1-7eA"/>
@@ -548,7 +551,7 @@
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="map" catalog="system" width="128" height="110"/>
-        <image name="pawprint.circle" catalog="system" width="128" height="121"/>
+        <image name="paw" width="500" height="500"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
