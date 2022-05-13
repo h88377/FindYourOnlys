@@ -52,7 +52,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
             
             timeLabel.textAlignment = .right
             
-            contentLabel.textAlignment = .right
+//            contentLabel.textAlignment = .right
             
             friendImageView.isHidden = true
             
@@ -62,12 +62,14 @@ class ChatRoomUserMessageCell: UITableViewCell {
             
             timeLabel.textAlignment = .left
             
-            contentLabel.textAlignment = .left
+//            contentLabel.textAlignment = .left
            
             friendImageView.isHidden = false
             
             userImageView.isHidden = !friendImageView.isHidden
         }
+        
+        contentLabel.textAlignment = .left
         
         friendImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         

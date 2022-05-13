@@ -47,6 +47,28 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var searchTextField: ContentInsetTextField! {
+        
+        didSet {
+            
+            searchTextField.placeholder = "請輸入縣市進行收容所搜尋"
+            
+            searchTextField.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var searchButton: UIButton! {
+        
+        didSet {
+            
+            searchButton.setTitleColor(.white, for: .normal)
+            
+            searchButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            searchButton.backgroundColor = .projectIconColor1
+        }
+    }
+    
     let viewModel = AdoptPetsLocationViewModel()
     
     private let locationManager = CLLocationManager()
@@ -59,6 +81,8 @@ class AdoptPetsLocationViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupCalculateViews()
         
         viewModel.startLoadingHandler = { [weak self] in
 
@@ -105,7 +129,8 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
+//                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
+                    self.showAlertWindow(title: "注意", message: "你所在位置附近沒有收容所資訊喔！可以使用搜尋功能前往想去的收容所")
                     
                 } else {
                     
@@ -214,6 +239,24 @@ class AdoptPetsLocationViewController: BaseViewController {
         viewModel.calculateRoute()
     }
     
+    @IBAction func searchShelter(_ sender: UIButton) {
+        
+        guard
+            let searchText = searchTextField.text
+                
+        else {
+            
+            showAlertWindow(title: "請輸入縣市", message: "")
+            
+            return
+        }
+        
+        viewModel.fetchShelter(with: searchText)
+        
+        viewModel.isSearch = true
+        mapView.removeAnnotations(mapView.annotations)
+    }
+    
     private func attemptLocationAccess() {
         
         guard
@@ -283,6 +326,16 @@ class AdoptPetsLocationViewController: BaseViewController {
 //        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
 //
 //        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
+        
+    }
+    
+    // Common
+    
+    func setupCalculateViews() {
+        
+        searchButton.isHidden = !viewModel.isShelterMap
+        
+        searchTextField.isHidden = !viewModel.isShelterMap
         
     }
     

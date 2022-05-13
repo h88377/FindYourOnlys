@@ -11,6 +11,8 @@ class AdoptPetsLocationViewModel {
     
     var isShelterMap: Bool = true
     
+    var isSearch: Bool = false
+    
     // Pet
     var petViewModel = Box(
         PetViewModel(
@@ -121,6 +123,11 @@ class AdoptPetsLocationViewModel {
         
         guard
             isShelterMap else { return }
+        
+        if isSearch {
+
+            mapAnnotationViewModels.value = nil
+        }
         
         startLoadingHandler?()
         
