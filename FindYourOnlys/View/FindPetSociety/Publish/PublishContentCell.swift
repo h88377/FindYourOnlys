@@ -82,6 +82,8 @@ class PublishContentCell: PublishBasicCell {
         }
     }
     
+    @IBOutlet weak var separatorView: UIView!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

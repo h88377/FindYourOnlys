@@ -79,6 +79,14 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var separatorView: UIView! {
+        
+        didSet {
+            
+            separatorView.backgroundColor = .systemGray5
+        }
+    }
+    
     var leaveCommentHandler: (() -> Void)?
     
     var likeArticleHandler: (() -> Void)?
@@ -99,6 +107,8 @@ class ArticleContentCell: UITableViewCell {
         
         colorLabel.text = viewModel.article.color
         
+        hideLike(viewModel: viewModel)
+        
         if
             let currentUser = UserFirebaseManager.shared.currentUser {
             
@@ -107,6 +117,16 @@ class ArticleContentCell: UITableViewCell {
         } else {
             
             likeButton.isSelected = false
+        }
+    }
+    
+    func hideLike(viewModel: ArticleViewModel) {
+        
+        if viewModel.article.postType != nil {
+            
+            likeButton.isHidden = true
+            
+            likeCountLabel.isHidden = true
         }
     }
     

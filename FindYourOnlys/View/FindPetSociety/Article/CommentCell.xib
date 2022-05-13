@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -62,16 +63,26 @@
                             <action selector="block:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="szB-1n-e6Y"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Xu-7r-yON">
+                        <rect key="frame" x="8" y="70" width="306" height="1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="kPl-VV-EJA"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="hQJ-JE-5XF" secondAttribute="trailing" constant="16" id="Cck-QB-d3F"/>
+                    <constraint firstAttribute="bottom" secondItem="5Xu-7r-yON" secondAttribute="bottom" id="HDI-Po-55A"/>
                     <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="LIq-8P-mSS"/>
                     <constraint firstItem="iUS-YB-Kky" firstAttribute="leading" secondItem="Bgq-Bs-6Lf" secondAttribute="trailing" constant="20" id="OkN-QM-vW3"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="leading" secondItem="iUS-YB-Kky" secondAttribute="trailing" constant="20" id="SyL-ky-Bwp"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="10" id="UVz-Eb-2Ja"/>
                     <constraint firstAttribute="bottom" secondItem="iUS-YB-Kky" secondAttribute="bottom" constant="10" id="Wqp-36-pln"/>
+                    <constraint firstItem="5Xu-7r-yON" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="aDl-dx-FgL"/>
                     <constraint firstItem="Bgq-Bs-6Lf" firstAttribute="top" secondItem="iUS-YB-Kky" secondAttribute="top" id="dsN-4n-PAd"/>
                     <constraint firstItem="hoZ-cx-9qs" firstAttribute="bottom" secondItem="iUS-YB-Kky" secondAttribute="bottom" id="kSj-Rs-FxC"/>
+                    <constraint firstAttribute="trailing" secondItem="5Xu-7r-yON" secondAttribute="trailing" constant="6" id="p4b-3R-dz5"/>
                     <constraint firstItem="iUS-YB-Kky" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="stP-O3-oCf"/>
                     <constraint firstItem="hQJ-JE-5XF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="tre-OG-KY9"/>
                 </constraints>
@@ -82,9 +93,15 @@
                 <outlet property="createdTimeLabel" destination="hoZ-cx-9qs" id="6A3-fh-OCv"/>
                 <outlet property="editButton" destination="hQJ-JE-5XF" id="o6z-Wi-f04"/>
                 <outlet property="nickNameLabel" destination="wIY-fc-RT9" id="MNf-rx-M66"/>
+                <outlet property="separatorView" destination="5Xu-7r-yON" id="Y3V-hv-4GZ"/>
                 <outlet property="userImageView" destination="Bgq-Bs-6Lf" id="Rnh-1K-26U"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.34375"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -21,7 +21,9 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             tableView.backgroundColor = .projectBackgroundColor
             
-            tableView.separatorColor = .projectBackgroundColor
+//            tableView.separatorColor = .projectBackgroundColor
+            
+            tableView.separatorStyle = .none
         }
     }
     
