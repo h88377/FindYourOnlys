@@ -76,6 +76,12 @@ class FriendRequestViewController: BaseViewController {
         tableView.registerViewWithIdentifier(identifier: FriendRequestHeaderView.identifier)
     }
     
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "好友邀請"
+    }
+    
 }
 
 // MARK: - UITableViewDelegate and DataSource

@@ -7,6 +7,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import AudioToolbox.AudioServices
 
 class BaseViewController: UIViewController {
     
@@ -192,6 +193,7 @@ class BaseViewController: UIViewController {
 
             LottieAnimationWrapper.shared.success()
         }
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 }
 
