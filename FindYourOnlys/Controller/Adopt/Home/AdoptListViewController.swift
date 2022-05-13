@@ -13,6 +13,10 @@ class AdoptListViewController: BaseViewController {
     
     let viewModel = AdoptListViewModel()
     
+    private let popAnimator = PopAnimator()
+    
+    private(set) var selectedCell: UICollectionViewCell!
+    
     @IBOutlet weak var remindLabel: UILabel! 
     
     @IBOutlet weak var refetchButton: UIButton!
@@ -24,6 +28,8 @@ class AdoptListViewController: BaseViewController {
             collectionView.dataSource = self
             
             collectionView.delegate = self
+            
+            collectionView.allowsSelection = true
             
             collectionView.backgroundColor = .projectBackgroundColor
         }
@@ -229,7 +235,8 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         guard
             let adoptDetaiVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptDetailViewController.identifier)
-                as? AdoptDetailViewController
+                as? AdoptDetailViewController,
+            let selectedCell = collectionView.dequeueReusableCell(withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath) as? AdoptCollectionViewCell
 //                ,
 //            let adoptFavoriteVC = storyboard.instantiateViewController(
 //                withIdentifier: AdoptFavoriteViewController.identifier)
@@ -241,9 +248,25 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser?.id
         
-//        adoptDetaiVC.delegate = adoptFavoriteVC
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+        //        adoptDetaiVC.delegate = adoptFavoriteVC
+        //        navigationController?.pushViewController(adoptDetaiVC, animated: true)
         
-        navigationController?.pushViewController(adoptDetaiVC, animated: true)
+        adoptDetaiVC.transitioningDelegate = self
+        
+        adoptDetaiVC.modalPresentationStyle = .fullScreen
+      
+        self.selectedCell = selectedCell
+        
+//        selectedCell = collectionView.visibleCells.filter { $0.isSelected }[0]
+        
+        present(adoptDetaiVC, animated: true)
+
+        
+        
+        
+
     }
 
 //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -269,10 +292,44 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         }
 }
 
-//extension AdoptListViewController: AdoptDetailViewControllerDelegate {
+// MARK: - UIViewControllerTransitioningDelegate
+extension AdoptListViewController {
+    
+    func animationController(
+      forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
+        
+      popAnimator.originFrame = collectionView.convert(selectedCell.frame, to: nil)
+        
+//        popAnimator.presenting = true
+        
+      return popAnimator
+    }
+
+    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+//        popAnimator.presenting = false
+//        return popAnimator
+        
+      nil
+    }
+  }
+
+  // MARK:- UIViewController
+//  extension AdoptListViewController {
+//      
+//    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 //
-//    func toggleFavorite() {
-//
-//        viewModel.fetchPet()
+//    override func viewWillTransition(
+//      to size: CGSize,
+//      with coordinator: UIViewControllerTransitionCoordinator
+//    ) {
+//      super.viewWillTransition(to: size, with: coordinator)
+//      coordinator.animate(
+//        alongsideTransition: { _ in
+//          self.background.alpha = (size.width > size.height) ? 0.25 : 0.55
+//        }
+//      )
 //    }
-//}
+//  }
+

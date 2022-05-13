@@ -55,6 +55,7 @@
 		98822C6F282CDEA1006F8910 /* GoogleMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C6E282CDEA1006F8910 /* GoogleMLWrapper.swift */; };
 		98822C71282CEA7B006F8910 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C70282CEA7B006F8910 /* success.json */; };
 		98822C73282D5F8B006F8910 /* AdoptDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */; };
+		98822C79282EC297006F8910 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C78282EC297006F8910 /* PopAnimator.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -266,6 +267,7 @@
 		98822C6E282CDEA1006F8910 /* GoogleMLWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMLWrapper.swift; sourceTree = "<group>"; };
 		98822C70282CEA7B006F8910 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailHeaderView.swift; sourceTree = "<group>"; };
+		98822C78282EC297006F8910 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -862,6 +864,7 @@
 		98CC15BD2801796D00B9FDC6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				98822C78282EC297006F8910 /* PopAnimator.swift */,
 				98CC16282805518400B9FDC6 /* HomeTabBarController.swift */,
 				9896D8CE280825DB003D4A16 /* BaseViewController.swift */,
 				987D8B4A28195F15000D1F95 /* BaseModalViewController.swift */,
@@ -1373,6 +1376,7 @@
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,
 				98822C6F282CDEA1006F8910 /* GoogleMLWrapper.swift in Sources */,
 				987D8B78281E2126000D1F95 /* PaddingableUILabel.swift in Sources */,
+				98822C79282EC297006F8910 /* PopAnimator.swift in Sources */,
 				987D8B72281CEEF8000D1F95 /* EditProfileViewModel.swift in Sources */,
 				98CC161428030F8100B9FDC6 /* AdoptDetailContentCategory.swift in Sources */,
 				98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */,

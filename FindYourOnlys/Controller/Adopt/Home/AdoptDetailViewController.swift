@@ -219,7 +219,11 @@ class AdoptDetailViewController: BaseViewController {
         
         view.addSubview(backButton)
         
-        backButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        backButton.frame = CGRect(
+            x: 0, y: 0,
+            width: 40,
+            height: 40
+        )
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -271,7 +275,9 @@ class AdoptDetailViewController: BaseViewController {
     
     @objc func back(_ sender: UIButton) {
         
-        navigationController?.popViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
+        
+        dismiss(animated: true)
     }
     
     @IBAction func checkLocation(_ sender: UIButton) {
