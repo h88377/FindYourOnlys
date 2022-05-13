@@ -54,6 +54,9 @@
 		98822C6D282CD7F8006F8910 /* imageScan.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C6C282CD7F8006F8910 /* imageScan.json */; };
 		98822C6F282CDEA1006F8910 /* GoogleMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C6E282CDEA1006F8910 /* GoogleMLWrapper.swift */; };
 		98822C71282CEA7B006F8910 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C70282CEA7B006F8910 /* success.json */; };
+		98822C73282D5F8B006F8910 /* AdoptDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */; };
+		98822C75282D5F98006F8910 /* AdoptDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98822C74282D5F98006F8910 /* AdoptDetailHeaderView.xib */; };
+		98822C77282D6E2B006F8910 /* AdoptScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C76282D6E2B006F8910 /* AdoptScrollViewController.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -264,6 +267,9 @@
 		98822C6C282CD7F8006F8910 /* imageScan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = imageScan.json; sourceTree = "<group>"; };
 		98822C6E282CDEA1006F8910 /* GoogleMLWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMLWrapper.swift; sourceTree = "<group>"; };
 		98822C70282CEA7B006F8910 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
+		98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailHeaderView.swift; sourceTree = "<group>"; };
+		98822C74282D5F98006F8910 /* AdoptDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdoptDetailHeaderView.xib; sourceTree = "<group>"; };
+		98822C76282D6E2B006F8910 /* AdoptScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptScrollViewController.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -1001,6 +1007,8 @@
 				98CC16022802E8A100B9FDC6 /* AdoptDetailTableViewCell.xib */,
 				98CC160F2803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift */,
 				98CC16102803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.xib */,
+				98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */,
+				98822C74282D5F98006F8910 /* AdoptDetailHeaderView.xib */,
 				98939A372815519E004312F1 /* Map */,
 			);
 			path = Adopt;
@@ -1009,6 +1017,7 @@
 		98CC162028054ACB00B9FDC6 /* Adopt */ = {
 			isa = PBXGroup;
 			children = (
+				98822C76282D6E2B006F8910 /* AdoptScrollViewController.swift */,
 				98939A0E2811AE6A004312F1 /* Home */,
 				98939A0C2811ADFA004312F1 /* Map */,
 			);
@@ -1162,6 +1171,7 @@
 				987D8B4728192176000D1F95 /* CommentCell.xib in Resources */,
 				987D8B2F281681B9000D1F95 /* Auth.storyboard in Resources */,
 				98BC475E28239B9C00740855 /* ChatSociety.storyboard in Resources */,
+				98822C75282D5F98006F8910 /* AdoptDetailHeaderView.xib in Resources */,
 				9808D98E282A19540059DDF5 /* multipleSimulators.config in Resources */,
 				98CC15B328005B6C00B9FDC6 /* LaunchScreen.storyboard in Resources */,
 				98CC1627280550D900B9FDC6 /* Main.storyboard in Resources */,
@@ -1345,6 +1355,7 @@
 				98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */,
 				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
 				9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */,
+				98822C73282D5F8B006F8910 /* AdoptDetailHeaderView.swift in Sources */,
 				98BC476C282766DF00740855 /* PolicyViewModel.swift in Sources */,
 				987D8B6E281BB2B3000D1F95 /* EditArticleViewModel.swift in Sources */,
 				987D8B4B28195F15000D1F95 /* BaseModalViewController.swift in Sources */,
@@ -1355,6 +1366,7 @@
 				987D8B3B2816C23D000D1F95 /* RegisterViewModel.swift in Sources */,
 				987D8B57281AAD02000D1F95 /* ProfileArticleCell.swift in Sources */,
 				987D8B76281D1E36000D1F95 /* FriendProfileViewModel.swift in Sources */,
+				98822C77282D6E2B006F8910 /* AdoptScrollViewController.swift in Sources */,
 				9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */,
 				987D8B7B281EB92E000D1F95 /* ChatRoomFriendMessageCell.swift in Sources */,
 				9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */,

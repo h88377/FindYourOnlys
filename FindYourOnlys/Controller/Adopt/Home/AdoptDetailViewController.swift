@@ -22,15 +22,15 @@ class AdoptDetailViewController: BaseViewController {
     
     override var isHiddenNavigationBar: Bool { return true }
     
-    @IBOutlet weak var baseView: UIView!
-    
-    @IBOutlet weak var photoImageView: UIImageView! {
-        
-        didSet {
-            
-            photoImageView.tintColor = .projectPlaceHolderColor
-        }
-    }
+//    @IBOutlet weak var baseView: UIView!
+//
+//    @IBOutlet weak var photoImageView: UIImageView! {
+//
+//        didSet {
+//
+//            photoImageView.tintColor = .projectPlaceHolderColor
+//        }
+//    }
     
     @IBOutlet weak var favoriteButton: UIButton! {
         
@@ -86,15 +86,17 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var tableView: UITableView! {
-        
-        didSet {
-            
-            tableView.delegate = self
-            
-            tableView.dataSource = self
-        }
-    }
+//    @IBOutlet weak var tableView: UITableView! {
+//
+//        didSet {
+//
+//            tableView.delegate = self
+//
+//            tableView.dataSource = self
+//        }
+//    }
+    
+    let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,16 +152,16 @@ class AdoptDetailViewController: BaseViewController {
 //                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
         }
         
-        photoImageView.loadImage(
-            viewModel.petViewModel.value.pet.photoURLString,
-            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-        )
+//        photoImageView.loadImage(
+//            viewModel.petViewModel.value.pet.photoURLString,
+//            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
+//        )
     }
  
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+//        baseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
         
         bottomBaseView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
         
@@ -175,6 +177,39 @@ class AdoptDetailViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailDecriptionTableViewCell.identifier)
+        
+        tableView.delegate = self
+        
+        tableView.dataSource = self
+        
+        view.addSubview(tableView)
+        
+        tableView.separatorStyle = .none
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                
+                tableView.topAnchor.constraint(equalTo: view.topAnchor),
+                
+                tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor)
+            ]
+        )
+        
+        let header = AdoptDetailHeaderView(frame: CGRect(x: 0, y: 0,
+                                                         width: view.frame.width,
+                                                         height: view.frame.width)
+        )
+        
+        header.configureView(with: viewModel.petViewModel.value)
+        
+        tableView.tableHeaderView = header
+        
+//        tableView.registerViewWithIdentifier(identifier: AdoptDetailHeaderView.identifier)
     }
     
     @IBAction func toggleFavorite(_ sender: UIButton) {
@@ -226,7 +261,7 @@ class AdoptDetailViewController: BaseViewController {
 }
 
 // MARK: - UITableViewDelegate & DataSource
-extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -257,6 +292,46 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource 
             return adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
 //            return adoptDetailDescription[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, pet: cellViewModel.pet)
         }
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        let cellViewModel = viewModel.petViewModel.value
+//
+//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: AdoptDetailHeaderView.identifier)
+//
+//        guard
+//            let headerView = view as? AdoptDetailHeaderView
+//
+//        else { return view }
+//
+//        headerView.configureView(with: cellViewModel)
+//
+//        return headerView
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//
+//        return UIScreen.main.bounds.width
+//    }
+    
+//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+//        return UIScreen.main.bounds.width
+//    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: AdoptDetailHeaderView.identifier)
+//
+//        guard
+//            let headerView = view as? AdoptDetailHeaderView else { return }
+//
+//        headerView.scrollViewDidScroll(scrollView: tableView)
+                
+        guard
+            let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
+
+        header.scrollViewDidScroll(scrollView: tableView)
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
