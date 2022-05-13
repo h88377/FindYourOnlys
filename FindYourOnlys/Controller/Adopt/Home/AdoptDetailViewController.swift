@@ -126,10 +126,38 @@ class AdoptDetailViewController: BaseViewController {
             //                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
         }
         
-        //        photoImageView.loadImage(
-        //            viewModel.petViewModel.value.pet.photoURLString,
-        //            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-        //        )
+        viewModel.shareHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            // Generate the screenshot
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            
+            self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
+            
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            let items: [Any] = [image]
+            
+            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            
+            // iPad specific code
+            activityVC.popoverPresentationController?.sourceView = self.view
+            
+            let xOrigin = self.view.bounds.width / 2
+            
+            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+            
+            activityVC.popoverPresentationController?.sourceRect = popoverRect
+            
+            activityVC.popoverPresentationController?.permittedArrowDirections = .up
+            
+            self.present(activityVC, animated: true)
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -290,6 +318,11 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             else { return UITableViewCell() }
             
             cell.configureCell(with: cellViewModel)
+            
+            cell.shareHandler = { [weak self] in
+                
+                self?.viewModel.share()
+            }
             
             return cell
             
