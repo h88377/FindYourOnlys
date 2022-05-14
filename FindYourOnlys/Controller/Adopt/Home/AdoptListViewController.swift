@@ -47,6 +47,10 @@ class AdoptListViewController: BaseViewController {
     
     private var activityIndicator: LoadMoreActivityIndicator!
     
+//    private let favoriteButton = TransformButton()
+//
+//    private let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    
     var resetConditionHandler: (() -> Void)?
     
     override func viewDidLoad() {
@@ -141,6 +145,57 @@ class AdoptListViewController: BaseViewController {
             }
             
         }
+        
+        viewModel.isFavoritePetViewModel.bind { [weak self] resultViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            var favoriteActionTitle = "加入我的最愛"
+            
+            if
+                let isFavoritePet = resultViewModel?.result {
+                
+                print(isFavoritePet)
+                
+                favoriteActionTitle = isFavoritePet
+                ? "移除我的最愛"
+                : "加入我的最愛"
+                
+                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+                
+                let cancel = UIAlertAction(title: "取消", style: .cancel)
+                
+                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+                    
+                    if isFavoritePet {
+                        
+                        self.viewModel.removeFavoriteFromFB()
+                        
+                    } else {
+                        
+                        self.viewModel.addToFavoriteInFB()
+                    }
+                }
+                
+                alert.addAction(favoriteAction)
+                
+                alert.addAction(cancel)
+                
+                // iPad specific code
+                alert.popoverPresentationController?.sourceView = self.view
+                
+                let xOrigin = self.view.bounds.width / 2
+                
+                let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+                
+                alert.popoverPresentationController?.sourceRect = popoverRect
+                
+                alert.popoverPresentationController?.permittedArrowDirections = .up
+                
+                self.present(alert, animated: true)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -154,7 +209,80 @@ class AdoptListViewController: BaseViewController {
         collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
         
         setupCollectionViewLayout()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        
+        collectionView.addGestureRecognizer(longPress)
+        
     }
+    
+    @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        
+//        let width = UIScreen.main.bounds.width
+//
+//        let height = UIScreen.main.bounds.height
+//
+//        lazy var blurView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+//
+//        blurView.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+//
+//        blurView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        favoriteButton.frame = CGRect(x: 0, y: 0, width: width, height: height / 2)
+//
+//        favoriteButton.center = currentWindow!.center
+        
+            if sender.state == .began {
+                
+                let touchPoint = sender.location(in: collectionView)
+                
+                if
+                    let indexPath = collectionView.indexPathForItem(at: touchPoint) {
+                    
+                    viewModel.fetchFavoritePet(at: indexPath.row)
+                    
+//                    let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+//
+//                    let cancel = UIAlertAction(title: "取消", style: .cancel)
+//
+//                    let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+//
+//
+//                    }
+//
+//                    alert.actions.forEach { $0.title }
+//
+//                    alert.addAction(favoriteAction)
+//
+//                    alert.addAction(cancel)
+//
+//                    // iPad specific code
+//                    alert.popoverPresentationController?.sourceView = self.view
+//
+//                    let xOrigin = self.view.bounds.width / 2
+//
+//                    let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+//
+//                    alert.popoverPresentationController?.sourceRect = popoverRect
+//
+//                    alert.popoverPresentationController?.permittedArrowDirections = .up
+//
+//                    present(alert, animated: true)
+                    
+//                    currentWindow?.addSubview(blurView)
+//
+//                    currentWindow?.addSubview(favoriteButton)
+                }
+            }
+//        else if sender.state == .ended {
+//
+//                favoriteButton.removeFromSuperview()
+//
+//                blurView.removeFromSuperview()
+//            }
+        }
     
     private func setupCollectionViewLayout() {
 

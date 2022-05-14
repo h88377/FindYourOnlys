@@ -176,7 +176,7 @@
                                     <action selector="checkLocation:" destination="63v-a2-Ckk" eventType="touchUpInside" id="UL9-Zk-6By"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HM-Kq-jgR">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HM-Kq-jgR" customClass="TransformButton" customModule="FindYourOnlys" customModuleProvider="target">
                                 <rect key="frame" x="172" y="802" width="70" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="ieo-7v-BZA"/>
@@ -441,7 +441,7 @@
                                     <action selector="back:" destination="kc4-Rr-dBN" eventType="touchUpInside" id="x0H-pv-C7e"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29N-hb-QXl">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29N-hb-QXl" customClass="TransformButton" customModule="FindYourOnlys" customModuleProvider="target">
                                 <rect key="frame" x="132" y="797" width="150" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="COa-cF-goz"/>

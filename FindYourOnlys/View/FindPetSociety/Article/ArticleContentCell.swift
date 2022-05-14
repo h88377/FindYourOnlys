@@ -9,7 +9,7 @@ import UIKit
 
 class ArticleContentCell: UITableViewCell {
 
-    @IBOutlet weak var likeButton: UIButton! {
+    @IBOutlet weak var likeButton: TransformButton! {
         
         didSet {
             
@@ -18,6 +18,8 @@ class ArticleContentCell: UITableViewCell {
             likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
             
             likeButton.tintColor = .projectIconColor1
+            
+            likeButton.adjustsImageWhenHighlighted = false
         }
     }
     

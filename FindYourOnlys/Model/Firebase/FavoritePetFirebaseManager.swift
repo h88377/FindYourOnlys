@@ -49,6 +49,48 @@ class FavoritePetFirebaseManager {
             }
     }
     
+    func fetchFavoritePet(
+        pet: Pet,
+        completion: @escaping (Result<[Pet], Error>)
+        -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+            
+            db.collection(FirebaseCollectionType.favoritePet.rawValue)
+                .whereField(FirebaseFieldType.userID.rawValue, isEqualTo: currentUser.id)
+                .whereField(FirebaseFieldType.animalId.rawValue, isEqualTo: pet.id)
+                .getDocuments { snapshot, error in
+                
+                guard
+                    let snapshot = snapshot else {
+                        
+                        completion(.failure(FirebaseError.fetchPetError))
+                        
+                        return
+                        
+                    }
+                
+                var pets = [Pet]()
+                
+                for document in snapshot.documents {
+                    
+                    do {
+                        
+                        let pet = try document.data(as: Pet.self)
+                        
+                        pets.append(pet)
+                        
+                    } catch {
+                        
+                        completion(.failure(FirebaseError.decodePetError))
+                    }
+                }
+                
+                completion(.success(pets))
+            }
+    }
+    
     func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Result<String, Error>) -> Void) {
         
         // Check if there have existed same pet on firestore when call this func in viewModel
@@ -109,6 +151,22 @@ class FavoritePetFirebaseManager {
                 }
             }
         }
+    }
+    
+    func removeFavoritePet(withPet pet: Pet, completion: @escaping (Result<String, Error>) -> Void) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        db.collection(FirebaseCollectionType.favoritePet.rawValue)
+            .whereField(FirebaseFieldType.userID.rawValue, isEqualTo: currentUser.id)
+            .whereField(FirebaseFieldType.animalId.rawValue, isEqualTo: pet.id).getDocuments { snapshot, error in
+                
+                
+            }
+            
+            
+        
     }
     
     func removeFavoritePet(with userId: String, completion: @escaping (Result<String, Error>) -> Void) {

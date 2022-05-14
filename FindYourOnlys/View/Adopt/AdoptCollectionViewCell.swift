@@ -8,33 +8,7 @@
 import Foundation
 import UIKit
 
-class AdoptCollectionViewCell: UICollectionViewCell {
-    
-    override var isSelected: Bool {
-        
-        didSet {
-            
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
-                
-                self.transform = self.isSelected
-                ? CGAffineTransform(scaleX: 0.7, y: 0.7)
-                : CGAffineTransform.identity
-            }
-        }
-    }
-    
-    override var isHighlighted: Bool {
-        
-        didSet {
-            
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
-                
-                self.transform = self.isHighlighted
-                ? CGAffineTransform(scaleX: 0.9, y: 0.9)
-                : CGAffineTransform.identity
-            }
-        }
-    }
+class AdoptCollectionViewCell: TransformCollectionCell {
     
     @IBOutlet weak var baseView: UIView! {
         

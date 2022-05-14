@@ -33,7 +33,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var navigateButton: UIButton! {
+    @IBOutlet weak var navigateButton: TransformButton! {
         
         didSet {
             

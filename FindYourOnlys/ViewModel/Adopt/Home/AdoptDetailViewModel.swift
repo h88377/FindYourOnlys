@@ -218,7 +218,6 @@ class AdoptDetailViewModel {
         }
     }
     
-    
     // MARK: - Common functions
     // Use for AdoptDetailVC viewDidLoad
     func checkFavoriteButton(with favoriteButton: UIButton) {

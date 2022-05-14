@@ -11,6 +11,10 @@ class AdoptListViewModel {
     
     let petViewModels = Box([PetViewModel]())
     
+    var isFavoritePetViewModel: Box<ResultViewModel?> = Box(nil)
+    
+    var selectedPetViewModel: Box<PetViewModel?> = Box(nil)
+    
     var filterConditionViewModel = Box(
         AdoptFilterCondition(
         city: "",
@@ -35,6 +39,80 @@ class AdoptListViewModel {
     var resetPetHandler: (() -> Void)?
     
     var noMorePetHandler: (() -> Void)?
+    
+    func fetchFavoritePet(at index: Int) {
+        
+        let petViewModel = petViewModels.value[index]
+        
+        FavoritePetFirebaseManager.shared.fetchFavoritePet(pet: petViewModel.pet) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let pets):
+                
+                self.isFavoritePetViewModel.value = ResultViewModel(model: pets.count != 0)
+                
+                self.selectedPetViewModel.value = petViewModel
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    
+    func addToFavoriteInFB() {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser,
+            let viewModel = selectedPetViewModel.value
+                
+        else { return }
+        
+        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: viewModel) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                self?.selectedPetViewModel.value = nil
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    
+    func removeFavoriteFromFB() {
+        
+        guard
+            let viewModel = selectedPetViewModel.value,
+            let currentUser = UserFirebaseManager.shared.currentUser
+        
+        else { return }
+        
+        viewModel.pet.userID = currentUser.id
+        
+        FavoritePetFirebaseManager.shared.removeFavoritePet(with: viewModel) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+                self?.selectedPetViewModel.value = nil
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
     
     func fetchPet() {
         

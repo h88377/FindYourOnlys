@@ -28,6 +28,8 @@ class AdoptDetailViewController: BaseViewController {
             
             favoriteButton.tintColor = .white
             
+            favoriteButton.adjustsImageWhenHighlighted = false
+            
             favoriteButton.backgroundColor = .projectIconColor1
         }
     }

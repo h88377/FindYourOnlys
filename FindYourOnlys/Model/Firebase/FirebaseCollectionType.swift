@@ -30,8 +30,12 @@ enum FirebaseFieldType: String {
     
     case userId
     
+    case userID
+    
     case createdTime
     
     case blockedUsers
+    
+    case animalId = "animal_id"
 }
 
