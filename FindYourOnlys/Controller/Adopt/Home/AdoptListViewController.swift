@@ -13,9 +13,9 @@ class AdoptListViewController: BaseViewController {
     
     let viewModel = AdoptListViewModel()
     
-    private let popAnimator = PopAnimator()
-    
-    private(set) var selectedCell: UICollectionViewCell!
+//    private let popAnimator = PopAnimator()
+//
+//    private(set) var selectedCell: UICollectionViewCell!
     
     @IBOutlet weak var remindLabel: UILabel! 
     
@@ -235,8 +235,8 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         guard
             let adoptDetaiVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptDetailViewController.identifier)
-                as? AdoptDetailViewController,
-            let selectedCell = collectionView.dequeueReusableCell(withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath) as? AdoptCollectionViewCell
+                as? AdoptDetailViewController
+//            let selectedCell = collectionView.dequeueReusableCell(withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath) as? AdoptCollectionViewCell
 //                ,
 //            let adoptFavoriteVC = storyboard.instantiateViewController(
 //                withIdentifier: AdoptFavoriteViewController.identifier)
@@ -249,19 +249,16 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         adoptDetaiVC.viewModel.petViewModel.value.pet.userID = UserFirebaseManager.shared.currentUser?.id
         
         collectionView.deselectItem(at: indexPath, animated: true)
-
-        //        adoptDetaiVC.delegate = adoptFavoriteVC
-        //        navigationController?.pushViewController(adoptDetaiVC, animated: true)
         
-        adoptDetaiVC.transitioningDelegate = self
+        navigationController?.pushViewController(adoptDetaiVC, animated: true)
         
-        adoptDetaiVC.modalPresentationStyle = .fullScreen
+//        adoptDetaiVC.transitioningDelegate = self
+//
+//        adoptDetaiVC.modalPresentationStyle = .fullScreen
       
-        self.selectedCell = selectedCell
-        
-//        selectedCell = collectionView.visibleCells.filter { $0.isSelected }[0]
-        
-        present(adoptDetaiVC, animated: true)
+//        self.selectedCell = selectedCell
+//
+//        present(adoptDetaiVC, animated: true)
 
         
         
@@ -293,43 +290,35 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
-extension AdoptListViewController {
-    
-    func animationController(
-      forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController
-    ) -> UIViewControllerAnimatedTransitioning? {
+//extension AdoptListViewController {
+//
+//    func animationController(
+//      forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController
+//    ) -> UIViewControllerAnimatedTransitioning? {
+//
+//        popAnimator.originFrame = collectionView.convert(selectedCell.frame, to: nil)
         
-      popAnimator.originFrame = collectionView.convert(selectedCell.frame, to: nil)
+//        let originX = collectionView.convert(selectedCell.frame, to: nil).origin.x
+//
+//        let originY = collectionView.convert(selectedCell.frame, to: nil).origin.y
+//
+//        let height = collectionView.convert(selectedCell.frame, to: nil).height
+//
+//        let width = collectionView.convert(selectedCell.frame, to: nil).width
+//
+//        popAnimator.originFrame = CGRect(x: originX, y: originY + (selectedCell.frame.height / 2), width: width, height: height / 2)
         
 //        popAnimator.presenting = true
         
-      return popAnimator
-    }
-
-    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//      return popAnimator
+//    }
+//
+//    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
 //        popAnimator.presenting = false
 //        return popAnimator
         
-      nil
-    }
-  }
-
-  // MARK:- UIViewController
-//  extension AdoptListViewController {
-//      
-//    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
-//
-//    override func viewWillTransition(
-//      to size: CGSize,
-//      with coordinator: UIViewControllerTransitionCoordinator
-//    ) {
-//      super.viewWillTransition(to: size, with: coordinator)
-//      coordinator.animate(
-//        alongsideTransition: { _ in
-//          self.background.alpha = (size.width > size.height) ? 0.25 : 0.55
-//        }
-//      )
+//      nil
 //    }
 //  }
 

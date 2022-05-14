@@ -13,7 +13,7 @@ final class PopAnimator: NSObject {
     
     var originFrame = CGRect()
     
-    private let duration: TimeInterval = 1
+    private let duration: TimeInterval = 0.5
     
 //    var presenting = true
     
@@ -26,11 +26,45 @@ extension PopAnimator: UIViewControllerAnimatedTransitioning {
         duration
     }
     
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+      //1) Set up transition
+      let containerView = transitionContext.containerView
+
+      guard let toView = transitionContext.view(forKey: .to)
+      else { return }
+
+      let initialFrame = originFrame
+      let finalFrame = toView.frame
+
+      toView.transform = .init(
+        scaleX: initialFrame.width / finalFrame.width,
+        y: initialFrame.height / finalFrame.height
+      )
+      toView.center = .init(x: initialFrame.midX, y: initialFrame.midY)
+
+      containerView.addSubview(toView)
+
+      //2) Animate!
+      UIView.animate(
+        withDuration: duration, delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        animations: {
+          toView.transform = .identity
+          toView.center = .init(x: finalFrame.midX, y: finalFrame.midY)
+        },
+        completion: { _ in
+          transitionContext.completeTransition(true)
+        }
+      )
+    }
+    
 //    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 //        //1) Set up transition
 //        let containerView = transitionContext.containerView
 //
 //        guard let animalCell = transitionContext.view(forKey: presenting ? .to : .from)
+//
 //        else { return }
 //
 //        let (initialFrame, finalFrame) =
@@ -77,7 +111,7 @@ extension PopAnimator: UIViewControllerAnimatedTransitioning {
 //        UIView.animate(
 //            withDuration: duration,
 //            delay: 0,
-//            usingSpringWithDamping: 0.6,
+//            usingSpringWithDamping: 1,
 //            initialSpringVelocity: 0,
 //            animations: {
 //                animalCell.layer.cornerRadius = self.presenting ? 0 : 20 / scaleTransform.a
@@ -95,37 +129,4 @@ extension PopAnimator: UIViewControllerAnimatedTransitioning {
 //            }
 //        )
 //    }
-    
-      func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        //1) Set up transition
-        let containerView = transitionContext.containerView
-    
-        guard let toView = transitionContext.view(forKey: .to)
-        else { return }
-    
-        let initialFrame = originFrame
-        let finalFrame = toView.frame
-    
-        toView.transform = .init(
-          scaleX: initialFrame.width / finalFrame.width,
-          y: initialFrame.height / finalFrame.height
-        )
-        toView.center = .init(x: initialFrame.midX, y: initialFrame.midY)
-    
-        containerView.addSubview(toView)
-    
-        //2) Animate!
-        UIView.animate(
-          withDuration: duration, delay: 0,
-          usingSpringWithDamping: 0.7,
-          initialSpringVelocity: 0,
-          animations: {
-            toView.transform = .identity
-            toView.center = .init(x: finalFrame.midX, y: finalFrame.midY)
-          },
-          completion: { _ in
-            transitionContext.completeTransition(true)
-          }
-        )
-      }
 }

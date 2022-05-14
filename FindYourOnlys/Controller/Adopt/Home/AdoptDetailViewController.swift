@@ -275,9 +275,9 @@ class AdoptDetailViewController: BaseViewController {
     
     @objc func back(_ sender: UIButton) {
         
-//        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         
-        dismiss(animated: true)
+//        dismiss(animated: true)
     }
     
     @IBAction func checkLocation(_ sender: UIButton) {
