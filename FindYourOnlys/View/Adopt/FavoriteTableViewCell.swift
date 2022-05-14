@@ -11,6 +11,8 @@ class FavoriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
     
+    @IBOutlet weak var baseBackgroundView: UIView!
+    
     @IBOutlet weak var cityLabel: UILabel! {
         
         didSet {
