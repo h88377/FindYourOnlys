@@ -108,7 +108,7 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.startIndicatorHandler = { [weak self] in
             
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 
                 self?.activityIndicator.start(closure: {
                     
@@ -118,7 +118,7 @@ class AdoptListViewController: BaseViewController {
         }
         viewModel.stopIndicatorHandler = { [weak self] in
             
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 
                 self?.activityIndicator.stop()
             }
@@ -139,11 +139,16 @@ class AdoptListViewController: BaseViewController {
          
         viewModel.noMorePetHandler = { [weak self] in
             
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 
                 self?.showAlertWindow(title: "沒有更多動物資訊了喔！", message: "")
             }
             
+        }
+        
+        viewModel.addToFavoriteHandler = { [weak self] in
+            
+            self?.addToFavorite()
         }
         
         viewModel.isFavoritePetViewModel.bind { [weak self] resultViewModel in

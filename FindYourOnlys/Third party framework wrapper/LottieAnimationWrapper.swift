@@ -22,6 +22,8 @@ enum LottieName: String {
     case imageScan
     
     case success
+    
+    case addToFavorite
 }
 
 class LottieAnimationWrapper {
@@ -33,6 +35,8 @@ class LottieAnimationWrapper {
     private let scanView = AnimationView(name: LottieName.imageScan.rawValue)
     
     private let successView = AnimationView(name: LottieName.success.rawValue)
+    
+    private let addToFavoriteView = AnimationView(name: LottieName.addToFavorite.rawValue)
     
     private lazy var blurView = UIView()
     
@@ -121,7 +125,28 @@ class LottieAnimationWrapper {
             
             self?.successView.removeFromSuperview()
         }
+    }
+    
+    func addToFavorite() {
         
+        addToFavoriteView.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
+        
+        addToFavoriteView.center = currentWindow!.center
+        
+        addToFavoriteView.contentMode = .scaleAspectFill
+        
+        currentWindow?.addSubview(addToFavoriteView)
+        
+        addToFavoriteView.play()
+        
+        addToFavoriteView.loopMode = .loop
+        
+        addToFavoriteView.animationSpeed = 1
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            
+            self?.addToFavoriteView.removeFromSuperview()
+        }
     }
     
 }

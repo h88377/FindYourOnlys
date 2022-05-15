@@ -47,6 +47,8 @@ class AdoptListViewModel {
     
     var noMorePetHandler: (() -> Void)?
     
+    var addToFavoriteHandler: (() -> Void)?
+    
     // Firebase for favorite
     
     func fetchFavoritePet(at index: Int) {
@@ -88,6 +90,8 @@ class AdoptListViewModel {
             case .success(let success):
                 
                 self?.selectedPetViewModel.value = nil
+                
+                self?.addToFavoriteHandler?()
                 
             case .failure(let error):
                 
@@ -169,6 +173,10 @@ class AdoptListViewModel {
                 
                 print(success)
                 
+                self?.addToFavoriteHandler?()
+                
+                self?.selectedPetViewModel.value = nil
+                
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
@@ -194,6 +202,8 @@ class AdoptListViewModel {
                 case .success(let success):
                     
                     print(success)
+                    
+                    self?.selectedPetViewModel.value = nil
                     
                 case .failure(let error):
                     

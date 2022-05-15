@@ -195,6 +195,15 @@ class BaseViewController: UIViewController {
         }
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
+    
+    func addToFavorite() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.addToFavorite()
+        }
+        
+    }
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
