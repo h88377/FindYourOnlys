@@ -170,11 +170,25 @@ class AdoptListViewController: BaseViewController {
                     
                     if isFavoritePet {
                         
-                        self.viewModel.removeFavoriteFromFB()
+                        if self.viewModel.didSignIn {
+                            
+                            self.viewModel.removeFavoriteFromFB()
+                            
+                        } else {
+                            
+                            self.viewModel.removeFavoriteFromLS()
+                        }
                         
                     } else {
                         
-                        self.viewModel.addToFavoriteInFB()
+                        if self.viewModel.didSignIn {
+                            
+                            self.viewModel.addToFavoriteInFB()
+                            
+                        } else {
+                            
+                            self.viewModel.addToFavoriteInLS()
+                        }
                     }
                 }
                 
@@ -241,7 +255,16 @@ class AdoptListViewController: BaseViewController {
                 if
                     let indexPath = collectionView.indexPathForItem(at: touchPoint) {
                     
-                    viewModel.fetchFavoritePet(at: indexPath.row)
+                    if viewModel.didSignIn {
+                        
+                        viewModel.fetchFavoritePet(at: indexPath.row)
+                        
+                    } else {
+                        
+                        viewModel.fetchFavoritePetFromLS(with: indexPath.row)
+                    }
+                    
+                    
                     
 //                    let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
 //

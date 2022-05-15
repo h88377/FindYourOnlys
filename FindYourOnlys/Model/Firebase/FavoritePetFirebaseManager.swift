@@ -153,22 +153,6 @@ class FavoritePetFirebaseManager {
         }
     }
     
-    func removeFavoritePet(withPet pet: Pet, completion: @escaping (Result<String, Error>) -> Void) {
-        
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
-        db.collection(FirebaseCollectionType.favoritePet.rawValue)
-            .whereField(FirebaseFieldType.userID.rawValue, isEqualTo: currentUser.id)
-            .whereField(FirebaseFieldType.animalId.rawValue, isEqualTo: pet.id).getDocuments { snapshot, error in
-                
-                
-            }
-            
-            
-        
-    }
-    
     func removeFavoritePet(with userId: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in

@@ -9,11 +9,18 @@ import Foundation
 
 class AdoptListViewModel {
     
+    var didSignIn: Bool {
+        
+        return UserFirebaseManager.shared.currentUser != nil
+    }
+    
     let petViewModels = Box([PetViewModel]())
     
     var isFavoritePetViewModel: Box<ResultViewModel?> = Box(nil)
     
     var selectedPetViewModel: Box<PetViewModel?> = Box(nil)
+    
+    var favoritePetsFromLS = [LSPet]()
     
     var filterConditionViewModel = Box(
         AdoptFilterCondition(
@@ -39,6 +46,8 @@ class AdoptListViewModel {
     var resetPetHandler: (() -> Void)?
     
     var noMorePetHandler: (() -> Void)?
+    
+    // Firebase for favorite
     
     func fetchFavoritePet(at index: Int) {
         
@@ -110,6 +119,86 @@ class AdoptListViewModel {
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    
+    // Local Storage for favorite
+    
+    func fetchFavoritePetFromLS(with index: Int) {
+        
+        let petViewModel = petViewModels.value[index]
+        
+        StorageManager.shared.fetchPet { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let lsPets):
+                
+                let isFavorite = lsPets.map { $0.id }.contains(Int64(petViewModel.pet.id))
+                
+                self.isFavoritePetViewModel.value = ResultViewModel(model: isFavorite)
+                
+                self.selectedPetViewModel.value = petViewModel
+                
+                self.favoritePetsFromLS = lsPets
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+        
+    }
+    
+    func addToFavoriteInLS() {
+        
+        guard
+            let viewModel = selectedPetViewModel.value
+                
+        else { return }
+        
+        StorageManager.shared.savePetInFavorite(with: viewModel) { [weak self] result in
+            
+            switch result {
+                
+            case .success(let success):
+                
+                print(success)
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    
+    func removeFavoriteFromLS() {
+        
+        guard
+            let viewModel = selectedPetViewModel.value
+                
+        else { return }
+        
+        let removeId = viewModel.pet.id
+        
+        for favoritePetFromLS in favoritePetsFromLS where favoritePetFromLS.id == removeId {
+            
+            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS)  { [weak self] result in
+                
+                switch result {
+                    
+                case .success(let success):
+                    
+                    print(success)
+                    
+                case .failure(let error):
+                    
+                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                }
             }
         }
     }
