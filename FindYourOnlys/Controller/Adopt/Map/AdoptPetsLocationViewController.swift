@@ -533,7 +533,30 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
 //                self.viewModel.fetchShelter(with: "台北市")
                 
-                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
+                if firstPlace.subAdministrativeArea == "台北市" {
+                    
+                    self.viewModel.fetchShelter(with: "臺北市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台中市" {
+                    
+                    self.viewModel.fetchShelter(with: "臺中市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台南市" {
+                    
+                    self.viewModel.fetchShelter(with: "臺南市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台東市" {
+                
+                    self.viewModel.fetchShelter(with: "臺東市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台東縣" {
+                    
+                    self.viewModel.fetchShelter(with: "臺東縣")
+                    
+                } else {
+                    
+                    self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
+                }
             }
         }
     

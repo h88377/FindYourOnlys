@@ -43,7 +43,13 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var varietyLabel: UILabel!
+    @IBOutlet weak var varietyLabel: UILabel! {
+        
+        didSet {
+            
+            varietyLabel.textColor = .projectTextColor
+        }
+    }
     
     @IBOutlet weak var statusLabel: UILabel!  {
         
@@ -55,13 +61,43 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var baseView: UIView!
+    @IBOutlet weak var baseView: UIView! {
+        
+        didSet {
+            
+            baseView.backgroundColor = .white
+        }
+    }
     
     @IBOutlet weak var locationImageView: UIImageView!  {
         
         didSet {
             
             locationImageView.tintColor = .projectIconColor1
+        }
+    }
+    
+    @IBOutlet weak var bacterinLabel: UILabel! {
+        
+        didSet {
+            
+            bacterinLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var sterilizationLabel: UILabel! {
+        
+        didSet {
+            
+            sterilizationLabel.textColor = .projectTextColor
+        }
+    }
+    
+    @IBOutlet weak var organizationLabel: UILabel! {
+        
+        didSet {
+            
+            organizationLabel.textColor = .projectTextColor
         }
     }
     
@@ -76,6 +112,8 @@ class FavoriteTableViewCell: UITableViewCell {
         varietyLabel.text = viewModel.lsPet.variety
         
         photoImageView.loadImage(viewModel.lsPet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
+        
+        organizationLabel.text = viewModel.lsPet.shelterName
         
         if viewModel.lsPet.status == "OPEN" {
             
@@ -102,6 +140,24 @@ class FavoriteTableViewCell: UITableViewCell {
             
             sexLabel.textColor = UIColor.femaleColor
         }
+        
+        if viewModel.lsPet.sterilization == "T" {
+            
+            sterilizationLabel.text = "已結紮"
+            
+        } else {
+            
+            sterilizationLabel.text = "未結紮"
+        }
+        
+        if viewModel.lsPet.bacterin == "T" {
+            
+            bacterinLabel.text = "已注射疫苗"
+            
+        } else {
+            
+            bacterinLabel.text = "未注射疫苗"
+        }
     }
     
     func configureCell(with viewModel: PetViewModel) {
@@ -113,6 +169,8 @@ class FavoriteTableViewCell: UITableViewCell {
         kindLabel.text = viewModel.pet.kind
         
         varietyLabel.text = viewModel.pet.variety
+        
+        organizationLabel.text = viewModel.pet.shelterName
         
         photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
@@ -141,6 +199,24 @@ class FavoriteTableViewCell: UITableViewCell {
             
             sexLabel.textColor = UIColor.femaleColor
         }
+        
+        if viewModel.pet.sterilization == "T" {
+            
+            sterilizationLabel.text = "已結紮"
+            
+        } else {
+            
+            sterilizationLabel.text = "未結紮"
+        }
+        
+        if viewModel.pet.bacterin == "T" {
+            
+            bacterinLabel.text = "已注射疫苗"
+            
+        } else {
+            
+            bacterinLabel.text = "未注射疫苗"
+        }
     }
     
     override func layoutSubviews() {
@@ -149,5 +225,13 @@ class FavoriteTableViewCell: UITableViewCell {
         photoImageView.layer.cornerRadius = 15
         
         baseView.layer.cornerRadius = 15
+        
+//        baseView.layer.shadowColor = UIColor.black.cgColor
+//        baseView.layer.shadowOpacity = 0.1
+//        baseView.layer.shadowOffset = .zero
+//        baseView.layer.shadowRadius = 5
+//        baseView.layer.shadowPath = UIBezierPath(rect: baseView.bounds).cgPath
+//        baseView.layer.shouldRasterize = true
+//        baseView.layer.rasterizationScale = UIScreen.main.scale
     }
 }
