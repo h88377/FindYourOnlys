@@ -256,9 +256,9 @@ class AdoptPetsLocationViewController: BaseViewController {
             return
         }
         
-        viewModel.fetchShelter(with: searchText)
-        
         viewModel.isSearch = true
+        
+        viewModel.fetchShelter(with: searchText)
         
         viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
             model: MapAnnotation(
@@ -338,15 +338,6 @@ class AdoptPetsLocationViewController: BaseViewController {
                 totalTravelTime: totalTravelTime
             )
         )
-        
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
-//
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
-//
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
-//
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
-        
     }
     
     // Common
@@ -511,6 +502,8 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 return
             }
             
+            startLoading()
+            
             CLGeocoder().reverseGeocodeLocation(firstLocation) { [weak self] places, _ in
                 
                 guard
@@ -520,6 +513,8 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 else {
                     
                     self?.showAlertWindow(title: "異常", message: "無法取得所在位置，請確認網路連線")
+                    
+                    self?.stopLoading()
                     
                     return
                 }
@@ -532,9 +527,11 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 self.viewModel.currentLocationViewModel.value.location = firstLocation
                 
+                self.stopLoading()
+                
                 // Mock location because Taipei don't have any shelter.
                 
-//                self.viewModel.fetchShelter(with: "新北市")
+//                self.viewModel.fetchShelter(with: "台北市")
                 
                 self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
             }
