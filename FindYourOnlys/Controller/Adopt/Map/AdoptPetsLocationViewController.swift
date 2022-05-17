@@ -33,7 +33,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var navigateButton: UIButton! {
+    @IBOutlet weak var navigateButton: TransformButton! {
         
         didSet {
             
@@ -44,6 +44,30 @@ class AdoptPetsLocationViewController: BaseViewController {
             navigateButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             
             navigateButton.backgroundColor = .projectIconColor1
+        }
+    }
+    
+    @IBOutlet weak var searchTextField: ContentInsetTextField! {
+        
+        didSet {
+            
+            searchTextField.placeholder = "請輸入縣市進行收容所搜尋"
+            
+            searchTextField.textColor = .projectTextColor
+            
+            searchTextField.alpha = 0.8
+        }
+    }
+    
+    @IBOutlet weak var searchButton: UIButton! {
+        
+        didSet {
+            
+            searchButton.setTitleColor(.white, for: .normal)
+            
+            searchButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            searchButton.backgroundColor = .projectIconColor1
         }
     }
     
@@ -59,6 +83,8 @@ class AdoptPetsLocationViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupSearchViews()
         
         viewModel.startLoadingHandler = { [weak self] in
 
@@ -105,7 +131,8 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
+//                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
+                    self.showAlertWindow(title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
                     
                 } else {
                     
@@ -199,6 +226,8 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         navigateButton.layer.cornerRadius = 15
         
+        searchButton.layer.cornerRadius = 15
+        
         directionView.roundCorners(corners: [.topLeft, .topRight], radius: 25)
     }
     
@@ -212,6 +241,40 @@ class AdoptPetsLocationViewController: BaseViewController {
     @IBAction func navigate(_ sender: UIButton) {
         
         viewModel.calculateRoute()
+    }
+    
+    @IBAction func searchShelter(_ sender: UIButton) {
+        
+        guard
+            let searchText = searchTextField.text,
+            searchText != ""
+                
+        else {
+            
+            showAlertWindow(title: "請輸入縣市", message: "")
+            
+            return
+        }
+        
+        viewModel.isSearch = true
+        
+        viewModel.fetchShelter(with: searchText)
+        
+        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
+            model: MapAnnotation(
+                title: "",
+                subtitle: "",
+                location: "",
+                coordinate: CLLocationCoordinate2D())
+        )
+        
+        mapView.removeAnnotations(mapView.annotations)
+        
+        if
+            mapView.overlays.count != 0 {
+            
+            mapView.removeOverlay(mapView.overlays[0])
+        }
     }
     
     private func attemptLocationAccess() {
@@ -275,14 +338,15 @@ class AdoptPetsLocationViewController: BaseViewController {
                 totalTravelTime: totalTravelTime
             )
         )
+    }
+    
+    // Common
+    
+    func setupSearchViews() {
         
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.mapRoutes = [mapRoute]
-//
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalDistance = totalDistance
-//
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.totalTravelTime = totalTravelTime
-//
-//        adoptDirectionVC?.viewModel.directionViewModel.value.direction.route = viewModel.routeViewModel.value.route
+        searchButton.isHidden = !viewModel.isShelterMap
+        
+        searchTextField.isHidden = !viewModel.isShelterMap
         
     }
     
@@ -438,6 +502,8 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 return
             }
             
+            startLoading()
+            
             CLGeocoder().reverseGeocodeLocation(firstLocation) { [weak self] places, _ in
                 
                 guard
@@ -447,6 +513,8 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 else {
                     
                     self?.showAlertWindow(title: "異常", message: "無法取得所在位置，請確認網路連線")
+                    
+                    self?.stopLoading()
                     
                     return
                 }
@@ -459,11 +527,36 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                 
                 self.viewModel.currentLocationViewModel.value.location = firstLocation
                 
+                self.stopLoading()
+                
                 // Mock location because Taipei don't have any shelter.
                 
-//                self.viewModel.fetchShelter(with: "新北市")
+//                self.viewModel.fetchShelter(with: "台北市")
                 
-                self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
+                if firstPlace.subAdministrativeArea == "台北市" {
+                    
+                    self.viewModel.fetchShelter(with: "臺北市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台中市" {
+                    
+                    self.viewModel.fetchShelter(with: "臺中市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台南市" {
+                    
+                    self.viewModel.fetchShelter(with: "臺南市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台東市" {
+                
+                    self.viewModel.fetchShelter(with: "臺東市")
+                    
+                } else if firstPlace.subAdministrativeArea == "台東縣" {
+                    
+                    self.viewModel.fetchShelter(with: "臺東縣")
+                    
+                } else {
+                    
+                    self.viewModel.fetchShelter(with: firstPlace.subAdministrativeArea ?? "新北市")
+                }
             }
         }
     

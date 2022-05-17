@@ -323,7 +323,6 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
         
         else { return }
         
-        
         profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(
             model: viewModel
                 .profileArticleViewModels
@@ -331,9 +330,14 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
                 .profileArticle.articles[indexPath.row]
         )
         
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        // no need
 //        profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
         
+        // need
         navigationController?.pushViewController(profileSelectedArticleVC, animated: true)
+        
     }
     
 }

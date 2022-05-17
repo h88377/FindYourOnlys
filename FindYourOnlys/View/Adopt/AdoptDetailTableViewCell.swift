@@ -57,6 +57,30 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var shareButton: UIButton! {
+        
+        didSet {
+            
+            shareButton.setTitleColor(.projectTextColor, for: .normal)
+            
+            shareButton.setTitleColor(.white, for: .highlighted)
+            
+            shareButton.titleLabel?.font = UIFont.systemFont(ofSize: Constant.textSize, weight: .regular)
+            
+            shareButton.backgroundColor = .projectIconColor3
+        }
+    }
+    
+    var shareHandler: (() -> Void)?
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        baseViews.forEach { $0.layer.cornerRadius = 15 }
+        
+        shareButton.layer.cornerRadius = 10
+    }
+    
     func configureCell(with viewModel: PetViewModel) {
         
         kindLabel.text = viewModel.pet.kind
@@ -90,9 +114,15 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    @IBAction func share(_ sender: UIButton) {
         
-        baseViews.forEach { $0.layer.cornerRadius = 15 }
+        shareHandler?()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        shareHandler = nil
+    }
+    
 }

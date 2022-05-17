@@ -13,7 +13,7 @@ class PublishSelectionCell: PublishBasicCell {
         
         case keelung = "基隆市"
         
-        case taipei = "台北市"
+        case taipei = "臺北市"
         
         case newTaipei = "新北市"
         
@@ -27,7 +27,7 @@ class PublishSelectionCell: PublishBasicCell {
         
         case miaoliCountry = "苗栗縣"
         
-        case taichung = "台中市"
+        case taichung = "臺中市"
         
         case changhuaCountry = "彰化縣"
         
@@ -43,7 +43,7 @@ class PublishSelectionCell: PublishBasicCell {
         
         case chiayi = "嘉義市"
         
-        case tainan = "台南市"
+        case tainan = "臺南市"
         
         case kaohsiung = "高雄市"
         
@@ -59,9 +59,9 @@ class PublishSelectionCell: PublishBasicCell {
         
         case hualian = "花蓮市"
         
-        case taitung = "台東市"
+        case taitung = "臺東市"
         
-        case taitungCountry = "台東縣"
+        case taitungCountry = "臺東縣"
         
         case penghu = "澎湖縣"
         

@@ -98,3 +98,6 @@ xcuserdata/
 
 ## Firebase service .plist file
 GoogleService-Info.plist
+
+## Pods
+Pods/

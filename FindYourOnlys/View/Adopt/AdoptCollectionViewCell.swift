@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AdoptCollectionViewCell: UICollectionViewCell {
+class AdoptCollectionViewCell: TransformCollectionCell {
     
     @IBOutlet weak var baseView: UIView! {
         
@@ -70,15 +70,15 @@ class AdoptCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var idLabel: UILabel!
     
-    @IBOutlet weak var statusLabel: UILabel! {
-        
-        didSet {
-            
-            statusLabel.textColor = .projectTextColor
-            
-            statusLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        }
-    }
+//    @IBOutlet weak var statusLabel: UILabel! {
+//
+//        didSet {
+//
+//            statusLabel.textColor = .projectTextColor
+//
+//            statusLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+//        }
+//    }
     
     func configureCell(with viewModel: PetViewModel) {
         
@@ -90,18 +90,18 @@ class AdoptCollectionViewCell: UICollectionViewCell {
         
         photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        if viewModel.pet.status == "OPEN" {
-            
-            statusLabel.text = "開放認養"
+//        if viewModel.pet.status == "OPEN" {
+//            
+//            statusLabel.text = "開放認養"
             
 //            statusLabel.textColor = .openAdopt
             
-        } else {
-            
-            statusLabel.text = "不開放認養"
+//        } else {
+//
+//            statusLabel.text = "不開放認養"
             
 //            statusLabel.textColor = .closeAdopt
-        }
+//        }
         
         if viewModel.pet.sex == "M" {
             

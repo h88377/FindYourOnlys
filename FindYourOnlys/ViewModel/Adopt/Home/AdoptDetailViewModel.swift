@@ -48,6 +48,8 @@ class AdoptDetailViewModel {
     
     var checkFavoriateButtonHandler: (() -> Void)?
     
+    var shareHandler: (() -> Void)?
+    
     func makePhoneCall(_ viewController: UIViewController) {
         
         let phoneNumber = petViewModel.value.pet.telephone
@@ -77,6 +79,11 @@ class AdoptDetailViewModel {
             
             UIApplication.shared.openURL(url)
         }
+    }
+    
+    func share() {
+        
+        shareHandler?()
     }
     
     // MARK: - Local Storage functions
@@ -210,7 +217,6 @@ class AdoptDetailViewModel {
             }
         }
     }
-    
     
     // MARK: - Common functions
     // Use for AdoptDetailVC viewDidLoad

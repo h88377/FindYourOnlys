@@ -18,6 +18,12 @@ enum LottieName: String {
     case manCat
     
     case curiousCat
+    
+    case imageScan
+    
+    case success
+    
+    case addToFavorite
 }
 
 class LottieAnimationWrapper {
@@ -26,15 +32,21 @@ class LottieAnimationWrapper {
     
     private let loadingView = AnimationView(name: LottieName.loading.rawValue)
     
-    lazy var blurView = UIView()
+    private let scanView = AnimationView(name: LottieName.imageScan.rawValue)
+    
+    private let successView = AnimationView(name: LottieName.success.rawValue)
+    
+    private let addToFavoriteView = AnimationView(name: LottieName.addToFavorite.rawValue)
+    
+    private lazy var blurView = UIView()
+    
+    private let width = UIScreen.main.bounds.width
+    
+    private let height = UIScreen.main.bounds.height
+    
+    private let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
     
     func startLoading() {
-        
-        let width = UIScreen.main.bounds.width
-        
-        let height = UIScreen.main.bounds.height
-        
-        let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         
         blurView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
@@ -62,6 +74,79 @@ class LottieAnimationWrapper {
         blurView.removeFromSuperview()
         
         loadingView.stop()
+    }
+    
+    func startScanning() {
+        
+        blurView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        blurView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        
+        currentWindow?.addSubview(blurView)
+        
+        scanView.frame = CGRect(x: 0, y: 0, width: width, height: height / 2)
+        
+        scanView.center = currentWindow!.center
+        
+        scanView.contentMode = .scaleAspectFill
+        
+        currentWindow?.addSubview(scanView)
+        
+        scanView.play()
+        
+        scanView.loopMode = .loop
+        
+    }
+    
+    func stopScanning() {
+        
+        scanView.removeFromSuperview()
+
+        blurView.removeFromSuperview()
+        
+        loadingView.stop()
+    }
+    
+    func success() {
+        
+        successView.frame = CGRect(x: 0, y: 0, width: 250, height: 250)
+        
+        successView.center = currentWindow!.center
+        
+        successView.contentMode = .scaleAspectFill
+        
+        currentWindow?.addSubview(successView)
+        
+        successView.play()
+        
+        successView.loopMode = .loop
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            
+            self?.successView.removeFromSuperview()
+        }
+    }
+    
+    func addToFavorite() {
+        
+        addToFavoriteView.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
+        
+        addToFavoriteView.center = currentWindow!.center
+        
+        addToFavoriteView.contentMode = .scaleAspectFill
+        
+        currentWindow?.addSubview(addToFavoriteView)
+        
+        addToFavoriteView.play()
+        
+        addToFavoriteView.loopMode = .loop
+        
+        addToFavoriteView.animationSpeed = 1
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            
+            self?.addToFavoriteView.removeFromSuperview()
+        }
     }
     
 }

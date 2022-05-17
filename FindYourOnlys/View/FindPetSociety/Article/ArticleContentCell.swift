@@ -9,7 +9,7 @@ import UIKit
 
 class ArticleContentCell: UITableViewCell {
 
-    @IBOutlet weak var likeButton: UIButton! {
+    @IBOutlet weak var likeButton: TransformButton! {
         
         didSet {
             
@@ -18,6 +18,8 @@ class ArticleContentCell: UITableViewCell {
             likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
             
             likeButton.tintColor = .projectIconColor1
+            
+            likeButton.adjustsImageWhenHighlighted = false
         }
     }
     
@@ -79,6 +81,14 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var separatorView: UIView! {
+        
+        didSet {
+            
+            separatorView.backgroundColor = .systemGray5
+        }
+    }
+    
     var leaveCommentHandler: (() -> Void)?
     
     var likeArticleHandler: (() -> Void)?
@@ -99,6 +109,8 @@ class ArticleContentCell: UITableViewCell {
         
         colorLabel.text = viewModel.article.color
         
+        hideLike(viewModel: viewModel)
+        
         if
             let currentUser = UserFirebaseManager.shared.currentUser {
             
@@ -107,6 +119,16 @@ class ArticleContentCell: UITableViewCell {
         } else {
             
             likeButton.isSelected = false
+        }
+    }
+    
+    func hideLike(viewModel: ArticleViewModel) {
+        
+        if viewModel.article.postType != nil {
+            
+            likeButton.isHidden = true
+            
+            likeCountLabel.isHidden = true
         }
     }
     
