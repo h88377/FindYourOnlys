@@ -9,6 +9,8 @@ import Foundation
 
 class PetProvider {
     
+    private init() {}
+    
     static let shared = PetProvider()
     
     func fetchPet(
@@ -30,9 +32,7 @@ class PetProvider {
                     let pets = try decoder.decode([Pet].self, from: data)
                     
                     completion(.success(pets))
-                }
-                
-                catch {
+                } catch {
                     
                     completion(.failure(HTTPClientError.decodeDataFail))
                     
@@ -43,8 +43,6 @@ class PetProvider {
             }
         }
     }
-    
-    // Convert
     
     func setPets(petViewModels: Box<[PetViewModel]>, with pets: [Pet]) {
         
@@ -61,8 +59,7 @@ class PetProvider {
             
             viewModels.append(viewModel)
         }
+        
         return viewModels
     }
 }
-
-

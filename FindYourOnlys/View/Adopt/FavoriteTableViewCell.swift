@@ -101,65 +101,6 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    func configureCell(with viewModel: FavoriteLSPetViewModel) {
-        
-        let location = viewModel.lsPet.address
-        
-        cityLabel.text = String(location[...2])
-        
-        kindLabel.text = viewModel.lsPet.kind
-        
-        varietyLabel.text = viewModel.lsPet.variety
-        
-        photoImageView.loadImage(viewModel.lsPet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
-        
-        organizationLabel.text = viewModel.lsPet.shelterName
-        
-        if viewModel.lsPet.status == "OPEN" {
-            
-            statusLabel.text = "開放認養"
-            
-//            statusLabel.textColor = .openAdopt
-            
-        } else {
-            
-            statusLabel.text = "不開放認養"
-            
-//            statusLabel.textColor = .closeAdopt
-        }
-        
-        if viewModel.lsPet.sex == "M" {
-            
-            sexLabel.text = "♂"
-            
-            sexLabel.textColor = UIColor.maleColor
-            
-        } else {
-            
-            sexLabel.text = "♀"
-            
-            sexLabel.textColor = UIColor.femaleColor
-        }
-        
-        if viewModel.lsPet.sterilization == "T" {
-            
-            sterilizationLabel.text = "已結紮"
-            
-        } else {
-            
-            sterilizationLabel.text = "未結紮"
-        }
-        
-        if viewModel.lsPet.bacterin == "T" {
-            
-            bacterinLabel.text = "已注射疫苗"
-            
-        } else {
-            
-            bacterinLabel.text = "未注射疫苗"
-        }
-    }
-    
     func configureCell(with viewModel: PetViewModel) {
         
         let location = viewModel.pet.address
