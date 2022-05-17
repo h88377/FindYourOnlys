@@ -282,6 +282,23 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/ImageLabeling (2.6.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitImageLabeling (~> 1.5.0)
+  - GoogleMLKit/MLKitCore (2.6.0):
+    - MLKitCommon (~> 5.0.0)
+  - GoogleToolboxForMac/DebugUtils (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - GoogleToolboxForMac/Defines (2.3.2)
+  - GoogleToolboxForMac/Logger (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.2)":
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
   - GoogleUtilities/AppDelegateSwizzler (7.5.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -298,6 +315,8 @@ PODS:
   - GoogleUtilities/Reachability (7.5.0):
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.5.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilitiesComponents (1.1.0):
     - GoogleUtilities/Logger
   - "gRPC-C++ (1.28.2)":
     - "gRPC-C++/Implementation (= 1.28.2)"
@@ -328,12 +347,46 @@ PODS:
   - Kingfisher (7.1.2)
   - leveldb-library (1.22.1)
   - lottie-ios (3.3.0)
+  - MLImage (1.0.0-beta2)
+  - MLKitCommon (5.0.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GoogleUtilities/UserDefaults (~> 7.0)
+    - GoogleUtilitiesComponents (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.12)
+  - MLKitImageLabeling (1.5.0):
+    - MLKitCommon (~> 5.0)
+    - MLKitImageLabelingCommon (~> 3.0)
+    - MLKitVision (~> 3.0)
+    - MLKitVisionKit (~> 4.0)
+  - MLKitImageLabelingCommon (3.0.0):
+    - MLKitCommon (~> 5.0)
+    - MLKitVision (~> 3.0)
+  - MLKitObjectDetectionCommon (3.0.0):
+    - MLKitCommon (~> 5.0)
+    - MLKitVision (~> 3.0)
+  - MLKitVision (3.0.0):
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - MLImage (= 1.0.0-beta2)
+    - MLKitCommon (~> 5.0)
+    - Protobuf (~> 3.12)
+  - MLKitVisionKit (4.0.0):
+    - MLKitCommon (~> 5.0)
+    - MLKitImageLabelingCommon (~> 3.0)
+    - MLKitObjectDetectionCommon (~> 3.0)
+    - MLKitVision (~> 3.0)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
+  - Protobuf (3.20.1)
   - SwiftLint (0.47.0)
 
 DEPENDENCIES:
@@ -343,6 +396,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseCrashlytics
   - FirebaseFirestoreSwift (= 8.14.0-beta)
+  - GoogleMLKit/ImageLabeling (= 2.6.0)
   - IQKeyboardManagerSwift
   - Kingfisher (~> 7.0)
   - lottie-ios (~> 3.3)
@@ -363,7 +417,10 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseStorage
     - GoogleDataTransport
+    - GoogleMLKit
+    - GoogleToolboxForMac
     - GoogleUtilities
+    - GoogleUtilitiesComponents
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
@@ -371,8 +428,16 @@ SPEC REPOS:
     - Kingfisher
     - leveldb-library
     - lottie-ios
+    - MLImage
+    - MLKitCommon
+    - MLKitImageLabeling
+    - MLKitImageLabelingCommon
+    - MLKitObjectDetectionCommon
+    - MLKitVision
+    - MLKitVisionKit
     - nanopb
     - PromisesObjC
+    - Protobuf
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -389,7 +454,10 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 2563cb18a723ef9c6ef18318a49519b75dce613c
   FirebaseStorage: e6065bcbf70e2a06a8c3ddc66cbe03a395bbddc4
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
+  GoogleMLKit: 755661c46990a85e42278015f26400286d98ad95
+  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
+  GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
@@ -397,10 +465,18 @@ SPEC CHECKSUMS:
   Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
+  MLImage: a454f9f8ecfd537783a12f9488f5be1a68820829
+  MLKitCommon: 3bc17c6f7d25ce3660f030350b46ae7ec9ebca6e
+  MLKitImageLabeling: 8e19e6cea9b220c5ae6beb85e2c0b14c370fdb3a
+  MLKitImageLabelingCommon: 9916b03956a3a647ebc7471a12b1eb0798ae84f8
+  MLKitObjectDetectionCommon: 81d8ef93327005779a05fb6f2d74b0b0ef8840b1
+  MLKitVision: e87dc3f2e456a6ab32361ebd985e078dd2746143
+  MLKitVisionKit: 68c122ceb9b2fe1a05ffe09341c750d566c77170
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  Protobuf: b60ec2f51ad74765f44d0c09d2e0579d7de21745
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
 
-PODFILE CHECKSUM: 0f1dc669813fb52035a03382740c02d92cb4c9db
+PODFILE CHECKSUM: 1c41fe878def5623d5a788a72910722cc96dfc43
 
 COCOAPODS: 1.11.2

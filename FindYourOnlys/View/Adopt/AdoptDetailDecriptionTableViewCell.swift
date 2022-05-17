@@ -29,33 +29,73 @@ class AdoptDetailDecriptionTableViewCell: UITableViewCell {
         
         descriptionLabel.text = description
         
-        if content == "" {
+        switch content {
             
-            itemLabel.text = "無"
+        case "":
+                itemLabel.text = "無"
+                
+        case "F":
+                
+                itemLabel.text = "否"
+                
+        case "T":
+                
+                itemLabel.text = "是"
+                
+        case "SMALL":
+                
+                itemLabel.text = "小型"
+                
+        case "MEDIUM":
+                
+                itemLabel.text = "中型"
+                
+        case "BIG":
+                
+                itemLabel.text = "大型"
             
-        } else if content == "F" {
+        case "ADULT":
             
-            itemLabel.text = "否"
+            itemLabel.text = "成年"
             
-        } else if content == "T" {
+        case "CHILD":
             
-            itemLabel.text = "是"
+            itemLabel.text = "幼年"
             
-        } else if content == "SMALL" {
-            
-            itemLabel.text = "小型"
-            
-        } else if content == "MEDIUM" {
-            
-            itemLabel.text = "中型"
-            
-        } else if content == "BIG" {
-            
-            itemLabel.text = "大型"
-            
-        } else {
+        default:
             
             itemLabel.text = content
-        }
+                
+            }
+//
+//
+//        if content == "" {
+//
+//            itemLabel.text = "無"
+//
+//        } else if content == "F" {
+//
+//            itemLabel.text = "否"
+//
+//        } else if content == "T" {
+//
+//            itemLabel.text = "是"
+//
+//        } else if content == "SMALL" {
+//
+//            itemLabel.text = "小型"
+//
+//        } else if content == "MEDIUM" {
+//
+//            itemLabel.text = "中型"
+//
+//        } else if content == "BIG" {
+//
+//            itemLabel.text = "大型"
+//
+//        } else {
+//
+//            itemLabel.text = content
+//        }
     }
 }

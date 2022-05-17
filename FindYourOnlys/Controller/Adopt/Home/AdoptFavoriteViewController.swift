@@ -22,6 +22,8 @@ class AdoptFavoriteViewController: BaseViewController {
             tableView.delegate = self
             
             tableView.backgroundColor = .projectBackgroundColor
+            
+            tableView.allowsSelection = true
         }
     }
     
@@ -162,11 +164,23 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return UITableViewCell() }
         
+        let selectedView = UIView()
+        
+        let backgroundView = UIView()
+
+        selectedView.backgroundColor = UIColor.systemGray5
+        
+        backgroundView.backgroundColor = UIColor.systemGray6
+        
         if !viewModel.didSignIn {
             
             let cellViewModel = viewModel.favoriteLSPetViewModels.value[indexPath.item]
             
             cell.configureCell(with: cellViewModel)
+            
+            cell.selectedBackgroundView = selectedView
+            
+            cell.backgroundView = backgroundView
             
             return cell
             
@@ -175,6 +189,10 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
             let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
             
             cell.configureCell(with: cellViewModel)
+            
+            cell.selectedBackgroundView = selectedView
+            
+            cell.backgroundView = backgroundView
             
             return cell
         }
@@ -185,7 +203,9 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         let storyboard = UIStoryboard.adopt
         
         guard
-            let adoptDetaiVC = storyboard.instantiateViewController(withIdentifier: AdoptDetailViewController.identifier) as? AdoptDetailViewController
+            let adoptDetaiVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptDetailViewController.identifier)
+                as? AdoptDetailViewController
                 
         else { return }
         
@@ -207,8 +227,22 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        250
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        250
+//    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        
+        return indexPath
+    }
+
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        return indexPath
     }
 }
 

@@ -48,6 +48,14 @@ class CommentCell: UITableViewCell {
     
     @IBOutlet weak var userImageView: UIImageView!
     
+    @IBOutlet weak var separatorView: UIView! {
+        
+        didSet {
+            
+            separatorView.backgroundColor = .systemGray5
+        }
+    }
+    
     var blockHandler: (() -> Void)?
     
     override func layoutSubviews() {
@@ -65,6 +73,13 @@ class CommentCell: UITableViewCell {
         createdTimeLabel.text = viewModel.comment.createdTime.formatedTime
         
         userImageView.loadImage(senderViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        
+        if
+            let currentUser = UserFirebaseManager.shared.currentUser
+            
+        {
+            editButton.isHidden = currentUser.id == senderViewModel.user.id
+        }
     }
     
     @IBAction func block(_ sender: UIButton) {

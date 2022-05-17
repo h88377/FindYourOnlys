@@ -211,7 +211,7 @@ class PublishKindCell: PublishBasicCell {
         
         let screenWidth = UIScreen.main.bounds.width
         
-        let button = UIButton()
+        let button = TransformButton()
 
         if kindLabel.text == PublishContentCategory.petKind.rawValue {
             

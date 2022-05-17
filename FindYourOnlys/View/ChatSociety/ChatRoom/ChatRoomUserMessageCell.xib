@@ -30,7 +30,7 @@
                             <constraint firstAttribute="height" constant="20" id="gE9-cg-vJN"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="256" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90R-H0-7a5" customClass="PaddingableUILabel" customModule="FindYourOnlys" customModuleProvider="target">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="256" text="label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90R-H0-7a5" customClass="PaddingableUILabel" customModule="FindYourOnlys" customModuleProvider="target">
                         <rect key="frame" x="161" y="8" width="36" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="8RQ-fe-2B1"/>

@@ -6,6 +6,8 @@
 //
 
 import UIKit.UIImage
+import UIKit
+
 
 class EditArticleViewModel {
     
@@ -48,9 +50,17 @@ class EditArticleViewModel {
     
     var updateImage: ((UIImage) -> Void)?
     
-    var selectedImage: UIImage?
+    var selectedImage: UIImage? {
+        
+        didSet {
+            
+            isValidDetectResult = false
+        }
+    }
     
-    var checkEditedContent: ((Bool) -> Void)?
+    var checkEditedContent: ((Bool, Bool) -> Void)?
+    
+    var isValidDetectResult: Bool = true
     
     var dismissHandler: (() -> Void)?
     
@@ -58,17 +68,26 @@ class EditArticleViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
+    var startScanningHandler: (() -> Void)?
+    
+    var stopScanningHandler: (() -> Void)?
+    
+    var imageDetectHandler: (() -> Void)?
+    
+    var successHandler: (() -> Void)?
+    
     var isValidEditedContent: Bool {
         
         return article.content != "" && article.content != "請輸入你的內文"
     }
     
-    private func edit(completion: @escaping (Result<String, Error>)-> Void) {
+    private func edit(completion: @escaping (Result<String, Error>) -> Void) {
         
-        checkEditedContent?(isValidEditedContent)
+        checkEditedContent?(isValidEditedContent, isValidDetectResult)
         
         guard
-            isValidEditedContent
+            isValidEditedContent,
+            isValidDetectResult
                 
         else { return }
         
@@ -157,6 +176,83 @@ class EditArticleViewModel {
                 self?.errorViewModel.value = ErrorViewModel(model: error)
                 
                 self?.stopLoadingHandler?()
+            }
+        }
+    }
+    
+    func detectImage() {
+        
+        guard
+//            let selectedImage = selectedImage
+            article.imageURLString != ""
+        
+        else {
+            
+            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            
+                return
+            }
+
+        startScanningHandler?()
+        
+        let image: UIImage
+        
+        switch selectedImage == nil {
+            
+        case true:
+            
+            let imageView = UIImageView()
+            
+            imageView.loadImage(article.imageURLString)
+            
+            image = imageView.image!
+            
+        case false:
+            
+            image = selectedImage!
+        }
+        
+        GoogleMLWrapper.shared.detectLabels(with: image) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let labels):
+                
+                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
+                
+                let isValidResult = labels.map { label in
+                    
+                    imageDetectDatabase.contains(label.text)
+                    
+                }.contains(true)
+                
+                self.isValidDetectResult = isValidResult
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    
+                    self.stopScanningHandler?()
+                    
+                    if isValidResult {
+                        
+                        self.successHandler?()
+                        
+                    } else {
+                        
+                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                    }
+                }
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
+                    
+                    self.stopScanningHandler?()
+                }
             }
         }
     }

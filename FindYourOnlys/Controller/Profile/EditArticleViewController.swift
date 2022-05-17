@@ -39,13 +39,16 @@ class EditArticleViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.checkEditedContent = { [weak self] isValid in
+        viewModel.checkEditedContent = { [weak self] isValidContent, isValidDetectResult in
             
-            if !isValid {
+            if !isValidContent {
                 
-                self?.showAlertWindow(title: "文章內容不足", message: "請完整填寫內容再更新文章喔！")
+                self?.showAlertWindow(title: "注意", message: "請完整填寫內容再更新文章喔！")
+                
+            } else if !isValidDetectResult {
+                
+                self?.showAlertWindow(title: "注意", message: "請先通過動物照片辨識再發布文章喔！")
             }
-            
         }
         
         viewModel.dismissHandler = { [weak self] in
@@ -64,6 +67,47 @@ class EditArticleViewController: BaseViewController {
         viewModel.stopLoadingHandler = { [weak self] in
             
             self?.stopLoading()
+        }
+        
+        viewModel.startScanningHandler = { [weak self] in
+            
+            self?.startScanning()
+        }
+        
+        viewModel.stopScanningHandler = { [weak self] in
+            
+            self?.stopScanning()
+        }
+        
+        viewModel.successHandler = { [weak self] in
+            
+            self?.success()
+        }
+        
+        viewModel.imageDetectHandler = { [weak self] in
+            
+            self?.viewModel.detectImage()
+        }
+        
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            if
+                let error = errorViewModel?.error {
+                
+                DispatchQueue.main.async {
+                    
+                    if
+                        let firebaseError = error as? FirebaseError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+                        
+                    } else if
+                        let googleMLError = error as? GoogleMLError {
+                        
+                        self?.showAlertWindow(title: "異常", message: "\(googleMLError.errorMessage)")
+                    }
+                }
+            }
         }
     }
     
@@ -129,6 +173,11 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 editCell.layoutCellWith(image: image)
             }
+        }
+        
+        editCell.imageDetectHandler = { [weak self] in
+            
+            self?.viewModel.imageDetectHandler?()
         }
         
         return editCell

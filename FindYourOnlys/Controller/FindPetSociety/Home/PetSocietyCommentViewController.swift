@@ -49,6 +49,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
             tableView.dataSource = self
             
             tableView.allowsSelection = false
+            
+            tableView.separatorStyle = .none
         }
     }
     

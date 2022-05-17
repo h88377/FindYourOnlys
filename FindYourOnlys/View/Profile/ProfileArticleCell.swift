@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ProfileArticleCell: UICollectionViewCell {
+class ProfileArticleCell: TransformCollectionCell {
     
     @IBOutlet weak var articleImageView: UIImageView!
     
     func configureCell(with article: Article) {
         
-        articleImageView.loadImage(article.imageURLString, placeHolder: UIImage.system(.petPlaceHolder))
+        articleImageView.loadImage(article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
     }
     
     override func layoutSubviews() {

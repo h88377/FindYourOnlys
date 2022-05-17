@@ -28,9 +28,9 @@ class PublishContentCell: PublishBasicCell {
         
         didSet {
             
-            imageBaseView.layer.borderColor = UIColor.projectIconColor2.cgColor
-            
-            imageBaseView.layer.borderWidth = 1
+//            imageBaseView.layer.borderColor = UIColor.projectIconColor2.cgColor
+//
+//            imageBaseView.layer.borderWidth = 1
         }
     }
     
@@ -68,11 +68,30 @@ class PublishContentCell: PublishBasicCell {
         }
     }
     
+    @IBOutlet weak var detectButton: UIButton! {
+        
+        didSet {
+            
+            detectButton.setTitleColor(.white, for: .normal)
+            
+            detectButton.setTitleColor(.projectIconColor2, for: .highlighted)
+            
+            detectButton.titleLabel?.font = UIFont.systemFont(ofSize: Constant.textSize, weight: .medium)
+            
+            detectButton.backgroundColor = .projectIconColor1
+        }
+    }
+    
+    @IBOutlet weak var separatorView: UIView!
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         contentTextView.layer.cornerRadius = 5
+        
+        contentImageView.layer.cornerRadius = 15
+        
+        detectButton.layer.cornerRadius = 10
     }
     
     @IBAction func openCamera(_ sender: UIButton) {
@@ -83,6 +102,11 @@ class PublishContentCell: PublishBasicCell {
     @IBAction func openGallery(_ sender: UIButton) {
         
         galleryHandler?()
+    }
+    
+    @IBAction func imageDetect(_ sender: UIButton) {
+        
+        imageDetectHandler?()
     }
     
     override func layoutCellWith(image: UIImage) {
@@ -99,7 +123,7 @@ class PublishContentCell: PublishBasicCell {
             
             contentTextView.textColor = .black
             
-            contentImageView.loadImage(article.imageURLString)
+            contentImageView.loadImage(article.imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         }
     }
     

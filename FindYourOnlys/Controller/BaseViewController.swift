@@ -7,6 +7,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import AudioToolbox.AudioServices
 
 class BaseViewController: UIViewController {
     
@@ -168,6 +169,40 @@ class BaseViewController: UIViewController {
 
             LottieAnimationWrapper.shared.stopLoading()
         }
+    }
+    
+    func startScanning() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.startScanning()
+        }
+    }
+    
+    func stopScanning() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.stopScanning()
+        }
+    }
+    
+    func success() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.success()
+        }
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+    }
+    
+    func addToFavorite() {
+        
+        DispatchQueue.main.async {
+
+            LottieAnimationWrapper.shared.addToFavorite()
+        }
+        
     }
 }
 

@@ -17,5 +17,6 @@ pod 'Kingfisher', '~> 7.0'
 pod 'IQKeyboardManagerSwift'
 pod 'lottie-ios', '~> 3.3'
 pod 'FirebaseCrashlytics'
+pod 'GoogleMLKit/ImageLabeling', '2.6.0'
 
 end

@@ -18,6 +18,8 @@ class ShareSocietyViewController: BaseViewController {
             tableView.dataSource = self
             
             tableView.delegate = self
+            
+            tableView.separatorStyle = .none
         }
     }
     

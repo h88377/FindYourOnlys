@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+import UIKit.UIImage
 
 class PublishViewModel {
     
@@ -23,9 +23,15 @@ class PublishViewModel {
     
     var updateImage: ((UIImage) -> Void)?
     
-    var selectedImage: UIImage?
+    var selectedImage: UIImage? {
+        
+        didSet {
+            
+            isValidDetectResult = false
+        }
+    }
     
-    var checkPublishedContent: ((Bool) -> Void)?
+    var checkPublishedContent: ((Bool, Bool) -> Void)?
     
     var isValidPublishedContent: Bool {
         
@@ -42,19 +48,30 @@ class PublishViewModel {
         return true
     }
     
+    var isValidDetectResult: Bool = false
+    
     var dismissHandler: (() -> Void)?
     
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
     
+    var startScanningHandler: (() -> Void)?
+    
+    var stopScanningHandler: (() -> Void)?
+    
+    var imageDetectHandler: (() -> Void)?
+    
+    var successHandler: (() -> Void)?
+    
     private func publish(completion: @escaping (Result<String, Error>) -> Void) {
         
-        checkPublishedContent?(isValidPublishedContent)
+        checkPublishedContent?(isValidPublishedContent, isValidDetectResult)
         
         guard
             isValidPublishedContent,
-              let selectedImage = selectedImage
+            isValidDetectResult,
+            let selectedImage = selectedImage
                 
         else { return }
         
@@ -137,6 +154,67 @@ class PublishViewModel {
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
+            }
+        }
+    }
+    
+    func detectImage() {
+        
+        guard
+            let selectedImage = selectedImage
+        
+        else {
+            
+            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            
+                return
+            }
+
+        startScanningHandler?()
+        
+        GoogleMLWrapper.shared.detectLabels(with: selectedImage) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let labels):
+                
+                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
+                
+                let isValidResult = labels.map { label in
+                    
+                    imageDetectDatabase.contains(label.text)
+                    
+                }.contains(true)
+                
+                self.isValidDetectResult = isValidResult
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    
+                    self.stopScanningHandler?()
+                    
+                    if isValidResult {
+                        
+                        self.successHandler?()
+                        
+                    } else {
+                        
+                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                    }
+                }
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
+                    
+                    self.stopScanningHandler?()
+                }
             }
         }
     }

@@ -21,7 +21,9 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             tableView.backgroundColor = .projectBackgroundColor
             
-            tableView.separatorColor = .projectBackgroundColor
+//            tableView.separatorColor = .projectBackgroundColor
+            
+            tableView.separatorStyle = .none
         }
     }
     
@@ -121,6 +123,8 @@ class ProfileSelectedArticleViewController: BaseViewController {
                 editVC.viewModel.article = article
                 
                 self.navigationController?.pushViewController(editVC, animated: true)
+                
+//                self.show(editVC, sender: nil)
             }
             
             let cancel = UIAlertAction(title: "取消", style: .cancel)

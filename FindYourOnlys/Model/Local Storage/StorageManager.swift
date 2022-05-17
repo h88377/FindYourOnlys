@@ -182,4 +182,78 @@ class StorageManager {
             completion(.failure(LocalStorageError.fetchPetError))
         }
     }
+    
+    // Convert functions
+    func convertLsPetsToViewModels(from lsPets: [LSPet]) -> [FavoriteLSPetViewModel] {
+        
+        //        let pets = convertLsPetsToPets(from: lsPets)
+        
+        var viewModels = [FavoriteLSPetViewModel]()
+        
+        for lsPet in lsPets {
+            
+            let viewModel = FavoriteLSPetViewModel(model: lsPet)
+            
+            viewModels.append(viewModel)
+        }
+        
+        return viewModels
+    }
+    
+    func setLsPets(viewModels: Box<[FavoriteLSPetViewModel]>, with lsPets: [LSPet]) {
+        
+        viewModels.value = convertLsPetsToViewModels(from: lsPets)
+    }
+    
+    func convertPetToLsPet(pet: Pet) -> LSPet {
+        
+        let context = StorageManager.shared.persistentContainer.viewContext
+        
+        let lsPet = LSPet(entity: LSPet.entity(), insertInto: context)
+        
+        lsPet.photoURLString = pet.photoURLString
+        
+        lsPet.variety = pet.variety
+        
+        lsPet.sex = pet.sex
+        
+        lsPet.bodyType = pet.bodyType
+        
+        lsPet.location = pet.location
+        
+        lsPet.status = pet.status
+        
+        lsPet.kind = pet.kind
+        
+        lsPet.age = pet.age
+        
+        lsPet.bacterin = pet.bacterin
+        
+        lsPet.closedDate = pet.closedDate
+        
+        lsPet.openDate = pet.openDate
+        
+        lsPet.updatedDate = pet.updatedDate
+        
+        lsPet.createdDate = pet.createdDate
+        
+        lsPet.id = Int64(pet.id)
+        
+        lsPet.color = pet.color
+        
+        lsPet.sterilization = pet.sterilization
+        
+        lsPet.foundPlace = pet.foundPlace
+        
+        lsPet.remark = pet.remark
+        
+        lsPet.address = pet.address
+        
+        lsPet.telephone = pet.telephone
+        
+        lsPet.shelterName = pet.shelterName
+        
+        return lsPet
+    }
 }
+
