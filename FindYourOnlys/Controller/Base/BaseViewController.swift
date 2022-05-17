@@ -48,8 +48,6 @@ class BaseViewController: UIViewController {
         view.backgroundColor = .systemGray6
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -153,6 +151,20 @@ class BaseViewController: UIViewController {
         alert.addAction(action)
         
         present(alert, animated: true)
+    }
+    
+    func configureIpadAlert(with alert: UIAlertController) {
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        alert.popoverPresentationController?.sourceRect = popoverRect
+        
+        alert.popoverPresentationController?.permittedArrowDirections = .up
+        
     }
     
     func startLoading() {
