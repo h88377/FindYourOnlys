@@ -144,13 +144,16 @@ class BaseViewController: UIViewController {
     
     func showAlertWindow(title: String, message: String?) {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default)
-        
-        alert.addAction(action)
-        
-        present(alert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(action)
+            
+            self?.present(alert, animated: true)
+        }
     }
     
     func configureIpadAlert(with alert: UIAlertController) {

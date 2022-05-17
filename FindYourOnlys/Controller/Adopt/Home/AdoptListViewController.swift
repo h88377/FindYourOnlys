@@ -41,11 +41,11 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
+    private var activityIndicator: LoadMoreActivityIndicator!
+    
     let viewModel = AdoptListViewModel()
     
     var resetConditionHandler: (() -> Void)?
-    
-    private var activityIndicator: LoadMoreActivityIndicator!
     
     // MARK: - Life cycle
     
@@ -65,10 +65,6 @@ class AdoptListViewController: BaseViewController {
             }
         }
         
-        viewModel.fetchPet()
-        
-        startLoading()
-        
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             if
@@ -83,6 +79,38 @@ class AdoptListViewController: BaseViewController {
                         
                     }
                 }
+            }
+        }
+        
+        viewModel.selectedPetIsFavorite.bind { [weak self] isFavorite in
+            
+            guard
+                let self = self else { return }
+            
+            if
+                let isFavorite = isFavorite {
+                
+                let favoriteActionTitle = isFavorite
+                ? "移除我的最愛"
+                : "加入我的最愛"
+
+                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+
+                let cancel = UIAlertAction(title: "取消", style: .cancel)
+
+                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+
+                    self.viewModel.toggleFavoritePet()
+                }
+
+                alert.addAction(favoriteAction)
+
+                alert.addAction(cancel)
+
+                // iPad specific code
+                self.configureIpadAlert(with: alert)
+
+                self.present(alert, animated: true)
             }
         }
         
@@ -130,15 +158,11 @@ class AdoptListViewController: BaseViewController {
                 
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
-            
         }
         
         viewModel.noMorePetHandler = { [weak self] in
-            
-            DispatchQueue.main.async {
                 
-                self?.showAlertWindow(title: "沒有更多動物資訊了喔！", message: "")
-            }
+            self?.showAlertWindow(title: "沒有更多動物資訊了喔！", message: "")
         }
         
         viewModel.addToFavoriteHandler = { [weak self] in
@@ -146,58 +170,42 @@ class AdoptListViewController: BaseViewController {
             self?.addToFavorite()
         }
         
-        viewModel.isFavoritePetViewModel.bind { [weak self] resultViewModel in
-            
-            guard
-                let self = self else { return }
-            
-            if
-                let isFavoritePet = resultViewModel?.result {
-                
-                let favoriteActionTitle = isFavoritePet
-                ? "移除我的最愛"
-                : "加入我的最愛"
-                
-                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-                
-                let cancel = UIAlertAction(title: "取消", style: .cancel)
-                
-                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
-                    
-                    if isFavoritePet {
-                        
-                        if self.viewModel.didSignIn {
-                            
-                            self.viewModel.removeFavoriteFromFB()
-                            
-                        } else {
-                            
-                            self.viewModel.removeFavoriteFromLS()
-                        }
-                        
-                    } else {
-                        
-                        if self.viewModel.didSignIn {
-                            
-                            self.viewModel.addToFavoriteInFB()
-                            
-                        } else {
-                            
-                            self.viewModel.addToFavoriteInLS()
-                        }
-                    }
-                }
-                
-                alert.addAction(favoriteAction)
-                
-                alert.addAction(cancel)
-                
-                // iPad specific code
-                self.configureIpadAlert(with: alert)
-                
-                self.present(alert, animated: true)
-            }
-        }
+        viewModel.fetchPet()
+        
+        startLoading()
+        
+//        viewModel.isFavoritePetViewModel.bind { [weak self] isFavoritePet in
+//
+//            guard
+//                let self = self else { return }
+//
+//            if
+//                let isFavoritePet = resultViewModel?.result {
+//
+//                let favoriteActionTitle = isFavoritePet
+//                ? "移除我的最愛"
+//                : "加入我的最愛"
+//
+//                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+//
+//                let cancel = UIAlertAction(title: "取消", style: .cancel)
+//
+//                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+//
+//                    self.viewModel.toggleFavoritePet()
+//                }
+//
+//                alert.addAction(favoriteAction)
+//
+//                alert.addAction(cancel)
+//
+//                // iPad specific code
+//                self.configureIpadAlert(with: alert)
+//
+//                self.present(alert, animated: true)
+//            }
+//        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -229,14 +237,7 @@ class AdoptListViewController: BaseViewController {
             if
                 let indexPath = collectionView.indexPathForItem(at: touchPoint) {
                 
-                if viewModel.didSignIn {
-                    
-                    viewModel.fetchFavoritePet(at: indexPath.row)
-                    
-                } else {
-                    
-                    viewModel.fetchFavoritePetFromLS(with: indexPath.row)
-                }
+                viewModel.fetchFavoritePet(at: indexPath.row)
             }
         }
     }

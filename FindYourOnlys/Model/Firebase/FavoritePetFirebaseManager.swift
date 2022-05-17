@@ -91,7 +91,7 @@ class FavoritePetFirebaseManager {
             }
     }
     
-    func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Result<String, Error>) -> Void) {
+    func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
         
         // Check if there have existed same pet on firestore when call this func in viewModel
         let documentReference = db.collection(FirebaseCollectionType.favoritePet.rawValue).document()
@@ -108,7 +108,7 @@ class FavoritePetFirebaseManager {
             
             try documentReference.setData(from: pet)
             
-            completion(.success("sucess"))
+            completion(.success(()))
             
         } catch {
             
@@ -116,7 +116,7 @@ class FavoritePetFirebaseManager {
         }
     }
     
-    func removeFavoritePet(with petViewModel: PetViewModel, completion: @escaping (Result<String, Error>) -> Void) {
+    func removeFavoritePet(with petViewModel: PetViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
             
@@ -142,7 +142,7 @@ class FavoritePetFirebaseManager {
                         
                         self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
                         
-                        completion(.success("success"))
+                        completion(.success(()))
                     }
                     
                 } catch {

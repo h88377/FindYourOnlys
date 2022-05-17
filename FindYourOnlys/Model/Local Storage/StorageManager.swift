@@ -57,7 +57,7 @@ class StorageManager {
         return container
     }()
     
-    func saveContext(completion: (Result<String, Error>) -> Void) {
+    func saveContext(completion: (Result<Void, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -67,20 +67,16 @@ class StorageManager {
                 
                 try context.save()
                 
-                completion(.success("success"))
+                completion(.success(()))
                 
             } catch {
                 
                 completion(.failure(LocalStorageError.updatePetError))
-                
-//                let nserror = error as NSError
-//
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
     
-    func savePetInFavorite(with petViewModel: PetViewModel, completion: (Result<String, Error>) -> Void) {
+    func savePetInFavorite(with petViewModel: PetViewModel, completion: (Result<Void, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -134,9 +130,9 @@ class StorageManager {
             
             switch result {
                 
-            case .success(let success):
+            case .success():
                 
-                completion(.success(success))
+                completion(.success(()))
                 
             case .failure(let error):
                 
@@ -145,7 +141,7 @@ class StorageManager {
         }
     }
     
-    func removePetfromFavorite(lsPet: LSPet, completion: (Result<String, Error>) -> Void) {
+    func removePetfromFavorite(lsPet: LSPet, completion: (Result<Void, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -155,9 +151,9 @@ class StorageManager {
             
             switch result {
                 
-            case .success(let success):
+            case .success():
                 
-                completion(.success(success))
+                completion(.success(()))
                 
             case .failure(let error):
                 
