@@ -9,19 +9,9 @@ import UIKit
 
 class FavoriteTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var photoImageView: UIImageView!
-    
-    @IBOutlet weak var baseBackgroundView: UIView!
-    
-    @IBOutlet weak var cityLabel: UILabel! {
-        
-        didSet {
-            
-            cityLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-            
-            cityLabel.textColor = .projectTextColor
-        }
-    }
     
     @IBOutlet weak var kindLabel: UILabel! {
         
@@ -51,16 +41,6 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var statusLabel: UILabel!  {
-        
-        didSet {
-            
-            statusLabel.textColor = .projectTextColor
-            
-            statusLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        }
-    }
-    
     @IBOutlet weak var baseView: UIView! {
         
         didSet {
@@ -69,7 +49,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var locationImageView: UIImageView!  {
+    @IBOutlet weak var locationImageView: UIImageView! {
         
         didSet {
             
@@ -101,11 +81,19 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: - Life cycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        photoImageView.layer.cornerRadius = 15
+        
+        baseView.layer.cornerRadius = 15
+    }
+    
+    // MARK: - Methods
+    
     func configureCell(with viewModel: PetViewModel) {
-        
-        let location = viewModel.pet.address
-        
-        cityLabel.text = String(location[...2])
         
         kindLabel.text = viewModel.pet.kind
         
@@ -114,19 +102,6 @@ class FavoriteTableViewCell: UITableViewCell {
         organizationLabel.text = viewModel.pet.shelterName
         
         photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
-        
-        if viewModel.pet.status == "OPEN" {
-            
-            statusLabel.text = "開放認養"
-            
-//            statusLabel.textColor = .openAdopt
-            
-        } else {
-            
-            statusLabel.text = "不開放認養"
-            
-//            statusLabel.textColor = .closeAdopt
-        }
         
         if viewModel.pet.sex == "M" {
             
@@ -158,21 +133,5 @@ class FavoriteTableViewCell: UITableViewCell {
             
             bacterinLabel.text = "未注射疫苗"
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        photoImageView.layer.cornerRadius = 15
-        
-        baseView.layer.cornerRadius = 15
-        
-//        baseView.layer.shadowColor = UIColor.black.cgColor
-//        baseView.layer.shadowOpacity = 0.1
-//        baseView.layer.shadowOffset = .zero
-//        baseView.layer.shadowRadius = 5
-//        baseView.layer.shadowPath = UIBezierPath(rect: baseView.bounds).cgPath
-//        baseView.layer.shouldRasterize = true
-//        baseView.layer.rasterizationScale = UIScreen.main.scale
     }
 }

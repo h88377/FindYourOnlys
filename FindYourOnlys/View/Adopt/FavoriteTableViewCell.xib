@@ -29,13 +29,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="locationLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCA-AX-Xw8">
-                            <rect key="frame" x="364" y="228" width="102" height="20.5"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="sexLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0e-mg-H8F">
                             <rect key="frame" x="382" y="16" width="68" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -44,13 +37,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="varietyLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbV-Ql-Dug">
                             <rect key="frame" x="231.5" y="16" width="93" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="statusLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgc-9W-egB">
-                            <rect key="frame" x="377" y="192.5" width="89" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -115,13 +101,11 @@
             <connections>
                 <outlet property="bacterinLabel" destination="Yk7-WU-TWt" id="vlh-rQ-Ezq"/>
                 <outlet property="baseView" destination="6gd-0k-9d4" id="L0B-Nb-D0a"/>
-                <outlet property="cityLabel" destination="VCA-AX-Xw8" id="uwF-xu-NtW"/>
                 <outlet property="kindLabel" destination="5TK-Rx-5Cs" id="Qs9-3W-4fe"/>
                 <outlet property="locationImageView" destination="PLG-xL-e3G" id="1ia-ih-JL0"/>
                 <outlet property="organizationLabel" destination="nU9-rD-fNw" id="9yp-AV-YVs"/>
                 <outlet property="photoImageView" destination="JnK-yq-4jS" id="Bmo-nu-ZcM"/>
                 <outlet property="sexLabel" destination="h0e-mg-H8F" id="bzy-0b-Cvs"/>
-                <outlet property="statusLabel" destination="lgc-9W-egB" id="xJK-O7-hKe"/>
                 <outlet property="sterilizationLabel" destination="N3t-Dz-BcF" id="v53-oA-OJh"/>
                 <outlet property="varietyLabel" destination="UbV-Ql-Dug" id="Jmm-Od-vA0"/>
             </connections>
