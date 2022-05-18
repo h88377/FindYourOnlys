@@ -28,27 +28,24 @@ class AdoptViewController: BaseViewController {
         static let list = "SegueList"
     }
     
+    // MARK: - Properties
+    
+    let viewModel = AdoptViewModel()
+    
     weak var delegate: AdoptViewControllerDelegate?
     
     var adoptListVC: AdoptListViewController?
     
-    let viewModel = AdoptViewModel()
-    
-    @IBOutlet weak var indicatorView: UIView! {
+    private var containerViews: [UIView] {
         
-        didSet {
-            
-            indicatorView.backgroundColor = .systemGray6
-        }
+        [adoptListContainerView, adoptFavoriteContainerView]
     }
     
-    @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var adoptListContainerView: UIView!
     
-    @IBOutlet weak var adoptListContainerView: UIView!
+    @IBOutlet private weak var adoptFavoriteContainerView: UIView!
     
-    @IBOutlet weak var adoptFavoriteContainerView: UIView!
-    
-    @IBOutlet weak var adoptListButton: UIButton! {
+    @IBOutlet private weak var adoptListButton: UIButton! {
         
         didSet {
             
@@ -60,7 +57,7 @@ class AdoptViewController: BaseViewController {
         }
     }
     
-    @IBOutlet var adoptButtons: [UIButton]! {
+    @IBOutlet private var adoptButtons: [UIButton]! {
         
         didSet {
             
@@ -71,18 +68,11 @@ class AdoptViewController: BaseViewController {
                 $0.setTitleColor(.white, for: .selected)
                 
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-                
-//                $0.tintColor = .white
             }
         }
     }
     
-    var containerViews: [UIView] {
-        
-        [adoptListContainerView, adoptFavoriteContainerView]
-    }
-    
-    @IBOutlet weak var filterButton: UIBarButtonItem! {
+    @IBOutlet private weak var filterButton: UIBarButtonItem! {
         
         didSet {
             
@@ -91,34 +81,27 @@ class AdoptViewController: BaseViewController {
         }
     }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }   
-                }
+                self.showAlertWindow(of: error)
             }
         }
         
         viewModel.fetchCurrentUser()
     }
-    
-    override func setupNavigationTitle() {
-        super.setupNavigationTitle()
-        
-        navigationItem.title = "領養資訊"
-    }
+   
+    // MARK: - Methods and IBActions
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -141,6 +124,12 @@ class AdoptViewController: BaseViewController {
         }
     }
     
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "領養資訊"
+    }
+    
     @IBAction func toggleAdoptButton(_ sender: UIButton) {
         
         adoptButtons.forEach {
@@ -158,8 +147,6 @@ class AdoptViewController: BaseViewController {
         
         sender.backgroundColor = .projectIconColor1
         
-//        moveIndicatorView(to: sender)
-        
         guard
             let currentTitle = sender.currentTitle,
             let type = AdoptButtonType(rawValue: currentTitle) else { return }
@@ -176,20 +163,6 @@ class AdoptViewController: BaseViewController {
             
             filterButton.isEnabled = true
         }
-    }
-    
-    private func moveIndicatorView(to sender: UIView) {
-
-        indicatorCenterXConstraint.isActive = false
-
-        indicatorCenterXConstraint = indicatorView.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
-
-        indicatorCenterXConstraint.isActive = true
-
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-
-            self?.view.layoutIfNeeded()
-        })
     }
     
     private func updateContainerView(with type: AdoptButtonType) {
@@ -224,6 +197,8 @@ class AdoptViewController: BaseViewController {
         navigationController?.pushViewController(adoptFilterVC, animated: true)
     }
 }
+
+// MARK: - PublishBasicCellDelegate
 
 extension AdoptViewController: PublishBasicCellDelegate {
     

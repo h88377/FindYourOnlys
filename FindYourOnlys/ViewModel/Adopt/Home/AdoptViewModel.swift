@@ -9,9 +9,13 @@ import Foundation
 
 class AdoptViewModel {
     
+    // MARK: - Properties
+    
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var adoptFilterCondition = AdoptFilterCondition()
+    
+    // MARK: - Methods
     
     func fetchCurrentUser() {
         
@@ -39,9 +43,6 @@ class AdoptViewModel {
             }
         }
     }
-}
-
-extension AdoptViewModel {
     
     func cityChanged(with city: String) {
         
