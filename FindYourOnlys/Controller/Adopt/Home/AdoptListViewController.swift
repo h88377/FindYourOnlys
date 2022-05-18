@@ -121,9 +121,9 @@ class AdoptListViewController: BaseViewController {
             spacingFromLastCellWhenLoadMoreActionStart: 60
         )
         
-        configureLoadingView()
+        setupLoadingViewHandler()
         
-        configureIndicatorView()
+        setupIndicatorViewHandler()
         
         startLoading()
         
@@ -169,7 +169,7 @@ class AdoptListViewController: BaseViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
-    private func configureLoadingView() {
+    private func setupLoadingViewHandler() {
         
         viewModel.startLoadingHandler = { [weak self] in
             
@@ -188,7 +188,7 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    private func configureIndicatorView() {
+    private func setupIndicatorViewHandler() {
         
         viewModel.startIndicatorHandler = { [weak self] in
             
