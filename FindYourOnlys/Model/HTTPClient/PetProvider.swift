@@ -34,11 +34,12 @@ class PetProvider {
                     let pets = try decoder.decode([Pet].self, from: data)
                     
                     completion(.success(pets))
+                    
                 } catch {
                     
                     completion(.failure(HTTPClientError.decodeDataFail))
-                    
                 }
+                
             case .failure(let error):
                 
                 completion(.failure(error))
@@ -53,14 +54,7 @@ class PetProvider {
     
     func convertPetsToViewModels(from pets: [Pet]) -> [PetViewModel] {
         
-        var viewModels = [PetViewModel]()
-        
-        for pet in pets {
-            
-            let viewModel = PetViewModel(model: pet)
-            
-            viewModels.append(viewModel)
-        }
+        let viewModels = pets.map { PetViewModel(model: $0) }
         
         return viewModels
     }
