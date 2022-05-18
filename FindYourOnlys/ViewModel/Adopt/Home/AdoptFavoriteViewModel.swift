@@ -24,15 +24,15 @@ class AdoptFavoriteViewModel {
         
         if didSignIn {
             
-            fetchFavoritePetsFromFB()
+            fetchCloudFavoritePets()
             
         } else {
             
-            fetchFavoritePetsFromLS()
+            fetchLSFavoritePets()
         }
     }
     
-    private func fetchFavoritePetsFromFB() {
+    private func fetchCloudFavoritePets() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser
@@ -64,7 +64,7 @@ class AdoptFavoriteViewModel {
         }
     }
     
-    private func fetchFavoritePetsFromLS() {
+    private func fetchLSFavoritePets() {
         
         StorageManager.shared.fetchPet { result in
             

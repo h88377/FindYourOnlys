@@ -11,9 +11,11 @@ class AdoptFavoriteViewController: BaseViewController {
     
     // MARK: - Properties
     
-    @IBOutlet weak var remindLabel: UILabel!
+    private let viewModel = AdoptFavoriteViewModel()
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var remindLabel: UILabel!
+    
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -27,8 +29,6 @@ class AdoptFavoriteViewController: BaseViewController {
         }
     }
     
-    private let viewModel = AdoptFavoriteViewModel()
-    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -36,11 +36,14 @@ class AdoptFavoriteViewController: BaseViewController {
         
         viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
             
+            guard
+                let self = self else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
                 
-                self?.tableView.isHidden = favoritePetViewModels.count == 0
+                self.tableView.isHidden = favoritePetViewModels.count == 0
                 ? true
                 : false
             }
@@ -48,10 +51,13 @@ class AdoptFavoriteViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                self?.showErrorAlert(with: error)
+                self.showAlertWindow(of: error)
             }
         }
         
@@ -76,25 +82,10 @@ class AdoptFavoriteViewController: BaseViewController {
         )
     }
     
-    private func showErrorAlert(with error: Error) {
-        
-        if
-            let firebaseError = error as? FirebaseError {
-            
-            showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-            
-        } else if
-            let localStorageError = error as? LocalStorageError {
-            
-            showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
-        }
-    }
-    
     @objc private func currentUserDidSet(_ notification: Notification) {
         
         viewModel.fetchFavoritePets()
     }
-    
 }
 
 // MARK: - UITableViewDataSource & Delegate
