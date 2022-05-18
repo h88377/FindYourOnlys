@@ -13,6 +13,17 @@ class PresentationController: UIPresentationController {
     
     var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
     
+    override var frameOfPresentedViewInContainerView: CGRect {
+        
+        CGRect(
+            origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.4),
+            size: CGSize(
+                width: containerView!.frame.width,
+                height: containerView!.frame.height * 0.6
+            )
+        )
+    }
+    
     override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
         
         let blurEffect = UIBlurEffect(style: .dark)
@@ -30,34 +41,28 @@ class PresentationController: UIPresentationController {
         self.blurEffectView.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    override var frameOfPresentedViewInContainerView: CGRect {
-        
-        CGRect(origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.4),
-               size: CGSize(width: self.containerView!.frame.width, height: self.containerView!.frame.height *
-                0.6))
-    }
-
     override func presentationTransitionWillBegin() {
         
-        self.blurEffectView.alpha = 0
+        blurEffectView.alpha = 0
         
-        self.containerView?.addSubview(blurEffectView)
+        containerView?.addSubview(blurEffectView)
         
-        self.presentedViewController.transitionCoordinator?
-            .animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
-            
+        presentedViewController.transitionCoordinator?
+            .animate(alongsideTransition: { _ in
+
             self.blurEffectView.alpha = 0.7
-        }, completion: { (UIViewControllerTransitionCoordinatorContext) in })
+                
+        }, completion: { _ in })
     }
     
     override func dismissalTransitionWillBegin() {
         
         self.presentedViewController.transitionCoordinator?
-            .animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
+            .animate(alongsideTransition: { _ in
             
             self.blurEffectView.alpha = 0
             
-        }, completion: { (UIViewControllerTransitionCoordinatorContext) in
+        }, completion: { _ in
             
             self.blurEffectView.removeFromSuperview()
         })
@@ -80,5 +85,4 @@ class PresentationController: UIPresentationController {
     @objc func dismissController() {
         self.presentedViewController.dismiss(animated: true, completion: nil)
     }
-  
 }
