@@ -10,15 +10,19 @@ import Lottie
 
 class AdoptFilterViewController: BaseViewController {
     
-    let tableView = UITableView()
-    
-    let filterButton = UIButton()
-    
-    let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
+    // MARK: - Properties
     
     let viewModel = AdoptFilterViewModel()
     
+    private let tableView = UITableView()
+    
+    private let filterButton = UIButton()
+    
+    private let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
+    
     override var isHiddenTabBar: Bool { return true }
+    
+    // MARK: - View Lift Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +37,8 @@ class AdoptFilterViewController: BaseViewController {
         
         filterButton.layer.cornerRadius = 15
     }
+    
+    // MARK: - Methods
     
     override func setupTableView() {
         super.setupTableView()
@@ -69,7 +75,6 @@ class AdoptFilterViewController: BaseViewController {
                 
                 tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
                 
-//                tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
                 tableView.topAnchor.constraint(equalTo: view.topAnchor),
                 
                 tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)
@@ -77,7 +82,17 @@ class AdoptFilterViewController: BaseViewController {
         )
     }
     
-    func setupFilterButton() {
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "搜尋條件"
+        
+        let filterButtonItem = UIBarButtonItem(title: "清除條件", style: .done, target: self, action: #selector(clear))
+        
+        navigationItem.rightBarButtonItem = filterButtonItem
+    }
+    
+    private func setupFilterButton() {
         
         filterButton.setTitle("篩選", for: .normal)
         
@@ -108,7 +123,7 @@ class AdoptFilterViewController: BaseViewController {
         )
     }
     
-    func setupAnimationView() {
+    private func setupAnimationView() {
         
         animationView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -129,16 +144,6 @@ class AdoptFilterViewController: BaseViewController {
         )
     }
     
-    override func setupNavigationTitle() {
-        super.setupNavigationTitle()
-        
-        navigationItem.title = "搜尋條件"
-        
-        let filterButtonItem = UIBarButtonItem(title: "清除條件", style: .done, target: self, action: #selector(clear))
-        
-        navigationItem.rightBarButtonItem = filterButtonItem
-    }
-    
     @objc func clear(sender: UIBarButtonItem) {
         
         viewModel.adoptFilterCondition = AdoptFilterCondition()
@@ -154,7 +159,7 @@ class AdoptFilterViewController: BaseViewController {
                 
         else {
             
-            showAlertWindow(title: "異常訊息", message: "請至少填寫一個條件喔！")
+            showAlertWindow(title: "提醒", message: "請至少填寫一個條件喔！")
             
             return
         }
@@ -232,19 +237,11 @@ extension AdoptFilterViewController: PublishBasicCellDelegate {
     
     func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
         
-        if sex == Sex.male.rawValue {
-            
-            viewModel.sexChanged(with: "M")
-            
-        } else {
-            
-            viewModel.sexChanged(with: "F")
-        }
+        viewModel.sexChanged(with: sex == Sex.male.rawValue ? "M" : "F")
     }
     
     func didChangeColor(_ cell: PublishBasicCell, with color: String) {
     
         viewModel.colorChanged(with: color)
     }
-    
 }
