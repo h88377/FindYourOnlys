@@ -16,7 +16,7 @@ class AdoptDetailViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var viewModel = AdoptDetailViewModel()
+    var viewModel: AdoptDetailViewModel?
     
     weak var delegate: AdoptDetailViewControllerDelegate?
     
@@ -81,7 +81,7 @@ class AdoptDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.petViewModel.bind { [weak self] _ in
+        viewModel?.petViewModel.bind { [weak self] _ in
             
             guard
                 let self = self else { return }
@@ -92,7 +92,7 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel?.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
                 let self = self else { return }
@@ -104,17 +104,17 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
-        viewModel.shareHandler = { [weak self] in
+        viewModel?.shareHandler = { [weak self] in
             
             self?.showShareActivity()
         }
         
-        viewModel.makePhoneCallHandler = { [weak self] in
+        viewModel?.makePhoneCallHandler = { [weak self] in
             
             guard
                 let self = self else { return }
             
-            let phoneNumber = self.viewModel.petViewModel.value.pet.telephone
+            let phoneNumber = self.viewModel?.petViewModel.value.pet.telephone
             
             guard
                 let url = URL(string: "tel://\(String(describing: phoneNumber))"),
@@ -139,7 +139,7 @@ class AdoptDetailViewController: BaseViewController {
         
         configureFavoriteButton()
         
-        viewModel.fetchFavoritePet()
+        viewModel?.fetchFavoritePet()
     }
     
     override func viewDidLayoutSubviews() {
@@ -157,6 +157,9 @@ class AdoptDetailViewController: BaseViewController {
     // MARK: - Methods and IBActions
     
     override func setupTableView() {
+        
+        guard
+            let viewModel = viewModel else { return }
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
         
@@ -236,16 +239,16 @@ class AdoptDetailViewController: BaseViewController {
     
     private func configureFavoriteButton() {
         
-        viewModel.checkFavoriateButtonHandler = { [weak self] in
+        viewModel?.checkFavoriateButtonHandler = { [weak self] in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let favoritePetViewModels = self.viewModel?.favoritePetViewModels.value,
+                let pet = self.viewModel?.petViewModel.value.pet
+            
+            else { return }
             
             self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
-            
-            let favoritePetViewModels = self.viewModel.favoritePetViewModels.value
-            
-            let pet = self.viewModel.petViewModel.value.pet
             
             for favoritePetViewModel in favoritePetViewModels where favoritePetViewModel.pet.id == pet.id {
                 
@@ -253,18 +256,18 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
-        viewModel.toggleFavoriteButtonHandler = { [weak self] in
+        viewModel?.toggleFavoriteButtonHandler = { [weak self] in
             
             guard
                 let self = self else { return }
             
             if self.favoriteButton.currentImage == UIImage.system(.addToFavorite) {
                 
-                self.viewModel.addPetInFavorite()
+                self.viewModel?.addPetInFavorite()
                 
             } else {
                 
-                self.viewModel.removeFavoritePet()
+                self.viewModel?.removeFavoritePet()
             }
             
             self.favoriteButton.setImage(
@@ -297,16 +300,16 @@ class AdoptDetailViewController: BaseViewController {
     
     @IBAction func pressFavoriteButton(_ sender: UIButton) {
         
-        viewModel.fetchFavoritePet()
+        viewModel?.fetchFavoritePet()
         
-        viewModel.toggleFavoriteButton()
+        viewModel?.toggleFavoriteButton()
         
         self.delegate?.toggleFavorite()
     }
     
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
-        viewModel.makePhoneCall()
+        viewModel?.makePhoneCall()
     }
     
     @objc func back(_ sender: UIButton) {
@@ -321,7 +324,8 @@ class AdoptDetailViewController: BaseViewController {
         guard
             let petsLocationVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptPetsLocationViewController.identifier
-            ) as? AdoptPetsLocationViewController
+            ) as? AdoptPetsLocationViewController,
+            let viewModel = viewModel
                 
         else { return }
         
@@ -338,16 +342,19 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let adoptDetailDescription = viewModel.adoptDetailContentCategory
+        guard
+            let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
         
         return 1 + adoptDetailDescription.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellViewModel = viewModel.petViewModel.value
+        guard
+            let cellViewModel = viewModel?.petViewModel.value,
+            let adoptDetailContentCategory = viewModel?.adoptDetailContentCategory
         
-        let adoptDetailContentCategory = viewModel.adoptDetailContentCategory
+        else { return UITableViewCell() }
         
         if indexPath.item == 0 {
             
@@ -365,7 +372,10 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             
             detailCell.shareHandler = { [weak self] in
                 
-                self?.viewModel.share()
+                guard
+                    let self = self else { return }
+                
+                self.viewModel?.share()
             }
             
             return detailCell

@@ -133,7 +133,9 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 
         else { return }
         
-        adoptDetaiVC.viewModel.petViewModel.value = viewModel.favoritePetViewModels.value[indexPath.item]
+        let selectedPetViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
+        
+        adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
         
         adoptDetaiVC.delegate = self
         

@@ -17,19 +17,12 @@ class AdoptDetailViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var petViewModel = Box(
-        PetViewModel(
-            model: Pet(
-                id: 0, location: "", kind: "",
-                sex: "", bodyType: "", color: "",
-                age: "", sterilization: "", bacterin: "",
-                foundPlace: "", status: "", remark: "",
-                openDate: "", closedDate: "", updatedDate: "",
-                createdDate: "", photoURLString: "", address: "",
-                telephone: "", variety: "", shelterName: ""
-            )
-        )
-    )
+    var petViewModel: Box<PetViewModel>
+    
+    init(petViewModel: Box<PetViewModel>) {
+     
+        self.petViewModel = petViewModel
+    }
     
     var checkFavoriateButtonHandler: (() -> Void)?
     
@@ -44,7 +37,7 @@ class AdoptDetailViewModel {
         return UserFirebaseManager.shared.currentUser != nil
     }
     
-    private var favoritePetsFromLS = [LSPet]()
+    private var favoriteLSPets = [LSPet]()
     
     // MARK: - Methods
     func fetchFavoritePet() {
@@ -55,7 +48,7 @@ class AdoptDetailViewModel {
             
         } else {
             
-            fetchFavoritePetFromLS()
+            fetchLSFavoritePet()
         }
         
     }
@@ -64,7 +57,7 @@ class AdoptDetailViewModel {
         
         if didSignIn {
             
-            addFavoritePetInFB()
+            addFavoritePetInCloud()
             
         } else {
             
@@ -76,11 +69,11 @@ class AdoptDetailViewModel {
         
         if didSignIn {
             
-            removeFavoriteFromFB()
+            removeCloudFavorite()
             
         } else {
             
-            removeFavoriteFromLS()
+            removeLSFavorite()
         }
     }
     
@@ -118,12 +111,7 @@ class AdoptDetailViewModel {
                 
             case .success(let pets):
                 
-                var favoritePets: [Pet] = []
-                
-                for pet in pets where pet.userID == currentUser.id {
-                    
-                    favoritePets.append(pet)
-                }
+                let favoritePets = pets.filter { $0.userID == currentUser.id }
                 
                 PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: favoritePets)
                 
@@ -136,7 +124,7 @@ class AdoptDetailViewModel {
         }
     }
     
-    private func fetchFavoritePetFromLS() {
+    private func fetchLSFavoritePet() {
         
         StorageManager.shared.fetchPet { [weak self] result in
             
@@ -151,7 +139,7 @@ class AdoptDetailViewModel {
                 
                 PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: pets)
                 
-                self.favoritePetsFromLS = lsPets
+                self.favoriteLSPets = lsPets
                 
                 self.checkFavoriateButtonHandler?()
                 
@@ -162,7 +150,7 @@ class AdoptDetailViewModel {
         }
     }
     
-    private func addFavoritePetInFB() {
+    private func addFavoritePetInCloud() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -189,13 +177,13 @@ class AdoptDetailViewModel {
         }
     }
     
-    private func removeFavoriteFromLS() {
+    private func removeLSFavorite() {
         
         let removeId = petViewModel.value.pet.id
         
-        for favoritePetFromLS in favoritePetsFromLS where favoritePetFromLS.id == removeId {
+        for favoriteLSPet in favoriteLSPets where favoriteLSPet.id == removeId {
             
-            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS) { [weak self] result in
+            StorageManager.shared.removePetfromFavorite(lsPet: favoriteLSPet) { [weak self] result in
                 
                 if case .failure(let error) = result {
                   
@@ -205,7 +193,7 @@ class AdoptDetailViewModel {
         }
     }
     
-    private func removeFavoriteFromFB() {
+    private func removeCloudFavorite() {
         
         FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value) { [weak self] result in
             

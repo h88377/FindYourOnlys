@@ -332,7 +332,9 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         selectedPetViewModel.pet.userID = currentUserId
         
-        adoptDetaiVC.viewModel.petViewModel.value = selectedPetViewModel
+//        adoptDetaiVC.viewModel.petViewModel.value = selectedPetViewModel
+        
+        adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
