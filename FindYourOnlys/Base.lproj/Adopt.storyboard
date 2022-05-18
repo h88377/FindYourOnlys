@@ -189,7 +189,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18"/>
                                 </state>
                                 <connections>
-                                    <action selector="toggleFavorite:" destination="63v-a2-Ckk" eventType="touchUpInside" id="TBE-b7-OQl"/>
+                                    <action selector="pressFavoriteButton:" destination="63v-a2-Ckk" eventType="touchUpInside" id="DSa-L1-GeR"/>
                                 </connections>
                             </button>
                         </subviews>

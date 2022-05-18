@@ -134,12 +134,7 @@ class AdoptViewController: BaseViewController {
             
             adoptListVC?.resetConditionHandler = { [weak self] in
                 
-                self?.viewModel.adoptFilterCondition = AdoptFilterCondition(
-                    city: "",
-                    petKind: "",
-                    sex: "",
-                    color: ""
-                )
+                self?.viewModel.adoptFilterCondition = AdoptFilterCondition()
             }
             
             self.adoptListVC = adoptListVC

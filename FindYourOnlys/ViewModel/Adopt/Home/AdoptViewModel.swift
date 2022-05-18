@@ -11,21 +11,7 @@ class AdoptViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-//    var filterConditionViewModel = Box(
-//        AdoptFilterCondition(
-//        city: "",
-//        petKind: "",
-//        sex: "",
-//        color: ""
-//        )
-//    )
-    
-    var adoptFilterCondition = AdoptFilterCondition(
-        city: "",
-        petKind: "",
-        sex: "",
-        color: ""
-    )
+    var adoptFilterCondition = AdoptFilterCondition()
     
     func fetchCurrentUser() {
         

@@ -11,12 +11,7 @@ class AdoptFilterViewModel {
     
     let adoptFilterCategory = AdoptFilterCategory.allCases
     
-    var adoptFilterCondition = AdoptFilterCondition(
-        city: "",
-        petKind: "",
-        sex: "",
-        color: ""
-    )
+    var adoptFilterCondition = AdoptFilterCondition()
     
     var isValidCondition: Bool {
         

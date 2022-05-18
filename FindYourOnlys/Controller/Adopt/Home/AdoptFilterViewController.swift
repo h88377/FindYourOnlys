@@ -141,12 +141,7 @@ class AdoptFilterViewController: BaseViewController {
     
     @objc func clear(sender: UIBarButtonItem) {
         
-        viewModel.adoptFilterCondition = AdoptFilterCondition(
-            city: "",
-            petKind: "",
-            sex: "",
-            color: ""
-        )
+        viewModel.adoptFilterCondition = AdoptFilterCondition()
         
         tableView.reloadData()
     }

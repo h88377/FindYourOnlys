@@ -16,7 +16,11 @@ class AdoptDetailViewController: BaseViewController {
     
     // MARK: - Properties
     
-    @IBOutlet weak var favoriteButton: UIButton! {
+    var viewModel = AdoptDetailViewModel()
+    
+    weak var delegate: AdoptDetailViewControllerDelegate?
+    
+    @IBOutlet private weak var favoriteButton: UIButton! {
         
         didSet {
             
@@ -28,7 +32,7 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var phoneCallButton: UIButton! {
+    @IBOutlet private weak var phoneCallButton: UIButton! {
         
         didSet {
             
@@ -42,7 +46,7 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var checkLocationButton: UIButton! {
+    @IBOutlet private weak var checkLocationButton: UIButton! {
         
         didSet {
             
@@ -56,7 +60,7 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var bottomBaseView: UIView! {
+    @IBOutlet private weak var bottomBaseView: UIView! {
         
         didSet {
             
@@ -64,17 +68,13 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    override var isHiddenTabBar: Bool { return true }
-    
-    override var isHiddenNavigationBar: Bool { return true }
-    
-    var viewModel = AdoptDetailViewModel()
-    
-    weak var delegate: AdoptDetailViewControllerDelegate?
-    
     private let tableView = UITableView()
     
     private let backButton = UIButton()
+    
+    override var isHiddenTabBar: Bool { return true }
+    
+    override var isHiddenNavigationBar: Bool { return true }
     
     // MARK: - View Life Cycle
     
@@ -83,57 +83,25 @@ class AdoptDetailViewController: BaseViewController {
         
         viewModel.petViewModel.bind { [weak self] _ in
             
+            guard
+                let self = self else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                self?.showErrorAlert(with: error)
+                self.showAlertWindow(of: error)
             }
-        }
-        
-        viewModel.checkFavoriateButtonHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
-            
-            let favoritePetViewModels = self.viewModel.favoritePetViewModels.value
-            
-            let pet = self.viewModel.petViewModel.value.pet
-            
-            for favoritePetViewModel in favoritePetViewModels where favoritePetViewModel.pet.id == pet.id {
-                
-                self.favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-            }
-        }
-        
-        viewModel.toggleFavoriteButtonHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.favoriteButton.currentImage == UIImage.system(.addToFavorite) {
-                
-                self.viewModel.addPetInFavorite()
-                
-            } else {
-                
-                self.viewModel.removeFavoritePet()
-            }
-            
-            self.favoriteButton.setImage(
-                self.favoriteButton.currentImage == UIImage.system(.addToFavorite)
-                ? UIImage.system(.removeFromFavorite)
-                : UIImage.system(.addToFavorite), for: .normal
-            )
         }
         
         viewModel.shareHandler = { [weak self] in
@@ -168,6 +136,8 @@ class AdoptDetailViewController: BaseViewController {
                 UIApplication.shared.openURL(url)
             }
         }
+        
+        configureFavoriteButton()
         
         viewModel.fetchFavoritePet()
     }
@@ -264,17 +234,44 @@ class AdoptDetailViewController: BaseViewController {
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
-    private func showErrorAlert(with error: Error) {
+    private func configureFavoriteButton() {
         
-        if
-            let firebaseError = error as? FirebaseError {
+        viewModel.checkFavoriateButtonHandler = { [weak self] in
             
-            showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+            guard
+                let self = self else { return }
             
-        } else if
-            let localStorageError = error as? LocalStorageError {
+            self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
             
-            showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
+            let favoritePetViewModels = self.viewModel.favoritePetViewModels.value
+            
+            let pet = self.viewModel.petViewModel.value.pet
+            
+            for favoritePetViewModel in favoritePetViewModels where favoritePetViewModel.pet.id == pet.id {
+                
+                self.favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
+            }
+        }
+        
+        viewModel.toggleFavoriteButtonHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            if self.favoriteButton.currentImage == UIImage.system(.addToFavorite) {
+                
+                self.viewModel.addPetInFavorite()
+                
+            } else {
+                
+                self.viewModel.removeFavoritePet()
+            }
+            
+            self.favoriteButton.setImage(
+                self.favoriteButton.currentImage == UIImage.system(.addToFavorite)
+                ? UIImage.system(.removeFromFavorite)
+                : UIImage.system(.addToFavorite), for: .normal
+            )
         }
     }
     
@@ -298,7 +295,7 @@ class AdoptDetailViewController: BaseViewController {
         present(activityVC, animated: true)
     }
     
-    @IBAction func toggleFavorite(_ sender: UIButton) {
+    @IBAction func pressFavoriteButton(_ sender: UIButton) {
         
         viewModel.fetchFavoritePet()
         
@@ -393,4 +390,3 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
         header.scrollViewDidScroll(scrollView: tableView)
     }
 }
-
