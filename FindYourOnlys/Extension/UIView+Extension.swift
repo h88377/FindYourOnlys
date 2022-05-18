@@ -17,4 +17,8 @@ extension UIView {
         layer.mask = mask
     }
     
+    func makeRound() {
+        
+        self.layer.cornerRadius = self.frame.height / 2
+    }
 }

@@ -134,7 +134,7 @@ class ProfileViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.makeRound()
         
         editButton.layer.cornerRadius = 12
     }

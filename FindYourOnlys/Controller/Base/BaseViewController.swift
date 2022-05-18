@@ -143,11 +143,58 @@ class BaseViewController: UIViewController {
 
     }
     
-    func showAlertWindow(title: String, message: String?) {
+    func showAlertWindow(title: String, message: String? = nil) {
         
         DispatchQueue.main.async { [weak self] in
             
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(action)
+            
+            self?.present(alert, animated: true)
+        }
+    }
+    
+    func showAlertWindow(of error: Error) {
+        
+        let message: String
+        
+        switch error {
+            
+        case let httpClientError as HTTPClientError:
+            
+            message = httpClientError.errorMessage
+            
+        case let googleMLError as GoogleMLError:
+            
+            message = googleMLError.errorMessage
+            
+        case let mapError as MapError:
+            
+            message = mapError.errorMessage
+            
+        case let authError as AuthError:
+            
+            message = authError.errorMessage
+            
+        case let firebaseError as FirebaseError:
+            
+            message = firebaseError.errorMessage
+            
+        case let localStorageError as LocalStorageError:
+            
+            message = localStorageError.errorMessage
+            
+        default:
+            
+            message = "發生預期外的錯誤"
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
             

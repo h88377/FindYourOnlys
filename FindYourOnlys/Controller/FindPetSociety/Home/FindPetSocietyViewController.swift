@@ -192,7 +192,7 @@ class FindPetSocietyViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        addArticleButton.layer.cornerRadius = addArticleButton.frame.height / 2
+        addArticleButton.makeRound()
     }
     
     override func setupTableView() {

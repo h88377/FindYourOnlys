@@ -121,8 +121,6 @@ class FriendProfileViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-//        userImageView.layer.cornerRadius = userImageView.frame.height / 2
-        
         baseView.layer.cornerRadius = 15
         
         requestButton.layer.cornerRadius = 15

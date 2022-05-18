@@ -360,7 +360,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="查看全部"/>
                                 <connections>
-                                    <action selector="reFetchPetInfo:" destination="1pB-aw-e5a" eventType="touchUpInside" id="sy8-OA-IJC"/>
+                                    <action selector="refetchPetInfo:" destination="1pB-aw-e5a" eventType="touchUpInside" id="IsD-8h-bCZ"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-Hh-8hq">
@@ -408,7 +408,7 @@
                         <outlet property="collectionView" destination="lPB-Hh-8hq" id="nn0-Tv-tuX"/>
                         <outlet property="mapButton" destination="M35-Pu-lfS" id="wfX-gZ-oEc"/>
                         <outlet property="refetchButton" destination="fjL-qO-zZE" id="pVk-vl-0Kk"/>
-                        <outlet property="remindLabel" destination="Lgm-Ot-ZDv" id="3gF-zu-kSp"/>
+                        <outlet property="reminderLabel" destination="Lgm-Ot-ZDv" id="3gF-zu-kSp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E30-Vk-UiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

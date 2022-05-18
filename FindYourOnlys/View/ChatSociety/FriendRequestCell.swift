@@ -102,7 +102,7 @@ class FriendRequestCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        userImageVIew.layer.cornerRadius = userImageVIew.frame.height / 2
+        userImageVIew.makeRound()
         
         acceptButton.layer.cornerRadius = 12
         

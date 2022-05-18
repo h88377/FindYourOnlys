@@ -10,13 +10,6 @@ import UIKit
 
 class AdoptDetailViewModel {
     
-    private enum FavoriteType: String {
-        
-        case add = "Add"
-        
-        case remove = "Remove"
-    }
-    
     // MARK: - Properties
     let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     

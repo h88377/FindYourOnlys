@@ -16,4 +16,15 @@ struct AdoptFilterCondition {
     var sex: String
     
     var color: String
+    
+    init() {
+        
+        self.city = ""
+        
+        self.petKind = ""
+        
+        self.sex = ""
+        
+        self.color = ""
+    }
 }

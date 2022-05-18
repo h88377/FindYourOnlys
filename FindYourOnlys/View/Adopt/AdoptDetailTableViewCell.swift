@@ -9,6 +9,7 @@ import UIKit
 
 class AdoptDetailTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
     @IBOutlet weak var statusLabel: UILabel! {
         
         didSet {
@@ -73,6 +74,13 @@ class AdoptDetailTableViewCell: UITableViewCell {
     
     var shareHandler: (() -> Void)?
     
+    // MARK: - Life Cycle
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        shareHandler = nil
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -81,6 +89,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
         shareButton.layer.cornerRadius = 10
     }
     
+    // MARK: - Methods and IBActions
     func configureCell(with viewModel: PetViewModel) {
         
         kindLabel.text = viewModel.pet.kind
@@ -91,13 +100,9 @@ class AdoptDetailTableViewCell: UITableViewCell {
             
             statusLabel.text = "開放認養"
             
-//            statusLabel.textColor = .openAdopt
-            
         } else {
             
             statusLabel.text = "不開放認養"
-            
-//            statusLabel.textColor = .closeAdopt
         }
         
         if viewModel.pet.sex == "M" {
@@ -118,11 +123,4 @@ class AdoptDetailTableViewCell: UITableViewCell {
         
         shareHandler?()
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        shareHandler = nil
-    }
-    
 }

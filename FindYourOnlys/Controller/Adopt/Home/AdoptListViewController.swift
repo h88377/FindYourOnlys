@@ -9,20 +9,17 @@ import Foundation
 import UIKit
 import Lottie
 
-// 1. viewModel內宣告的變數是否都要包一層viewModel?
-// 2. Private func, property 要放前面還後面？
-// 3. Error enum, 共用enum是否要創一個.swift檔案？
-// 4. 來自viewModel closure handler是否要再包一層讓viewDidLoad不要太長？
-
 class AdoptListViewController: BaseViewController {
     
     // MARK: - Properties
     
-    @IBOutlet weak var remindLabel: UILabel!
+    let viewModel = AdoptListViewModel()
+
+    @IBOutlet private weak var reminderLabel: UILabel!
     
-    @IBOutlet weak var refetchButton: UIButton!
+    @IBOutlet private weak var refetchButton: UIButton!
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         
         didSet {
             
@@ -36,7 +33,7 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var mapButton: UIButton! {
+    @IBOutlet private weak var mapButton: UIButton! {
         
         didSet {
             
@@ -45,14 +42,13 @@ class AdoptListViewController: BaseViewController {
             mapButton.tintColor = .white
         }
     }
-    
-    let viewModel = AdoptListViewModel()
+            
+    private var activityIndicator: LoadMoreActivityIndicator!
     
     var resetConditionHandler: (() -> Void)?
     
-    private var activityIndicator: LoadMoreActivityIndicator!
-    
     // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,61 +67,31 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                if
-                    let httpClientError = error as? HTTPClientError {
-                    
-                    self?.showAlertWindow(title: "異常", message: "\(httpClientError.errorMessage)")
-                }
+                self.showAlertWindow(of: error)
             }
         }
         
-        viewModel.selectedPetIsFavorite.bind { [weak self] isFavorite in
+        viewModel.isSelectedPetFavorite.bind { [weak self] isFavorite in
             
-            self?.showFavoriteAlert(with: isFavorite)
-        }
-        
-        activityIndicator = LoadMoreActivityIndicator(
-            scrollView: collectionView,
-            spacingFromLastCell: 10,
-            spacingFromLastCellWhenLoadMoreActionStart: 60
-        )
-        
-        viewModel.startLoadingHandler = { [weak self] in
+            guard
+                let self = self else { return }
             
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
-        }
-        
-        viewModel.startIndicatorHandler = { [weak self] in
-            
-            DispatchQueue.main.async {
-                
-                self?.activityIndicator.start(closure: {
-                    
-                    self?.viewModel.fetchPet()
-                })
-            }
-        }
-        viewModel.stopIndicatorHandler = { [weak self] in
-            
-            DispatchQueue.main.async {
-                
-                self?.activityIndicator.stop()
-            }
+            self.showFavoriteAlert(with: isFavorite)
         }
         
         viewModel.resetPetHandler = { [weak self] in
             
             guard
                 let self = self,
-                self.viewModel.petViewModels.value.count > 0 else { return }
+                self.viewModel.petViewModels.value.count > 0
+            
+            else { return }
             
             DispatchQueue.main.async {
                 
@@ -135,28 +101,45 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.noMorePetHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "沒有更多動物資訊了喔！", message: "")
+            guard
+                let self = self else { return }
+            
+            self.showAlertWindow(title: "沒有更多動物資訊了喔！")
         }
         
         viewModel.addToFavoriteHandler = { [weak self] in
             
-            self?.addToFavorite()
+            guard
+                let self = self else { return }
+            
+            self.addToFavorite()
         }
         
-        viewModel.fetchPet()
+        activityIndicator = LoadMoreActivityIndicator(
+            scrollView: collectionView,
+            spacingFromLastCell: 10,
+            spacingFromLastCellWhenLoadMoreActionStart: 60
+        )
+        
+        configureLoadingView()
+        
+        configureIndicatorView()
         
         startLoading()
+        
+        viewModel.fetchPet()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        mapButton.layer.cornerRadius = mapButton.frame.height / 2
+        mapButton.makeRound()
     }
     
     // MARK: - Method and IBAction
     
     override func setupCollectionView() {
+        super.setupCollectionView()
         
         collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
         
@@ -186,6 +169,78 @@ class AdoptListViewController: BaseViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
+    private func configureLoadingView() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
+    private func configureIndicatorView() {
+        
+        viewModel.startIndicatorHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            DispatchQueue.main.async {
+                
+                self.activityIndicator.start {
+                    
+                    self.viewModel.fetchPet()
+                }
+            }
+        }
+        
+        viewModel.stopIndicatorHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            DispatchQueue.main.async {
+                
+                self.activityIndicator.stop()
+            }
+        }
+    }
+    
+    private func showFavoriteAlert(with isFavorite: Bool) {
+        
+        let favoriteActionTitle = isFavorite
+        ? "移除我的最愛"
+        : "加入我的最愛"
+        
+        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+            
+            self.viewModel.toggleFavoritePet()
+        }
+        
+        alert.addAction(favoriteAction)
+        
+        alert.addAction(cancel)
+        
+        // iPad specific code
+        self.configureIpadAlert(with: alert)
+        
+        self.present(alert, animated: true)
+    }
+    
     @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
         
         if sender.state == .began {
@@ -197,35 +252,6 @@ class AdoptListViewController: BaseViewController {
                 
                 viewModel.fetchFavoritePet(at: indexPath.row)
             }
-        }
-    }
-    
-    private func showFavoriteAlert(with isFavorite: Bool?) {
-        
-        if
-            let isFavorite = isFavorite {
-            
-            let favoriteActionTitle = isFavorite
-            ? "移除我的最愛"
-            : "加入我的最愛"
-            
-            let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-            
-            let cancel = UIAlertAction(title: "取消", style: .cancel)
-            
-            let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
-                
-                self.viewModel.toggleFavoritePet()
-            }
-            
-            alert.addAction(favoriteAction)
-            
-            alert.addAction(cancel)
-            
-            // iPad specific code
-            self.configureIpadAlert(with: alert)
-            
-            self.present(alert, animated: true)
         }
     }
     
@@ -245,7 +271,7 @@ class AdoptListViewController: BaseViewController {
         navigationController?.pushViewController(adoptPetsLocationVC, animated: true)
     }
     
-    @IBAction func reFetchPetInfo(_ sender: UIButton) {
+    @IBAction func refetchPetInfo(_ sender: UIButton) {
         
         viewModel.resetFilterCondition()
         
@@ -304,9 +330,9 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         let currentUserId = UserFirebaseManager.shared.currentUser?.id
         
-        adoptDetaiVC.viewModel.petViewModel.value = selectedPetViewModel
+        selectedPetViewModel.pet.userID = currentUserId
         
-        adoptDetaiVC.viewModel.petViewModel.value.pet.userID = currentUserId
+        adoptDetaiVC.viewModel.petViewModel.value = selectedPetViewModel
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
@@ -315,7 +341,10 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        activityIndicator.start {
+        activityIndicator.start { [weak self] in
+            
+            guard
+                let self = self else { return }
             
             DispatchQueue.global(qos: .utility).async {
                 
@@ -324,35 +353,3 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         }
     }
 }
-
-//        viewModel.isFavoritePetViewModel.bind { [weak self] isFavoritePet in
-//
-//            guard
-//                let self = self else { return }
-//
-//            if
-//                let isFavoritePet = resultViewModel?.result {
-//
-//                let favoriteActionTitle = isFavoritePet
-//                ? "移除我的最愛"
-//                : "加入我的最愛"
-//
-//                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-//
-//                let cancel = UIAlertAction(title: "取消", style: .cancel)
-//
-//                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
-//
-//                    self.viewModel.toggleFavoritePet()
-//                }
-//
-//                alert.addAction(favoriteAction)
-//
-//                alert.addAction(cancel)
-//
-//                // iPad specific code
-//                self.configureIpadAlert(with: alert)
-//
-//                self.present(alert, animated: true)
-//            }
-//        }

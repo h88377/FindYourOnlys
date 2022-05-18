@@ -61,7 +61,7 @@ class CommentCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.makeRound()
     }
     
     func configure(with viewModel: CommentViewModel, senderViewModel: UserViewModel) {

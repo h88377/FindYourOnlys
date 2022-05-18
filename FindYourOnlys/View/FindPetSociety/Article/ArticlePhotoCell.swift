@@ -85,7 +85,7 @@ class ArticlePhotoCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        userImageView.layer.cornerRadius = userImageView.layer.frame.height / 2
+        userImageView.makeRound()
         
         postedImageView.layer.cornerRadius = 15
         

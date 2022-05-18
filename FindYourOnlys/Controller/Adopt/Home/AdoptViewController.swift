@@ -114,12 +114,6 @@ class AdoptViewController: BaseViewController {
         viewModel.fetchCurrentUser()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-//        adoptButtons.forEach { $0.layer.cornerRadius = 15}
-    }
-    
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         

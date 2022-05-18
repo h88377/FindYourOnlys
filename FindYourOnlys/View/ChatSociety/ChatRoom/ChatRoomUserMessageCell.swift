@@ -106,9 +106,9 @@ class ChatRoomUserMessageCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.makeRound()
 
-        friendImageView.layer.cornerRadius = userImageView.frame.height / 2
+        friendImageView.makeRound()
         
         contentLabel.layer.cornerRadius = 12
         

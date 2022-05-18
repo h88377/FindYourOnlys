@@ -314,7 +314,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         commentTextView.layer.cornerRadius = 5
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.makeRound()
         
         commentTextView.centerVertically()
     }

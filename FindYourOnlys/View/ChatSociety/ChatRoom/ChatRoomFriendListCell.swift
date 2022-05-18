@@ -27,7 +27,7 @@ class ChatRoomFriendListCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        friendImageView.layer.cornerRadius = friendImageView.frame.height / 2
+        friendImageView.makeRound()
     }
     
 }

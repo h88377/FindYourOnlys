@@ -216,7 +216,6 @@
 		98CC166A2806C14200B9FDC6 /* PetSocietyFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16692806C14200B9FDC6 /* PetSocietyFirebaseManager.swift */; };
 		98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC166B2806C1FD00B9FDC6 /* FirebaseCollectionType.swift */; };
 		98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */; };
-		98E8630728340C2D00153290 /* FavoriteLSPetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E8630628340C2D00153290 /* FavoriteLSPetViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -433,7 +432,6 @@
 		98CC16692806C14200B9FDC6 /* PetSocietyFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyFirebaseManager.swift; sourceTree = "<group>"; };
 		98CC166B2806C1FD00B9FDC6 /* FirebaseCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionType.swift; sourceTree = "<group>"; };
 		98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
-		98E8630628340C2D00153290 /* FavoriteLSPetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteLSPetViewModel.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -561,7 +559,6 @@
 		98939A0F2811AE79004312F1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				98E8630628340C2D00153290 /* FavoriteLSPetViewModel.swift */,
 				98CC15E22801D71300B9FDC6 /* PetViewModel.swift */,
 				98CC15DE2801D61C00B9FDC6 /* AdoptListViewModel.swift */,
 				987D8B402817EC6E000D1F95 /* AdoptViewModel.swift */,
@@ -1413,7 +1410,6 @@
 				98CC15A728005B6C00B9FDC6 /* AppDelegate.swift in Sources */,
 				987D8B4628192176000D1F95 /* CommentCell.swift in Sources */,
 				9896D8DB28084795003D4A16 /* ChatRoomFriendListViewController.swift in Sources */,
-				98E8630728340C2D00153290 /* FavoriteLSPetViewModel.swift in Sources */,
 				98CC16662806AFAC00B9FDC6 /* PublishBasicCell.swift in Sources */,
 				9896D932280D6694003D4A16 /* FriendRequestCell.swift in Sources */,
 				98939A2828143067004312F1 /* ShareSocietyViewController.swift in Sources */,

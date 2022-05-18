@@ -12,17 +12,10 @@ class AdoptListViewModel {
     // MARK: - Properties
     let petViewModels = Box([PetViewModel]())
     
-//    var isFavoritePetViewModel: Box<ResultViewModel?> = Box(nil)
-    
-    var selectedPetIsFavorite: Box<Bool?> = Box(nil)
+    var isSelectedPetFavorite: Box<Bool> = Box(false)
 
     var filterConditionViewModel = Box(
-        AdoptFilterCondition(
-        city: "",
-        petKind: "",
-        sex: "",
-        color: ""
-        )
+        AdoptFilterCondition()
     )
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
@@ -50,7 +43,7 @@ class AdoptListViewModel {
     
     private var selectedPetViewModel: Box<PetViewModel?> = Box(nil)
     
-    private var favoritePetsFromLS = [LSPet]()
+    private var lsFavoritePets = [LSPet]()
     
     // MARK: - Methods
     
@@ -68,33 +61,22 @@ class AdoptListViewModel {
                     
                     self?.appendPets(pets)
                     
-                    self?.stopIndicatorHandler?()
-                    
-                    self?.stopLoadingHandler?()
-                    
                     self?.currentPage += 1
                     
                 } else {
                     
                     self?.noMorePetHandler?()
-                    
-                    self?.stopIndicatorHandler?()
-                    
-                    self?.stopLoadingHandler?()
-                    
-                    return
                 }
                   
             case .failure(let error):
                 
                 self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopIndicatorHandler?()
-                
-                self?.stopLoadingHandler?()
             }
+            
+            self?.stopIndicatorHandler?()
+            
+            self?.stopLoadingHandler?()
         }
-        
     }
     
     func resetFetchPet() {
@@ -116,31 +98,21 @@ class AdoptListViewModel {
                 
                 PetProvider.shared.setPets(petViewModels: self.petViewModels, with: pets)
                 
-                self.stopIndicatorHandler?()
-                
-                self.stopLoadingHandler?()
-                
                 self.currentPage += 1
                 
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self.stopIndicatorHandler?()
-                
-                self.stopLoadingHandler?()
             }
+            self.stopIndicatorHandler?()
+            
+            self.stopLoadingHandler?()
         }
     }
     
     func resetFilterCondition() {
         
-        filterConditionViewModel.value = AdoptFilterCondition(
-            city: "",
-            petKind: "",
-            sex: "",
-            color: ""
-            )
+        filterConditionViewModel.value = AdoptFilterCondition()
         
         currentPage = 0
     }
@@ -151,7 +123,7 @@ class AdoptListViewModel {
         
         if didSignIn {
             
-            fetchFavoritePetFromFB(with: petViewModel)
+            fetchFavoritePetFromFB(with: petViewModel) // cloud
             
         } else {
             
@@ -160,19 +132,16 @@ class AdoptListViewModel {
     }
     
     func toggleFavoritePet() {
-        
-        if
-            let selectedPetIsFavorite = selectedPetIsFavorite.value {
             
-            if selectedPetIsFavorite {
-                
-                removeFavoritePet()
-                
-            } else {
-                
-                addPetInFavorite()
-            }
+        if isSelectedPetFavorite.value {
+            
+            removeFavoritePet()
+            
+        } else {
+            
+            addPetInFavorite()
         }
+        
     }
     
     private func fetchFavoritePetFromFB(with petViewModel: PetViewModel) {
@@ -188,7 +157,7 @@ class AdoptListViewModel {
                 
 //                self.isFavoritePetViewModel.value = ResultViewModel(model: pets.count != 0)
                 
-                self.selectedPetIsFavorite.value = pets.count != 0
+                self.isSelectedPetFavorite.value = pets.count != 0
                 
                 self.selectedPetViewModel.value = petViewModel
                 
@@ -210,15 +179,15 @@ class AdoptListViewModel {
                 
             case .success(let lsPets):
                 
-                let isFavorite = lsPets.map { $0.id }.contains(Int64(petViewModel.pet.id))
+                let isFavorite = lsPets.map { Int($0.id) }.contains(petViewModel.pet.id)
                 
 //                self.isFavoritePetViewModel.value = ResultViewModel(model: isFavorite)
                 
-                self.selectedPetIsFavorite.value = isFavorite
+                self.isSelectedPetFavorite.value = isFavorite
                 
                 self.selectedPetViewModel.value = petViewModel
                 
-                self.favoritePetsFromLS = lsPets
+                self.lsFavoritePets = lsPets
                 
             case .failure(let error):
                 
@@ -332,9 +301,9 @@ class AdoptListViewModel {
         
         let removeId = viewModel.pet.id
         
-        for favoritePetFromLS in favoritePetsFromLS where favoritePetFromLS.id == removeId {
+        for lsFavoritePet in lsFavoritePets where lsFavoritePet.id == removeId {
             
-            StorageManager.shared.removePetfromFavorite(lsPet: favoritePetFromLS) { [weak self] result in
+            StorageManager.shared.removePetfromFavorite(lsPet: lsFavoritePet) { [weak self] result in
                 
                 switch result {
                     
