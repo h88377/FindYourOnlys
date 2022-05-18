@@ -11,6 +11,8 @@ import AudioToolbox.AudioServices
 
 class BaseViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var isHiddenTabBar: Bool {
         
         return false
@@ -35,6 +37,8 @@ class BaseViewController: UIViewController {
 
         return false
     }
+    
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,23 +126,20 @@ class BaseViewController: UIViewController {
         }
     }
     
+    // MARK: - Methods
+    
     func setupNavigationTitle() {
 
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.projectTextColor]
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.projectTextColor]
         
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-
-//        navigationController?.navigationBar.backgroundColor = .systemPurple
-        
     }
     
     func setupTableView() {
         
-        
     }
     
     func setupCollectionView() {
-
 
     }
     
@@ -167,7 +168,6 @@ class BaseViewController: UIViewController {
         alert.popoverPresentationController?.sourceRect = popoverRect
         
         alert.popoverPresentationController?.permittedArrowDirections = .up
-        
     }
     
     func startLoading() {

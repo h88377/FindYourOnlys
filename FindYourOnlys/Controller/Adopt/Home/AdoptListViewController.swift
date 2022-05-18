@@ -10,7 +10,6 @@ import UIKit
 import Lottie
 
 // 1. viewModel內宣告的變數是否都要包一層viewModel?
-// 2. 
 
 class AdoptListViewController: BaseViewController {
     
@@ -73,48 +72,17 @@ class AdoptListViewController: BaseViewController {
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
+                if
+                    let httpClientError = error as? HTTPClientError {
                     
-                    if
-                        let httpClientError = error as? HTTPClientError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(httpClientError.errorMessage)")
-                        
-                    }
+                    self?.showAlertWindow(title: "異常", message: "\(httpClientError.errorMessage)")
                 }
             }
         }
         
         viewModel.selectedPetIsFavorite.bind { [weak self] isFavorite in
             
-            guard
-                let self = self else { return }
-            
-            if
-                let isFavorite = isFavorite {
-                
-                let favoriteActionTitle = isFavorite
-                ? "移除我的最愛"
-                : "加入我的最愛"
-                
-                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-                
-                let cancel = UIAlertAction(title: "取消", style: .cancel)
-                
-                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
-                    
-                    self.viewModel.toggleFavoritePet()
-                }
-                
-                alert.addAction(favoriteAction)
-                
-                alert.addAction(cancel)
-                
-                // iPad specific code
-                self.configureIpadAlert(with: alert)
-                
-                self.present(alert, animated: true)
-            }
+            self?.showFavoriteAlert(with: isFavorite)
         }
         
         activityIndicator = LoadMoreActivityIndicator(
@@ -176,39 +144,6 @@ class AdoptListViewController: BaseViewController {
         viewModel.fetchPet()
         
         startLoading()
-        
-        //        viewModel.isFavoritePetViewModel.bind { [weak self] isFavoritePet in
-        //
-        //            guard
-        //                let self = self else { return }
-        //
-        //            if
-        //                let isFavoritePet = resultViewModel?.result {
-        //
-        //                let favoriteActionTitle = isFavoritePet
-        //                ? "移除我的最愛"
-        //                : "加入我的最愛"
-        //
-        //                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-        //
-        //                let cancel = UIAlertAction(title: "取消", style: .cancel)
-        //
-        //                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
-        //
-        //                    self.viewModel.toggleFavoritePet()
-        //                }
-        //
-        //                alert.addAction(favoriteAction)
-        //
-        //                alert.addAction(cancel)
-        //
-        //                // iPad specific code
-        //                self.configureIpadAlert(with: alert)
-        //
-        //                self.present(alert, animated: true)
-        //            }
-        //        }
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -231,20 +166,6 @@ class AdoptListViewController: BaseViewController {
         
     }
     
-    @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
-        
-        if sender.state == .began {
-            
-            let touchPoint = sender.location(in: collectionView)
-            
-            if
-                let indexPath = collectionView.indexPathForItem(at: touchPoint) {
-                
-                viewModel.fetchFavoritePet(at: indexPath.row)
-            }
-        }
-    }
-    
     private func setupCollectionViewLayout() {
         
         let flowLayout = UICollectionViewFlowLayout()
@@ -261,6 +182,49 @@ class AdoptListViewController: BaseViewController {
         flowLayout.minimumLineSpacing = 24.0
         
         collectionView.collectionViewLayout = flowLayout
+    }
+    
+    @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == .began {
+            
+            let touchPoint = sender.location(in: collectionView)
+            
+            if
+                let indexPath = collectionView.indexPathForItem(at: touchPoint) {
+                
+                viewModel.fetchFavoritePet(at: indexPath.row)
+            }
+        }
+    }
+    
+    private func showFavoriteAlert(with isFavorite: Bool?) {
+        
+        if
+            let isFavorite = isFavorite {
+            
+            let favoriteActionTitle = isFavorite
+            ? "移除我的最愛"
+            : "加入我的最愛"
+            
+            let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+            
+            let cancel = UIAlertAction(title: "取消", style: .cancel)
+            
+            let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+                
+                self.viewModel.toggleFavoritePet()
+            }
+            
+            alert.addAction(favoriteAction)
+            
+            alert.addAction(cancel)
+            
+            // iPad specific code
+            self.configureIpadAlert(with: alert)
+            
+            self.present(alert, animated: true)
+        }
     }
     
     @IBAction func goToMap(_ sender: UIButton) {
@@ -358,3 +322,35 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         }
     }
 }
+
+//        viewModel.isFavoritePetViewModel.bind { [weak self] isFavoritePet in
+//
+//            guard
+//                let self = self else { return }
+//
+//            if
+//                let isFavoritePet = resultViewModel?.result {
+//
+//                let favoriteActionTitle = isFavoritePet
+//                ? "移除我的最愛"
+//                : "加入我的最愛"
+//
+//                let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+//
+//                let cancel = UIAlertAction(title: "取消", style: .cancel)
+//
+//                let favoriteAction = UIAlertAction(title: favoriteActionTitle, style: .default) { _ in
+//
+//                    self.viewModel.toggleFavoritePet()
+//                }
+//
+//                alert.addAction(favoriteAction)
+//
+//                alert.addAction(cancel)
+//
+//                // iPad specific code
+//                self.configureIpadAlert(with: alert)
+//
+//                self.present(alert, animated: true)
+//            }
+//        }

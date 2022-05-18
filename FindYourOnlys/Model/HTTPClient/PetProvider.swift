@@ -13,6 +13,8 @@ class PetProvider {
     
     static let shared = PetProvider()
     
+    // MARK: - Methods
+    
     func fetchPet(
         with condition: AdoptFilterCondition,
         paging: Int? = nil,
