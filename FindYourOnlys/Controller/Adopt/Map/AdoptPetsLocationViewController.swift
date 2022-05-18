@@ -15,7 +15,15 @@ class AdoptPetsLocationViewController: BaseViewController {
         static let direction = "SegueDirection"
     }
     
-    @IBOutlet weak var mapView: MKMapView! {
+    // MARK: - Properties
+    
+    let viewModel = AdoptPetsLocationViewModel()
+    
+    private let locationManager = CLLocationManager()
+    
+    private var adoptDirectionVC: AdoptDirectionViewController?
+    
+    @IBOutlet private weak var mapView: MKMapView! {
         
         didSet {
             
@@ -23,9 +31,9 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    @IBOutlet var directionView: UIView!
+    @IBOutlet private var directionView: UIView!
     
-    @IBOutlet weak var backButton: UIButton! {
+    @IBOutlet private weak var backButton: UIButton! {
         
         didSet {
             
@@ -33,7 +41,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var navigateButton: TransformButton! {
+    @IBOutlet private weak var navigateButton: TransformButton! {
         
         didSet {
             
@@ -47,7 +55,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var searchTextField: ContentInsetTextField! {
+    @IBOutlet private weak var searchTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -59,7 +67,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var searchButton: UIButton! {
+    @IBOutlet private weak var searchButton: UIButton! {
         
         didSet {
             
@@ -71,51 +79,14 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
     }
     
-    let viewModel = AdoptPetsLocationViewModel()
-    
-    private let locationManager = CLLocationManager()
-    
-    var adoptDirectionVC: AdoptDirectionViewController?
-    
     override var isHiddenNavigationBar: Bool { return true }
     
     override var isHiddenTabBar: Bool { return true }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupSearchViews()
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        // Pet
-        viewModel.convertAddress()
-        
-        viewModel.getPetLocationHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.mapView.centerToLocation(self.viewModel.locationViewModel.value.location)
-            
-            self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
-        }
-           
-        // Pets
-        viewModel.getUserLocationHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.mapView.centerToLocation(self.viewModel.currentLocationViewModel.value.location)
-            
-            self.mapView.addAnnotation(self.viewModel.currentMapAnnotation.value.mapAnnotation)
-            
-            self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
-        }
         
         viewModel.mapAnnotationViewModels.bind { [weak self] mapAnnotationViewModels in
             
@@ -131,7 +102,6 @@ class AdoptPetsLocationViewController: BaseViewController {
                 
                 if mapAnnotations.count == 0 {
                     
-//                    self.showAlertWindowAndBack(title: "注意", message: "你所在位置附近沒有收容所資訊喔！")
                     self.showAlertWindow(title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
                     
                 } else {
@@ -141,8 +111,30 @@ class AdoptPetsLocationViewController: BaseViewController {
             }
         }
         
-        // Common
-        attemptLocationAccess()
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            if
+                let error = errorViewModel?.error {
+                    
+                // Check user's location have shelters' information
+                if self.viewModel.shelterViewModels.value != nil {
+                    
+                    // Filter out error message when occured error,
+                    // but already have annotations on the map to enhance UX.
+                    if self.viewModel.mapAnnotationViewModels.value == nil {
+                        
+                        self.showAlertWindow(of: error)
+                    }
+                    
+                } else {
+                    
+                    self.showAlertWindow(of: error)
+                }
+            }
+        }
         
         viewModel.showDirectionHandler = { [weak self] in
             
@@ -153,72 +145,18 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             self?.showAlertWindow(title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
-                
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-            
-            if
-                let error = errorViewModel?.error {
-                
-                DispatchQueue.main.async {
-                    
-                    // Check user's location have shelters' information
-                    if self?.viewModel.shelterViewModels.value != nil {
-                        
-                        // Filter out error message when occured error but already have annotations on the map to enhance UX.
-                        if self?.viewModel.mapAnnotationViewModels.value == nil {
-                            
-                            if
-                                let httpClientError = error as? HTTPClientError {
-                                
-                                self?.showAlertWindow(title: "異常訊息", message: "\(httpClientError.errorMessage)")
-                                
-                            } else if
-                                let mapError = error as? MapError {
-                                
-                                self?.showAlertWindow(title: "異常訊息", message: "\(mapError.errorMessage)")
-                            }
-                        }
-                        
-                    } else {
-                        
-                        if
-                            let httpClientError = error as? HTTPClientError {
-                            
-                            self?.showAlertWindow(title: "異常訊息", message: "\(httpClientError.errorMessage)")
-                            
-                        } else if
-                            let mapError = error as? MapError {
-                            
-                            self?.showAlertWindow(title: "異常訊息", message: "\(mapError.errorMessage)")
-                        }
-                    }
-                }
-            }
-            
-//            guard
-//                let errorViewModel = errorViewModel else { return }
-            
-            // Check user's location have shelters' information
-//            if self?.viewModel.shelterViewModels.value != nil {
-                
-                // Filter out error message when occured error but already have annotations on the map to enhance UX.
-//                if self?.viewModel.mapAnnotationViewModels.value == nil {
-//
-//                    self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
-//                }
-//
-//            } else {
-//
-//                self?.showAlertWindow(title: "異常訊息", message: "\(String(describing: errorViewModel.error))")
-//            }
-        }
         
-        viewModel.stopLoadingHandler = { [weak self] in
-
-            self?.stopLoading()
-        }
+        configureLoadingView()
+        
+        getLocationAnnotations()
+        
+        setupSearchViews()
         
         setupGesture()
+        
+        attemptLocationAccess()
+        
+        viewModel.convertAddress()
     }
     
     override func viewDidLayoutSubviews() {
@@ -231,61 +169,75 @@ class AdoptPetsLocationViewController: BaseViewController {
         directionView.roundCorners(corners: [.topLeft, .topRight], radius: 25)
     }
     
-    // Pets
+    // MARK: - Methods and IBActions
     
-    @IBAction func back(_ sender: UIButton) {
-        
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func navigate(_ sender: UIButton) {
-        
-        viewModel.calculateRoute()
-    }
-    
-    @IBAction func searchShelter(_ sender: UIButton) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard
-            let searchText = searchTextField.text,
-            searchText != ""
+            segue.identifier == Segue.direction,
+            let adoptDirectionVC = segue.destination as? AdoptDirectionViewController
                 
-        else {
+        else { return }
+        
+        adoptDirectionVC.closeHandler = { [weak self] in
             
-            showAlertWindow(title: "請輸入縣市", message: "")
+            guard
+                let self = self else { return }
             
-            return
+            self.dismiss(adoptDirectionVC)
         }
         
-        viewModel.isSearch = true
+        self.adoptDirectionVC = adoptDirectionVC
+    }
+    
+    private func configureLoadingView() {
         
-        viewModel.fetchShelter(with: searchText)
-        
-        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
-            model: MapAnnotation(
-                title: "",
-                subtitle: "",
-                location: "",
-                coordinate: CLLocationCoordinate2D())
-        )
-        
-        mapView.removeAnnotations(mapView.annotations)
-        
-        if
-            mapView.overlays.count != 0 {
+        viewModel.startLoadingHandler = { [weak self] in
             
-            mapView.removeOverlay(mapView.overlays[0])
+            guard
+                let self = self else { return }
+
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+
+            self.stopLoading()
+        }
+    }
+    
+    private func getLocationAnnotations() {
+        
+        viewModel.getPetLocationHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.mapView.centerToLocation(self.viewModel.locationViewModel.value.location)
+            
+            self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
+        }
+           
+        viewModel.getUserLocationHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.mapView.centerToLocation(self.viewModel.currentLocationViewModel.value.location)
+            
+            self.mapView.addAnnotation(self.viewModel.currentMapAnnotation.value.mapAnnotation)
+            
+            self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
         }
     }
     
     private func attemptLocationAccess() {
         
         guard
-            CLLocationManager.locationServicesEnabled()
-                
-        else {
-            
-            return
-        }
+            CLLocationManager.locationServicesEnabled() else { return }
         
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         
@@ -324,7 +276,11 @@ class AdoptPetsLocationViewController: BaseViewController {
             animated: true
         )
         
-        mapView.showAnnotations([viewModel.currentMapAnnotation.value.mapAnnotation, viewModel.selectedMapAnnotation.value.mapAnnotation], animated: true)
+        mapView.showAnnotations(
+            [viewModel.currentMapAnnotation.value.mapAnnotation,
+             viewModel.selectedMapAnnotation.value.mapAnnotation],
+            animated: true
+        )
         
         let totalDistance = mapRoute.distance
         
@@ -340,14 +296,11 @@ class AdoptPetsLocationViewController: BaseViewController {
         )
     }
     
-    // Common
-    
     func setupSearchViews() {
         
         searchButton.isHidden = !viewModel.isShelterMap
         
         searchTextField.isHidden = !viewModel.isShelterMap
-        
     }
     
     func showDirectionView() {
@@ -355,7 +308,9 @@ class AdoptPetsLocationViewController: BaseViewController {
         let maxY = mapView.frame.maxY
         
         directionView.frame = CGRect(
-            x: 0, y: maxY, width: UIScreen.main.bounds.width, height: 0.0
+            x: 0, y: maxY,
+            width: UIScreen.main.bounds.width,
+            height: 0.0
         )
         
         view.addSubview(directionView)
@@ -365,12 +320,14 @@ class AdoptPetsLocationViewController: BaseViewController {
             animations: { [weak self] in
                 
                 guard
-                    let strongSelf = self else { return }
+                    let self = self else { return }
                 
-                let height = strongSelf.view.frame.height * 0.4
+                let height = self.view.frame.height * 0.4
                 
-                self?.directionView.frame = CGRect(
-                    x: 0, y: maxY - height, width: UIScreen.main.bounds.width, height: height
+                self.directionView.frame = CGRect(
+                    x: 0, y: maxY - height,
+                    width: UIScreen.main.bounds.width,
+                    height: height
                 )
             }
         )
@@ -380,17 +337,27 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         let origin = directionView.frame
         
-        let nextFrame = CGRect(x: origin.minX, y: origin.maxY, width: origin.width, height: origin.height)
+        let nextFrame = CGRect(
+            x: origin.minX, y: origin.maxY,
+            width: origin.width,
+            height: origin.height
+        )
         
         UIView.animate(
             withDuration: 0.3,
             animations: { [weak self] in
                 
-                self?.directionView.frame = nextFrame
+                guard
+                    let self = self else { return }
+                
+                self.directionView.frame = nextFrame
                 
             }, completion: { [weak self] _ in
                 
-                self?.directionView.removeFromSuperview()
+                guard
+                    let self = self else { return }
+                
+                self.directionView.removeFromSuperview()
             }
         )
     }
@@ -403,25 +370,11 @@ class AdoptPetsLocationViewController: BaseViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard
-            segue.identifier == Segue.direction,
-            let adoptDirectionVC = segue.destination as? AdoptDirectionViewController
-                
-        else { return }
-        
-        adoptDirectionVC.closeHandler = { [weak self] in
-            
-            self?.dismiss(adoptDirectionVC)
-        }
-        
-        self.adoptDirectionVC = adoptDirectionVC
-    }
-    
     @objc func tapDirectionView(sender: UITapGestureRecognizer) {
         
         let maxY = mapView.frame.maxY
+        
+        let screenWidth = UIScreen.main.bounds.width
         
         let highHeight = view.frame.height * 0.7
         
@@ -431,46 +384,86 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             UIView.animate(withDuration: 0.3) { [weak self] in
                 
-                if self?.directionView.frame.height == lowHeight {
+                guard
+                    let self = self else { return }
+                
+                if self.directionView.frame.height == lowHeight {
                     
-                    self?.directionView.frame = CGRect(
-                        x: 0, y: maxY - highHeight, width: UIScreen.main.bounds.width, height: highHeight
+                    self.directionView.frame = CGRect(
+                        x: 0, y: maxY - highHeight,
+                        width: screenWidth,
+                        height: highHeight
                     )
                     
                 } else {
                     
-                    self?.directionView.frame = CGRect(
-                        x: 0, y: maxY - lowHeight, width: UIScreen.main.bounds.width, height: highHeight
+                    self.directionView.frame = CGRect(
+                        x: 0, y: maxY - lowHeight,
+                        width: screenWidth,
+                        height: highHeight
                     )
                 }
                 
             } completion: { [weak self] _ in
                 
-                if self?.directionView.frame.minY == maxY - lowHeight {
+                guard
+                    let self = self else { return }
+                
+                if self.directionView.frame.minY == maxY - lowHeight {
                     
-                    self?.directionView.frame = CGRect(
-                        x: 0, y: maxY - lowHeight, width: UIScreen.main.bounds.width, height: lowHeight
+                    self.directionView.frame = CGRect(
+                        x: 0, y: maxY - lowHeight,
+                        width: screenWidth,
+                        height: lowHeight
                     )
                 }
             }
-
         }
     }
     
-    func showAlertWindowAndBack(title: String, message: String?) {
+    @IBAction func back(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func navigate(_ sender: UIButton) {
         
-        let action = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+        viewModel.calculateRoute()
+    }
+    
+    @IBAction func searchShelter(_ sender: UIButton) {
+        
+        guard
+            let searchText = searchTextField.text,
+            searchText != ""
+                
+        else {
             
-            self?.navigationController?.popViewController(animated: true)
+            showAlertWindow(title: "請輸入縣市")
+            
+            return
         }
         
-        alert.addAction(action)
+        viewModel.isSearch = true
         
-        present(alert, animated: true)
+        viewModel.fetchShelter(with: searchText)
+        
+        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
+            model: MapAnnotation(
+                title: "",
+                subtitle: "",
+                location: "",
+                coordinate: CLLocationCoordinate2D())
+        )
+        
+        mapView.removeAnnotations(mapView.annotations)
+        
+        if
+            mapView.overlays.count != 0 {
+            
+            mapView.removeOverlay(mapView.overlays[0])
+        }
     }
-    
 }
 
 // MARK: - CLLocationManagerDelegate
