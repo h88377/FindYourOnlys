@@ -10,6 +10,9 @@ import UIKit
 import Lottie
 
 // 1. viewModel內宣告的變數是否都要包一層viewModel?
+// 2. Private func, property 要放前面還後面？
+// 3. Error enum, 共用enum是否要創一個.swift檔案？
+// 4. 來自viewModel closure handler是否要再包一層讓viewDidLoad不要太長？
 
 class AdoptListViewController: BaseViewController {
     
@@ -43,14 +46,13 @@ class AdoptListViewController: BaseViewController {
         }
     }
     
-    private var activityIndicator: LoadMoreActivityIndicator!
-    
     let viewModel = AdoptListViewModel()
     
     var resetConditionHandler: (() -> Void)?
     
-    // MARK: - Life cycle
+    private var activityIndicator: LoadMoreActivityIndicator!
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         

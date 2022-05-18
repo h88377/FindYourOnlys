@@ -10,18 +10,16 @@ import Foundation
 class AdoptFavoriteViewModel {
     
     // MARK: - Properties
+    let favoritePetViewModels = Box([PetViewModel]())
+    
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     private var didSignIn: Bool {
         
         return UserFirebaseManager.shared.currentUser != nil
     }
     
-    let favoritePetViewModels = Box([PetViewModel]())
-    
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
     // MARK: - Methods
-    
     func fetchFavoritePets() {
         
         if didSignIn {

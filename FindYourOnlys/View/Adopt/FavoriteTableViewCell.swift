@@ -81,7 +81,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - Life cycle
+    // MARK: - View Life Cycle
     
     override func layoutSubviews() {
         super.layoutSubviews()

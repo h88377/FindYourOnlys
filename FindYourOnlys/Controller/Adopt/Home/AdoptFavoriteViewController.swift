@@ -29,7 +29,7 @@ class AdoptFavoriteViewController: BaseViewController {
     
     private let viewModel = AdoptFavoriteViewModel()
     
-    // MARK: - Life cycle
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

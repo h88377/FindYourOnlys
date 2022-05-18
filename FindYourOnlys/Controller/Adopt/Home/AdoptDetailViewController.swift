@@ -14,13 +14,7 @@ protocol AdoptDetailViewControllerDelegate: AnyObject {
 
 class AdoptDetailViewController: BaseViewController {
     
-    var viewModel = AdoptDetailViewModel()
-    
-    weak var delegate: AdoptDetailViewControllerDelegate?
-    
-    override var isHiddenTabBar: Bool { return true }
-    
-    override var isHiddenNavigationBar: Bool { return true }
+    // MARK: - Properties
     
     @IBOutlet weak var favoriteButton: UIButton! {
         
@@ -70,9 +64,19 @@ class AdoptDetailViewController: BaseViewController {
         }
     }
     
-    let tableView = UITableView()
+    override var isHiddenTabBar: Bool { return true }
     
-    let backButton = UIButton()
+    override var isHiddenNavigationBar: Bool { return true }
+    
+    var viewModel = AdoptDetailViewModel()
+    
+    weak var delegate: AdoptDetailViewControllerDelegate?
+    
+    private let tableView = UITableView()
+    
+    private let backButton = UIButton()
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,19 +94,7 @@ class AdoptDetailViewController: BaseViewController {
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    } else if
-                        let localStorageError = error as? LocalStorageError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
-                    }
-                }
+                self?.showErrorAlert(with: error)
             }
         }
         
@@ -111,55 +103,73 @@ class AdoptDetailViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
+            self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
+            
+            let favoritePetViewModels = self.viewModel.favoritePetViewModels.value
+            
+            let pet = self.viewModel.petViewModel.value.pet
+            
+            for favoritePetViewModel in favoritePetViewModels where favoritePetViewModel.pet.id == pet.id {
+                
+                self.favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
+            }
         }
         
-        // Create a function to replace
-        if !viewModel.didSignIn {
-            
-            viewModel.fetchFavoritePetFromLS()
-            
-            //            self.viewModel.checkFavoriteButton(with: self.favoriteButton)
-            
-        } else {
-            
-            viewModel.fetchFavoriteFromFB()
-            
-            //                    self.viewModel.checkFavoriteButton(with: self.favoriteButton)
-        }
-        
-        viewModel.shareHandler = { [weak self] in
+        viewModel.toggleFavoriteButtonHandler = { [weak self] in
             
             guard
                 let self = self else { return }
             
-            // Generate the screenshot
-            UIGraphicsBeginImageContext(self.view.frame.size)
+            if self.favoriteButton.currentImage == UIImage.system(.addToFavorite) {
+                
+                self.viewModel.addPetInFavorite()
+                
+            } else {
+                
+                self.viewModel.removeFavoritePet()
+            }
             
-            self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
-            
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            
-            UIGraphicsEndImageContext()
-            
-            let items: [Any] = [image]
-            
-            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-            
-            // iPad specific code
-            activityVC.popoverPresentationController?.sourceView = self.view
-            
-            let xOrigin = self.view.bounds.width / 2
-            
-            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-            
-            activityVC.popoverPresentationController?.sourceRect = popoverRect
-            
-            activityVC.popoverPresentationController?.permittedArrowDirections = .up
-            
-            self.present(activityVC, animated: true)
+            self.favoriteButton.setImage(
+                self.favoriteButton.currentImage == UIImage.system(.addToFavorite)
+                ? UIImage.system(.removeFromFavorite)
+                : UIImage.system(.addToFavorite), for: .normal
+            )
         }
         
+        viewModel.shareHandler = { [weak self] in
+            
+            self?.showShareActivity()
+        }
+        
+        viewModel.makePhoneCallHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            let phoneNumber = self.viewModel.petViewModel.value.pet.telephone
+            
+            guard
+                let url = URL(string: "tel://\(String(describing: phoneNumber))"),
+                UIApplication.shared.canOpenURL(url)
+                    
+            else {
+                
+                self.showAlertWindow(title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
+                
+                return
+            }
+            
+            if #available(iOS 10, *) {
+                
+                UIApplication.shared.open(url)
+                
+            } else {
+                
+                UIApplication.shared.openURL(url)
+            }
+        }
+        
+        viewModel.fetchFavoritePet()
     }
     
     override func viewDidLayoutSubviews() {
@@ -173,6 +183,8 @@ class AdoptDetailViewController: BaseViewController {
         
         favoriteButton.layer.cornerRadius = 15
     }
+    
+    // MARK: - Methods and IBActions
     
     override func setupTableView() {
         
@@ -217,7 +229,7 @@ class AdoptDetailViewController: BaseViewController {
         setupButton()
     }
     
-    func setupButton() {
+    private func setupButton() {
         
         view.addSubview(backButton)
         
@@ -252,34 +264,57 @@ class AdoptDetailViewController: BaseViewController {
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
+    private func showErrorAlert(with error: Error) {
+        
+        if
+            let firebaseError = error as? FirebaseError {
+            
+            showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
+            
+        } else if
+            let localStorageError = error as? LocalStorageError {
+            
+            showAlertWindow(title: "異常", message: "\(localStorageError.errorMessage)")
+        }
+    }
+    
+    private func showShareActivity() {
+        
+        // Generate the screenshot
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        let items: [Any] = [image]
+        
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        configureIpadAlert(with: activityVC)
+        
+        present(activityVC, animated: true)
+    }
+    
     @IBAction func toggleFavorite(_ sender: UIButton) {
         
-        if !viewModel.didSignIn {
-            
-            // Local Storage
-            viewModel.fetchFavoritePetFromLS()
-            
-        } else {
-            
-            // Firebase
-            viewModel.fetchFavoriteFromFB()
-        }
+        viewModel.fetchFavoritePet()
         
-        viewModel.toggleFavoriteButton(with: sender)
+        viewModel.toggleFavoriteButton()
         
         self.delegate?.toggleFavorite()
     }
     
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
-        viewModel.makePhoneCall(self)
+        viewModel.makePhoneCall()
     }
     
     @objc func back(_ sender: UIButton) {
         
         navigationController?.popViewController(animated: true)
-        
-//        dismiss(animated: true)
     }
     
     @IBAction func checkLocation(_ sender: UIButton) {
@@ -288,8 +323,8 @@ class AdoptDetailViewController: BaseViewController {
         
         guard
             let petsLocationVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptPetsLocationViewController.identifier)
-                as? AdoptPetsLocationViewController
+                withIdentifier: AdoptPetsLocationViewController.identifier
+            ) as? AdoptPetsLocationViewController
                 
         else { return }
         
@@ -299,7 +334,6 @@ class AdoptDetailViewController: BaseViewController {
         
         navigationController?.pushViewController(petsLocationVC, animated: true)
     }
-    
 }
 
 // MARK: - UITableViewDelegate & DataSource
@@ -320,68 +354,43 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
         
         if indexPath.item == 0 {
             
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: AdoptDetailTableViewCell.identifier,
+                for: indexPath
+            )
+            
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: AdoptDetailTableViewCell.identifier, for: indexPath) as? AdoptDetailTableViewCell
+                let detailCell = cell as? AdoptDetailTableViewCell
                     
-            else { return UITableViewCell() }
+            else { return cell }
             
-            cell.configureCell(with: cellViewModel)
+            detailCell.configureCell(with: cellViewModel)
             
-            cell.shareHandler = { [weak self] in
+            detailCell.shareHandler = { [weak self] in
                 
                 self?.viewModel.share()
             }
             
-            return cell
+            return detailCell
             
         } else {
             
-            return adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(indexPath, tableView: tableView, viewModel: cellViewModel)
+            let detailContentCell = adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(
+                indexPath,
+                tableView: tableView,
+                viewModel: cellViewModel
+            )
+            
+            return detailContentCell
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            
-            guard
-                let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
-            
-            header.scrollViewDidScroll(scrollView: tableView)
-        }
+        guard
+            let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
         
-        //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //
-        //        if indexPath.row == 0 {
-        //
-        //            return tableView.estimatedRowHeight
-        //
-        //        } else {
-        //
-        //            return tableView.estimatedRowHeight
-        //        }
-        //    }
+        header.scrollViewDidScroll(scrollView: tableView)
     }
-    
-    
-    //    override func viewDidLayoutSubviews() {
-    //        super.viewDidLayoutSubviews()
-    
-    //        tableView.roundCorners(corners: [.topLeft, .topRight], radius: 12)
-    //    }
-    
-    //        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
-    
-    //            self?.viewModel.isFavorite(with: &self!.favoriteButton)
-    //            self?.favoriteButton.setTitle("AddToFavorite", for: .normal)
-    //
-    //            for favoritePetViewModel in favoritePetViewModels {
-    //
-    //                if favoritePetViewModel.pet.id == self?.viewModel.petViewModel.value.pet.id {
-    //
-    //                    self?.favoriteButton.setTitle("RemoveFromFavorite", for: .normal)
-    //
-    //                    break
-    //                }
-    //
-    //
-    //            }
+}
 

@@ -10,18 +10,6 @@ import Foundation
 class AdoptListViewModel {
     
     // MARK: - Properties
-    
-    private var didSignIn: Bool {
-        
-        return UserFirebaseManager.shared.currentUser != nil
-    }
-    
-    private var currentPage = 0
-    
-    private var selectedPetViewModel: Box<PetViewModel?> = Box(nil)
-    
-    private var favoritePetsFromLS = [LSPet]()
-    
     let petViewModels = Box([PetViewModel]())
     
 //    var isFavoritePetViewModel: Box<ResultViewModel?> = Box(nil)
@@ -52,6 +40,17 @@ class AdoptListViewModel {
     var noMorePetHandler: (() -> Void)?
     
     var addToFavoriteHandler: (() -> Void)?
+
+    private var didSignIn: Bool {
+        
+        return UserFirebaseManager.shared.currentUser != nil
+    }
+    
+    private var currentPage = 0
+    
+    private var selectedPetViewModel: Box<PetViewModel?> = Box(nil)
+    
+    private var favoritePetsFromLS = [LSPet]()
     
     // MARK: - Methods
     
@@ -270,11 +269,6 @@ class AdoptListViewModel {
     }
     
     private func addFavoritePetInLS(with viewModel: PetViewModel) {
-        
-        guard
-            let viewModel = selectedPetViewModel.value
-                
-        else { return }
         
         StorageManager.shared.savePetInFavorite(with: viewModel) { [weak self] result in
             

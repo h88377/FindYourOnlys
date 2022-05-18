@@ -38,7 +38,7 @@ class BaseViewController: UIViewController {
         return false
     }
     
-    // MARK: - Life cycle
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,7 +157,7 @@ class BaseViewController: UIViewController {
         }
     }
     
-    func configureIpadAlert(with alert: UIAlertController) {
+    func configureIpadAlert(with alert: UIViewController) {
         
         alert.popoverPresentationController?.sourceView = self.view
         
