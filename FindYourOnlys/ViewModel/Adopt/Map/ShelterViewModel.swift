@@ -7,13 +7,13 @@
 
 import Foundation
 
-class ShelterViewModel {
-    
-    var shelter: Shelter
-    
-    init(model: Shelter) {
-        
-        self.shelter = model
-    }
-    
-}
+//class ShelterViewModel {
+//    
+//    var shelter: Shelter
+//    
+//    init(model: Shelter) {
+//        
+//        self.shelter = model
+//    }
+//    
+//}

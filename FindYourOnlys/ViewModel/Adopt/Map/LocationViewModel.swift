@@ -8,12 +8,12 @@
 import Foundation
 import CoreLocation
 
-class LocationViewModel {
-    
-    var location: CLLocation
-    
-    init(model: CLLocation) {
-        
-        self.location = model
-    }
-}
+//class LocationViewModel {
+//    
+//    var location: CLLocation
+//    
+//    init(model: CLLocation) {
+//        
+//        self.location = model
+//    }
+//}

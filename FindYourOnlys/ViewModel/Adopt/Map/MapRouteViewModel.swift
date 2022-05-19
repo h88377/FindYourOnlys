@@ -7,11 +7,11 @@
 
 import MapKit
 
-class MapRouteViewModel {
-    
-    var mapRoute: MKRoute
-    
-    init(model: MKRoute) {
-        self.mapRoute = model
-    }
-}
+//class MapRouteViewModel {
+//    
+//    var mapRoute: MKRoute
+//    
+//    init(model: MKRoute) {
+//        self.mapRoute = model
+//    }
+//}

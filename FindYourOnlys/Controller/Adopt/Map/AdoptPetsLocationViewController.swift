@@ -119,8 +119,8 @@ class AdoptPetsLocationViewController: BaseViewController {
             if
                 let error = errorViewModel?.error {
                     
-                // Check user's location have shelters' information
-                if self.viewModel.shelterViewModels.value != nil {
+                // Check user's location if have shelters' information
+                if self.viewModel.shelters != nil {
                     
                     // Filter out error message when occured error,
                     // but already have annotations on the map to enhance UX.
@@ -138,12 +138,18 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.showDirectionHandler = { [weak self] in
             
-            self?.showDirectionView()
+            guard
+                let self = self else { return }
+            
+            self.showDirectionView()
         }
         
         viewModel.showAlertHandler = { [weak self] in
             
-            self?.showAlertWindow(title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
+            guard
+                let self = self else { return }
+            
+            self.showAlertWindow(title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
         
         setupLoadingViewHandler()
@@ -214,23 +220,42 @@ class AdoptPetsLocationViewController: BaseViewController {
         viewModel.getPetLocationHandler = { [weak self] in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let petLocation = self.viewModel.petLocation,
+                let selectedMapAnnotation = self.viewModel.selectedMapAnnotation
+                    
+            else { return }
             
-            self.mapView.centerToLocation(self.viewModel.locationViewModel.value.location)
+            self.mapView.centerToLocation(petLocation)
             
-            self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
+            self.mapView.addAnnotation(selectedMapAnnotation)
+            
+//            self.mapView.centerToLocation(self.viewModel.petLocationViewModel.value.location)
+            
+//            self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
         }
            
         viewModel.getUserLocationHandler = { [weak self] in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let currentLocation = self.viewModel.currentLocation,
+                let currentMapAnnotation = self.viewModel.currentMapAnnotation,
+                let mapRoute = self.viewModel.mapRoute
+                    
+            else { return }
             
-            self.mapView.centerToLocation(self.viewModel.currentLocationViewModel.value.location)
+            self.mapView.centerToLocation(currentLocation)
+
+            self.mapView.addAnnotation(currentMapAnnotation)
+
+            self.updateView(with: mapRoute)
             
-            self.mapView.addAnnotation(self.viewModel.currentMapAnnotation.value.mapAnnotation)
-            
-            self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
+//            self.mapView.centerToLocation(self.viewModel.currentLocationViewModel.value.location)
+//
+//            self.mapView.addAnnotation(self.viewModel.currentMapAnnotation.value.mapAnnotation)
+//
+//            self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
         }
     }
     
@@ -255,6 +280,13 @@ class AdoptPetsLocationViewController: BaseViewController {
     
     private func updateView(with mapRoute: MKRoute) {
         
+        guard
+            let currentMapAnnotation = viewModel.currentMapAnnotation,
+            let selectedMapAnnotation = viewModel.selectedMapAnnotation,
+            let route = viewModel.route
+                
+        else { return }
+        
         if
             mapView.overlays.count != 0 {
             
@@ -276,11 +308,13 @@ class AdoptPetsLocationViewController: BaseViewController {
             animated: true
         )
         
-        mapView.showAnnotations(
-            [viewModel.currentMapAnnotation.value.mapAnnotation,
-             viewModel.selectedMapAnnotation.value.mapAnnotation],
-            animated: true
-        )
+        mapView.showAnnotations([currentMapAnnotation, selectedMapAnnotation], animated: true)
+        
+//        mapView.showAnnotations(
+//            [viewModel.currentMapAnnotation.value.mapAnnotation,
+//             viewModel.selectedMapAnnotation.value.mapAnnotation],
+//            animated: true
+//        )
         
         let totalDistance = mapRoute.distance
         
@@ -288,7 +322,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         adoptDirectionVC?.viewModel.directionViewModel.value = DirectionViewModel(
             model: Direction(
-                route: viewModel.routeViewModel.value.route,
+                route: route,
                 mapRoutes: [mapRoute],
                 totalDistance: totalDistance,
                 totalTravelTime: totalTravelTime
@@ -447,13 +481,15 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.fetchShelter(with: searchText)
         
-        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
-            model: MapAnnotation(
-                title: "",
-                subtitle: "",
-                location: "",
-                coordinate: CLLocationCoordinate2D())
-        )
+        viewModel.selectedMapAnnotation = MapAnnotation()
+        
+//        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
+//            model: MapAnnotation(
+//                title: "",
+//                subtitle: "",
+//                location: "",
+//                coordinate: CLLocationCoordinate2D())
+//        )
         
         mapView.removeAnnotations(mapView.annotations)
         
@@ -519,9 +555,13 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                     )
                 )
                 
-                self.viewModel.currentMapAnnotation.value.mapAnnotation = currentAnnotation
+//                self.viewModel.currentMapAnnotation.value.mapAnnotation = currentAnnotation
+//
+//                self.viewModel.currentLocationViewModel.value.location = firstLocation
                 
-                self.viewModel.currentLocationViewModel.value.location = firstLocation
+                self.viewModel.currentMapAnnotation = currentAnnotation
+                
+                self.viewModel.currentLocation = firstLocation
                 
                 self.stopLoading()
                 
@@ -577,6 +617,8 @@ extension AdoptPetsLocationViewController: MKMapViewDelegate {
         guard
             let selectedMapAnnotation = view.annotation as? MapAnnotation else { return }
         
-        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(model: selectedMapAnnotation)
+        viewModel.selectedMapAnnotation = selectedMapAnnotation
+        
+//        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(model: selectedMapAnnotation)
     }
 }

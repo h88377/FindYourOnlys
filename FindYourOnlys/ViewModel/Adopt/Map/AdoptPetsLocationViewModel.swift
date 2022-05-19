@@ -7,37 +7,158 @@
 
 import MapKit
 
+enum ShelterName: String, CaseIterable {
+    
+    case keelung = "基隆市寵物銀行"
+    
+    case taipei = "臺北市動物之家"
+    
+    case banchiao = "新北市板橋區公立動物之家"
+    
+    case shindian = "新北市新店區公立動物之家"
+    
+    case chunhia = "新北市中和區公立動物之家"
+    
+    case tamshuia = "新北市淡水區公立動物之家"
+    
+    case taoyuan = "桃園市動物保護教育園區"
+    
+    case hsinchuCountry = "新竹縣公立動物收容所"
+    
+    case hsinchu = "新竹市動物保護教育園區"
+    
+    case newtaipei = "新北市政府動物保護防疫處"
+    
+    case miaoliCountry = "苗栗縣生態保育教育中心(動物收容所)"
+    
+    case taichung = "臺中市動物之家南屯園區"
+    
+    case hiuali = "臺中市動物之家后里園區"
+    
+    case changhuaCountry = "彰化縣流浪狗中途之家"
+    
+    case nantou = "南投縣公立動物收容所"
+    
+    case yunlin = "雲林縣流浪動物收容所"
+    
+    case chiayiCountry = "嘉義縣流浪犬中途之家"
+    
+    case chiayi = "嘉義市動物保護教育園區"
+    
+    case tainan = "臺南市動物之家灣裡站"
+    
+    case tainanshanhua = "臺南市動物之家善化站"
+    
+    case kaohsiung = "高雄市壽山動物保護教育園區"
+    
+    case ianchao = "高雄市燕巢動物保護關愛園區"
+    
+    case pingtungCountry = "屏東縣公立犬貓中途之家"
+    
+    case yilanCountry = "宜蘭縣流浪動物中途之家"
+    
+    case hualianCountry = "花蓮縣狗貓躍動園區"
+    
+    case taitungCountry = "臺東縣動物收容中心"
+    
+    case penghu = "澎湖縣流浪動物收容中心"
+    
+    case kinmen = "金門縣動物收容中心"
+    
+    case lienchiang = "連江縣流浪犬收容中心"
+    
+    case ruifang = "新北市瑞芳區公立動物之家"
+    
+    case wuku = "新北市五股區公立動物之家"
+    
+    case bali = "新北市八里區公立動物之家"
+    
+    case shanchi = "新北市三芝區公立動物之家"
+}
+
 class AdoptPetsLocationViewModel {
+    
+    // MARK: - Properties
+    
+    var mapAnnotationViewModels: Box<[MapAnnotationViewModel]?> = Box(nil)
+    
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var isShelterMap: Bool = true
     
     var isSearch: Bool = false
     
-    // Pet
-    var petViewModel = Box(
-        PetViewModel(
-            model: Pet(
-                id: 0, location: "", kind: "",
-                sex: "", bodyType: "", color: "",
-                age: "", sterilization: "", bacterin: "",
-                foundPlace: "", status: "", remark: "",
-                openDate: "", closedDate: "", updatedDate: "",
-                createdDate: "", photoURLString: "", address: "",
-                telephone: "", variety: "", shelterName: ""
-            )
-        )
-    )
+    var pet: Pet?
+    
+    var shelters: [Shelter]?
+    
+    var route: Route?
+    
+    var mapRoute: MKRoute?
+    
+    var currentMapAnnotation: MapAnnotation?
+    
+    var selectedMapAnnotation: MapAnnotation?
+    
+    var petLocation: CLLocation?
+    
+    var currentLocation: CLLocation?
+    
+    var getUserLocationHandler: (() -> Void)?
     
     var getPetLocationHandler: (() -> Void)?
+    
+    var showAlertHandler: (() -> Void)?
+    
+    var showDirectionHandler: (() -> Void)?
+    
+    var stopLoadingHandler: (() -> Void)?
+    
+    var startLoadingHandler: (() -> Void)?
+    
+    
+//    var petLocationViewModel = Box(LocationViewModel(model: CLLocation()))
+    
+//    var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
+    
+    
+//    var routeViewModel = Box(RouteViewModel(model: Route(origin: MKMapItem(), stops: [MKMapItem]())))
+    
+//    var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
+//    = Box(
+//       MapAnnotationViewModel(
+//           model: MapAnnotation(
+//               title: "",
+//               subtitle: "",
+//               location: "",
+//               coordinate: CLLocationCoordinate2D())
+//       )
+//   )
+    
+    
+//    var selectedMapAnnotation = Box(
+//        MapAnnotationViewModel(
+//            model: MapAnnotation(
+//                title: "",
+//                subtitle: "",
+//                location: "",
+//                coordinate: CLLocationCoordinate2D())
+//        )
+//    )
+    
+    // MARK: - Methods
     
     func convertAddress() {
         
         guard
-            !isShelterMap else { return }
+            !isShelterMap,
+            let pet = pet
+                
+        else { return }
         
         startLoadingHandler?()
             
-        MapManager.shared.convertAddress(with: "\(petViewModel.value.pet.address)") { [weak self] result in
+        MapManager.shared.convertAddress(with: "\(pet.address)") { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -46,78 +167,32 @@ class AdoptPetsLocationViewModel {
                 
             case .success(let location):
                 
-                self.locationViewModel.value.location = location
+//                self.petLocationViewModel.value.location = location
                 
-                let pet = self.petViewModel.value.pet
+                self.petLocation = location
                 
-                self.selectedMapAnnotation.value.mapAnnotation = MapAnnotation(
+                self.selectedMapAnnotation = MapAnnotation(
                     title: pet.kind, subtitle: pet.address,
                     location: pet.address,
                     coordinate: location.coordinate
                 )
                 
-                self.getPetLocationHandler?()
+//                self.selectedMapAnnotation.value.mapAnnotation = MapAnnotation(
+//                    title: pet.kind, subtitle: pet.address,
+//                    location: pet.address,
+//                    coordinate: location.coordinate
+//                )
                 
-                self.stopLoadingHandler?()
+                self.getPetLocationHandler?()
                 
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self.stopLoadingHandler?()
             }
+            
+            self.stopLoadingHandler?()
         }
     }
-    
-    // Pets
-    
-//    var shelterViewModels = Box([ShelterViewModel]())
-    
-    var shelterViewModels: Box<[ShelterViewModel]?> = Box(nil)
-    
-    var mapAnnotationViewModels: Box<[MapAnnotationViewModel]?> = Box(nil)
-    
-    // Common
-    
-    var showAlertHandler: (() -> Void)?
-    
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
-    var routeViewModel = Box(RouteViewModel(model: Route(origin: MKMapItem(), stops: [MKMapItem]())))
-    
-    var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
-    
-    var getUserLocationHandler: (() -> Void)?
-    
-    var currentMapAnnotation = Box(
-        MapAnnotationViewModel(
-            model: MapAnnotation(
-                title: "",
-                subtitle: "",
-                location: "",
-                coordinate: CLLocationCoordinate2D())
-        )
-    )
-    
-    var selectedMapAnnotation = Box(
-        MapAnnotationViewModel(
-            model: MapAnnotation(
-                title: "",
-                subtitle: "",
-                location: "",
-                coordinate: CLLocationCoordinate2D())
-        )
-    )
-    
-    var locationViewModel = Box(LocationViewModel(model: CLLocation()))
-    
-    var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
-    
-    var showDirectionHandler: (() -> Void)?
-    
-    var stopLoadingHandler: (() -> Void)?
-    
-    var startLoadingHandler: (() -> Void)?
     
     func fetchShelter(with city: String) {
         
@@ -125,7 +200,7 @@ class AdoptPetsLocationViewModel {
             isShelterMap else { return }
         
         if isSearch {
-
+            
             mapAnnotationViewModels.value = nil
         }
         
@@ -133,83 +208,34 @@ class AdoptPetsLocationViewModel {
         
         PetProvider.shared.fetchPet(
             with: AdoptFilterCondition()) { [weak self] result in
-            
-            guard
-                let self = self else { return }
-            
-            switch result {
                 
-            case .success(let pets):
+                guard
+                    let self = self else { return }
                 
-                // Get shelter with specific address
-                let shelterNames = ShelterName.allCases
-                    .map { $0.rawValue }
-                    .filter { $0[...2] == city }
-                
-                var shelters = [Shelter]()
-                
-                for shelterName in shelterNames {
+                switch result {
                     
-                    var shelter = Shelter(title: "", address: "", petCounts: [])
+                case .success(let pets):
                     
-                    var catPetCount = PetCount(petKind: "貓", count: 0)
+                    let shelters = self.convertShelters(from: pets, city: city)
                     
-                    var dogPetCount = PetCount(petKind: "狗", count: 0)
-                    
-                    var otherPetCount = PetCount(petKind: "其他", count: 0)
-                    
-                    for pet in pets where pet.shelterName == shelterName {
+                    if shelters.count == 0 {
                         
-                        switch pet.kind {
-                            
-                        case "貓":
-                            catPetCount.count += 1
-                            
-                        case "狗":
-                            dogPetCount.count += 1
-                            
-                        default:
-                            otherPetCount.count += 1
-                        }
+                        self.mapAnnotationViewModels.value = []
                         
-                        shelter = Shelter(
-                            title: shelterName,
-                            address: pet.address,
-                            petCounts: [catPetCount, dogPetCount, otherPetCount]
-                        )
+                    } else {
+                        
+                        self.shelters = shelters
+                        
+                        self.appendMapAnnotationsInViewModels(with: shelters)
                     }
                     
-                    if shelter.title != "" {
-                        
-                        shelters.append(shelter)
-                    }
+                case .failure(let error):
+                    
+                    self.errorViewModel.value = ErrorViewModel(model: error)
                 }
-                
-//                ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
-                
-                if shelters.count == 0 {
-                    
-                    self.mapAnnotationViewModels.value = []
-                    
-                    self.stopLoadingHandler?()
-                    
-                } else {
-                    
-                    ShelterProvider.shared.setShelters(with: self.shelterViewModels, shelter: shelters)
-                    
-                    self.appendMapAnnotationsInViewModels(with: shelters)
-                    
-                    self.stopLoadingHandler?()
-                }
-                
-            case .failure(let error):
-                
-                self.errorViewModel.value = ErrorViewModel(model: error)
                 
                 self.stopLoadingHandler?()
             }
-            
-        }
     }
 
     private func appendMapAnnotationsInViewModels(with shelters: [Shelter]) {
@@ -250,8 +276,13 @@ class AdoptPetsLocationViewModel {
     
     func calculateRoute() {
         
+//        guard
+//            selectedMapAnnotation.value.mapAnnotation.coordinate.longitude != CLLocationDegrees(0.0)
+        
         guard
-            selectedMapAnnotation.value.mapAnnotation.coordinate.longitude != CLLocationDegrees(0.0)
+            selectedMapAnnotation?.coordinate.longitude != CLLocationDegrees(0.0),
+            let currentCoordinate = currentMapAnnotation?.coordinate,
+            let stopCoordinate = selectedMapAnnotation?.coordinate
         
         else {
             
@@ -263,32 +294,82 @@ class AdoptPetsLocationViewModel {
         startLoadingHandler?()
         
         MapManager.shared.calculateRoute(
-            currentCoordinate: currentMapAnnotation.value.mapAnnotation.coordinate,
-            stopCoordinate: selectedMapAnnotation.value.mapAnnotation.coordinate) { [weak self] result in
-            
-            guard
-                let self = self else { return }
+            currentCoordinate: currentCoordinate,
+            stopCoordinate: stopCoordinate) { [weak self] result in
                 
-            switch result {
+                guard
+                    let self = self else { return }
                 
-            case .success(let(route, mapRoute)):
-                
-                self.routeViewModel.value.route = route
-                
-                self.mapRouteViewModel.value.mapRoute = mapRoute
-                
-                self.getUserLocationHandler?()
-                
-                self.showDirectionHandler?()
-                
-                self.stopLoadingHandler?()
-                
-            case .failure(let error):
-                
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                switch result {
+                    
+                case .success(let(route, mapRoute)):
+                    
+                    //                self.routeViewModel.value.route = route
+                    
+                    self.route = route
+                    
+                    self.mapRoute = mapRoute
+                    //                self.mapRouteViewModel.value.mapRoute = mapRoute
+                    
+                    self.getUserLocationHandler?()
+                    
+                    self.showDirectionHandler?()
+                    
+                case .failure(let error):
+                    
+                    self.errorViewModel.value = ErrorViewModel(model: error)
+                }
                 
                 self.stopLoadingHandler?()
             }
+    }
+    
+    private func convertShelters(from pets: [Pet], city: String) -> [Shelter] {
+        
+        // Get shelter with specific address
+        let shelterNames = ShelterName.allCases
+            .map { $0.rawValue }
+            .filter { $0[...2] == city }
+        
+        var shelters = [Shelter]()
+        
+        for shelterName in shelterNames {
+            
+            var shelter = Shelter(title: "", address: "", petCounts: [])
+            
+            var catPetCount = PetCount(petKind: "貓", count: 0)
+            
+            var dogPetCount = PetCount(petKind: "狗", count: 0)
+            
+            var otherPetCount = PetCount(petKind: "其他", count: 0)
+            
+            for pet in pets where pet.shelterName == shelterName {
+                
+                switch pet.kind {
+                    
+                case "貓":
+                    catPetCount.count += 1
+                    
+                case "狗":
+                    dogPetCount.count += 1
+                    
+                default:
+                    otherPetCount.count += 1
+                }
+                
+                shelter = Shelter(
+                    title: shelterName,
+                    address: pet.address,
+                    petCounts: [catPetCount, dogPetCount, otherPetCount]
+                )
+            }
+            
+            if shelter.title != "" {
+                
+                shelters.append(shelter)
+            }
         }
+        
+        return shelters
     }
 }

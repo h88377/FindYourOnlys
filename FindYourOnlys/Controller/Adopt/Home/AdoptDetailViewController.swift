@@ -329,7 +329,7 @@ class AdoptDetailViewController: BaseViewController {
                 
         else { return }
         
-        petsLocationVC.viewModel.petViewModel = viewModel.petViewModel
+        petsLocationVC.viewModel.pet = viewModel.petViewModel.value.pet
         
         petsLocationVC.viewModel.isShelterMap = false
         
