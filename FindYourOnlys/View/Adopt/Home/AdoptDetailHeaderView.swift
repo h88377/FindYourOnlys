@@ -8,6 +8,8 @@
 import UIKit
 
 class AdoptDetailHeaderView: UIView {
+    
+    // MARK: - Properties
 
     private var imageViewHeight = NSLayoutConstraint()
     
@@ -39,6 +41,8 @@ class AdoptDetailHeaderView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    // MARK: - Methods
     
     private func createView() {
         
@@ -95,8 +99,6 @@ class AdoptDetailHeaderView: UIView {
     }
     
     func configureView(with viewModel: PetViewModel) {
-
-//        animalImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         imageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
     }

@@ -9,6 +9,8 @@ import UIKit
 import MapKit
 
 class DirectionCell: UITableViewCell {
+    
+    // MARK: - Properties
 
     @IBOutlet private weak var distanceLabel: UILabel! {
         
@@ -27,6 +29,8 @@ class DirectionCell: UITableViewCell {
     }
     
     private let distanceFormatter = MKDistanceFormatter()
+    
+    // MARK: - Methods
     
     func configureCell(with viewModel: DirectionViewModel, at indexPath: IndexPath) {
         

@@ -10,7 +10,9 @@ import UIKit
 
 class AdoptCollectionViewCell: TransformCollectionCell {
     
-    @IBOutlet weak var baseView: UIView! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var baseView: UIView! {
         
         didSet {
             
@@ -18,7 +20,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         }
     }
     
-    @IBOutlet weak var photoImageView: UIImageView! {
+    @IBOutlet private weak var photoImageView: UIImageView! {
         
         didSet {
             
@@ -28,7 +30,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         }
     }
     
-    @IBOutlet weak var cityLabel: UILabel! {
+    @IBOutlet private weak var cityLabel: UILabel! {
         
         didSet {
             
@@ -38,7 +40,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         }
     }
     
-    @IBOutlet weak var kindLabel: UILabel! {
+    @IBOutlet private weak var kindLabel: UILabel! {
         
         didSet {
             
@@ -48,7 +50,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         }
     }
     
-    @IBOutlet weak var sexLabel: UILabel! {
+    @IBOutlet private weak var sexLabel: UILabel! {
         
         didSet {
             
@@ -58,7 +60,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         }
     }
     
-    @IBOutlet weak var locationImageView: UIImageView! {
+    @IBOutlet private weak var locationImageView: UIImageView! {
         
         didSet {
             
@@ -66,19 +68,20 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         }
     }
     
-    @IBOutlet weak var varietyLabel: UILabel!
+    @IBOutlet private weak var varietyLabel: UILabel!
     
-    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet private weak var idLabel: UILabel!
     
-//    @IBOutlet weak var statusLabel: UILabel! {
-//
-//        didSet {
-//
-//            statusLabel.textColor = .projectTextColor
-//
-//            statusLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-//        }
-//    }
+    // MARK: - View Life Cycle
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        baseView.layer.cornerRadius = 12
+        
+        photoImageView.layer.cornerRadius = 12
+    }
+    
+    // MARK: - Methods
     
     func configureCell(with viewModel: PetViewModel) {
         
@@ -90,24 +93,9 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         
         photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-//        if viewModel.pet.status == "OPEN" {
-//            
-//            statusLabel.text = "開放認養"
-            
-//            statusLabel.textColor = .openAdopt
-            
-//        } else {
-//
-//            statusLabel.text = "不開放認養"
-            
-//            statusLabel.textColor = .closeAdopt
-//        }
-        
         if viewModel.pet.sex == "M" {
             
             sexLabel.text = "♂"
-            
-//            sexLabel.text = Sex.male.rawValue
             
             sexLabel.textColor = .maleColor
             
@@ -115,18 +103,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
             
             sexLabel.text = "♀"
             
-//            sexLabel.text = Sex.female.rawValue
-            
             sexLabel.textColor = .femaleColor
         }
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        baseView.layer.cornerRadius = 12
-        
-        photoImageView.layer.cornerRadius = 12
-    }
-    
 }

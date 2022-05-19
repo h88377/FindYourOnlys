@@ -10,6 +10,8 @@ import MapKit
 
 class DirectionHeaderView: UITableViewHeaderFooterView {
     
+    // MARK: - Properties
+    
     @IBOutlet private weak var baseView: UIView! {
         
         didSet {
@@ -49,6 +51,8 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
     }
     
     private let distanceFormatter = MKDistanceFormatter()
+    
+    // MARK: - Methods
     
     func configureView(with viewModel: DirectionViewModel, route: MKRoute) {
         

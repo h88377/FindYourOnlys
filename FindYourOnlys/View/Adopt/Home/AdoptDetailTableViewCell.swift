@@ -10,7 +10,7 @@ import UIKit
 class AdoptDetailTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    @IBOutlet weak var statusLabel: UILabel! {
+    @IBOutlet private weak var statusLabel: UILabel! {
         
         didSet {
             
@@ -20,7 +20,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var kindLabel: UILabel! {
+    @IBOutlet private weak var kindLabel: UILabel! {
         
         didSet {
             
@@ -30,7 +30,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var sexLabel: UILabel! {
+    @IBOutlet private weak var sexLabel: UILabel! {
         
         didSet {
             
@@ -40,7 +40,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var varietyLabel: UILabel! {
+    @IBOutlet private weak var varietyLabel: UILabel! {
         
         didSet {
             
@@ -50,7 +50,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet var baseViews: [UIView]! {
+    @IBOutlet private var baseViews: [UIView]! {
         
         didSet {
             
@@ -58,7 +58,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var shareButton: UIButton! {
+    @IBOutlet private weak var shareButton: UIButton! {
         
         didSet {
             

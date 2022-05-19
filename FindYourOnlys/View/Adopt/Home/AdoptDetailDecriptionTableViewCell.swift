@@ -9,7 +9,9 @@ import UIKit
 
 class AdoptDetailDecriptionTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var descriptionLabel: UILabel! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var descriptionLabel: UILabel! {
         
         didSet {
             
@@ -17,13 +19,15 @@ class AdoptDetailDecriptionTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var itemLabel: UILabel! {
+    @IBOutlet private weak var itemLabel: UILabel! {
         
         didSet {
             
             itemLabel.textColor = .projectTextColor
         }
     }
+    
+    // MARK: - Methods
     
     func configureCell(description: String, content: String) {
         

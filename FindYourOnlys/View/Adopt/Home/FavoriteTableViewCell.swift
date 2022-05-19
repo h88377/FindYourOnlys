@@ -11,9 +11,9 @@ class FavoriteTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet private weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var kindLabel: UILabel! {
+    @IBOutlet private weak var kindLabel: UILabel! {
         
         didSet {
             
@@ -23,7 +23,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var sexLabel: UILabel! {
+    @IBOutlet private weak var sexLabel: UILabel! {
         
         didSet {
             
@@ -33,7 +33,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var varietyLabel: UILabel! {
+    @IBOutlet private weak var varietyLabel: UILabel! {
         
         didSet {
             
@@ -41,7 +41,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var baseView: UIView! {
+    @IBOutlet private weak var baseView: UIView! {
         
         didSet {
             
@@ -49,7 +49,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var locationImageView: UIImageView! {
+    @IBOutlet private weak var locationImageView: UIImageView! {
         
         didSet {
             
@@ -57,7 +57,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var bacterinLabel: UILabel! {
+    @IBOutlet private weak var bacterinLabel: UILabel! {
         
         didSet {
             
@@ -65,7 +65,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var sterilizationLabel: UILabel! {
+    @IBOutlet private weak var sterilizationLabel: UILabel! {
         
         didSet {
             
@@ -73,7 +73,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var organizationLabel: UILabel! {
+    @IBOutlet private weak var organizationLabel: UILabel! {
         
         didSet {
             
