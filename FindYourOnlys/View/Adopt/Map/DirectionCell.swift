@@ -10,7 +10,7 @@ import MapKit
 
 class DirectionCell: UITableViewCell {
 
-    @IBOutlet weak var distanceLabel: UILabel! {
+    @IBOutlet private weak var distanceLabel: UILabel! {
         
         didSet {
             
@@ -18,7 +18,7 @@ class DirectionCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var descriptionLabel: UILabel! {
+    @IBOutlet private weak var descriptionLabel: UILabel! {
         
         didSet {
             

@@ -10,7 +10,7 @@ import MapKit
 
 class DirectionHeaderView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var baseView: UIView! {
+    @IBOutlet private weak var baseView: UIView! {
         
         didSet {
             
@@ -18,7 +18,7 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    @IBOutlet weak var headerLabel: UILabel! {
+    @IBOutlet private weak var headerLabel: UILabel! {
         
         didSet {
             
@@ -28,7 +28,7 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    @IBOutlet weak var informationLabel: UILabel! {
+    @IBOutlet private weak var informationLabel: UILabel! {
         
         didSet {
             
@@ -38,7 +38,7 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    @IBOutlet weak var routeLabel: UILabel! {
+    @IBOutlet private weak var routeLabel: UILabel! {
         
         didSet {
             
@@ -48,15 +48,17 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    let distanceFormatter = MKDistanceFormatter()
+    private let distanceFormatter = MKDistanceFormatter()
     
     func configureView(with viewModel: DirectionViewModel, route: MKRoute) {
+        
         headerLabel.text = viewModel.direction.route.label
         
-            let informationComponents = [
-                viewModel.direction.totalTravelTime.formatted,
-                "• \(distanceFormatter.string(fromDistance: viewModel.direction.totalDistance))"
-            ]
+        let informationComponents = [
+            viewModel.direction.totalTravelTime.formatted,
+            "• \(distanceFormatter.string(fromDistance: viewModel.direction.totalDistance))"
+        ]
+        
         self.informationLabel.text = informationComponents.joined(separator: " ")
         
         routeLabel.text = route.name

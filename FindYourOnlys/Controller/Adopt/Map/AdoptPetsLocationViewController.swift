@@ -303,7 +303,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         let totalDistance = mapRoute.distance
 
         let totalTravelTime = mapRoute.expectedTravelTime
-
+        
         adoptDirectionVC?.viewModel.directionViewModel.value = DirectionViewModel(
             model: Direction(
                 route: route,
