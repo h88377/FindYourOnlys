@@ -229,10 +229,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             self.mapView.centerToLocation(petLocation)
 
             self.mapView.addAnnotation(selectedMapAnnotation)
-
-//            self.mapView.centerToLocation(self.viewModel.petLocationViewModel.value.location)
-
-//            self.mapView.addAnnotation(self.viewModel.selectedMapAnnotation.value.mapAnnotation)
         }
 
         viewModel.getUserLocationHandler = { [weak self] in
@@ -250,12 +246,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             self.mapView.addAnnotation(currentMapAnnotation)
 
             self.updateView(with: mapRoute)
-
-//            self.mapView.centerToLocation(self.viewModel.currentLocationViewModel.value.location)
-//
-//            self.mapView.addAnnotation(self.viewModel.currentMapAnnotation.value.mapAnnotation)
-//
-//            self.updateView(with: self.viewModel.mapRouteViewModel.value.mapRoute)
         }
     }
 
@@ -310,12 +300,6 @@ class AdoptPetsLocationViewController: BaseViewController {
 
         mapView.showAnnotations([currentMapAnnotation, selectedMapAnnotation], animated: true)
 
-//        mapView.showAnnotations(
-//            [viewModel.currentMapAnnotation.value.mapAnnotation,
-//             viewModel.selectedMapAnnotation.value.mapAnnotation],
-//            animated: true
-//        )
-
         let totalDistance = mapRoute.distance
 
         let totalTravelTime = mapRoute.expectedTravelTime
@@ -340,10 +324,12 @@ class AdoptPetsLocationViewController: BaseViewController {
     private func showDirectionView() {
 
         let maxY = mapView.frame.maxY
+        
+        let screenWidth = UIScreen.main.bounds.width
 
         directionView.frame = CGRect(
             x: 0, y: maxY,
-            width: UIScreen.main.bounds.width,
+            width: screenWidth,
             height: 0.0
         )
 
@@ -360,7 +346,7 @@ class AdoptPetsLocationViewController: BaseViewController {
 
                 self.directionView.frame = CGRect(
                     x: 0, y: maxY - height,
-                    width: UIScreen.main.bounds.width,
+                    width: screenWidth,
                     height: height
                 )
             }
@@ -483,14 +469,6 @@ class AdoptPetsLocationViewController: BaseViewController {
 
         viewModel.selectedMapAnnotation = MapAnnotation()
 
-//        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(
-//            model: MapAnnotation(
-//                title: "",
-//                subtitle: "",
-//                location: "",
-//                coordinate: CLLocationCoordinate2D())
-//        )
-
         mapView.removeAnnotations(mapView.annotations)
 
         if
@@ -555,10 +533,6 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                     )
                 )
 
-//                self.viewModel.currentMapAnnotation.value.mapAnnotation = currentAnnotation
-//
-//                self.viewModel.currentLocationViewModel.value.location = firstLocation
-
                 self.viewModel.currentMapAnnotation = currentAnnotation
 
                 self.viewModel.currentLocation = firstLocation
@@ -618,7 +592,5 @@ extension AdoptPetsLocationViewController: MKMapViewDelegate {
             let selectedMapAnnotation = view.annotation as? MapAnnotation else { return }
 
         viewModel.selectedMapAnnotation = selectedMapAnnotation
-
-//        viewModel.selectedMapAnnotation.value = MapAnnotationViewModel(model: selectedMapAnnotation)
     }
 }

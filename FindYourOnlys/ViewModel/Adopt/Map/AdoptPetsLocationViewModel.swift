@@ -116,36 +116,6 @@ class AdoptPetsLocationViewModel {
     
     var startLoadingHandler: (() -> Void)?
     
-    
-//    var petLocationViewModel = Box(LocationViewModel(model: CLLocation()))
-    
-//    var currentLocationViewModel = Box(LocationViewModel(model: CLLocation()))
-    
-    
-//    var routeViewModel = Box(RouteViewModel(model: Route(origin: MKMapItem(), stops: [MKMapItem]())))
-    
-//    var mapRouteViewModel = Box(MapRouteViewModel(model: MKRoute()))
-//    = Box(
-//       MapAnnotationViewModel(
-//           model: MapAnnotation(
-//               title: "",
-//               subtitle: "",
-//               location: "",
-//               coordinate: CLLocationCoordinate2D())
-//       )
-//   )
-    
-    
-//    var selectedMapAnnotation = Box(
-//        MapAnnotationViewModel(
-//            model: MapAnnotation(
-//                title: "",
-//                subtitle: "",
-//                location: "",
-//                coordinate: CLLocationCoordinate2D())
-//        )
-//    )
-    
     // MARK: - Methods
     
     func convertAddress() {
@@ -167,8 +137,6 @@ class AdoptPetsLocationViewModel {
                 
             case .success(let location):
                 
-//                self.petLocationViewModel.value.location = location
-                
                 self.petLocation = location
                 
                 self.selectedMapAnnotation = MapAnnotation(
@@ -176,12 +144,6 @@ class AdoptPetsLocationViewModel {
                     location: pet.address,
                     coordinate: location.coordinate
                 )
-                
-//                self.selectedMapAnnotation.value.mapAnnotation = MapAnnotation(
-//                    title: pet.kind, subtitle: pet.address,
-//                    location: pet.address,
-//                    coordinate: location.coordinate
-//                )
                 
                 self.getPetLocationHandler?()
                 
@@ -276,9 +238,6 @@ class AdoptPetsLocationViewModel {
     
     func calculateRoute() {
         
-//        guard
-//            selectedMapAnnotation.value.mapAnnotation.coordinate.longitude != CLLocationDegrees(0.0)
-        
         guard
             selectedMapAnnotation?.coordinate.longitude != CLLocationDegrees(0.0),
             let currentCoordinate = currentMapAnnotation?.coordinate,
@@ -304,12 +263,9 @@ class AdoptPetsLocationViewModel {
                     
                 case .success(let(route, mapRoute)):
                     
-                    //                self.routeViewModel.value.route = route
-                    
                     self.route = route
                     
                     self.mapRoute = mapRoute
-                    //                self.mapRouteViewModel.value.mapRoute = mapRoute
                     
                     self.getUserLocationHandler?()
                     

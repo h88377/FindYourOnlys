@@ -57,7 +57,6 @@
 		98822C73282D5F8B006F8910 /* AdoptDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */; };
 		98822C7B282F67C1006F8910 /* TransformButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C7A282F67C1006F8910 /* TransformButton.swift */; };
 		98822C7D282F681F006F8910 /* TransformCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C7C282F681F006F8910 /* TransformCollectionCell.swift */; };
-		98822C7F282FF04B006F8910 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C7E282FF04B006F8910 /* ResultViewModel.swift */; };
 		98822C872830B6F7006F8910 /* addToFavorite.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C862830B6F7006F8910 /* addToFavorite.json */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
@@ -65,12 +64,8 @@
 		989399F7280FB10E004312F1 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F6280FB10E004312F1 /* MapManager.swift */; };
 		989399F9280FD707004312F1 /* Shelter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F8280FD707004312F1 /* Shelter.swift */; };
 		989399FB280FE065004312F1 /* ShelterProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FA280FE065004312F1 /* ShelterProvider.swift */; };
-		989399FD280FF5F8004312F1 /* ShelterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FC280FF5F8004312F1 /* ShelterViewModel.swift */; };
 		98939A00281028C1004312F1 /* MapAnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */; };
-		98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A01281033F0004312F1 /* RouteViewModel.swift */; };
-		98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0328103491004312F1 /* MapRouteViewModel.swift */; };
 		98939A0628105F4F004312F1 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0528105F4F004312F1 /* PresentationController.swift */; };
-		98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A0928106B09004312F1 /* LocationViewModel.swift */; };
 		98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A102812759C004312F1 /* AdoptFilterViewController.swift */; };
 		98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A12281276DC004312F1 /* AdoptFilterCategory.swift */; };
 		98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A142812856A004312F1 /* AdoptFilterViewModel.swift */; };
@@ -271,7 +266,6 @@
 		98822C72282D5F8B006F8910 /* AdoptDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptDetailHeaderView.swift; sourceTree = "<group>"; };
 		98822C7A282F67C1006F8910 /* TransformButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformButton.swift; sourceTree = "<group>"; };
 		98822C7C282F681F006F8910 /* TransformCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformCollectionCell.swift; sourceTree = "<group>"; };
-		98822C7E282FF04B006F8910 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		98822C862830B6F7006F8910 /* addToFavorite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addToFavorite.json; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
@@ -279,12 +273,8 @@
 		989399F6280FB10E004312F1 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		989399F8280FD707004312F1 /* Shelter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shelter.swift; sourceTree = "<group>"; };
 		989399FA280FE065004312F1 /* ShelterProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterProvider.swift; sourceTree = "<group>"; };
-		989399FC280FF5F8004312F1 /* ShelterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterViewModel.swift; sourceTree = "<group>"; };
 		989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationViewModel.swift; sourceTree = "<group>"; };
-		98939A01281033F0004312F1 /* RouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewModel.swift; sourceTree = "<group>"; };
-		98939A0328103491004312F1 /* MapRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouteViewModel.swift; sourceTree = "<group>"; };
 		98939A0528105F4F004312F1 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
-		98939A0928106B09004312F1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		98939A102812759C004312F1 /* AdoptFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewController.swift; sourceTree = "<group>"; };
 		98939A12281276DC004312F1 /* AdoptFilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterCategory.swift; sourceTree = "<group>"; };
 		98939A142812856A004312F1 /* AdoptFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptFilterViewModel.swift; sourceTree = "<group>"; };
@@ -527,10 +517,6 @@
 				9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */,
 				989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */,
 				989399FF281028C1004312F1 /* MapAnnotationViewModel.swift */,
-				989399FC280FF5F8004312F1 /* ShelterViewModel.swift */,
-				98939A01281033F0004312F1 /* RouteViewModel.swift */,
-				98939A0328103491004312F1 /* MapRouteViewModel.swift */,
-				98939A0928106B09004312F1 /* LocationViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -565,7 +551,6 @@
 				98CC15FD2802C1EC00B9FDC6 /* AdoptFavoriteViewModel.swift */,
 				98CC16072802EA7600B9FDC6 /* AdoptDetailViewModel.swift */,
 				98939A142812856A004312F1 /* AdoptFilterViewModel.swift */,
-				98822C7E282FF04B006F8910 /* ResultViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1362,7 +1347,6 @@
 				987D8B52281A5BED000D1F95 /* CommentHeaderView.swift in Sources */,
 				9896D966280EDCC4003D4A16 /* AdoptDirectionViewModel.swift in Sources */,
 				9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */,
-				989399FD280FF5F8004312F1 /* ShelterViewModel.swift in Sources */,
 				98CC16032802E8A100B9FDC6 /* AdoptDetailTableViewCell.swift in Sources */,
 				98CC15EB2802857500B9FDC6 /* KingfisherWrapper.swift in Sources */,
 				9896D958280E9CC6003D4A16 /* RouteBuilder.swift in Sources */,
@@ -1429,7 +1413,6 @@
 				98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */,
 				98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
-				98822C7F282FF04B006F8910 /* ResultViewModel.swift in Sources */,
 				98BC47562822D90300740855 /* Notification+Extension.swift in Sources */,
 				987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */,
 				9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */,
@@ -1455,7 +1438,6 @@
 				9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */,
 				9896D954280E9BFB003D4A16 /* Route.swift in Sources */,
 				989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */,
-				98939A0A28106B09004312F1 /* LocationViewModel.swift in Sources */,
 				98939A0628105F4F004312F1 /* PresentationController.swift in Sources */,
 				9896D940280DBC98003D4A16 /* FriendRequestList.swift in Sources */,
 				98CC15E12801D67300B9FDC6 /* Box.swift in Sources */,
@@ -1490,7 +1472,6 @@
 				989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */,
 				987D8B4D2819622A000D1F95 /* PetSocietyCommentViewModel.swift in Sources */,
 				98CC16602806724000B9FDC6 /* Article.swift in Sources */,
-				98939A02281033F0004312F1 /* RouteViewModel.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
 				987D8B50281962BF000D1F95 /* CommentViewModel.swift in Sources */,
 				987D8B3F28179A66000D1F95 /* ProfileViewModel.swift in Sources */,
@@ -1502,7 +1483,6 @@
 				98CC15A928005B6C00B9FDC6 /* SceneDelegate.swift in Sources */,
 				9896D947280DBD63003D4A16 /* PetKind.swift in Sources */,
 				98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */,
-				98939A0428103491004312F1 /* MapRouteViewModel.swift in Sources */,
 				98939A1F281395EE004312F1 /* FindPetSocietyFilterCategory.swift in Sources */,
 				9808D987282902F70059DDF5 /* ProportionSizeImageView.swift in Sources */,
 				9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */,
