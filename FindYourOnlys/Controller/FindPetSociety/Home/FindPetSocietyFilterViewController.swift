@@ -141,12 +141,7 @@ class FindPetSocietyFilterViewController: BaseViewController {
     
     @objc func clear(sender: UIBarButtonItem) {
         
-        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
-            postType: -1,
-            city: "",
-            petKind: "",
-            color: ""
-        )
+        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
         
         tableView.reloadData()
     }

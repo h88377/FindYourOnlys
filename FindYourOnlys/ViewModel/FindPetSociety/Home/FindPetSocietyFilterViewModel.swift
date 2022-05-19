@@ -11,12 +11,7 @@ class FindPetSocietyFilterViewModel {
     
     let findPetSocietyFilterCategory = FindPetSocietyFilterCategory.allCases
     
-    var findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
-        postType: -1,
-        city: "",
-        petKind: "",
-        color: ""
-    )
+    var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     
     var isValidCondition: Bool {
         

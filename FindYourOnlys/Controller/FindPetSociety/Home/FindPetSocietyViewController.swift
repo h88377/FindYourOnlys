@@ -21,7 +21,7 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
-    @IBOutlet private weak var reFetchButton: UIButton!
+    @IBOutlet private weak var refetchButton: UIButton!
     
     @IBOutlet private weak var tableView: UITableView! {
         
@@ -265,7 +265,11 @@ class FindPetSocietyViewController: BaseViewController {
     
     private func addCurrentUserObserver() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
     }
     
     private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
@@ -299,16 +303,11 @@ class FindPetSocietyViewController: BaseViewController {
         navigationController?.pushViewController(filterVC, animated: true)
     }
     
-    @IBAction func reFetchArticle(_ sender: UIButton) {
+    @IBAction func refetchArticle(_ sender: UIButton) {
         
         viewModel.fetchArticles()
         
-        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
-            postType: -1,
-            city: "",
-            petKind: "",
-            color: ""
-        )
+        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     }
 }
 
@@ -340,53 +339,57 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             .authorViewModels
             .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
-        switch indexPath.row % 2 {
+        switch indexPath.row % registeredCellCount {
             
         case 0:
             
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
+            
             guard
-                let cell = tableView.dequeueReusableCell(
-                    withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
-                    as? ArticlePhotoCell
+                let photoCell = cell as? ArticlePhotoCell
                     
-            else { return UITableViewCell() }
+            else { return cell }
             
-            cell.configureCell(with: cellViewModel, authorViewModel: authorCellViewModel)
+            photoCell.configureCell(with: cellViewModel, authorViewModel: authorCellViewModel)
             
-            cell.editHandler = { [weak self] in
+            photoCell.editHandler = { [weak self] in
                 
                 self?.viewModel.editArticle(with: cellViewModel, authorViewModel: authorCellViewModel)
             }
             
-            return cell
+            return photoCell
             
         case 1:
             
-            guard
-                let cell = tableView.dequeueReusableCell(
+            let cell = tableView.dequeueReusableCell(
                     withIdentifier: ArticleContentCell.identifier, for: indexPath)
-                    as? ArticleContentCell
+            
+            guard
+                let contentCell = cell as? ArticleContentCell
                     
-            else { return UITableViewCell() }
+            else { return cell }
             
-            cell.configureCell(with: cellViewModel)
+            contentCell.configureCell(with: cellViewModel)
             
-            cell.likeArticleHandler = { [weak self] in
+            contentCell.likeArticleHandler = { [weak self] in
                 
                 self?.viewModel.likeArticle(with: cellViewModel)
             }
             
-            cell.unlikeArticleHandler = { [weak self] in
+            contentCell.unlikeArticleHandler = { [weak self] in
                  
                 self?.viewModel.unlikeArticle(with: cellViewModel)
             }
             
-            cell.leaveCommentHandler = { [weak self] in
+            contentCell.leaveCommentHandler = { [weak self] in
                 
                 let storyboard = UIStoryboard.findPetSociety
                 
                 guard
-                    let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController
+                    let petSocietyCommentVC = storyboard.instantiateViewController(
+                        withIdentifier: PetSocietyCommentViewController.identifier
+                    ) as? PetSocietyCommentViewController
                         
                 else { return }
                 
@@ -401,19 +404,18 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 self?.present(petSocietyCommentVC, animated: true)
             }
             
-            cell.shareHandler = { [weak self] in
+            contentCell.shareHandler = { [weak self] in
                 
                 self?.viewModel.shareArticle(with: cellViewModel)
             }
             
-            return cell
+            return contentCell
             
         default:
         
             return UITableViewCell()
         }
     }
-    
 }
 
 // MARK: - PublishBasicCellDelegate

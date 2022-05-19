@@ -16,5 +16,15 @@ struct FindPetSocietyFilterCondition {
     var petKind: String
     
     var color: String
+    
+    init() {
+        
+        self.postType = -1
+        
+        self.city = ""
+        
+        self.petKind = ""
+        
+        self.color = ""
+    }
 }
-

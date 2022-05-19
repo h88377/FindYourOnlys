@@ -13,12 +13,7 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
     
     let authorViewModels = Box([UserViewModel]())
     
-    var findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
-        postType: -1,
-        city: "",
-        petKind: "",
-        color: ""
-    )
+    var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
