@@ -94,22 +94,17 @@ class FriendProfileViewController: BaseViewController {
         
         updateSearchedUserInfo(with: viewModel, result: viewModel.searchFriendResult)
         
-        viewModel.errorViewModel.bind(listener: { [weak self] errorViewModel in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            guard
+                let self = self else { return }
           
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
-        })
+        }
         
         viewModel.dismissHandler = { [weak self] in
             

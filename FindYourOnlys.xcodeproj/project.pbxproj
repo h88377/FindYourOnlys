@@ -211,6 +211,7 @@
 		98CC166A2806C14200B9FDC6 /* PetSocietyFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16692806C14200B9FDC6 /* PetSocietyFirebaseManager.swift */; };
 		98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC166B2806C1FD00B9FDC6 /* FirebaseCollectionType.swift */; };
 		98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */; };
+		98E8630D283618FF00153290 /* AlertWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E8630C283618FF00153290 /* AlertWindowManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -422,6 +423,7 @@
 		98CC16692806C14200B9FDC6 /* PetSocietyFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyFirebaseManager.swift; sourceTree = "<group>"; };
 		98CC166B2806C1FD00B9FDC6 /* FirebaseCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionType.swift; sourceTree = "<group>"; };
 		98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
+		98E8630C283618FF00153290 /* AlertWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowManager.swift; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -863,11 +865,11 @@
 			children = (
 				98822C882833C106006F8910 /* Base */,
 				98CC162028054ACB00B9FDC6 /* Adopt */,
-				9896D92A280D610D003D4A16 /* Profile */,
 				98CC162C28055F3000B9FDC6 /* FindPetSociety */,
-				98BC475F2823A70D00740855 /* ChatSociety */,
-				987D8B30281681DC000D1F95 /* Auth */,
 				98939A2628143043004312F1 /* ShareSociety */,
+				98BC475F2823A70D00740855 /* ChatSociety */,
+				9896D92A280D610D003D4A16 /* Profile */,
+				987D8B30281681DC000D1F95 /* Auth */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -903,6 +905,7 @@
 			children = (
 				9896D8DC28084A49003D4A16 /* User.swift */,
 				98822C6A282CB1EA006F8910 /* Constant.swift */,
+				98E8630C283618FF00153290 /* AlertWindowManager.swift */,
 				9896D941280DBCB0003D4A16 /* Adopt */,
 				9896D942280DBCC3003D4A16 /* FindPetSociety */,
 				98BC47612823B29800740855 /* ChatSociety */,
@@ -1460,6 +1463,7 @@
 				98939A13281276DC004312F1 /* AdoptFilterCategory.swift in Sources */,
 				98CC162328054B3A00B9FDC6 /* UIStoryBoard+Extension.swift in Sources */,
 				987D8B4328191F54000D1F95 /* PetSocietyCommentViewController.swift in Sources */,
+				98E8630D283618FF00153290 /* AlertWindowManager.swift in Sources */,
 				98CC16112803016500B9FDC6 /* AdoptDetailDecriptionTableViewCell.swift in Sources */,
 				987D8B3528169FE5000D1F95 /* AuthViewModel.swift in Sources */,
 				987D8B412817EC6E000D1F95 /* AdoptViewModel.swift in Sources */,

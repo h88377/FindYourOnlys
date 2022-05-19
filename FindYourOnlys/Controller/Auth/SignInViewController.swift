@@ -175,7 +175,7 @@ class SignInViewController: BaseViewController {
         
         else {
             
-            showAlertWindow(title: "請填寫完整資訊登入喔！", message: "")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫完整資訊登入喔！")
             
             return
         }

@@ -159,7 +159,7 @@ class AdoptFilterViewController: BaseViewController {
                 
         else {
             
-            showAlertWindow(title: "提醒", message: "請至少填寫一個條件喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "提醒", message: "請至少填寫一個條件喔！")
             
             return
         }

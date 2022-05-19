@@ -41,13 +41,16 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.checkEditedContent = { [weak self] isValidContent, isValidDetectResult in
             
+            guard
+                let self = self else { return }
+            
             if !isValidContent {
                 
-                self?.showAlertWindow(title: "注意", message: "請完整填寫內容再更新文章喔！")
+                AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "請完整填寫內容再更新文章喔！")
                 
             } else if !isValidDetectResult {
                 
-                self?.showAlertWindow(title: "注意", message: "請先通過動物照片辨識再發布文章喔！")
+                AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "請先通過動物照片辨識再發布文章喔！")
             }
         }
         
@@ -91,22 +94,13 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    } else if
-                        let googleMLError = error as? GoogleMLError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(googleMLError.errorMessage)")
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
     }
@@ -255,7 +249,7 @@ extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigati
             
         } else {
 
-            showAlertWindow(title: "異常訊息", message: "你的裝置沒有相機喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
         }
         
     }
@@ -275,7 +269,7 @@ extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigati
             
         } else {
             
-            showAlertWindow(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
         }
     }
 }

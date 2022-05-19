@@ -159,7 +159,7 @@ class FindPetSocietyFilterViewController: BaseViewController {
                 
         else {
             
-            showAlertWindow(title: "異常訊息", message: "請填寫全部條件喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫全部條件喔！")
             
             return
         }

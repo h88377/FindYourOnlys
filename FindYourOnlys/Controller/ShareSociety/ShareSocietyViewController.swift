@@ -81,18 +81,13 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
@@ -402,16 +397,3 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
 }
-
-// MARK: - UIViewControllerTransitioningDelegate
-//extension ShareSocietyViewController: UIViewControllerTransitioningDelegate {
-//    
-//    func presentationController(
-//        forPresented presented: UIViewController,
-//        presenting: UIViewController?,
-//        source: UIViewController)
-//    -> UIPresentationController? {
-//        
-//        PresentationController(presentedViewController: presented, presenting: presenting)
-//    }
-//}

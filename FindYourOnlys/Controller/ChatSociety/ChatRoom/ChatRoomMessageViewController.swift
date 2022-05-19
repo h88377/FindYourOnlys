@@ -89,18 +89,13 @@ class ChatRoomMessageViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
@@ -143,15 +138,6 @@ class ChatRoomMessageViewController: BaseViewController {
             
             self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
-        
-//        viewModel.endEditMessageHandler = { [weak self] in
-//
-//            self?.messageTextView.text = MessageType.placeHolder.rawValue
-//
-//            self?.messageTextView.textColor = UIColor.systemGray3
-//
-//            self?.checkMessageButton()
-//        }
         
         viewModel.enableIQKeyboardHandler = { [weak self] in
             
@@ -397,7 +383,7 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
             
         } else {
 
-            showAlertWindow(title: "異常訊息", message: "你的裝置沒有相機喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
         }
     }
     
@@ -417,31 +403,7 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
             
         } else {
             
-            showAlertWindow(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
         }
     }
 }
-
-
-// Fix keyboard appear view will over the screen issue
-
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
-//@objc func keyboardWillShow(notification: NSNotification) {
-//
-//    let bottonGap = view.frame.height - view.safeAreaLayoutGuide.layoutFrame.height
-//
-//    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//        if self.view.frame.origin.y == 0 {
-//            self.view.frame.origin.y -= keyboardSize.height + bottonGap
-//        }
-//    }
-//}
-//
-//@objc func keyboardWillHide(notification: NSNotification) {
-//    if self.view.frame.origin.y != 0 {
-//        self.view.frame.origin.y = 0
-//    }
-//}
-

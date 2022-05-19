@@ -62,30 +62,25 @@ class EditProfileViewController: BaseViewController {
         
         viewModel.checkEditedUser = { [weak self] isValid in
             
+            guard
+                let self = self else { return }
+            
             if !isValid {
                 
-                self?.showAlertWindow(title: "內容不足", message: "請完整填寫內容再更新資訊喔！")
+                AlertWindowManager.shared.showAlertWindow(at: self, title: "內容不足", message: "請完整填寫內容再更新資訊喔！")
             }
             
         }
 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                if
-                    let deleteDataError = error as? DeleteDataError {
-                    
-                    self?.showAlertWindow(title: "異常", message: deleteDataError.errorMessage)
-                    
-                } else if
-                    
-                    let deleteAccountError = error as? DeleteAccountError {
-                    
-                    self?.showAlertWindow(title: "異常", message: deleteAccountError.errorMessage)
-                    
-                } 
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
@@ -274,7 +269,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             
         } else {
 
-            showAlertWindow(title: "異常訊息", message: "你的裝置沒有相機喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
         }
         
     }
@@ -294,7 +289,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             
         } else {
             
-            showAlertWindow(title: "異常訊息", message: "你沒有打開開啟相簿權限喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
         }
     }
 }

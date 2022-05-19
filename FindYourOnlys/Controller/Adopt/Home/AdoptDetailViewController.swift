@@ -100,13 +100,16 @@ class AdoptDetailViewController: BaseViewController {
             if
                 let error = errorViewModel?.error {
                 
-                self.showAlertWindow(of: error)
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
         viewModel?.shareHandler = { [weak self] in
             
-            self?.showShareActivity()
+            guard
+                let self = self else { return }
+            
+            AlertWindowManager.shared.showShareActivity(at: self)
         }
         
         viewModel?.makePhoneCallHandler = { [weak self] in
@@ -122,7 +125,7 @@ class AdoptDetailViewController: BaseViewController {
                     
             else {
                 
-                self.showAlertWindow(title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
+                AlertWindowManager.shared.showAlertWindow(at: self, title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
                 
                 return
             }
@@ -276,26 +279,6 @@ class AdoptDetailViewController: BaseViewController {
                 : UIImage.system(.addToFavorite), for: .normal
             )
         }
-    }
-    
-    private func showShareActivity() {
-        
-        // Generate the screenshot
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        let items: [Any] = [image]
-        
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        
-        configureIpadAlert(with: activityVC)
-        
-        present(activityVC, animated: true)
     }
     
     @IBAction func pressFavoriteButton(_ sender: UIButton) {

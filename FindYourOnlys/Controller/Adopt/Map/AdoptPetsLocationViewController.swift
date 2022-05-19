@@ -102,8 +102,8 @@ class AdoptPetsLocationViewController: BaseViewController {
 
                 if mapAnnotations.count == 0 {
 
-                    self.showAlertWindow(title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
-
+                    AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
+                    
                 } else {
 
                     self.mapView.showAnnotations(mapAnnotations, animated: true)
@@ -126,12 +126,12 @@ class AdoptPetsLocationViewController: BaseViewController {
                     // but already have annotations on the map to enhance UX.
                     if self.viewModel.mapAnnotationViewModels.value == nil {
 
-                        self.showAlertWindow(of: error)
+                        AlertWindowManager.shared.showAlertWindow(at: self, of: error)
                     }
 
                 } else {
 
-                    self.showAlertWindow(of: error)
+                    AlertWindowManager.shared.showAlertWindow(at: self, of: error)
                 }
             }
         }
@@ -149,7 +149,7 @@ class AdoptPetsLocationViewController: BaseViewController {
             guard
                 let self = self else { return }
 
-            self.showAlertWindow(title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
 
         setupLoadingViewHandler()
@@ -457,8 +457,8 @@ class AdoptPetsLocationViewController: BaseViewController {
             searchText != ""
 
         else {
-
-            showAlertWindow(title: "請輸入縣市")
+            
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "請輸入縣市")
 
             return
         }
@@ -514,7 +514,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
 
                 else {
 
-                    self?.showAlertWindow(title: "異常", message: "無法取得所在位置，請確認網路連線")
+                    AlertWindowManager.shared.showAlertWindow(at: self!, title: "異常", message: "無法取得所在位置，請確認網路連線")
 
                     self?.stopLoading()
 
@@ -570,7 +570,7 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 
-        showAlertWindow(title: "取得所在位置異常", message: "請確認網路狀況或者允許該應用程式取得您裝置的所在位置")
+        AlertWindowManager.shared.showAlertWindow(at: self, title: "取得所在位置異常", message: "請確認網路狀況或者允許該應用程式取得您裝置的所在位置")
     }
 }
 

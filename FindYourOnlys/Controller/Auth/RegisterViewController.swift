@@ -201,7 +201,7 @@ class RegisterViewController: BaseViewController {
                 
         else {
             
-            showAlertWindow(title: "請填寫完整註冊資料喔！", message: nil)
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫完整註冊資料喔！")
             
             return
         }

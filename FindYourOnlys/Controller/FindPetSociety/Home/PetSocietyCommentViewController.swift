@@ -137,18 +137,13 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
@@ -235,16 +230,17 @@ class PetSocietyCommentViewController: BaseModalViewController {
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
-                currentUser.id != senderViewModel.user.id
+                currentUser.id != senderViewModel.user.id,
+                let self = self
                     
             else {
                 
-                self?.showAlertWindow(title: "無法封鎖自己喔！", message: nil)
+                AlertWindowManager.shared.showAlertWindow(at: self!, title: "無法封鎖自己喔！")
                 
                 return
             }
             
-            self?.presentBlockActionSheet(with: senderViewModel)
+            self.presentBlockActionSheet(with: senderViewModel)
         }
         
         viewModel.signInHandler = { [weak self] in

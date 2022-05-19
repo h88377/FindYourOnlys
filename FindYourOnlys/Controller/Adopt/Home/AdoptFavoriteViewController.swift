@@ -57,7 +57,7 @@ class AdoptFavoriteViewController: BaseViewController {
             if
                 let error = errorViewModel?.error {
                 
-                self.showAlertWindow(of: error)
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         

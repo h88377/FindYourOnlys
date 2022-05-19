@@ -73,22 +73,13 @@ class AuthViewController: BaseModalViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    } else if
-                        let authError = error as? AuthError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(authError.errorMessage)")
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
@@ -96,7 +87,10 @@ class AuthViewController: BaseModalViewController {
             
             print("Sign in with Apple successfully.")
             
-            self?.dismiss(animated: true)
+            guard
+                let self = self else { return }
+            
+            self.dismiss(animated: true)
         }
          
     }

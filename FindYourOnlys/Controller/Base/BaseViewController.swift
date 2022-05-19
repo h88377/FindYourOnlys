@@ -22,11 +22,6 @@ class BaseViewController: UIViewController {
         
         return false
     }
-    
-    var isEnableResignOnTouchOutside: Bool {
-
-        return true
-    }
 
     var isEnableIQKeyboard: Bool {
 
@@ -37,6 +32,8 @@ class BaseViewController: UIViewController {
 
         return false
     }
+    
+//    let alertWindowManager = AlertWindowManager()
     
     // MARK: - View Life Cycle
     
@@ -73,15 +70,6 @@ class BaseViewController: UIViewController {
             
             IQKeyboardManager.shared.enable = true
         }
-
-        if !isEnableResignOnTouchOutside {
-            
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = false
-            
-        } else {
-            
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        }
         
         if isHiddenIQKeyboardToolBar {
             
@@ -110,15 +98,6 @@ class BaseViewController: UIViewController {
             
             IQKeyboardManager.shared.enable = false
         }
-
-        if !isEnableResignOnTouchOutside {
-            
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-            
-        } else {
-            
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = false
-        }
         
         if isHiddenIQKeyboardToolBar {
             
@@ -143,79 +122,130 @@ class BaseViewController: UIViewController {
 
     }
     
-    func showAlertWindow(title: String, message: String? = nil) {
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "OK", style: .default)
-            
-            alert.addAction(action)
-            
-            self?.present(alert, animated: true)
-        }
-    }
-    
-    func showAlertWindow(of error: Error) {
-        
-        let message: String
-        
-        switch error {
-            
-        case let httpClientError as HTTPClientError:
-            
-            message = httpClientError.errorMessage
-            
-        case let googleMLError as GoogleMLError:
-            
-            message = googleMLError.errorMessage
-            
-        case let mapError as MapError:
-            
-            message = mapError.errorMessage
-            
-        case let authError as AuthError:
-            
-            message = authError.errorMessage
-            
-        case let firebaseError as FirebaseError:
-            
-            message = firebaseError.errorMessage
-            
-        case let localStorageError as LocalStorageError:
-            
-            message = localStorageError.errorMessage
-            
-        default:
-            
-            message = "發生預期外的錯誤"
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            
-            let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "OK", style: .default)
-            
-            alert.addAction(action)
-            
-            self?.present(alert, animated: true)
-        }
-    }
-    
-    func configureIpadAlert(with alert: UIViewController) {
-        
-        alert.popoverPresentationController?.sourceView = self.view
-        
-        let xOrigin = self.view.bounds.width / 2
-        
-        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-        
-        alert.popoverPresentationController?.sourceRect = popoverRect
-        
-        alert.popoverPresentationController?.permittedArrowDirections = .up
-    }
+//    func showAlertWindow(title: String, message: String? = nil) {
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            
+//            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//            
+//            let action = UIAlertAction(title: "OK", style: .default)
+//            
+//            alert.addAction(action)
+//            
+//            self?.present(alert, animated: true)
+//        }
+//    }
+//    
+//    func showAlertWindow(of error: Error) {
+//        
+//        let message: String
+//        
+//        switch error {
+//            
+//        case let httpClientError as HTTPClientError:
+//            
+//            message = httpClientError.errorMessage
+//            
+//        case let googleMLError as GoogleMLError:
+//            
+//            message = googleMLError.errorMessage
+//            
+//        case let mapError as MapError:
+//            
+//            message = mapError.errorMessage
+//            
+//        case let authError as AuthError:
+//            
+//            message = authError.errorMessage
+//            
+//        case let firebaseError as FirebaseError:
+//            
+//            message = firebaseError.errorMessage
+//            
+//        case let localStorageError as LocalStorageError:
+//            
+//            message = localStorageError.errorMessage
+//            
+//        default:
+//            
+//            message = "發生預期外的錯誤"
+//        }
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            
+//            let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
+//            
+//            let action = UIAlertAction(title: "OK", style: .default)
+//            
+//            alert.addAction(action)
+//            
+//            self?.present(alert, animated: true)
+//        }
+//    }
+//    
+//    func presentBlockActionSheet(with blockConfirmAction: UIAlertAction) {
+//        
+//        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+//        
+//        let cancel = UIAlertAction(title: "取消", style: .cancel)
+//        
+//        let blockAction = UIAlertAction(title: "封鎖使用者", style: .destructive) { [weak self] _ in
+//            
+//            let blockAlert = UIAlertController(
+//                title: "注意!",
+//                message: "將封鎖此使用者，未來將看不到該用戶發布的資訊",
+//                preferredStyle: .alert
+//            )
+//            
+//            blockAlert.addAction(cancel)
+//            
+//            blockAlert.addAction(blockConfirmAction)
+//            
+//            self?.present(blockAlert, animated: true)
+//        }
+//        
+//        alert.addAction(blockAction)
+//        
+//        alert.addAction(cancel)
+//        
+//        // iPad specific code
+//        configureIpadAlert(with: alert)
+//        
+//        present(alert, animated: true)
+//    }
+//    
+//    func showShareActivity() {
+//        
+//        // Generate the screenshot
+//        UIGraphicsBeginImageContext(self.view.frame.size)
+//        
+//        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+//        
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        
+//        UIGraphicsEndImageContext()
+//        
+//        let items: [Any] = [image]
+//        
+//        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+//        
+//        configureIpadAlert(with: activityVC)
+//        
+//        present(activityVC, animated: true)
+//    }
+//    
+//    func configureIpadAlert(with alert: UIViewController) {
+//        
+//        alert.popoverPresentationController?.sourceView = self.view
+//        
+//        let xOrigin = self.view.bounds.width / 2
+//        
+//        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+//        
+//        alert.popoverPresentationController?.sourceRect = popoverRect
+//        
+//        alert.popoverPresentationController?.permittedArrowDirections = .up
+//    }
     
     func startLoading() {
         
