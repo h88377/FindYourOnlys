@@ -43,24 +43,4 @@ class AdoptViewModel {
             }
         }
     }
-    
-    func cityChanged(with city: String) {
-        
-        adoptFilterCondition.city = city
-    }
-    
-    func petKindChanged(with petKind: String) {
-        
-        adoptFilterCondition.petKind = petKind
-    }
-    
-    func sexChanged(with sex: String) {
-        
-        adoptFilterCondition.sex = sex
-    }
-    
-    func colorChanged(with color: String) {
-        
-        adoptFilterCondition.color = color
-    }
 }

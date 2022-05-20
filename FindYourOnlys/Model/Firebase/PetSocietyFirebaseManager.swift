@@ -292,24 +292,24 @@ class PetSocietyFirebaseManager {
             }
         }
     
-    func deleteArticle(withArticleId articleId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func deleteArticle(withArticleId articleId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         db.collection(
             FirebaseCollectionType.article.rawValue)
-            .document(articleId).delete() { error in
-            
-            guard
-                error == nil
+            .document(articleId).delete { error in
+                
+                guard
+                    error == nil
+                        
+                else {
                     
-            else {
+                    completion(.failure(FirebaseError.deleteArticleError))
+                    
+                    return
+                }
                 
-                completion(.failure(FirebaseError.deleteArticleError))
-                
-                return
+                completion(.success(()))
             }
-            
-                completion(.success("success"))
-        }
     }
     
     func fetchDownloadImageURL(

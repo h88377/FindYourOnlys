@@ -9,11 +9,15 @@ import Foundation
 
 class FindPetSocietyViewModel: BaseSocietyViewModel {
     
+    // MARK: - Properties
+    
     let articleViewModels = Box([ArticleViewModel]())
     
     let authorViewModels = Box([UserViewModel]())
     
     var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
+    
+    // MARK: - Methods
     
     func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
@@ -28,19 +32,7 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                 
             case .success(var articles):
                 
-                if
-                    let currentUser = UserFirebaseManager.shared.currentUser {
-                    
-                    for index in 0..<articles.count {
-                        
-                        let filteredComments = articles[index].comments.filter {
-                            
-                            !currentUser.blockedUsers.contains($0.userId)
-                        }
-                        
-                        articles[index].comments = filteredComments
-                    }
-                }
+                self.filterOutBlockedComments(with: &articles)
                 
                 PetSocietyFirebaseManager.shared.setArticles(with: self.articleViewModels, articles: articles)
                 
@@ -72,17 +64,6 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                 
                 var authors = [User]()
                 
-//                for article in articles {
-//
-//                    for user in users {
-//
-//                        if article.userId == user.id {
-//
-//                            authors.append(user)
-//                        }
-//                    }
-//                }
-                
                 for article in articles {
                     
                     for user in users where user.id == article.userId {
@@ -102,6 +83,23 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
         }
     }
     
+    private func filterOutBlockedComments(with articles: inout [Article]) {
+        
+        if
+            let currentUser = UserFirebaseManager.shared.currentUser {
+            
+            for index in 0..<articles.count {
+                
+                let filteredComments = articles[index].comments.filter {
+                    
+                    !currentUser.blockedUsers.contains($0.userId)
+                }
+                
+                articles[index].comments = filteredComments
+            }
+        }
+    }
+    
     func deleteArticle(with viewModel: ArticleViewModel) {
         
         let article = viewModel.article
@@ -110,18 +108,15 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] result in
             
-            switch result {
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
-            case .success(_):
-                
-                self?.stopLoadingHandler?()
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            
+            self.stopLoadingHandler?()
         }
     }
     
@@ -134,35 +129,5 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
         UserFirebaseManager.shared.blockUser(with: article.userId)
         
         stopLoadingHandler?()
-    }
-}
-
-extension FindPetSocietyViewModel {
-    
-    func cityChanged(with city: String) {
-        
-        findPetSocietyFilterCondition.city = city
-    }
-    
-    func petKindChanged(with petKind: String) {
-        
-        findPetSocietyFilterCondition.petKind = petKind
-    }
-    
-    func postTypeChanged(with postType: String) {
-        
-        if postType == PostType.missing.rawValue {
-            
-            findPetSocietyFilterCondition.postType = 0
-            
-        } else {
-            
-            findPetSocietyFilterCondition.postType = 1
-        }
-    }
-    
-    func colorChanged(with color: String) {
-        
-        findPetSocietyFilterCondition.color = color
     }
 }

@@ -117,7 +117,10 @@ class AdoptViewController: BaseViewController {
             
             adoptListVC?.resetConditionHandler = { [weak self] in
                 
-                self?.viewModel.adoptFilterCondition = AdoptFilterCondition()
+                guard
+                    let self = self else { return }
+                
+                self.viewModel.adoptFilterCondition = AdoptFilterCondition()
             }
             
             self.adoptListVC = adoptListVC
@@ -195,30 +198,5 @@ class AdoptViewController: BaseViewController {
         adoptFilterVC.viewModel.adoptFilterCondition = viewModel.adoptFilterCondition
         
         navigationController?.pushViewController(adoptFilterVC, animated: true)
-    }
-}
-
-// MARK: - PublishBasicCellDelegate
-
-extension AdoptViewController: PublishBasicCellDelegate {
-    
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
-        
-        viewModel.cityChanged(with: city)
-    }
-    
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
-        
-        viewModel.colorChanged(with: color)
-    }
-    
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
-        
-        viewModel.petKindChanged(with: petKind)
-    }
-    
-    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
-        
-        viewModel.sexChanged(with: sex)
     }
 }

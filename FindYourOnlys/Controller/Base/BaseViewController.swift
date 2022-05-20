@@ -22,6 +22,11 @@ class BaseViewController: UIViewController {
         
         return false
     }
+    
+    var isEnableResignOnTouchOutside: Bool {
+
+        return true
+    }
 
     var isEnableIQKeyboard: Bool {
 
@@ -32,8 +37,6 @@ class BaseViewController: UIViewController {
 
         return false
     }
-    
-//    let alertWindowManager = AlertWindowManager()
     
     // MARK: - View Life Cycle
     
@@ -62,6 +65,15 @@ class BaseViewController: UIViewController {
             navigationController?.navigationBar.isHidden = true
         }
         
+        if !isEnableResignOnTouchOutside {
+            
+            IQKeyboardManager.shared.shouldResignOnTouchOutside = false
+            
+        } else {
+            
+            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        }
+        
         if !isEnableIQKeyboard {
             
             IQKeyboardManager.shared.enable = false
@@ -88,6 +100,15 @@ class BaseViewController: UIViewController {
         if isHiddenNavigationBar {
             
             navigationController?.navigationBar.isHidden = false
+        }
+        
+        if !isEnableResignOnTouchOutside {
+            
+            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+            
+        } else {
+            
+            IQKeyboardManager.shared.enable = false
         }
         
         if !isEnableIQKeyboard {
