@@ -56,10 +56,10 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            DispatchQueue.main.async {
-                
-                self?.navigationController?.popViewController(animated: true)
-            }
+            guard
+                let self = self else { return }
+            
+            self.popBack()
         }
         
         viewModel.startLoadingHandler = { [weak self] in

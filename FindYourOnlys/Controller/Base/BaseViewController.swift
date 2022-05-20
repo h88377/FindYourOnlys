@@ -175,6 +175,17 @@ class BaseViewController: UIViewController {
         }
     }
     
+    func popBack() {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     func success() {
         
         DispatchQueue.main.async {
