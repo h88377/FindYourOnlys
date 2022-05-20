@@ -192,7 +192,16 @@ class FindPetSocietyViewController: BaseViewController {
                 return
             }
             
-            self.presentEditActionSheet(with: articleViewModel)
+            let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.deleteArticle(with: articleViewModel)
+            }
+            
+            AlertWindowManager.shared.presentEditActionSheet(
+                at: self,
+                articleViewModel: articleViewModel,
+                with: deleteConfirmAction
+            )
         }
         
         viewModel.tapAddArticleHandler = { [weak self] in
@@ -209,58 +218,58 @@ class FindPetSocietyViewController: BaseViewController {
         }
     }
     
-    private func presentEditActionSheet(with articleViewModel: ArticleViewModel) {
+    private func setupArticleContentCellHandler(
+        articleCell: ArticleContentCell,
+        with articleViewModel: ArticleViewModel,
+        authorViewModel: UserViewModel
+    ) {
         
-        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-        
-        let editAction = UIAlertAction(title: "編輯文章", style: .default) { [weak self] _ in
-            
-            let storyboard = UIStoryboard.profile
+        articleCell.likeArticleHandler = { [weak self] in
             
             guard
-                let editVC = storyboard.instantiateViewController(
-                    withIdentifier: EditArticleViewController.identifier)
-                    as? EditArticleViewController,
-                let self = self
+                let self = self else { return }
             
+            self.viewModel.likeArticle(with: articleViewModel)
+        }
+        
+        articleCell.unlikeArticleHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+             
+            self.viewModel.unlikeArticle(with: articleViewModel)
+        }
+        
+        articleCell.leaveCommentHandler = { [weak self] in
+            
+            let storyboard = UIStoryboard.findPetSociety
+            
+            guard
+                let petSocietyCommentVC = storyboard.instantiateViewController(
+                    withIdentifier: PetSocietyCommentViewController.identifier
+                ) as? PetSocietyCommentViewController,
+                let self = self
+                    
             else { return }
             
-            let article = articleViewModel.article
+            petSocietyCommentVC.modalPresentationStyle = .custom
             
-            editVC.viewModel.article = article
+            petSocietyCommentVC.transitioningDelegate = self
             
-            self.navigationController?.pushViewController(editVC, animated: true)
+            petSocietyCommentVC.viewModel.selectedArticle = articleViewModel.article
+            
+            petSocietyCommentVC.viewModel.selectedAuthor = authorViewModel.user
+            
+            self.present(petSocietyCommentVC, animated: true)
         }
         
-        let cancel = UIAlertAction(title: "取消", style: .cancel)
-        
-        let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+        articleCell.shareHandler = { [weak self] in
             
-            let deleteAlert = UIAlertController(title: "注意!", message: "將刪除此篇文章", preferredStyle: .alert)
+            guard
+                let self = self else { return }
             
-            let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
-                
-                self?.viewModel.deleteArticle(with: articleViewModel)
-            }
-            
-            deleteAlert.addAction(cancel)
-            
-            deleteAlert.addAction(deleteConfirmAction)
-            
-            self?.present(deleteAlert, animated: true)
-            
+            self.viewModel.shareArticle(with: articleViewModel)
         }
-        
-        alert.addAction(editAction)
-        
-        alert.addAction(deleteAction)
-        
-        alert.addAction(cancel)
-        
-        // iPad specific code
-        AlertWindowManager.shared.configureIpadAlert(at: self, with: alert)
-        
-        present(alert, animated: true)
     }
     
     private func addCurrentUserObserver() {
@@ -272,14 +281,14 @@ class FindPetSocietyViewController: BaseViewController {
         )
     }
     
-    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
-        
-        Int(index / count)
-    }
-    
     @objc private func currentUserDidSet(_ notification: Notification) {
         
         viewModel.fetchArticles()
+    }
+    
+    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
+        
+        Int(index / count)
     }
     
     @IBAction func addArticle(_ sender: UIButton) {
@@ -331,7 +340,7 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         
         let registeredCellCount = 2
         
-        let cellViewModel = viewModel
+        let articleCellViewModel = viewModel
             .articleViewModels
             .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
@@ -347,15 +356,13 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
             
             guard
-                let photoCell = cell as? ArticlePhotoCell
-                    
-            else { return cell }
+                let photoCell = cell as? ArticlePhotoCell else { return cell }
             
-            photoCell.configureCell(with: cellViewModel, authorViewModel: authorCellViewModel)
+            photoCell.configureCell(with: articleCellViewModel, authorViewModel: authorCellViewModel)
             
             photoCell.editHandler = { [weak self] in
                 
-                self?.viewModel.editArticle(with: cellViewModel, authorViewModel: authorCellViewModel)
+                self?.viewModel.editArticle(with: articleCellViewModel, authorViewModel: authorCellViewModel)
             }
             
             return photoCell
@@ -366,48 +373,15 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                     withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
             guard
-                let contentCell = cell as? ArticleContentCell
-                    
-            else { return cell }
+                let contentCell = cell as? ArticleContentCell else { return cell }
             
-            contentCell.configureCell(with: cellViewModel)
+            contentCell.configureCell(with: articleCellViewModel)
             
-            contentCell.likeArticleHandler = { [weak self] in
-                
-                self?.viewModel.likeArticle(with: cellViewModel)
-            }
-            
-            contentCell.unlikeArticleHandler = { [weak self] in
-                 
-                self?.viewModel.unlikeArticle(with: cellViewModel)
-            }
-            
-            contentCell.leaveCommentHandler = { [weak self] in
-                
-                let storyboard = UIStoryboard.findPetSociety
-                
-                guard
-                    let petSocietyCommentVC = storyboard.instantiateViewController(
-                        withIdentifier: PetSocietyCommentViewController.identifier
-                    ) as? PetSocietyCommentViewController
-                        
-                else { return }
-                
-                petSocietyCommentVC.modalPresentationStyle = .custom
-                
-                petSocietyCommentVC.transitioningDelegate = self
-                
-                petSocietyCommentVC.viewModel.selectedArticle = cellViewModel.article
-                
-                petSocietyCommentVC.viewModel.selectedAuthor = authorCellViewModel.user
-                
-                self?.present(petSocietyCommentVC, animated: true)
-            }
-            
-            contentCell.shareHandler = { [weak self] in
-                
-                self?.viewModel.shareArticle(with: cellViewModel)
-            }
+            setupArticleContentCellHandler(
+                articleCell: contentCell,
+                with: articleCellViewModel,
+                authorViewModel: authorCellViewModel
+            )
             
             return contentCell
             

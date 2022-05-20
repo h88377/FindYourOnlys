@@ -112,6 +112,54 @@ class AlertWindowManager {
 
         controller.present(alert, animated: true)
     }
+    
+    func presentEditActionSheet(at controller: UIViewController, articleViewModel: ArticleViewModel, with deleteConfirmAction: UIAlertAction) {
+        
+        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        
+        let editAction = UIAlertAction(title: "編輯文章", style: .default) { _ in
+            
+            let storyboard = UIStoryboard.profile
+            
+            guard
+                let editVC = storyboard.instantiateViewController(
+                    withIdentifier: EditArticleViewController.identifier)
+                    as? EditArticleViewController
+            
+            else { return }
+            
+            let article = articleViewModel.article
+            
+            editVC.viewModel.article = article
+            
+            controller.navigationController?.pushViewController(editVC, animated: true)
+        }
+        
+        let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { _ in
+            
+            let deleteAlert = UIAlertController(title: "注意!", message: "將刪除此篇文章", preferredStyle: .alert)
+            
+            deleteAlert.addAction(cancel)
+            
+            deleteAlert.addAction(deleteConfirmAction)
+            
+            controller.present(deleteAlert, animated: true)
+            
+        }
+        
+        alert.addAction(editAction)
+        
+        alert.addAction(deleteAction)
+        
+        alert.addAction(cancel)
+        
+        // iPad specific code
+        AlertWindowManager.shared.configureIpadAlert(at: controller, with: alert)
+        
+        controller.present(alert, animated: true)
+    }
 
     func showShareActivity(at controller: UIViewController) {
 
