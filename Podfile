@@ -19,4 +19,13 @@ pod 'lottie-ios', '~> 3.3'
 pod 'FirebaseCrashlytics'
 pod 'GoogleMLKit/ImageLabeling', '2.6.0'
 
+target 'FindYourOnlysTests' do
+        inherit! :search_paths
+        pod 'Firebase/Auth'
+        pod 'Firebase/Firestore'
+        pod 'Firebase/Storage'
+        pod 'Firebase/Database'
+        pod 'GoogleMLKit/ImageLabeling', '2.6.0'
+    end
+
 end

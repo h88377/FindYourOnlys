@@ -38,4 +38,3 @@ enum FirebaseFieldType: String {
     
     case animalId = "animal_id"
 }
-

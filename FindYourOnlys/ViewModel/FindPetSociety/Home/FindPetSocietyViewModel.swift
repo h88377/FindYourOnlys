@@ -33,7 +33,10 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                     
                     for index in 0..<articles.count {
                         
-                        let filteredComments = articles[index].comments.filter { !currentUser.blockedUsers.contains($0.userId) }
+                        let filteredComments = articles[index].comments.filter {
+                            
+                            !currentUser.blockedUsers.contains($0.userId)
+                        }
                         
                         articles[index].comments = filteredComments
                     }
@@ -69,27 +72,33 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                 
                 var authors = [User]()
                 
+//                for article in articles {
+//
+//                    for user in users {
+//
+//                        if article.userId == user.id {
+//
+//                            authors.append(user)
+//                        }
+//                    }
+//                }
+                
                 for article in articles {
                     
-                    for user in users {
-                        
-                        if article.userId == user.id {
+                    for user in users where user.id == article.userId {
                             
-                            authors.append(user)
-                        }
+                        authors.append(user)
                     }
                 }
                 
                 UserFirebaseManager.shared.setUsers(with: self.authorViewModels, users: authors)
                 
-                self.stopLoadingHandler?()
-                
             case .failure(let error):
                 
                 completion(error)
-                
-                self.stopLoadingHandler?()
             }
+            
+            self.stopLoadingHandler?()
         }
     }
     

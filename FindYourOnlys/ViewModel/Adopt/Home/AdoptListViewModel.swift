@@ -14,9 +14,7 @@ class AdoptListViewModel {
     
     var isSelectedPetFavorite: Box<Bool> = Box(false)
 
-    var filterConditionViewModel = Box(
-        AdoptFilterCondition()
-    )
+    var filterConditionViewModel = Box(AdoptFilterCondition())
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
