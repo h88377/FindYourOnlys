@@ -50,7 +50,7 @@ class AdoptDirectionViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.directionViewModel.bind(listener: { [weak self] _ in
+        viewModel.directionViewModel.bind { [weak self] _ in
             
             guard
                 let self = self else { return }
@@ -59,7 +59,7 @@ class AdoptDirectionViewController: BaseViewController {
                 
                 self.tableView.reloadData()
             }
-        })
+        }
     }
     
     // MARK: - Methods and IBActions

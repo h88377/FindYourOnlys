@@ -71,7 +71,7 @@ class LoadMoreActivityIndicator {
         return scrollView.contentSize.height < scrollView.frame.size.height
     }
 
-    func start(closure: (() -> Void)?) {
+    func start(completion: (() -> Void)?) {
         
         guard
             let scrollView = scrollView, let activityIndicatorView = activityIndicatorView else { return }
@@ -105,7 +105,7 @@ class LoadMoreActivityIndicator {
                 if offsetY > contentDelta && offsetDelta >= spacingFromLastCellWhenLoadMoreActionStart && !activityIndicatorView.isAnimating {
                     
                     activityIndicatorView.startAnimating()
-                    closure?()
+                    completion?()
                 }
             }
 

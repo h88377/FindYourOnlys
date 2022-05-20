@@ -34,6 +34,7 @@ class FindYourOnlysTests: XCTestCase {
             "Network connnectivity needed for this test."
         )
         
+        // given
         let url = URL(string: "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL&$top=10&$skip=0")!
         
         var statusCode: Int?
@@ -42,6 +43,7 @@ class FindYourOnlysTests: XCTestCase {
         
         let promise = expectation(description: "The completion handler is invoked.")
         
+        // when
         let dataTask = sut.dataTask(with: url) { _, response, error in
             
             statusCode = (response as? HTTPURLResponse)?.statusCode
@@ -53,6 +55,7 @@ class FindYourOnlysTests: XCTestCase {
         
         dataTask.resume()
         
+        // then
         XCTAssertNil(responseError)
         
         XCTAssertEqual(statusCode, 200)
