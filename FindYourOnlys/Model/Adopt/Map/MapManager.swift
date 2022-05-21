@@ -125,15 +125,4 @@ class MapManager {
         }
         
     }
-    
-    // MARK: - Convert functions
-    
-    func appendMapAnnotation(in viewModels: Box<[MapAnnotationViewModel]?>, annotation: MapAnnotation) {
-        
-        if
-            viewModels.value == nil { viewModels.value = [MapAnnotationViewModel(model: annotation)] } else {
-            
-            viewModels.value?.append(MapAnnotationViewModel(model: annotation))
-        }
-    }
 }

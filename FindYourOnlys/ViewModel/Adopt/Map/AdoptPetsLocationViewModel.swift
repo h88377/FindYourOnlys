@@ -217,7 +217,9 @@ class AdoptPetsLocationViewModel {
                     
                     let mapAnnotation = MapAnnotation(
                         title: shelter.title,
-                        subtitle: "\(petCounts[0].petKind): \(petCounts[0].count), \(petCounts[1].petKind): \(petCounts[1].count), \(petCounts[2].petKind): \(petCounts[2].count)" ,
+                        subtitle: "\(petCounts[0].petKind): \(petCounts[0].count), " +
+                        "\(petCounts[1].petKind): \(petCounts[1].count), " +
+                        "\(petCounts[2].petKind): \(petCounts[2].count)",
                         location: shelter.address,
                         coordinate: CLLocationCoordinate2D(
                             latitude: location.coordinate.latitude,
@@ -225,7 +227,7 @@ class AdoptPetsLocationViewModel {
                         )
                     )
                     
-                    MapManager.shared.appendMapAnnotation(in: self.mapAnnotationViewModels, annotation: mapAnnotation)
+                    self.appendMapAnnotation(annotation: mapAnnotation)
                     
                 case .failure(let error):
                     
@@ -327,5 +329,18 @@ class AdoptPetsLocationViewModel {
         }
         
         return shelters
+    }
+    
+    private func appendMapAnnotation(annotation: MapAnnotation) {
+        
+        if
+            mapAnnotationViewModels.value == nil {
+            
+            mapAnnotationViewModels.value = [MapAnnotationViewModel(model: annotation)]
+            
+        } else {
+            
+            mapAnnotationViewModels.value?.append(MapAnnotationViewModel(model: annotation))
+        }
     }
 }
