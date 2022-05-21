@@ -47,9 +47,9 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         tableView.backgroundColor = .projectBackgroundColor
         
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
 
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: FilterRemindCell.identifier)
         
@@ -188,7 +188,7 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             )
             
             guard
-                let basicCell = cell as? PublishBasicCell
+                let basicCell = cell as? BasePublishCell
                     
             else { return cell }
             
@@ -212,25 +212,26 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
     }
 }
 
-// MARK: - PublishBasicCellDelegate
-extension FindPetSocietyFilterViewController: PublishBasicCellDelegate {
+// MARK: - BasePublishCellDelegate
+
+extension FindPetSocietyFilterViewController: BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
         viewModel.cityChanged(with: city)
     }
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    func didChangeColor(_ cell: BasePublishCell, with color: String) {
         
         viewModel.colorChanged(with: color)
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
     }
     
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+    func didChangePostType(_ cell: BasePublishCell, with postType: String) {
         
         viewModel.postTypeChanged(with: postType)
     }

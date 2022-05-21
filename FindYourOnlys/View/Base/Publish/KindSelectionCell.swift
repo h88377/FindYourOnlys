@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PublishKindCell: PublishBasicCell {
+class KindSelectionCell: BasePublishCell {
 
     @IBOutlet weak var kindLabel: UILabel! {
         

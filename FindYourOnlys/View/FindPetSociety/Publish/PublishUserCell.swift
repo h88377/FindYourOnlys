@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PublishUserCell: PublishBasicCell {
+class PublishUserCell: BasePublishCell {
     
     @IBOutlet weak var userImageView: UIImageView! {
         

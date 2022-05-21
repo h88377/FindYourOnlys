@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PublishContentCell: PublishBasicCell {
+class PublishContentCell: BasePublishCell {
     
     @IBOutlet weak var photoLabel: UILabel! {
         

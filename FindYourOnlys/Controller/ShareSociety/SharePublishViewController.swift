@@ -99,9 +99,9 @@ class SharePublishViewController: BaseViewController {
         
         tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
     }
@@ -139,7 +139,7 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
             )
         
         guard
-            let publishCell = cell as? PublishBasicCell else { return cell }
+            let publishCell = cell as? BasePublishCell else { return cell }
         
         publishCell.delegate = self
         
@@ -172,20 +172,21 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
-// MARK: - PublishSelectionCellDelegate
-extension SharePublishViewController: PublishBasicCellDelegate {
+// MARK: - BasePublishCellDelegate
+
+extension SharePublishViewController: BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
         viewModel.cityChanged(with: city)
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
     }
     
-    func didChangeContent(_ cell: PublishBasicCell, with content: String) {
+    func didChangeContent(_ cell: BasePublishCell, with content: String) {
         
         viewModel.contentChanged(with: content)
     }

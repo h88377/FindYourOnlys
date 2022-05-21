@@ -108,13 +108,13 @@ class EditArticleViewController: BaseViewController {
     override func setupTableView() {
         super.setupTableView()
         
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
     }
     
     override func setupNavigationTitle() {
@@ -145,7 +145,7 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         let cell = category.cellForIndexPath(indexPath, tableView: tableView, article: viewModel.article)
         
         guard
-            let editCell = cell as? PublishBasicCell else { return cell }
+            let editCell = cell as? BasePublishCell else { return cell }
         
         editCell.delegate = self
         
@@ -179,30 +179,31 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-// MARK: - PublishSelectionCellDelegate
-extension EditArticleViewController: PublishBasicCellDelegate {
+// MARK: - BasePublishCellDelegate
+
+extension EditArticleViewController: BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
         viewModel.cityChanged(with: city)
     }
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    func didChangeColor(_ cell: BasePublishCell, with color: String) {
         
         viewModel.colorChanged(with: color)
     }
     
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+    func didChangePostType(_ cell: BasePublishCell, with postType: String) {
         
         viewModel.postTypeChanged(with: postType)
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
     }
     
-    func didChangeContent(_ cell: PublishBasicCell, with content: String) {
+    func didChangeContent(_ cell: BasePublishCell, with content: String) {
         
         viewModel.contentChanged(with: content)
     }

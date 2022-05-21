@@ -7,26 +7,26 @@
 
 import UIKit
 
-protocol PublishBasicCellDelegate: AnyObject {
+protocol BasePublishCellDelegate: AnyObject {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String)
+    func didChangeCity(_ cell: BasePublishCell, with city: String)
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String)
+    func didChangeColor(_ cell: BasePublishCell, with color: String)
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String)
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String)
     
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String)
+    func didChangePostType(_ cell: BasePublishCell, with postType: String)
     
-    func didChangeContent(_ cell: PublishBasicCell, with content: String)
+    func didChangeContent(_ cell: BasePublishCell, with content: String)
     
-    func didChangeSex(_ cell: PublishBasicCell, with sex: String)
+    func didChangeSex(_ cell: BasePublishCell, with sex: String)
 }
 
-class PublishBasicCell: UITableViewCell {
+class BasePublishCell: UITableViewCell {
     
     // MARK: - Properties
     
-    weak var delegate: PublishBasicCellDelegate?
+    weak var delegate: BasePublishCellDelegate?
     
     var cameraHandler: (() -> Void)?
     
@@ -75,31 +75,31 @@ class PublishBasicCell: UITableViewCell {
     
 }
 
-// MARK: - PublishBasicCellDelegate
+// MARK: - BasePublishCellDelegate
 
-extension PublishBasicCellDelegate {
+extension BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
     }
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    func didChangeColor(_ cell: BasePublishCell, with color: String) {
         
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
     }
     
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+    func didChangePostType(_ cell: BasePublishCell, with postType: String) {
         
     }
     
-    func didChangeContent(_ cell: PublishBasicCell, with content: String) {
+    func didChangeContent(_ cell: BasePublishCell, with content: String) {
         
     }
     
-    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
+    func didChangeSex(_ cell: BasePublishCell, with sex: String) {
         
     }
 }

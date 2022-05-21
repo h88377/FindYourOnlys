@@ -21,18 +21,22 @@ enum AdoptFilterCategory: String, CaseIterable {
 
         switch self {
 
-        case .city, .color: return PublishSelectionCell.identifier
+        case .city, .color: return CityPickerCell.identifier
 
-        case .petKind, .sex: return PublishKindCell.identifier
+        case .petKind, .sex: return KindSelectionCell.identifier
 
         }
     }
     
-    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, condition: AdoptFilterCondition? = nil) -> UITableViewCell {
+    func cellForIndexPath(
+        _ indexPath: IndexPath,
+        tableView: UITableView,
+        condition: AdoptFilterCondition? = nil
+    ) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
 
-        guard let basicCell = cell as? PublishBasicCell else { return cell }
+        guard let basicCell = cell as? BasePublishCell else { return cell }
         
         switch self {
             

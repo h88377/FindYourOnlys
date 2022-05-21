@@ -27,9 +27,9 @@ enum PublishContentCategory: String, CaseIterable {
 
         case .user: return PublishUserCell.identifier
 
-        case .color, .city: return PublishSelectionCell.identifier
+        case .color, .city: return CityPickerCell.identifier
             
-        case .petKind, .postType: return PublishKindCell.identifier
+        case .petKind, .postType: return KindSelectionCell.identifier
 
         case .content: return PublishContentCell.identifier
 
@@ -55,7 +55,7 @@ enum PublishContentCategory: String, CaseIterable {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
 
         guard
-            let basicCell = cell as? PublishBasicCell else { return cell }
+            let basicCell = cell as? BasePublishCell else { return cell }
         
         switch self {
             

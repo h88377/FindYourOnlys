@@ -78,9 +78,9 @@ class PublishViewController: BaseViewController {
         
         tableView.registerCellWithIdentifier(identifier: PublishUserCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
     }
@@ -206,7 +206,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         )
         
         guard
-            let publishCell = cell as? PublishBasicCell
+            let publishCell = cell as? BasePublishCell
                 
         else { return UITableViewCell() }
         
@@ -251,30 +251,31 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-// MARK: - PublishSelectionCellDelegate
-extension PublishViewController: PublishBasicCellDelegate {
+// MARK: - BasePublishCellDelegate
+
+extension PublishViewController: BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
         viewModel.cityChanged(with: city)
     }
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    func didChangeColor(_ cell: BasePublishCell, with color: String) {
         
         viewModel.colorChanged(with: color)
     }
     
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+    func didChangePostType(_ cell: BasePublishCell, with postType: String) {
         
         viewModel.postTypeChanged(with: postType)
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
     }
     
-    func didChangeContent(_ cell: PublishBasicCell, with content: String) {
+    func didChangeContent(_ cell: BasePublishCell, with content: String) {
         
         viewModel.contentChanged(with: content)
     }

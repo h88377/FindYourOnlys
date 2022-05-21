@@ -21,9 +21,9 @@ enum FindPetSocietyFilterCategory: String, CaseIterable {
         
         switch self {
             
-        case .color, .city: return PublishSelectionCell.identifier
+        case .color, .city: return CityPickerCell.identifier
             
-        case .petKind, .postType: return PublishKindCell.identifier
+        case .petKind, .postType: return KindSelectionCell.identifier
             
         }
     }
@@ -33,7 +33,7 @@ enum FindPetSocietyFilterCategory: String, CaseIterable {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
         
         guard
-            let basicCell = cell as? PublishBasicCell else { return cell }
+            let basicCell = cell as? BasePublishCell else { return cell }
         
         switch self {
             

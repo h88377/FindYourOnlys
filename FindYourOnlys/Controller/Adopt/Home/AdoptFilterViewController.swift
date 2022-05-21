@@ -53,9 +53,9 @@ class AdoptFilterViewController: BaseViewController {
         
         tableView.allowsSelection = false
         
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
         
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: FilterRemindCell.identifier)
         
@@ -197,7 +197,7 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
             )
             
             guard
-                let basicCell = cell as? PublishBasicCell
+                let basicCell = cell as? BasePublishCell
                     
             else { return cell }
             
@@ -223,24 +223,26 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-extension AdoptFilterViewController: PublishBasicCellDelegate {
+// MARK: - BasePublishCellDelegate
+
+extension AdoptFilterViewController: BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
         viewModel.cityChanged(with: city)
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
     }
     
-    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
+    func didChangeSex(_ cell: BasePublishCell, with sex: String) {
         
         viewModel.sexChanged(with: sex == Sex.male.rawValue ? "M" : "F")
     }
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    func didChangeColor(_ cell: BasePublishCell, with color: String) {
     
         viewModel.colorChanged(with: color)
     }

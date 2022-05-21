@@ -1,5 +1,5 @@
 //
-//  PublishSelectionCell.swift
+//  CityPickerCell.swift
 //  FindYourOnlys
 //
 //  Created by 鄭昭韋 on 2022/4/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PublishSelectionCell: PublishBasicCell {
+class CityPickerCell: BasePublishCell {
     
     private enum City: String, CaseIterable {
         
@@ -230,7 +230,7 @@ class PublishSelectionCell: PublishBasicCell {
     
 }
 // MARK: - UIPickerViewDelegate and Datasource
-extension PublishSelectionCell: UIPickerViewDelegate, UIPickerViewDataSource {
+extension CityPickerCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
 
         1
@@ -276,7 +276,7 @@ extension PublishSelectionCell: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 // MARK: - UITextFieldDelegate
-extension PublishSelectionCell: UITextFieldDelegate {
+extension CityPickerCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

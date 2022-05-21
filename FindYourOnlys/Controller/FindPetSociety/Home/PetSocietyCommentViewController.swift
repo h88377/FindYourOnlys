@@ -319,8 +319,6 @@ class PetSocietyCommentViewController: BaseModalViewController {
         super.setupTableView()
         
         tableView.registerCellWithIdentifier(identifier: CommentCell.identifier)
-        
-//        tableView.registerViewWithIdentifier(identifier: CommentHeaderView.identifier)
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -442,22 +440,6 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
         }
         
         return commentCell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: CommentHeaderView.identifier)
-                as? CommentHeaderView,
-            let selectedArticle = viewModel.selectedArticle,
-            let selectedAuthor = viewModel.selectedAuthor
-                
-        else { return nil }
-        
-        headerView.configureView(with: selectedArticle, author: selectedAuthor)
-        
-        return headerView
     }
 }
 
