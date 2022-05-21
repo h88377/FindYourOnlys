@@ -10,15 +10,19 @@ import Lottie
 
 class FindPetSocietyFilterViewController: BaseViewController {
     
+    // MARK: - Properties
+    
+    let viewModel = FindPetSocietyFilterViewModel()
+    
     let tableView = UITableView()
     
     let filterButton = UIButton()
     
     let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
     
-    let viewModel = FindPetSocietyFilterViewModel()
-    
     override var isHiddenTabBar: Bool { return true }
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
         filterButton.layer.cornerRadius = 15
     }
 
+    // MARK: - Methods
+    
     override func setupTableView() {
         super.setupTableView()
 
@@ -69,7 +75,6 @@ class FindPetSocietyFilterViewController: BaseViewController {
                 
                 tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
                 
-//                tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
                 tableView.topAnchor.constraint(equalTo: view.topAnchor),
                 
                 tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)
@@ -164,12 +169,11 @@ class FindPetSocietyFilterViewController: BaseViewController {
         petSocietyVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
         
         navigationController?.popViewController(animated: true)
-        
     }
-
 }
 
 // MARK: - UITableViewDataSource and Delegate
+
 extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -188,13 +192,13 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             )
             
             guard
-                let basicCell = cell as? BasePublishCell
+                let baseCell = cell as? BasePublishCell
                     
             else { return cell }
             
-            basicCell.delegate = self
+            baseCell.delegate = self
             
-            return basicCell
+            return baseCell
             
         } else {
             
