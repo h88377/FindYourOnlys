@@ -8,15 +8,17 @@
 import UIKit
 
 class LoadMoreActivityIndicator {
-
+    
+    // MARK: - Properties
+    
     private let spacingFromLastCell: CGFloat
     
-    private let spacingFromLastCellWhenLoadMoreActionStart: CGFloat
+    private let spacingFromLastCellWhenLoadMoreStart: CGFloat
     
     private weak var activityIndicatorView: UIActivityIndicatorView?
     
     private weak var scrollView: UIScrollView?
-
+    
     private var defaultY: CGFloat {
         
         guard
@@ -24,16 +26,19 @@ class LoadMoreActivityIndicator {
         
         return height + spacingFromLastCell
     }
-
+    
     deinit { activityIndicatorView?.removeFromSuperview() }
-
-    init (scrollView: UIScrollView, spacingFromLastCell: CGFloat, spacingFromLastCellWhenLoadMoreActionStart: CGFloat) {
+    
+    init (scrollView: UIScrollView,
+          spacingFromLastCell: CGFloat,
+          spacingFromLastCellWhenLoadMoreStart: CGFloat
+    ) {
         
         self.scrollView = scrollView
         
         self.spacingFromLastCell = spacingFromLastCell
         
-        self.spacingFromLastCellWhenLoadMoreActionStart = spacingFromLastCellWhenLoadMoreActionStart
+        self.spacingFromLastCellWhenLoadMoreStart = spacingFromLastCellWhenLoadMoreStart
         
         let size: CGFloat = 40
         
@@ -45,6 +50,7 @@ class LoadMoreActivityIndicator {
         )
         
         let activityIndicatorView = UIActivityIndicatorView(frame: frame)
+        
         if #available(iOS 13.0, *) {
             
             activityIndicatorView.color = .label
@@ -62,7 +68,7 @@ class LoadMoreActivityIndicator {
         
         self.activityIndicatorView = activityIndicatorView
     }
-
+    
     private var isHidden: Bool {
         
         guard
@@ -70,7 +76,9 @@ class LoadMoreActivityIndicator {
         
         return scrollView.contentSize.height < scrollView.frame.size.height
     }
-
+    
+    // MARK: - Methods
+    
     func start(completion: (() -> Void)?) {
         
         guard
@@ -99,16 +107,19 @@ class LoadMoreActivityIndicator {
                     activityIndicatorView.frame.origin.y = defaultY
                 }
             }
-
+            
             if !activityIndicatorView.isAnimating {
                 
-                if offsetY > contentDelta && offsetDelta >= spacingFromLastCellWhenLoadMoreActionStart && !activityIndicatorView.isAnimating {
+                if offsetY > contentDelta
+                    && offsetDelta >= spacingFromLastCellWhenLoadMoreStart
+                    && !activityIndicatorView.isAnimating {
                     
                     activityIndicatorView.startAnimating()
+                    
                     completion?()
                 }
             }
-
+            
             if scrollView.isDecelerating {
                 
                 if activityIndicatorView.isAnimating && scrollView.contentInset.bottom == 0 {
@@ -116,7 +127,7 @@ class LoadMoreActivityIndicator {
                     UIView.animate(withDuration: 0.3) { [weak self] in
                         
                         if
-                            let bottom = self?.spacingFromLastCellWhenLoadMoreActionStart {
+                            let bottom = self?.spacingFromLastCellWhenLoadMoreStart {
                             scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
                         }
                     }
@@ -124,11 +135,12 @@ class LoadMoreActivityIndicator {
             }
         }
     }
-
+    
     func stop(completion: (() -> Void)? = nil) {
         
         guard
-            let scrollView = scrollView , let activityIndicatorView = activityIndicatorView else { return }
+            let scrollView = scrollView,
+            let activityIndicatorView = activityIndicatorView else { return }
         
         let contentDelta = scrollView.contentSize.height - scrollView.frame.size.height
         
@@ -136,10 +148,14 @@ class LoadMoreActivityIndicator {
         
         if offsetDelta >= 0 {
             
-            UIView.animate(withDuration: 0.3, animations: {
-                
-                scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            }) { _ in completion?() }
+            UIView.animate(withDuration: 0.3) {
+                    
+                    scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    
+                } completion: { _ in
+                    
+                    completion?()
+                }
             
         } else {
             
@@ -147,6 +163,7 @@ class LoadMoreActivityIndicator {
             
             completion?()
         }
+        
         activityIndicatorView.stopAnimating()
     }
 }

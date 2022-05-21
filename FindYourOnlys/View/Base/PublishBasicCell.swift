@@ -24,6 +24,8 @@ protocol PublishBasicCellDelegate: AnyObject {
 
 class PublishBasicCell: UITableViewCell {
     
+    // MARK: - Properties
+    
     weak var delegate: PublishBasicCellDelegate?
     
     var cameraHandler: (() -> Void)?
@@ -31,31 +33,35 @@ class PublishBasicCell: UITableViewCell {
     var galleryHandler: (() -> Void)?
     
     var imageDetectHandler: (() -> Void)?
-
+    
+    // MARK: - Methods
+    
     // Implement by child class
     func layoutCell(article: Article? = nil) {
-
+        
     }
     
     func layoutCell(category: String) {
-
+        
     }
     
     func layoutCell(category: String, article: Article? = nil) {
-
+        
     }
     
     func layoutCell(category: String, condition: AdoptFilterCondition? = nil) {
-
+        
     }
     
     func layoutCell(category: String, findCondition: FindPetSocietyFilterCondition? = nil) {
-
+        
     }
     
     func layoutCellWith(image: UIImage) {
         
     }
+    
+    // MARK: - View Life Cycle
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -63,9 +69,13 @@ class PublishBasicCell: UITableViewCell {
         cameraHandler = nil
         
         galleryHandler = nil
+        
+        imageDetectHandler = nil
     }
     
 }
+
+// MARK: - PublishBasicCellDelegate
 
 extension PublishBasicCellDelegate {
     

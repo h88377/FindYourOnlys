@@ -122,8 +122,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 // Check user's location if have shelters' information
                 if self.viewModel.shelters != nil {
 
-                    // Filter out error message when occured error,
-                    // but already have annotations on the map to enhance UX.
+                    // Filter out alert window when there are annotations on the map to enhance UX.
                     if self.viewModel.mapAnnotationViewModels.value == nil {
 
                         AlertWindowManager.shared.showAlertWindow(at: self, of: error)

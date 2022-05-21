@@ -118,7 +118,7 @@ class AdoptListViewController: BaseViewController {
         activityIndicator = LoadMoreActivityIndicator(
             scrollView: collectionView,
             spacingFromLastCell: 10,
-            spacingFromLastCellWhenLoadMoreActionStart: 60
+            spacingFromLastCellWhenLoadMoreStart: 60
         )
         
         setupLoadingViewHandler()
