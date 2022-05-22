@@ -11,7 +11,7 @@ class FindPetSocietyViewController: BaseViewController {
     
     // MARK: - Properties
     
-    let viewModel = FindPetSocietyViewModel()
+    let viewModel = PetSocietyViewModel()
     
     @IBOutlet private weak var remindLabel: UILabel! {
         
@@ -58,7 +58,7 @@ class FindPetSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.articleViewModels.bind { [weak self] articleViewModels in
+        viewModel.findArticleViewModels.bind { [weak self] articleViewModels in
             
             guard
                 let self = self else { return }
@@ -73,7 +73,7 @@ class FindPetSocietyViewController: BaseViewController {
             }
         }
         
-        viewModel.authorViewModels.bind { [weak self] _ in
+        viewModel.findAuthorViewModels.bind { [weak self] _ in
             
             guard
                 let self = self else { return }
@@ -114,11 +114,9 @@ class FindPetSocietyViewController: BaseViewController {
         
         setupArticleHandler()
         
-        setupLoadingViewHandler()
-        
         addCurrentUserObserver()
         
-        viewModel.fetchArticles()
+        viewModel.fetchFindArticles()
     }
     
     override func viewDidLayoutSubviews() {
@@ -142,7 +140,7 @@ class FindPetSocietyViewController: BaseViewController {
         navigationItem.title = "尋寵物啟示"
     }
     
-    private func setupLoadingViewHandler() {
+    override func setupLoadingViewHandler() {
         
         viewModel.startLoadingHandler = { [weak self] in
             
@@ -283,7 +281,7 @@ class FindPetSocietyViewController: BaseViewController {
     
     @objc private func currentUserDidSet(_ notification: Notification) {
         
-        viewModel.fetchArticles()
+        viewModel.fetchFindArticles()
     }
     
     private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
@@ -314,7 +312,7 @@ class FindPetSocietyViewController: BaseViewController {
     
     @IBAction func refetchArticle(_ sender: UIButton) {
         
-        viewModel.fetchArticles()
+        viewModel.fetchFindArticles()
         
         viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     }
@@ -328,12 +326,12 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         let registeredCellCount = 2
         
         guard
-            viewModel.authorViewModels.value.count > 0,
-            viewModel.articleViewModels.value.count == viewModel.authorViewModels.value.count
+            viewModel.findAuthorViewModels.value.count > 0,
+            viewModel.findArticleViewModels.value.count == viewModel.findAuthorViewModels.value.count
                 
         else { return 0 }
         
-        return viewModel.articleViewModels.value.count * registeredCellCount
+        return viewModel.findArticleViewModels.value.count * registeredCellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -341,11 +339,11 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         let registeredCellCount = 2
         
         let articleCellViewModel = viewModel
-            .articleViewModels
+            .findArticleViewModels
             .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
         let authorCellViewModel = viewModel
-            .authorViewModels
+            .findAuthorViewModels
             .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
         switch indexPath.row % registeredCellCount {

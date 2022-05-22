@@ -199,7 +199,7 @@
 		98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16532806587D00B9FDC6 /* ArticleContentCell.swift */; };
 		98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16542806587D00B9FDC6 /* ArticleContentCell.xib */; };
 		98CC16592806651D00B9FDC6 /* ContentInsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */; };
-		98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165B2806717800B9FDC6 /* FindPetSocietyViewModel.swift */; };
+		98CC165C2806717800B9FDC6 /* PetSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165B2806717800B9FDC6 /* PetSocietyViewModel.swift */; };
 		98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */; };
 		98CC16602806724000B9FDC6 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165F2806724000B9FDC6 /* Article.swift */; };
 		98CC16642806ACF600B9FDC6 /* PublishContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */; };
@@ -411,7 +411,7 @@
 		98CC16532806587D00B9FDC6 /* ArticleContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContentCell.swift; sourceTree = "<group>"; };
 		98CC16542806587D00B9FDC6 /* ArticleContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleContentCell.xib; sourceTree = "<group>"; };
 		98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentInsetTextField.swift; sourceTree = "<group>"; };
-		98CC165B2806717800B9FDC6 /* FindPetSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPetSocietyViewModel.swift; sourceTree = "<group>"; };
+		98CC165B2806717800B9FDC6 /* PetSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyViewModel.swift; sourceTree = "<group>"; };
 		98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModel.swift; sourceTree = "<group>"; };
 		98CC165F2806724000B9FDC6 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishContentCategory.swift; sourceTree = "<group>"; };
@@ -658,7 +658,7 @@
 		9896D920280BC92C003D4A16 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				98CC165B2806717800B9FDC6 /* FindPetSocietyViewModel.swift */,
+				98CC165B2806717800B9FDC6 /* PetSocietyViewModel.swift */,
 				98939A20281398CB004312F1 /* FindPetSocietyFilterViewModel.swift */,
 			);
 			path = Home;
@@ -892,9 +892,9 @@
 				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
 				98CC162128054ADB00B9FDC6 /* Adopt */,
 				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
+				98939A2E281433DA004312F1 /* ShareSociety */,
 				98BC47602823B1F700740855 /* ChatSociety */,
 				987D8B3328169FAD000D1F95 /* Auth */,
-				98939A2E281433DA004312F1 /* ShareSociety */,
 				9896D934280D6D95003D4A16 /* Profile */,
 			);
 			path = ViewModel;
@@ -1510,7 +1510,7 @@
 				98CC16642806ACF600B9FDC6 /* PublishContentCategory.swift in Sources */,
 				987D8B68281AEDF6000D1F95 /* ProfileSelectedArticleViewModel.swift in Sources */,
 				98CC16552806587D00B9FDC6 /* ArticleContentCell.swift in Sources */,
-				98CC165C2806717800B9FDC6 /* FindPetSocietyViewModel.swift in Sources */,
+				98CC165C2806717800B9FDC6 /* PetSocietyViewModel.swift in Sources */,
 				9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */,
 				9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */,
 				98822C7B282F67C1006F8910 /* TransformButton.swift in Sources */,

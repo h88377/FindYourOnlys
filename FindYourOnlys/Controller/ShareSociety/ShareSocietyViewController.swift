@@ -9,9 +9,11 @@ import UIKit
 
 class ShareSocietyViewController: BaseViewController {
     
-    let viewModel = ShareSocietyViewModel()
+    // MARK: - Properties
     
-    @IBOutlet weak var tableView: UITableView! {
+    private let viewModel = ShareSocietyViewModel()
+    
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -23,7 +25,7 @@ class ShareSocietyViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var addArticleButton: UIButton! {
+    @IBOutlet private weak var addArticleButton: UIButton! {
         
         didSet {
             
@@ -33,7 +35,7 @@ class ShareSocietyViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var remindLabel: UILabel! {
+    @IBOutlet private weak var remindLabel: UILabel! {
         
         didSet {
             
@@ -41,22 +43,10 @@ class ShareSocietyViewController: BaseViewController {
         }
     }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        addCurrentUserObserver()
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
-        }
-        
-        viewModel.fetchSharedArticles()
         
         viewModel.articleViewModels.bind { [weak self] articleViewModels in
             
@@ -149,6 +139,10 @@ class ShareSocietyViewController: BaseViewController {
 
             self?.present(authVC, animated: true)
         }
+        
+        addCurrentUserObserver()
+        
+        viewModel.fetchSharedArticles()
     }
     
     override func viewDidLayoutSubviews() {
@@ -156,6 +150,8 @@ class ShareSocietyViewController: BaseViewController {
         
         addArticleButton.makeRound()
     }
+    
+    // MARK: - Methods and IBActions
     
     override func setupTableView() {
         super.setupTableView()
@@ -165,6 +161,25 @@ class ShareSocietyViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
+    }
+    
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
     }
     
     private func convertDataSourceIndex(with index: Int, count: Int) -> Int {

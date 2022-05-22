@@ -67,8 +67,6 @@ class PublishViewController: BaseViewController {
             self.popBack()
         }
         
-        setupLoadingViewHandler()
-        
         setupScanningHandler()
     }
     
@@ -85,7 +83,7 @@ class PublishViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: PublishContentCell.identifier)
     }
     
-    private func setupLoadingViewHandler() {
+    override func setupLoadingViewHandler() {
         
         viewModel.startLoadingHandler = { [weak self] in
             
@@ -102,7 +100,6 @@ class PublishViewController: BaseViewController {
             
             self.stopLoading()
         }
-        
     }
     
     private func setupScanningHandler() {

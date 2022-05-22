@@ -218,8 +218,6 @@ class PetSocietyCommentViewController: BaseModalViewController {
             self.present(authVC, animated: true)
         }
         
-        setupLoadingViewHandler()
-        
         setupEditCommentHandler()
 
         setupKeyBoard()
@@ -247,7 +245,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         tableView.registerCellWithIdentifier(identifier: CommentCell.identifier)
     }
     
-    private func setupLoadingViewHandler() {
+    override func setupLoadingViewHandler() {
         
         viewModel.startLoadingHandler = { [weak self] in
             

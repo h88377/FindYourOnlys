@@ -9,9 +9,13 @@ import Foundation
 
 class ShareSocietyViewModel: BaseSocietyViewModel {
     
+    // MARK: - Properties
+    
     let articleViewModels = Box([ArticleViewModel]())
     
     let authorViewModels = Box([UserViewModel]())
+    
+    // MARK: - Methods
     
     func fetchSharedArticles() {
         

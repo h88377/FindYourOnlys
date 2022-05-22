@@ -121,8 +121,6 @@ class AdoptListViewController: BaseViewController {
             spacingFromLastCellWhenLoadMoreStart: 60
         )
         
-        setupLoadingViewHandler()
-        
         setupIndicatorViewHandler()
         
         startLoading()
@@ -149,7 +147,7 @@ class AdoptListViewController: BaseViewController {
         
     }
     
-    private func setupLoadingViewHandler() {
+    override func setupLoadingViewHandler() {
         
         viewModel.startLoadingHandler = { [weak self] in
             

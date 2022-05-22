@@ -151,8 +151,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
 
-        setupLoadingViewHandler()
-
         setupLocationAnnotationsHandler()
 
         setupSearchViews()
@@ -194,9 +192,9 @@ class AdoptPetsLocationViewController: BaseViewController {
 
         self.adoptDirectionVC = adoptDirectionVC
     }
-
-    private func setupLoadingViewHandler() {
-
+    
+    override func setupLoadingViewHandler() {
+        
         viewModel.startLoadingHandler = { [weak self] in
 
             guard

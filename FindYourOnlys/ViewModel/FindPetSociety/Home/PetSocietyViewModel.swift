@@ -7,19 +7,53 @@
 
 import Foundation
 
-class FindPetSocietyViewModel: BaseSocietyViewModel {
+//enum SocietyModel {
+//
+//    case find
+//
+//    case shared
+//
+//    func condition() -> FindPetSocietyFilterCondition? {
+//
+//        switch self {
+//        case .find:
+//            <#code#>
+//        case .shared:
+//            <#code#>
+//        }
+//    }
+//
+//    func fetchArticle(condition: FindPetSocietyFilterCondition?) {
+//
+//        switch self {
+//
+//        case .find:
+//
+//
+//
+//        case .shared:
+//            <#code#>
+//        }
+//    }
+//}
+
+class PetSocietyViewModel: BaseSocietyViewModel {
     
     // MARK: - Properties
     
-    let articleViewModels = Box([ArticleViewModel]())
+    let findArticleViewModels = Box([ArticleViewModel]())
     
-    let authorViewModels = Box([UserViewModel]())
+    let findAuthorViewModels = Box([UserViewModel]())
+    
+    let sharedArticleViewModels = Box([ArticleViewModel]())
+    
+    let sharedAuthorViewModels = Box([UserViewModel]())
     
     var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     
     // MARK: - Methods
     
-    func fetchArticles(with condition: FindPetSocietyFilterCondition? = nil) {
+    func fetchFindArticles(with condition: FindPetSocietyFilterCondition? = nil) {
         
         startLoadingHandler?()
         
@@ -34,9 +68,9 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                 
                 self.filterOutBlockedComments(with: &articles)
                 
-                PetSocietyFirebaseManager.shared.setArticles(with: self.articleViewModels, articles: articles)
+                PetSocietyFirebaseManager.shared.setArticles(with: self.findArticleViewModels, articles: articles)
                 
-                self.fetchAuthors(with: articles) { error in
+                self.fetchAuthors(with: articles, type: .find) { error in
                     
                     self.errorViewModel.value = ErrorViewModel(model: error!)
                 }
@@ -51,7 +85,39 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
         
     }
     
-    private func fetchAuthors(with articles: [Article], completion: @escaping (Error?) -> Void) {
+    func fetchSharedArticles() {
+        
+        startLoadingHandler?()
+        
+        PetSocietyFirebaseManager.shared.fetchArticle(articleType: .share) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(var articles):
+                
+                self.filterOutBlockedComments(with: &articles)
+                
+                PetSocietyFirebaseManager.shared.setArticles(with: self.sharedArticleViewModels, articles: articles)
+                
+                self.fetchAuthors(with: articles, type: .share) { error in
+                    
+                    self.errorViewModel.value = ErrorViewModel(model: error!)
+                }
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.stopLoadingHandler?()
+            }
+        }
+        
+    }
+    
+    private func fetchAuthors(with articles: [Article], type: ArticleType, completion: @escaping (Error?) -> Void) {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
@@ -72,8 +138,17 @@ class FindPetSocietyViewModel: BaseSocietyViewModel {
                     }
                 }
                 
-                UserFirebaseManager.shared.setUsers(with: self.authorViewModels, users: authors)
-                
+                switch type {
+                    
+                case .find:
+                    
+                    UserFirebaseManager.shared.setUsers(with: self.findAuthorViewModels, users: authors)
+                    
+                case .share:
+                    
+                    UserFirebaseManager.shared.setUsers(with: self.sharedAuthorViewModels, users: authors)
+                }
+                  
             case .failure(let error):
                 
                 completion(error)

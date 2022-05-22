@@ -164,7 +164,7 @@ class FindPetSocietyFilterViewController: BaseViewController {
             return
         }
         
-        petSocietyVC.viewModel.fetchArticles(with: viewModel.findPetSocietyFilterCondition)
+        petSocietyVC.viewModel.fetchFindArticles(with: viewModel.findPetSocietyFilterCondition)
         
         petSocietyVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
         

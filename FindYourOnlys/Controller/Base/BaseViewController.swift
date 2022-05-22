@@ -43,11 +43,13 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCollectionView()
-        
         setupNavigationTitle()
         
+        setupCollectionView()
+        
         setupTableView()
+        
+        setupLoadingViewHandler()
         
         view.backgroundColor = .systemGray6
     }
@@ -141,6 +143,10 @@ class BaseViewController: UIViewController {
     
     func setupCollectionView() {
 
+    }
+    
+    func setupLoadingViewHandler() {
+        
     }
     
     func startLoading() {
