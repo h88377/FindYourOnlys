@@ -13,7 +13,7 @@ class BaseSocietyViewModel {
     
     var shareHanlder: ((ArticleViewModel) -> Void)?
     
-    var editHandler: ((ArticleViewModel, UserViewModel) -> Void)?
+    var editHandler: ((ArticleViewModel) -> Void)?
     
     var tapAddArticleHandler: (() -> Void)?
     
@@ -82,7 +82,7 @@ class BaseSocietyViewModel {
         shareHanlder?(articleViewModel)
     }
     
-    func editArticle(with articleViewModel: ArticleViewModel, authorViewModel: UserViewModel) {
+    func editArticle(with articleViewModel: ArticleViewModel) {
         
         guard
             UserFirebaseManager.shared.currentUser != nil
@@ -94,7 +94,7 @@ class BaseSocietyViewModel {
             return
         }
         
-        editHandler?(articleViewModel, authorViewModel)
+        editHandler?(articleViewModel)
     }
     
     func tapAddArticle() {

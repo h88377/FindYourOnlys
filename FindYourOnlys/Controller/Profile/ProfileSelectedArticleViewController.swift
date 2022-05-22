@@ -85,7 +85,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
             self.present(activityVC, animated: true)
         }
         
-        viewModel.editHandler = { [weak self] articleViewModel, _ in
+        viewModel.editHandler = { [weak self] articleViewModel in
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
@@ -218,7 +218,7 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             
             articlePhotoCell.editHandler = { [weak self] in
                 
-                self?.viewModel.editArticle(with: articleCellViewModel, authorViewModel: UserViewModel(model: currentUser))
+                self?.viewModel.editArticle(with: articleCellViewModel)
             }
             
             return articlePhotoCell

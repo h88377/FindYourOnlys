@@ -169,7 +169,7 @@ class FindPetSocietyViewController: BaseViewController {
             AlertWindowManager.shared.showShareActivity(at: self)
         }
         
-        viewModel.editHandler = { [weak self] articleViewModel, _ in
+        viewModel.editHandler = { [weak self] articleViewModel in
             
             guard
                 let self = self else { return }
@@ -360,7 +360,10 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             
             photoCell.editHandler = { [weak self] in
                 
-                self?.viewModel.editArticle(with: articleCellViewModel, authorViewModel: authorCellViewModel)
+                guard
+                    let self = self else { return }
+                
+                self.viewModel.editArticle(with: articleCellViewModel)
             }
             
             return photoCell
