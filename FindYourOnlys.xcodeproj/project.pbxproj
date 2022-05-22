@@ -891,11 +891,11 @@
 			children = (
 				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
 				98CC162128054ADB00B9FDC6 /* Adopt */,
+				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
 				98BC47602823B1F700740855 /* ChatSociety */,
 				987D8B3328169FAD000D1F95 /* Auth */,
 				98939A2E281433DA004312F1 /* ShareSociety */,
 				9896D934280D6D95003D4A16 /* Profile */,
-				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1060,8 +1060,8 @@
 		98CC165A2806714F00B9FDC6 /* FindPetSociety */ = {
 			isa = PBXGroup;
 			children = (
-				987D8B4E2819629B000D1F95 /* Article */,
 				9896D920280BC92C003D4A16 /* Home */,
+				987D8B4E2819629B000D1F95 /* Article */,
 			);
 			path = FindPetSociety;
 			sourceTree = "<group>";

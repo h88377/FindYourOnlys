@@ -9,6 +9,7 @@ import Foundation
 
 class PetSocietyCommentViewModel {
     
+    // MARK: - Properties
     var selectedArticle: Article?
     
     var selectedAuthor: User?
@@ -19,20 +20,13 @@ class PetSocietyCommentViewModel {
     
     var senderViewModels = Box([UserViewModel]())
     
-    var comment = Comment(
-        articleId: "",
-        userId: "",
-        content: "",
-        createdTime: -1
-    )
-    
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
+    private var comment = Comment()
     
     var changeCommentHandler: (() -> Void)?
     
     var beginEditCommentHander: (() -> Void)?
-    
-//    var endEditCommentHandler: (() -> Void)?
     
     var scrollToBottomHandler: (() -> Void)?
     
@@ -44,40 +38,7 @@ class PetSocietyCommentViewModel {
     
     var blockHandler: ((UserViewModel) -> Void)?
     
-    func changeMessage() {
-        
-        changeCommentHandler?()
-    }
-    
-    func beginEditMessage() {
-        
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
-            
-            signInHandler?()
-            
-            return
-        }
-        
-        beginEditCommentHander?()
-    }
-    
-//    func endEditMessage() {
-//
-//        endEditCommentHandler?()
-//    }
-    
-    func scrollToBottom() {
-        
-        scrollToBottomHandler?()
-    }
-    
-    func block(with senderViewModel: UserViewModel) {
-        
-        blockHandler?(senderViewModel)
-    }
+    // MARK: - Methods
     
     func fetchComments() {
 
@@ -130,17 +91,60 @@ class PetSocietyCommentViewModel {
 
         PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] result in
             
-            switch result {
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
+    }
+    
+    func changeMessage() {
+        
+        changeCommentHandler?()
+    }
+    
+    func beginEditMessage() {
+        
+        guard
+            UserFirebaseManager.shared.currentUser != nil
+                
+        else {
+            
+            signInHandler?()
+            
+            return
+        }
+        
+        beginEditCommentHander?()
+    }
+    
+    func scrollToBottom() {
+        
+        scrollToBottomHandler?()
+    }
+    
+    func block(with senderViewModel: UserViewModel) {
+        
+        blockHandler?(senderViewModel)
+    }
+    
+    func blockUser(with viewModel: UserViewModel) {
+        
+        let user = viewModel.user
+        
+        startLoadingHandler?()
+        
+        UserFirebaseManager.shared.blockUser(with: user.id)
+        
+        stopLoadingHandler?()
+    }
+    
+    func changedContent(with contentText: String) {
+        
+        comment.content = contentText
     }
     
     private func fetchSenders(withArticle article: Article) {
@@ -156,41 +160,7 @@ class PetSocietyCommentViewModel {
                 
             case .success(let users):
                 
-                var senders = [User]()
-                
-//                for userId in userIds {
-//
-//                    for user in users where userId == user.id {
-//
-//                        senders.append(user)
-//                    }
-//                }
-                
-                for userId in userIds {
-                        
-                    if !users.map({ $0.id }).contains(userId) {
-                        
-                        let deletedUser = User(
-                            id: "", nickName: "不存在使用者",
-                            email: "",
-                            imageURLString: "",
-                            friends: [],
-                            blockedUsers: []
-                        )
-
-                        senders.append(deletedUser)
-                        
-                    } else {
-                        
-                        for user in users where user.id == userId {
-                            
-                            senders.append(user)
-                            
-                            break
-                        }
-                    }
-                           
-                }
+                let senders = self.getCommentedUsers(users: users, with: userIds)
                 
                 UserFirebaseManager.shared.setUsers(with: self.senderViewModels, users: senders)
                 
@@ -202,22 +172,35 @@ class PetSocietyCommentViewModel {
         }
     }
     
-    func blockUser(with viewModel: UserViewModel) {
+    private func getCommentedUsers(users: [User], with userIds: [String]) -> [User] {
         
-        let user = viewModel.user
+        var senders = [User]()
         
-        startLoadingHandler?()
-        
-        UserFirebaseManager.shared.blockUser(with: user.id)
-        
-        stopLoadingHandler?()
-    }
-}
+        for userId in userIds {
+                
+            if !users.map({ $0.id }).contains(userId) {
+                
+                let deletedUser = User(
+                    id: "", nickName: "不存在使用者",
+                    email: "",
+                    imageURLString: "",
+                    friends: [],
+                    blockedUsers: []
+                )
 
-extension PetSocietyCommentViewModel {
-    
-    func changedContent(with contentText: String) {
+                senders.append(deletedUser)
+                
+            } else {
+                
+                for user in users where user.id == userId {
+                    
+                    senders.append(user)
+                    
+                    break
+                }
+            }
+        }
         
-        comment.content = contentText
+        return senders
     }
 }

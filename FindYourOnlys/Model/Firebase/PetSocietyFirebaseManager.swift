@@ -367,7 +367,7 @@ class PetSocietyFirebaseManager {
     
     func leaveComment(withArticle article: inout Article,
                       comment: Comment,
-                      completion: @escaping (Result<String, Error>)
+                      completion: @escaping (Result<Void, Error>)
                       -> Void) {
         
         article.comments.append(comment)
@@ -375,7 +375,7 @@ class PetSocietyFirebaseManager {
         do {
             try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             

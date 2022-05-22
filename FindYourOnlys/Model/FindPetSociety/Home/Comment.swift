@@ -16,4 +16,15 @@ struct Comment: Codable {
     var content: String
     
     var createdTime: TimeInterval
+    
+    init() {
+        
+        articleId = ""
+        
+        userId = ""
+        
+        content = ""
+        
+        createdTime = -1
+    }
 }
