@@ -31,5 +31,31 @@ struct Article: Codable {
     var imageURLString: String
     
     var comments: [Comment]
+    
+    init() {
+        
+        id = ""
+        
+        userId = UserFirebaseManager.shared.currentUser?.id ?? ""
+        
+        likeUserIds = []
+        
+        createdTime = 0
+        
+        postType = -1
+        
+        city = ""
+        
+        petKind = ""
+        
+        color = ""
+        
+        content = ""
+        
+        imageURLString = ""
+        
+        comments = []
+        
+    }
 }
 

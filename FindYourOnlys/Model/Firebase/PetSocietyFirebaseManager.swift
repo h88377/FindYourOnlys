@@ -173,7 +173,8 @@ class PetSocietyFirebaseManager {
     
     func fetchArticle(
         withArticleId id: String,
-        completion: @escaping (Result<Article, Error>) -> Void) {
+        completion: @escaping (Result<Article, Error>) -> Void
+    ) {
             
             db.collection(FirebaseCollectionType.article.rawValue)
                 .whereField("id", isEqualTo: id)
@@ -204,10 +205,11 @@ class PetSocietyFirebaseManager {
             }
         }
     
-    func publishArticle(_ userId: String,
-                        with article: inout Article,
-                        completion: @escaping (Result<String, Error>)
-                        -> Void) {
+    func publishArticle(
+        _ userId: String,
+        with article: inout Article,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
         let documentReference = db.collection(FirebaseCollectionType.article.rawValue).document()
         
@@ -223,7 +225,7 @@ class PetSocietyFirebaseManager {
             
             try documentReference.setData(from: article)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             
@@ -327,13 +329,14 @@ class PetSocietyFirebaseManager {
             )
             
             guard
-                let imageData = image.jpegData(compressionQuality: 0.5) else {
-                    
-                    completion(.failure(FirebaseError.encodeImageError))
-                    
-                    return
-                    
-                }
+                let imageData = image.jpegData(compressionQuality: 0.5)
+            
+            else {
+                
+                completion(.failure(FirebaseError.encodeImageError))
+                
+                return
+            }
             
             imageRef.putData(imageData, metadata: nil) { _, error in
                 

@@ -25,16 +25,7 @@ class EditArticleViewModel {
         }
     }
     
-    var article = Article(
-        id: "",
-        userId: UserFirebaseManager.shared.currentUser?.id ?? "",
-        likeUserIds: [],
-        createdTime: 0,
-        city: "",
-        content: "",
-        imageURLString: "",
-        comments: []
-    )
+    var article = Article()
     
 //    init(model: Article) {
 //

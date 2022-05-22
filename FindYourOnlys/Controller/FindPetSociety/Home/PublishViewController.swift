@@ -44,7 +44,7 @@ class PublishViewController: BaseViewController {
             }
         }
         
-        viewModel.checkPublishedContent = { [weak self] isValidContent, isValidDetectResult in
+        viewModel.checkPublishedContentHandler = { [weak self] isValidContent, isValidDetectResult in
             
             guard
                 let self = self else { return }
@@ -219,7 +219,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.openGallery()
             
-            self.viewModel.updateImage = { image in
+            self.viewModel.updateImageHandler = { image in
                 
                 publishCell.layoutCellWith(image: image)
             }
@@ -232,7 +232,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.openCamera()
             
-            self.viewModel.updateImage = { image in
+            self.viewModel.updateImageHandler = { image in
                 
                 publishCell.layoutCellWith(image: image)
             }
@@ -294,14 +294,14 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         if
             let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
-            viewModel.updateImage?(editedImage)
+            viewModel.updateImageHandler?(editedImage)
             
             viewModel.selectedImage = editedImage
             
         } else if
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            viewModel.updateImage?(image)
+            viewModel.updateImageHandler?(image)
             
             viewModel.selectedImage = image
         }

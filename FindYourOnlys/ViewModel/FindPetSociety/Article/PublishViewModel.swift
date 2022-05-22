@@ -7,21 +7,17 @@
 
 import Foundation
 import UIKit.UIImage
+import MLKit
 
 class PublishViewModel {
     
+    // MARK: - Properties
+    
     let publishContentCategory = PublishContentCategory.allCases
     
-    var article: Article = Article(
-        id: "", userId: UserFirebaseManager.shared.currentUser?.id ?? "", likeUserIds: [],
-        createdTime: 0, postType: -1,
-        city: "", petKind: "", color: "",
-        content: "", imageURLString: "", comments: []
-    )
+    var article = Article()
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
-    var updateImage: ((UIImage) -> Void)?
     
     var selectedImage: UIImage? {
         
@@ -30,9 +26,7 @@ class PublishViewModel {
             isValidDetectResult = false
         }
     }
-    
-    var checkPublishedContent: ((Bool, Bool) -> Void)?
-    
+     
     var isValidPublishedContent: Bool {
         
         guard
@@ -48,7 +42,11 @@ class PublishViewModel {
         return true
     }
     
-    var isValidDetectResult: Bool = false
+    var isValidDetectResult = false
+    
+    var checkPublishedContentHandler: ((Bool, Bool) -> Void)?
+    
+    var updateImageHandler: ((UIImage) -> Void)?
     
     var dismissHandler: (() -> Void)?
     
@@ -64,9 +62,84 @@ class PublishViewModel {
     
     var successHandler: (() -> Void)?
     
-    private func publish(completion: @escaping (Result<String, Error>) -> Void) {
+    // MARK: - Methods
+    
+    func tapPublish() {
         
-        checkPublishedContent?(isValidPublishedContent, isValidDetectResult)
+        publish { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success:
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+            
+            self.stopLoadingHandler?()
+        }
+    }
+    
+    func detectImage() {
+        
+        guard
+            let selectedImage = selectedImage
+                
+        else {
+            
+            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            
+            return
+        }
+        
+        startScanningHandler?()
+        
+        GoogleMLWrapper.shared.detectLabels(with: selectedImage) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let labels):
+                
+                self.isValidDetectResult = self.getDetectResult(with: labels)
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
+                    
+                    self.stopScanningHandler?()
+                    
+                    if self.isValidDetectResult {
+                        
+                        self.successHandler?()
+                        
+                    } else {
+                        
+                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                    }
+                }
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
+                    
+                    self.stopScanningHandler?()
+                }
+            }
+        }
+    }
+    
+    private func publish(completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        checkPublishedContentHandler?(isValidPublishedContent, isValidDetectResult)
         
         guard
             isValidPublishedContent,
@@ -89,8 +162,8 @@ class PublishViewModel {
             
             PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
                 image: selectedImage,
-                with: FirebaseCollectionType.article.rawValue)
-            { result in
+                with: FirebaseCollectionType.article.rawValue
+            ) { result in
                 
                 switch result {
                     
@@ -98,129 +171,48 @@ class PublishViewModel {
                     
                     self.article.imageURLString = "\(url)"
                     
-//                    completion(nil)
-                    
                 case .failure(let error):
                     
                     completion(.failure(error))
-                    
-//                    self.stopLoadingHandler?()
                 }
 
                 semaphore.signal()
             }
             
-
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.publishArticle(currentUser.id, with: &self.article) { result in
+            PetSocietyFirebaseManager.shared.publishArticle(
+                currentUser.id,
+                with: &self.article
+            ) { result in
 
                 switch result {
                     
-                case .success(let success):
+                case .success:
                     
-//                    completion(nil)
-                    
-//                    self.stopLoadingHandler?()
-                    
-                    completion(.success(success))
+                    completion(.success(()))
                     
                 case .failure(let error):
                     
                     completion(.failure(error))
-                    
-//                    self.errorViewModel.value = ErrorViewModel(model: error)
-//
-//                    self.stopLoadingHandler?()
                 }
                 
                 semaphore.signal()
             }
-            
         }
     }
     
-    func tapPublish() {
+    private func getDetectResult(with labels: [ImageLabel]) -> Bool {
         
-        publish { [weak self] result in
+        let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
+        
+        let isValidResult = labels.map { label in
             
-            switch result {
-                
-            case .success(_):
-                
-                self?.stopLoadingHandler?()
-                
-                self?.dismissHandler?()
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
-            }
-        }
+            imageDetectDatabase.contains(label.text)
+            
+        }.contains(true)
+        
+        return isValidResult
     }
-    
-    func detectImage() {
-        
-        guard
-            let selectedImage = selectedImage
-        
-        else {
-            
-            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
-            
-                return
-            }
-
-        startScanningHandler?()
-        
-        GoogleMLWrapper.shared.detectLabels(with: selectedImage) { [weak self] result in
-            
-            guard
-                let self = self else { return }
-            
-            switch result {
-                
-            case .success(let labels):
-                
-                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
-                
-                let isValidResult = labels.map { label in
-                    
-                    imageDetectDatabase.contains(label.text)
-                    
-                }.contains(true)
-                
-                self.isValidDetectResult = isValidResult
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                    
-                    self.stopScanningHandler?()
-                    
-                    if isValidResult {
-                        
-                        self.successHandler?()
-                        
-                    } else {
-                        
-                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
-                    }
-                }
-                
-            case .failure(let error):
-                
-                self.errorViewModel.value = ErrorViewModel(model: error)
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
-                    
-                    self.stopScanningHandler?()
-                }
-            }
-        }
-    }
-}
-
-extension PublishViewModel {
     
     func cityChanged(with city: String) {
         

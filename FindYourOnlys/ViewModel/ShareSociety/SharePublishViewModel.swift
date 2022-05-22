@@ -13,12 +13,7 @@ class SharePublishViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var article: Article = Article(
-        id: "", userId: UserFirebaseManager.shared.currentUser?.id ?? "", likeUserIds: [],
-        createdTime: 0,
-        city: "", petKind: "",
-        content: "", imageURLString: "", comments: []
-    )
+    var article: Article = Article()
     
     var updateImage: ((UIImage) -> Void)?
     
@@ -79,7 +74,7 @@ extension SharePublishViewModel {
         self.article.content = content
     }
     
-    private func publish(completion: @escaping (Result<String, Error>) -> Void) {
+    private func publish(completion: @escaping (Result<Void, Error>) -> Void) {
         
         checkPublishedContent?(isValidPublishedContent, isValidDetectResult)
         
@@ -131,9 +126,9 @@ extension SharePublishViewModel {
                     
                     switch result {
                         
-                    case .success(let success):
+                    case .success:
                         
-                        completion(.success(success))
+                        completion(.success(()))
                         
                         
 //                        completion(nil)
@@ -161,7 +156,7 @@ extension SharePublishViewModel {
             
             switch result {
                 
-            case .success(_):
+            case .success:
                 
                 self?.stopLoadingHandler?()
                 
