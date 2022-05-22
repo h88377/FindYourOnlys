@@ -14,11 +14,11 @@ class FindPetSocietyFilterViewController: BaseViewController {
     
     let viewModel = FindPetSocietyFilterViewModel()
     
-    let tableView = UITableView()
+    private let tableView = UITableView()
     
-    let filterButton = UIButton()
+    private let filterButton = UIButton()
     
-    let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
+    private let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
     
     override var isHiddenTabBar: Bool { return true }
     

@@ -11,9 +11,9 @@ class PublishViewController: BaseViewController {
     
     // MARK: - Properties
     
-    let viewModel = PublishViewModel()
+    private let viewModel = PublishViewModel()
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
