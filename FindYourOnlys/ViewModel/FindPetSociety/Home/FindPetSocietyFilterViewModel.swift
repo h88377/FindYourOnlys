@@ -9,27 +9,29 @@ import Foundation
 
 class FindPetSocietyFilterViewModel {
     
+    // MARK: - Properties
+    
     let findPetSocietyFilterCategory = FindPetSocietyFilterCategory.allCases
     
     var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     
     var isValidCondition: Bool {
         
-        let conditionsArray = [
+        let conditions = [
             findPetSocietyFilterCondition.city,
             findPetSocietyFilterCondition.petKind,
             findPetSocietyFilterCondition.color
         ]
         
-        let isValidCondition = !conditionsArray.map { $0 == "" }
-            .contains(true) && findPetSocietyFilterCondition.postType != -1
+        let isValidCondition = !conditions
+            .map { $0 == "" }
+            .contains(true)
+        && findPetSocietyFilterCondition.postType != -1
         
         return isValidCondition
     }
-   
-}
-
-extension FindPetSocietyFilterViewModel {
+    
+    // MARK: - Methods
     
     func cityChanged(with city: String) {
         
@@ -43,19 +45,13 @@ extension FindPetSocietyFilterViewModel {
     
     func postTypeChanged(with postType: String) {
         
-        if postType == PostType.missing.rawValue {
-            
-            findPetSocietyFilterCondition.postType = 0
-            
-        } else {
-            
-            findPetSocietyFilterCondition.postType = 1
-        }
+        findPetSocietyFilterCondition.postType = postType == PostType.missing.rawValue
+        ? 0
+        : 1
     }
     
     func colorChanged(with color: String) {
         
         findPetSocietyFilterCondition.color = color
     }
-    
 }
