@@ -143,30 +143,10 @@ class AdoptListViewController: BaseViewController {
         
         collectionView.registerCellWithIdentifier(identifier: AdoptCollectionViewCell.identifier)
         
-        setupCollectionViewLayout()
-        
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         
         collectionView.addGestureRecognizer(longPress)
         
-    }
-    
-    private func setupCollectionViewLayout() {
-        
-        let flowLayout = UICollectionViewFlowLayout()
-        
-        flowLayout.itemSize = CGSize(
-            width: Int(164.0 / 375.0 * UIScreen.main.bounds.width),
-            height: 290
-        )
-        
-        flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
-        
-        flowLayout.minimumInteritemSpacing = 0
-        
-        flowLayout.minimumLineSpacing = 24.0
-        
-        collectionView.collectionViewLayout = flowLayout
     }
     
     private func setupLoadingViewHandler() {
@@ -282,7 +262,53 @@ class AdoptListViewController: BaseViewController {
 }
 
 // MARK: - UICollectionViewDataSource & Delegate
-extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
+        let maxWidth = UIScreen.main.bounds.width - 32
+        
+        let numberOfItemsPerRow = CGFloat(2)
+        
+        let interItemSpacing = CGFloat(16)
+        
+        let totalSpacing = interItemSpacing
+        
+        let itemWidth = (maxWidth - totalSpacing) / numberOfItemsPerRow
+        
+        return CGSize(width: itemWidth, height: 290)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        
+        UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        
+        CGFloat(16)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        
+        CGFloat(16)
+    }
     
     func collectionView(
         _ collectionView: UICollectionView,
@@ -331,8 +357,6 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         let currentUserId = UserFirebaseManager.shared.currentUser?.id
         
         selectedPetViewModel.pet.userID = currentUserId
-        
-//        adoptDetaiVC.viewModel.petViewModel.value = selectedPetViewModel
         
         adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
         
