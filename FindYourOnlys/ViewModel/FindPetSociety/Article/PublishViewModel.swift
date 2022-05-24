@@ -35,7 +35,7 @@ class PublishViewModel {
             article.city != "",
             article.color != "",
             article.petKind != "",
-            article.postType != -1,
+            article.postType != nil,
             article.content != "",
             selectedImage != nil
                 
@@ -48,7 +48,6 @@ class PublishViewModel {
         
         guard
             article.city != "",
-            article.postType != -1,
             article.content != "",
             selectedImage != nil
                 

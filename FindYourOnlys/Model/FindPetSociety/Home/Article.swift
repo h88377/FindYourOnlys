@@ -42,8 +42,6 @@ struct Article: Codable {
         
         createdTime = 0
         
-        postType = -1
-        
         city = ""
         
         petKind = ""
@@ -58,4 +56,3 @@ struct Article: Codable {
         
     }
 }
-

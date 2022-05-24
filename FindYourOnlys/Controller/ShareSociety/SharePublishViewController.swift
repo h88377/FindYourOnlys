@@ -166,7 +166,7 @@ class SharePublishViewController: BaseViewController {
         
     }
     
-    private func openGallery(){
+    private func openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             
             let imagePicker = UIImagePickerController()

@@ -68,7 +68,7 @@ class PetSocietyFirebaseManager {
         db
             .collection(FirebaseCollectionType.article.rawValue)
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot
