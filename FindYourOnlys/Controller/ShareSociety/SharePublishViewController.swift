@@ -9,9 +9,11 @@ import UIKit
 
 class SharePublishViewController: BaseViewController {
     
-    let viewModel = SharePublishViewModel()
+    // MARK: - Properties
     
-    @IBOutlet weak var tableView: UITableView! {
+    private let viewModel = SharePublishViewModel()
+    
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -25,15 +27,21 @@ class SharePublishViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.dismissHandler = { [weak self] in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
                 let self = self else { return }
             
-            self.popBack()
+            if
+                let error = errorViewModel?.error {
+                
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
+            }
         }
         
         viewModel.checkPublishedContent = { [weak self] isValidContent, isValidDetectResult in
@@ -51,49 +59,18 @@ class SharePublishViewController: BaseViewController {
             }
         }
         
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
-        }
-        
-        viewModel.startScanningHandler = { [weak self] in
-            
-            self?.startScanning()
-        }
-        
-        viewModel.stopScanningHandler = { [weak self] in
-            
-            self?.stopScanning()
-        }
-        
-        viewModel.successHandler = { [weak self] in
-            
-            self?.success()
-        }
-        
-        viewModel.imageDetectHandler = { [weak self] in
-            
-            self?.viewModel.detectImage()
-        }
-        
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.dismissHandler = { [weak self] in
             
             guard
                 let self = self else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            self.popBack()
         }
+        
+        setupScanningHandler()
     }
      
+    // MARK: - Methods and IBActions
     override func setupTableView() {
         super.setupTableView()
         
@@ -114,6 +91,100 @@ class SharePublishViewController: BaseViewController {
         navigationItem.rightBarButtonItem = publishItemButton
     }
     
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
+    private func setupScanningHandler() {
+        
+        viewModel.startScanningHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.startScanning()
+        }
+        
+        viewModel.stopScanningHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopScanning()
+        }
+        
+        viewModel.successHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.success()
+        }
+        
+        viewModel.imageDetectHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.detectImage()
+        }
+    }
+    
+    private func openCamera() {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            
+            imagePicker.allowsEditing = false
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
+        }
+        
+    }
+    
+    private func openGallery(){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            
+            imagePicker.allowsEditing = true
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+            
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
+        }
+    }
+    
     @objc func publish(sender: UIBarButtonItem) {
         
         viewModel.tapPublish()
@@ -121,6 +192,7 @@ class SharePublishViewController: BaseViewController {
 }
 
 // MARK: - SharePublishViewController: UITableViewDelegate and DataSource
+
 extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -145,9 +217,12 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
         
         publishCell.galleryHandler = { [weak self] in
             
-            self?.openGallery()
+            guard
+                let self = self else { return }
             
-            self?.viewModel.updateImage = { image in
+            self.openGallery()
+            
+            self.viewModel.updateImage = { image in
                 
                 publishCell.layoutCellWith(image: image)
             }
@@ -155,9 +230,12 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
         
         publishCell.cameraHandler = { [weak self] in
             
-            self?.openCamera()
+            guard
+                let self = self else { return }
             
-            self?.viewModel.updateImage = { image in
+            self.openCamera()
+            
+            self.viewModel.updateImage = { image in
                 
                 publishCell.layoutCellWith(image: image)
             }
@@ -214,46 +292,6 @@ extension SharePublishViewController: UIImagePickerControllerDelegate, UINavigat
             viewModel.updateImage?(image)
             
             viewModel.selectedImage = image
-        }
-    }
-    
-    func openCamera() {
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            
-            imagePicker.allowsEditing = false
-            
-            present(imagePicker, animated: true)
-            
-        } else {
-
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
-        }
-        
-    }
-    
-    func openGallery(){
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            
-            imagePicker.allowsEditing = true
-            
-            present(imagePicker, animated: true)
-            
-        } else {
-            
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
         }
     }
 }

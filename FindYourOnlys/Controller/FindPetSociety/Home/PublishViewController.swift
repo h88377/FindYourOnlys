@@ -203,9 +203,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         )
         
         guard
-            let publishCell = cell as? BasePublishCell
-                
-        else { return UITableViewCell() }
+            let publishCell = cell as? BasePublishCell else { return cell }
         
         publishCell.delegate = self
         
