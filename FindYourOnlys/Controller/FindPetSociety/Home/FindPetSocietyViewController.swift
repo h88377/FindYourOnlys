@@ -161,7 +161,7 @@ class FindPetSocietyViewController: BaseViewController {
     
     private func setupArticleHandler() {
         
-        viewModel.shareHanlder = { [weak self] _ in
+        viewModel.shareHanlder = { [weak self] in
             
             guard
                 let self = self else { return }

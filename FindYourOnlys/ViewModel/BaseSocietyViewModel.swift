@@ -11,7 +11,7 @@ class BaseSocietyViewModel {
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var shareHanlder: ((ArticleViewModel) -> Void)?
+    var shareHanlder: (() -> Void)?
     
     var editHandler: ((ArticleViewModel) -> Void)?
     
@@ -35,15 +35,12 @@ class BaseSocietyViewModel {
             return
         }
         
-        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { result in
+        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { [weak self] result in
             
-            switch result {
-                
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
@@ -64,22 +61,19 @@ class BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { [weak self] result in
             
-            switch result {
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
     
     func shareArticle(with articleViewModel: ArticleViewModel) {
         
-        shareHanlder?(articleViewModel)
+        shareHanlder?()
     }
     
     func editArticle(with articleViewModel: ArticleViewModel) {

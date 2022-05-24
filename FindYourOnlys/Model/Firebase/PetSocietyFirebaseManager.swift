@@ -386,7 +386,7 @@ class PetSocietyFirebaseManager {
         }
     }
     
-    func likeArticle(with article: inout Article, completion: @escaping (Result<String, Error>) -> Void) {
+    func likeArticle(with article: inout Article, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -397,7 +397,7 @@ class PetSocietyFirebaseManager {
             
             try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             
@@ -405,7 +405,7 @@ class PetSocietyFirebaseManager {
         }
     }
     
-    func unlikeArticle(with article: inout Article, completion: @escaping (Result<String, Error>) -> Void) {
+    func unlikeArticle(with article: inout Article, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -421,7 +421,7 @@ class PetSocietyFirebaseManager {
             
             try db.collection(FirebaseCollectionType.article.rawValue).document(article.id).setData(from: article)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             

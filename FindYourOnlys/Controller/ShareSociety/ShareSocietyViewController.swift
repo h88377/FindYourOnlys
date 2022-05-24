@@ -145,7 +145,7 @@ class ShareSocietyViewController: BaseViewController {
     
     private func setupArticleHandler() {
         
-        viewModel.shareHanlder = { [weak self] articleViewModel in
+        viewModel.shareHanlder = { [weak self] in
             
             guard
                 let self = self else { return }
@@ -225,7 +225,9 @@ class ShareSocietyViewController: BaseViewController {
             let storyboard = UIStoryboard.findPetSociety
             
             guard
-                let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController,
+                let petSocietyCommentVC = storyboard.instantiateViewController(
+                    withIdentifier: PetSocietyCommentViewController.identifier
+                ) as? PetSocietyCommentViewController,
                 let self = self
                     
             else { return }
@@ -300,7 +302,7 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             .sharedAuthorViewModels
             .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
         
-        switch indexPath.row % 2 {
+        switch indexPath.row % registeredCellCount {
             
         case 0:
             
@@ -326,10 +328,9 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             
         case 1:
             
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
-                let cell = tableView.dequeueReusableCell(
-                    withIdentifier: ArticleContentCell.identifier, for: indexPath)
-                    
             guard
                 let contentCell = cell as? ArticleContentCell
                     

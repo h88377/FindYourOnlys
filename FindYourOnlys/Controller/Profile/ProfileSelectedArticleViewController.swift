@@ -53,7 +53,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
             }
         }
         
-        viewModel.shareHanlder = { [weak self] articleViewModel in
+        viewModel.shareHanlder = { [weak self] in
             
             guard
                 let self = self else { return }
