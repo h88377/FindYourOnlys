@@ -11,7 +11,7 @@ class SharePublishViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel = SharePublishViewModel()
+    private let viewModel = PublishViewModel()
     
     @IBOutlet private weak var tableView: UITableView! {
         
@@ -44,7 +44,7 @@ class SharePublishViewController: BaseViewController {
             }
         }
         
-        viewModel.checkPublishedContent = { [weak self] isValidContent, isValidDetectResult in
+        viewModel.checkPublishedContentHandler = { [weak self] isValidContent, isValidDetectResult in
             
             guard
                 let self = self else { return }
@@ -187,7 +187,7 @@ class SharePublishViewController: BaseViewController {
     
     @objc func publish(sender: UIBarButtonItem) {
         
-        viewModel.tapPublish()
+        viewModel.tapPublish(type: .share)
     }
 }
 
@@ -222,7 +222,7 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
             
             self.openGallery()
             
-            self.viewModel.updateImage = { image in
+            self.viewModel.updateImageHandler = { image in
                 
                 publishCell.layoutCellWith(image: image)
             }
@@ -235,7 +235,7 @@ extension SharePublishViewController: UITableViewDelegate, UITableViewDataSource
             
             self.openCamera()
             
-            self.viewModel.updateImage = { image in
+            self.viewModel.updateImageHandler = { image in
                 
                 publishCell.layoutCellWith(image: image)
             }
@@ -282,14 +282,14 @@ extension SharePublishViewController: UIImagePickerControllerDelegate, UINavigat
         if
             let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
-            viewModel.updateImage?(editedImage)
+            viewModel.updateImageHandler?(editedImage)
             
             viewModel.selectedImage = editedImage
             
         } else if
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            viewModel.updateImage?(image)
+            viewModel.updateImageHandler?(image)
             
             viewModel.selectedImage = image
         }

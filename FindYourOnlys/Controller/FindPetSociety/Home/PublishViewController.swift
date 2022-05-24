@@ -178,7 +178,7 @@ class PublishViewController: BaseViewController {
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
         
-        viewModel.tapPublish()
+        viewModel.tapPublish(type: .find)
     }
 }
 
