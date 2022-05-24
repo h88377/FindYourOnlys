@@ -11,7 +11,7 @@ class PublishViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel = PublishViewModel()
+    let viewModel = PublishViewModel()
     
     @IBOutlet private weak var tableView: UITableView! {
         
@@ -178,7 +178,7 @@ class PublishViewController: BaseViewController {
     
     @IBAction func publish(_ sender: UIBarButtonItem) {
         
-        viewModel.tapPublish(type: .find)
+        viewModel.tapPublish()
     }
 }
 
@@ -187,14 +187,14 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        let publishContentCategory = viewModel.publishContentCategory
+        let publishContentCategory = viewModel.contentCategory
 
         return publishContentCategory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let publishContentCategory = viewModel.publishContentCategory
+        let publishContentCategory = viewModel.contentCategory
         
         let cell = publishContentCategory[indexPath.row].cellForIndexPath(
             indexPath,

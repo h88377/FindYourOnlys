@@ -191,9 +191,16 @@ class ShareSocietyViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            let storyboard = UIStoryboard.shareSociety
+            let storyboard = UIStoryboard.findPetSociety
             
-            let publishVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
+//            let publishVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
+            
+            guard
+                let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController
+            
+            else { return }
+            
+            publishVC.viewModel.articleType = .share
             
             self.navigationController?.pushViewController(publishVC, animated: true)
         }

@@ -75,7 +75,6 @@
 		98939A2528143024004312F1 /* ShareSociety.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98939A2428143024004312F1 /* ShareSociety.storyboard */; };
 		98939A2828143067004312F1 /* ShareSocietyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2728143067004312F1 /* ShareSocietyViewController.swift */; };
 		98939A2A28143088004312F1 /* SharePublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2928143088004312F1 /* SharePublishViewController.swift */; };
-		98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A2F2814343C004312F1 /* SharePublishViewModel.swift */; };
 		98939A342814F45C004312F1 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */; };
 		98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98939A3528154A12004312F1 /* UIColor+Extension.swift */; };
 		9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8CE280825DB003D4A16 /* BaseViewController.swift */; };
@@ -284,7 +283,6 @@
 		98939A2428143024004312F1 /* ShareSociety.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShareSociety.storyboard; sourceTree = "<group>"; };
 		98939A2728143067004312F1 /* ShareSocietyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocietyViewController.swift; sourceTree = "<group>"; };
 		98939A2928143088004312F1 /* SharePublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewController.swift; sourceTree = "<group>"; };
-		98939A2F2814343C004312F1 /* SharePublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePublishViewModel.swift; sourceTree = "<group>"; };
 		98939A332814F45C004312F1 /* LoadMoreActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreActivityIndicator.swift; sourceTree = "<group>"; };
 		98939A3528154A12004312F1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		9896D8CE280825DB003D4A16 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -560,14 +558,6 @@
 			children = (
 				98939A2728143067004312F1 /* ShareSocietyViewController.swift */,
 				98939A2928143088004312F1 /* SharePublishViewController.swift */,
-			);
-			path = ShareSociety;
-			sourceTree = "<group>";
-		};
-		98939A2E281433DA004312F1 /* ShareSociety */ = {
-			isa = PBXGroup;
-			children = (
-				98939A2F2814343C004312F1 /* SharePublishViewModel.swift */,
 			);
 			path = ShareSociety;
 			sourceTree = "<group>";
@@ -889,7 +879,6 @@
 				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
 				98CC162128054ADB00B9FDC6 /* Adopt */,
 				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
-				98939A2E281433DA004312F1 /* ShareSociety */,
 				98BC47602823B1F700740855 /* ChatSociety */,
 				9896D934280D6D95003D4A16 /* Profile */,
 				987D8B3328169FAD000D1F95 /* Auth */,
@@ -1461,7 +1450,6 @@
 				98CC15D92801BD7800B9FDC6 /* PetHTTPClient.swift in Sources */,
 				98939A2A28143088004312F1 /* SharePublishViewController.swift in Sources */,
 				98CC15E72802815200B9FDC6 /* StringProtocol+Extension.swift in Sources */,
-				98939A302814343C004312F1 /* SharePublishViewModel.swift in Sources */,
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,

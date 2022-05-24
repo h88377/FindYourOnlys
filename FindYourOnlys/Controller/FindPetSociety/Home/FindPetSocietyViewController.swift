@@ -209,8 +209,11 @@ class FindPetSocietyViewController: BaseViewController {
             
             let storyboard = UIStoryboard.findPetSociety
             
-            let publishVC = storyboard
-                .instantiateViewController(withIdentifier: PublishViewController.identifier)
+            guard
+                let publishVC = storyboard
+                .instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController else { return }
+            
+            publishVC.viewModel.articleType = .find
             
             self.navigationController?.pushViewController(publishVC, animated: true)
         }

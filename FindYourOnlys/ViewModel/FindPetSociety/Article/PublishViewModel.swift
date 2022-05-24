@@ -13,9 +13,29 @@ class PublishViewModel {
     
     // MARK: - Properties
     
-    let publishContentCategory = PublishContentCategory.getCategory(with: .find)
+    var articleType: ArticleType?
     
-    let shareContentCategory = PublishContentCategory.getCategory(with: .share)
+    var contentCategory: [PublishContentCategory] {
+        
+        switch articleType {
+            
+        case .find:
+            
+            return PublishContentCategory.getCategory(with: .find)
+            
+        case .share:
+            
+            return PublishContentCategory.getCategory(with: .share)
+            
+        default:
+            
+            return []
+        }
+    }
+    
+//    let publishContentCategory = PublishContentCategory.getCategory(with: .find)
+//
+//    let shareContentCategory = PublishContentCategory.getCategory(with: .share)
     
     var article = Article()
     
@@ -28,35 +48,70 @@ class PublishViewModel {
             isValidDetectResult = false
         }
     }
+    
+    private var isValidPublishedContent: Bool {
+        
+        switch articleType {
+            
+        case .find:
+            
+            guard
+                article.city != "",
+                article.color != "",
+                article.petKind != "",
+                article.postType != nil,
+                article.content != "",
+                selectedImage != nil
+                    
+            else { return false }
+                
+            return true
+            
+        case .share:
+            
+            guard
+                article.city != "",
+                article.content != "",
+                selectedImage != nil
+                    
+            else { return false }
+                
+            return true
+            
+        default:
+            
+            return false
+        }
+    }
      
-    var isValidFindPublishedContent: Bool {
-        
-        guard
-            article.city != "",
-            article.color != "",
-            article.petKind != "",
-            article.postType != nil,
-            article.content != "",
-            selectedImage != nil
-                
-        else { return false }
-            
-        return true
-    }
+//    private var isValidFindPublishedContent: Bool {
+//
+//        guard
+//            article.city != "",
+//            article.color != "",
+//            article.petKind != "",
+//            article.postType != nil,
+//            article.content != "",
+//            selectedImage != nil
+//
+//        else { return false }
+//
+//        return true
+//    }
+//
+//    private var isValidSharedPublishedContent: Bool {
+//
+//        guard
+//            article.city != "",
+//            article.content != "",
+//            selectedImage != nil
+//
+//        else { return false }
+//
+//        return true
+//    }
     
-    var isValidSharedPublishedContent: Bool {
-        
-        guard
-            article.city != "",
-            article.content != "",
-            selectedImage != nil
-                
-        else { return false }
-            
-        return true
-    }
-    
-    var isValidDetectResult = false
+    private var isValidDetectResult = false
     
     var checkPublishedContentHandler: ((Bool, Bool) -> Void)?
     
@@ -78,9 +133,9 @@ class PublishViewModel {
     
     // MARK: - Methods
     
-    func tapPublish(type: ArticleType) {
+    func tapPublish() {
         
-        publish(type: type) { [weak self] result in
+        publish() { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -151,24 +206,26 @@ class PublishViewModel {
         }
     }
     
-    private func publish(type: ArticleType, completion: @escaping (Result<Void, Error>) -> Void) {
+    private func publish(completion: @escaping (Result<Void, Error>) -> Void) {
         
-        let isValidPublishedContent: Bool
+//        let isValidPublishedContent: Bool
         
-        switch type {
-            
-        case .find:
-            
-            checkPublishedContentHandler?(isValidFindPublishedContent, isValidDetectResult)
-            
-            isValidPublishedContent = isValidFindPublishedContent
-            
-        case .share:
-            
-            checkPublishedContentHandler?(isValidSharedPublishedContent, isValidDetectResult)
-            
-            isValidPublishedContent = isValidSharedPublishedContent
-        }
+//        switch type {
+//
+//        case .find:
+//
+//            checkPublishedContentHandler?(isValidFindPublishedContent, isValidDetectResult)
+//
+//            isValidPublishedContent = isValidFindPublishedContent
+//
+//        case .share:
+//
+//            checkPublishedContentHandler?(isValidSharedPublishedContent, isValidDetectResult)
+//
+//            isValidPublishedContent = isValidSharedPublishedContent
+//        }
+        
+        checkPublishedContentHandler?(isValidPublishedContent, isValidDetectResult)
         
         guard
             isValidPublishedContent,
