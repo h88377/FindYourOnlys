@@ -9,60 +9,18 @@ import Foundation
 
 class ChatRoomFriendListViewModel {
     
+    // MARK: - Properties
+    
+    // No need to be Box?
     let chatRoomViewModels = Box([ChatRoomViewModel]())
     
     let friendViewModels = Box([UserViewModel]())
     
-    private func fetchUser(with userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        
-        UserFirebaseManager.shared.fetchUser { result in
-            
-            switch result {
-                
-            case .success(let users):
-                
-                for user in users where user.id == userId {
-                    
-                    completion(.success(user))
-                    
-                    break
-                }
-                
-            case .failure(let error):
-                
-                completion(.failure(error))
-            }
-        }
-    }
+    let errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    private func fetchUsers(with userIds: [String], completion: @escaping (Result<[User], Error>) -> Void) {
-        
-        UserFirebaseManager.shared.fetchUser { result in
-            
-            switch result {
-                
-            case .success(let users):
-                
-                var fetchedUsers = [User]()
-                
-                for user in users {
-                    
-                    for userId in userIds where userId == user.id {
-                        
-                        fetchedUsers.append(user)
-                    }
-                    
-                    completion(.success(fetchedUsers))
-                }
-                
-            case .failure(let error):
-                
-                completion(.failure(error))
-            }
-        }
-    }
+    // MARK: - Methods
     
-    func fetchChatRoom(completion: @escaping (Error?)-> Void) {
+    func fetchChatRoom() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -123,22 +81,71 @@ class ChatRoomFriendListViewModel {
                                 
                             case .failure(let error):
                                 
-                                completion(error)
+                                self.errorViewModel.value = ErrorViewModel(model: error)
                             }
                         }
                         
                     case .failure(let error):
                         
-                        completion(error)
+                        self.errorViewModel.value = ErrorViewModel(model: error)
                     }
                 }
                 
             case .failure(let error):
                 
-                completion(error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
+    }
+    
+    private func fetchUser(with userId: String, completion: @escaping (Result<User, Error>) -> Void) {
+        
+        UserFirebaseManager.shared.fetchUser { result in
+            
+            switch result {
+                
+            case .success(let users):
+                
+                for user in users where user.id == userId {
+                    
+                    completion(.success(user))
+                    
+                    break
+                }
+                
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func fetchUsers(with userIds: [String], completion: @escaping (Result<[User], Error>) -> Void) {
+        
+        UserFirebaseManager.shared.fetchUser { result in
+            
+            switch result {
+                
+            case .success(let users):
+                
+                var fetchedUsers = [User]()
+                
+                for user in users {
+                    
+                    for userId in userIds where userId == user.id {
+                        
+                        fetchedUsers.append(user)
+                    }
+                    
+                    completion(.success(fetchedUsers))
+                }
+                
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
     }
     
     // MARK: - Convert functions

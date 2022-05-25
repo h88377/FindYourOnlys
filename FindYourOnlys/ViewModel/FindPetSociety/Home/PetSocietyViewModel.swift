@@ -7,36 +7,6 @@
 
 import Foundation
 
-//enum SocietyModel {
-//
-//    case find
-//
-//    case shared
-//
-//    func condition() -> FindPetSocietyFilterCondition? {
-//
-//        switch self {
-//        case .find:
-//            <#code#>
-//        case .shared:
-//            <#code#>
-//        }
-//    }
-//
-//    func fetchArticle(condition: FindPetSocietyFilterCondition?) {
-//
-//        switch self {
-//
-//        case .find:
-//
-//
-//
-//        case .shared:
-//            <#code#>
-//        }
-//    }
-//}
-
 class PetSocietyViewModel: BaseSocietyViewModel {
     
     // MARK: - Properties

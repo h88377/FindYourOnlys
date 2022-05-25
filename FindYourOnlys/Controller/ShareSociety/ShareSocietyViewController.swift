@@ -261,7 +261,11 @@ class ShareSocietyViewController: BaseViewController {
     
     private func addCurrentUserObserver() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
