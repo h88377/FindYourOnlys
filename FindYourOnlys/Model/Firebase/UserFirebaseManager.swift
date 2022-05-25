@@ -520,7 +520,7 @@ class UserFirebaseManager {
                 
                 switch result {
                     
-                case .success(_):
+                case .success:
                     
                     group.leave()
                     
@@ -538,11 +538,11 @@ class UserFirebaseManager {
                 
                 switch result {
                     
-                case .success(_):
+                case .success:
                     
                     group.leave()
                     
-                case .failure(_):
+                case .failure:
                     
                     completion(.failure(DeleteDataError.deleteChatRoomError))
                     
@@ -556,11 +556,11 @@ class UserFirebaseManager {
                 
                 switch result {
                     
-                case .success(_):
+                case .success:
                     
                     group.leave()
                     
-                case .failure(_):
+                case .failure:
                     
                     completion(.failure(DeleteDataError.deleteMessageError))
                     
@@ -574,11 +574,11 @@ class UserFirebaseManager {
                 
                 switch result {
                     
-                case .success(_):
+                case .success:
                     
                     group.leave()
                     
-                case .failure(_):
+                case .failure:
                     
                     completion(.failure(DeleteDataError.deleteFriendError))
                     

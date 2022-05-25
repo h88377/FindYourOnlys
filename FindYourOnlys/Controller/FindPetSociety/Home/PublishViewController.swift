@@ -187,14 +187,14 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        let publishContentCategory = viewModel.contentCategory
+        let publishContentCategory = viewModel.publishContentCategory
 
         return publishContentCategory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let publishContentCategory = viewModel.contentCategory
+        let publishContentCategory = viewModel.publishContentCategory
         
         let cell = publishContentCategory[indexPath.row].cellForIndexPath(
             indexPath,

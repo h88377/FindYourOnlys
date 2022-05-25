@@ -15,7 +15,9 @@ class PublishViewModel {
     
     var articleType: ArticleType?
     
-    var contentCategory: [PublishContentCategory] {
+    var article = Article()
+    
+    var publishContentCategory: [PublishContentCategory] {
         
         switch articleType {
             
@@ -32,12 +34,6 @@ class PublishViewModel {
             return []
         }
     }
-    
-//    let publishContentCategory = PublishContentCategory.getCategory(with: .find)
-//
-//    let shareContentCategory = PublishContentCategory.getCategory(with: .share)
-    
-    var article = Article()
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
@@ -83,33 +79,6 @@ class PublishViewModel {
             return false
         }
     }
-     
-//    private var isValidFindPublishedContent: Bool {
-//
-//        guard
-//            article.city != "",
-//            article.color != "",
-//            article.petKind != "",
-//            article.postType != nil,
-//            article.content != "",
-//            selectedImage != nil
-//
-//        else { return false }
-//
-//        return true
-//    }
-//
-//    private var isValidSharedPublishedContent: Bool {
-//
-//        guard
-//            article.city != "",
-//            article.content != "",
-//            selectedImage != nil
-//
-//        else { return false }
-//
-//        return true
-//    }
     
     private var isValidDetectResult = false
     
@@ -135,7 +104,7 @@ class PublishViewModel {
     
     func tapPublish() {
         
-        publish() { [weak self] result in
+        publish { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -207,23 +176,6 @@ class PublishViewModel {
     }
     
     private func publish(completion: @escaping (Result<Void, Error>) -> Void) {
-        
-//        let isValidPublishedContent: Bool
-        
-//        switch type {
-//
-//        case .find:
-//
-//            checkPublishedContentHandler?(isValidFindPublishedContent, isValidDetectResult)
-//
-//            isValidPublishedContent = isValidFindPublishedContent
-//
-//        case .share:
-//
-//            checkPublishedContentHandler?(isValidSharedPublishedContent, isValidDetectResult)
-//
-//            isValidPublishedContent = isValidSharedPublishedContent
-//        }
         
         checkPublishedContentHandler?(isValidPublishedContent, isValidDetectResult)
         

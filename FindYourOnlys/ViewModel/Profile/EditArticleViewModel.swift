@@ -72,7 +72,7 @@ class EditArticleViewModel {
         return article.content != "" && article.content != "請輸入你的內文"
     }
     
-    private func edit(completion: @escaping (Result<String, Error>) -> Void) {
+    private func edit(completion: @escaping (Result<Void, Error>) -> Void) {
         
         checkEditedContent?(isValidEditedContent, isValidDetectResult)
         
@@ -132,11 +132,11 @@ class EditArticleViewModel {
 
                 switch result {
                     
-                case .success(let success):
+                case .success:
                     
 //                    self?.stopLoadingHandler?()
                     
-                    completion(.success(success))
+                    completion(.success(()))
                     
                 case .failure(let error):
                     
@@ -156,7 +156,7 @@ class EditArticleViewModel {
             
             switch result {
                 
-            case .success(_):
+            case .success:
                 
                 self?.stopLoadingHandler?()
                 

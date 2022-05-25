@@ -178,13 +178,7 @@ class ChatRoomMessageViewModel {
                 guard
                     let self = self else { return }
                 
-                switch result {
-                    
-                case .success(let success):
-                    
-                    print(success)
-                    
-                case .failure(let error):
+                if case .failure(let error) = result {
                     
                     self.errorViewModel.value = ErrorViewModel(model: error)
                 }

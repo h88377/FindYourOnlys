@@ -66,36 +66,6 @@
             </objects>
             <point key="canvasLocation" x="931.88405797101461" y="77.678571428571431"/>
         </scene>
-        <!--Share Publish View Controller-->
-        <scene sceneID="Rct-Ul-xn3">
-            <objects>
-                <viewController storyboardIdentifier="SharePublishViewController" id="oWn-bc-KPX" customClass="SharePublishViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="M4U-nd-1Yy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HhL-6Y-bbJ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="hQo-I4-uky"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="HhL-6Y-bbJ" firstAttribute="leading" secondItem="hQo-I4-uky" secondAttribute="leading" id="Qkq-iu-cOr"/>
-                            <constraint firstItem="hQo-I4-uky" firstAttribute="trailing" secondItem="HhL-6Y-bbJ" secondAttribute="trailing" id="iTu-Z2-x88"/>
-                            <constraint firstItem="HhL-6Y-bbJ" firstAttribute="top" secondItem="hQo-I4-uky" secondAttribute="top" id="tTG-jI-uq3"/>
-                            <constraint firstItem="hQo-I4-uky" firstAttribute="bottom" secondItem="HhL-6Y-bbJ" secondAttribute="bottom" id="vJl-Qv-eFd"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="HhL-6Y-bbJ" id="DUt-Na-XTh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xjd-sh-eDo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1721.7391304347827" y="77.678571428571431"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="lb5-Ic-bQb">
             <objects>

@@ -32,7 +32,7 @@ class FriendProfileViewModel {
             
             switch result {
                 
-            case .success(_):
+            case .success:
                 
                 self?.dismissHandler?()
                 
