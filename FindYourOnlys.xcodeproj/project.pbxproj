@@ -94,7 +94,6 @@
 		9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D916280A6F42003D4A16 /* UITextView+Extension.swift */; };
 		9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D918280BC230003D4A16 /* AddFriendViewController.swift */; };
 		9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */; };
-		9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */; };
 		9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */; };
 		9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D926280BD3DD003D4A16 /* FriendRequest.swift */; };
 		9896D929280D60C1003D4A16 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9896D928280D60C1003D4A16 /* Profile.storyboard */; };
@@ -124,6 +123,7 @@
 		9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */; };
 		9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */; };
 		9896D96C280F91C0003D4A16 /* DirectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */; };
+		989D7ED8283FE216008ECB7D /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989D7ED7283FE216008ECB7D /* SearchViewModel.swift */; };
 		98BC4753282006BD00740855 /* ladyCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4751282006BC00740855 /* ladyCat.json */; };
 		98BC4754282006BD00740855 /* manCat.json in Resources */ = {isa = PBXBuildFile; fileRef = 98BC4752282006BD00740855 /* manCat.json */; };
 		98BC47562822D90300740855 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC47552822D90300740855 /* Notification+Extension.swift */; };
@@ -301,7 +301,6 @@
 		9896D916280A6F42003D4A16 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		9896D918280BC230003D4A16 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewController.swift; sourceTree = "<group>"; };
-		9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewModel.swift; sourceTree = "<group>"; };
 		9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewModel.swift; sourceTree = "<group>"; };
 		9896D926280BD3DD003D4A16 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		9896D928280D60C1003D4A16 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -331,6 +330,7 @@
 		9896D967280EDD0A003D4A16 /* DirectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewModel.swift; sourceTree = "<group>"; };
 		9896D969280F91B0003D4A16 /* DirectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionHeaderView.swift; sourceTree = "<group>"; };
 		9896D96B280F91C0003D4A16 /* DirectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionHeaderView.xib; sourceTree = "<group>"; };
+		989D7ED7283FE216008ECB7D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		98BC4751282006BC00740855 /* ladyCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ladyCat.json; sourceTree = "<group>"; };
 		98BC4752282006BD00740855 /* manCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manCat.json; sourceTree = "<group>"; };
 		98BC47552822D90300740855 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
@@ -599,10 +599,10 @@
 		9896D91C280BC6AB003D4A16 /* Add Friend */ = {
 			isa = PBXGroup;
 			children = (
-				9896D918280BC230003D4A16 /* AddFriendViewController.swift */,
 				9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */,
 				9896D92D280D6164003D4A16 /* FriendRequestViewController.swift */,
 				987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */,
+				9896D918280BC230003D4A16 /* AddFriendViewController.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -651,8 +651,8 @@
 		9896D921280BC93B003D4A16 /* Add Friend */ = {
 			isa = PBXGroup;
 			children = (
-				9896D922280BC96A003D4A16 /* AddFriendViewModel.swift */,
 				9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */,
+				989D7ED7283FE216008ECB7D /* SearchViewModel.swift */,
 				9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */,
 				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
@@ -1407,7 +1407,6 @@
 				98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */,
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
 				987D8B6C281BB188000D1F95 /* EditArticleViewController.swift in Sources */,
-				9896D923280BC96A003D4A16 /* AddFriendViewModel.swift in Sources */,
 				989399F9280FD707004312F1 /* Shelter.swift in Sources */,
 				9896D92E280D6164003D4A16 /* FriendRequestViewController.swift in Sources */,
 				9896D8E128084BA9003D4A16 /* UserViewModel.swift in Sources */,
@@ -1499,6 +1498,7 @@
 				98CC164028059EBD00B9FDC6 /* KindSelectionCell.swift in Sources */,
 				9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */,
 				9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */,
+				989D7ED8283FE216008ECB7D /* SearchViewModel.swift in Sources */,
 				9896D954280E9BFB003D4A16 /* Route.swift in Sources */,
 				989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */,
 				98939A0628105F4F004312F1 /* PresentationController.swift in Sources */,

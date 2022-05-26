@@ -492,9 +492,6 @@
             <point key="canvasLocation" x="2838" y="-82"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="VpJ-LJ-z44"/>
-    </designables>
     <resources>
         <image name="arrow.up.message" catalog="system" width="128" height="113"/>
         <image name="camera" catalog="system" width="128" height="94"/>

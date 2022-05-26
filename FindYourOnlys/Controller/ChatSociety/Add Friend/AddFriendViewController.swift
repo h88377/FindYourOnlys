@@ -9,7 +9,9 @@ import UIKit
 
 class AddFriendViewController: BaseViewController {
     
-    @IBOutlet weak var searchLabel: UILabel! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var searchLabel: UILabel! {
         
         didSet {
             
@@ -17,7 +19,7 @@ class AddFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var qrCodeLabel: UILabel! {
+    @IBOutlet private weak var qrCodeLabel: UILabel! {
         
         didSet {
             
@@ -25,7 +27,7 @@ class AddFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var myCodeLabel: UILabel! {
+    @IBOutlet private weak var myCodeLabel: UILabel! {
         
         didSet {
             
@@ -33,7 +35,7 @@ class AddFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var searchButton: UIButton! {
+    @IBOutlet private weak var searchButton: UIButton! {
         
         didSet {
             
@@ -41,7 +43,7 @@ class AddFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var qrCodeButton: UIButton! {
+    @IBOutlet private weak var qrCodeButton: UIButton! {
         
         didSet {
             
@@ -49,7 +51,7 @@ class AddFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var myQRCodeImageView: UIImageView! {
+    @IBOutlet private weak var myQRCodeImageView: UIImageView! {
         
         didSet {
             
@@ -59,19 +61,13 @@ class AddFriendViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
     
-    let viewModel = AddFriendViewModel()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+    // MARK: - Method and IBAction
     
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
         
         navigationItem.title = "新增好友"
     }
-    
     
     @IBAction func searchUserId(_ sender: UIButton) {
         
