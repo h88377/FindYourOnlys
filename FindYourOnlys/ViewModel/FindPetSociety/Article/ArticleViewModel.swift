@@ -9,6 +9,12 @@ import Foundation
 
 class ArticleViewModel {
     
+    
+    //
+    
+    //
+    
+    
     var article: Article
     
     init(model: Article) {
