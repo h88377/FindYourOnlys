@@ -754,13 +754,22 @@
 			path = "Add Friend";
 			sourceTree = "<group>";
 		};
+		989D7ED9283FE2EB008ECB7D /* Add Friend */ = {
+			isa = PBXGroup;
+			children = (
+				98BC476D2827FBAA00740855 /* FriendRequestHeaderView.swift */,
+				98BC476F2827FBB800740855 /* FriendRequestHeaderView.xib */,
+				9896D930280D6694003D4A16 /* FriendRequestCell.swift */,
+				9896D931280D6694003D4A16 /* FriendRequestCell.xib */,
+			);
+			path = "Add Friend";
+			sourceTree = "<group>";
+		};
 		98BC475F2823A70D00740855 /* ChatSociety */ = {
 			isa = PBXGroup;
 			children = (
 				9896D91D280BC6B7003D4A16 /* ChatRoom */,
 				9896D91C280BC6AB003D4A16 /* Add Friend */,
-				98BC476D2827FBAA00740855 /* FriendRequestHeaderView.swift */,
-				98BC476F2827FBB800740855 /* FriendRequestHeaderView.xib */,
 			);
 			path = ChatSociety;
 			sourceTree = "<group>";
@@ -786,9 +795,8 @@
 		98BC47622823B34800740855 /* ChatSociety */ = {
 			isa = PBXGroup;
 			children = (
-				9896D930280D6694003D4A16 /* FriendRequestCell.swift */,
-				9896D931280D6694003D4A16 /* FriendRequestCell.xib */,
 				9896D8D52808418D003D4A16 /* ChatRoom */,
+				989D7ED9283FE2EB008ECB7D /* Add Friend */,
 			);
 			path = ChatSociety;
 			sourceTree = "<group>";
