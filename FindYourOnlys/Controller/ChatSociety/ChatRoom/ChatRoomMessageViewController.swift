@@ -324,6 +324,7 @@ class ChatRoomMessageViewController: BaseViewController {
 }
 
 // MARK: - UITableViewDelegate and DataSource
+
 extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -380,7 +381,7 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
         dismiss(animated: true)
         

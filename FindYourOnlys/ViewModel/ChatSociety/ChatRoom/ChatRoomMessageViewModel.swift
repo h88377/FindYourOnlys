@@ -7,9 +7,10 @@
 
 import Foundation
 import UIKit
-import AVFoundation
 
 class ChatRoomMessageViewModel {
+    
+    // MARK: - Properties
     
     let messageViewModels = Box([MessageViewModel]())
     
@@ -19,13 +20,7 @@ class ChatRoomMessageViewModel {
     
     var selectedFriend: User?
     
-    var message = Message(
-        chatRoomId: "",
-        senderId: "",
-        content: "",
-        contentImageURLString: "",
-        createdTime: -1
-    )
+    private var message = Message()
     
     var isBlocked: Bool = false
     
@@ -41,40 +36,7 @@ class ChatRoomMessageViewModel {
     
     var checkIsBlockHandler: (() -> Void)?
     
-    func changeMessage() {
-        
-        changeMessageHandler?()
-    }
-    
-    func beginEditMessage() {
-        
-        beginEditMessageHander?()
-    }
-    
-    func scrollToBottom() {
-        
-        scrollToBottomHandler?()    
-    }
-    
-    func sendMessage() {
-        
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
-        
-        PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &message) { [weak self] result in
-            
-            switch result {
-                
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-            }
-        }
-    }
+    // MARK: - Methods
     
     func fetchMessage() {
         
@@ -94,16 +56,36 @@ class ChatRoomMessageViewModel {
             
             PetSocietyFirebaseManager.shared.fetchMessage(with: selectedChatRoom.id) { [weak self] result in
                 
+                guard
+                    let self = self else { return }
+                
                 switch result {
                     
                 case .success(let messages):
                     
-                    self?.setMessages(messages)
+                    self.messageViewModels.value = messages.map { MessageViewModel(model: $0) }
                     
                 case .failure(let error):
                     
-                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                    self.errorViewModel.value = ErrorViewModel(model: error)
                 }
+            }
+        }
+    }
+    
+    func sendMessage() {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &message) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -138,7 +120,10 @@ class ChatRoomMessageViewModel {
             
             let semaphore = DispatchSemaphore(value: 0)
             
-            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(image: contextImage, with: FirebaseCollectionType.message.rawValue) { [weak self] result in
+            PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
+                image: contextImage,
+                with: FirebaseCollectionType.message.rawValue
+            ) { [weak self] result in
                 
                 guard
                     let self = self else { return }
@@ -174,7 +159,21 @@ class ChatRoomMessageViewModel {
         }
     }
     
-    // MARK: - Block
+    func changeMessage() {
+        
+        changeMessageHandler?()
+    }
+    
+    func beginEditMessage() {
+        
+        beginEditMessageHander?()
+    }
+    
+    func scrollToBottom() {
+        
+        scrollToBottomHandler?()
+    }
+    
     func blockUser() {
         
         guard
@@ -198,29 +197,5 @@ class ChatRoomMessageViewModel {
         isBlocked = currentUser.blockedUsers.contains(friend.id)
         
         checkIsBlockHandler?()
-    }
-    
-    // MARK: - Convert functions
-    
-//    private func contertToViewModel<T>(from: T) -> [T] {
-//
-//    }
-    
-    private func convertMessageToViewModels(from messages: [Message]) -> [MessageViewModel] {
-        
-        var viewModels = [MessageViewModel]()
-        
-        for message in messages {
-            
-            let viewModel = MessageViewModel(model: message)
-            
-            viewModels.append(viewModel)
-        }
-        return viewModels
-    }
-    
-    private func setMessages(_ messages: [Message]) {
-        
-        messageViewModels.value = convertMessageToViewModels(from: messages)
     }
 }
