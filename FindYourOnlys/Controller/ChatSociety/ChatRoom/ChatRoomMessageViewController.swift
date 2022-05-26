@@ -14,10 +14,13 @@ class ChatRoomMessageViewController: BaseViewController {
         case placeHolder = "請輸入訊息"
         
         case block = "該用戶已經被您封鎖"
-
     }
     
-    @IBOutlet weak var messageTextView: UITextView! {
+    // MARK: - Properties
+    
+    let viewModel = ChatRoomMessageViewModel()
+    
+    @IBOutlet private weak var messageTextView: UITextView! {
         
         didSet {
             
@@ -33,7 +36,7 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -43,7 +46,7 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var sendMessageButton: UIButton! {
+    @IBOutlet private weak var sendMessageButton: UIButton! {
         
         didSet {
             
@@ -53,39 +56,28 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var galleryButton: UIButton!
+    @IBOutlet private weak var galleryButton: UIButton!
     
-    @IBOutlet weak var cameraButton: UIButton!
-    
-    let viewModel = ChatRoomMessageViewModel()
+    @IBOutlet private weak var cameraButton: UIButton!
     
     override var isHiddenTabBar: Bool { return true }
     
     override var isHiddenIQKeyboardToolBar: Bool { return true }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addCurrentUserObserver()
-
-        viewModel.checkIsBlockHandler = { [weak self] in
+        viewModel.messageViewModels.bind { [weak self] _ in
             
-            self?.checkIsBlock()
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
+            guard
+                let self = self else { return }
             
-            self?.stopLoading()
+            self.tableView.reloadData()
+            
+            self.viewModel.scrollToBottom()
         }
-        
-        viewModel.checkIsBlocked()
-        
-        viewModel.fetchMessage()
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
@@ -99,53 +91,26 @@ class ChatRoomMessageViewController: BaseViewController {
             }
         }
         
-        viewModel.messageViewModels.bind { [weak self] _ in
-            
-            self?.tableView.reloadData()
-            
-            self?.viewModel.scrollToBottom()
-        }
-        
-        viewModel.beginEditMessageHander = { [weak self ] in
-            
-            if self?.messageTextView.textColor == UIColor.systemGray3 {
-                
-                self?.messageTextView.text = nil
-                
-                self?.messageTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.changeMessageHandler = { [weak self] in
-            
-            self?.checkMessageButton()
-            
-            if self?.messageTextView.textColor == UIColor.systemGray3 {
-                
-                self?.messageTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.scrollToBottomHandler = { [weak self] in
+        viewModel.checkIsBlockHandler = { [weak self] in
             
             guard
-                let messageCount = self?.viewModel.messageViewModels.value.count,
-                messageCount > 0
-                    
-            else { return }
+                let self = self else { return }
             
-            let indexPath = IndexPath(row: messageCount - 1, section: 0)
-            
-            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            self.checkIsBlock()
         }
         
-        viewModel.enableIQKeyboardHandler = { [weak self] in
-            
-            //Wait handle content out of screen when user tap textView.
-        }
+        setupMessageHandler()
+        
+        addCurrentUserObserver()
+        
+        viewModel.fetchMessage()
+        
+        viewModel.checkIsBlocked()
         
         checkMessageButton()
     }
+    
+    // MARK: - Methods and IBActions
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -182,12 +147,81 @@ class ChatRoomMessageViewController: BaseViewController {
         
     }
     
-    @objc func block(sender: UIBarButtonItem) {
+    override func setupLoadingViewHandler() {
         
-        presentBlockActionSheet()
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
     }
     
-    func checkIsBlock() {
+    private func setupMessageHandler() {
+        
+        viewModel.beginEditMessageHander = { [weak self ] in
+            
+            guard
+                let self = self else { return }
+            
+            if self.messageTextView.textColor == UIColor.systemGray3 {
+                
+                self.messageTextView.text = nil
+                
+                self.messageTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.changeMessageHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.checkMessageButton()
+            
+            if self.messageTextView.textColor == UIColor.systemGray3 {
+                
+                self.messageTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.scrollToBottomHandler = { [weak self] in
+            
+            guard
+                let messageCount = self?.viewModel.messageViewModels.value.count,
+                messageCount > 0
+                    
+            else { return }
+            
+            let indexPath = IndexPath(row: messageCount - 1, section: 0)
+            
+            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
+    }
+    
+    @objc func block(sender: UIBarButtonItem) {
+        
+        let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.blockUser()
+        }
+        
+        AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
+    }
+    
+    private func checkIsBlock() {
         
         navigationItem.rightBarButtonItem?.isEnabled = !viewModel.isBlocked
         
@@ -205,7 +239,7 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    func checkMessageButton() {
+    private func checkMessageButton() {
         
         if messageTextView.text != MessageType.placeHolder.rawValue
             && messageTextView.text != MessageType.block.rawValue
@@ -221,7 +255,11 @@ class ChatRoomMessageViewController: BaseViewController {
     
     private func addCurrentUserObserver() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserDidSet), name: .didSetCurrentUser, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(currentUserDidSet),
+            name: .didSetCurrentUser, object: nil
+        )
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -244,48 +282,44 @@ class ChatRoomMessageViewController: BaseViewController {
         checkMessageButton()
     }
     
-    private func presentBlockActionSheet() {
+    @IBAction func openCamera(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "取消", style: .cancel)
-        
-        let blockAction = UIAlertAction(title: "封鎖使用者", style: .destructive) { [weak self] _ in
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             
-            let blockAlert = UIAlertController(
-                title: "注意!",
-                message: "將封鎖此使用者，未來將看不到該用戶相關資訊",
-                preferredStyle: .alert
-            )
+            let imagePicker = UIImagePickerController()
             
-            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
-                
-                self?.viewModel.blockUser()
-            }
+            imagePicker.delegate = self
             
-            blockAlert.addAction(cancel)
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
             
-            blockAlert.addAction(blockConfirmAction)
+            imagePicker.allowsEditing = false
             
-            self?.present(blockAlert, animated: true)
+            present(imagePicker, animated: true)
+            
+        } else {
+
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
         }
+    }
+    
+    @IBAction func openGallery(_ sender: UIButton) {
         
-        alert.addAction(blockAction)
-        
-        alert.addAction(cancel)
-        
-        // iPad specific code
-        alert.popoverPresentationController?.sourceView = self.view
-        
-        let xOrigin = self.view.bounds.width / 2
-        
-        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-        
-        alert.popoverPresentationController?.sourceRect = popoverRect
-        
-        alert.popoverPresentationController?.permittedArrowDirections = .up
-        
-        present(alert, animated: true)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            
+            imagePicker.allowsEditing = true
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+            
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
+        }
     }
 }
 
@@ -293,8 +327,6 @@ class ChatRoomMessageViewController: BaseViewController {
 extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        viewModel.enableIQKeyboard()
         
         return viewModel.messageViewModels.value.count
     }
@@ -341,18 +373,15 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
         
         viewModel.changeMessage()
     }
-    
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//
-//        viewModel.endEditMessage()
-//    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
         dismiss(animated: true)
         
         if
@@ -364,46 +393,6 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
         
             viewModel.changeContent(with: image)
-        }
-    }
-    
-    @IBAction func openCamera(_ sender: UIButton) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            
-            imagePicker.allowsEditing = false
-            
-            present(imagePicker, animated: true)
-            
-        } else {
-
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
-        }
-    }
-    
-    @IBAction func openGallery(_ sender: UIButton) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            
-            imagePicker.allowsEditing = true
-            
-            present(imagePicker, animated: true)
-            
-        } else {
-            
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
         }
     }
 }
