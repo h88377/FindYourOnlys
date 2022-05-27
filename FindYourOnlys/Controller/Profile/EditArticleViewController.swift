@@ -10,23 +10,13 @@ import UIKit
 
 class EditArticleViewController: BaseViewController {
     
+    // MARK: - Properties
+    
     var viewModel = EditArticleViewModel()
-    
-//    init(model: EditArticleViewModel) {
-//        super.init()
-//
-//        self.viewModel = model
-//    }
-    
-    
-
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
     @IBOutlet weak var tableView: UITableView! {
         
-        didSet{
+        didSet {
             
             tableView.dataSource = self
             
@@ -36,10 +26,24 @@ class EditArticleViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.checkEditedContent = { [weak self] isValidContent, isValidDetectResult in
+        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            if
+                let error = errorViewModel?.error {
+                
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
+            }
+        }
+        
+        viewModel.checkEditedContentHandler = { [weak self] isValidContent, isValidDetectResult in
             
             guard
                 let self = self else { return }
@@ -62,48 +66,10 @@ class EditArticleViewController: BaseViewController {
             self.popBack()
         }
         
-        viewModel.startLoadingHandler = { [weak self] in
-            
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
-        }
-        
-        viewModel.startScanningHandler = { [weak self] in
-            
-            self?.startScanning()
-        }
-        
-        viewModel.stopScanningHandler = { [weak self] in
-            
-            self?.stopScanning()
-        }
-        
-        viewModel.successHandler = { [weak self] in
-            
-            self?.success()
-        }
-        
-        viewModel.imageDetectHandler = { [weak self] in
-            
-            self?.viewModel.detectImage()
-        }
-        
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-            
-            guard
-                let self = self else { return }
-            
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
-        }
+        setupScanningHandler()
     }
+    
+    // MARK: - Methods
     
     override func setupTableView() {
         super.setupTableView()
@@ -125,9 +91,102 @@ class EditArticleViewController: BaseViewController {
         navigationItem.rightBarButtonItem = barButtonItem
     }
     
+    private func setupScanningHandler() {
+        
+        viewModel.startScanningHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.startScanning()
+        }
+        
+        viewModel.stopScanningHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopScanning()
+        }
+        
+        viewModel.successHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.success()
+        }
+        
+        viewModel.imageDetectHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.detectImage()
+        }
+    }
+    
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
     @objc func edit(sender: UIBarButtonItem) {
         
         viewModel.tapEdit()
+    }
+    
+    private func openCamera() {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            
+            imagePicker.allowsEditing = false
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
+        }
+    }
+    
+    private func openGallery() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            
+            imagePicker.allowsEditing = true
+            
+            present(imagePicker, animated: true)
+            
+        } else {
+            
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
+        }
     }
 }
 
@@ -151,9 +210,12 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         editCell.galleryHandler = { [weak self] in
             
-            self?.openGallery()
+            guard
+                let self = self else { return }
             
-            self?.viewModel.updateImage = { image in
+            self.openGallery()
+            
+            self.viewModel.updateImage = { image in
                 
                 editCell.layoutCellWith(image: image)
             }
@@ -161,9 +223,12 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         editCell.cameraHandler = { [weak self] in
             
-            self?.openCamera()
+            guard
+                let self = self else { return }
             
-            self?.viewModel.updateImage = { image in
+            self.openCamera()
+            
+            self.viewModel.updateImage = { image in
                 
                 editCell.layoutCellWith(image: image)
             }
@@ -171,11 +236,13 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         editCell.imageDetectHandler = { [weak self] in
             
-            self?.viewModel.imageDetectHandler?()
+            guard
+                let self = self else { return }
+            
+            self.viewModel.imageDetectHandler?()
         }
         
         return editCell
-        
     }
 }
 
@@ -214,7 +281,7 @@ extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigati
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         dismiss(animated: true)
         
@@ -233,45 +300,4 @@ extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigati
             viewModel.selectedImage = image
         }
     }
-    
-    func openCamera() {
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            
-            imagePicker.allowsEditing = false
-            
-            present(imagePicker, animated: true)
-            
-        } else {
-
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
-        }
-        
-    }
-    
-    func openGallery() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            
-            imagePicker.allowsEditing = true
-            
-            present(imagePicker, animated: true)
-            
-        } else {
-            
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你沒有打開開啟相簿權限喔！")
-        }
-    }
 }
-

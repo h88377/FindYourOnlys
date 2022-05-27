@@ -6,8 +6,6 @@
 //
 
 import UIKit.UIImage
-import UIKit
-
 
 class EditArticleViewModel {
     
@@ -27,11 +25,6 @@ class EditArticleViewModel {
     
     var article = Article()
     
-//    init(model: Article) {
-//
-//        self.article = model
-//    }
-    
     var isFindArticle: Bool {
         
         return article.postType != nil
@@ -49,7 +42,7 @@ class EditArticleViewModel {
         }
     }
     
-    var checkEditedContent: ((Bool, Bool) -> Void)?
+    var checkEditedContentHandler: ((Bool, Bool) -> Void)?
     
     var isValidDetectResult: Bool = true
     
@@ -74,7 +67,7 @@ class EditArticleViewModel {
     
     private func edit(completion: @escaping (Result<Void, Error>) -> Void) {
         
-        checkEditedContent?(isValidEditedContent, isValidDetectResult)
+        checkEditedContentHandler?(isValidEditedContent, isValidDetectResult)
         
         guard
             isValidEditedContent,
