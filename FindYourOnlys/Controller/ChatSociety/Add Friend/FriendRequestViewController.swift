@@ -86,6 +86,7 @@ class FriendRequestViewController: BaseViewController {
 }
 
 // MARK: - UITableViewDelegate and DataSource
+
 extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

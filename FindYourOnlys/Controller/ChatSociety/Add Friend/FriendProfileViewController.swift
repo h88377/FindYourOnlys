@@ -10,11 +10,13 @@ import UIKit
 
 class FriendProfileViewController: BaseViewController {
     
+    // MARK: - Properties
+    
     var viewModel: FriendProfileViewModel?
     
-    @IBOutlet weak var userImageView: ProportionSizeImageView!
+    @IBOutlet private weak var userImageView: ProportionSizeImageView!
     
-    @IBOutlet weak var nickNameLabel: UILabel! {
+    @IBOutlet private weak var nickNameLabel: UILabel! {
         
         didSet {
             
@@ -24,7 +26,7 @@ class FriendProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var emailTitleLabel: UILabel! {
+    @IBOutlet private weak var emailTitleLabel: UILabel! {
         
         didSet {
             
@@ -32,7 +34,7 @@ class FriendProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var emailLabel: UILabel! {
+    @IBOutlet private weak var emailLabel: UILabel! {
         
         didSet {
             
@@ -42,7 +44,7 @@ class FriendProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var statusLabel: UILabel! {
+    @IBOutlet private weak var statusLabel: UILabel! {
         
         didSet {
             
@@ -50,7 +52,7 @@ class FriendProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var requestButton: UIButton! {
+    @IBOutlet private weak var requestButton: UIButton! {
         
         didSet {
             
@@ -64,7 +66,7 @@ class FriendProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var cancelButton: UIButton! {
+    @IBOutlet private weak var cancelButton: UIButton! {
         
         didSet {
             
@@ -76,7 +78,7 @@ class FriendProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var baseView: UIView! {
+    @IBOutlet private weak var baseView: UIView! {
         
         didSet {
             
@@ -84,17 +86,14 @@ class FriendProfileViewController: BaseViewController {
         }
     }
         
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
-        guard
-            let viewModel = viewModel else { return }
-        
-        updateSearchedUserInfo(with: viewModel, result: viewModel.searchFriendResult)
-        
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel?.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
                 let self = self else { return }
@@ -106,11 +105,15 @@ class FriendProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.dismissHandler = { [weak self] in
+        viewModel?.dismissHandler = { [weak self] in
             
-            self?.dismiss(animated: true)
+            guard
+                let self = self else { return }
             
+            self.dismiss(animated: true)
         }
+        
+        updateSearchedUserInfo()
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,7 +126,14 @@ class FriendProfileViewController: BaseViewController {
         cancelButton.layer.cornerRadius = 15
     }
     
-    func updateSearchedUserInfo(with viewModel: FriendProfileViewModel, result: SearchFriendResult) {
+    // MARK: - Methods and IBActions
+    
+    func updateSearchedUserInfo() {
+        
+        guard
+            let viewModel = viewModel else { return }
+        
+        let result = viewModel.searchFriendResult
         
         let user = viewModel.user
         
@@ -153,11 +163,11 @@ class FriendProfileViewController: BaseViewController {
             
             requestButton.isEnabled = false
             
-        case .sentRequest:
+        case .receivedRequest:
             
             requestButton.isEnabled = false
             
-        case .receivedRequest:
+        case .sentRequest:
             
             requestButton.isEnabled = false
             

@@ -99,11 +99,11 @@ class SearchFriendViewModel {
                     
                     if request.requestUserId == user.id {
                         
-                        self.searchViewModel.value = SearchViewModel(user: user, searchResult: .sentRequest)
+                        self.searchViewModel.value = SearchViewModel(user: user, searchResult: .receivedRequest)
                         
                     } else if request.requestedUserId == user.id {
                         
-                        self.searchViewModel.value = SearchViewModel(user: user, searchResult: .receivedRequest)
+                        self.searchViewModel.value = SearchViewModel(user: user, searchResult: .sentRequest)
                     }
                 }
                 

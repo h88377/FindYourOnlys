@@ -658,7 +658,6 @@ class PetSocietyFirebaseManager {
     
     func sendFriendRequest(
         _ userId: String,
-        with friendRequest: inout FriendRequest,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         guard
@@ -668,11 +667,11 @@ class PetSocietyFirebaseManager {
         
         do {
             
-            friendRequest.requestUserId = currentUser.id
-            
-            friendRequest.requestedUserId = userId
-            
-            friendRequest.createdTime = NSDate().timeIntervalSince1970
+            let friendRequest = FriendRequest(
+                requestUserId: currentUser.id,
+                requestedUserId: userId,
+                createdTime: NSDate().timeIntervalSince1970
+            )
             
             try documentReference.setData(from: friendRequest)
             

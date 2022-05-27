@@ -15,9 +15,9 @@ enum SearchFriendResult: String {
     
     case noRelativeEmail = "查無此 User email 的使用者"
     
-    case sentRequest = "已傳送好友邀請"
+    case receivedRequest = "待本人接受好友邀請"
     
-    case receivedRequest = "待接受好友邀請"
+    case sentRequest = "已傳送好友邀請給對方"
     
     case blockedUser = "封鎖名單使用者"
     
