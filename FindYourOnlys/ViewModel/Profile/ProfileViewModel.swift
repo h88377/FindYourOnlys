@@ -9,6 +9,8 @@ import Foundation
 
 class ProfileViewModel {
     
+    // MARK: - Properties
+    
     var userViewModel: Box<UserViewModel?> = Box(nil)
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
@@ -21,6 +23,8 @@ class ProfileViewModel {
     
     var backToHomeHandler: (() -> Void)?
     
+    // MARK: - Methods
+    
     func fetchCurrentUser() {
         
         guard
@@ -32,31 +36,32 @@ class ProfileViewModel {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success(let users):
                 
                 for user in users where user.id == currentUserId {
                     
-                    self?.userViewModel.value = UserViewModel(model: user)
-                    
-                    self?.stopLoadingHandler?()
+                    self.userViewModel.value = UserViewModel(model: user)
                     
                     break
                 }
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            
+            self.stopLoadingHandler?()
         }
     }
     
     func fetchProfileArticle() {
         
-        PetSocietyFirebaseManager.shared.fetchArticle() { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle { [weak self] result in
             
             guard
                 let self = self else { return }
@@ -65,37 +70,15 @@ class ProfileViewModel {
                 
             case .success(let articles):
                 
-                var missingProfileArticles = ProfileArticle(articleType: .find, articles: [Article]())
-                
-                var shareProfileArticles = ProfileArticle(articleType: .share, articles: [Article]())
-                
-                for article in articles {
-                    
-                    switch article.postType != nil {
-                        
-                    case true:
-                        
-                        missingProfileArticles.articles.append(article)
-                        
-                    case false:
-                        
-                        shareProfileArticles.articles.append(article)
-                    }
-                }
-                
-                PetSocietyFirebaseManager.shared.setProfileArticles(
-                    with: self.profileArticleViewModels,
-                    profileArticles: [missingProfileArticles, shareProfileArticles]
-                )
-                
-                self.stopLoadingHandler?()
+                self.profileArticleViewModels.value = self
+                    .getProfileArticles(with: articles)
+                    .map { ProfileArticleViewModel(model: $0) }
                 
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self.stopLoadingHandler?()
             }
+            self.stopLoadingHandler?()
         }
     }
     
@@ -105,44 +88,45 @@ class ProfileViewModel {
         
         UserFirebaseManager.shared.signOut { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
-            case .success(_):
+            case .success:
                 
-                print("Sign out successfully.")
-                
-                self?.stopLoadingHandler?()
-                
-                self?.backToHomeHandler?()
+                self.backToHomeHandler?()
                 
                 UserFirebaseManager.shared.currentUser = nil
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            self.stopLoadingHandler?()
         }
     }
     
-//    func deleteUser() {
-//
-//        UserFirebaseManager.shared.deleteAuthUser { [weak self] error in
-//
-//            guard
-//                error == nil
-//
-//            else {
-//
-//                self?.errorViewModel.value = ErrorViewModel(model: error!)
-//
-//                return
-//            }
-//
-//            print("Delete user successfully.")
-//
-//            UserFirebaseManager.shared.currentUser = nil
-//        }
-//    }
+    private func getProfileArticles(with articles: [Article]) -> [ProfileArticle] {
+        
+        var findingProfileArticles = ProfileArticle(articleType: .find, articles: [Article]())
+        
+        var shareProfileArticles = ProfileArticle(articleType: .share, articles: [Article]())
+        
+        for article in articles {
+            
+            switch article.postType != nil {
+                
+            case true:
+                
+                findingProfileArticles.articles.append(article)
+                
+            case false:
+                
+                shareProfileArticles.articles.append(article)
+            }
+        }
+        
+        return [findingProfileArticles, shareProfileArticles]
+    }
 }

@@ -416,7 +416,7 @@ class UserFirebaseManager {
     }
     
     // Sign out
-    func signOut(completion: @escaping (Result<String, Error>) -> Void) {
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
         
         let firebaseAuth = Auth.auth()
         
@@ -424,7 +424,7 @@ class UserFirebaseManager {
             
             try firebaseAuth.signOut()
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             

@@ -766,17 +766,4 @@ class PetSocietyFirebaseManager {
         
         viewModels.value = convertCommentsToViewModels(from: comments)
     }
-    
-    private func convertProfileArticlesToViewModels(
-        from profileArticles: [ProfileArticle]) -> [ProfileArticleViewModel]
-    {
-        let viewModels = profileArticles.map { ProfileArticleViewModel(model: $0) }
-        
-        return viewModels
-    }
-    
-    func setProfileArticles(with viewModels: Box<[ProfileArticleViewModel]>, profileArticles: [ProfileArticle]) {
-        
-        viewModels.value = convertProfileArticlesToViewModels(from: profileArticles)
-    }
 }
