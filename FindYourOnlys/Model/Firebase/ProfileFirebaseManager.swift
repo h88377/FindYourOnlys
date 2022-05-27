@@ -18,7 +18,7 @@ class ProfileFirebaseManager {
     
     func removeFriendRequest(
         with viewModels: [FriendRequestListViewModel],
-        at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
+        at indexPath: IndexPath, completion: @escaping (Result<Void, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
@@ -56,7 +56,7 @@ class ProfileFirebaseManager {
                 }
             }
             
-            completion(.success("success"))
+            completion(.success(()))
         }
     }
     
@@ -101,7 +101,7 @@ class ProfileFirebaseManager {
         }
     }
     
-    func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
+    func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -119,7 +119,7 @@ class ProfileFirebaseManager {
             
             try db.collection(FirebaseCollectionType.user.rawValue).document(requestedUser.id).setData(from: requestedUser)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             
@@ -127,7 +127,7 @@ class ProfileFirebaseManager {
         }
     }
     
-    func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
+    func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -150,31 +150,12 @@ class ProfileFirebaseManager {
             
             try documentReference.setData(from: chatRoom)
             
-            completion(.success("success"))
+            completion(.success(()))
         }
         
         catch {
             
             completion(.failure(FirebaseError.createChatRoomError))
         }
-    }
-    
-    // MARK: - convert functions
-    private func convertFriendRequestListsToViewModels(from requests: [FriendRequestList]) -> [FriendRequestListViewModel] {
-        
-        var viewModels = [FriendRequestListViewModel]()
-        
-        for request in requests {
-            
-            let viewModel = FriendRequestListViewModel(model: request)
-            
-            viewModels.append(viewModel)
-        }
-        return viewModels
-    }
-    
-    func setFriendRequestLists(with viewModels: Box<[FriendRequestListViewModel]>, requests: [FriendRequestList]) {
-        
-        viewModels.value = convertFriendRequestListsToViewModels(from: requests)
     }
 }

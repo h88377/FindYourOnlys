@@ -61,19 +61,19 @@ class SearchFriendViewModel {
         
         for user in users where user.email == userEmail {
             
-            switch currentUser {
+            switch user {
                 
-            case let blockedUser where blockedUser.blockedUsers.contains(user.id):
+            case let blockedUser where currentUser.blockedUsers.contains(blockedUser.id):
                 
-                self.searchViewModel.value = SearchViewModel(user: user, searchResult: .blockedUser)
+                self.searchViewModel.value = SearchViewModel(user: blockedUser, searchResult: .blockedUser)
                 
-            case let friend where friend.friends.contains(user.id):
+            case let friend where currentUser.friends.contains(friend.id):
                 
-                self.searchViewModel.value = SearchViewModel(user: user, searchResult: .friend)
+                self.searchViewModel.value = SearchViewModel(user: friend, searchResult: .friend)
                 
-            case let currentUser where currentUser.id == user.id:
+            case let selfUser where currentUser.id == selfUser.id:
                 
-                self.searchViewModel.value = SearchViewModel(user: user, searchResult: .currentUser)
+                self.searchViewModel.value = SearchViewModel(user: selfUser, searchResult: .currentUser)
                 
             default:
                 
