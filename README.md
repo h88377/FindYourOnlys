@@ -72,11 +72,11 @@ In addition, users can share their lovely pets to the sharing community to show 
 ## Version
 > 1.0.1  
 
-##Release Notes
-Version | Date        | Note
-------- | ----------- |------
-1.0.0   | 2022/05/12  | First released on App Store.
-1.0.1   | 2022/05/23  | Added new feature and optimized UI. 
+## Release Notes
+Version   | Date        | Note
+:-------: | ----------- | ---------------------------------
+1.0.0     | 2022/05/12  | First released on App Store.
+1.0.1     | 2022/05/23  | Added new feature and optimized UI. 
 
 ## Requirements
 > Xcode 11 or later  
@@ -87,6 +87,5 @@ Version | Date        | Note
 Wayne Cheng｜h88377@gmail.com   
 
 ## Licence
-Copyright 2022 WayneCheng.  
-FindYourOnlys is released under the MIT license. See [LICENSE]() for details.
+FindYourOnlys is released under the MIT license. See [LICENSE](https://github.com/h88377/FindYourOnlys/blob/feature_refactor/LICENSE.md) for details.
 
