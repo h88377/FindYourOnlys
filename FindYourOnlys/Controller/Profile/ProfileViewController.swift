@@ -10,11 +10,13 @@ import FirebaseAuth
 
 class ProfileViewController: BaseViewController {
 
-    let viewModel = ProfileViewModel()
+    // MARK: - Properties
     
-    @IBOutlet weak var userImageView: UIImageView!
+    private let viewModel = ProfileViewModel()
     
-    @IBOutlet weak var userEmailLabel: UILabel! {
+    @IBOutlet private weak var userImageView: UIImageView!
+    
+    @IBOutlet private weak var userEmailLabel: UILabel! {
         
         didSet {
             
@@ -22,7 +24,7 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var editButton: UIButton! {
+    @IBOutlet private weak var editButton: UIButton! {
         
         didSet {
             
@@ -34,7 +36,7 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var userNickNameLabel: UILabel! {
+    @IBOutlet private weak var userNickNameLabel: UILabel! {
         
         didSet {
             
@@ -44,7 +46,7 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         
         didSet {
             
@@ -54,41 +56,30 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var remindLabel: UILabel! {
+    @IBOutlet private weak var remindLabel: UILabel! {
         
         didSet {
             
             remindLabel.textColor = .projectTextColor
         }
     }
+   
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-
-            self?.stopLoading()
-        }
-        
-        viewModel.fetchCurrentUser()
-        
-        viewModel.fetchProfileArticle()
-        
-        addCurrentUserObserver()
-        
         viewModel.userViewModel.bind { [weak self] userViewModel in
             
             guard
-                let userViewModel = userViewModel else { return }
+                let userViewModel = userViewModel,
+                let self = self
+                    
+            else { return }
             
             DispatchQueue.main.async {
                 
-                self?.setupProfile(with: userViewModel)
+                self.setupProfile(with: userViewModel)
             }
         }
         
@@ -106,20 +97,32 @@ class ProfileViewController: BaseViewController {
         
         viewModel.profileArticleViewModels.bind { [weak self] profileArticleViewModels in
             
+            guard
+                let self = self else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.collectionView.isHidden = profileArticleViewModels
+                self.collectionView.isHidden = profileArticleViewModels
                     .flatMap { $0.profileArticle.articles }
                     .count == 0
                 
-                self?.collectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }
         
         viewModel.backToHomeHandler = { [weak self] in
             
-            self?.tabBarController?.selectedIndex = 0
+            guard
+                let self = self else { return }
+            
+            self.tabBarController?.selectedIndex = 0
         }
+        
+        addCurrentUserObserver()
+        
+        viewModel.fetchCurrentUser()
+        
+        viewModel.fetchProfileArticle()
     }
     
     override func viewDidLayoutSubviews() {
@@ -129,6 +132,8 @@ class ProfileViewController: BaseViewController {
         
         editButton.layer.cornerRadius = 12
     }
+    
+    // MARK: - Methods and IBActions
     
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
@@ -168,7 +173,26 @@ class ProfileViewController: BaseViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
-    func setupProfile(with userViewModel: UserViewModel) {
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
+    private func setupProfile(with userViewModel: UserViewModel) {
                 
         let currentUser = userViewModel.user
         
@@ -179,7 +203,7 @@ class ProfileViewController: BaseViewController {
         userNickNameLabel.text = currentUser.nickName
     }
     
-    @objc func signOut(sender: UIBarButtonItem) {
+    @objc private func signOut(sender: UIBarButtonItem) {
         
         let signOutAlert = UIAlertController(title: "即將登出", message: nil, preferredStyle: .actionSheet)
         
@@ -194,15 +218,7 @@ class ProfileViewController: BaseViewController {
         signOutAlert.addAction(cancel)
         
         // iPad specific code
-        signOutAlert.popoverPresentationController?.sourceView = self.view
-        
-        let xOrigin = self.view.bounds.width / 2
-        
-        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-        
-        signOutAlert.popoverPresentationController?.sourceRect = popoverRect
-        
-        signOutAlert.popoverPresentationController?.permittedArrowDirections = .up
+        AlertWindowManager.shared.configureIpadAlert(at: self, with: signOutAlert)
         
         present(signOutAlert, animated: true)
     }
@@ -239,16 +255,21 @@ class ProfileViewController: BaseViewController {
 }
 
 // MARK: - UICollectionViewDataSource and Delegate
-extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout {
+
+extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         
-        viewModel.profileArticleViewModels.value.count
+        let profileArticleTypeCount = viewModel.profileArticleViewModels.value.count
+        
+        return profileArticleTypeCount
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        viewModel.profileArticleViewModels.value[section].profileArticle.articles.count
+        let profileArticleCount = viewModel.profileArticleViewModels.value[section].profileArticle.articles.count
+        
+        return profileArticleCount
     }
     
     func collectionView(
@@ -323,88 +344,6 @@ extension ProfileViewController: UICollectionViewDataSource,  UICollectionViewDe
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        // no need
-//        profileSelectedArticleVC.viewModel.authorViewModel.value = authorViewModel
-        
-        // need
         navigationController?.pushViewController(profileSelectedArticleVC, animated: true)
-        
     }
-    
 }
-
-// UICollectionViewCompositionalLayout
-
-
-//        collectionView.collectionViewLayout = configureCollectionViewLayout()
-
-
-//    func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-//
-//        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-//
-//          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//          let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//          item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-//
-//          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.3))
-//          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-//
-//          let section = NSCollectionLayoutSection(group: group)
-//          section.orthogonalScrollingBehavior = .groupPaging
-//          section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-//          section.interGroupSpacing = 10
-//
-//          let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-//          let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
-//          section.boundarySupplementaryItems = [sectionHeader]
-//
-//          return section
-//        }
-//        let sectionProvider = { (
-//            sectionIndex: Int,
-//            layoutEnvironment: NSCollectionLayoutEnvironment)
-//            -> NSCollectionLayoutSection? in
-//
-//            let itemSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .fractionalHeight(1.0)
-//            )
-//
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
-//
-//            let groupSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1 / 3),
-//                heightDimension: .fractionalHeight(0.75)
-//            )
-//
-//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 2)
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//
-//            section.interGroupSpacing = 8
-//
-//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
-//
-//            section.orthogonalScrollingBehavior = .groupPaging
-//
-//            let headerSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .estimated(44)
-//            )
-//
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: headerSize,
-//                elementKind: UICollectionView.elementKindSectionHeader,
-//                alignment: .topLeading
-//            )
-//
-//            section.boundarySupplementaryItems = [sectionHeader]
-//
-//            return section
-//        }
-    
-//        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
-//    }

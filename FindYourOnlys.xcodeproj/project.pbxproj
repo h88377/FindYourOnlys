@@ -92,7 +92,6 @@
 		9896D8F328096B97003D4A16 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F228096B97003D4A16 /* Message.swift */; };
 		9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F42809769A003D4A16 /* MessageViewModel.swift */; };
 		9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D916280A6F42003D4A16 /* UITextView+Extension.swift */; };
-		9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D918280BC230003D4A16 /* AddFriendViewController.swift */; };
 		9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */; };
 		9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */; };
 		9896D927280BD3DE003D4A16 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D926280BD3DD003D4A16 /* FriendRequest.swift */; };
@@ -299,7 +298,6 @@
 		9896D8F228096B97003D4A16 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		9896D8F42809769A003D4A16 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		9896D916280A6F42003D4A16 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
-		9896D918280BC230003D4A16 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewController.swift; sourceTree = "<group>"; };
 		9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewModel.swift; sourceTree = "<group>"; };
 		9896D926280BD3DD003D4A16 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
@@ -602,7 +600,6 @@
 				9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */,
 				9896D92D280D6164003D4A16 /* FriendRequestViewController.swift */,
 				987D8B73281D1848000D1F95 /* FriendProfileViewController.swift */,
-				9896D918280BC230003D4A16 /* AddFriendViewController.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -1441,7 +1438,6 @@
 				98939A3628154A12004312F1 /* UIColor+Extension.swift in Sources */,
 				98CC15DF2801D61C00B9FDC6 /* AdoptListViewModel.swift in Sources */,
 				98CC160A2802EB9B00B9FDC6 /* UIViewController+Extension.swift in Sources */,
-				9896D919280BC230003D4A16 /* AddFriendViewController.swift in Sources */,
 				987D8B70281CED61000D1F95 /* EditProfileViewController.swift in Sources */,
 				98CC16082802EA7600B9FDC6 /* AdoptDetailViewModel.swift in Sources */,
 				9896D8F328096B97003D4A16 /* Message.swift in Sources */,

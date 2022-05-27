@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gje-HZ-6rQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3543" y="1319"/>
+            <point key="canvasLocation" x="2838" y="1324"/>
         </scene>
         <!--Chat Room Message View Controller-->
         <scene sceneID="Eyx-RV-29z">
@@ -243,101 +243,6 @@
             </objects>
             <point key="canvasLocation" x="931.88405797101461" y="835.71428571428567"/>
         </scene>
-        <!--Add Friend View Controller-->
-        <scene sceneID="5WB-0Q-mQs">
-            <objects>
-                <viewController storyboardIdentifier="AddFriendViewController" id="Ehb-Yv-p75" customClass="AddFriendViewController" customModule="FindYourOnlys" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hst-Hb-gSO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="pqb-fb-B89">
-                                <rect key="frame" x="174" y="64" width="66" height="85"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tO0-hs-DXT">
-                                        <rect key="frame" x="5.5" y="0.0" width="55.5" height="50.5"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="qrcode" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchQRCode:" destination="Ehb-Yv-p75" eventType="touchUpInside" id="odv-ZP-fgg"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucf-FK-kRL">
-                                        <rect key="frame" x="0.0" y="64.5" width="66" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的條碼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaR-sR-HX5">
-                                <rect key="frame" x="172.5" y="438" width="69.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="a0r-fy-MxZ">
-                                <rect key="frame" x="69" y="474.5" width="276" height="273.5"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="a0r-fy-MxZ" secondAttribute="height" multiplier="1:1" id="6xG-rz-LQK"/>
-                                </constraints>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="A03-XF-i8l">
-                                <rect key="frame" x="52" y="64" width="57" height="88"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5h-ef-AN7">
-                                        <rect key="frame" x="0.0" y="0.0" width="57" height="53.5"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="magnifyingglass" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchUserId:" destination="Ehb-Yv-p75" eventType="touchUpInside" id="u7P-FM-OC0"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜尋" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZb-fU-Inh">
-                                        <rect key="frame" x="11" y="67.5" width="35" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="fJ4-Cf-XMb"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="a0r-fy-MxZ" firstAttribute="top" secondItem="TaR-sR-HX5" secondAttribute="bottom" constant="15" id="A0F-d9-Gkz"/>
-                            <constraint firstItem="pqb-fb-B89" firstAttribute="top" secondItem="A03-XF-i8l" secondAttribute="top" id="EOa-IC-PkB"/>
-                            <constraint firstItem="TaR-sR-HX5" firstAttribute="centerX" secondItem="hst-Hb-gSO" secondAttribute="centerX" id="IEo-SS-DDy"/>
-                            <constraint firstItem="pqb-fb-B89" firstAttribute="centerX" secondItem="hst-Hb-gSO" secondAttribute="centerX" id="LJ5-ef-1CI"/>
-                            <constraint firstItem="A03-XF-i8l" firstAttribute="top" secondItem="fJ4-Cf-XMb" secondAttribute="top" constant="20" id="arC-VP-a84"/>
-                            <constraint firstItem="fJ4-Cf-XMb" firstAttribute="centerX" secondItem="A03-XF-i8l" secondAttribute="leading" multiplier="4" id="dhC-c8-E2x"/>
-                            <constraint firstItem="a0r-fy-MxZ" firstAttribute="centerX" secondItem="hst-Hb-gSO" secondAttribute="centerX" id="nau-0w-rAJ"/>
-                            <constraint firstItem="TaR-sR-HX5" firstAttribute="centerY" secondItem="hst-Hb-gSO" secondAttribute="centerY" id="vz1-bf-2Zv"/>
-                            <constraint firstItem="a0r-fy-MxZ" firstAttribute="width" secondItem="hst-Hb-gSO" secondAttribute="width" multiplier="2/3" id="ylL-iE-jdP"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="myCodeLabel" destination="TaR-sR-HX5" id="erR-5q-XB1"/>
-                        <outlet property="myQRCodeImageView" destination="a0r-fy-MxZ" id="l8V-Wd-CSo"/>
-                        <outlet property="qrCodeButton" destination="tO0-hs-DXT" id="xCg-C0-aZB"/>
-                        <outlet property="qrCodeLabel" destination="Ucf-FK-kRL" id="8v7-9q-EXT"/>
-                        <outlet property="searchButton" destination="z5h-ef-AN7" id="6eO-d5-XNX"/>
-                        <outlet property="searchLabel" destination="kZb-fU-Inh" id="Jyd-ga-tBl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pJ7-z0-hmS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2838" y="1319"/>
-        </scene>
         <!--Friend Profile View Controller-->
         <scene sceneID="Jme-r6-OQi">
             <objects>
@@ -450,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FXj-c5-qaC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4387" y="1319"/>
+            <point key="canvasLocation" x="3683" y="1324"/>
         </scene>
         <!--Friend Request View Controller-->
         <scene sceneID="JBp-pe-OU2">
@@ -495,9 +400,7 @@
     <resources>
         <image name="arrow.up.message" catalog="system" width="128" height="113"/>
         <image name="camera" catalog="system" width="128" height="94"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="photo" catalog="system" width="128" height="93"/>
-        <image name="qrcode" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
