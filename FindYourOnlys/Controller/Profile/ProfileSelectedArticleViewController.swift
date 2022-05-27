@@ -9,9 +9,11 @@ import UIKit
 
 class ProfileSelectedArticleViewController: BaseViewController {
     
-    var viewModel = ProfileSelectedArticleViewModel()
+    // MARK: - Properties
+    
+    var viewModel = PetSocietyViewModel()
 
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -21,24 +23,25 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             tableView.backgroundColor = .projectBackgroundColor
             
-//            tableView.separatorColor = .projectBackgroundColor
-            
             tableView.separatorStyle = .none
         }
     }
     
     override var isHiddenTabBar: Bool { return true }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewModel.fetchArticle()
         
         viewModel.articleViewModel.bind { [weak self] _ in
             
+            guard
+                let self = self else { return }
+            
             DispatchQueue.main.async {
                 
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
@@ -53,114 +56,6 @@ class ProfileSelectedArticleViewController: BaseViewController {
             }
         }
         
-        viewModel.shareHanlder = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            // Generate the screenshot
-            UIGraphicsBeginImageContext(self.view.frame.size)
-            
-            self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
-            
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            
-            UIGraphicsEndImageContext()
-            
-            let items: [Any] = [image]
-            
-            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-            
-            // iPad specific code
-            activityVC.popoverPresentationController?.sourceView = self.view
-            
-            let xOrigin = self.view.bounds.width / 2
-            
-            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-            
-            activityVC.popoverPresentationController?.sourceRect = popoverRect
-            
-            activityVC.popoverPresentationController?.permittedArrowDirections = .up
-            
-            self.present(activityVC, animated: true)
-        }
-        
-        viewModel.editHandler = { [weak self] articleViewModel in
-            
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser,
-                articleViewModel.article.userId == currentUser.id,
-                let self = self
-                    
-            else {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self!, title: "只有作者才能夠編輯文章喔！")
-                
-                return
-            }
-            
-            let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
-            
-            let editAction = UIAlertAction(title: "編輯文章", style: .default) { [weak self] _ in
-                
-                let storyboard = UIStoryboard.profile
-                
-                guard
-                    let editVC = storyboard.instantiateViewController(
-                        withIdentifier: EditArticleViewController.identifier)
-                        as? EditArticleViewController,
-                    let self = self,
-                    let article = self.viewModel.articleViewModel.value?.article
-                
-                else { return }
-                
-//                editVC.viewModel = EditArticleViewModel(model: article)
-                editVC.viewModel.article = article
-                
-                self.navigationController?.pushViewController(editVC, animated: true)
-                
-//                self.show(editVC, sender: nil)
-            }
-            
-            let cancel = UIAlertAction(title: "取消", style: .cancel)
-            
-            let deleteAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
-                
-                let deleteAlert = UIAlertController(title: "注意!", message: "將刪除此篇文章", preferredStyle: .alert)
-                
-                let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
-                    
-                    self?.viewModel.deleteArticle()
-                }
-                
-                deleteAlert.addAction(cancel)
-                
-                deleteAlert.addAction(deleteConfirmAction)
-                
-                self?.present(deleteAlert, animated: true)
-                
-            }
-            
-            alert.addAction(editAction)
-            
-            alert.addAction(deleteAction)
-            
-            alert.addAction(cancel)
-            
-            // iPad specific code
-            alert.popoverPresentationController?.sourceView = self.view
-            
-            let xOrigin = self.view.bounds.width / 2
-            
-            let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-            
-            alert.popoverPresentationController?.sourceRect = popoverRect
-            
-            alert.popoverPresentationController?.permittedArrowDirections = .up
-            
-            self.present(alert, animated: true)
-        }
-        
         viewModel.dismissHandler = { [weak self] in
             
             guard
@@ -169,16 +64,12 @@ class ProfileSelectedArticleViewController: BaseViewController {
             self.popBack()
         }
         
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
+        setupArticleHandler()
         
-        viewModel.stopLoadingHandler = { [weak self] in
-
-            self?.stopLoading()
-        }
+        viewModel.fetchArticle()
     }
+    
+    // MARK: - Method
     
     override func setupTableView() {
         super.setupTableView()
@@ -187,10 +78,111 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
     }
+    
+    private func setupArticleHandler() {
+        
+        viewModel.shareHanlder = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            AlertWindowManager.shared.showShareActivity(at: self)
+        }
+        
+        viewModel.editHandler = { [weak self] articleViewModel in
+            
+            guard
+                let self = self else { return }
+            
+            let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.deleteArticle(with: articleViewModel)
+            }
+            
+            AlertWindowManager.shared.presentEditActionSheet(
+                at: self,
+                articleViewModel: articleViewModel,
+                with: deleteConfirmAction
+            )
+        }
+    }
+    
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
 
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
+    private func setupArticleContentCellHandler(
+        articleCell: ArticleContentCell,
+        with articleViewModel: ArticleViewModel,
+        author: User
+    ) {
+        
+        articleCell.likeArticleHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.likeArticle(with: articleViewModel)
+        }
+        
+        articleCell.unlikeArticleHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+             
+            self.viewModel.unlikeArticle(with: articleViewModel)
+        }
+        
+        articleCell.leaveCommentHandler = { [weak self] in
+            
+            let storyboard = UIStoryboard.findPetSociety
+            
+            guard
+                let petSocietyCommentVC = storyboard.instantiateViewController(
+                    withIdentifier: PetSocietyCommentViewController.identifier
+                ) as? PetSocietyCommentViewController,
+                let self = self
+                    
+            else { return }
+            
+            petSocietyCommentVC.modalPresentationStyle = .custom
+            
+            petSocietyCommentVC.transitioningDelegate = self
+            
+            petSocietyCommentVC.viewModel.selectedArticle = articleViewModel.article
+            
+            petSocietyCommentVC.viewModel.selectedAuthor = author
+            
+            self.present(petSocietyCommentVC, animated: true)
+        }
+        
+        articleCell.shareHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.viewModel.shareArticle(with: articleViewModel)
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource and Delegate
+
 extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -209,6 +201,7 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
+            
             guard
                 let articlePhotoCell = cell as? ArticlePhotoCell
                     
@@ -234,43 +227,13 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             
             articleContentCell.configureCell(with: articleCellViewModel)
             
-            articleContentCell.likeArticleHandler = { [weak self] in
-                
-                self?.viewModel.likeArticle(with: articleCellViewModel)
-            }
-            
-            articleContentCell.unlikeArticleHandler = { [weak self] in
-                 
-                self?.viewModel.unlikeArticle(with: articleCellViewModel)
-            }
-            
-            articleContentCell.leaveCommentHandler = { [weak self] in
-                
-                let storyboard = UIStoryboard.findPetSociety
-                
-                guard
-                    let petSocietyCommentVC = storyboard.instantiateViewController(withIdentifier: PetSocietyCommentViewController.identifier) as? PetSocietyCommentViewController
-                        
-                else { return }
-                
-                petSocietyCommentVC.modalPresentationStyle = .custom
-                
-                petSocietyCommentVC.transitioningDelegate = self
-                
-                petSocietyCommentVC.viewModel.selectedArticle = articleCellViewModel.article
-                
-                petSocietyCommentVC.viewModel.selectedAuthor = currentUser
-                
-                self?.present(petSocietyCommentVC, animated: true)
-            }
-            
-            articleContentCell.shareHandler = { [weak self] in
-                
-                self?.viewModel.shareArticle(with: articleCellViewModel)
-            }
+            setupArticleContentCellHandler(
+                articleCell: articleContentCell,
+                with: articleCellViewModel,
+                author: currentUser
+            )
             
             return articleContentCell
         }
     }
 }
-

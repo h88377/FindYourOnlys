@@ -21,6 +21,10 @@ class PetSocietyViewModel: BaseSocietyViewModel {
     
     var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     
+    var articleViewModel: Box<ArticleViewModel?> = Box(nil)
+    
+    var dismissHandler: (() -> Void)?
+    
     // MARK: - Methods
     
     func fetchFindArticles(with condition: FindPetSocietyFilterCondition? = nil) {
@@ -85,6 +89,32 @@ class PetSocietyViewModel: BaseSocietyViewModel {
             }
         }
         
+    }
+    
+    func fetchArticle() {
+        
+        guard
+            let article = articleViewModel.value?.article else { return }
+        
+        startLoadingHandler?()
+        
+        PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: article.id) { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success(let article):
+                
+                self.articleViewModel.value = ArticleViewModel(model: article)
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+            self.stopLoadingHandler?()
+        }
     }
     
     private func fetchAuthors(with articles: [Article], type: ArticleType, completion: @escaping (Error?) -> Void) {
@@ -156,11 +186,16 @@ class PetSocietyViewModel: BaseSocietyViewModel {
             guard
                 let self = self else { return }
             
-            if case .failure(let error) = result {
+            switch result {
+                
+            case .success:
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
-            
             self.stopLoadingHandler?()
         }
     }
