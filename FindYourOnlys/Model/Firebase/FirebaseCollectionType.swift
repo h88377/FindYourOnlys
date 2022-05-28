@@ -38,5 +38,7 @@ enum FirebaseFieldType: String {
     
     case friends
     
+    case email
+    
     case animalId = "animal_id"
 }

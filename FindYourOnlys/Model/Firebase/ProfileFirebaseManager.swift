@@ -62,7 +62,7 @@ class ProfileFirebaseManager {
     
     func removeFriendRequest(
         with userId: String,
-        completion: @escaping (Result<String, Error>) -> Void) {
+        completion: @escaping (Result<Void, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
             
@@ -97,7 +97,7 @@ class ProfileFirebaseManager {
                 
             }
             
-            completion(.success("success"))
+            completion(.success(()))
         }
     }
     

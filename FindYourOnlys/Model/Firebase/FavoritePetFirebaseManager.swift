@@ -13,11 +13,11 @@ class FavoritePetFirebaseManager {
     
     static let shared = FavoritePetFirebaseManager()
     
-    let db = Firestore.firestore()
+    let database = Firestore.firestore()
     
     func fetchFavoritePets(completion: @escaping (Result<[Pet], Error>) -> Void) {
         
-        db.collection(FirebaseCollectionType.favoritePet.rawValue)
+        database.collection(FirebaseCollectionType.favoritePet.rawValue)
             .addSnapshotListener { snapshot, error in
                 
                 guard
@@ -57,7 +57,7 @@ class FavoritePetFirebaseManager {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
-            db.collection(FirebaseCollectionType.favoritePet.rawValue)
+            database.collection(FirebaseCollectionType.favoritePet.rawValue)
                 .whereField(FirebaseFieldType.userID.rawValue, isEqualTo: currentUser.id)
                 .whereField(FirebaseFieldType.animalId.rawValue, isEqualTo: pet.id)
                 .getDocuments { snapshot, error in
@@ -94,7 +94,7 @@ class FavoritePetFirebaseManager {
     func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
         
         // Check if there have existed same pet on firestore when call this func in viewModel
-        let documentReference = db.collection(FirebaseCollectionType.favoritePet.rawValue).document()
+        let documentReference = database.collection(FirebaseCollectionType.favoritePet.rawValue).document()
         
         let documentId = documentReference.documentID
         
@@ -118,7 +118,7 @@ class FavoritePetFirebaseManager {
     
     func removeFavoritePet(with petViewModel: PetViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
+        database.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
             
             guard
                 let snapshot = snapshot else {
@@ -140,7 +140,7 @@ class FavoritePetFirebaseManager {
                         
                         let docID = snapshot.documents[index].documentID
                         
-                        self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
+                        self.database.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
                         
                         completion(.success(()))
                     }
@@ -153,9 +153,9 @@ class FavoritePetFirebaseManager {
         }
     }
     
-    func removeFavoritePet(with userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func removeFavoritePet(with userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        db.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
+        database.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, _ in
             
             guard
                 let snapshot = snapshot else {
@@ -174,7 +174,7 @@ class FavoritePetFirebaseManager {
                         
                         let docID = snapshot.documents[index].documentID
                         
-                        self.db.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
+                        self.database.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
                     }
                     
                 } catch {
@@ -184,8 +184,7 @@ class FavoritePetFirebaseManager {
                     return
                 }
             }
-//            completion(nil)
-            completion(.success("success"))
+            completion(.success(()))
         }
     }
 }
