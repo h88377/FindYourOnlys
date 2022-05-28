@@ -464,7 +464,7 @@ class UserFirebaseManager {
     }
     
     // Delete User
-    func deleteAuthUser(completion: @escaping (Result<String, Error>) -> Void) {
+    func deleteAuthUser(completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard
             let user = Auth.auth().currentUser
@@ -642,11 +642,11 @@ class UserFirebaseManager {
                     
                     switch result {
                         
-                    case .success(let success):
+                    case .success:
                         
-                        completion(.success(success))
+                        completion(.success(()))
                         
-                    case .failure(_):
+                    case .failure:
                         
                         completion(.failure(DeleteDataError.deleteUserError))
                     }
@@ -655,7 +655,7 @@ class UserFirebaseManager {
         }
     }
     
-    func deleteUser(with userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func deleteUser(with userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         db.collection(FirebaseCollectionType.user.rawValue).document(userId).delete() { error in
             
@@ -669,7 +669,7 @@ class UserFirebaseManager {
                 return
             }
             
-            completion(.success("success"))
+            completion(.success(()))
         }
     }
     
@@ -778,7 +778,7 @@ class UserFirebaseManager {
         }
     }
     
-    func saveUser(withUser user: User, completion: @escaping (Result<String, Error>) -> Void) {
+    func saveUser(withUser user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(user.id)")
         
@@ -786,7 +786,7 @@ class UserFirebaseManager {
             
             try documentReference.setData(from: user)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             

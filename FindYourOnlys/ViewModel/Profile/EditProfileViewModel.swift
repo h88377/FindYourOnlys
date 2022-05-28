@@ -9,6 +9,8 @@ import UIKit.UIImage
 
 class EditProfileViewModel {
     
+    // MARK: - Properties
+    
     var currentUser: User?
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
@@ -27,37 +29,59 @@ class EditProfileViewModel {
     
     var openGalleryHandler: (() -> Void)?
     
-    var checkEditedUser: ((Bool) -> Void)?
+    var checkEditedUserHandler: ((Bool) -> Void)?
     
-    var isValidEditedProfile: Bool {
+    private var isValidEditedProfile: Bool {
         
         return currentUser?.nickName != "" && currentUser?.nickName != "請輸入你的暱稱"
     }
     
+    // MARK: - Methods
+    
+    func tapConfirm() {
+        
+        confirm { [weak self] result in
+            
+            guard
+                let self = self else { return }
+            
+            switch result {
+                
+            case .success:
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+            self.stopLoadingHandler?()
+        }
+    }
     func deleteUser() {
         
         startLoadingHandler?()
         
         UserFirebaseManager.shared.deleteAuthUser { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
-            case .success(_):
+            case .success:
                 
                 print("Delete user successfully.")
                 
                 UserFirebaseManager.shared.currentUser = nil
                 
-                self?.stopLoadingHandler?()
-                
-                self?.backToHomeHandler?()
+                self.backToHomeHandler?()
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            self.stopLoadingHandler?()
         }
     }
     
@@ -71,9 +95,14 @@ class EditProfileViewModel {
         openGalleryHandler?()
     }
     
-    private func confirm(completion: @escaping (Result<String, Error>) -> Void) {
+    func nickNameChange(with nickName: String) {
         
-        checkEditedUser?(isValidEditedProfile)
+        currentUser?.nickName = nickName
+    }
+    
+    private func confirm(completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        checkEditedUserHandler?(isValidEditedProfile)
         
         guard
             var currentUser = currentUser,
@@ -94,9 +123,7 @@ class EditProfileViewModel {
                 
             case true:
                 
-                PetSocietyFirebaseManager
-                    .shared
-                    .fetchDownloadImageURL(
+                PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
                         image: self.selectedImage!,
                         with: FirebaseCollectionType.user.rawValue) { result in
                     
@@ -109,8 +136,6 @@ class EditProfileViewModel {
                     case .failure(let error):
                         
                         completion(.failure(error))
-                        
-                        self.stopLoadingHandler?()
                     }
 
                     semaphore.signal()
@@ -122,50 +147,20 @@ class EditProfileViewModel {
             }
             
             semaphore.wait()
-            UserFirebaseManager.shared.saveUser(withUser: currentUser) { [weak self] result in
+            UserFirebaseManager.shared.saveUser(withUser: currentUser) { result in
                 
                 switch result {
                     
-                case .success(let success):
+                case .success:
                     
-                    completion(.success(success))
-                    
-                    self?.stopLoadingHandler?()
+                    completion(.success(()))
                     
                 case .failure(let error):
                     
                     completion(.failure(error))
-                    
-                    self?.stopLoadingHandler?()
                 }
+                semaphore.signal()
             }
         }
-    }
-    
-    func tapConfirm() {
-        
-        confirm { [weak self] result in
-            
-            switch result {
-                
-            case .success(let success):
-                
-                print(success)
-                
-                self?.dismissHandler?()
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-            }
-        }
-    }
-}
-
-extension EditProfileViewModel {
-    
-    func nickNameChange(with nickName: String) {
-        
-        currentUser?.nickName = nickName
     }
 }

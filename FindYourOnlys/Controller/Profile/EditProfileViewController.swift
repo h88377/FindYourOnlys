@@ -74,7 +74,7 @@ class EditProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.checkEditedUser = { [weak self] isValid in
+        viewModel.checkEditedUserHandler = { [weak self] isValid in
             
             guard
                 let self = self else { return }
