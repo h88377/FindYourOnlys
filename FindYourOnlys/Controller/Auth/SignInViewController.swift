@@ -10,9 +10,11 @@ import Lottie
 
 class SignInViewController: BaseViewController {
     
-    let viewModel = SignInViewModel()
+    // MARK: - Properties
     
-    @IBOutlet weak var animationView: AnimationView! {
+    private let viewModel = SignInViewModel()
+    
+    @IBOutlet private weak var animationView: AnimationView! {
         
         didSet {
             
@@ -26,7 +28,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var titleLabel: UILabel! {
+    @IBOutlet private weak var titleLabel: UILabel! {
         
         didSet {
             
@@ -36,7 +38,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var welcomeLabel: UILabel! {
+    @IBOutlet private weak var welcomeLabel: UILabel! {
         
         didSet {
             
@@ -46,7 +48,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var emailTextField: ContentInsetTextField! {
+    @IBOutlet private weak var emailTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -58,7 +60,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var passwordTextField: ContentInsetTextField! {
+    @IBOutlet private weak var passwordTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -72,7 +74,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var signInButton: UIButton! {
+    @IBOutlet private weak var signInButton: UIButton! {
         
         didSet {
             
@@ -88,7 +90,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var errorLabel: UILabel! {
+    @IBOutlet private weak var errorLabel: UILabel! {
         
         didSet {
             
@@ -100,7 +102,7 @@ class SignInViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var dismissButton: UIButton! {
+    @IBOutlet private weak var dismissButton: UIButton! {
         
         didSet {
             
@@ -110,6 +112,8 @@ class SignInViewController: BaseViewController {
     
     var dismissHandler: (() -> Void)?
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,44 +121,39 @@ class SignInViewController: BaseViewController {
 
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
                 if
                     let authError = error as? AuthError {
                     
-                    self?.errorLabel.text = authError.errorMessage
+                    self.errorLabel.text = authError.errorMessage
                     
-                    self?.errorLabel.isHidden = false
+                    self.errorLabel.isHidden = false
                     
                 } else if
                     let firebaseError = error as? FirebaseError {
                     
-                    self?.errorLabel.text = firebaseError.errorMessage
+                    self.errorLabel.text = firebaseError.errorMessage
                     
-                    self?.errorLabel.isHidden = false
+                    self.errorLabel.isHidden = false
                 }
-                
             }
         }
         
         viewModel.dismissHandler = { [weak self] in
             
-            self?.errorLabel.isHidden = true
+            guard
+                let self = self else { return }
             
-            self?.dismiss(animated: true)
+            self.errorLabel.isHidden = true
             
-            self?.dismissHandler?()
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
+            self.dismiss(animated: true)
             
-            self?.stopLoading()
+            self.dismissHandler?()
         }
     }
     
@@ -163,6 +162,27 @@ class SignInViewController: BaseViewController {
         
         signInButton.layer.cornerRadius = 15
         
+    }
+    
+    // MARK: - Methods and IBActions
+    
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
     }
     
     @IBAction func signIn(_ sender: UIButton) {
@@ -187,5 +207,4 @@ class SignInViewController: BaseViewController {
         
         dismiss(animated: true)
     }
-    
 }
