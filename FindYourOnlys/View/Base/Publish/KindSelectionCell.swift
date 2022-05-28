@@ -9,7 +9,7 @@ import UIKit
 
 class KindSelectionCell: BasePublishCell {
 
-    @IBOutlet weak var kindLabel: UILabel! {
+    @IBOutlet private weak var kindLabel: UILabel! {
         
         didSet {
             
@@ -17,21 +17,24 @@ class KindSelectionCell: BasePublishCell {
         }
     }
     
-    @IBOutlet weak var kindStackView: UIStackView!
+    @IBOutlet private weak var kindStackView: UIStackView!
     
-    var petImages: [UIImage] {
+    private var petImages: [UIImage] {
         
         guard
             let catImage = UIImage.asset(.cat)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal),
             let dogImage = UIImage.asset(.dog)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal),
-            let othersImage = UIImage.asset(.others)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal)
+            let othersImage = UIImage.asset(.others)?
+                .withTintColor(
+                .projectPlaceHolderColor,
+                renderingMode: .alwaysOriginal)
                 
         else { return [] }
         
         return [catImage, dogImage, othersImage]
     }
     
-    var selectedPetImages: [UIImage] {
+    private var selectedPetImages: [UIImage] {
         
         guard
             let catImage = UIImage.asset(.cat)?.withTintColor(.white, renderingMode: .alwaysOriginal),
@@ -43,7 +46,7 @@ class KindSelectionCell: BasePublishCell {
         return [catImage, dogImage, othersImage]
     }
     
-    var buttons: [UIButton] = []
+    private var buttons: [UIButton] = []
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -208,8 +211,6 @@ class KindSelectionCell: BasePublishCell {
     }
     
     private func createButton(with title: String, index: Int, isSelected: Bool = false) {
-        
-        let screenWidth = UIScreen.main.bounds.width
         
         let button = TransformButton()
 

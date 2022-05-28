@@ -17,7 +17,7 @@ enum RemindType {
 
 class FilterRemindCell: UITableViewCell {
     
-    @IBOutlet weak var animationView: AnimationView! {
+    @IBOutlet private weak var animationView: AnimationView! {
         
         didSet {
             
@@ -27,7 +27,7 @@ class FilterRemindCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var remindLabel: UILabel! {
+    @IBOutlet private weak var remindLabel: UILabel! {
         
         didSet {
             

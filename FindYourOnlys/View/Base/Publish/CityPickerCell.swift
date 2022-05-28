@@ -92,7 +92,7 @@ class CityPickerCell: BasePublishCell {
         
     }
 
-    @IBOutlet weak var selectionLabel: UILabel! {
+    @IBOutlet private weak var selectionLabel: UILabel! {
         
         didSet {
             
@@ -100,7 +100,7 @@ class CityPickerCell: BasePublishCell {
         }
     }
     
-    @IBOutlet weak var selectionTextField: ContentInsetTextField! {
+    @IBOutlet private weak var selectionTextField: ContentInsetTextField! {
         
         didSet {
         
@@ -223,7 +223,7 @@ class CityPickerCell: BasePublishCell {
         
     }
     
-    @objc func donePressed(){
+    @objc func donePressed() {
 
         selectionTextField.endEditing(true)
     }
