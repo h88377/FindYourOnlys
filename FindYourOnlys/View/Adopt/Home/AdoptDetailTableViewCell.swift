@@ -66,7 +66,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
             
             shareButton.setTitleColor(.white, for: .highlighted)
             
-            shareButton.titleLabel?.font = UIFont.systemFont(ofSize: Constant.textSize, weight: .regular)
+            shareButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
             
             shareButton.backgroundColor = .projectIconColor3
         }

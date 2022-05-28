@@ -76,7 +76,7 @@ class PublishContentCell: BasePublishCell {
             
             detectButton.setTitleColor(.projectIconColor2, for: .highlighted)
             
-            detectButton.titleLabel?.font = UIFont.systemFont(ofSize: Constant.textSize, weight: .medium)
+            detectButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
             
             detectButton.backgroundColor = .projectIconColor1
         }
