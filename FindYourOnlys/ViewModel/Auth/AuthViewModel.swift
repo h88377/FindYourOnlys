@@ -11,23 +11,28 @@ import AVFoundation
 
 class AuthViewModel {
     
+    // MARK: - Properties
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var dismissHandler: (() -> Void)?
+    
+    // MARK: - Method
     
     func didCompleteWithAuthorization(with authorization: ASAuthorization) {
         
         UserFirebaseManager.shared.didCompleteWithAuthorization(with: authorization) { [weak self] result in
             
+            guard
+                let self = self else { return }
             switch result {
                 
-            case .success(_):
+            case .success:
                 
-                self?.dismissHandler?()
+                self.dismissHandler?()
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }

@@ -100,7 +100,7 @@ class UserFirebaseManager {
     }
     
     // Sign in with Apple
-    func didCompleteWithAuthorization(with authorization: ASAuthorization, completion: @escaping (Result<String, Error>) -> Void) {
+    func didCompleteWithAuthorization(with authorization: ASAuthorization, completion: @escaping (Result<Void, Error>) -> Void) {
         
         if
             let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
@@ -109,8 +109,6 @@ class UserFirebaseManager {
                 let nonce = currentNonce
                     
             else {
-                
-                print("Error, a login callback was recevie, but no request was sent.")
                 
                 completion(.failure(AuthError.appleTokenError))
                 
@@ -121,7 +119,6 @@ class UserFirebaseManager {
                 let appleIdToken = appleIdCredential.identityToken
                     
             else {
-                print("Can't fetch identity token.")
                 
                 completion(.failure(AuthError.appleTokenError))
                 
@@ -132,7 +129,6 @@ class UserFirebaseManager {
                 let idTokenString = String(data: appleIdToken, encoding: .utf8)
                     
             else {
-                print("Unable to encode appleIdToken: \(appleIdToken)")
                 
                 completion(.failure(AuthError.appleTokenError))
                 
@@ -224,7 +220,7 @@ class UserFirebaseManager {
                                 break
                             }
                             
-                            completion(.success("success"))
+                            completion(.success(()))
                             
                             return
                         }
@@ -233,7 +229,7 @@ class UserFirebaseManager {
                             
                             switch result {
                                 
-                            case .success(let success):
+                            case .success:
                                 
                                 UserFirebaseManager.shared.currentUser = User(
                                     id: user.uid,
@@ -244,7 +240,7 @@ class UserFirebaseManager {
                                     blockedUsers: []
                                 )
                                 
-                                completion(.success(success))
+                                completion(.success(()))
                                 
                             case .failure(let error):
                                 
@@ -753,7 +749,7 @@ class UserFirebaseManager {
             .updateData([FirebaseFieldType.blockedUsers.rawValue: FieldValue.arrayUnion([userId])])
     }
     
-    func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func saveUser(with nickName: String, with email: String, with id: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         let documentReference = db.collection(FirebaseCollectionType.user.rawValue).document("\(id)")
         
@@ -770,7 +766,7 @@ class UserFirebaseManager {
             
             try documentReference.setData(from: user)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             
