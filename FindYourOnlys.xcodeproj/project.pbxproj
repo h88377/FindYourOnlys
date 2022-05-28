@@ -204,7 +204,6 @@
 		98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC166B2806C1FD00B9FDC6 /* FirebaseCollectionType.swift */; };
 		98CC166E2806C25600B9FDC6 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */; };
 		98E8630D283618FF00153290 /* AlertWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E8630C283618FF00153290 /* AlertWindowManager.swift */; };
-		98E8633B28373A9100153290 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E8633A28373A9000153290 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -411,8 +410,6 @@
 		98CC166B2806C1FD00B9FDC6 /* FirebaseCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionType.swift; sourceTree = "<group>"; };
 		98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		98E8630C283618FF00153290 /* AlertWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowManager.swift; sourceTree = "<group>"; };
-		98E863322837336600153290 /* FindYourOnlysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindYourOnlysTests.swift; sourceTree = "<group>"; };
-		98E8633A28373A9000153290 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		9933558866E35C89E7BB1C24 /* Pods-FindYourOnlysTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindYourOnlysTests.debug.xcconfig"; path = "Target Support Files/Pods-FindYourOnlysTests/Pods-FindYourOnlysTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3E36B9AC81CF00A11DD026D /* Pods_FindYourOnlys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindYourOnlys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -801,7 +798,6 @@
 				9808D98C282A19540059DDF5 /* multipleSimulators.config */,
 				9808D98D282A19540059DDF5 /* multipleSimulatorsStartup.sh */,
 				98CC15A528005B6C00B9FDC6 /* FindYourOnlys */,
-				98E863312837336600153290 /* FindYourOnlysTests */,
 				98CC15A428005B6C00B9FDC6 /* Products */,
 				DD46BB83A3A5D507D07D9598 /* Pods */,
 				FC2CD9D9A32EBE8617928D3A /* Frameworks */,
@@ -830,16 +826,7 @@
 				98CC15BE2801797500B9FDC6 /* View */,
 				98CC15BD2801796D00B9FDC6 /* Controller */,
 				98CC15BF2801797F00B9FDC6 /* ViewModel */,
-				98E8633928373A6C00153290 /* Supporting files */,
-				98CC15AC28005B6C00B9FDC6 /* Adopt.storyboard */,
-				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
-				98939A2428143024004312F1 /* ShareSociety.storyboard */,
-				98BC475D28239B9C00740855 /* ChatSociety.storyboard */,
-				9896D928280D60C1003D4A16 /* Profile.storyboard */,
-				987D8B2E281681B9000D1F95 /* Auth.storyboard */,
-				98CC1626280550D900B9FDC6 /* Main.storyboard */,
 				98CC15AF28005B6C00B9FDC6 /* Assets.xcassets */,
-				98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */,
 				98CC15BB2801721000B9FDC6 /* GoogleService-Info.plist */,
 				98CC15B428005B6C00B9FDC6 /* Info.plist */,
 			);
@@ -868,6 +855,14 @@
 				98CC162F28055F7B00B9FDC6 /* FindPetSociety */,
 				98BC47622823B34800740855 /* ChatSociety */,
 				9896D92F280D6671003D4A16 /* Profile */,
+				98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */,
+				98CC1626280550D900B9FDC6 /* Main.storyboard */,
+				98CC15AC28005B6C00B9FDC6 /* Adopt.storyboard */,
+				98CC161D28054A7600B9FDC6 /* FindPetSociety.storyboard */,
+				98939A2428143024004312F1 /* ShareSociety.storyboard */,
+				98BC475D28239B9C00740855 /* ChatSociety.storyboard */,
+				9896D928280D60C1003D4A16 /* Profile.storyboard */,
+				987D8B2E281681B9000D1F95 /* Auth.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1077,22 +1072,6 @@
 				98939A12281276DC004312F1 /* AdoptFilterCategory.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		98E863312837336600153290 /* FindYourOnlysTests */ = {
-			isa = PBXGroup;
-			children = (
-				98E863322837336600153290 /* FindYourOnlysTests.swift */,
-			);
-			path = FindYourOnlysTests;
-			sourceTree = "<group>";
-		};
-		98E8633928373A6C00153290 /* Supporting files */ = {
-			isa = PBXGroup;
-			children = (
-				98E8633A28373A9000153290 /* NetworkMonitor.swift */,
-			);
-			path = "Supporting files";
 			sourceTree = "<group>";
 		};
 		98E8633C2839476200153290 /* Publish */ = {
@@ -1553,7 +1532,6 @@
 				98939A19281291CD004312F1 /* AdoptFilterCondition.swift in Sources */,
 				98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */,
 				9896D8CF280825DB003D4A16 /* BaseViewController.swift in Sources */,
-				98E8633B28373A9100153290 /* NetworkMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
