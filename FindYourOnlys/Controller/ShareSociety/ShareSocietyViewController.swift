@@ -193,10 +193,10 @@ class ShareSocietyViewController: BaseViewController {
             
             let storyboard = UIStoryboard.findPetSociety
             
-//            let publishVC = storyboard.instantiateViewController(withIdentifier: SharePublishViewController.identifier)
-            
             guard
-                let publishVC = storyboard.instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController
+                let publishVC = storyboard.instantiateViewController(
+                    withIdentifier: PublishViewController.identifier)
+                    as? PublishViewController
             
             else { return }
             

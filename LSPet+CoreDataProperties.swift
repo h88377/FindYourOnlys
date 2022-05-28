@@ -41,6 +41,6 @@ extension LSPet {
 
 }
 
-extension LSPet : Identifiable {
+extension LSPet: Identifiable {
 
 }

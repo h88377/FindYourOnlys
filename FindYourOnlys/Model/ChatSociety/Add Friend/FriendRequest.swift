@@ -22,4 +22,3 @@ struct FriendRequest: Codable {
     
     var createdTime: TimeInterval
 }
-

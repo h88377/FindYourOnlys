@@ -9,7 +9,6 @@ import UIKit
 import Firebase
 import IQKeyboardManagerSwift
 
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,17 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if
             let user = Auth.auth().currentUser {
             
-            print("Your're sign in as \(user.uid), \(user.email)")
+            print("Your're sign in as \(user.uid), \(String(describing: user.email))")
         }
         
-        Auth.auth().addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { _, user in
             
-            print("Listen user: \(user?.uid)")
+            print("Listen user: \(String(describing: user?.uid))")
             
             UserFirebaseManager.shared.initialUser = user
         }
-        
-        
         
         return true
     }

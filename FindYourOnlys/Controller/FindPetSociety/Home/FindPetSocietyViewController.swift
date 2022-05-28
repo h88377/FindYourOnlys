@@ -210,8 +210,9 @@ class FindPetSocietyViewController: BaseViewController {
             let storyboard = UIStoryboard.findPetSociety
             
             guard
-                let publishVC = storyboard
-                .instantiateViewController(withIdentifier: PublishViewController.identifier) as? PublishViewController else { return }
+                let publishVC = storyboard.instantiateViewController(
+                    withIdentifier: PublishViewController.identifier)
+                    as? PublishViewController else { return }
             
             publishVC.viewModel.articleType = .find
             

@@ -113,7 +113,11 @@ class AlertWindowManager {
         controller.present(alert, animated: true)
     }
     
-    func presentEditActionSheet(at controller: UIViewController, articleViewModel: ArticleViewModel, with deleteConfirmAction: UIAlertAction) {
+    func presentEditActionSheet(
+        at controller: UIViewController,
+        articleViewModel: ArticleViewModel,
+        with deleteConfirmAction: UIAlertAction
+    ) {
         
         let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
         
