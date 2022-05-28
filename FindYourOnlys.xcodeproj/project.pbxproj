@@ -632,10 +632,10 @@
 			isa = PBXGroup;
 			children = (
 				9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */,
-				989D7ED7283FE216008ECB7D /* SearchViewModel.swift */,
 				9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */,
-				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
+				989D7ED7283FE216008ECB7D /* SearchViewModel.swift */,
+				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -643,10 +643,8 @@
 		9896D92A280D610D003D4A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9896D92B280D6127003D4A16 /* ProfileViewController.swift */,
-				987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */,
-				987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */,
-				987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */,
+				989D7EDE284208F3008ECB7D /* Home */,
+				989D7EDF284208FA008ECB7D /* Article */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -665,11 +663,8 @@
 		9896D934280D6D95003D4A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */,
-				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
-				987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */,
-				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
-				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
+				989D7EDC284208DE008ECB7D /* Home */,
+				989D7EDD284208E7008ECB7D /* Article */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -750,6 +745,51 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		989D7EDB2842072D008ECB7D /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
+				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		989D7EDC284208DE008ECB7D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */,
+				987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		989D7EDD284208E7008ECB7D /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
+				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
+			);
+			path = Article;
+			sourceTree = "<group>";
+		};
+		989D7EDE284208F3008ECB7D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9896D92B280D6127003D4A16 /* ProfileViewController.swift */,
+				987D8B6F281CED61000D1F95 /* EditProfileViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		989D7EDF284208FA008ECB7D /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				987D8B65281AD922000D1F95 /* ProfileSelectedArticleViewController.swift */,
+				987D8B6B281BB188000D1F95 /* EditArticleViewController.swift */,
+			);
+			path = Article;
+			sourceTree = "<group>";
+		};
 		98BC475F2823A70D00740855 /* ChatSociety */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,8 +811,8 @@
 		98BC47612823B29800740855 /* ChatSociety */ = {
 			isa = PBXGroup;
 			children = (
-				9896D94C280DBDE7003D4A16 /* Add Friend */,
 				9896D94A280DBDBD003D4A16 /* ChatRoom */,
+				9896D94C280DBDE7003D4A16 /* Add Friend */,
 			);
 			path = ChatSociety;
 			sourceTree = "<group>";
@@ -846,7 +886,7 @@
 			children = (
 				98CC1657280664E300B9FDC6 /* Base */,
 				98CC161F28054AB600B9FDC6 /* Adopt */,
-				98CC162F28055F7B00B9FDC6 /* FindPetSociety */,
+				98CC162F28055F7B00B9FDC6 /* PetSociety */,
 				98BC47622823B34800740855 /* ChatSociety */,
 				9896D92F280D6671003D4A16 /* Profile */,
 				98CC15B128005B6C00B9FDC6 /* LaunchScreen.storyboard */,
@@ -864,9 +904,9 @@
 		98CC15BF2801797F00B9FDC6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
+				989D7EDB2842072D008ECB7D /* Base */,
 				98CC162128054ADB00B9FDC6 /* Adopt */,
-				98CC165A2806714F00B9FDC6 /* FindPetSociety */,
+				98CC165A2806714F00B9FDC6 /* PetSociety */,
 				98BC47602823B1F700740855 /* ChatSociety */,
 				9896D934280D6D95003D4A16 /* Profile */,
 				987D8B3328169FAD000D1F95 /* Auth */,
@@ -931,9 +971,9 @@
 			isa = PBXGroup;
 			children = (
 				98CC15F028028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld */,
-				98CC15ED280289C000B9FDC6 /* StorageManager.swift */,
 				98CC15F928028D3400B9FDC6 /* LSPet+CoreDataClass.swift */,
 				98CC15FA28028D3400B9FDC6 /* LSPet+CoreDataProperties.swift */,
+				98CC15ED280289C000B9FDC6 /* StorageManager.swift */,
 			);
 			path = "Local Storage";
 			sourceTree = "<group>";
@@ -994,13 +1034,13 @@
 			path = FindPetSociety;
 			sourceTree = "<group>";
 		};
-		98CC162F28055F7B00B9FDC6 /* FindPetSociety */ = {
+		98CC162F28055F7B00B9FDC6 /* PetSociety */ = {
 			isa = PBXGroup;
 			children = (
 				9896D8D028083F01003D4A16 /* Article */,
 				98CC164E2805BF1C00B9FDC6 /* Publish */,
 			);
-			path = FindPetSociety;
+			path = PetSociety;
 			sourceTree = "<group>";
 		};
 		98CC164E2805BF1C00B9FDC6 /* Publish */ = {
@@ -1027,13 +1067,13 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		98CC165A2806714F00B9FDC6 /* FindPetSociety */ = {
+		98CC165A2806714F00B9FDC6 /* PetSociety */ = {
 			isa = PBXGroup;
 			children = (
 				9896D920280BC92C003D4A16 /* Home */,
 				987D8B4E2819629B000D1F95 /* Article */,
 			);
-			path = FindPetSociety;
+			path = PetSociety;
 			sourceTree = "<group>";
 		};
 		98E8630A2835F1A700153290 /* Home */ = {
