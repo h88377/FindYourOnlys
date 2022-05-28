@@ -17,8 +17,9 @@ class FavoritePetFirebaseManager {
     
     func fetchFavoritePets(completion: @escaping (Result<[Pet], Error>) -> Void) {
         
-        database.collection(FirebaseCollectionType.favoritePet.rawValue)
-            .addSnapshotListener { snapshot, error in
+        database
+            .collection(FirebaseCollectionType.favoritePet.rawValue)
+            .addSnapshotListener { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else {
@@ -26,26 +27,18 @@ class FavoritePetFirebaseManager {
                         completion(.failure(FirebaseError.fetchPetError))
                         
                         return
-                        
                     }
                 
-                var pets = [Pet]()
-                
-                for document in snapshot.documents {
+                do {
                     
-                    do {
-                        
-                        let pet = try document.data(as: Pet.self, decoder: Firestore.Decoder())
-                        
-                        pets.append(pet)
-                    }
-                    catch {
-                        
-                        completion(.failure(FirebaseError.decodePetError))
-                    }
+                    let pets = try snapshot.documents.map { try $0.data(as: Pet.self) }
+                    
+                    completion(.success(pets))
+                    
+                } catch {
+                    
+                    completion(.failure(FirebaseError.decodePetError))
                 }
-                
-                completion(.success(pets))
             }
     }
     
@@ -57,10 +50,11 @@ class FavoritePetFirebaseManager {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
-            database.collection(FirebaseCollectionType.favoritePet.rawValue)
+            database
+                .collection(FirebaseCollectionType.favoritePet.rawValue)
                 .whereField(FirebaseFieldType.userID.rawValue, isEqualTo: currentUser.id)
                 .whereField(FirebaseFieldType.animalId.rawValue, isEqualTo: pet.id)
-                .getDocuments { snapshot, error in
+                .getDocuments { snapshot, _ in
                 
                 guard
                     let snapshot = snapshot else {
@@ -68,32 +62,27 @@ class FavoritePetFirebaseManager {
                         completion(.failure(FirebaseError.fetchPetError))
                         
                         return
-                        
                     }
-                
-                var pets = [Pet]()
-                
-                for document in snapshot.documents {
                     
                     do {
                         
-                        let pet = try document.data(as: Pet.self)
+                        let pets = try snapshot.documents.map { try $0.data(as: Pet.self) }
                         
-                        pets.append(pet)
+                        completion(.success(pets))
                         
                     } catch {
                         
                         completion(.failure(FirebaseError.decodePetError))
                     }
                 }
-                
-                completion(.success(pets))
-            }
-    }
+        }
     
-    func saveFavoritePet(_ userID: String, with petViewModel: PetViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveFavoritePet(
+        _ userID: String,
+        with petViewModel: PetViewModel,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
-        // Check if there have existed same pet on firestore when call this func in viewModel
         let documentReference = database.collection(FirebaseCollectionType.favoritePet.rawValue).document()
         
         let documentId = documentReference.documentID
@@ -118,7 +107,7 @@ class FavoritePetFirebaseManager {
     
     func removeFavoritePet(with petViewModel: PetViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        database.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, error in
+        database.collection(FirebaseCollectionType.favoritePet.rawValue).getDocuments { snapshot, _ in
             
             guard
                 let snapshot = snapshot else {
@@ -140,7 +129,10 @@ class FavoritePetFirebaseManager {
                         
                         let docID = snapshot.documents[index].documentID
                         
-                        self.database.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
+                        self.database
+                            .collection(FirebaseCollectionType.favoritePet.rawValue)
+                            .document("\(docID)")
+                            .delete()
                         
                         completion(.success(()))
                     }
@@ -174,7 +166,10 @@ class FavoritePetFirebaseManager {
                         
                         let docID = snapshot.documents[index].documentID
                         
-                        self.database.collection(FirebaseCollectionType.favoritePet.rawValue).document("\(docID)").delete()
+                        self.database
+                            .collection(FirebaseCollectionType.favoritePet.rawValue)
+                            .document("\(docID)")
+                            .delete()
                     }
                     
                 } catch {
@@ -188,54 +183,3 @@ class FavoritePetFirebaseManager {
         }
     }
 }
-
-//    func addUserIDInFavoritePet(with userID: Int, completion: @escaping (Error?) -> Void) {
-//
-//
-//
-//        let documentReference = db.collection(FirebaseCollectionType.favoritePet.rawValue).document()
-//
-//        documentReference.getDocument { document, error in
-//
-//            guard
-//                let document = document,
-//                document.exists,
-//                var pet = try? document.data(as: Pet.self)
-//
-//            else { return }
-//
-//            pet.userIDs?.append(userID)
-//
-//            do {
-//
-//                try documentReference.setData(from: pet)
-//
-//            } catch {
-//
-//                completion(error)
-//            }
-//        }
-//    }
-
-//        db.collection(FirebaseCollectionType.favoritePet.rawValue)
-//            .getDocuments { snapshot, error in
-//
-//            guard
-//                let snapshot = snapshot else { return }
-//
-//            var pets = [Pet]()
-//
-//            for document in snapshot.documents {
-//
-//                do {
-//                    let pet = try document.data(as: Pet.self)
-//
-//                    pets.append(pet)
-//
-//                } catch {
-//
-//                    completion(.failure(error))
-//                }
-//            }
-//            completion(.success(pets))
-//        }
