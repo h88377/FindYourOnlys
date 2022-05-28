@@ -32,4 +32,3 @@ struct Message: Codable {
         self.createdTime = -1
     }
 }
-

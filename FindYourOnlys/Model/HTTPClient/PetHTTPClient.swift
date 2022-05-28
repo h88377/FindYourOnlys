@@ -32,7 +32,7 @@ enum HTTPClientError: Error {
             
             return "讀取資料失敗，請稍後再嘗試一次"
             
-        case .clientError(_):
+        case .clientError:
             
             return "網路異常，請確認網路狀態"
             

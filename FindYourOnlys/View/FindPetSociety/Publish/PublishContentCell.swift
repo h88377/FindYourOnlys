@@ -24,15 +24,7 @@ class PublishContentCell: BasePublishCell {
             contentLabel.textColor = .projectTextColor
         }
     }
-    @IBOutlet weak var imageBaseView: UIView! {
-        
-        didSet {
-            
-//            imageBaseView.layer.borderColor = UIColor.projectIconColor2.cgColor
-//
-//            imageBaseView.layer.borderWidth = 1
-        }
-    }
+    @IBOutlet weak var imageBaseView: UIView! 
     
     @IBOutlet weak var contentImageView: UIImageView!
     

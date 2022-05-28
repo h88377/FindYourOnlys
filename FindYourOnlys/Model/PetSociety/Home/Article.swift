@@ -56,3 +56,48 @@ struct Article: Codable {
         
     }
 }
+
+struct Comment: Codable {
+    
+    var articleId: String
+    
+    var userId: String
+    
+    var content: String
+    
+    var createdTime: TimeInterval
+    
+    init() {
+        
+        articleId = ""
+        
+        userId = ""
+        
+        content = ""
+        
+        createdTime = -1
+    }
+}
+
+enum PostType: String, CaseIterable {
+    
+    case missing = "遺失"
+    
+    case found = "尋獲"
+}
+
+enum Sex: String, CaseIterable {
+    
+    case male = "公"
+    
+    case female = "母"
+}
+
+enum PetKind: String, CaseIterable {
+    
+    case cat = "貓"
+    
+    case dog = "狗"
+    
+    case others = "其他"
+}
