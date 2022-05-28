@@ -14,6 +14,8 @@ class ProfileFirebaseManager {
     
     static let shared = ProfileFirebaseManager()
     
+    private init() { }
+    
     private let database = Firestore.firestore()
     
     func removeFriendRequest(

@@ -55,6 +55,8 @@ class PetHTTPClient {
     
     static let shared = PetHTTPClient()
     
+    private init() { }
+    
     func requestPet(
         with condition: AdoptFilterCondition,
         paging: Int?,

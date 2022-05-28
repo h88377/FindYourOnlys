@@ -21,6 +21,8 @@ class PetSocietyFirebaseManager {
     
     static let shared = PetSocietyFirebaseManager()
     
+    private init() { }
+    
     private let database = Firestore.firestore()
     
     private let storage = Storage.storage()

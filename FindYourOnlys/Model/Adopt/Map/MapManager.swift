@@ -38,6 +38,8 @@ class MapManager {
     
     static let shared = MapManager()
     
+    private init() { }
+    
     func convertAddress(with address: String, completion: @escaping (Result<CLLocation, Error>) -> Void) {
         
         let geoCoder = CLGeocoder()

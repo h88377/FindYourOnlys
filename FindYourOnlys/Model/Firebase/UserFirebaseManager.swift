@@ -16,6 +16,8 @@ class UserFirebaseManager {
     
     static let shared = UserFirebaseManager()
     
+    private init() { }
+    
     private let database = Firestore.firestore()
     
     var initialUser = Auth.auth().currentUser

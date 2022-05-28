@@ -32,6 +32,8 @@ class LottieAnimationWrapper {
     
     static let shared = LottieAnimationWrapper()
     
+    private init() { }
+    
     private let loadingView = AnimationView(name: LottieName.loading.rawValue)
     
     private let scanView = AnimationView(name: LottieName.imageScan.rawValue)

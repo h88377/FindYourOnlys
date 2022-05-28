@@ -13,6 +13,8 @@ class FavoritePetFirebaseManager {
     
     static let shared = FavoritePetFirebaseManager()
     
+    private init() { }
+    
     private let database = Firestore.firestore()
     
     func fetchFavoritePets(completion: @escaping (Result<[Pet], Error>) -> Void) {

@@ -93,7 +93,7 @@ class GoogleMLWrapper {
     // MARK: - Property
     static let shared = GoogleMLWrapper()
     
-    private init() {}
+    private init() { }
     
     // MARK: - Methods
     
