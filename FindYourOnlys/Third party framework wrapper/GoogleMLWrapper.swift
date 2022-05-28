@@ -122,4 +122,17 @@ class GoogleMLWrapper {
             completion(.success(labels))
         }
     }
+    
+    func getDetectResult(with labels: [ImageLabel]) -> Bool {
+        
+        let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
+        
+        let isValidResult = labels.map { label in
+            
+            imageDetectDatabase.contains(label.text)
+            
+        }.contains(true)
+        
+        return isValidResult
+    }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit.UIImage
-import MLKit
 
 class PublishViewModel {
     
@@ -147,7 +146,7 @@ class PublishViewModel {
                 
             case .success(let labels):
                 
-                self.isValidDetectResult = self.getDetectResult(with: labels)
+                self.isValidDetectResult = GoogleMLWrapper.shared.getDetectResult(with: labels)
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
                     
@@ -237,19 +236,6 @@ class PublishViewModel {
                 semaphore.signal()
             }
         }
-    }
-    
-    private func getDetectResult(with labels: [ImageLabel]) -> Bool {
-        
-        let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
-        
-        let isValidResult = labels.map { label in
-            
-            imageDetectDatabase.contains(label.text)
-            
-        }.contains(true)
-        
-        return isValidResult
     }
     
     func cityChanged(with city: String) {

@@ -27,14 +27,12 @@ class EditArticleViewModel {
     
     var article = Article()
     
-    var isFindArticle: Bool {
+    private var isFindArticle: Bool {
         
         return article.postType != nil
     }
     
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
-    var updateImage: ((UIImage) -> Void)?
     
     var selectedImage: UIImage? {
         
@@ -44,9 +42,16 @@ class EditArticleViewModel {
         }
     }
     
-    var checkEditedContentHandler: ((Bool, Bool) -> Void)?
-    
     var isValidDetectResult: Bool = true
+    
+    var isValidEditedContent: Bool {
+        
+        return article.content != "" && article.content != "請輸入你的內文"
+    }
+    
+    var updateImageHandler: ((UIImage) -> Void)?
+    
+    var checkEditedContentHandler: ((Bool, Bool) -> Void)?
     
     var dismissHandler: (() -> Void)?
     
@@ -62,31 +67,26 @@ class EditArticleViewModel {
     
     var successHandler: (() -> Void)?
     
-    var isValidEditedContent: Bool {
-        
-        return article.content != "" && article.content != "請輸入你的內文"
-    }
-    
     // MARK: - Methods
     
     func tapEdit() {
         
         edit { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success:
                 
-                self?.stopLoadingHandler?()
-                
-                self?.dismissHandler?()
+                self.dismissHandler?()
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            self.stopLoadingHandler?()
         }
     }
     
@@ -115,10 +115,10 @@ class EditArticleViewModel {
                 
             case true:
                 
-                PetSocietyFirebaseManager
-                    .shared
-                    .fetchDownloadImageURL(
-                        image: self.selectedImage!, with: FirebaseCollectionType.article.rawValue) { result in
+                PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
+                        image: self.selectedImage!,
+                        with: FirebaseCollectionType.article.rawValue
+                ) { result in
                     
                     switch result {
                         
@@ -160,7 +160,6 @@ class EditArticleViewModel {
     func detectImage() {
         
         guard
-//            let selectedImage = selectedImage
             article.imageURLString != ""
         
         else {
@@ -198,21 +197,13 @@ class EditArticleViewModel {
                 
             case .success(let labels):
                 
-                let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
-                
-                let isValidResult = labels.map { label in
-                    
-                    imageDetectDatabase.contains(label.text)
-                    
-                }.contains(true)
-                
-                self.isValidDetectResult = isValidResult
+                self.isValidDetectResult = GoogleMLWrapper.shared.getDetectResult(with: labels)
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                     
                     self.stopScanningHandler?()
                     
-                    if isValidResult {
+                    if self.isValidDetectResult {
                         
                         self.successHandler?()
                         
@@ -233,9 +224,6 @@ class EditArticleViewModel {
             }
         }
     }
-}
-
-extension EditArticleViewModel {
     
     func cityChanged(with city: String) {
         

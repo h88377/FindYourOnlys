@@ -215,7 +215,7 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
             
             self.openGallery()
             
-            self.viewModel.updateImage = { image in
+            self.viewModel.updateImageHandler = { image in
                 
                 editCell.layoutCellWith(image: image)
             }
@@ -228,7 +228,7 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
             
             self.openCamera()
             
-            self.viewModel.updateImage = { image in
+            self.viewModel.updateImageHandler = { image in
                 
                 editCell.layoutCellWith(image: image)
             }
@@ -288,14 +288,14 @@ extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigati
         if
             let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
-            viewModel.updateImage?(editedImage)
+            viewModel.updateImageHandler?(editedImage)
             
             viewModel.selectedImage = editedImage
             
         } else if
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            viewModel.updateImage?(image)
+            viewModel.updateImageHandler?(image)
             
             viewModel.selectedImage = image
         }
