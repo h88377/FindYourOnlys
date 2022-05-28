@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileArticleHeaderView: UICollectionReusableView {
 
-    @IBOutlet weak var headerLabel: UILabel! {
+    @IBOutlet private weak var headerLabel: UILabel! {
         
         didSet {
             

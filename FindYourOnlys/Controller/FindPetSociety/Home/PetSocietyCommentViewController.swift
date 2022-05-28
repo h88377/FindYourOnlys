@@ -14,7 +14,11 @@ class PetSocietyCommentViewController: BaseModalViewController {
         case placeHolder = "請輸入訊息"
     }
     
-    @IBOutlet weak var commentTextView: UITextView! {
+    // MARK: - Properties
+    
+    let viewModel = PetSocietyCommentViewModel()
+    
+    @IBOutlet private weak var commentTextView: UITextView! {
         
         didSet {
             
@@ -30,7 +34,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var sendButton: UIButton! {
+    @IBOutlet private weak var sendButton: UIButton! {
         
         didSet {
             
@@ -40,7 +44,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -54,7 +58,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var userImageView: UIImageView! {
+    @IBOutlet private weak var userImageView: UIImageView! {
         
         didSet {
             
@@ -64,7 +68,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var nickNameLabel: UILabel! {
+    @IBOutlet private weak var nickNameLabel: UILabel! {
         
         didSet {
             
@@ -74,7 +78,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var createdTimeLabel: UILabel! {
+    @IBOutlet private weak var createdTimeLabel: UILabel! {
         
         didSet {
             
@@ -84,7 +88,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var contentLabel: UILabel! {
+    @IBOutlet private weak var contentLabel: UILabel! {
         
         didSet {
             
@@ -94,7 +98,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var remindLabel: UILabel! {
+    @IBOutlet private weak var remindLabel: UILabel! {
         
         didSet {
             
@@ -102,7 +106,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet var baseView: UIView! {
+    @IBOutlet private var baseView: UIView! {
         
         didSet {
             
@@ -110,45 +114,24 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    let viewModel = PetSocietyCommentViewModel()
-    
     override var isHiddenIQKeyboardToolBar: Bool { return true }
     
     override var isEnableIQKeyboard: Bool { return false }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
-        }
-
-        viewModel.fetchComments()
-        
-        checkCommentButton()
-        
-        setupKeyBoard()
-        
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
+            
+            guard
+                let self = self else { return }
             
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
@@ -186,72 +169,43 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 
                 self.setupArticleContent()
             }
-            
-        }
-        
-//        viewModel.endEditCommentHandler = { [weak self] in
-//            
-//            self?.commentTextView.text = MessageType.placeHolder.rawValue
-//
-//            self?.commentTextView.textColor = UIColor.systemGray3
-//            
-//            self?.checkCommentButton()
-//        }
-        
-        viewModel.beginEditCommentHander = { [weak self ] in
-            
-            if self?.commentTextView.textColor == UIColor.systemGray3 {
-                
-                self?.commentTextView.text = nil
-                
-                self?.commentTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.changeCommentHandler = { [weak self] in
-            
-            self?.checkCommentButton()
-            
-            if self?.commentTextView.textColor == UIColor.systemGray3 {
-                
-                self?.commentTextView.textColor = UIColor.black
-            }
         }
         
         viewModel.scrollToBottomHandler = { [weak self] in
             
             guard
                 let commentCount = self?.viewModel.commentViewModels.value.count,
+                let self = self,
                 commentCount > 0
                     
             else { return }
             
             let indexPath = IndexPath(row: commentCount - 1, section: 0)
             
-            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
         
         viewModel.blockHandler = { [weak self] senderViewModel in
             
             guard
-                let currentUser = UserFirebaseManager.shared.currentUser,
-                currentUser.id != senderViewModel.user.id
-                    
-            else {
+                let self = self else { return }
+            
+            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
                 
-                self?.showAlertWindow(title: "無法封鎖自己喔！", message: nil)
-                
-                return
+                self.viewModel.blockUser(with: senderViewModel)
             }
             
-            self?.presentBlockActionSheet(with: senderViewModel)
+            AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
         }
         
         viewModel.signInHandler = { [weak self] in
             
-            self?.commentTextView.isEditable = false
+            guard
+                let self = self else { return }
             
-            self?.commentTextView.text = "請先登入才能留言喔！"
+            self.commentTextView.isEditable = false
+            
+            self.commentTextView.text = "請先登入才能留言喔！"
             
             let storyboard = UIStoryboard.auth
             
@@ -261,52 +215,16 @@ class PetSocietyCommentViewController: BaseModalViewController {
             
             authVC.transitioningDelegate = self
 
-            self?.present(authVC, animated: true)
+            self.present(authVC, animated: true)
         }
         
-    }
-    
-    func setupKeyBoard() {
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        let screenHeight = UIScreen.main.bounds.height
-        
-        if
-            let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
-                                as? NSValue)?.cgRectValue {
-            
-            if lroundf(Float(view.frame.origin.y)) == lroundf(Float((screenHeight)) * 0.4) {
-                
-                view.frame.origin.y -= (keyboardSize.height)
-            }
-        }
-    }
+        setupEditCommentHandler()
 
-    @objc func keyboardWillHide(notification: NSNotification) {
+        setupKeyBoard()
         
-        let screenHeight = UIScreen.main.bounds.height
+        viewModel.fetchComments()
         
-        if
-            lroundf(Float(view.frame.origin.y)) != lroundf(Float((screenHeight)) * 0.4) {
-            
-            view.frame.origin.y = (screenHeight) * 0.4
-        }
+        checkCommentButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -314,30 +232,65 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         commentTextView.layer.cornerRadius = 5
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.makeRound()
         
         commentTextView.centerVertically()
     }
+    
+    // MARK: - Methods and IBActions
     
     override func setupTableView() {
         super.setupTableView()
         
         tableView.registerCellWithIdentifier(identifier: CommentCell.identifier)
-        
-//        tableView.registerViewWithIdentifier(identifier: CommentHeaderView.identifier)
     }
     
-    @IBAction func sendMessage(_ sender: UIButton) {
+    override func setupLoadingViewHandler() {
         
-        viewModel.changedContent(with: commentTextView.text)
-        
-        viewModel.leaveComment()
-        
-        commentTextView.text = ""
+        viewModel.startLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
 
-        commentTextView.textColor = UIColor.systemGray3
-
-        checkCommentButton()
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
+    private func setupEditCommentHandler() {
+        
+        viewModel.beginEditCommentHander = { [weak self ] in
+            
+            guard
+                let self = self else { return }
+            
+            if self.commentTextView.textColor == UIColor.systemGray3 {
+                
+                self.commentTextView.text = nil
+                
+                self.commentTextView.textColor = UIColor.black
+            }
+        }
+        
+        viewModel.changeCommentHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.checkCommentButton()
+            
+            if self.commentTextView.textColor == UIColor.systemGray3 {
+                
+                self.commentTextView.textColor = UIColor.black
+            }
+        }
     }
     
     private func checkCommentButton() {
@@ -355,61 +308,89 @@ class PetSocietyCommentViewController: BaseModalViewController {
     
     private func setupArticleContent() {
         
-        userImageView.loadImage(viewModel.selectedAuthor?.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        let selectedAuthor = viewModel.selectedAuthor
         
-        nickNameLabel.text = viewModel.selectedAuthor?.nickName
+        let selectedArticle = viewModel.selectedArticle
         
-        createdTimeLabel.text = viewModel.selectedArticle?.createdTime.formatedTime
+        userImageView.loadImage(
+            selectedAuthor?.imageURLString,
+            placeHolder: UIImage.system(.personPlaceHolder)
+        )
         
-        contentLabel.text = viewModel.selectedArticle?.content
+        nickNameLabel.text = selectedAuthor?.nickName
+        
+        createdTimeLabel.text = selectedArticle?.createdTime.formatedTime
+        
+        contentLabel.text = selectedArticle?.content
     }
     
-    private func presentBlockActionSheet(with senderViewModel: UserViewModel) {
+    private func setupKeyBoard() {
         
-        let alert = UIAlertController(title: "請選擇要執行的項目", message: nil, preferredStyle: .actionSheet)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
         
-        let cancel = UIAlertAction(title: "取消", style: .cancel)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
         
-        let blockAction = UIAlertAction(title: "封鎖留言使用者", style: .destructive) { [weak self] _ in
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let originY = view.frame.origin.y
+        
+        if
+            let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+                                as? NSValue)?.cgRectValue {
             
-            let blockAlert = UIAlertController(
-                title: "注意!",
-                message: "將封鎖此留言的使用者，未來將看不到該用戶相關資訊",
-                preferredStyle: .alert
-            )
-            
-            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
+            if CGFloatToInt(originY) == CGFloatToInt(screenHeight * 0.4) {
                 
-                self?.viewModel.blockUser(with: senderViewModel)
+                view.frame.origin.y -= keyboardSize.height
             }
-            
-            blockAlert.addAction(cancel)
-            
-            blockAlert.addAction(blockConfirmAction)
-            
-            self?.present(blockAlert, animated: true)
         }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
         
-        alert.addAction(blockAction)
+        let screenHeight = UIScreen.main.bounds.height
         
-        alert.addAction(cancel)
+        let originY = view.frame.origin.y
         
-        // iPad specific code
-        alert.popoverPresentationController?.sourceView = self.view
+        if CGFloatToInt(originY) != CGFloatToInt(screenHeight * 0.4) {
+            
+            view.frame.origin.y = screenHeight * 0.4
+        }
+    }
+    
+    private func CGFloatToInt(_ number: CGFloat) -> Int {
         
-        let xOrigin = self.view.bounds.width / 2
+        return lroundf(Float(number))
+    }
+    
+    @IBAction func sendMessage(_ sender: UIButton) {
         
-        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        viewModel.changedContent(with: commentTextView.text)
         
-        alert.popoverPresentationController?.sourceRect = popoverRect
+        viewModel.leaveComment()
         
-        alert.popoverPresentationController?.permittedArrowDirections = .up
-        
-        present(alert, animated: true)
+        commentTextView.text = ""
+
+        commentTextView.textColor = UIColor.systemGray3
+
+        checkCommentButton()
     }
 }
 
 // MARK: - UITableViewDataSource & Delegate
+
 extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -441,27 +422,13 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
         
         commentCell.blockHandler = { [weak self] in
             
-            self?.viewModel.block(with: senderViewModel)
+            guard
+                let self = self else { return }
             
+            self.viewModel.block(with: senderViewModel)
         }
         
         return commentCell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: CommentHeaderView.identifier)
-                as? CommentHeaderView,
-            let selectedArticle = viewModel.selectedArticle,
-            let selectedAuthor = viewModel.selectedAuthor
-                
-        else { return nil }
-        
-        headerView.configureView(with: selectedArticle, author: selectedAuthor)
-        
-        return headerView
     }
 }
 
@@ -477,9 +444,4 @@ extension PetSocietyCommentViewController: UITextViewDelegate {
         
         viewModel.changeMessage()
     }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//
-////        viewModel.endEditMessage()
-//    }
 }

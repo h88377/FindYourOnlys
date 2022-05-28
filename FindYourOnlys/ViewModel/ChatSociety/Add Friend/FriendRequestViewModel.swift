@@ -9,12 +9,14 @@ import Foundation
 
 enum FriendRequestType: String, CaseIterable {
     
-    case requested = "待接受"
+    case requested = "待本人接受"
     
-    case request = "待同意"
+    case request = "待對方接受"
 }
 
 class FriendRequestViewModel {
+    
+    // MARK: - Properties
     
     var friendRequestListViewModels = Box([FriendRequestListViewModel]())
     
@@ -34,31 +36,11 @@ class FriendRequestViewModel {
                 
             case .success(let requests):
                 
-                var requestList = FriendRequestList(type: .request, users: [])
+                // Invitation that wait other users accept
+                let requestUserIds = self.getRequestUserIds(with: requests)
                 
-                var requestUsers: [String] = []
-                
-                var requestedList = FriendRequestList(type: .requested, users: [])
-                
-                var requestedUsers: [String] = []
-                
-                for request in requests {
-                    
-                    if request.requestUserId == currentUser.id {
-                        
-                        requestUsers.append(request.requestedUserId)
-                    }
-                    
-                    if request.requestedUserId == currentUser.id {
-                        
-                        let isBlocked = currentUser.blockedUsers.contains(request.requestUserId)
-                        
-                        if !isBlocked {
-                         
-                            requestedUsers.append(request.requestUserId)
-                        }
-                    }
-                }
+                // Invitation that wait current user accept
+                let requestedUserIds = self.getRequestedUserIds(with: requests)
                 
                 UserFirebaseManager.shared.fetchUser { result in
                     
@@ -66,26 +48,21 @@ class FriendRequestViewModel {
                         
                     case .success(let users):
                         
-                        for user in users {
-                            
-                            for requestUser in requestUsers where requestUser == user.id {
-                                
-                                requestList.users.append(user)
-                            }
-                            
-                            for requestedUser in requestedUsers where requestedUser == user.id {
-                                
-                                requestedList.users.append(user)
-                            }
-                        }
+                        let requestUsers = users.filter { requestUserIds.contains($0.id) }
                         
-                        ProfileFirebaseManager.shared.setFriendRequestLists(with: self.friendRequestListViewModels, requests: [requestList, requestedList])
+                        let requestedUsers = users.filter { requestedUserIds.contains($0.id) }
+                        
+                        let requestList = FriendRequestList(type: .request, users: requestUsers)
+                        
+                        let requestedList = FriendRequestList(type: .requested, users: requestedUsers)
+                        
+                        self.friendRequestListViewModels.value = [requestList, requestedList]
+                            .map { FriendRequestListViewModel(model: $0) }
                         
                     case .failure(let error):
                         
                         self.errorViewModel.value = ErrorViewModel(model: error)
                     }
-                    
                 }
                 
             case .failure(let error):
@@ -93,7 +70,41 @@ class FriendRequestViewModel {
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
+    }
+    
+    private func getRequestUserIds(with requests: [FriendRequest]) -> [String] {
         
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser
+        
+        else { return [] }
+        
+        let requestUserIds = requests
+            .filter { $0.requestUserId == currentUser.id }
+            .map { $0.requestedUserId }
+        
+        return requestUserIds
+    }
+    
+    private func getRequestedUserIds(with requests: [FriendRequest]) -> [String] {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser
+        
+        else { return [] }
+        
+        let requestedUserIds = requests
+            .filter {
+                
+                let isRequested = $0.requestedUserId == currentUser.id
+                
+                let isBlocked = currentUser.blockedUsers.contains($0.requestedUserId)
+                
+                return isRequested && !isBlocked
+                
+            }.map { $0.requestUserId }
+        
+        return requestedUserIds
     }
     
     func acceptFriendRequest(at indexPath: IndexPath) {
@@ -102,30 +113,30 @@ class FriendRequestViewModel {
         removeFriendRequest(at: indexPath)
         
         // Add friend into each user's friend array
-        ProfileFirebaseManager.shared.addFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { result in
+        ProfileFirebaseManager.shared.addFriendRequest(
+            with: friendRequestListViewModels.value,
+            at: indexPath
+        ) { [weak self] result in
             
-            switch result {
-                
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
         
         // Create chatroom (including created time)
-        ProfileFirebaseManager.shared.createChatRoom(with: friendRequestListViewModels.value, at: indexPath) { result in
+        ProfileFirebaseManager.shared.createChatRoom(
+            with: friendRequestListViewModels.value,
+            at: indexPath
+        ) { [weak self] result in
             
-            switch result {
-                
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
@@ -135,19 +146,18 @@ class FriendRequestViewModel {
     func removeFriendRequest(at indexPath: IndexPath) {
         
         // Remove friend request
-        ProfileFirebaseManager.shared.removeFriendRequest(with: friendRequestListViewModels.value, at: indexPath) { result in
+        ProfileFirebaseManager.shared.removeFriendRequest(
+            with: friendRequestListViewModels.value,
+            at: indexPath
+        ) { [weak self] result in
             
-            switch result {
-                
-            case .success(let success):
-                
-                print(success)
-                
-            case .failure(let error):
+            guard
+                let self = self else { return }
+            
+            if case .failure(let error) = result {
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
-    
 }

@@ -28,7 +28,11 @@ enum LottieName: String {
 
 class LottieAnimationWrapper {
     
+    // MARK: - Properties
+    
     static let shared = LottieAnimationWrapper()
+    
+    private init() { }
     
     private let loadingView = AnimationView(name: LottieName.loading.rawValue)
     
@@ -45,6 +49,8 @@ class LottieAnimationWrapper {
     private let height = UIScreen.main.bounds.height
     
     private let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    
+    // MARK: - Methods
     
     func startLoading() {
         

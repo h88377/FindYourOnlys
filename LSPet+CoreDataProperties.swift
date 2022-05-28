@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension LSPet {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<LSPet> {
@@ -42,6 +41,6 @@ extension LSPet {
 
 }
 
-extension LSPet : Identifiable {
+extension LSPet: Identifiable {
 
 }

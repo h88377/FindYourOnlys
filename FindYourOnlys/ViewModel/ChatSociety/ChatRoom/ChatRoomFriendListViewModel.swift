@@ -9,155 +9,99 @@ import Foundation
 
 class ChatRoomFriendListViewModel {
     
+    // MARK: - Properties
+    
     let chatRoomViewModels = Box([ChatRoomViewModel]())
     
     let friendViewModels = Box([UserViewModel]())
     
-    private func fetchUser(with userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        
-        UserFirebaseManager.shared.fetchUser { result in
-            
-            switch result {
-                
-            case .success(let users):
-                
-                for user in users where user.id == userId {
-                    
-                    completion(.success(user))
-                    
-                    break
-                }
-                
-            case .failure(let error):
-                
-                completion(.failure(error))
-            }
-        }
-    }
+    let errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    private func fetchUsers(with userIds: [String], completion: @escaping (Result<[User], Error>) -> Void) {
-        
-        UserFirebaseManager.shared.fetchUser { result in
-            
-            switch result {
-                
-            case .success(let users):
-                
-                var fetchedUsers = [User]()
-                
-                for user in users {
-                    
-                    for userId in userIds where userId == user.id {
-                        
-                        fetchedUsers.append(user)
-                    }
-                    
-                    completion(.success(fetchedUsers))
-                }
-                
-            case .failure(let error):
-                
-                completion(.failure(error))
-            }
-        }
-    }
+    // MARK: - Methods
     
-    func fetchChatRoom(completion: @escaping (Error?)-> Void) {
+    func fetchChatRoom() {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        fetchUser(with: currentUser.id ) { result in
+        PetSocietyFirebaseManager.shared.fetchChatRoom { [weak self] result in
+            
+            guard
+                let self = self else { return }
             
             switch result {
                 
-            case .success(let user):
+            case .success(let totalChatRooms):
                 
-                PetSocietyFirebaseManager.shared.fetchChatRoom { [weak self] result in
-                    
-                    guard
-                        let self = self else { return }
+                let currentChatRooms = totalChatRooms.filter { $0.userIds.contains(currentUser.id) }
+                
+                let friendIds = currentChatRooms
+                    .flatMap { $0.userIds }
+                    .filter { $0 != currentUser.id }
+                
+                self.chatRoomViewModels.value = currentChatRooms.map { ChatRoomViewModel(model: $0) }
+                
+                self.fetchFriends(with: friendIds) { result in
                     
                     switch result {
                         
-                    case .success(let totalChatRooms):
-             
-                        var currentChatRooms = [ChatRoom]()
+                    case .success(let users):
                         
-                        var friendIds = [String]()
+                        let chatRoomFriends = self.reorderFriends(users: users, withIds: friendIds)
                         
-                        for chatRoom in totalChatRooms {
-                            
-                            for userId in chatRoom.userIds where userId == currentUser.id {
-                                
-                                currentChatRooms.append(chatRoom)
-                                
-                                for friendId in chatRoom.userIds where friendId != currentUser.id {
-                                    
-                                    friendIds.append(friendId)
-                                }
-                            }
-                        }
-                        
-                        self.setChatRooms(currentChatRooms)
-                        
-                        self.fetchUsers(with: friendIds) { result in
-                            
-                            switch result {
-                                
-                            case .success(let users):
-                                
-                                var orderedUsers = [User]()
-                                
-                                for friendId in friendIds {
-                                    
-                                    for user in users {
-                                        
-                                        if user.id == friendId {
-                                            
-                                            orderedUsers.append(user)
-                                        }
-                                    }
-                                }
-                                UserFirebaseManager.shared.setUsers(with: self.friendViewModels, users: orderedUsers)
-                                
-                            case .failure(let error):
-                                
-                                completion(error)
-                            }
-                        }
+                        UserFirebaseManager.shared.setUsers(with: self.friendViewModels, users: chatRoomFriends)
                         
                     case .failure(let error):
                         
-                        completion(error)
+                        self.errorViewModel.value = ErrorViewModel(model: error)
                     }
                 }
                 
             case .failure(let error):
                 
-                completion(error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
+            }
+        }
+    }
+    
+    private func fetchFriends(with friendIds: [String], completion: @escaping (Result<[User], Error>) -> Void) {
+        
+        UserFirebaseManager.shared.fetchUser { result in
+            
+            switch result {
+                
+            case .success(let users):
+                
+                var fetchFriends = [User]()
+                
+                for user in users {
+                    
+                    for friendId in friendIds where friendId == user.id {
+                        
+                        fetchFriends.append(user)
+                    }
+                }
+                completion(.success(fetchFriends))
+                
+            case .failure(let error):
+                
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func reorderFriends(users: [User], withIds ids: [String]) -> [User] {
+        
+        var chatRoomFriends = [User]()
+
+        for id in ids {
+
+            for user in users where user.id == id {
+
+                chatRoomFriends.append(user)
             }
         }
         
+        return chatRoomFriends
     }
-    
-    // MARK: - Convert functions
-    private func convertChatRoomToViewModels(from chatRooms: [ChatRoom]) -> [ChatRoomViewModel] {
-        
-        var viewModels = [ChatRoomViewModel]()
-        
-        for chatRoom in chatRooms {
-            
-            let viewModel = ChatRoomViewModel(model: chatRoom)
-            
-            viewModels.append(viewModel)
-        }
-        return viewModels
-    }
-    
-    private func setChatRooms(_ chatRooms: [ChatRoom]) {
-        
-        chatRoomViewModels.value = convertChatRoomToViewModels(from: chatRooms)
-    }
-    
 }

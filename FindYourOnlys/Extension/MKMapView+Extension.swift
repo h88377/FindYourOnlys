@@ -16,6 +16,7 @@ extension MKMapView {
             center: location.coordinate,
             latitudinalMeters: regionRadius,
             longitudinalMeters: regionRadius)
+        
         setRegion(coordinateRegion, animated: true)
     }
 }

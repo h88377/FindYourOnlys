@@ -9,7 +9,11 @@ import UIKit
 
 class FriendRequestViewController: BaseViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    // MARK: - Properties
+    
+    private let viewModel = FriendRequestViewModel()
+    
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -21,7 +25,7 @@ class FriendRequestViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var remindLabel: UILabel! {
+    @IBOutlet private weak var remindLabel: UILabel! {
         
         didSet {
             
@@ -31,12 +35,10 @@ class FriendRequestViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
     
-    let viewModel = FriendRequestViewModel()
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewModel.fetchFriendRequestList()
         
         viewModel.friendRequestListViewModels.bind { [weak self] friendRequestViewModels in
             
@@ -53,20 +55,20 @@ class FriendRequestViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
+        
+        viewModel.fetchFriendRequestList()
     }
+    
+    // MARK: - Methods
     
     override func setupTableView() {
         super.setupTableView()
@@ -81,45 +83,64 @@ class FriendRequestViewController: BaseViewController {
         
         navigationItem.title = "好友邀請"
     }
-    
 }
 
 // MARK: - UITableViewDelegate and DataSource
+
 extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        viewModel.friendRequestListViewModels.value.count
+        let requestListCount = viewModel.friendRequestListViewModels.value.count
+        
+        return requestListCount
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.friendRequestListViewModels.value[section].friendRequestList.users.count
+        let friendRequestCount = viewModel.friendRequestListViewModels.value[section].friendRequestList.users.count
+        
+        return friendRequestCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendRequestCell.identifier, for: indexPath)
+        
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: FriendRequestCell.identifier, for: indexPath) as? FriendRequestCell
+            let friendRequestCell = cell as? FriendRequestCell
                 
-        else { return UITableViewCell() }
+        else { return cell }
         
         let cellViewModel = viewModel.friendRequestListViewModels.value[indexPath.section]
         
-        cell.configureCell(with: cellViewModel.friendRequestList.type, user: cellViewModel.friendRequestList.users[indexPath.row])
+        let requestType = cellViewModel.friendRequestList.type
         
-        cell.acceptHandler = { [weak self] in
+        let user = cellViewModel.friendRequestList.users[indexPath.row]
+        
+        friendRequestCell.configureCell(
+            with: requestType,
+            user: user
+        )
+        
+        friendRequestCell.acceptHandler = { [weak self] in
             
-            self?.viewModel.acceptFriendRequest(at: indexPath)
+            guard
+                let self = self else { return }
+            
+            self.viewModel.acceptFriendRequest(at: indexPath)
             
         }
         
-        cell.rejectHandler = { [weak self] in
+        friendRequestCell.rejectHandler = { [weak self] in
             
-            self?.viewModel.removeFriendRequest(at: indexPath)
+            guard
+                let self = self else { return }
+            
+            self.viewModel.removeFriendRequest(at: indexPath)
         }
         
-        return cell
+        return friendRequestCell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,13 +150,10 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         guard
             let headerView = view as? FriendRequestHeaderView else { return view }
         
-        headerView.configureView(with: viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue)
+        let requestTypeText = viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue
+        
+        headerView.configureView(with: requestTypeText)
         
         return headerView
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-//        return viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue
-//    }
 }

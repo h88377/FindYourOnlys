@@ -10,7 +10,11 @@ import Lottie
 
 class SearchFriendViewController: BaseViewController {
     
-    @IBOutlet weak var searchTextField: ContentInsetTextField! {
+    // MARK: - Properties
+    
+    private let viewModel = SearchFriendViewModel()
+    
+    @IBOutlet private weak var searchTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -22,7 +26,7 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var errorMessageLabel: UILabel! {
+    @IBOutlet private weak var errorMessageLabel: UILabel! {
         
         didSet {
             
@@ -30,7 +34,7 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var userEmailLabel: UILabel! {
+    @IBOutlet private weak var userEmailLabel: UILabel! {
         
         didSet {
             
@@ -40,7 +44,7 @@ class SearchFriendViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var animationView: AnimationView! {
+    @IBOutlet private weak var animationView: AnimationView! {
         
         didSet {
             
@@ -54,7 +58,68 @@ class SearchFriendViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
     
-    let viewModel = SearchFriendViewModel()
+    // MARK: - View Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        viewModel.searchViewModel.bind { [weak self] searchViewModel in
+            
+            guard
+                let self = self,
+                let searchViewModel = searchViewModel
+                    
+            else { return }
+            
+            DispatchQueue.main.async {
+                
+                let storyboard = UIStoryboard.chatSociety
+                
+                let searchResult = searchViewModel.searchResult
+                
+                guard
+                    let friendProfileVC = storyboard.instantiateViewController(
+                        withIdentifier: FriendProfileViewController.identifier)
+                        as? FriendProfileViewController,
+                    searchResult != .noRelativeEmail
+                        
+                else {
+                    
+                    self.errorMessageLabel.isHidden = false
+                    
+                    self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
+                    
+                    return
+                }
+                
+                if
+                    let user = searchViewModel.user {
+                    
+                    self.errorMessageLabel.isHidden = true
+                    
+                    friendProfileVC.viewModel = FriendProfileViewModel(model: user, result: searchResult)
+                    
+                    friendProfileVC.modalPresentationStyle = .overFullScreen
+                    
+                    self.present(friendProfileVC, animated: true)
+                }
+            }
+        }
+        
+        viewModel.errorViewModel.bind { [weak self] error in
+            
+            guard
+                let self = self else { return }
+            
+            if
+                let error = error {
+                
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
+            }
+        }
+    }
+    
+    // MARK: - Method
     
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
@@ -64,56 +129,16 @@ class SearchFriendViewController: BaseViewController {
 }
 
 // MARK: - UITextFieldDelegate
+
 extension SearchFriendViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         guard
-//            let userId = textField.text else { return }
-        let userEmail = textField.text else { return }
+            let userEmail = textField.text else { return }
         
-//        viewModel.searchUserId(with: userId) { [weak self] result in
-            
-        viewModel.searchUserEmail(with: userEmail) { [weak self] result in
-            guard
-                let self = self else { return }
-            
-            switch result {
-                
-            case .success(let searchResult):
-                
-                DispatchQueue.main.async {
-                    
-                    let storyboard = UIStoryboard.chatSociety
-                    
-                    guard
-                        let friendProfileVC = storyboard.instantiateViewController(
-                            withIdentifier: FriendProfileViewController.identifier)
-                            as? FriendProfileViewController,
-                        searchResult != .noRelativeEmail
-                            
-                    else {
-                        
-                        self.errorMessageLabel.isHidden = false
-                        
-                        self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
-                        
-                        return
-                    }
-                    
-                    self.errorMessageLabel.isHidden = true
-                    
-                    friendProfileVC.viewModel = FriendProfileViewModel(model: self.viewModel.user, result: searchResult)
-                    
-                    friendProfileVC.modalPresentationStyle = .overFullScreen
-                    
-                    self.present(friendProfileVC, animated: true)
-                }
-                
-            case.failure(let error):
-                
-                print(error)
-            }
-        }
+        viewModel.changedUserEmail(with: userEmail)
+        
+        viewModel.searchUserEmail()
     }
 }

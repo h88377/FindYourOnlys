@@ -9,23 +9,32 @@ import Foundation
 
 class SearchFriendViewModel {
     
-//    var searchUserIdHandler: (() -> Void)?
+    // MARK: - Properties
     
-    var user = User(
-        id: "", nickName: "", email: "",
-        imageURLString: "", friends: [], blockedUsers: []
-    )
+    var searchViewModel: Box<SearchViewModel?> = Box(nil)
     
-    var friendRequest = FriendRequest(
-        requestUserId: "", requestedUserId: "", createdTime: -1
-    )
+    var errorViewModel: Box<Error?> = Box(nil)
     
-    func searchUserEmail(with userEmail: String, completion: @escaping (Result<SearchFriendResult, Error>) -> Void) {
+    var userEmail: String?
+    
+    // MARK: - Methods
+    
+    func changedUserEmail(with email: String) {
+        
+        userEmail = email
+    }
+    
+    func searchUserEmail() {
         
         guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+            let userEmail = userEmail
+                
+        else { return }
         
         UserFirebaseManager.shared.fetchUser(with: userEmail) { [weak self] result in
+            
+            guard
+                let self = self else { return }
             
             switch result {
                 
@@ -33,146 +42,75 @@ class SearchFriendViewModel {
                 
                 if users.count == 0 {
                     
-                    completion(.success(.noRelativeEmail))
+                    self.searchViewModel.value = SearchViewModel(searchResult: .noRelativeEmail)
                 }
                 
-                for user in users {
-                    
-                    if user.email == userEmail {
-                        
-                        if currentUser.blockedUsers.contains(user.id) {
-                            
-                            completion(.success(.blockedUser))
-                            
-                        } else if currentUser.friends.contains(user.id) {
-                            
-                            completion(.success(.friend))
-                            
-                        } else if user.id  == currentUser.id {
-                            
-                            completion(.success(.currentUser))
-                            
-                        } else {
-                            
-                            PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: user.id) { result in
-                                
-                                switch result {
-                                    
-                                case .success(let requests):
-                                    
-                                    if requests.count == 0 {
-                                        
-                                        completion(.success(.normalUser))
-                                    }
-                                    
-                                    for request in requests {
-                                        
-                                        if request.requestUserId == user.id {
-                                            
-                                            completion(.success(.sentRequest))
-                                            
-                                        } else if request.requestedUserId == user.id {
-                                            
-                                            completion(.success(.receivedRequest))
-                                        }
-                                    }
-                                    
-                                case .failure(let error):
-                                    
-                                    completion(.failure(error))
-                                }
-                            }
-                        }
-                        
-                        self?.user = user
-                        
-                        break
-                    }
-                    completion(.success(.noRelativeEmail))
-                }
+                self.checkSearchResult(by: userEmail, in: users)
                 
             case .failure(let error):
                 
-                completion(.failure(error))
+                self.errorViewModel.value = error
             }
         }
     }
     
-//    func searchUserId(with userId: String, completion: @escaping (Result<SearchFriendResult, Error>) -> Void) {
-//        
-//        guard
-//            let currentUser = UserFirebaseManager.shared.currentUser else { return }
-//        
-//        UserFirebaseManager.shared.fetchUser(with: userId) { [weak self] result in
-//            
-//            switch result {
-//                
-//            case .success(let users):
-//                
-//                if users.count == 0 {
-//                    
-//                    completion(.success(.noRelativeId))
-//                }
-//                
-//                for user in users {
-//                    
-//                    if user.id == userId {
-//                        
-//                        if currentUser.friends.contains(userId) {
-//                            
-//                            completion(.success(.friend))
-//                            
-//                        } else if currentUser.limitedUsers.contains(userId) {
-//                            
-//                            completion(.success(.limitedUser))
-//                            
-//                        } else if userId  == currentUser.id {
-//                            
-//                            completion(.success(.currentUser))
-//                            
-//                        } else {
-//                            
-//                            PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: userId) { result in
-//                                
-//                                switch result {
-//                                    
-//                                case .success(let requests):
-//                                    
-//                                    if requests.count == 0 {
-//                                        
-//                                        completion(.success(.normalUser))
-//                                    }
-//                                    
-//                                    for request in requests {
-//                                        
-//                                        if request.requestUserId == userId {
-//                                            
-//                                            completion(.success(.sentRequest))
-//                                            
-//                                        } else if request.requestedUserId == userId {
-//                                            
-//                                            completion(.success(.receivedRequest))
-//                                        }
-//                                    }
-//                                    
-//                                case .failure(let error):
-//                                    
-//                                    completion(.failure(error))
-//                                }
-//                            }
-//                        }
-//                        
-//                        self?.user = user
-//                        
-//                        break
-//                    }
-//                    completion(.success(.noRelativeId))
-//                }
-//                
-//            case .failure(let error):
-//                
-//                completion(.failure(error))
-//            }
-//        }
-//    }
+    private func checkSearchResult(by userEmail: String, in users: [User]) {
+        
+        guard
+            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        
+        for user in users where user.email == userEmail {
+            
+            switch user {
+                
+            case let blockedUser where currentUser.blockedUsers.contains(blockedUser.id):
+                
+                self.searchViewModel.value = SearchViewModel(user: blockedUser, searchResult: .blockedUser)
+                
+            case let friend where currentUser.friends.contains(friend.id):
+                
+                self.searchViewModel.value = SearchViewModel(user: friend, searchResult: .friend)
+                
+            case let selfUser where currentUser.id == selfUser.id:
+                
+                self.searchViewModel.value = SearchViewModel(user: selfUser, searchResult: .currentUser)
+                
+            default:
+                
+                checkFriendRequest(with: user)
+            }
+        }
+    }
+    
+    private func checkFriendRequest(with user: User) {
+        
+        PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: user.id) { result in
+            
+            switch result {
+                
+            case .success(let requests):
+                
+                if requests.count == 0 {
+                    
+                    self.searchViewModel.value = SearchViewModel(user: user, searchResult: .normalUser)
+                }
+                
+                for request in requests {
+                    
+                    if request.requestUserId == user.id {
+                        
+                        self.searchViewModel.value = SearchViewModel(user: user, searchResult: .receivedRequest)
+                        
+                    } else if request.requestedUserId == user.id {
+                        
+                        self.searchViewModel.value = SearchViewModel(user: user, searchResult: .sentRequest)
+                    }
+                }
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = error
+            }
+        }
+    }
 }

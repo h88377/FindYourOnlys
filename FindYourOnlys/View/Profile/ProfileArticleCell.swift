@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileArticleCell: TransformCollectionCell {
     
-    @IBOutlet weak var articleImageView: UIImageView!
+    @IBOutlet private weak var articleImageView: UIImageView!
     
     func configureCell(with article: Article) {
         

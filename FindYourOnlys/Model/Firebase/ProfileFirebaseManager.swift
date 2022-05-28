@@ -14,13 +14,17 @@ class ProfileFirebaseManager {
     
     static let shared = ProfileFirebaseManager()
     
-    private let db = Firestore.firestore()
+    private init() { }
+    
+    private let database = Firestore.firestore()
     
     func removeFriendRequest(
         with viewModels: [FriendRequestListViewModel],
-        at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
+        at indexPath: IndexPath,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
-        db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
+        database.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, _ in
             
             guard
                 let snapshot = snapshot else {
@@ -45,7 +49,10 @@ class ProfileFirebaseManager {
                         
                         let docID = snapshot.documents[index].documentID
                         
-                        self.db.collection(FirebaseCollectionType.friendRequest.rawValue).document("\(docID)").delete()
+                        self.database
+                            .collection(FirebaseCollectionType.friendRequest.rawValue)
+                            .document("\(docID)")
+                            .delete()
                     }
                     
                 } catch {
@@ -56,15 +63,15 @@ class ProfileFirebaseManager {
                 }
             }
             
-            completion(.success("success"))
+            completion(.success(()))
         }
     }
     
     func removeFriendRequest(
         with userId: String,
-        completion: @escaping (Result<String, Error>) -> Void) {
+        completion: @escaping (Result<Void, Error>) -> Void) {
         
-        db.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, error in
+        database.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, _ in
             
             guard
                 let snapshot = snapshot else {
@@ -86,22 +93,27 @@ class ProfileFirebaseManager {
                         
                         let docID = snapshot.documents[index].documentID
                         
-                        self.db.collection(FirebaseCollectionType.friendRequest.rawValue).document("\(docID)").delete()
+                        self.database
+                            .collection(FirebaseCollectionType.friendRequest.rawValue)
+                            .document("\(docID)")
+                            .delete()
                     }
+                    
                 } catch {
                     
                     completion(.failure(FirebaseError.deleteFriendRequestError))
                     
                     return
                 }
-                
             }
-            
-            completion(.success("success"))
+            completion(.success(()))
         }
     }
     
-    func addFriendRequest(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
+    func addFriendRequest(
+        with viewModels: [FriendRequestListViewModel],
+        at indexPath: IndexPath, completion: @escaping (Result<Void, Error>
+        ) -> Void) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
@@ -115,11 +127,17 @@ class ProfileFirebaseManager {
         requestedUser.friends.append(requestUser.id)
         
         do {
-            try db.collection(FirebaseCollectionType.user.rawValue).document(requestUser.id).setData(from: requestUser)
+            try database
+                .collection(FirebaseCollectionType.user.rawValue)
+                .document(requestUser.id)
+                .setData(from: requestUser)
             
-            try db.collection(FirebaseCollectionType.user.rawValue).document(requestedUser.id).setData(from: requestedUser)
+            try database
+                .collection(FirebaseCollectionType.user.rawValue)
+                .document(requestedUser.id)
+                .setData(from: requestedUser)
             
-            completion(.success("success"))
+            completion(.success(()))
             
         } catch {
             
@@ -127,12 +145,16 @@ class ProfileFirebaseManager {
         }
     }
     
-    func createChatRoom(with viewModels: [FriendRequestListViewModel], at indexPath: IndexPath, completion: @escaping (Result<String, Error>) -> Void) {
+    func createChatRoom(
+        with viewModels: [FriendRequestListViewModel],
+        at indexPath: IndexPath,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        let documentReference = db.collection(FirebaseCollectionType.chatRoom.rawValue).document()
+        let documentReference = database.collection(FirebaseCollectionType.chatRoom.rawValue).document()
         
         let requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
         
@@ -150,31 +172,10 @@ class ProfileFirebaseManager {
             
             try documentReference.setData(from: chatRoom)
             
-            completion(.success("success"))
-        }
-        
-        catch {
+            completion(.success(()))
+        } catch {
             
             completion(.failure(FirebaseError.createChatRoomError))
         }
-    }
-    
-    // MARK: - convert functions
-    private func convertFriendRequestListsToViewModels(from requests: [FriendRequestList]) -> [FriendRequestListViewModel] {
-        
-        var viewModels = [FriendRequestListViewModel]()
-        
-        for request in requests {
-            
-            let viewModel = FriendRequestListViewModel(model: request)
-            
-            viewModels.append(viewModel)
-        }
-        return viewModels
-    }
-    
-    func setFriendRequestLists(with viewModels: Box<[FriendRequestListViewModel]>, requests: [FriendRequestList]) {
-        
-        viewModels.value = convertFriendRequestListsToViewModels(from: requests)
     }
 }

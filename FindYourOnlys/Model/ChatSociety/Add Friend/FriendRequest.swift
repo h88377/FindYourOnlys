@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct FriendRequestList {
+    
+    let type: FriendRequestType
+    
+    var users: [User]
+}
+
 struct FriendRequest: Codable {
     
     var requestUserId: String

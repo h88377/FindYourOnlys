@@ -26,7 +26,12 @@ enum RouteBuilder {
     
     private static let routeQueue = DispatchQueue(label: "com.routeQueue")
     
-    static func buildRoute(origin: Segment, stops: [Segment], within region: MKCoordinateRegion?, completion: @escaping RouteCompletionBlock) {
+    static func buildRoute(
+        origin: Segment,
+        stops: [Segment],
+        within region: MKCoordinateRegion?,
+        completion: @escaping RouteCompletionBlock
+    ) {
         
         routeQueue.async {
             let group = DispatchGroup()
@@ -77,7 +82,11 @@ enum RouteBuilder {
         }
     }
     
-    private static func requestPlace(for segment: Segment, within region: MKCoordinateRegion?, completion: @escaping PlaceCompletionBlock) {
+    private static func requestPlace(
+        for segment: Segment,
+        within region: MKCoordinateRegion?,
+        completion: @escaping PlaceCompletionBlock
+    ) {
         
         if case .text(let value) = segment, let nearbyRegion = region {
             
@@ -140,4 +149,3 @@ private extension CLGeocoder {
         }
     }
 }
-

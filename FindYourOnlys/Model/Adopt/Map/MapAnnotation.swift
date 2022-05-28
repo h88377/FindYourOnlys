@@ -29,4 +29,15 @@ class MapAnnotation: NSObject, MKAnnotation {
         
         self.coordinate = coordinate
     }
+    
+    override init() {
+        
+        self.title = ""
+        
+        self.subtitle = ""
+        
+        self.location = ""
+        
+        self.coordinate = CLLocationCoordinate2D()
+    }
 }
