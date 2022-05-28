@@ -117,9 +117,8 @@ class AdoptDetailViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            let phoneNumber = self.viewModel?.petViewModel.value.pet.telephone
-            
             guard
+                let phoneNumber = self.viewModel?.petViewModel.value.pet.telephone,
                 let url = URL(string: "tel://\(String(describing: phoneNumber))"),
                 UIApplication.shared.canOpenURL(url)
                     
