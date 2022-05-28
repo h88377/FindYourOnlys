@@ -9,6 +9,8 @@ import Foundation
 
 class RegisterViewModel {
     
+    // MARK: - Properties
+    
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var dismissHandler: (() -> Void)?
@@ -17,17 +19,22 @@ class RegisterViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
+    // MARK: - Method
+    
     func register(with nickName: String, with email: String, with password: String) {
         
         startLoadingHandler?()
         
         UserFirebaseManager.shared.register(with: nickName, with: email, with: password) { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success(let registeredUserId):
                 
-                UserFirebaseManager.shared.fetchUser { [weak self] result in
+                UserFirebaseManager.shared.fetchUser { result in
 
                     switch result {
 
@@ -37,26 +44,24 @@ class RegisterViewModel {
 
                             UserFirebaseManager.shared.currentUser = user
                             
-                            self?.stopLoadingHandler?()
-                            
-                            self?.dismissHandler?()
+                            self.dismissHandler?()
                             
                             break
                         }
 
                     case .failure(let error):
 
-                        self?.errorViewModel.value = ErrorViewModel(model: error)
-                        
-                        self?.stopLoadingHandler?()
+                        self.errorViewModel.value = ErrorViewModel(model: error)
                     }
+                    
+                    self.stopLoadingHandler?()
                 }
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
                 
-                self?.stopLoadingHandler?()
+                self.stopLoadingHandler?()
             }
         }
     }

@@ -10,9 +10,11 @@ import Lottie
 
 class RegisterViewController: BaseViewController {
     
-    let viewModel = RegisterViewModel()
+    // MARK: - Properties
     
-    @IBOutlet weak var animationView: AnimationView! {
+    private let viewModel = RegisterViewModel()
+    
+    @IBOutlet private weak var animationView: AnimationView! {
         
         didSet {
             
@@ -24,7 +26,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var titleLabel: UILabel! {
+    @IBOutlet private weak var titleLabel: UILabel! {
         
         didSet {
             
@@ -34,7 +36,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var registerLabel: UILabel! {
+    @IBOutlet private weak var registerLabel: UILabel! {
         
         didSet {
             
@@ -44,7 +46,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var nickNameTextField: ContentInsetTextField! {
+    @IBOutlet private weak var nickNameTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -56,7 +58,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var emailTextField: ContentInsetTextField! {
+    @IBOutlet private weak var emailTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -68,7 +70,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var passwordTextField: ContentInsetTextField! {
+    @IBOutlet private weak var passwordTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -82,7 +84,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var checkPasswordTextField: ContentInsetTextField! {
+    @IBOutlet private weak var checkPasswordTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -96,7 +98,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var errorLabel: UILabel! {
+    @IBOutlet private weak var errorLabel: UILabel! {
         
         didSet {
             
@@ -108,7 +110,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var registerButton: UIButton! {
+    @IBOutlet private weak var registerButton: UIButton! {
         
         didSet {
             
@@ -124,7 +126,7 @@ class RegisterViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var dismissButton: UIButton! {
+    @IBOutlet private weak var dismissButton: UIButton! {
         
         didSet {
             
@@ -134,6 +136,8 @@ class RegisterViewController: BaseViewController {
     
     var dismissHandler: (() -> Void)?
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -141,43 +145,39 @@ class RegisterViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
                 if
                     let authError = error as? AuthError {
                     
-                    self?.errorLabel.text = authError.errorMessage
+                    self.errorLabel.text = authError.errorMessage
                     
-                    self?.errorLabel.isHidden = false
+                    self.errorLabel.isHidden = false
                     
                 } else if
                     let firebaseError = error as? FirebaseError {
                     
-                    self?.errorLabel.text = firebaseError.errorMessage
+                    self.errorLabel.text = firebaseError.errorMessage
                     
-                    self?.errorLabel.isHidden = false
+                    self.errorLabel.isHidden = false
                 }
             }
         }
         
         viewModel.dismissHandler = { [weak self] in
             
-            self?.errorLabel.isHidden = true
+            guard
+                let self = self else { return }
             
-            self?.presentingViewController?.dismiss(animated: true)
+            self.errorLabel.isHidden = true
             
-            self?.dismissHandler?()
-        }
-        
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
-        
-        viewModel.stopLoadingHandler = { [weak self] in
+            self.presentingViewController?.dismiss(animated: true)
             
-            self?.stopLoading()
+            self.dismissHandler?()
         }
     }
     
@@ -185,6 +185,27 @@ class RegisterViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         
         registerButton.layer.cornerRadius = 15
+    }
+    
+    // MARK: - Method and IBActions
+    
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
+
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
     }
     
     @IBAction func register(_ sender: UIButton) {
@@ -222,5 +243,4 @@ class RegisterViewController: BaseViewController {
         
         self.dismiss(animated: true)
     }
-    
 }
