@@ -44,8 +44,13 @@ In addition, users can share their lovely pets to the sharing community to show 
 ## Screenshots
 
 ![screenshot 3](https://user-images.githubusercontent.com/66559497/170659605-9e255f77-8c2d-4652-bf53-80ccfa5eedf9.png)
+
 ![screenshot 2](https://user-images.githubusercontent.com/66559497/170659598-ac76398d-316c-46fa-9f2c-9ebd42f68d15.png)
+
 ![sceenshot 1](https://user-images.githubusercontent.com/66559497/170659585-b035e5e6-03d4-4c03-bc99-a3c826b012b0.png)
+
+![screenshot 4](https://user-images.githubusercontent.com/66559497/170809402-6d72f601-44a9-4db8-b30a-e1e443642d31.png)
+
 
 ## Techniques
 * Implemented MVVM design pattern as App’s architecture to make view controller’s responsibility more clear and lightweight. Furthermore, making the entire project more maintainable, reusable, and testable.
