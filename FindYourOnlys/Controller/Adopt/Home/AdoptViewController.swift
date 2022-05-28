@@ -28,27 +28,24 @@ class AdoptViewController: BaseViewController {
         static let list = "SegueList"
     }
     
+    // MARK: - Properties
+    
+    let viewModel = AdoptViewModel()
+    
     weak var delegate: AdoptViewControllerDelegate?
     
     var adoptListVC: AdoptListViewController?
     
-    let viewModel = AdoptViewModel()
-    
-    @IBOutlet weak var indicatorView: UIView! {
+    private var containerViews: [UIView] {
         
-        didSet {
-            
-            indicatorView.backgroundColor = .systemGray6
-        }
+        [adoptListContainerView, adoptFavoriteContainerView]
     }
     
-    @IBOutlet weak var indicatorCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var adoptListContainerView: UIView!
     
-    @IBOutlet weak var adoptListContainerView: UIView!
+    @IBOutlet private weak var adoptFavoriteContainerView: UIView!
     
-    @IBOutlet weak var adoptFavoriteContainerView: UIView!
-    
-    @IBOutlet weak var adoptListButton: UIButton! {
+    @IBOutlet private weak var adoptListButton: UIButton! {
         
         didSet {
             
@@ -60,7 +57,7 @@ class AdoptViewController: BaseViewController {
         }
     }
     
-    @IBOutlet var adoptButtons: [UIButton]! {
+    @IBOutlet private var adoptButtons: [UIButton]! {
         
         didSet {
             
@@ -71,18 +68,11 @@ class AdoptViewController: BaseViewController {
                 $0.setTitleColor(.white, for: .selected)
                 
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-                
-//                $0.tintColor = .white
             }
         }
     }
     
-    var containerViews: [UIView] {
-        
-        [adoptListContainerView, adoptFavoriteContainerView]
-    }
-    
-    @IBOutlet weak var filterButton: UIBarButtonItem! {
+    @IBOutlet private weak var filterButton: UIBarButtonItem! {
         
         didSet {
             
@@ -91,40 +81,27 @@ class AdoptViewController: BaseViewController {
         }
     }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    }   
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
         viewModel.fetchCurrentUser()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-//        adoptButtons.forEach { $0.layer.cornerRadius = 15}
-    }
-    
-    override func setupNavigationTitle() {
-        super.setupNavigationTitle()
-        
-        navigationItem.title = "領養資訊"
-    }
+   
+    // MARK: - Methods and IBActions
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -140,16 +117,20 @@ class AdoptViewController: BaseViewController {
             
             adoptListVC?.resetConditionHandler = { [weak self] in
                 
-                self?.viewModel.adoptFilterCondition = AdoptFilterCondition(
-                    city: "",
-                    petKind: "",
-                    sex: "",
-                    color: ""
-                )
+                guard
+                    let self = self else { return }
+                
+                self.viewModel.adoptFilterCondition = AdoptFilterCondition()
             }
             
             self.adoptListVC = adoptListVC
         }
+    }
+    
+    override func setupNavigationTitle() {
+        super.setupNavigationTitle()
+        
+        navigationItem.title = "領養資訊"
     }
     
     @IBAction func toggleAdoptButton(_ sender: UIButton) {
@@ -169,8 +150,6 @@ class AdoptViewController: BaseViewController {
         
         sender.backgroundColor = .projectIconColor1
         
-//        moveIndicatorView(to: sender)
-        
         guard
             let currentTitle = sender.currentTitle,
             let type = AdoptButtonType(rawValue: currentTitle) else { return }
@@ -187,20 +166,6 @@ class AdoptViewController: BaseViewController {
             
             filterButton.isEnabled = true
         }
-    }
-    
-    private func moveIndicatorView(to sender: UIView) {
-
-        indicatorCenterXConstraint.isActive = false
-
-        indicatorCenterXConstraint = indicatorView.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
-
-        indicatorCenterXConstraint.isActive = true
-
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-
-            self?.view.layoutIfNeeded()
-        })
     }
     
     private func updateContainerView(with type: AdoptButtonType) {
@@ -233,28 +198,5 @@ class AdoptViewController: BaseViewController {
         adoptFilterVC.viewModel.adoptFilterCondition = viewModel.adoptFilterCondition
         
         navigationController?.pushViewController(adoptFilterVC, animated: true)
-    }
-}
-
-extension AdoptViewController: PublishBasicCellDelegate {
-    
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
-        
-        viewModel.cityChanged(with: city)
-    }
-    
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
-        
-        viewModel.colorChanged(with: color)
-    }
-    
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
-        
-        viewModel.petKindChanged(with: petKind)
-    }
-    
-    func didChangeSex(_ cell: PublishBasicCell, with sex: String) {
-        
-        viewModel.sexChanged(with: sex)
     }
 }

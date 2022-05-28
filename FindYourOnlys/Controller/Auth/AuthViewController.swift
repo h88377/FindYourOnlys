@@ -10,9 +10,11 @@ import AuthenticationServices
 
 class AuthViewController: BaseModalViewController {
     
-    let viewModel = AuthViewModel()
+    // MARK: - Properties
     
-    @IBOutlet weak var indicatorView: UIView! {
+    private let viewModel = AuthViewModel()
+    
+    @IBOutlet private weak var indicatorView: UIView! {
         
         didSet {
             
@@ -20,7 +22,7 @@ class AuthViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var signInWithAppleButton: ASAuthorizationAppleIDButton! {
+    @IBOutlet private weak var signInWithAppleButton: ASAuthorizationAppleIDButton! {
         
         didSet {
             
@@ -28,7 +30,7 @@ class AuthViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var registerButton: UIButton! {
+    @IBOutlet private weak var registerButton: UIButton! {
         
         didSet {
             
@@ -44,7 +46,7 @@ class AuthViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var signInButton: UIButton! {
+    @IBOutlet private weak var signInButton: UIButton! {
         
         didSet {
             
@@ -60,7 +62,7 @@ class AuthViewController: BaseModalViewController {
         }
     }
     
-    @IBOutlet weak var baseView: UIView! {
+    @IBOutlet private weak var baseView: UIView! {
         
         didSet {
             
@@ -68,37 +70,30 @@ class AuthViewController: BaseModalViewController {
         }
     }
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
+            guard
+                let self = self else { return }
+            
             if
                 let error = errorViewModel?.error {
                 
-                DispatchQueue.main.async {
-                    
-                    if
-                        let firebaseError = error as? FirebaseError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(firebaseError.errorMessage)")
-                        
-                    } else if
-                        let authError = error as? AuthError {
-                        
-                        self?.showAlertWindow(title: "異常", message: "\(authError.errorMessage)")
-                    }
-                }
+                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
         }
         
         viewModel.dismissHandler = { [weak self] in
             
-            print("Sign in with Apple successfully.")
+            guard
+                let self = self else { return }
             
-            self?.dismiss(animated: true)
+            self.dismiss(animated: true)
         }
-         
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,6 +107,8 @@ class AuthViewController: BaseModalViewController {
         
         signInWithAppleButton.cornerRadius = 15
     }
+    
+    // MARK: - Methods and IBActions
     
     func performSignIn() {
         
@@ -134,17 +131,21 @@ class AuthViewController: BaseModalViewController {
     @IBAction func register(_ sender: UIButton) {
         
         let storyboard = UIStoryboard.auth
-        
-        let viewController = storyboard.instantiateViewController(withIdentifier: RegisterViewController.identifier)
-        
         guard
-            let registerVC = viewController as? RegisterViewController else { return }
+            let registerVC = storyboard.instantiateViewController(
+                withIdentifier: RegisterViewController.identifier)
+                as? RegisterViewController
+        
+        else { return }
         
         present(registerVC, animated: true)
         
         registerVC.dismissHandler = { [weak self] in
             
-            self?.dismiss(animated: true)
+            guard
+                let self = self else { return }
+            
+            self.dismiss(animated: true)
         }
     }
     
@@ -152,16 +153,21 @@ class AuthViewController: BaseModalViewController {
         
         let storyboard = UIStoryboard.auth
         
-        let viewController = storyboard.instantiateViewController(withIdentifier: SignInViewController.identifier)
-        
         guard
-            let signInVC = viewController as? SignInViewController else { return }
+            let signInVC = storyboard.instantiateViewController(
+                withIdentifier: SignInViewController.identifier)
+                as? SignInViewController
+        
+        else { return }
         
         present(signInVC, animated: true)
         
         signInVC.dismissHandler = { [weak self] in
             
-            self?.dismiss(animated: true)
+            guard
+                let self = self else { return }
+            
+            self.dismiss(animated: true)
         }
     }
     
@@ -202,6 +208,7 @@ class AuthViewController: BaseModalViewController {
 }
 
 // MARK: - ASAuthorizationControllerDelegate
+
 extension AuthViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(
@@ -210,10 +217,10 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             
             viewModel.didCompleteWithAuthorization(with: authorization)
         }
-    
 }
 
 // MARK: - ASAuthorizationControllerPresentationContextProviding
+
 extension AuthViewController: ASAuthorizationControllerPresentationContextProviding {
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {

@@ -9,11 +9,12 @@ import UIKit
 
 class ChatRoomUserMessageCell: UITableViewCell {
     
-    @IBOutlet weak var userImageView: UIImageView!
+    // MARK: - Properties
+    @IBOutlet private weak var userImageView: UIImageView!
     
-    @IBOutlet weak var friendImageView: UIImageView!
+    @IBOutlet private weak var friendImageView: UIImageView!
     
-    @IBOutlet weak var contentLabel: UILabel! {
+    @IBOutlet private weak var contentLabel: UILabel! {
         
         didSet {
             
@@ -23,7 +24,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var contentImageView: UIImageView! {
+    @IBOutlet private weak var contentImageView: UIImageView! {
         
         didSet {
             
@@ -31,7 +32,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var timeLabel: UILabel! {
+    @IBOutlet private weak var timeLabel: UILabel! {
         
         didSet {
             
@@ -41,7 +42,9 @@ class ChatRoomUserMessageCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
+    
+    // MARK: - Methods
     
     func configureCell(with viewModel: MessageViewModel, friend: User) {
         
@@ -52,8 +55,6 @@ class ChatRoomUserMessageCell: UITableViewCell {
             
             timeLabel.textAlignment = .right
             
-//            contentLabel.textAlignment = .right
-            
             friendImageView.isHidden = true
             
             userImageView.isHidden = !friendImageView.isHidden
@@ -61,8 +62,6 @@ class ChatRoomUserMessageCell: UITableViewCell {
         } else {
             
             timeLabel.textAlignment = .left
-            
-//            contentLabel.textAlignment = .left
            
             friendImageView.isHidden = false
             
@@ -106,9 +105,9 @@ class ChatRoomUserMessageCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.makeRound()
 
-        friendImageView.layer.cornerRadius = userImageView.frame.height / 2
+        friendImageView.makeRound()
         
         contentLabel.layer.cornerRadius = 12
         

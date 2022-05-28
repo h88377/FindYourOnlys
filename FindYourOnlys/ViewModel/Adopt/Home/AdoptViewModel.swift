@@ -9,23 +9,13 @@ import Foundation
 
 class AdoptViewModel {
     
+    // MARK: - Properties
+    
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-//    var filterConditionViewModel = Box(
-//        AdoptFilterCondition(
-//        city: "",
-//        petKind: "",
-//        sex: "",
-//        color: ""
-//        )
-//    )
+    var adoptFilterCondition = AdoptFilterCondition()
     
-    var adoptFilterCondition = AdoptFilterCondition(
-        city: "",
-        petKind: "",
-        sex: "",
-        color: ""
-    )
+    // MARK: - Methods
     
     func fetchCurrentUser() {
         
@@ -52,28 +42,5 @@ class AdoptViewModel {
                 self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
-    }
-}
-
-extension AdoptViewModel {
-    
-    func cityChanged(with city: String) {
-        
-        adoptFilterCondition.city = city
-    }
-    
-    func petKindChanged(with petKind: String) {
-        
-        adoptFilterCondition.petKind = petKind
-    }
-    
-    func sexChanged(with sex: String) {
-        
-        adoptFilterCondition.sex = sex
-    }
-    
-    func colorChanged(with color: String) {
-        
-        adoptFilterCondition.color = color
     }
 }

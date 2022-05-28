@@ -9,6 +9,8 @@ import Foundation
 
 class SignInViewModel {
     
+    // MARK: - Properties
+    
     var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var dismissHandler: (() -> Void)?
@@ -17,17 +19,22 @@ class SignInViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
+    // MARK: - Method
+    
     func signIn(withEmail email: String, password: String) {
         
         startLoadingHandler?()
         
         UserFirebaseManager.shared.signIn(withEmail: email, password: password) { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success(let registeredUserId):
                 
-                UserFirebaseManager.shared.fetchUser { [weak self] result in
+                UserFirebaseManager.shared.fetchUser { result in
 
                     switch result {
 
@@ -37,27 +44,24 @@ class SignInViewModel {
 
                             UserFirebaseManager.shared.currentUser = user
                             
-                            self?.stopLoadingHandler?()
-                            
-                            self?.dismissHandler?()
+                            self.dismissHandler?()
                             
                             break
                         }
 
                     case .failure(let error):
 
-                        self?.errorViewModel.value = ErrorViewModel(model: error)
+                        self.errorViewModel.value = ErrorViewModel(model: error)
                     }
+                    self.stopLoadingHandler?()
                 }
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
                 
-                self?.stopLoadingHandler?()
+                self.stopLoadingHandler?()
             }
-            
         }
     }
-    
 }

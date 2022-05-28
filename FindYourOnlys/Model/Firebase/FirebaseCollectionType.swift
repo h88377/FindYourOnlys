@@ -36,6 +36,9 @@ enum FirebaseFieldType: String {
     
     case blockedUsers
     
+    case friends
+    
+    case email
+    
     case animalId = "animal_id"
 }
-

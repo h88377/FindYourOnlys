@@ -11,7 +11,11 @@ import MapKit
 
 class AdoptDirectionViewController: BaseViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    // MARK: - Properties
+    
+    let viewModel = AdoptDirectionViewModel()
+    
+    @IBOutlet private weak var tableView: UITableView! {
         
         didSet {
             
@@ -23,7 +27,7 @@ class AdoptDirectionViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var closeButton: UIButton! {
+    @IBOutlet private weak var closeButton: UIButton! {
         
         didSet {
             
@@ -31,7 +35,7 @@ class AdoptDirectionViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var indicatorImageView: UIImageView! {
+    @IBOutlet private weak var indicatorImageView: UIImageView! {
         
         didSet {
             
@@ -39,14 +43,14 @@ class AdoptDirectionViewController: BaseViewController {
         }
     }
     
-    let viewModel = AdoptDirectionViewModel()
-    
     var closeHandler: (() -> Void)?
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.directionViewModel.bind(listener: { [weak self] _ in
+        viewModel.directionViewModel.bind { [weak self] _ in
             
             guard
                 let self = self else { return }
@@ -55,13 +59,10 @@ class AdoptDirectionViewController: BaseViewController {
                 
                 self.tableView.reloadData()
             }
-        })
+        }
     }
     
-    @IBAction func close(_ sender: UIButton) {
-        
-        closeHandler?()
-    }
+    // MARK: - Methods and IBActions
     
     override func setupTableView() {
         super.setupTableView()
@@ -69,6 +70,11 @@ class AdoptDirectionViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: DirectionCell.identifier)
         
         tableView.registerViewWithIdentifier(identifier: DirectionHeaderView.identifier)
+    }
+    
+    @IBAction func close(_ sender: UIButton) {
+        
+        closeHandler?()
     }
 }
 
@@ -95,19 +101,20 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: DirectionCell.identifier,
+            for: indexPath)
+        
         guard
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: DirectionCell.identifier,
-                for: indexPath)
-                as? DirectionCell
+            let directionCell = cell as? DirectionCell
                 
-        else { return UITableViewCell() }
+        else { return cell }
         
         let directionViewModel = viewModel.directionViewModel
         
-        cell.configureCell(with: directionViewModel.value, at: indexPath)
+        directionCell.configureCell(with: directionViewModel.value, at: indexPath)
         
-        return cell
+        return directionCell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -121,7 +128,9 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         
         let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
         
-        headerView.configureView(with: viewModel.directionViewModel.value, route: route)
+        let directionViewModel = viewModel.directionViewModel
+        
+        headerView.configureView(with: directionViewModel.value, route: route)
         
         return headerView
     }

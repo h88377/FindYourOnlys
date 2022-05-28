@@ -10,9 +10,13 @@ import WebKit
 
 class PolicyViewController: UIViewController {
     
+    // MARK: - properties
+    
     var viewModel: PolicyViewModel?
     
     @IBOutlet weak var webView: WKWebView!
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

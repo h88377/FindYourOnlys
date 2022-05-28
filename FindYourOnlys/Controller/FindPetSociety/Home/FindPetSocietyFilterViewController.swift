@@ -10,15 +10,19 @@ import Lottie
 
 class FindPetSocietyFilterViewController: BaseViewController {
     
-    let tableView = UITableView()
-    
-    let filterButton = UIButton()
-    
-    let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
+    // MARK: - Properties
     
     let viewModel = FindPetSocietyFilterViewModel()
     
+    private let tableView = UITableView()
+    
+    private let filterButton = UIButton()
+    
+    private let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
+    
     override var isHiddenTabBar: Bool { return true }
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
         filterButton.layer.cornerRadius = 15
     }
 
+    // MARK: - Methods
+    
     override func setupTableView() {
         super.setupTableView()
 
@@ -47,9 +53,9 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         tableView.backgroundColor = .projectBackgroundColor
         
-        tableView.registerCellWithIdentifier(identifier: PublishSelectionCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
 
-        tableView.registerCellWithIdentifier(identifier: PublishKindCell.identifier)
+        tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: FilterRemindCell.identifier)
         
@@ -69,7 +75,6 @@ class FindPetSocietyFilterViewController: BaseViewController {
                 
                 tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
                 
-//                tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
                 tableView.topAnchor.constraint(equalTo: view.topAnchor),
                 
                 tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)
@@ -141,12 +146,7 @@ class FindPetSocietyFilterViewController: BaseViewController {
     
     @objc func clear(sender: UIBarButtonItem) {
         
-        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition(
-            postType: -1,
-            city: "",
-            petKind: "",
-            color: ""
-        )
+        viewModel.findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
         
         tableView.reloadData()
     }
@@ -159,22 +159,21 @@ class FindPetSocietyFilterViewController: BaseViewController {
                 
         else {
             
-            showAlertWindow(title: "異常訊息", message: "請填寫全部條件喔！")
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫全部條件喔！")
             
             return
         }
         
-        petSocietyVC.viewModel.fetchArticles(with: viewModel.findPetSocietyFilterCondition)
+        petSocietyVC.viewModel.fetchFindArticles(with: viewModel.findPetSocietyFilterCondition)
         
         petSocietyVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
         
         navigationController?.popViewController(animated: true)
-        
     }
-
 }
 
 // MARK: - UITableViewDataSource and Delegate
+
 extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -193,13 +192,13 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             )
             
             guard
-                let basicCell = cell as? PublishBasicCell
+                let baseCell = cell as? BasePublishCell
                     
             else { return cell }
             
-            basicCell.delegate = self
+            baseCell.delegate = self
             
-            return basicCell
+            return baseCell
             
         } else {
             
@@ -217,25 +216,26 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
     }
 }
 
-// MARK: - PublishBasicCellDelegate
-extension FindPetSocietyFilterViewController: PublishBasicCellDelegate {
+// MARK: - BasePublishCellDelegate
+
+extension FindPetSocietyFilterViewController: BasePublishCellDelegate {
     
-    func didChangeCity(_ cell: PublishBasicCell, with city: String) {
+    func didChangeCity(_ cell: BasePublishCell, with city: String) {
         
         viewModel.cityChanged(with: city)
     }
     
-    func didChangeColor(_ cell: PublishBasicCell, with color: String) {
+    func didChangeColor(_ cell: BasePublishCell, with color: String) {
         
         viewModel.colorChanged(with: color)
     }
     
-    func didChangePetKind(_ cell: PublishBasicCell, with petKind: String) {
+    func didChangePetKind(_ cell: BasePublishCell, with petKind: String) {
         
         viewModel.petKindChanged(with: petKind)
     }
     
-    func didChangePostType(_ cell: PublishBasicCell, with postType: String) {
+    func didChangePostType(_ cell: BasePublishCell, with postType: String) {
         
         viewModel.postTypeChanged(with: postType)
     }

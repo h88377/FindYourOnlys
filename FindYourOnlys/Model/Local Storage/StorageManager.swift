@@ -31,15 +31,14 @@ enum LocalStorageError: Error {
 
 class StorageManager {
     
-    static let shared = StorageManager()
-    
     private init() {
-
+        
         print(" Core data file path: \(NSPersistentContainer.defaultDirectoryURL())")
     }
     
-    //Set this will cause app crash
-//    let context = StorageManager.shared.persistentContainer.viewContext
+    // MARK: - Properties
+    
+    static let shared = StorageManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
         
@@ -57,7 +56,9 @@ class StorageManager {
         return container
     }()
     
-    func saveContext(completion: (Result<String, Error>) -> Void) {
+    // MARK: - Methods
+    
+    func saveContext(completion: (Result<Void, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -67,20 +68,32 @@ class StorageManager {
                 
                 try context.save()
                 
-                completion(.success("success"))
+                completion(.success(()))
                 
             } catch {
                 
                 completion(.failure(LocalStorageError.updatePetError))
-                
-//                let nserror = error as NSError
-//
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
     
-    func savePetInFavorite(with petViewModel: PetViewModel, completion: (Result<String, Error>) -> Void) {
+    func fetchPet(completion: ((Result<[LSPet], Error>) -> Void)) {
+        
+        let request: NSFetchRequest<LSPet> = LSPet.fetchRequest()
+        
+        do {
+            
+            let lsPets = try StorageManager.shared.persistentContainer.viewContext.fetch(request)
+            
+            completion(.success(lsPets))
+            
+        } catch {
+            
+            completion(.failure(LocalStorageError.fetchPetError))
+        }
+    }
+    
+    func savePetInFavorite(with petViewModel: PetViewModel, completion: (Result<Void, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -134,9 +147,9 @@ class StorageManager {
             
             switch result {
                 
-            case .success(let success):
+            case .success:
                 
-                completion(.success(success))
+                completion(.success(()))
                 
             case .failure(let error):
                 
@@ -145,7 +158,7 @@ class StorageManager {
         }
     }
     
-    func removePetfromFavorite(lsPet: LSPet, completion: (Result<String, Error>) -> Void) {
+    func removePetfromFavorite(lsPet: LSPet, completion: (Result<Void, Error>) -> Void) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
@@ -155,9 +168,9 @@ class StorageManager {
             
             switch result {
                 
-            case .success(let success):
+            case .success:
                 
-                completion(.success(success))
+                completion(.success(()))
                 
             case .failure(let error):
                 
@@ -166,94 +179,41 @@ class StorageManager {
         }
     }
     
-    func fetchPet(completion: ((Result<[LSPet], Error>) -> Void)) {
+    func convertLsPetsToPets(from lsPets: [LSPet]) -> [Pet] {
         
-        let request: NSFetchRequest<LSPet> = LSPet.fetchRequest()
-        
-        do {
-            
-            let lsPets = try StorageManager.shared.persistentContainer.viewContext.fetch(request)
-            
-            completion(.success(lsPets))
-        }
-        
-        catch {
-            
-            completion(.failure(LocalStorageError.fetchPetError))
-        }
-    }
-    
-    // Convert functions
-    func convertLsPetsToViewModels(from lsPets: [LSPet]) -> [FavoriteLSPetViewModel] {
-        
-        //        let pets = convertLsPetsToPets(from: lsPets)
-        
-        var viewModels = [FavoriteLSPetViewModel]()
+        var pets = [Pet]()
         
         for lsPet in lsPets {
             
-            let viewModel = FavoriteLSPetViewModel(model: lsPet)
+            let pet = Pet(
+                userID: lsPet.userID,
+                favoriteID: lsPet.favoriteID,
+                id: Int(lsPet.id),
+                location: lsPet.location,
+                kind: lsPet.kind,
+                sex: lsPet.sex,
+                bodyType: lsPet.bodyType,
+                color: lsPet.color,
+                age: lsPet.age,
+                sterilization: lsPet.sterilization,
+                bacterin: lsPet.bacterin,
+                foundPlace: lsPet.foundPlace,
+                status: lsPet.status,
+                remark: lsPet.remark,
+                openDate: lsPet.openDate,
+                closedDate: lsPet.closedDate,
+                updatedDate: lsPet.updatedDate,
+                createdDate: lsPet.createdDate,
+                photoURLString: lsPet.photoURLString,
+                address: lsPet.photoURLString,
+                telephone: lsPet.telephone,
+                variety: lsPet.variety,
+                shelterName: lsPet.shelterName
+            )
             
-            viewModels.append(viewModel)
+            pets.append(pet)
         }
         
-        return viewModels
-    }
-    
-    func setLsPets(viewModels: Box<[FavoriteLSPetViewModel]>, with lsPets: [LSPet]) {
-        
-        viewModels.value = convertLsPetsToViewModels(from: lsPets)
-    }
-    
-    func convertPetToLsPet(pet: Pet) -> LSPet {
-        
-        let context = StorageManager.shared.persistentContainer.viewContext
-        
-        let lsPet = LSPet(entity: LSPet.entity(), insertInto: context)
-        
-        lsPet.photoURLString = pet.photoURLString
-        
-        lsPet.variety = pet.variety
-        
-        lsPet.sex = pet.sex
-        
-        lsPet.bodyType = pet.bodyType
-        
-        lsPet.location = pet.location
-        
-        lsPet.status = pet.status
-        
-        lsPet.kind = pet.kind
-        
-        lsPet.age = pet.age
-        
-        lsPet.bacterin = pet.bacterin
-        
-        lsPet.closedDate = pet.closedDate
-        
-        lsPet.openDate = pet.openDate
-        
-        lsPet.updatedDate = pet.updatedDate
-        
-        lsPet.createdDate = pet.createdDate
-        
-        lsPet.id = Int64(pet.id)
-        
-        lsPet.color = pet.color
-        
-        lsPet.sterilization = pet.sterilization
-        
-        lsPet.foundPlace = pet.foundPlace
-        
-        lsPet.remark = pet.remark
-        
-        lsPet.address = pet.address
-        
-        lsPet.telephone = pet.telephone
-        
-        lsPet.shelterName = pet.shelterName
-        
-        return lsPet
+        return pets
     }
 }
-

@@ -90,9 +90,12 @@ enum GoogleMLError: Error {
 
 class GoogleMLWrapper {
     
+    // MARK: - Property
     static let shared = GoogleMLWrapper()
     
-    private init() {}
+    private init() { }
+    
+    // MARK: - Methods
     
     func detectLabels(with image: UIImage, completion: @escaping (Result<[ImageLabel], Error>) -> Void) {
         
@@ -121,5 +124,18 @@ class GoogleMLWrapper {
             
             completion(.success(labels))
         }
+    }
+    
+    func getDetectResult(with labels: [ImageLabel]) -> Bool {
+        
+        let imageDetectDatabase = ImageDetectDatabase.allCases.map { $0.rawValue }
+        
+        let isValidResult = labels.map { label in
+            
+            imageDetectDatabase.contains(label.text)
+            
+        }.contains(true)
+        
+        return isValidResult
     }
 }

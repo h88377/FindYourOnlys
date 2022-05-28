@@ -18,5 +18,17 @@ struct Message: Codable {
     var contentImageURLString: String?
     
     var createdTime: TimeInterval
+    
+    init() {
+        
+        self.chatRoomId = ""
+        
+        self.senderId = ""
+        
+        self.content = ""
+        
+        self.contentImageURLString = ""
+        
+        self.createdTime = -1
+    }
 }
-

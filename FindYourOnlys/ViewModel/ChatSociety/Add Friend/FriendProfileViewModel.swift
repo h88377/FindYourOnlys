@@ -9,15 +9,11 @@ import Foundation
 
 class FriendProfileViewModel {
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    // MARK: - Properties
     
     var user: User
     
     var searchFriendResult: SearchFriendResult
-    
-    var friendRequest = FriendRequest(requestUserId: "", requestedUserId: "", createdTime: -1)
-    
-    var dismissHandler: (() -> Void)?
     
     init(model: User, result: SearchFriendResult) {
         
@@ -26,19 +22,28 @@ class FriendProfileViewModel {
         self.searchFriendResult = result
     }
     
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    
+    var dismissHandler: (() -> Void)?
+    
+    // MARK: - Methods
+    
     func sendFriendRequest() {
         
-        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id, with: &friendRequest) { [weak self] result in
+        PetSocietyFirebaseManager.shared.sendFriendRequest(user.id) { [weak self] result in
+            
+            guard
+                let self = self else { return }
             
             switch result {
                 
-            case .success(_):
+            case .success:
                 
-                self?.dismissHandler?()
+                self.dismissHandler?()
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
