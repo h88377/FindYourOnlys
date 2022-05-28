@@ -92,6 +92,8 @@ class CityPickerCell: BasePublishCell {
         
     }
 
+    // MARK: - Properties
+    
     @IBOutlet private weak var selectionLabel: UILabel! {
         
         didSet {
@@ -132,6 +134,8 @@ class CityPickerCell: BasePublishCell {
             selectionTextField.textColor = .projectTextColor
         }
     }
+    
+    // MARK: - Methods
     
     override func layoutCell(category: String, article: Article? = nil) {
         
@@ -230,6 +234,7 @@ class CityPickerCell: BasePublishCell {
     
 }
 // MARK: - UIPickerViewDelegate and Datasource
+
 extension CityPickerCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
 

@@ -81,7 +81,7 @@ class FavoriteTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - View Life Cycle
+    // MARK: - Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -90,8 +90,6 @@ class FavoriteTableViewCell: UITableViewCell {
         
         baseView.layer.cornerRadius = 15
     }
-    
-    // MARK: - Methods
     
     func configureCell(with viewModel: PetViewModel) {
         

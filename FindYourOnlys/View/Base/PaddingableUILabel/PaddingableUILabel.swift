@@ -11,6 +11,8 @@ import UIKit
 
 class PaddingableUILabel: UILabel {
 
+    // MARK: - Properties
+    
     private var padding = UIEdgeInsets.zero
     
     @IBInspectable
@@ -44,6 +46,8 @@ class PaddingableUILabel: UILabel {
         
         set { padding.bottom = newValue }
     }
+    
+    // MARK: - Methods
     
     override func drawText(in rect: CGRect) {
         

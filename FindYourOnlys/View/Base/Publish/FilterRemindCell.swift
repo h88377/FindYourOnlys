@@ -17,6 +17,7 @@ enum RemindType {
 
 class FilterRemindCell: UITableViewCell {
     
+    // MARK: - Properties
     @IBOutlet private weak var animationView: AnimationView! {
         
         didSet {
@@ -36,6 +37,8 @@ class FilterRemindCell: UITableViewCell {
             remindLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         }
     }
+    
+    // MARK: - Methods
     
     func configureCell(with remindType: RemindType) {
         

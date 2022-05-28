@@ -9,9 +9,11 @@ import UIKit
 
 class FriendRequestCell: UITableViewCell {
 
-    @IBOutlet weak var userImageVIew: UIImageView!
+    // MARK: - Properties
     
-    @IBOutlet weak var nickNameLabel: UILabel! {
+    @IBOutlet private weak var userImageVIew: UIImageView!
+    
+    @IBOutlet private weak var nickNameLabel: UILabel! {
         
         didSet {
             
@@ -21,7 +23,7 @@ class FriendRequestCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var emailLabel: UILabel! {
+    @IBOutlet private weak var emailLabel: UILabel! {
         
         didSet {
             
@@ -31,7 +33,7 @@ class FriendRequestCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var acceptButton: UIButton! {
+    @IBOutlet private weak var acceptButton: UIButton! {
         
         didSet {
             
@@ -45,7 +47,7 @@ class FriendRequestCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var rejectButton: UIButton! {
+    @IBOutlet private weak var rejectButton: UIButton! {
         
         didSet {
             
@@ -59,7 +61,7 @@ class FriendRequestCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var waitAcceptButton: UILabel! {
+    @IBOutlet private weak var waitAcceptButton: UILabel! {
         
         didSet {
             
@@ -70,6 +72,8 @@ class FriendRequestCell: UITableViewCell {
     var acceptHandler: (() -> Void)?
     
     var rejectHandler: (() -> Void)?
+    
+    // MARK: - Methods
     
     func configureCell(with type: FriendRequestType, user: User) {
         

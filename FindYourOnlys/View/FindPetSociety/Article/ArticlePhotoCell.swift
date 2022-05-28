@@ -9,7 +9,9 @@ import UIKit
 
 class ArticlePhotoCell: UITableViewCell {
 
-    @IBOutlet weak var userImageView: UIImageView! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var userImageView: UIImageView! {
         
         didSet {
             
@@ -19,9 +21,9 @@ class ArticlePhotoCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var userNameLabel: UILabel! {
+    @IBOutlet private weak var userNameLabel: UILabel! {
         
         didSet {
             
@@ -31,20 +33,20 @@ class ArticlePhotoCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var postedImageView: UIImageView!
+    @IBOutlet private weak var postedImageView: UIImageView!
     
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
     
-    @IBOutlet weak var postTypeView: UIView!
+    @IBOutlet private weak var postTypeView: UIView!
     
-    @IBOutlet weak var postTypeLabel: UILabel! {
+    @IBOutlet private weak var postTypeLabel: UILabel! {
         
         didSet {
             
             postTypeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         }
     }
-    @IBOutlet weak var locationImage: UIImageView! {
+    @IBOutlet private weak var locationImage: UIImageView! {
         
         didSet {
             
@@ -52,7 +54,7 @@ class ArticlePhotoCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var cityLabel: UILabel! {
+    @IBOutlet private weak var cityLabel: UILabel! {
         
         didSet {
             
@@ -60,7 +62,7 @@ class ArticlePhotoCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var editButton: UIButton! {
+    @IBOutlet private weak var editButton: UIButton! {
         
         didSet {
             
@@ -71,6 +73,8 @@ class ArticlePhotoCell: UITableViewCell {
     }
     
     var editHandler: (() -> Void)?
+    
+    // MARK: - Methods
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -96,7 +100,10 @@ class ArticlePhotoCell: UITableViewCell {
     
     func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
 
-        userImageView.loadImage(authorViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(
+            authorViewModel.user.imageURLString,
+            placeHolder: UIImage.system(.personPlaceHolder)
+        )
         
         userNameLabel.text = authorViewModel.user.nickName
         
@@ -140,7 +147,10 @@ class ArticlePhotoCell: UITableViewCell {
         guard
             let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(
+            currentUser.imageURLString,
+            placeHolder: UIImage.system(.personPlaceHolder)
+        )
         
         userNameLabel.text = currentUser.nickName
         
@@ -187,6 +197,8 @@ class ArticlePhotoCell: UITableViewCell {
         editHandler = nil
     }
 }
+
+// MARK: - UIScrollViewDelegate
 
 extension ArticlePhotoCell: UIScrollViewDelegate {
     

@@ -9,7 +9,9 @@ import UIKit
 
 class ArticleContentCell: UITableViewCell {
 
-    @IBOutlet weak var likeButton: TransformButton! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var likeButton: TransformButton! {
         
         didSet {
             
@@ -23,7 +25,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var leaveCommentButton: UIButton! {
+    @IBOutlet private weak var leaveCommentButton: UIButton! {
         
         didSet {
             
@@ -31,7 +33,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var shareButton: UIButton! {
+    @IBOutlet private weak var shareButton: UIButton! {
         
         didSet {
             
@@ -39,7 +41,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var likeCountLabel: UILabel! {
+    @IBOutlet private weak var likeCountLabel: UILabel! {
         
         didSet {
             
@@ -47,7 +49,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var commentCountLabel: UILabel! {
+    @IBOutlet private weak var commentCountLabel: UILabel! {
         
         didSet {
             
@@ -55,7 +57,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var kindLabel: UILabel! {
+    @IBOutlet private weak var kindLabel: UILabel! {
         
         didSet {
             
@@ -65,7 +67,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var contentLabel: UILabel! {
+    @IBOutlet private weak var contentLabel: UILabel! {
         
         didSet {
             
@@ -73,7 +75,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
  
-    @IBOutlet weak var colorLabel: UILabel! {
+    @IBOutlet private weak var colorLabel: UILabel! {
         
         didSet {
             
@@ -81,7 +83,7 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var separatorView: UIView! {
+    @IBOutlet private weak var separatorView: UIView! {
         
         didSet {
             
@@ -96,6 +98,8 @@ class ArticleContentCell: UITableViewCell {
     var unlikeArticleHandler: (() -> Void)?
     
     var shareHandler: (() -> Void)?
+    
+    // MARK: - Methods
     
     func configureCell(with viewModel: ArticleViewModel) {
         

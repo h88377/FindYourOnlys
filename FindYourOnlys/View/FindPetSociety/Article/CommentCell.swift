@@ -9,7 +9,9 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
-    @IBOutlet weak var nickNameLabel: UILabel! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var nickNameLabel: UILabel! {
         
         didSet {
             
@@ -19,7 +21,7 @@ class CommentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var commentLabel: UILabel! {
+    @IBOutlet private weak var commentLabel: UILabel! {
         
         didSet {
             
@@ -27,7 +29,7 @@ class CommentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var createdTimeLabel: UILabel! {
+    @IBOutlet private weak var createdTimeLabel: UILabel! {
         
         didSet {
             
@@ -37,7 +39,7 @@ class CommentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var editButton: UIButton! {
+    @IBOutlet private weak var editButton: UIButton! {
         
         didSet {
             
@@ -46,9 +48,9 @@ class CommentCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet private weak var userImageView: UIImageView!
     
-    @IBOutlet weak var separatorView: UIView! {
+    @IBOutlet private weak var separatorView: UIView! {
         
         didSet {
             
@@ -57,6 +59,8 @@ class CommentCell: UITableViewCell {
     }
     
     var blockHandler: (() -> Void)?
+    
+    // MARK: - Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()

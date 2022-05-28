@@ -9,7 +9,9 @@ import UIKit
 
 class PublishContentCell: BasePublishCell {
     
-    @IBOutlet weak var photoLabel: UILabel! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var photoLabel: UILabel! {
         
         didSet {
             
@@ -17,18 +19,18 @@ class PublishContentCell: BasePublishCell {
         }
     }
     
-    @IBOutlet weak var contentLabel: UILabel! {
+    @IBOutlet private weak var contentLabel: UILabel! {
         
         didSet {
             
             contentLabel.textColor = .projectTextColor
         }
     }
-    @IBOutlet weak var imageBaseView: UIView! 
+    @IBOutlet private weak var imageBaseView: UIView!
     
-    @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet private weak var contentImageView: UIImageView!
     
-    @IBOutlet weak var contentTextView: UITextView! {
+    @IBOutlet private weak var contentTextView: UITextView! {
         
         didSet {
             
@@ -45,14 +47,14 @@ class PublishContentCell: BasePublishCell {
         }
     }
     
-    @IBOutlet weak var cameraButton: UIButton! {
+    @IBOutlet private weak var cameraButton: UIButton! {
         
         didSet {
             
             cameraButton.tintColor = .projectIconColor1
         }
     }
-    @IBOutlet weak var galleryButton: UIButton! {
+    @IBOutlet private weak var galleryButton: UIButton! {
         
         didSet {
             
@@ -60,7 +62,7 @@ class PublishContentCell: BasePublishCell {
         }
     }
     
-    @IBOutlet weak var detectButton: UIButton! {
+    @IBOutlet private weak var detectButton: UIButton! {
         
         didSet {
             
@@ -74,7 +76,9 @@ class PublishContentCell: BasePublishCell {
         }
     }
     
-    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet private weak var separatorView: UIView!
+    
+    // MARK: - Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -141,6 +145,7 @@ class PublishContentCell: BasePublishCell {
 }
 
 // MARK: - UITextViewDelegate
+
 extension PublishContentCell: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {

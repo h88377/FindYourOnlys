@@ -74,7 +74,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
     
     var shareHandler: (() -> Void)?
     
-    // MARK: - Life Cycle
+    // MARK: - Methods and IBActions
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -89,7 +89,6 @@ class AdoptDetailTableViewCell: UITableViewCell {
         shareButton.layer.cornerRadius = 10
     }
     
-    // MARK: - Methods and IBActions
     func configureCell(with viewModel: PetViewModel) {
         
         kindLabel.text = viewModel.pet.kind

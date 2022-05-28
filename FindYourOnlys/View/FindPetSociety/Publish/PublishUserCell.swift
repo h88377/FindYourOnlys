@@ -9,6 +9,8 @@ import UIKit
 
 class PublishUserCell: BasePublishCell {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var userImageView: UIImageView! {
         
         didSet {
@@ -27,8 +29,7 @@ class PublishUserCell: BasePublishCell {
         }
     }
     
-    //no need
-    @IBOutlet weak var timeLabel: UILabel!
+    // MARK: - Methods
     
     override func layoutCell(article: Article? = nil) {
         
@@ -38,24 +39,7 @@ class PublishUserCell: BasePublishCell {
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
         userNickName.text = currentUser.nickName
-
         
-//        timeLabel.text = formateTime(with: viewModel.article.createdTime)
-        
-        
-    }
-    
-    private func formateTime(with time: TimeInterval) -> String {
-        
-        let formatter = DateFormatter()
-
-        formatter.dateFormat = "yyyy.MM.dd hh:mm"
-        
-        let date = NSDate(timeIntervalSince1970: time)
-
-        let dateString = formatter.string(from: date as Date)
-        
-        return dateString
     }
     
     override func layoutSubviews() {

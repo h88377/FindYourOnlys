@@ -9,6 +9,8 @@ import UIKit
 
 class KindSelectionCell: BasePublishCell {
 
+    // MARK: - Properties
+    
     @IBOutlet private weak var kindLabel: UILabel! {
         
         didSet {
@@ -47,6 +49,8 @@ class KindSelectionCell: BasePublishCell {
     }
     
     private var buttons: [UIButton] = []
+    
+    // MARK: - Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()

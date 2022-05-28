@@ -35,12 +35,6 @@
                             </label>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hs5-RW-3D0">
-                        <rect key="frame" x="312" y="123" width="0.0" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="kFy-hd-ZzP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8Ph-ek-rWk"/>
@@ -48,13 +42,10 @@
                     <constraint firstAttribute="bottom" secondItem="kFy-hd-ZzP" secondAttribute="bottom" constant="16" id="RCY-wZ-KlZ"/>
                     <constraint firstItem="kFy-hd-ZzP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="hCF-jw-xgY"/>
                     <constraint firstItem="kFy-hd-ZzP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="oMW-3T-IMu"/>
-                    <constraint firstAttribute="trailing" secondItem="Hs5-RW-3D0" secondAttribute="trailing" constant="8" id="xSe-B3-Qel"/>
-                    <constraint firstAttribute="bottom" secondItem="Hs5-RW-3D0" secondAttribute="bottom" constant="8" id="xuY-Im-lh6"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="timeLabel" destination="Hs5-RW-3D0" id="5bz-2f-SMo"/>
                 <outlet property="userImageView" destination="Qb5-t2-i5a" id="cV8-nV-iJI"/>
                 <outlet property="userNickName" destination="zBW-lW-4An" id="oYR-GW-7nA"/>
             </connections>

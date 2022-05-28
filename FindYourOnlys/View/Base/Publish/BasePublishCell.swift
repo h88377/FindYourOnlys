@@ -61,8 +61,6 @@ class BasePublishCell: UITableViewCell {
         
     }
     
-    // MARK: - View Life Cycle
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         

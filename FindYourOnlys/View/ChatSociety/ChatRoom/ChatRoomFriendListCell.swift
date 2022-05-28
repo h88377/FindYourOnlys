@@ -9,13 +9,17 @@ import UIKit
 
 class ChatRoomFriendListCell: UITableViewCell {
 
-    @IBOutlet weak var friendImageView: UIImageView!
+    // MARK: - Properties
     
-    @IBOutlet weak var friendNickNameLabel: UILabel!
+    @IBOutlet private weak var friendImageView: UIImageView!
     
-    @IBOutlet weak var lastTextLabel: UILabel!
+    @IBOutlet private weak var friendNickNameLabel: UILabel!
     
-    @IBOutlet weak var lastTextSentTimeLabel: UILabel!
+    @IBOutlet private weak var lastTextLabel: UILabel!
+    
+    @IBOutlet private weak var lastTextSentTimeLabel: UILabel!
+    
+    // MARK: - Methods
     
     func configureCell(with viewModel: UserViewModel) {
         

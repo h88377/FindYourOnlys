@@ -9,7 +9,9 @@ import UIKit
 
 class FriendRequestHeaderView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var baseView: UIView! {
+    // MARK: - Properties
+    
+    @IBOutlet private weak var baseView: UIView! {
         
         didSet {
             
@@ -17,7 +19,7 @@ class FriendRequestHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    @IBOutlet weak var headerLabel: UILabel! {
+    @IBOutlet private weak var headerLabel: UILabel! {
         
         didSet {
             
@@ -26,6 +28,8 @@ class FriendRequestHeaderView: UITableViewHeaderFooterView {
             headerLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         }
     }
+    
+    // MARK: - Methods
     
     func configureView(with text: String) {
         

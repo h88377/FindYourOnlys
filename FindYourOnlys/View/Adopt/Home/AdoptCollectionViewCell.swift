@@ -72,7 +72,7 @@ class AdoptCollectionViewCell: TransformCollectionCell {
     
     @IBOutlet private weak var idLabel: UILabel!
     
-    // MARK: - View Life Cycle
+    // MARK: - Methods
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -80,8 +80,6 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         
         photoImageView.layer.cornerRadius = 12
     }
-    
-    // MARK: - Methods
     
     func configureCell(with viewModel: PetViewModel) {
         
