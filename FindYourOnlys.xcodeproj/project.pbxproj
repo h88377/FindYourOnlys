@@ -681,9 +681,9 @@
 			isa = PBXGroup;
 			children = (
 				987D8B3E28179A66000D1F95 /* ProfileViewModel.swift */,
-				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
 				987D8B6D281BB2B3000D1F95 /* EditArticleViewModel.swift */,
 				987D8B71281CEEF8000D1F95 /* EditProfileViewModel.swift */,
+				987D8B5D281AAEE1000D1F95 /* ProfileArticleViewModel.swift */,
 				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
 			);
 			path = Profile;

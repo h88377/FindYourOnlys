@@ -9,6 +9,8 @@ import UIKit.UIImage
 
 class EditArticleViewModel {
     
+    // MARK: - Properties
+    
     var editContentCategory: [PublishContentCategory] {
         
         switch isFindArticle {
@@ -65,6 +67,29 @@ class EditArticleViewModel {
         return article.content != "" && article.content != "請輸入你的內文"
     }
     
+    // MARK: - Methods
+    
+    func tapEdit() {
+        
+        edit { [weak self] result in
+            
+            switch result {
+                
+            case .success:
+                
+                self?.stopLoadingHandler?()
+                
+                self?.dismissHandler?()
+                
+            case .failure(let error):
+                
+                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self?.stopLoadingHandler?()
+            }
+        }
+    }
+    
     private func edit(completion: @escaping (Result<Void, Error>) -> Void) {
         
         checkEditedContentHandler?(isValidEditedContent, isValidDetectResult)
@@ -101,15 +126,10 @@ class EditArticleViewModel {
                         
                         self.article.imageURLString = "\(url)"
                         
-//                        completion(nil)
-                        
                     case .failure(let error):
                         
                         completion(.failure(error))
                         
-//                        completion(error)
-                        
-//                        self.stopLoadingHandler?()
                     }
 
                     semaphore.signal()
@@ -127,39 +147,12 @@ class EditArticleViewModel {
                     
                 case .success:
                     
-//                    self?.stopLoadingHandler?()
-                    
                     completion(.success(()))
                     
                 case .failure(let error):
                     
                     completion(.failure(error))
-                    
-//                    self?.errorViewModel.value = ErrorViewModel(model: error)
-                    
-//                    self?.stopLoadingHandler?()
                 }
-            }
-        }
-    }
-    
-    func tapEdit() {
-        
-        edit { [weak self] result in
-            
-            switch result {
-                
-            case .success:
-                
-                self?.stopLoadingHandler?()
-                
-                self?.dismissHandler?()
-                
-            case .failure(let error):
-                
-                self?.errorViewModel.value = ErrorViewModel(model: error)
-                
-                self?.stopLoadingHandler?()
             }
         }
     }

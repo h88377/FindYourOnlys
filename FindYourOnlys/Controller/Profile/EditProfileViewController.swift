@@ -9,9 +9,11 @@ import UIKit
 
 class EditProfileViewController: BaseViewController {
     
+    // MARK: - Properties
+    
     let viewModel = EditProfileViewModel()
     
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet private weak var userImageView: UIImageView!
     
     @IBOutlet weak var nickNameTitleLabel: UILabel! {
         
@@ -21,7 +23,7 @@ class EditProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var nickNameTextField: ContentInsetTextField! {
+    @IBOutlet private weak var nickNameTextField: ContentInsetTextField! {
         
         didSet {
             
@@ -31,7 +33,7 @@ class EditProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var confirmButton: UIButton! {
+    @IBOutlet private weak var confirmButton: UIButton! {
         
         didSet {
             
@@ -43,7 +45,7 @@ class EditProfileViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var remindLabel: UILabel! {
+    @IBOutlet private weak var remindLabel: UILabel! {
         
         didSet {
             
@@ -55,23 +57,11 @@ class EditProfileViewController: BaseViewController {
     
     override var isHiddenTabBar: Bool { return true }
 
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupProfile()
-        
-        viewModel.checkEditedUser = { [weak self] isValid in
-            
-            guard
-                let self = self else { return }
-            
-            if !isValid {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, title: "內容不足", message: "請完整填寫內容再更新資訊喔！")
-            }
-            
-        }
-
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
@@ -84,39 +74,25 @@ class EditProfileViewController: BaseViewController {
             }
         }
         
-        viewModel.dismissHandler = { [weak self] in
+        viewModel.checkEditedUser = { [weak self] isValid in
             
             guard
                 let self = self else { return }
             
-            self.popBack()
+            if !isValid {
+                
+                AlertWindowManager.shared.showAlertWindow(at: self, title: "內容不足", message: "請完整填寫內容再更新資訊喔！")
+            }
         }
         
-        viewModel.startLoadingHandler = { [weak self] in
-
-            self?.startLoading()
-        }
+        setupBackHandler()
         
-        viewModel.stopLoadingHandler = { [weak self] in
-            
-            self?.stopLoading()
-        }
+        setupPhotoHandler()
         
-        viewModel.openGalleryHandler = { [weak self] in
-            
-            self?.openGallery()
-        }
-        
-        viewModel.openCameraHandler = { [weak self] in
-            
-            self?.openCamera()
-        }
-        
-        viewModel.backToHomeHandler = { [weak self] in
-            
-            self?.tabBarController?.selectedIndex = 0
-        }
+        setupProfile()
     }
+    
+    // MARK: - Methods and IBActions
     
     override func setupNavigationTitle() {
         super.setupNavigationTitle()
@@ -137,13 +113,70 @@ class EditProfileViewController: BaseViewController {
         
         userImageView.layer.cornerRadius = 15
     }
+    
+    override func setupLoadingViewHandler() {
+        
+        viewModel.startLoadingHandler = { [weak self] in
 
-    @objc func deleteAccount(sender: UIBarButtonItem) {
+            guard
+                let self = self else { return }
+            
+            self.startLoading()
+        }
+        
+        viewModel.stopLoadingHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.stopLoading()
+        }
+    }
+    
+    private func setupBackHandler() {
+        
+        viewModel.dismissHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.popBack()
+        }
+        
+        viewModel.backToHomeHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.tabBarController?.selectedIndex = 0
+        }
+    }
+    
+    private func setupPhotoHandler() {
+        
+        viewModel.openGalleryHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.openGallery()
+        }
+        
+        viewModel.openCameraHandler = { [weak self] in
+            
+            guard
+                let self = self else { return }
+            
+            self.openCamera()
+        }
+    }
+
+    @objc private func deleteAccount(sender: UIBarButtonItem) {
         
         showDeleteWindow(title: "警告", message: "您將刪除個人帳號，確定要刪除帳號嗎？")
     }
     
-    func setupProfile() {
+    private func setupProfile() {
         
         guard
             let currentUser = viewModel.currentUser else { return }
@@ -229,6 +262,7 @@ class EditProfileViewController: BaseViewController {
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(
@@ -271,7 +305,6 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
 
             AlertWindowManager.shared.showAlertWindow(at: self, title: "異常", message: "你的裝置沒有相機喔！")
         }
-        
     }
     
     func openGallery() {
@@ -293,6 +326,8 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         }
     }
 }
+
+// MARK: - UITextFieldDelegate
 
 extension EditProfileViewController: UITextFieldDelegate {
     
