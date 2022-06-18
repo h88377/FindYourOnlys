@@ -111,6 +111,7 @@ class AdoptPetsLocationViewController: BaseViewController {
             }
         }
 
+        // After lose network, calculateRouteError would not be satisfied by using below conditions.
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
             guard
