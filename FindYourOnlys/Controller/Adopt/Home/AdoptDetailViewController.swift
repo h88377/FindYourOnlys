@@ -9,7 +9,7 @@ import UIKit
 
 protocol AdoptDetailViewControllerDelegate: AnyObject {
     
-    func toggleFavorite()
+    func adoptDetailViewControllerFavoriteButtonDidTap()
 }
 
 class AdoptDetailViewController: BaseViewController {
@@ -286,7 +286,7 @@ class AdoptDetailViewController: BaseViewController {
         
         viewModel?.toggleFavoriteButton()
         
-        self.delegate?.toggleFavorite()
+        self.delegate?.adoptDetailViewControllerFavoriteButtonDidTap()
     }
     
     @IBAction func makePhoneCall(_ sender: UIButton) {

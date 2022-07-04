@@ -162,7 +162,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
 // MARK: - AdoptDetailViewControllerDelegate
 extension AdoptFavoriteViewController: AdoptDetailViewControllerDelegate {
     
-    func toggleFavorite() {
+    func adoptDetailViewControllerFavoriteButtonDidTap() {
         
         viewModel.fetchFavoritePets()
         
