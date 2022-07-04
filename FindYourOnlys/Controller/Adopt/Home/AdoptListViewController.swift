@@ -51,15 +51,14 @@ class AdoptListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+         
         viewModel.petViewModels.bind { [weak self] petViewModels in
             
             guard
                 let self = self else { return }
             
             self.collectionView.reloadData()
-            
+
             self.collectionView.isHidden = petViewModels.count == 0
         }
         
@@ -73,14 +72,6 @@ class AdoptListViewController: BaseViewController {
                 
                 AlertWindowManager.shared.showAlertWindow(at: self, of: error)
             }
-        }
-        
-        viewModel.isSelectedPetFavorite.bind { [weak self] isFavorite in
-            
-            guard
-                let self = self else { return }
-            
-            self.showFavoriteAlert(with: isFavorite)
         }
         
         viewModel.resetPetHandler = { [weak self] in
@@ -110,7 +101,15 @@ class AdoptListViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.addToFavorite()
+            self.addToFavoriteAnimation()
+        }
+        
+        viewModel.longPressedHandler = { [weak self] isFavorite in
+            
+            guard
+                let self = self else { return }
+            
+            self.showFavoriteAlert(with: isFavorite)
         }
         
         activityIndicator = LoadMoreActivityIndicator(

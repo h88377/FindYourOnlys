@@ -11,8 +11,6 @@ class AdoptListViewModel {
     
     // MARK: - Properties
     let petViewModels = Box([PetViewModel]())
-    
-    var isSelectedPetFavorite: Box<Bool> = Box(false)
 
     var filterConditionViewModel = Box(AdoptFilterCondition())
     
@@ -31,6 +29,8 @@ class AdoptListViewModel {
     var noMorePetHandler: (() -> Void)?
     
     var addToFavoriteHandler: (() -> Void)?
+    
+    var longPressedHandler: ((Bool) -> Void)?
 
     private var didSignIn: Bool {
         
@@ -43,6 +43,8 @@ class AdoptListViewModel {
     
     private var lsFavoritePets = [LSPet]()
     
+    private var selectedPetIsFavorite = false
+    
     // MARK: - Methods
     
     func fetchPet() {
@@ -51,29 +53,32 @@ class AdoptListViewModel {
             with: filterConditionViewModel.value, paging: currentPage + 1
         ) { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success(let pets):
                 
                 if pets.count > 0 {
                     
-                    self?.appendPets(pets)
+                    self.appendPets(pets)
                     
-                    self?.currentPage += 1
+                    self.currentPage += 1
                     
                 } else {
                     
-                    self?.noMorePetHandler?()
+                    self.noMorePetHandler?()
                 }
                   
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
             
-            self?.stopIndicatorHandler?()
+            self.stopIndicatorHandler?()
             
-            self?.stopLoadingHandler?()
+            self.stopLoadingHandler?()
         }
     }
     
@@ -131,8 +136,8 @@ class AdoptListViewModel {
     }
     
     func toggleFavoritePet() {
-            
-        if isSelectedPetFavorite.value {
+        
+        if selectedPetIsFavorite {
             
             removeFavoritePet()
             
@@ -153,7 +158,11 @@ class AdoptListViewModel {
                 
             case .success(let pets):
                 
-                self.isSelectedPetFavorite.value = pets.count != 0
+                let isFavorite = pets.count != 0
+
+                self.selectedPetIsFavorite = isFavorite
+                
+                self.longPressedHandler?(isFavorite)
                 
                 self.selectedPetViewModel.value = petViewModel
                 
@@ -177,7 +186,9 @@ class AdoptListViewModel {
                 
                 let isFavorite = lsPets.map { Int($0.id) }.contains(petViewModel.pet.id)
                 
-                self.isSelectedPetFavorite.value = isFavorite
+                self.selectedPetIsFavorite = isFavorite
+                
+                self.longPressedHandler?(isFavorite)
                 
                 self.selectedPetViewModel.value = petViewModel
                 
@@ -216,17 +227,20 @@ class AdoptListViewModel {
         
         FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: viewModel) { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success:
                 
-                self?.selectedPetViewModel.value = nil
+                self.selectedPetViewModel.value = nil
                 
-                self?.addToFavoriteHandler?()
+                self.addToFavoriteHandler?()
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -235,17 +249,20 @@ class AdoptListViewModel {
         
         StorageManager.shared.savePetInFavorite(with: viewModel) { [weak self] result in
             
+            guard
+                let self = self else { return }
+            
             switch result {
                 
             case .success:
                 
-                self?.addToFavoriteHandler?()
+                self.addToFavoriteHandler?()
                 
-                self?.selectedPetViewModel.value = nil
+                self.selectedPetViewModel.value = nil
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -299,15 +316,18 @@ class AdoptListViewModel {
             
             StorageManager.shared.removePetfromFavorite(lsPet: lsFavoritePet) { [weak self] result in
                 
+                guard
+                    let self = self else { return }
+                
                 switch result {
                     
                 case .success:
                     
-                    self?.selectedPetViewModel.value = nil
+                    self.selectedPetViewModel.value = nil
                     
                 case .failure(let error):
                     
-                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                    self.errorViewModel.value = ErrorViewModel(model: error)
                 }
             }
         }
