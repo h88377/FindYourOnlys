@@ -201,13 +201,12 @@ class BaseViewController: UIViewController {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     
-    func addToFavorite() {
+    func addToFavoriteAnimation() {
         
         DispatchQueue.main.async {
 
             LottieAnimationWrapper.shared.addToFavorite()
         }
-        
     }
 }
 
