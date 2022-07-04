@@ -53,14 +53,11 @@ class ShareSocietyViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-                
-                self.tableView.isHidden = articleViewModels.count == 0
-                ? true
-                : false
-            }
+            self.tableView.reloadData()
+            
+            self.tableView.isHidden = articleViewModels.count == 0
+            ? true
+            : false
         }
         
         viewModel.sharedAuthorViewModels.bind { [weak self] _ in
@@ -68,10 +65,7 @@ class ShareSocietyViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in

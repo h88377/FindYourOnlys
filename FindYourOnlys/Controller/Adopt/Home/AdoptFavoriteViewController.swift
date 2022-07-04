@@ -39,14 +39,12 @@ class AdoptFavoriteViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-                
-                self.tableView.isHidden = favoritePetViewModels.count == 0
-                ? true
-                : false
-            }
+            self.tableView.reloadData()
+            
+            self.tableView.isHidden = favoritePetViewModels.count == 0
+            ? true
+            : false
+            
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in

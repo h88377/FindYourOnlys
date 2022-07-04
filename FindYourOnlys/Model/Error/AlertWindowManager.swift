@@ -70,16 +70,13 @@ class AlertWindowManager {
             message = "發生預期外的錯誤"
         }
         
-        DispatchQueue.main.async {
-            
-            let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "OK", style: .default)
-            
-            alert.addAction(action)
-            
-            controller.present(alert, animated: true)
-        }
+        let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(action)
+        
+        controller.present(alert, animated: true)
     }
 
     func presentBlockActionSheet(at controller: UIViewController, with blockConfirmAction: UIAlertAction) {

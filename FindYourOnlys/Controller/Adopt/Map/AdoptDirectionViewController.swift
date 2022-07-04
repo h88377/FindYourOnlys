@@ -55,10 +55,7 @@ class AdoptDirectionViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
     

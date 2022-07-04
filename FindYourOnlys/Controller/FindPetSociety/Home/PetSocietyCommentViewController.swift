@@ -143,16 +143,13 @@ class PetSocietyCommentViewController: BaseModalViewController {
                     
             else { return }
             
-            DispatchQueue.main.async {
+            self.tableView.reloadData()
+            
+            self.setupArticleContent()
                 
-                self.tableView.reloadData()
-                
-                self.setupArticleContent()
-                    
-                self.viewModel.scrollToBottom()
-                
-                self.tableView.isHidden = senderViewModels.count == 0
-            }
+            self.viewModel.scrollToBottom()
+            
+            self.tableView.isHidden = senderViewModels.count == 0
         }
         
         viewModel.commentViewModels.bind { [weak self] _ in
@@ -162,13 +159,10 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
                     
             else { return }
+                
+            self.tableView.reloadData()
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-                
-                self.setupArticleContent()
-            }
+            self.setupArticleContent()
         }
         
         viewModel.scrollToBottomHandler = { [weak self] in

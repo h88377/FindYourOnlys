@@ -71,38 +71,35 @@ class SearchFriendViewController: BaseViewController {
                     
             else { return }
             
-            DispatchQueue.main.async {
+            let storyboard = UIStoryboard.chatSociety
+            
+            let searchResult = searchViewModel.searchResult
+            
+            guard
+                let friendProfileVC = storyboard.instantiateViewController(
+                    withIdentifier: FriendProfileViewController.identifier)
+                    as? FriendProfileViewController,
+                searchResult != .noRelativeEmail
+                    
+            else {
                 
-                let storyboard = UIStoryboard.chatSociety
+                self.errorMessageLabel.isHidden = false
                 
-                let searchResult = searchViewModel.searchResult
+                self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
                 
-                guard
-                    let friendProfileVC = storyboard.instantiateViewController(
-                        withIdentifier: FriendProfileViewController.identifier)
-                        as? FriendProfileViewController,
-                    searchResult != .noRelativeEmail
-                        
-                else {
-                    
-                    self.errorMessageLabel.isHidden = false
-                    
-                    self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
-                    
-                    return
-                }
+                return
+            }
+            
+            if
+                let user = searchViewModel.user {
                 
-                if
-                    let user = searchViewModel.user {
-                    
-                    self.errorMessageLabel.isHidden = true
-                    
-                    friendProfileVC.viewModel = FriendProfileViewModel(model: user, result: searchResult)
-                    
-                    friendProfileVC.modalPresentationStyle = .overFullScreen
-                    
-                    self.present(friendProfileVC, animated: true)
-                }
+                self.errorMessageLabel.isHidden = true
+                
+                friendProfileVC.viewModel = FriendProfileViewModel(model: user, result: searchResult)
+                
+                friendProfileVC.modalPresentationStyle = .overFullScreen
+                
+                self.present(friendProfileVC, animated: true)
             }
         }
         

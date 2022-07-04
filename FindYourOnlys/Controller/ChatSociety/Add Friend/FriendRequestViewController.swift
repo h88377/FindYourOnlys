@@ -45,12 +45,9 @@ class FriendRequestViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.count == 0
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.count == 0
+            
+            self.tableView.reloadData()
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in

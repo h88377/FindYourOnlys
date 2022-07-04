@@ -17,7 +17,10 @@ final class Box<T> {
         
         didSet {
             
-            listener?(value)
+            DispatchQueue.main.async {
+                
+                self.listener?(self.value)
+            }
         }
     }
     
@@ -30,6 +33,9 @@ final class Box<T> {
         
         self.listener = listener
         
-        listener?(value)
+        DispatchQueue.main.async {
+            
+            self.listener?(self.value)
+        }
     }
 }

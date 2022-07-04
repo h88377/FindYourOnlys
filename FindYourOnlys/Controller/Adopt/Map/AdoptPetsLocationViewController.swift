@@ -95,19 +95,16 @@ class AdoptPetsLocationViewController: BaseViewController {
                 let self = self else { return }
 
             let mapAnnotations = mapAnnotationViewModels.map { $0.mapAnnotation }
-
-            DispatchQueue.main.async {
-
-                self.mapView.addAnnotations(mapAnnotations)
-
-                if mapAnnotations.count == 0 {
-
-                    AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
-                    
-                } else {
-
-                    self.mapView.showAnnotations(mapAnnotations, animated: true)
-                }
+            
+            self.mapView.addAnnotations(mapAnnotations)
+            
+            if mapAnnotations.count == 0 {
+                
+                AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
+                
+            } else {
+                
+                self.mapView.showAnnotations(mapAnnotations, animated: true)
             }
         }
 

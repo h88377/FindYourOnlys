@@ -77,10 +77,7 @@ class ProfileViewController: BaseViewController {
                     
             else { return }
             
-            DispatchQueue.main.async {
-                
-                self.setupProfile(with: userViewModel)
-            }
+            self.setupProfile(with: userViewModel)
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
@@ -100,14 +97,11 @@ class ProfileViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.collectionView.isHidden = profileArticleViewModels
-                    .flatMap { $0.profileArticle.articles }
-                    .count == 0
-                
-                self.collectionView.reloadData()
-            }
+            self.collectionView.isHidden = profileArticleViewModels
+                .flatMap { $0.profileArticle.articles }
+                .count == 0
+            
+            self.collectionView.reloadData()
         }
         
         viewModel.backToHomeHandler = { [weak self] in

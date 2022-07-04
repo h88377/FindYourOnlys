@@ -14,7 +14,7 @@ class AdoptListViewController: BaseViewController {
     // MARK: - Properties
     
     let viewModel = AdoptListViewModel()
-
+    
     @IBOutlet private weak var reminderLabel: UILabel!
     
     @IBOutlet private weak var refetchButton: UIButton!
@@ -42,7 +42,7 @@ class AdoptListViewController: BaseViewController {
             mapButton.tintColor = .white
         }
     }
-            
+    
     private var activityIndicator: LoadMoreActivityIndicator!
     
     var resetConditionHandler: (() -> Void)?
@@ -58,12 +58,9 @@ class AdoptListViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.collectionView.reloadData()
-                
-                self.collectionView.isHidden = petViewModels.count == 0
-            }
+            self.collectionView.reloadData()
+            
+            self.collectionView.isHidden = petViewModels.count == 0
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
@@ -91,7 +88,7 @@ class AdoptListViewController: BaseViewController {
             guard
                 let self = self,
                 self.viewModel.petViewModels.value.count > 0
-            
+                    
             else { return }
             
             DispatchQueue.main.async {
