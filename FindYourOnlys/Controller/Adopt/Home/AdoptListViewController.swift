@@ -52,6 +52,7 @@ class AdoptListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         viewModel.petViewModels.bind { [weak self] petViewModels in
             
             guard

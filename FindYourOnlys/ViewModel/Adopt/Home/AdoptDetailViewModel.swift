@@ -5,8 +5,7 @@
 //  Created by 鄭昭韋 on 2022/4/10.
 //
 
-// Should not import UIKit
-import UIKit
+import Foundation
 
 class AdoptDetailViewModel {
     
@@ -20,7 +19,7 @@ class AdoptDetailViewModel {
     var petViewModel: Box<PetViewModel>
     
     init(petViewModel: Box<PetViewModel>) {
-     
+        
         self.petViewModel = petViewModel
     }
     
@@ -160,7 +159,7 @@ class AdoptDetailViewModel {
         ) { [weak self] result in
             
             if case .failure(let error) = result {
-              
+                
                 self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
@@ -171,7 +170,7 @@ class AdoptDetailViewModel {
         StorageManager.shared.savePetInFavorite(with: petViewModel.value) { [weak self] result in
             
             if case .failure(let error) = result {
-              
+                
                 self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
@@ -186,7 +185,7 @@ class AdoptDetailViewModel {
             StorageManager.shared.removePetfromFavorite(lsPet: favoriteLSPet) { [weak self] result in
                 
                 if case .failure(let error) = result {
-                  
+                    
                     self?.errorViewModel.value = ErrorViewModel(model: error)
                 }
             }
@@ -198,7 +197,7 @@ class AdoptDetailViewModel {
         FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value) { [weak self] result in
             
             if case .failure(let error) = result {
-              
+                
                 self?.errorViewModel.value = ErrorViewModel(model: error)
             }
         }

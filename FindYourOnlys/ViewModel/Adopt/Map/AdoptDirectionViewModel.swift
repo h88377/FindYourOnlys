@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MapKit
 
 class AdoptDirectionViewModel {
     

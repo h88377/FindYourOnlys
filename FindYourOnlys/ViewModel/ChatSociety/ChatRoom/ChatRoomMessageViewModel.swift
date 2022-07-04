@@ -5,8 +5,7 @@
 //  Created by 鄭昭韋 on 2022/4/15.
 //
 
-import Foundation
-import UIKit
+import UIKit.UIImage
 
 class ChatRoomMessageViewModel {
     
