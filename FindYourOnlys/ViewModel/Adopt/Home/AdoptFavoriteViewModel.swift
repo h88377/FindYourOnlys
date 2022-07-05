@@ -55,7 +55,7 @@ class AdoptFavoriteViewModel {
                     favoritePets.append(pet)
                 }
                 
-                PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: favoritePets)
+                self.favoritePetViewModels.value = favoritePets.map { PetViewModel(model: $0) }
                 
             case .failure(let error):
                 
@@ -74,7 +74,7 @@ class AdoptFavoriteViewModel {
                 
                 let pets = StorageManager.shared.convertLsPetsToPets(from: lsPets)
                 
-                PetProvider.shared.setPets(petViewModels: favoritePetViewModels, with: pets)
+                self.favoritePetViewModels.value = pets.map { PetViewModel(model: $0) }
                 
             case .failure(let error):
                 

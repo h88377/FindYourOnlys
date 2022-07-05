@@ -46,16 +46,4 @@ class PetProvider {
             }
         }
     }
-    
-    func setPets(petViewModels: Box<[PetViewModel]>, with pets: [Pet]) {
-        
-        petViewModels.value = convertPetsToViewModels(from: pets)
-    }
-    
-    func convertPetsToViewModels(from pets: [Pet]) -> [PetViewModel] {
-        
-        let viewModels = pets.map { PetViewModel(model: $0) }
-        
-        return viewModels
-    }
 }

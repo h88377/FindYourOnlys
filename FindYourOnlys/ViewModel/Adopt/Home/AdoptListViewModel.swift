@@ -62,7 +62,7 @@ class AdoptListViewModel {
                 
                 if pets.count > 0 {
                     
-                    self.appendPets(pets)
+                    self.petViewModels.value += pets.map { PetViewModel(model: $0) }
                     
                     self.currentPage += 1
                     
@@ -99,7 +99,7 @@ class AdoptListViewModel {
                 
             case .success(let pets):
                 
-                PetProvider.shared.setPets(petViewModels: self.petViewModels, with: pets)
+                self.petViewModels.value = pets.map { PetViewModel(model: $0) }
                 
                 self.currentPage += 1
                 
@@ -331,13 +331,5 @@ class AdoptListViewModel {
                 }
             }
         }
-    }
-    
-    // Convert
-    private func appendPets(_ pets: [Pet]) {
-        
-        let appendedPetViewModels = PetProvider.shared.convertPetsToViewModels(from: pets)
-        
-        petViewModels.value += appendedPetViewModels
     }
 }

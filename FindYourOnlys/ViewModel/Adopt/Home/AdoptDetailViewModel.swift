@@ -127,7 +127,7 @@ class AdoptDetailViewModel {
                 
                 let favoritePets = pets.filter { $0.userID == currentUser.id }
                 
-                PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: favoritePets)
+                self.favoritePetViewModels.value = favoritePets.map { PetViewModel(model: $0) }
                 
             case .failure(let error):
                 
@@ -149,7 +149,7 @@ class AdoptDetailViewModel {
                 
                 let pets = StorageManager.shared.convertLsPetsToPets(from: lsPets)
                 
-                PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: pets)
+                self.favoritePetViewModels.value = pets.map { PetViewModel(model: $0) }
                 
                 self.favoriteLSPets = lsPets
                 
