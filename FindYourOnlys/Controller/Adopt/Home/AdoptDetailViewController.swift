@@ -238,7 +238,7 @@ class AdoptDetailViewController: BaseViewController {
                 let self = self,
                 let favoritePetViewModels = self.viewModel?.favoritePetViewModels.value,
                 let pet = self.viewModel?.petViewModel.value.pet
-            
+                    
             else { return }
             
             self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
@@ -313,12 +313,23 @@ class AdoptDetailViewController: BaseViewController {
 // MARK: - UITableViewDelegate & DataSource
 extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard
-            let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
-        
-        return 1 + adoptDetailDescription.count
+        if section == 0 {
+            
+            return 1
+            
+        } else {
+            
+            guard
+                let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
+            
+            return adoptDetailDescription.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -326,10 +337,10 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
         guard
             let cellViewModel = viewModel?.petViewModel.value,
             let adoptDetailContentCategory = viewModel?.adoptDetailContentCategory
-        
+                
         else { return UITableViewCell() }
         
-        if indexPath.item == 0 {
+        if indexPath.section == 0 {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: AdoptDetailTableViewCell.identifier,
@@ -355,7 +366,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             
         } else {
             
-            let detailContentCell = adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(
+            let detailContentCell = adoptDetailContentCategory[indexPath.row].cellForIndexPath(
                 indexPath,
                 tableView: tableView,
                 viewModel: cellViewModel
