@@ -10,6 +10,7 @@ import Foundation
 class AdoptDetailViewModel {
     
     // MARK: - Properties
+    
     let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     
     let favoritePetViewModels = Box([PetViewModel]())
@@ -23,13 +24,13 @@ class AdoptDetailViewModel {
         self.petViewModel = petViewModel
     }
     
-    var checkFavoriateButtonHandler: (() -> Void)?
-    
-    var toggleFavoriteButtonHandler: (() -> Void)?
-    
     var makePhoneCallHandler: (() -> Void)?
     
     var shareHandler: (() -> Void)?
+    
+    var favoriteChangedHandler: ((Bool) -> Void)?
+    
+    var isFavorite = false
     
     private var didSignIn: Bool {
         
@@ -39,6 +40,7 @@ class AdoptDetailViewModel {
     private var favoriteLSPets = [LSPet]()
     
     // MARK: - Methods
+    
     func fetchFavoritePet() {
         
         if didSignIn {
@@ -49,7 +51,6 @@ class AdoptDetailViewModel {
             
             fetchLSFavoritePet()
         }
-        
     }
     
     func addPetInFavorite() {
@@ -76,14 +77,28 @@ class AdoptDetailViewModel {
         }
     }
     
-    func checkFavoriteButton() {
+    func toggleFavorite() {
         
-        checkFavoriateButtonHandler?()
+        self.isFavorite = !isFavorite
+        
+        if isFavorite {
+            
+            addPetInFavorite()
+            
+        } else {
+            
+            removeFavoritePet()
+        }
     }
     
-    func toggleFavoriteButton() {
+    func setupFavoriteBinding() {
         
-        toggleFavoriteButtonHandler?()
+        favoritePetViewModels.bind { petViewModels in
+            
+            self.isFavorite = petViewModels.contains { $0.pet.id == self.petViewModel.value.pet.id }
+            
+            self.favoriteChangedHandler?(self.isFavorite)
+        }
     }
     
     func makePhoneCall() {
@@ -114,8 +129,6 @@ class AdoptDetailViewModel {
                 
                 PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: favoritePets)
                 
-                self.checkFavoriateButtonHandler?()
-                
             case .failure(let error):
                 
                 self.errorViewModel.value = ErrorViewModel(model: error)
@@ -139,8 +152,6 @@ class AdoptDetailViewModel {
                 PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: pets)
                 
                 self.favoriteLSPets = lsPets
-                
-                self.checkFavoriateButtonHandler?()
                 
             case .failure(let error):
                 

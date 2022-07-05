@@ -101,6 +101,14 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
+        viewModel?.favoriteChangedHandler = { [weak self] isFavorite in
+            
+            guard
+                let self = self else { return }
+            
+            self.favoriteButton.isSelected = isFavorite
+        }
+        
         viewModel?.shareHandler = { [weak self] in
             
             guard
@@ -136,9 +144,13 @@ class AdoptDetailViewController: BaseViewController {
             }
         }
         
-        configureFavoriteButton()
-        
         viewModel?.fetchFavoritePet()
+        
+        viewModel?.setupFavoriteBinding()
+        
+        setupBackButton()
+        
+        setupFavoriteButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -197,11 +209,9 @@ class AdoptDetailViewController: BaseViewController {
         header.configureView(with: viewModel.petViewModel.value)
         
         tableView.tableHeaderView = header
-        
-        setupButton()
     }
     
-    private func setupButton() {
+    private func setupBackButton() {
         
         view.addSubview(backButton)
         
@@ -230,52 +240,18 @@ class AdoptDetailViewController: BaseViewController {
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
-    private func configureFavoriteButton() {
+    private func setupFavoriteButton() {
         
-        viewModel?.checkFavoriateButtonHandler = { [weak self] in
-            
-            guard
-                let self = self,
-                let favoritePetViewModels = self.viewModel?.favoritePetViewModels.value,
-                let pet = self.viewModel?.petViewModel.value.pet
-                    
-            else { return }
-            
-            self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
-            
-            for favoritePetViewModel in favoritePetViewModels where favoritePetViewModel.pet.id == pet.id {
-                
-                self.favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-            }
-        }
+        favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
         
-        viewModel?.toggleFavoriteButtonHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.favoriteButton.currentImage == UIImage.system(.addToFavorite) {
-                
-                self.viewModel?.addPetInFavorite()
-                
-            } else {
-                
-                self.viewModel?.removeFavoritePet()
-            }
-            
-            self.favoriteButton.setImage(
-                self.favoriteButton.currentImage == UIImage.system(.addToFavorite)
-                ? UIImage.system(.removeFromFavorite)
-                : UIImage.system(.addToFavorite), for: .normal
-            )
-        }
+        favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
     }
     
-    @IBAction func pressFavoriteButton(_ sender: UIButton) {
+    @IBAction func pressedFavoriteButton(_ sender: UIButton) {
         
         viewModel?.fetchFavoritePet()
         
-        viewModel?.toggleFavoriteButton()
+        viewModel?.toggleFavorite()
         
         self.delegate?.adoptDetailViewControllerFavoriteButtonDidTap()
     }
