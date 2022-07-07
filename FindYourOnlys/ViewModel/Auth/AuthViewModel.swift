@@ -9,30 +9,39 @@ import Foundation
 import AuthenticationServices
 import AVFoundation
 
+enum AuthState {
+    
+    case none
+    
+    case success
+    
+    case failure(Error)
+}
+
 class AuthViewModel {
     
     // MARK: - Properties
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
-    var dismissHandler: (() -> Void)?
+    var authState: Box<AuthState> = Box(.none)
     
     // MARK: - Method
     
     func didCompleteWithAuthorization(with authorization: ASAuthorization) {
         
-        UserFirebaseManager.shared.didCompleteWithAuthorization(with: authorization) { [weak self] result in
+        UserFirebaseManager.shared.signInWithAppleAuthorization(with: authorization) { [weak self] result in
             
             guard
                 let self = self else { return }
+            
             switch result {
                 
             case .success:
                 
-                self.dismissHandler?()
+                self.authState.value = .success
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.authState.value = .failure(error)
             }
         }
     }

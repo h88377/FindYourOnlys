@@ -75,24 +75,25 @@ class AuthViewController: BaseModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.authState.bind { [weak self] authState in
             
             guard
                 let self = self else { return }
             
-            if
-                let error = errorViewModel?.error {
+            switch authState {
                 
+            case .success:
+                
+                self.dismiss(animated: true)
+                
+            case .failure(let error):
+                    
                 AlertWindowManager.shared.showAlertWindow(at: self, of: error)
+                
+            case .none:
+                
+                return
             }
-        }
-        
-        viewModel.dismissHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.dismiss(animated: true)
         }
     }
     
@@ -135,7 +136,7 @@ class AuthViewController: BaseModalViewController {
             let registerVC = storyboard.instantiateViewController(
                 withIdentifier: RegisterViewController.identifier)
                 as? RegisterViewController
-        
+                
         else { return }
         
         present(registerVC, animated: true)
@@ -157,7 +158,7 @@ class AuthViewController: BaseModalViewController {
             let signInVC = storyboard.instantiateViewController(
                 withIdentifier: SignInViewController.identifier)
                 as? SignInViewController
-        
+                
         else { return }
         
         present(signInVC, animated: true)
@@ -179,7 +180,7 @@ class AuthViewController: BaseModalViewController {
             let policyVC = storyboard.instantiateViewController(
                 withIdentifier: PolicyViewController.identifier)
                 as? PolicyViewController
-        
+                
         else { return }
         
         policyVC.viewModel = PolicyViewModel(urlString: "https://pages.flycricket.io/findyouronlys/privacy.html")
@@ -195,7 +196,7 @@ class AuthViewController: BaseModalViewController {
             let policyVC = storyboard.instantiateViewController(
                 withIdentifier: PolicyViewController.identifier)
                 as? PolicyViewController
-        
+                
         else { return }
         
         policyVC.viewModel = PolicyViewModel(

@@ -98,21 +98,9 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         guard
             let favoriteCell = cell as? FavoriteTableViewCell else { return cell }
         
-//        let selectedView = UIView()
-//        
-//        let backgroundView = UIView()
-//        
-//        selectedView.backgroundColor = UIColor.systemGray5
-//        
-//        backgroundView.backgroundColor = UIColor.systemGray6
-        
         let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
         
         favoriteCell.configureCell(with: cellViewModel)
-        
-//        favoriteCell.selectedBackgroundView = selectedView
-//        
-//        favoriteCell.backgroundView = backgroundView
         
         return favoriteCell
     }

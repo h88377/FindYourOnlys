@@ -118,14 +118,20 @@ class SignInViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .signInBackGroundColor
-
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        
+        viewModel.signInState.bind { signInState in
             
-            guard
-                let self = self else { return }
-            
-            if
-                let error = errorViewModel?.error {
+            switch signInState {
+                
+            case .success:
+                
+                self.errorLabel.isHidden = true
+                
+                self.dismiss(animated: true)
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
                 
                 if
                     let authError = error as? AuthError {
@@ -141,19 +147,11 @@ class SignInViewController: BaseViewController {
                     
                     self.errorLabel.isHidden = false
                 }
+                
+            case .none:
+                
+                return
             }
-        }
-        
-        viewModel.dismissHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.errorLabel.isHidden = true
-            
-            self.dismiss(animated: true)
-            
-            self.dismissHandler?()
         }
     }
     

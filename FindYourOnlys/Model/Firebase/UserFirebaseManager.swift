@@ -52,7 +52,7 @@ class UserFirebaseManager {
     }
     
     // Sign in with Apple
-    func didCompleteWithAuthorization(
+    func signInWithAppleAuthorization(
         with authorization: ASAuthorization,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {

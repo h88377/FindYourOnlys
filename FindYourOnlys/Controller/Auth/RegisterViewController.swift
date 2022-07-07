@@ -143,13 +143,22 @@ class RegisterViewController: BaseViewController {
 
         view.backgroundColor = .white
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-
+        viewModel.registerState.bind { [weak self] registerState in
+            
             guard
                 let self = self else { return }
             
-            if
-                let error = errorViewModel?.error {
+            switch registerState {
+                
+            case .success:
+                
+                self.errorLabel.isHidden = true
+                
+                self.presentingViewController?.dismiss(animated: true)
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
                 
                 if
                     let authError = error as? AuthError {
@@ -165,19 +174,11 @@ class RegisterViewController: BaseViewController {
                     
                     self.errorLabel.isHidden = false
                 }
+                
+            case .none:
+                
+                return
             }
-        }
-        
-        viewModel.dismissHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.errorLabel.isHidden = true
-            
-            self.presentingViewController?.dismiss(animated: true)
-            
-            self.dismissHandler?()
         }
     }
     
