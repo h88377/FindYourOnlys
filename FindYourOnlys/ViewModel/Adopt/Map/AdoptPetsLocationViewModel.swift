@@ -180,7 +180,7 @@ class AdoptPetsLocationViewModel {
                     
                     let shelters = self.convertShelters(from: pets, city: city)
                     
-                    if shelters.count == 0 {
+                    if shelters.isEmpty {
                         
                         self.mapAnnotationViewModels.value = []
                         

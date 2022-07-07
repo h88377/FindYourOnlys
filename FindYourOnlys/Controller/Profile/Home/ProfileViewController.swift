@@ -99,7 +99,7 @@ class ProfileViewController: BaseViewController {
             
             self.collectionView.isHidden = profileArticleViewModels
                 .flatMap { $0.profileArticle.articles }
-                .count == 0
+                .isEmpty
             
             self.collectionView.reloadData()
         }

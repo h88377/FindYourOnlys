@@ -41,10 +41,7 @@ class AdoptFavoriteViewController: BaseViewController {
             
             self.tableView.reloadData()
             
-            self.tableView.isHidden = favoritePetViewModels.count == 0
-            ? true
-            : false
-            
+            self.tableView.isHidden = favoritePetViewModels.isEmpty
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in

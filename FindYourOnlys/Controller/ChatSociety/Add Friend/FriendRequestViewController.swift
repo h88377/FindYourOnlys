@@ -45,7 +45,7 @@ class FriendRequestViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.count == 0
+            self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.isEmpty
             
             self.tableView.reloadData()
         }

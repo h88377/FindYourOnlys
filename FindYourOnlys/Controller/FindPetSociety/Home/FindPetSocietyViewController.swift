@@ -65,9 +65,7 @@ class FindPetSocietyViewController: BaseViewController {
             
             self.tableView.reloadData()
             
-            self.tableView.isHidden = articleViewModels.count == 0
-            ? true
-            : false
+            self.tableView.isHidden = articleViewModels.isEmpty
         }
         
         viewModel.findAuthorViewModels.bind { [weak self] _ in

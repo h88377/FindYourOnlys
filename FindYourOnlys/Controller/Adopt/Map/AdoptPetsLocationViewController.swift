@@ -98,7 +98,7 @@ class AdoptPetsLocationViewController: BaseViewController {
             
             self.mapView.addAnnotations(mapAnnotations)
             
-            if mapAnnotations.count == 0 {
+            if mapAnnotations.isEmpty {
                 
                 AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "你所在位置或搜尋縣市附近沒有收容所資訊喔！")
                 

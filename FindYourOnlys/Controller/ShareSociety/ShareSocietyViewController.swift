@@ -55,9 +55,7 @@ class ShareSocietyViewController: BaseViewController {
             
             self.tableView.reloadData()
             
-            self.tableView.isHidden = articleViewModels.count == 0
-            ? true
-            : false
+            self.tableView.isHidden = articleViewModels.isEmpty
         }
         
         viewModel.sharedAuthorViewModels.bind { [weak self] _ in

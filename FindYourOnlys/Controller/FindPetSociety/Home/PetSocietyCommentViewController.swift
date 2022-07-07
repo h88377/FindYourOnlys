@@ -149,7 +149,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 
             self.viewModel.scrollToBottom()
             
-            self.tableView.isHidden = senderViewModels.count == 0
+            self.tableView.isHidden = senderViewModels.isEmpty
         }
         
         viewModel.commentViewModels.bind { [weak self] _ in

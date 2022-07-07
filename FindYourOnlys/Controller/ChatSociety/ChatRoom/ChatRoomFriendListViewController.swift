@@ -43,7 +43,7 @@ class ChatRoomFriendListViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.tableView.isHidden = chatRoomViewModels.count == 0
+            self.tableView.isHidden = chatRoomViewModels.isEmpty
             
             self.tableView.reloadData()
         }
@@ -53,7 +53,7 @@ class ChatRoomFriendListViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.tableView.isHidden = friendViewModels.count == 0
+            self.tableView.isHidden = friendViewModels.isEmpty
             
             self.tableView.reloadData()
         }

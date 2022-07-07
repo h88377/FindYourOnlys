@@ -40,7 +40,7 @@ class SearchFriendViewModel {
                 
             case .success(let users):
                 
-                if users.count == 0 {
+                if users.isEmpty {
                     
                     self.searchViewModel.value = SearchViewModel(searchResult: .noRelativeEmail)
                 }
@@ -90,7 +90,7 @@ class SearchFriendViewModel {
                 
             case .success(let requests):
                 
-                if requests.count == 0 {
+                if requests.isEmpty {
                     
                     self.searchViewModel.value = SearchViewModel(user: user, searchResult: .normalUser)
                 }

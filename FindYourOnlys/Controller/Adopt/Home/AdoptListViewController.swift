@@ -59,7 +59,7 @@ class AdoptListViewController: BaseViewController {
             
             self.collectionView.reloadData()
 
-            self.collectionView.isHidden = petViewModels.count == 0
+            self.collectionView.isHidden = petViewModels.isEmpty
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
