@@ -83,6 +83,22 @@ class FavoriteTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let selectedView = UIView()
+        
+        let backgroundView = UIView()
+        
+        selectedView.backgroundColor = UIColor.systemGray5
+        
+        backgroundView.backgroundColor = UIColor.systemGray6
+        
+        self.selectedBackgroundView = selectedView
+        
+        self.backgroundView = backgroundView
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
