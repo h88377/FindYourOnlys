@@ -41,6 +41,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             self.tableView.reloadData()
         }
+        
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
@@ -61,31 +62,6 @@ class ProfileSelectedArticleViewController: BaseViewController {
             self.popBack()
         }
         
-        setupArticleHandler()
-        
-        viewModel.fetchArticle()
-    }
-    
-    // MARK: - Method
-    
-    override func setupTableView() {
-        super.setupTableView()
-        
-        tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
-        
-        tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
-    }
-    
-    private func setupArticleHandler() {
-        
-        viewModel.shareHanlder = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            AlertWindowManager.shared.showShareActivity(at: self)
-        }
-        
         viewModel.editHandler = { [weak self] articleViewModel in
             
             guard
@@ -102,6 +78,18 @@ class ProfileSelectedArticleViewController: BaseViewController {
                 with: deleteConfirmAction
             )
         }
+        
+        viewModel.fetchArticle()
+    }
+    
+    // MARK: - Method
+    
+    override func setupTableView() {
+        super.setupTableView()
+        
+        tableView.registerCellWithIdentifier(identifier: ArticlePhotoCell.identifier)
+        
+        tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
     }
     
     override func setupLoadingViewHandler() {
@@ -173,7 +161,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.viewModel.shareArticle(with: articleViewModel)
+            AlertWindowManager.shared.showShareActivity(at: self)
         }
     }
 }

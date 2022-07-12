@@ -9,9 +9,9 @@ import Foundation
 
 class BaseSocietyViewModel {
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    // MARK: - Properties
     
-    var shareHanlder: (() -> Void)?
+    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
     
     var editHandler: ((ArticleViewModel) -> Void)?
     
@@ -22,6 +22,8 @@ class BaseSocietyViewModel {
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
+    
+    // MARK: - Methods
     
     func likeArticle(with articleViewModel: ArticleViewModel) {
         
@@ -69,11 +71,6 @@ class BaseSocietyViewModel {
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
-    }
-    
-    func shareArticle(with articleViewModel: ArticleViewModel) {
-        
-        shareHanlder?()
     }
     
     func editArticle(with articleViewModel: ArticleViewModel) {

@@ -137,14 +137,6 @@ class ShareSocietyViewController: BaseViewController {
     
     private func setupArticleHandler() {
         
-        viewModel.shareHanlder = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            AlertWindowManager.shared.showShareActivity(at: self)
-        }
-        
         viewModel.editHandler = { [weak self] articleViewModel in
             
             guard
@@ -247,7 +239,7 @@ class ShareSocietyViewController: BaseViewController {
             guard
                 let self = self else { return }
             
-            self.viewModel.shareArticle(with: articleViewModel)
+            AlertWindowManager.shared.showShareActivity(at: self)
         }
     }
     
