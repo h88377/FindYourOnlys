@@ -23,12 +23,6 @@ class ChatRoomMessageViewModel {
     
     var isBlocked: Bool = false
     
-    var changeMessageHandler: (() -> Void)?
-    
-    var beginEditMessageHander: (() -> Void)?
-    
-    var scrollToBottomHandler: (() -> Void)?
-    
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
@@ -156,21 +150,6 @@ class ChatRoomMessageViewModel {
                 semaphore.signal()
             }
         }
-    }
-    
-    func changeMessage() {
-        
-        changeMessageHandler?()
-    }
-    
-    func beginEditMessage() {
-        
-        beginEditMessageHander?()
-    }
-    
-    func scrollToBottom() {
-        
-        scrollToBottomHandler?()
     }
     
     func blockUser() {

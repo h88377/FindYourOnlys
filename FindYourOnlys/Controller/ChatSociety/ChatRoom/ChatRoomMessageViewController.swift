@@ -76,7 +76,7 @@ class ChatRoomMessageViewController: BaseViewController {
             
             self.tableView.reloadData()
             
-            self.viewModel.scrollToBottom()
+            self.scrollToBottomIfHasMessage()
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
@@ -98,8 +98,6 @@ class ChatRoomMessageViewController: BaseViewController {
             
             self.checkIsBlock()
         }
-        
-        setupMessageHandler()
         
         addCurrentUserObserver()
         
@@ -166,48 +164,6 @@ class ChatRoomMessageViewController: BaseViewController {
         }
     }
     
-    private func setupMessageHandler() {
-        
-        viewModel.beginEditMessageHander = { [weak self ] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.messageTextView.textColor == UIColor.systemGray3 {
-                
-                self.messageTextView.text = nil
-                
-                self.messageTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.changeMessageHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.checkMessageButton()
-            
-            if self.messageTextView.textColor == UIColor.systemGray3 {
-                
-                self.messageTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.scrollToBottomHandler = { [weak self] in
-            
-            guard
-                let messageCount = self?.viewModel.messageViewModels.value.count,
-                messageCount > 0
-                    
-            else { return }
-            
-            let indexPath = IndexPath(row: messageCount - 1, section: 0)
-            
-            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-        }
-    }
-    
     @objc func block(sender: UIBarButtonItem) {
         
         let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
@@ -219,6 +175,20 @@ class ChatRoomMessageViewController: BaseViewController {
         }
         
         AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
+    }
+    
+    private func scrollToBottomIfHasMessage() {
+        
+        let messageCount = viewModel.messageViewModels.value.count
+        
+        guard
+            messageCount > 0
+                
+        else { return }
+        
+        let indexPath = IndexPath(row: messageCount - 1, section: 0)
+        
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
     private func checkIsBlock() {
@@ -367,12 +337,22 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        viewModel.beginEditMessage()
+        if messageTextView.textColor == UIColor.systemGray3 {
+            
+            messageTextView.text = nil
+            
+            messageTextView.textColor = UIColor.black
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         
-        viewModel.changeMessage()
+        checkMessageButton()
+        
+        if messageTextView.textColor == UIColor.systemGray3 {
+            
+            messageTextView.textColor = UIColor.black
+        }
     }
 }
 
