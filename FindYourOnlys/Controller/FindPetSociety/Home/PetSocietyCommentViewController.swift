@@ -147,7 +147,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
             
             self.setupArticleContent()
                 
-            self.viewModel.scrollToBottom()
+            self.scrollToBottomIfHasComment()
             
             self.tableView.isHidden = senderViewModels.isEmpty
         }
@@ -165,32 +165,32 @@ class PetSocietyCommentViewController: BaseModalViewController {
             self.setupArticleContent()
         }
         
-        viewModel.scrollToBottomHandler = { [weak self] in
-            
-            guard
-                let commentCount = self?.viewModel.commentViewModels.value.count,
-                let self = self,
-                commentCount > 0
-                    
-            else { return }
-            
-            let indexPath = IndexPath(row: commentCount - 1, section: 0)
-            
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-        }
+//        viewModel.scrollToBottomHandler = { [weak self] in
+//
+//            guard
+//                let commentCount = self?.viewModel.commentViewModels.value.count,
+//                let self = self,
+//                commentCount > 0
+//
+//            else { return }
+//
+//            let indexPath = IndexPath(row: commentCount - 1, section: 0)
+//
+//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+//        }
         
-        viewModel.blockHandler = { [weak self] senderViewModel in
-            
-            guard
-                let self = self else { return }
-            
-            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-                
-                self.viewModel.blockUser(with: senderViewModel)
-            }
-            
-            AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
-        }
+//        viewModel.blockHandler = { [weak self] senderViewModel in
+//            
+//            guard
+//                let self = self else { return }
+//            
+//            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+//                
+//                self.viewModel.blockUser(with: senderViewModel)
+//            }
+//            
+//            AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
+//        }
         
         viewModel.signInHandler = { [weak self] in
             
@@ -269,9 +269,18 @@ class PetSocietyCommentViewController: BaseModalViewController {
         }
     }
     
-    private func setupEditCommentHandler() {
+    private func scrollToBottomIfHasComment() {
         
+        let commentCount = viewModel.commentViewModels.value.count
         
+        guard
+            commentCount > 0
+                
+        else { return }
+        
+        let indexPath = IndexPath(row: commentCount - 1, section: 0)
+        
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
     private func checkCommentButton() {
@@ -406,7 +415,13 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
             guard
                 let self = self else { return }
             
-            self.viewModel.block(with: senderViewModel)
+//            self.viewModel.block(with: senderViewModel)
+            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+                
+                self.viewModel.blockUser(with: senderViewModel)
+            }
+            
+            AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
         }
         
         return commentCell
