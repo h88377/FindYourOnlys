@@ -26,15 +26,11 @@ class PetSocietyCommentViewModel {
     
     var beginEditCommentHander: (() -> Void)?
     
-//    var scrollToBottomHandler: (() -> Void)?
-    
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
     
     var signInHandler: (() -> Void)?
-    
-//    var blockHandler: ((UserViewModel) -> Void)?
     
     // MARK: - Methods
     
@@ -113,16 +109,6 @@ class PetSocietyCommentViewModel {
         
         beginEditCommentHander?()
     }
-    
-//    func scrollToBottom() {
-//
-//        scrollToBottomHandler?()
-//    }
-    
-//    func block(with senderViewModel: UserViewModel) {
-//
-//        blockHandler?(senderViewModel)
-//    }
     
     func blockUser(with viewModel: UserViewModel) {
         

@@ -87,8 +87,6 @@ class EditProfileViewController: BaseViewController {
         
         setupBackHandler()
         
-        setupPhotoHandler()
-        
         setupProfile()
     }
     
@@ -151,25 +149,6 @@ class EditProfileViewController: BaseViewController {
             self.tabBarController?.selectedIndex = 0
         }
     }
-    
-    private func setupPhotoHandler() {
-        
-        viewModel.openGalleryHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.openGallery()
-        }
-        
-        viewModel.openCameraHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.openCamera()
-        }
-    }
 
     @objc private func deleteAccount(sender: UIBarButtonItem) {
         
@@ -206,14 +185,14 @@ class EditProfileViewController: BaseViewController {
         
         let cancel = UIAlertAction(title: "取消", style: .cancel)
         
-        let openGallery = UIAlertAction(title: "開啟相簿", style: .default) { [weak self] _ in
+        let openGallery = UIAlertAction(title: "開啟相簿", style: .default) { _ in
             
-            self?.viewModel.openGallery()
+            self.openGallery()
         }
         
-        let openCamera = UIAlertAction(title: "開啟相機", style: .default) { [weak self] _ in
+        let openCamera = UIAlertAction(title: "開啟相機", style: .default) { _ in
             
-            self?.viewModel.openCamera()
+            self.openCamera()
         }
         
         alert.addAction(cancel)
@@ -308,6 +287,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     }
     
     func openGallery() {
+        
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             
             let imagePicker = UIImagePickerController()

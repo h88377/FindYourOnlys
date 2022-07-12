@@ -25,10 +25,6 @@ class EditProfileViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
-    var openCameraHandler: (() -> Void)?
-    
-    var openGalleryHandler: (() -> Void)?
-    
     var checkEditedUserHandler: ((Bool) -> Void)?
     
     private var isValidEditedProfile: Bool {
@@ -83,16 +79,6 @@ class EditProfileViewModel {
             }
             self.stopLoadingHandler?()
         }
-    }
-    
-    func openCamera() {
-        
-        openCameraHandler?()
-    }
-    
-    func openGallery() {
-        
-        openGalleryHandler?()
     }
     
     func nickNameChange(with nickName: String) {
