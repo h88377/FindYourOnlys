@@ -212,7 +212,18 @@ class PetSocietyCommentViewController: BaseModalViewController {
             self.present(authVC, animated: true)
         }
         
-        setupEditCommentHandler()
+        viewModel.beginEditCommentHander = { [weak self ] in
+            
+            guard
+                let self = self else { return }
+            
+            if self.commentTextView.textColor == UIColor.systemGray3 {
+                
+                self.commentTextView.text = nil
+                
+                self.commentTextView.textColor = UIColor.black
+            }
+        }
 
         setupKeyBoard()
         
@@ -260,31 +271,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
     
     private func setupEditCommentHandler() {
         
-        viewModel.beginEditCommentHander = { [weak self ] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.commentTextView.textColor == UIColor.systemGray3 {
-                
-                self.commentTextView.text = nil
-                
-                self.commentTextView.textColor = UIColor.black
-            }
-        }
         
-        viewModel.changeCommentHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.checkCommentButton()
-            
-            if self.commentTextView.textColor == UIColor.systemGray3 {
-                
-                self.commentTextView.textColor = UIColor.black
-            }
-        }
     }
     
     private func checkCommentButton() {
@@ -436,6 +423,11 @@ extension PetSocietyCommentViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
-        viewModel.changeMessage()
+        checkCommentButton()
+        
+        if commentTextView.textColor == UIColor.systemGray3 {
+            
+            commentTextView.textColor = UIColor.black
+        }
     }
 }

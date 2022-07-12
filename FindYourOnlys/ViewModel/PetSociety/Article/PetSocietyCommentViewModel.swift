@@ -24,8 +24,6 @@ class PetSocietyCommentViewModel {
     
     private var comment = Comment()
     
-    var changeCommentHandler: (() -> Void)?
-    
     var beginEditCommentHander: (() -> Void)?
     
     var scrollToBottomHandler: (() -> Void)?
@@ -99,11 +97,6 @@ class PetSocietyCommentViewModel {
                 self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
-    }
-    
-    func changeMessage() {
-        
-        changeCommentHandler?()
     }
     
     func beginEditMessage() {
