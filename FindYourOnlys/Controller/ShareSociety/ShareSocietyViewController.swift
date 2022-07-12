@@ -83,11 +83,11 @@ class ShareSocietyViewController: BaseViewController {
             let storyboard = UIStoryboard.auth
             
             let authVC = storyboard.instantiateViewController(withIdentifier: AuthViewController.identifier)
-
+            
             authVC.modalPresentationStyle = .custom
             
             authVC.transitioningDelegate = self
-
+            
             self?.present(authVC, animated: true)
         }
         
@@ -122,7 +122,7 @@ class ShareSocietyViewController: BaseViewController {
             
             guard
                 let self = self else { return }
-
+            
             self.startLoading()
         }
         
@@ -189,7 +189,7 @@ class ShareSocietyViewController: BaseViewController {
                 let publishVC = storyboard.instantiateViewController(
                     withIdentifier: PublishViewController.identifier)
                     as? PublishViewController
-            
+                    
             else { return }
             
             publishVC.viewModel.articleType = .share
@@ -215,7 +215,7 @@ class ShareSocietyViewController: BaseViewController {
             
             guard
                 let self = self else { return }
-             
+            
             self.viewModel.unlikeArticle(with: articleViewModel)
         }
         
@@ -265,11 +265,6 @@ class ShareSocietyViewController: BaseViewController {
         viewModel.fetchSharedArticles()
     }
     
-    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
-        
-        Int(index / count)
-    }
-    
     @IBAction func publish(_ sender: UIButton) {
         
         viewModel.tapAddArticle()
@@ -279,9 +274,7 @@ class ShareSocietyViewController: BaseViewController {
 // MARK: - ShareSocietyViewController UITableViewDelegate and DataSource
 extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let registeredCellCount = 2
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         guard
             viewModel.sharedAuthorViewModels.value.count > 0,
@@ -289,25 +282,27 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
                 
         else { return 0 }
         
-        return viewModel.sharedArticleViewModels.value.count * registeredCellCount
+        return viewModel.sharedArticleViewModels.value.count
     }
     
-    func tableView(
-        _ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let registeredCellCount = 2
         
+        return registeredCellCount
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let articleCellViewModel = viewModel
             .sharedArticleViewModels
-            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+            .value[indexPath.section]
         
         let authorCellViewModel = viewModel
             .sharedAuthorViewModels
-            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+            .value[indexPath.section]
         
-        switch indexPath.row % registeredCellCount {
-            
-        case 0:
+        if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
@@ -329,7 +324,7 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             
             return photoCell
             
-        case 1:
+        } else {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticleContentCell.identifier, for: indexPath)
@@ -347,11 +342,7 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
                 authorViewModel: authorCellViewModel
             )
             
-            return contentCell
-            
-        default:
-        
-            return UITableViewCell()
+            return contentCell   
         }
     }
 }
