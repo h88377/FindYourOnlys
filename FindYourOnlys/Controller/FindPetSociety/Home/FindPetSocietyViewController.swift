@@ -280,11 +280,6 @@ class FindPetSocietyViewController: BaseViewController {
         viewModel.fetchFindArticles()
     }
     
-    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
-        
-        Int(index / count)
-    }
-    
     @IBAction func addArticle(_ sender: UIButton) {
         
         viewModel.tapAddArticle()
@@ -317,9 +312,7 @@ class FindPetSocietyViewController: BaseViewController {
 // MARK: - UITableViewDataSource and Delegate
 extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let registeredCellCount = 2
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         guard
             viewModel.findAuthorViewModels.value.count > 0,
@@ -327,24 +320,27 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
                 
         else { return 0 }
         
-        return viewModel.findArticleViewModels.value.count * registeredCellCount
+        return viewModel.findArticleViewModels.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let registeredCellCount = 2
+        
+        return registeredCellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let registeredCellCount = 2
-        
         let articleCellViewModel = viewModel
             .findArticleViewModels
-            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+            .value[indexPath.section]
         
         let authorCellViewModel = viewModel
             .findAuthorViewModels
-            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+            .value[indexPath.section]
         
-        switch indexPath.row % registeredCellCount {
-            
-        case 0:
+        if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
@@ -364,10 +360,10 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             
             return photoCell
             
-        case 1:
+        } else {
             
             let cell = tableView.dequeueReusableCell(
-                    withIdentifier: ArticleContentCell.identifier, for: indexPath)
+                withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
             guard
                 let contentCell = cell as? ArticleContentCell else { return cell }
@@ -381,10 +377,6 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             )
             
             return contentCell
-            
-        default:
-        
-            return UITableViewCell()
         }
     }
 }
