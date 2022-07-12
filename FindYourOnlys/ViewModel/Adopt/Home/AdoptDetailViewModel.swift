@@ -24,10 +24,6 @@ class AdoptDetailViewModel {
         self.petViewModel = petViewModel
     }
     
-    var makePhoneCallHandler: (() -> Void)?
-    
-    var shareHandler: (() -> Void)?
-    
     var favoriteChangedHandler: ((Bool) -> Void)?
     
     var isFavorite = false
@@ -99,16 +95,6 @@ class AdoptDetailViewModel {
             
             self.favoriteChangedHandler?(self.isFavorite)
         }
-    }
-    
-    func makePhoneCall() {
-        
-        makePhoneCallHandler?()
-    }
-    
-    func share() {
-        
-        shareHandler?()
     }
     
     private func fetchFavoritePetFromFB() {

@@ -109,41 +109,6 @@ class AdoptDetailViewController: BaseViewController {
             self.favoriteButton.isSelected = isFavorite
         }
         
-        viewModel?.shareHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            AlertWindowManager.shared.showShareActivity(at: self)
-        }
-        
-        viewModel?.makePhoneCallHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            guard
-                let phoneNumber = self.viewModel?.petViewModel.value.pet.telephone,
-                let url = URL(string: "tel://\(String(describing: phoneNumber))"),
-                UIApplication.shared.canOpenURL(url)
-                    
-            else {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
-                
-                return
-            }
-            
-            if #available(iOS 10, *) {
-                
-                UIApplication.shared.open(url)
-                
-            } else {
-                
-                UIApplication.shared.openURL(url)
-            }
-        }
-        
         viewModel?.fetchFavoritePet()
         
         viewModel?.setupFavoriteBinding()
@@ -258,7 +223,26 @@ class AdoptDetailViewController: BaseViewController {
     
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
-        viewModel?.makePhoneCall()
+        guard
+            let phoneNumber = viewModel?.petViewModel.value.pet.telephone,
+            let url = URL(string: "tel://\(String(describing: phoneNumber))"),
+            UIApplication.shared.canOpenURL(url)
+                
+        else {
+            
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
+            
+            return
+        }
+        
+        if #available(iOS 10, *) {
+            
+            UIApplication.shared.open(url)
+            
+        } else {
+            
+            UIApplication.shared.openURL(url)
+        }
     }
     
     @objc func back(_ sender: UIButton) {
@@ -335,7 +319,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
                 guard
                     let self = self else { return }
                 
-                self.viewModel?.share()
+                AlertWindowManager.shared.showShareActivity(at: self)
             }
             
             return detailCell
