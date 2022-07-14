@@ -48,8 +48,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
     
     func configureCell(with viewModel: MessageViewModel, friend: User) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         if currentUser.id == viewModel.message.senderId {
             
@@ -80,9 +79,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
         
         contentImageView.isHidden = true
         
-        if
-            let content = viewModel.message.content,
-            content != "" {
+        if let content = viewModel.message.content, content != "" {
             
             contentLabel.text = content
             
@@ -90,8 +87,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
             
             imageViewHeightConstraint.constant = 0
             
-        } else if
-            let imageURLString = viewModel.message.contentImageURLString {
+        } else if let imageURLString = viewModel.message.contentImageURLString {
             
             contentImageView.loadImage(imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
             
@@ -115,5 +111,4 @@ class ChatRoomUserMessageCell: UITableViewCell {
         
         contentImageView.layer.cornerRadius = 12
     }
-    
 }

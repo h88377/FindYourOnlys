@@ -24,12 +24,10 @@ class PolicyViewController: UIViewController {
         guard
             let viewModel = viewModel,
             let policyURL = URL(string: viewModel.urlString)
-                
         else { return }
         
         let myRequest = URLRequest(url: policyURL)
         
         webView.load(myRequest)
     }
-    
 }

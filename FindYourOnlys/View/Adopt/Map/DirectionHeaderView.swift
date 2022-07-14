@@ -60,8 +60,7 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
         
         let informationComponents = [
             viewModel.direction.totalTravelTime.formatted,
-            "• \(distanceFormatter.string(fromDistance: viewModel.direction.totalDistance))"
-        ]
+            "• \(distanceFormatter.string(fromDistance: viewModel.direction.totalDistance))"]
         
         self.informationLabel.text = informationComponents.joined(separator: " ")
         

@@ -21,13 +21,11 @@ class ChatRoomFriendListViewModel {
     
     func fetchChatRoom() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         PetSocietyFirebaseManager.shared.fetchChatRoom { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

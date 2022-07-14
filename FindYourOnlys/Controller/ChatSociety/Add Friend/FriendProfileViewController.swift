@@ -96,19 +96,16 @@ class FriendProfileViewController: BaseViewController {
         viewModel?.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
           
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel?.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.dismiss(animated: true)
         }
@@ -130,8 +127,7 @@ class FriendProfileViewController: BaseViewController {
     
     func updateSearchedUserInfo() {
         
-        guard
-            let viewModel = viewModel else { return }
+        guard let viewModel = viewModel else { return }
         
         let result = viewModel.searchFriendResult
         

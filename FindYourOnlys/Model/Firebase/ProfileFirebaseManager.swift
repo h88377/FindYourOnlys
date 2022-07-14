@@ -26,8 +26,7 @@ class ProfileFirebaseManager {
         
         database.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, _ in
             
-            guard
-                let snapshot = snapshot else {
+            guard let snapshot = snapshot else {
                     
                     completion(.failure(FirebaseError.fetchFriendRequestError))
                     
@@ -73,8 +72,7 @@ class ProfileFirebaseManager {
         
         database.collection(FirebaseCollectionType.friendRequest.rawValue).getDocuments { snapshot, _ in
             
-            guard
-                let snapshot = snapshot else {
+            guard let snapshot = snapshot else {
                     
                     completion(.failure(FirebaseError.fetchFriendRequestError))
                     
@@ -89,7 +87,8 @@ class ProfileFirebaseManager {
                     
                     let currentUserId = UserFirebaseManager.shared.currentUser?.id
                     
-                    if removeRequest.requestedUserId == currentUserId || removeRequest.requestUserId == currentUserId {
+                    if removeRequest.requestedUserId == currentUserId ||
+                        removeRequest.requestUserId == currentUserId {
                         
                         let docID = snapshot.documents[index].documentID
                         
@@ -112,11 +111,10 @@ class ProfileFirebaseManager {
     
     func addFriendRequest(
         with viewModels: [FriendRequestListViewModel],
-        at indexPath: IndexPath, completion: @escaping (Result<Void, Error>
-        ) -> Void) {
+        at indexPath: IndexPath, completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         var requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
         
@@ -151,8 +149,7 @@ class ProfileFirebaseManager {
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         let documentReference = database.collection(FirebaseCollectionType.chatRoom.rawValue).document()
         
@@ -173,6 +170,7 @@ class ProfileFirebaseManager {
             try documentReference.setData(from: chatRoom)
             
             completion(.success(()))
+            
         } catch {
             
             completion(.failure(FirebaseError.createChatRoomError))

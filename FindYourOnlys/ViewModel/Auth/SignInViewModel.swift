@@ -25,8 +25,7 @@ class SignInViewModel {
         
         UserFirebaseManager.shared.signIn(withEmail: email, password: password) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

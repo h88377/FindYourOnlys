@@ -72,10 +72,8 @@ class PetSocietyFirebaseManager {
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
             .addSnapshotListener { [weak self] snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot,
-                    let self = self
-                
+                guard let snapshot = snapshot,
+                      let self = self
                 else {
                         
                     completion(.failure(FirebaseError.fetchArticleError))
@@ -140,10 +138,7 @@ class PetSocietyFirebaseManager {
             .whereField(FirebaseFieldType.id.rawValue, isEqualTo: id)
             .addSnapshotListener { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot
-                        
-                else {
+                guard let snapshot = snapshot else {
                     
                     completion(.failure(FirebaseError.fetchArticleError))
                     
@@ -194,7 +189,10 @@ class PetSocietyFirebaseManager {
         }
     }
     
-    func editArticle(with article: inout Article, completion: @escaping (Result<Void, Error>) -> Void) {
+    func editArticle(
+        with article: inout Article,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
         let documentReference = database.collection(FirebaseCollectionType.article.rawValue).document(article.id)
         
@@ -220,8 +218,7 @@ class PetSocietyFirebaseManager {
             .collection(FirebaseCollectionType.article.rawValue)
             .getDocuments { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchArticleError))
                         
@@ -257,16 +254,16 @@ class PetSocietyFirebaseManager {
             }
     }
     
-    func deleteArticle(withArticleId articleId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func deleteArticle(
+        withArticleId articleId: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
         database
             .collection(FirebaseCollectionType.article.rawValue)
             .document(articleId).delete { error in
                 
-                guard
-                    error == nil
-                        
-                else {
+                guard error == nil else {
                     
                     completion(.failure(FirebaseError.deleteArticleError))
                     
@@ -284,17 +281,12 @@ class PetSocietyFirebaseManager {
     ) {
             let storageRef = storage.reference()
             
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser else { return }
+            guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
             let imageRef = storageRef.child(
-                "\(type)/\(currentUser.id)with time \(Date().timeIntervalSince1970).jpeg"
-            )
+                "\(type)/\(currentUser.id)with time \(Date().timeIntervalSince1970).jpeg")
             
-            guard
-                let imageData = image.jpegData(compressionQuality: 0.5)
-            
-            else {
+            guard let imageData = image.jpegData(compressionQuality: 0.5) else {
                 
                 completion(.failure(FirebaseError.encodeImageError))
                 
@@ -303,10 +295,7 @@ class PetSocietyFirebaseManager {
             
             imageRef.putData(imageData, metadata: nil) { _, error in
                 
-                guard
-                    error == nil
-                        
-                else {
+                guard error == nil else {
                     
                     completion(.failure(FirebaseError.uploadImageError))
                     
@@ -318,7 +307,6 @@ class PetSocietyFirebaseManager {
                     guard
                         error == nil,
                         let url = url
-                            
                     else {
                         
                         completion(.failure(FirebaseError.fetchImageURLError))
@@ -356,8 +344,7 @@ class PetSocietyFirebaseManager {
         with article: inout Article,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         article.likeUserIds.append(currentUser.id)
         
@@ -380,8 +367,7 @@ class PetSocietyFirebaseManager {
         with article: inout Article,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         article.likeUserIds.removeAll { userId in
             
@@ -412,8 +398,7 @@ class PetSocietyFirebaseManager {
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: true)
             .addSnapshotListener { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchChatRoomError))
                         
@@ -437,15 +422,13 @@ class PetSocietyFirebaseManager {
         with userId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser else { return }
+            guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
             database
             .collection(FirebaseCollectionType.chatRoom.rawValue)
             .getDocuments { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchChatRoomError))
                         
@@ -488,10 +471,7 @@ class PetSocietyFirebaseManager {
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: false)
             .addSnapshotListener { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot
-                
-                else {
+                guard let snapshot = snapshot else {
                     
                     completion(.failure(FirebaseError.fetchMessageError))
                     
@@ -517,15 +497,13 @@ class PetSocietyFirebaseManager {
         with userId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser else { return }
+            guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
             database
             .collection(FirebaseCollectionType.message.rawValue)
             .getDocuments { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchMessageError))
                         
@@ -593,8 +571,7 @@ class PetSocietyFirebaseManager {
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: false)
             .addSnapshotListener { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchFriendRequestError))
                         
@@ -621,15 +598,13 @@ class PetSocietyFirebaseManager {
         withRequest userId: String,
         completion: @escaping (Result<[FriendRequest], Error>) -> Void
     ) {
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         database.collection(FirebaseCollectionType.friendRequest.rawValue)
             .order(by: FirebaseFieldType.createdTime.rawValue, descending: false)
             .getDocuments { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchFriendRequestError))
                         
@@ -662,8 +637,7 @@ class PetSocietyFirebaseManager {
         _ userId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         let documentReference = database.collection(FirebaseCollectionType.friendRequest.rawValue).document()
         
@@ -694,8 +668,7 @@ class PetSocietyFirebaseManager {
             .whereField(FirebaseFieldType.friends.rawValue, arrayContains: userId)
             .getDocuments { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchUserError))
                         
@@ -727,8 +700,7 @@ class PetSocietyFirebaseManager {
     
     private func append(articles: inout [Article], with article: Article) {
         
-        if
-            let currentUser = UserFirebaseManager.shared.currentUser {
+        if let currentUser = UserFirebaseManager.shared.currentUser {
             
             let isBlock = currentUser.blockedUsers.contains(article.userId)
             

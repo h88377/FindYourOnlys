@@ -36,20 +36,17 @@ class PetSocietyCommentViewModel {
     
     func fetchComments() {
 
-        guard
-            let selectedArticle = selectedArticle else { return }
+        guard let selectedArticle = selectedArticle else { return }
 
         PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: selectedArticle.id) { [weak self] result in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             switch result {
 
             case .success(var article):
                 
-                if
-                    let currentUser = UserFirebaseManager.shared.currentUser {
+                if let currentUser = UserFirebaseManager.shared.currentUser {
                     
                     let filteredComments = article.comments.filter { !currentUser.blockedUsers.contains($0.userId) }
                     
@@ -74,7 +71,6 @@ class PetSocietyCommentViewModel {
         guard
             var article = selectedArticleViewModel.value?.article,
             let currentUser = UserFirebaseManager.shared.currentUser
-                
         else { return }
         
         comment.articleId = article.id
@@ -85,8 +81,7 @@ class PetSocietyCommentViewModel {
 
         PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
@@ -132,8 +127,7 @@ class PetSocietyCommentViewModel {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

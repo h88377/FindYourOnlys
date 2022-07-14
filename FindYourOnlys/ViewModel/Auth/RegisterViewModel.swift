@@ -23,10 +23,13 @@ class RegisterViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.register(with: nickName, with: email, with: password) { [weak self] result in
+        UserFirebaseManager.shared.register(
+            with: nickName,
+            with: email,
+            with: password
+        ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

@@ -36,8 +36,7 @@ class AdoptFavoriteViewController: BaseViewController {
         
         viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
             
@@ -46,14 +45,11 @@ class AdoptFavoriteViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         addCurrentUserObserver()
@@ -73,8 +69,7 @@ class AdoptFavoriteViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -95,8 +90,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath)
         
-        guard
-            let favoriteCell = cell as? FavoriteTableViewCell else { return cell }
+        guard let favoriteCell = cell as? FavoriteTableViewCell else { return cell }
         
         let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
         
@@ -109,12 +103,9 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         
         let storyboard = UIStoryboard.adopt
         
-        guard
-            let adoptDetaiVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptDetailViewController.identifier)
-                as? AdoptDetailViewController
-                
-        else { return }
+        guard let adoptDetaiVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptDetailViewController.identifier
+        )as? AdoptDetailViewController else { return }
         
         let selectedPetViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
         

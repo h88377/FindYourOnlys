@@ -36,7 +36,6 @@ class ChatRoomMessageViewModel {
         guard
             let selectedChatRoom = selectedChatRoom,
             let currentUser = UserFirebaseManager.shared.currentUser
-                
         else { return }
         
         let isBlocked = selectedChatRoom.userIds.map { currentUser.blockedUsers.contains($0) }.contains(true)
@@ -49,8 +48,7 @@ class ChatRoomMessageViewModel {
             
             PetSocietyFirebaseManager.shared.fetchMessage(with: selectedChatRoom.id) { [weak self] result in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 switch result {
                     
@@ -68,13 +66,11 @@ class ChatRoomMessageViewModel {
     
     func sendMessage() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &message) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
@@ -106,8 +102,7 @@ class ChatRoomMessageViewModel {
     
     func changeContent(with contextImage: UIImage) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
           
         DispatchQueue.global().async {
             
@@ -118,8 +113,7 @@ class ChatRoomMessageViewModel {
                 with: FirebaseCollectionType.message.rawValue
             ) { [weak self] result in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 switch result {
                     
@@ -139,8 +133,7 @@ class ChatRoomMessageViewModel {
             semaphore.wait()
             PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &self.message) { [weak self] result in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 if case .failure(let error) = result {
                     
@@ -154,8 +147,7 @@ class ChatRoomMessageViewModel {
     
     func blockUser() {
         
-        guard
-            let friend = selectedFriend else { return }
+        guard let friend = selectedFriend else { return }
         
         startLoadingHandler?()
         
@@ -169,7 +161,6 @@ class ChatRoomMessageViewModel {
         guard
             let friend = selectedFriend,
             let currentUser = UserFirebaseManager.shared.currentUser
-        
         else { return }
         
         isBlocked = currentUser.blockedUsers.contains(friend.id)

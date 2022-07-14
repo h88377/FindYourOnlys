@@ -65,19 +65,16 @@ class EditProfileViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.checkEditedUserHandler = { [weak self] isValid in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if !isValid {
                 
@@ -116,16 +113,14 @@ class EditProfileViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -135,16 +130,14 @@ class EditProfileViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.popBack()
         }
         
         viewModel.backToHomeHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tabBarController?.selectedIndex = 0
         }
@@ -157,8 +150,7 @@ class EditProfileViewController: BaseViewController {
     
     private func setupProfile() {
         
-        guard
-            let currentUser = viewModel.currentUser else { return }
+        guard let currentUser = viewModel.currentUser else { return }
        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(changeImage))
         
@@ -166,8 +158,7 @@ class EditProfileViewController: BaseViewController {
         
         userImageView.loadImage(
             currentUser.imageURLString,
-            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-        )
+            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         userImageView.contentMode = .scaleAspectFill
         
@@ -246,19 +237,18 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         
         dismiss(animated: true)
         
-        if
-            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
             userImageView.image = editedImage
             
             viewModel.selectedImage = editedImage
             
-        } else if
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             userImageView.image = image
             
@@ -313,8 +303,7 @@ extension EditProfileViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        guard
-            let nickName = nickNameTextField.text else { return }
+        guard let nickName = nickNameTextField.text else { return }
         
         viewModel.nickNameChange(with: nickName)
     }

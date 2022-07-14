@@ -19,10 +19,7 @@ class AdoptViewModel {
     
     func fetchCurrentUser() {
         
-        guard
-            let initialUserId = UserFirebaseManager.shared.initialUser?.uid
-                
-        else { return }
+        guard let initialUserId = UserFirebaseManager.shared.initialUser?.uid else { return }
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             

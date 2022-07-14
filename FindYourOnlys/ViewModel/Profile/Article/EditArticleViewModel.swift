@@ -71,10 +71,7 @@ class EditArticleViewModel {
     
     func tapEdit() {
         
-        edit { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        edit { result in
             
             switch result {
                 
@@ -97,15 +94,11 @@ class EditArticleViewModel {
         guard
             isValidEditedContent,
             isValidDetectResult
-                
         else { return }
         
         DispatchQueue.global().async { [weak self] in
             
-            guard
-                let self = self
-                    
-            else { return }
+            guard let self = self else { return }
             
             let semaphore = DispatchSemaphore(value: 0)
             
@@ -159,10 +152,7 @@ class EditArticleViewModel {
     
     func detectImage() {
         
-        guard
-            article.imageURLString != ""
-        
-        else {
+        guard article.imageURLString != "" else {
             
             errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
             
@@ -190,8 +180,7 @@ class EditArticleViewModel {
         
         GoogleMLWrapper.shared.detectLabels(with: image) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

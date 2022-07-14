@@ -78,10 +78,8 @@ class CommentCell: UITableViewCell {
         
         userImageView.loadImage(senderViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        if
-            let currentUser = UserFirebaseManager.shared.currentUser
+        if let currentUser = UserFirebaseManager.shared.currentUser {
             
-        {
             editButton.isHidden = currentUser.id == senderViewModel.user.id
         }
     }

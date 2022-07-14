@@ -21,8 +21,7 @@ class LoadMoreActivityIndicator {
     
     private var defaultY: CGFloat {
         
-        guard
-            let height = scrollView?.contentSize.height else { return 0.0 }
+        guard let height = scrollView?.contentSize.height else { return 0.0 }
         
         return height + spacingFromLastCell
     }
@@ -71,8 +70,7 @@ class LoadMoreActivityIndicator {
     
     private var isHidden: Bool {
         
-        guard
-            let scrollView = scrollView else { return true }
+        guard let scrollView = scrollView else { return true }
         
         return scrollView.contentSize.height < scrollView.frame.size.height
     }
@@ -81,8 +79,7 @@ class LoadMoreActivityIndicator {
     
     func start(completion: (() -> Void)?) {
         
-        guard
-            let scrollView = scrollView, let activityIndicatorView = activityIndicatorView else { return }
+        guard let scrollView = scrollView, let activityIndicatorView = activityIndicatorView else { return }
         
         let offsetY = scrollView.contentOffset.y
         

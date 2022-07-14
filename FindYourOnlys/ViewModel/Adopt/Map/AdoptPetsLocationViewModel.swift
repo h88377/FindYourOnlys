@@ -123,15 +123,13 @@ class AdoptPetsLocationViewModel {
         guard
             !isShelterMap,
             let pet = pet
-                
         else { return }
         
         startLoadingHandler?()
-            
+        
         MapManager.shared.convertAddress(with: "\(pet.address)") { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -142,8 +140,7 @@ class AdoptPetsLocationViewModel {
                 self.selectedMapAnnotation = MapAnnotation(
                     title: pet.kind, subtitle: pet.address,
                     location: pet.address,
-                    coordinate: location.coordinate
-                )
+                    coordinate: location.coordinate)
                 
                 self.getPetLocationHandler?()
                 
@@ -158,8 +155,7 @@ class AdoptPetsLocationViewModel {
     
     func fetchShelter(with city: String) {
         
-        guard
-            isShelterMap else { return }
+        guard isShelterMap else { return }
         
         if isSearch {
             
@@ -168,46 +164,43 @@ class AdoptPetsLocationViewModel {
         
         startLoadingHandler?()
         
-        PetProvider.shared.fetchPet(
-            with: AdoptFilterCondition()) { [weak self] result in
+        PetProvider.shared.fetchPet(with: AdoptFilterCondition()) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
                 
-                guard
-                    let self = self else { return }
+            case .success(let pets):
                 
-                switch result {
+                let shelters = self.convertShelters(from: pets, city: city)
+                
+                if shelters.isEmpty {
                     
-                case .success(let pets):
+                    self.mapAnnotationViewModels.value = []
                     
-                    let shelters = self.convertShelters(from: pets, city: city)
+                } else {
                     
-                    if shelters.isEmpty {
-                        
-                        self.mapAnnotationViewModels.value = []
-                        
-                    } else {
-                        
-                        self.shelters = shelters
-                        
-                        self.appendMapAnnotationsInViewModels(with: shelters)
-                    }
+                    self.shelters = shelters
                     
-                case .failure(let error):
-                    
-                    self.errorViewModel.value = ErrorViewModel(model: error)
+                    self.appendMapAnnotationsInViewModels(with: shelters)
                 }
                 
-                self.stopLoadingHandler?()
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            
+            self.stopLoadingHandler?()
+        }
     }
-
+    
     private func appendMapAnnotationsInViewModels(with shelters: [Shelter]) {
         
         shelters.forEach { shelter in
             
             MapManager.shared.convertAddress(with: shelter.address) { [weak self] result in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 switch result {
                     
@@ -223,9 +216,7 @@ class AdoptPetsLocationViewModel {
                         location: shelter.address,
                         coordinate: CLLocationCoordinate2D(
                             latitude: location.coordinate.latitude,
-                            longitude: location.coordinate.longitude
-                        )
-                    )
+                            longitude: location.coordinate.longitude))
                     
                     self.appendMapAnnotation(annotation: mapAnnotation)
                     
@@ -244,7 +235,6 @@ class AdoptPetsLocationViewModel {
             selectedMapAnnotation?.coordinate.longitude != CLLocationDegrees(0.0),
             let currentCoordinate = currentMapAnnotation?.coordinate,
             let stopCoordinate = selectedMapAnnotation?.coordinate
-        
         else {
             
             showAlertHandler?()
@@ -256,30 +246,30 @@ class AdoptPetsLocationViewModel {
         
         MapManager.shared.calculateRoute(
             currentCoordinate: currentCoordinate,
-            stopCoordinate: stopCoordinate) { [weak self] result in
+            stopCoordinate: stopCoordinate
+        ) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
                 
-                guard
-                    let self = self else { return }
+            case .success(let(route, mapRoute)):
                 
-                switch result {
-                    
-                case .success(let(route, mapRoute)):
-                    
-                    self.route = route
-                    
-                    self.mapRoute = mapRoute
-                    
-                    self.getUserLocationHandler?()
-                    
-                    self.showDirectionHandler?()
-                    
-                case .failure(let error):
-                    
-                    self.errorViewModel.value = ErrorViewModel(model: error)
-                }
+                self.route = route
                 
-                self.stopLoadingHandler?()
+                self.mapRoute = mapRoute
+                
+                self.getUserLocationHandler?()
+                
+                self.showDirectionHandler?()
+                
+            case .failure(let error):
+                
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
+            
+            self.stopLoadingHandler?()
+        }
     }
     
     private func convertShelters(from pets: [Pet], city: String) -> [Shelter] {
@@ -318,8 +308,7 @@ class AdoptPetsLocationViewModel {
                 shelter = Shelter(
                     title: shelterName,
                     address: pet.address,
-                    petCounts: [catPetCount, dogPetCount, otherPetCount]
-                )
+                    petCounts: [catPetCount, dogPetCount, otherPetCount])
             }
             
             if shelter.title != "" {
@@ -333,8 +322,7 @@ class AdoptPetsLocationViewModel {
     
     private func appendMapAnnotation(annotation: MapAnnotation) {
         
-        if
-            mapAnnotationViewModels.value == nil {
+        if mapAnnotationViewModels.value == nil {
             
             mapAnnotationViewModels.value = [MapAnnotationViewModel(model: annotation)]
             

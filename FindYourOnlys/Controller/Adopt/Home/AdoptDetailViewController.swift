@@ -83,28 +83,23 @@ class AdoptDetailViewController: BaseViewController {
         
         viewModel?.petViewModel.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
         }
         
         viewModel?.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel?.favoriteChangedHandler = { [weak self] isFavorite in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.favoriteButton.isSelected = isFavorite
         }
@@ -134,8 +129,7 @@ class AdoptDetailViewController: BaseViewController {
     
     override func setupTableView() {
         
-        guard
-            let viewModel = viewModel else { return }
+        guard let viewModel = viewModel else { return }
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
         
@@ -153,23 +147,20 @@ class AdoptDetailViewController: BaseViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                
-                tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor, constant: 5)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor, constant: 5)])
         
         let header = AdoptDetailHeaderView(frame: CGRect(
             x: 0, y: 0,
             width: view.frame.width,
-            height: view.frame.width)
-        )
+            height: view.frame.width))
         
         header.configureView(with: viewModel.petViewModel.value)
         
@@ -182,17 +173,15 @@ class AdoptDetailViewController: BaseViewController {
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                
-                backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-                
-                backButton.heightAnchor.constraint(equalToConstant: 40),
-                
-                backButton.widthAnchor.constraint(equalToConstant: 40)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            
+            backButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            backButton.widthAnchor.constraint(equalToConstant: 40)])
         
         let config = UIImage.SymbolConfiguration(pointSize: 34)
         
@@ -227,7 +216,6 @@ class AdoptDetailViewController: BaseViewController {
             let phoneNumber = viewModel?.petViewModel.value.pet.telephone,
             let url = URL(string: "tel://\(String(describing: phoneNumber))"),
             UIApplication.shared.canOpenURL(url)
-                
         else {
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
@@ -254,12 +242,10 @@ class AdoptDetailViewController: BaseViewController {
         
         let storyboard = UIStoryboard.adopt
         
-        guard
-            let petsLocationVC = storyboard.instantiateViewController(
+        guard let petsLocationVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptPetsLocationViewController.identifier
             ) as? AdoptPetsLocationViewController,
             let viewModel = viewModel
-                
         else { return }
         
         petsLocationVC.viewModel.pet = viewModel.petViewModel.value.pet
@@ -285,8 +271,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             
         } else {
             
-            guard
-                let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
+            guard let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
             
             return adoptDetailDescription.count
         }
@@ -297,7 +282,6 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
         guard
             let cellViewModel = viewModel?.petViewModel.value,
             let adoptDetailContentCategory = viewModel?.adoptDetailContentCategory
-                
         else { return UITableViewCell() }
         
         if indexPath.section == 0 {
@@ -307,17 +291,13 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
                 for: indexPath
             )
             
-            guard
-                let detailCell = cell as? AdoptDetailTableViewCell
-                    
-            else { return cell }
+            guard let detailCell = cell as? AdoptDetailTableViewCell else { return cell }
             
             detailCell.configureCell(with: cellViewModel)
             
             detailCell.shareHandler = { [weak self] in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 AlertWindowManager.shared.showShareActivity(at: self)
             }
@@ -329,8 +309,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             let detailContentCell = adoptDetailContentCategory[indexPath.row].cellForIndexPath(
                 indexPath,
                 tableView: tableView,
-                viewModel: cellViewModel
-            )
+                viewModel: cellViewModel)
             
             return detailContentCell
         }
@@ -338,8 +317,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        guard
-            let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
+        guard let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
         
         header.scrollViewDidScroll(scrollView: tableView)
     }

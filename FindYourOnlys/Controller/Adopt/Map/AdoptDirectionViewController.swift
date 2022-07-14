@@ -52,8 +52,7 @@ class AdoptDirectionViewController: BaseViewController {
         
         viewModel.directionViewModel.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
         }
@@ -102,10 +101,7 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
             withIdentifier: DirectionCell.identifier,
             for: indexPath)
         
-        guard
-            let directionCell = cell as? DirectionCell
-                
-        else { return cell }
+        guard let directionCell = cell as? DirectionCell else { return cell }
         
         let directionViewModel = viewModel.directionViewModel
         
@@ -116,12 +112,9 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: DirectionHeaderView.identifier)
-                as? DirectionHeaderView
-                
-        else { return nil }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: DirectionHeaderView.identifier
+        )as? DirectionHeaderView else { return nil }
         
         let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
         

@@ -11,14 +11,12 @@ extension CLPlacemark {
     
     var abbreviation: String {
         
-        if
-            let name = self.name {
+        if let name = self.name {
             
             return name
         }
         
-        if
-            let interestingPlace = areasOfInterest?.first {
+        if let interestingPlace = areasOfInterest?.first {
             
             return interestingPlace
         }

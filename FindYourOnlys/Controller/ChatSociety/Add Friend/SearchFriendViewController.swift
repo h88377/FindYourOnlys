@@ -68,7 +68,6 @@ class SearchFriendViewController: BaseViewController {
             guard
                 let self = self,
                 let searchViewModel = searchViewModel
-                    
             else { return }
             
             let storyboard = UIStoryboard.chatSociety
@@ -77,10 +76,9 @@ class SearchFriendViewController: BaseViewController {
             
             guard
                 let friendProfileVC = storyboard.instantiateViewController(
-                    withIdentifier: FriendProfileViewController.identifier)
-                    as? FriendProfileViewController,
+                    withIdentifier: FriendProfileViewController.identifier
+                )as? FriendProfileViewController,
                 searchResult != .noRelativeEmail
-                    
             else {
                 
                 self.errorMessageLabel.isHidden = false
@@ -90,8 +88,7 @@ class SearchFriendViewController: BaseViewController {
                 return
             }
             
-            if
-                let user = searchViewModel.user {
+            if let user = searchViewModel.user {
                 
                 self.errorMessageLabel.isHidden = true
                 
@@ -106,13 +103,11 @@ class SearchFriendViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] error in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = error
+            else { return }
             
-            if
-                let error = error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
     }
     
@@ -131,8 +126,7 @@ extension SearchFriendViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        guard
-            let userEmail = textField.text else { return }
+        guard let userEmail = textField.text else { return }
         
         viewModel.changedUserEmail(with: userEmail)
         

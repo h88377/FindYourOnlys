@@ -36,36 +36,30 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         viewModel.articleViewModel.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
-            
+            guard let self = self else { return }
+                
             self.popBack()
         }
         
         viewModel.editHandler = { [weak self] articleViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
                 
@@ -75,8 +69,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
             AlertWindowManager.shared.presentEditActionSheet(
                 at: self,
                 articleViewModel: articleViewModel,
-                with: deleteConfirmAction
-            )
+                with: deleteConfirmAction)
         }
         
         viewModel.fetchArticle()
@@ -96,16 +89,14 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -119,16 +110,14 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         articleCell.likeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.likeArticle(with: articleViewModel)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
              
             self.viewModel.unlikeArticle(with: articleViewModel)
         }
@@ -142,7 +131,6 @@ class ProfileSelectedArticleViewController: BaseViewController {
                     withIdentifier: PetSocietyCommentViewController.identifier
                 ) as? PetSocietyCommentViewController,
                 let self = self
-                    
             else { return }
             
             petSocietyCommentVC.modalPresentationStyle = .custom
@@ -158,8 +146,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         articleCell.shareHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             AlertWindowManager.shared.showShareActivity(at: self)
         }
@@ -187,16 +174,15 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
             
-            guard
-                let articlePhotoCell = cell as? ArticlePhotoCell
-                    
-            else { return cell }
+            guard let articlePhotoCell = cell as? ArticlePhotoCell else { return cell }
             
             articlePhotoCell.configureCell(with: articleCellViewModel)
             
             articlePhotoCell.editHandler = { [weak self] in
                 
-                self?.viewModel.editArticle(with: articleCellViewModel)
+                guard let self = self else { return }
+                
+                self.viewModel.editArticle(with: articleCellViewModel)
             }
             
             return articlePhotoCell
@@ -205,18 +191,14 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
-            guard
-                let articleContentCell = cell as? ArticleContentCell
-                    
-            else { return cell }
+            guard let articleContentCell = cell as? ArticleContentCell else { return cell }
             
             articleContentCell.configureCell(with: articleCellViewModel)
             
             setupArticleContentCellHandler(
                 articleCell: articleContentCell,
                 with: articleCellViewModel,
-                author: currentUser
-            )
+                author: currentUser)
             
             return articleContentCell
         }

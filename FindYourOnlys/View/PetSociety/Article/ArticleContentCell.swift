@@ -115,8 +115,7 @@ class ArticleContentCell: UITableViewCell {
         
         hideLike(viewModel: viewModel)
         
-        if
-            let currentUser = UserFirebaseManager.shared.currentUser {
+        if let currentUser = UserFirebaseManager.shared.currentUser {
             
             likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
             
@@ -172,6 +171,5 @@ class ArticleContentCell: UITableViewCell {
         likeArticleHandler = nil
         
         leaveCommentHandler = nil
-    }
-    
+    } 
 }

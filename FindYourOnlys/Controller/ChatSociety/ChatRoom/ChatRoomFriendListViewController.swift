@@ -40,8 +40,7 @@ class ChatRoomFriendListViewController: BaseViewController {
         
         viewModel.chatRoomViewModels.bind { [weak self] chatRoomViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.isHidden = chatRoomViewModels.isEmpty
             
@@ -50,8 +49,7 @@ class ChatRoomFriendListViewController: BaseViewController {
         
         viewModel.friendViewModels.bind { [weak self] friendViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.isHidden = friendViewModels.isEmpty
             
@@ -61,13 +59,11 @@ class ChatRoomFriendListViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         addCurrentUserObserver()
@@ -91,15 +87,13 @@ class ChatRoomFriendListViewController: BaseViewController {
             image: UIImage.system(.notification),
             style: .plain,
             target: self,
-            action: #selector(checkFriendRequest)
-        )
+            action: #selector(checkFriendRequest))
         
         let searchItem = UIBarButtonItem(
             image: UIImage.system(.addFriend),
             style: .plain,
             target: self,
-            action: #selector(searchFriend)
-        )
+            action: #selector(searchFriend))
         
         navigationItem.rightBarButtonItems = [searchItem, requestItem]
     }
@@ -129,8 +123,7 @@ class ChatRoomFriendListViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -153,9 +146,8 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         guard
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ChatRoomFriendListCell.identifier,
-                for: indexPath)
-                as? ChatRoomFriendListCell
-                
+                for: indexPath
+            )as? ChatRoomFriendListCell
         else { return UITableViewCell() }
         
         let cellViewModel = viewModel.friendViewModels.value[indexPath.row]
@@ -171,9 +163,8 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         
         guard
             let chatRoomMessageVC = storyboard.instantiateViewController(
-                withIdentifier: ChatRoomMessageViewController.identifier)
-                as? ChatRoomMessageViewController
-                
+                withIdentifier: ChatRoomMessageViewController.identifier
+            )as? ChatRoomMessageViewController
         else { return }
         
         let selectedChatRoom = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom

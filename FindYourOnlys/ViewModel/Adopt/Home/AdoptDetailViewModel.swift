@@ -104,8 +104,7 @@ class AdoptDetailViewModel {
         
         FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -126,8 +125,7 @@ class AdoptDetailViewModel {
         
         StorageManager.shared.fetchPet { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -148,16 +146,18 @@ class AdoptDetailViewModel {
     
     private func addFavoritePetInCloud() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         FavoritePetFirebaseManager.shared.saveFavoritePet(
-            currentUser.id, with: petViewModel.value
+            currentUser.id,
+            with: petViewModel.value
         ) { [weak self] result in
+            
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -166,9 +166,11 @@ class AdoptDetailViewModel {
         
         StorageManager.shared.savePetInFavorite(with: petViewModel.value) { [weak self] result in
             
+            guard let self = self else { return }
+            
             if case .failure(let error) = result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }
@@ -181,9 +183,11 @@ class AdoptDetailViewModel {
             
             StorageManager.shared.removePetfromFavorite(lsPet: favoriteLSPet) { [weak self] result in
                 
+                guard let self = self else { return }
+                
                 if case .failure(let error) = result {
                     
-                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                    self.errorViewModel.value = ErrorViewModel(model: error)
                 }
             }
         }
@@ -193,9 +197,11 @@ class AdoptDetailViewModel {
         
         FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value) { [weak self] result in
             
+            guard let self = self else { return }
+            
             if case .failure(let error) = result {
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self.errorViewModel.value = ErrorViewModel(model: error)
             }
         }
     }

@@ -37,12 +37,12 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         filterButton.layer.cornerRadius = 15
     }
-
+    
     // MARK: - Methods
     
     override func setupTableView() {
         super.setupTableView()
-
+        
         tableView.delegate = self
         
         tableView.dataSource = self
@@ -54,7 +54,7 @@ class FindPetSocietyFilterViewController: BaseViewController {
         tableView.backgroundColor = .projectBackgroundColor
         
         tableView.registerCellWithIdentifier(identifier: CityPickerCell.identifier)
-
+        
         tableView.registerCellWithIdentifier(identifier: KindSelectionCell.identifier)
         
         tableView.registerCellWithIdentifier(identifier: FilterRemindCell.identifier)
@@ -67,19 +67,17 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                
-                tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)])
     }
     
     func setupFilterButton() {
@@ -100,17 +98,15 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                
-                filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-                
-                filterButton.widthAnchor.constraint(equalToConstant: 150),
-                
-                filterButton.heightAnchor.constraint(equalToConstant: 60)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            filterButton.widthAnchor.constraint(equalToConstant: 150),
+            
+            filterButton.heightAnchor.constraint(equalToConstant: 60)])
     }
     
     func setupAnimationView() {
@@ -121,17 +117,15 @@ class FindPetSocietyFilterViewController: BaseViewController {
         
         animationView.loopMode = .loop
         
-        NSLayoutConstraint.activate(
-            [
-                animationView.heightAnchor.constraint(equalToConstant: 150),
-                
-                animationView.bottomAnchor.constraint(equalTo: filterButton.bottomAnchor),
-                
-                animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                animationView.leadingAnchor.constraint(equalTo: filterButton.trailingAnchor)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            animationView.heightAnchor.constraint(equalToConstant: 150),
+            
+            animationView.bottomAnchor.constraint(equalTo: filterButton.bottomAnchor),
+            
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            animationView.leadingAnchor.constraint(equalTo: filterButton.trailingAnchor)])
     }
     
     override func setupNavigationTitle() {
@@ -153,10 +147,8 @@ class FindPetSocietyFilterViewController: BaseViewController {
     
     @objc func filter(sender: UIButton) {
         
-        guard
-            let petSocietyVC = navigationController?.viewControllers[0] as? FindPetSocietyViewController,
-            viewModel.isValidCondition
-                
+        guard let petSocietyVC = navigationController?.viewControllers[0] as? FindPetSocietyViewController,
+              viewModel.isValidCondition
         else {
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫全部條件喔！")
@@ -175,12 +167,12 @@ class FindPetSocietyFilterViewController: BaseViewController {
 // MARK: - UITableViewDataSource and Delegate
 
 extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         viewModel.findPetSocietyFilterCategory.count + 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row + 1 <= viewModel.findPetSocietyFilterCategory.count {
@@ -188,13 +180,9 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             let cell = viewModel.findPetSocietyFilterCategory[indexPath.row].cellForIndexPath(
                 indexPath,
                 tableView: tableView,
-                findCondition: viewModel.findPetSocietyFilterCondition
-            )
+                findCondition: viewModel.findPetSocietyFilterCondition)
             
-            guard
-                let baseCell = cell as? BasePublishCell
-                    
-            else { return cell }
+            guard let baseCell = cell as? BasePublishCell else { return cell }
             
             baseCell.delegate = self
             
@@ -204,10 +192,7 @@ extension FindPetSocietyFilterViewController: UITableViewDataSource, UITableView
             
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterRemindCell.identifier, for: indexPath)
             
-            guard
-                let remindCell = cell as? FilterRemindCell
-            
-            else { return cell }
+            guard let remindCell = cell as? FilterRemindCell else { return cell }
             
             remindCell.configureCell(with: .allCondition)
             

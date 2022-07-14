@@ -53,15 +53,13 @@ class AdoptDetailHeaderView: UIView {
     
     func setupViewConstraints() {
         
-        NSLayoutConstraint.activate(
-            [
-                widthAnchor.constraint(equalTo: containerView.widthAnchor),
-                
-                centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-                
-                heightAnchor.constraint(equalTo: containerView.heightAnchor)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            
+            centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            
+            heightAnchor.constraint(equalTo: containerView.heightAnchor)])
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
         

@@ -60,8 +60,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.findArticleViewModels.bind { [weak self] articleViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
             
@@ -70,28 +69,23 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.findAuthorViewModels.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
         }
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.signInHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let storyboard = UIStoryboard.auth
             
@@ -136,16 +130,14 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -155,13 +147,10 @@ class FindPetSocietyViewController: BaseViewController {
         
         viewModel.editHandler = { [weak self] articleViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser,
+            guard let currentUser = UserFirebaseManager.shared.currentUser,
                 articleViewModel.article.userId == currentUser.id
-                    
             else {
                 
                 let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
@@ -182,21 +171,18 @@ class FindPetSocietyViewController: BaseViewController {
             AlertWindowManager.shared.presentEditActionSheet(
                 at: self,
                 articleViewModel: articleViewModel,
-                with: deleteConfirmAction
-            )
+                with: deleteConfirmAction)
         }
         
         viewModel.tapAddArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let storyboard = UIStoryboard.findPetSociety
             
-            guard
-                let publishVC = storyboard.instantiateViewController(
-                    withIdentifier: PublishViewController.identifier)
-                    as? PublishViewController else { return }
+            guard let publishVC = storyboard.instantiateViewController(
+                    withIdentifier: PublishViewController.identifier
+            )as? PublishViewController else { return }
             
             publishVC.viewModel.articleType = .find
             
@@ -212,16 +198,14 @@ class FindPetSocietyViewController: BaseViewController {
         
         articleCell.likeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.likeArticle(with: articleViewModel)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
              
             self.viewModel.unlikeArticle(with: articleViewModel)
         }
@@ -230,12 +214,10 @@ class FindPetSocietyViewController: BaseViewController {
             
             let storyboard = UIStoryboard.findPetSociety
             
-            guard
-                let petSocietyCommentVC = storyboard.instantiateViewController(
+            guard let petSocietyCommentVC = storyboard.instantiateViewController(
                     withIdentifier: PetSocietyCommentViewController.identifier
                 ) as? PetSocietyCommentViewController,
                 let self = self
-                    
             else { return }
             
             petSocietyCommentVC.modalPresentationStyle = .custom
@@ -251,8 +233,7 @@ class FindPetSocietyViewController: BaseViewController {
         
         articleCell.shareHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             AlertWindowManager.shared.showShareActivity(at: self)
         }
@@ -263,8 +244,7 @@ class FindPetSocietyViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -281,11 +261,9 @@ class FindPetSocietyViewController: BaseViewController {
         
         let storyboard = UIStoryboard.findPetSociety
         
-        guard
-            let filterVC = storyboard
-                .instantiateViewController(withIdentifier: FindPetSocietyFilterViewController.identifier)
-                as? FindPetSocietyFilterViewController
-                
+        guard let filterVC = storyboard
+                .instantiateViewController(withIdentifier: FindPetSocietyFilterViewController.identifier
+                )as? FindPetSocietyFilterViewController
         else { return }
         
         filterVC.viewModel.findPetSocietyFilterCondition = viewModel.findPetSocietyFilterCondition
@@ -309,7 +287,6 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
         guard
             viewModel.findAuthorViewModels.value.count > 0,
             viewModel.findArticleViewModels.value.count == viewModel.findAuthorViewModels.value.count
-                
         else { return 0 }
         
         return viewModel.findArticleViewModels.value.count
@@ -337,15 +314,13 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
             
-            guard
-                let photoCell = cell as? ArticlePhotoCell else { return cell }
+            guard let photoCell = cell as? ArticlePhotoCell else { return cell }
             
             photoCell.configureCell(with: articleCellViewModel, authorViewModel: authorCellViewModel)
             
             photoCell.editHandler = { [weak self] in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 self.viewModel.editArticle(with: articleCellViewModel)
             }
@@ -357,16 +332,14 @@ extension FindPetSocietyViewController: UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
-            guard
-                let contentCell = cell as? ArticleContentCell else { return cell }
+            guard let contentCell = cell as? ArticleContentCell else { return cell }
             
             contentCell.configureCell(with: articleCellViewModel)
             
             setupArticleContentCellHandler(
                 articleCell: contentCell,
                 with: articleCellViewModel,
-                authorViewModel: authorCellViewModel
-            )
+                authorViewModel: authorCellViewModel)
             
             return contentCell
         }

@@ -33,8 +33,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .find, with: condition) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -65,8 +64,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .share) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -93,15 +91,13 @@ class PetSocietyViewModel: BaseSocietyViewModel {
     
     func fetchArticle() {
         
-        guard
-            let article = articleViewModel.value?.article else { return }
+        guard let article = articleViewModel.value?.article else { return }
         
         startLoadingHandler?()
         
         PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: article.id) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -121,8 +117,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -160,8 +155,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
     
     private func filterOutBlockedComments(with articles: inout [Article]) {
         
-        if
-            let currentUser = UserFirebaseManager.shared.currentUser {
+        if let currentUser = UserFirebaseManager.shared.currentUser {
             
             for index in 0..<articles.count {
                 
@@ -181,10 +175,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         startLoadingHandler?()
         
-        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { result in
             
             switch result {
                 

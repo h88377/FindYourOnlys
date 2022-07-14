@@ -27,17 +27,13 @@ class ProfileViewModel {
     
     func fetchCurrentUser() {
         
-        guard
-            let currentUserId = UserFirebaseManager.shared.initialUser?.uid
-                
-        else { return }
+        guard let currentUserId = UserFirebaseManager.shared.initialUser?.uid else { return }
         
         startLoadingHandler?()
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -63,8 +59,7 @@ class ProfileViewModel {
         
         PetSocietyFirebaseManager.shared.fetchArticle { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -88,8 +83,7 @@ class ProfileViewModel {
         
         UserFirebaseManager.shared.signOut { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

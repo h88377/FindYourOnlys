@@ -35,19 +35,16 @@ class PublishViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
-            
-            if
-                let error = errorViewModel?.error {
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
                 
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.checkPublishedContentHandler = { [weak self] isValidContent, isValidDetectResult in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if !isValidContent {
                 
@@ -61,8 +58,7 @@ class PublishViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.popBack()
         }
@@ -87,16 +83,14 @@ class PublishViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -106,32 +100,28 @@ class PublishViewController: BaseViewController {
         
         viewModel.startScanningHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startScanning()
         }
         
         viewModel.stopScanningHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopScanning()
         }
         
         viewModel.successHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.success()
         }
         
         viewModel.imageDetectHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.detectImage()
         }
@@ -199,18 +189,15 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = publishContentCategory[indexPath.row].cellForIndexPath(
             indexPath,
             tableView: tableView,
-            article: viewModel.article
-        )
+            article: viewModel.article)
         
-        guard
-            let publishCell = cell as? BasePublishCell else { return cell }
+        guard let publishCell = cell as? BasePublishCell else { return cell }
         
         publishCell.delegate = self
         
         publishCell.galleryHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.openGallery()
             
@@ -222,8 +209,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         
         publishCell.cameraHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.openCamera()
             
@@ -235,8 +221,7 @@ extension PublishViewController: UITableViewDelegate, UITableViewDataSource {
         
         publishCell.imageDetectHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.imageDetectHandler?()
         }
@@ -286,15 +271,13 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         dismiss(animated: true)
         
-        if
-            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
             viewModel.updateImageHandler?(editedImage)
             
             viewModel.selectedImage = editedImage
             
-        } else if
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             viewModel.updateImageHandler?(image)
             

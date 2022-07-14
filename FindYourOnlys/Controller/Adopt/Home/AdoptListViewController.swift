@@ -54,8 +54,7 @@ class AdoptListViewController: BaseViewController {
          
         viewModel.petViewModels.bind { [weak self] petViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.collectionView.reloadData()
 
@@ -64,22 +63,17 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let self = self else { return }
-            
-            if
-                let error = errorViewModel?.error {
+            guard let self = self,
+                  let error = errorViewModel?.error
+            else { return }
                 
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.resetPetHandler = { [weak self] in
             
-            guard
-                let self = self,
-                self.viewModel.petViewModels.value.count > 0
-                    
+            guard let self = self,
+                  self.viewModel.petViewModels.value.count > 0
             else { return }
             
             DispatchQueue.main.async {
@@ -90,24 +84,21 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.noMorePetHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "沒有更多動物資訊了喔！")
         }
         
         viewModel.addToFavoriteHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.addToFavoriteAnimation()
         }
         
         viewModel.longPressedHandler = { [weak self] isFavorite in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.showFavoriteAlert(with: isFavorite)
         }
@@ -148,16 +139,14 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -167,8 +156,7 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.startIndicatorHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             DispatchQueue.main.async {
                 
@@ -181,8 +169,7 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.stopIndicatorHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             DispatchQueue.main.async {
                 
@@ -222,8 +209,7 @@ class AdoptListViewController: BaseViewController {
             
             let touchPoint = sender.location(in: collectionView)
             
-            if
-                let indexPath = collectionView.indexPathForItem(at: touchPoint) {
+            if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
                 
                 viewModel.fetchFavoritePet(at: indexPath.row)
             }
@@ -305,18 +291,12 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         CGFloat(16)
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         viewModel.petViewModels.value.count
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath)
@@ -333,10 +313,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         return cell
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard.adopt
         

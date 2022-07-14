@@ -27,10 +27,7 @@ class BaseSocietyViewModel {
     
     func likeArticle(with articleViewModel: ArticleViewModel) {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
@@ -39,8 +36,7 @@ class BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
@@ -51,10 +47,7 @@ class BaseSocietyViewModel {
     
     func unlikeArticle(with articleViewModel: ArticleViewModel) {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
@@ -63,8 +56,7 @@ class BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
@@ -75,10 +67,7 @@ class BaseSocietyViewModel {
     
     func editArticle(with articleViewModel: ArticleViewModel) {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
@@ -90,10 +79,7 @@ class BaseSocietyViewModel {
     
     func tapAddArticle() {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             

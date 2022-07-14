@@ -34,19 +34,16 @@ class EditArticleViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.checkEditedContentHandler = { [weak self] isValidContent, isValidDetectResult in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if !isValidContent {
                 
@@ -60,8 +57,7 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.popBack()
         }
@@ -95,32 +91,28 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.startScanningHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startScanning()
         }
         
         viewModel.stopScanningHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopScanning()
         }
         
         viewModel.successHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.success()
         }
         
         viewModel.imageDetectHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.detectImage()
         }
@@ -130,16 +122,14 @@ class EditArticleViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -203,15 +193,13 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         let cell = category.cellForIndexPath(indexPath, tableView: tableView, article: viewModel.article)
         
-        guard
-            let editCell = cell as? BasePublishCell else { return cell }
+        guard let editCell = cell as? BasePublishCell else { return cell }
         
         editCell.delegate = self
         
         editCell.galleryHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.openGallery()
             
@@ -223,8 +211,7 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         editCell.cameraHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.openCamera()
             
@@ -236,8 +223,7 @@ extension EditArticleViewController: UITableViewDelegate, UITableViewDataSource 
         
         editCell.imageDetectHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.imageDetectHandler?()
         }
@@ -281,19 +267,18 @@ extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigati
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         
         dismiss(animated: true)
         
-        if
-            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
             viewModel.updateImageHandler?(editedImage)
             
             viewModel.selectedImage = editedImage
             
-        } else if
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             viewModel.updateImageHandler?(image)
             

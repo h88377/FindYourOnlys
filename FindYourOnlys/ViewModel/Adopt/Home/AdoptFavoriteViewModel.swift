@@ -34,15 +34,11 @@ class AdoptFavoriteViewModel {
     
     private func fetchCloudFavoritePets() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser
-                
-        else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -66,7 +62,9 @@ class AdoptFavoriteViewModel {
     
     private func fetchLSFavoritePets() {
         
-        StorageManager.shared.fetchPet { result in
+        StorageManager.shared.fetchPet { [weak self] result in
+            
+            guard let self = self else { return }
             
             switch result {
                 

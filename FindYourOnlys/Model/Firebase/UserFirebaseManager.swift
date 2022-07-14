@@ -56,14 +56,12 @@ class UserFirebaseManager {
         with authorization: ASAuthorization,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        if
-            let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             
             guard
                 let nonce = currentNonce,
                 let appleIdToken = appleIdCredential.identityToken,
                 let idTokenString = String(data: appleIdToken, encoding: .utf8)
-                
             else {
                 
                 completion(.failure(AuthError.appleTokenError))
@@ -74,19 +72,16 @@ class UserFirebaseManager {
             let credential = OAuthProvider.credential(
                 withProviderID: "apple.com",
                 idToken: idTokenString,
-                rawNonce: nonce
-            )
+                rawNonce: nonce)
             
             Auth.auth().signIn(with: credential) { [weak self] authDataResult, error in
                 
                 guard
                     let authDataResult = authDataResult,
                     let self = self
-                        
                 else {
                     
-                    if
-                        let error = error as NSError?,
+                    if let error = error as NSError?,
                         let errorCode = AuthErrorCode(rawValue: error.code) {
                         
                         switch errorCode {
@@ -161,10 +156,7 @@ class UserFirebaseManager {
                 
                 let isExistUser = firestoreUsers.map({ $0.id }).contains(user.uid)
                 
-                guard
-                    !isExistUser
-                
-                else {
+                guard !isExistUser else {
                     
                     for firestoreUser in firestoreUsers where firestoreUser.id == user.uid {
                         
@@ -194,8 +186,7 @@ class UserFirebaseManager {
                             email: user.email ?? "",
                             imageURLString: "",
                             friends: [],
-                            blockedUsers: []
-                        )
+                            blockedUsers: [])
                         
                         completion(.success(()))
                         
@@ -220,18 +211,19 @@ class UserFirebaseManager {
         completion: @escaping (Result<String, Error>) -> Void
     ) {
         
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
+        Auth.auth().createUser(
+            withEmail: email,
+            password: password
+        ) { [weak self] authDataResult, error in
             
             guard
                 error == nil,
                 let user = authDataResult?.user,
                 let self = self
-            
             else {
                 
-                if
-                    let error = error as NSError?,
-                    let errorCode = AuthErrorCode(rawValue: error.code) {
+                if let error = error as NSError?,
+                   let errorCode = AuthErrorCode(rawValue: error.code) {
                     
                     switch errorCode {
                         
@@ -287,19 +279,24 @@ class UserFirebaseManager {
     
     // Sign in with Firebase
     
-    func signIn(withEmail email: String, password: String, completion: @escaping (Result<String, Error>) -> Void ) {
+    func signIn(
+        withEmail email: String,
+        password: String,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
         
-        Auth.auth().signIn(withEmail: email, password: password) { authDataResult, error in
+        Auth.auth().signIn(
+            withEmail: email,
+            password: password
+        ) { authDataResult, error in
             
             guard
                 error == nil,
                 let userId = authDataResult?.user.uid
-            
             else {
                 
-                if
-                    let error = error as NSError?,
-                    let errorCode = AuthErrorCode(rawValue: error.code) {
+                if let error = error as NSError?,
+                   let errorCode = AuthErrorCode(rawValue: error.code) {
                     
                     switch errorCode {
                         
@@ -351,9 +348,8 @@ class UserFirebaseManager {
             
         } catch {
             
-            if
-                let error = error as NSError?,
-                let errorCode = AuthErrorCode(rawValue: error.code) {
+            if let error = error as NSError?,
+               let errorCode = AuthErrorCode(rawValue: error.code) {
                 
                 switch errorCode {
                     
@@ -382,13 +378,7 @@ class UserFirebaseManager {
     // Delete User
     func deleteAuthUser(completion: @escaping (Result<Void, Error>) -> Void) {
         
-        guard
-            let user = Auth.auth().currentUser
-                
-        else {
-            
-            return
-        }
+        guard let user = Auth.auth().currentUser else { return }
         
         let group = DispatchGroup()
         
@@ -510,14 +500,10 @@ class UserFirebaseManager {
                 // Account
                 user.delete { error in
                     
-                    guard
-                        error == nil
-                            
-                    else {
+                    guard error == nil else {
                         
-                        if
-                            let error = error as NSError?,
-                            let errorCode = AuthErrorCode(rawValue: error.code) {
+                        if let error = error as NSError?,
+                           let errorCode = AuthErrorCode(rawValue: error.code) {
                             
                             switch errorCode {
                                 
@@ -568,10 +554,7 @@ class UserFirebaseManager {
         
         database.collection(FirebaseCollectionType.user.rawValue).document(userId).delete { error in
             
-            guard
-                error == nil
-                    
-            else {
+            guard error == nil else {
                 
                 completion(.failure(FirebaseError.deleteUserError))
                 
@@ -589,9 +572,8 @@ class UserFirebaseManager {
             .addSnapshotListener { snapshot, _ in
                 
                 guard
-                    let snapshot = snapshot
-                
-                else {
+                    let snapshot = snapshot else {
+                        
                         completion(.failure(FirebaseError.fetchUserError))
                         
                         return
@@ -610,15 +592,17 @@ class UserFirebaseManager {
             }
     }
     
-    func fetchUser(with userEmail: String, completion: @escaping (Result<[User], Error>) -> Void) {
+    func fetchUser(
+        with userEmail: String,
+        completion: @escaping (Result<[User], Error>) -> Void
+    ) {
         
         database
             .collection(FirebaseCollectionType.user.rawValue)
             .whereField(FirebaseFieldType.email.rawValue, isEqualTo: userEmail)
             .getDocuments { snapshot, _ in
                 
-                guard
-                    let snapshot = snapshot else {
+                guard let snapshot = snapshot else {
                         
                         completion(.failure(FirebaseError.fetchUserError))
                         
@@ -666,8 +650,7 @@ class UserFirebaseManager {
                 email: email,
                 imageURLString: "",
                 friends: [],
-                blockedUsers: []
-            )
+                blockedUsers: [])
             
             try documentReference.setData(from: user)
             
@@ -679,7 +662,10 @@ class UserFirebaseManager {
         }
     }
     
-    func saveUser(withUser user: User, completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveUser(
+        withUser user: User,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         
         let documentReference = database.collection(FirebaseCollectionType.user.rawValue).document("\(user.id)")
         
@@ -700,8 +686,7 @@ class UserFirebaseManager {
         
         precondition(length > 0)
         
-        let charset: [Character] =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         
         var result = ""
         
@@ -726,10 +711,7 @@ class UserFirebaseManager {
             
             randoms.forEach { random in
                 
-                if remainingLength == 0 {
-                    
-                    return
-                }
+                if remainingLength == 0 { return }
                 
                 if random < charset.count {
                     

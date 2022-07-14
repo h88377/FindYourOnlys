@@ -185,8 +185,7 @@ class BaseViewController: UIViewController {
         
         DispatchQueue.main.async { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.navigationController?.popViewController(animated: true)
         }
@@ -216,8 +215,8 @@ extension BaseViewController: UIViewControllerTransitioningDelegate {
     func presentationController(
         forPresented presented: UIViewController,
         presenting: UIViewController?,
-        source: UIViewController)
-    -> UIPresentationController? {
+        source: UIViewController
+    ) -> UIPresentationController? {
         
         PresentationController(presentedViewController: presented, presenting: presenting)
     }

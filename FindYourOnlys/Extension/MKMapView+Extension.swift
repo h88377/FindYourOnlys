@@ -12,6 +12,7 @@ extension MKMapView {
         _ location: CLLocation,
         regionRadius: CLLocationDistance = 50000
     ) {
+        
         let coordinateRegion = MKCoordinateRegion(
             center: location.coordinate,
             latitudinalMeters: regionRadius,

@@ -37,9 +37,8 @@ class DirectionCell: UITableViewCell {
         let route = viewModel.direction.mapRoutes[indexPath.section]
         let step = route.steps[indexPath.row + 1]
         
-        distanceLabel.text = distanceFormatter.string(
-            fromDistance: step.distance
-        )
+        distanceLabel.text = distanceFormatter.string(fromDistance: step.distance)
+        
         descriptionLabel.text = "\(indexPath.row + 1): \(step.notice ?? step.instructions)"
     }
 }

@@ -56,7 +56,6 @@ class PublishViewModel {
                 article.postType != nil,
                 article.content != "",
                 selectedImage != nil
-                    
             else { return false }
                 
             return true
@@ -67,7 +66,6 @@ class PublishViewModel {
                 article.city != "",
                 article.content != "",
                 selectedImage != nil
-                    
             else { return false }
                 
             return true
@@ -102,10 +100,7 @@ class PublishViewModel {
     
     func tapPublish() {
         
-        publish { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        publish { result in
             
             switch result {
                 
@@ -124,10 +119,7 @@ class PublishViewModel {
     
     func detectImage() {
         
-        guard
-            let selectedImage = selectedImage
-                
-        else {
+        guard let selectedImage = selectedImage else {
             
             errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
             
@@ -138,8 +130,7 @@ class PublishViewModel {
         
         GoogleMLWrapper.shared.detectLabels(with: selectedImage) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -181,7 +172,6 @@ class PublishViewModel {
             isValidPublishedContent,
             isValidDetectResult,
             let selectedImage = selectedImage
-                
         else { return }
         
         DispatchQueue.global().async { [weak self] in
@@ -189,7 +179,6 @@ class PublishViewModel {
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
                 let self = self
-                    
             else { return }
             
             let semaphore = DispatchSemaphore(value: 0)

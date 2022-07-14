@@ -71,8 +71,7 @@ class ChatRoomMessageViewController: BaseViewController {
         
         viewModel.messageViewModels.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
             
@@ -82,19 +81,16 @@ class ChatRoomMessageViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.checkIsBlockHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.checkIsBlock()
         }
@@ -131,8 +127,7 @@ class ChatRoomMessageViewController: BaseViewController {
             image: itemImage,
             style: .plain,
             target: self,
-            action: #selector(block)
-        )
+            action: #selector(block))
         
         navigationItem.rightBarButtonItem = editItem
     }
@@ -149,16 +144,14 @@ class ChatRoomMessageViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -168,8 +161,7 @@ class ChatRoomMessageViewController: BaseViewController {
         
         let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.blockUser()
         }
@@ -181,10 +173,7 @@ class ChatRoomMessageViewController: BaseViewController {
         
         let messageCount = viewModel.messageViewModels.value.count
         
-        guard
-            messageCount > 0
-                
-        else { return }
+        guard messageCount > 0 else { return }
         
         let indexPath = IndexPath(row: messageCount - 1, section: 0)
         
@@ -211,9 +200,9 @@ class ChatRoomMessageViewController: BaseViewController {
     
     private func checkMessageButton() {
         
-        if messageTextView.text != MessageType.placeHolder.rawValue
-            && messageTextView.text != MessageType.block.rawValue
-            && messageTextView.text?.isEmpty == false {
+        if messageTextView.text != MessageType.placeHolder.rawValue &&
+            messageTextView.text != MessageType.block.rawValue &&
+            messageTextView.text?.isEmpty == false {
             
             sendMessageButton.isEnabled = true
             
@@ -228,8 +217,7 @@ class ChatRoomMessageViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -306,11 +294,11 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
         
         guard
             let userCell = tableView.dequeueReusableCell(
-                withIdentifier: ChatRoomUserMessageCell.identifier, for: indexPath)
-                as? ChatRoomUserMessageCell,
+                withIdentifier: ChatRoomUserMessageCell.identifier, for: indexPath
+            ) as? ChatRoomUserMessageCell,
             let friendCell = tableView.dequeueReusableCell(
-                withIdentifier: ChatRoomFriendMessageCell.identifier, for: indexPath)
-                as? ChatRoomFriendMessageCell,
+                withIdentifier: ChatRoomFriendMessageCell.identifier, for: indexPath
+            ) as? ChatRoomFriendMessageCell,
             let selectedFriend = viewModel.selectedFriend
                 
         else { return UITableViewCell() }
@@ -365,13 +353,11 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
     ) {
         dismiss(animated: true)
         
-        if
-            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
             viewModel.changeContent(with: editedImage)
             
-        } else if
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
         
             viewModel.changeContent(with: image)
         }

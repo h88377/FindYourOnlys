@@ -42,8 +42,7 @@ class FriendRequestViewController: BaseViewController {
         
         viewModel.friendRequestListViewModels.bind { [weak self] friendRequestViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.isEmpty
             
@@ -53,13 +52,11 @@ class FriendRequestViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.fetchFriendRequestList()
@@ -95,7 +92,10 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let friendRequestCount = viewModel.friendRequestListViewModels.value[section].friendRequestList.users.count
+        let friendRequestCount = viewModel
+            .friendRequestListViewModels
+            .value[section]
+            .friendRequestList.users.count
         
         return friendRequestCount
     }
@@ -104,10 +104,7 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendRequestCell.identifier, for: indexPath)
         
-        guard
-            let friendRequestCell = cell as? FriendRequestCell
-                
-        else { return cell }
+        guard let friendRequestCell = cell as? FriendRequestCell else { return cell }
         
         let cellViewModel = viewModel.friendRequestListViewModels.value[indexPath.section]
         
@@ -117,22 +114,18 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         
         friendRequestCell.configureCell(
             with: requestType,
-            user: user
-        )
+            user: user)
         
         friendRequestCell.acceptHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.acceptFriendRequest(at: indexPath)
-            
         }
         
         friendRequestCell.rejectHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.removeFriendRequest(at: indexPath)
         }
@@ -144,8 +137,7 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendRequestHeaderView.identifier)
         
-        guard
-            let headerView = view as? FriendRequestHeaderView else { return view }
+        guard let headerView = view as? FriendRequestHeaderView else { return view }
         
         let requestTypeText = viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue
         

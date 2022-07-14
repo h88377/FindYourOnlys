@@ -12,6 +12,7 @@ enum RouteBuilder {
     enum Segment {
         
         case text(String)
+        
         case location(CLLocation)
     }
     

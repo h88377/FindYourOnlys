@@ -88,14 +88,11 @@ class AdoptViewController: BaseViewController {
         
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.fetchCurrentUser()
@@ -117,8 +114,7 @@ class AdoptViewController: BaseViewController {
             
             adoptListVC?.resetConditionHandler = { [weak self] in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 self.viewModel.adoptFilterCondition = AdoptFilterCondition()
             }
@@ -190,9 +186,8 @@ class AdoptViewController: BaseViewController {
         
         guard
             let adoptFilterVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptFilterViewController.identifier)
-                as? AdoptFilterViewController
-        
+                withIdentifier: AdoptFilterViewController.identifier
+            )as? AdoptFilterViewController
         else { return }
         
         adoptFilterVC.viewModel.adoptFilterCondition = viewModel.adoptFilterCondition

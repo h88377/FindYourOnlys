@@ -26,15 +26,11 @@ class SearchFriendViewModel {
     
     func searchUserEmail() {
         
-        guard
-            let userEmail = userEmail
-                
-        else { return }
+        guard let userEmail = userEmail else { return }
         
         UserFirebaseManager.shared.fetchUser(with: userEmail) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -56,8 +52,7 @@ class SearchFriendViewModel {
     
     private func checkSearchResult(by userEmail: String, in users: [User]) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         for user in users where user.email == userEmail {
             
@@ -84,7 +79,9 @@ class SearchFriendViewModel {
     
     private func checkFriendRequest(with user: User) {
         
-        PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: user.id) { result in
+        PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: user.id) { [weak self] result in
+            
+            guard let self = self else { return }
             
             switch result {
                 

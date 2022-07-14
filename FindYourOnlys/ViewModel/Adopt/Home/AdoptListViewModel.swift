@@ -50,11 +50,11 @@ class AdoptListViewModel {
     func fetchPet() {
         
         PetProvider.shared.fetchPet(
-            with: filterConditionViewModel.value, paging: currentPage + 1
+            with: filterConditionViewModel.value,
+            paging: currentPage + 1
         ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -89,11 +89,11 @@ class AdoptListViewModel {
         resetPetHandler?()
         
         PetProvider.shared.fetchPet(
-            with: filterConditionViewModel.value, paging: currentPage + 1
+            with: filterConditionViewModel.value,
+            paging: currentPage + 1
         ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -151,8 +151,7 @@ class AdoptListViewModel {
         
         FavoritePetFirebaseManager.shared.fetchFavoritePet(pet: petViewModel.pet) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -177,8 +176,7 @@ class AdoptListViewModel {
         
         StorageManager.shared.fetchPet { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -203,17 +201,11 @@ class AdoptListViewModel {
     
     private func addPetInFavorite() {
         
-        guard
-            let selectedViewModel = selectedPetViewModel.value
-                
-        else { return }
+        guard let selectedViewModel = selectedPetViewModel.value else { return }
         
         if didSignIn {
             
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser
-                    
-            else { return }
+            guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
             addFavoritePetInCloud(currentUser: currentUser, with: selectedViewModel)
             
@@ -225,10 +217,12 @@ class AdoptListViewModel {
     
     private func addFavoritePetInCloud(currentUser: User, with viewModel: PetViewModel) {
         
-        FavoritePetFirebaseManager.shared.saveFavoritePet(currentUser.id, with: viewModel) { [weak self] result in
+        FavoritePetFirebaseManager.shared.saveFavoritePet(
+            currentUser.id,
+            with: viewModel
+        ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -249,8 +243,7 @@ class AdoptListViewModel {
         
         StorageManager.shared.savePetInFavorite(with: viewModel) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -269,17 +262,11 @@ class AdoptListViewModel {
     
     private func removeFavoritePet() {
         
-        guard
-            let selectedViewModel = selectedPetViewModel.value
-                
-        else { return }
+        guard let selectedViewModel = selectedPetViewModel.value else { return }
         
         if didSignIn {
             
-            guard
-                let currentUser = UserFirebaseManager.shared.currentUser
-                    
-            else { return }
+            guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
             
             removeCloudFavorite(currentUser: currentUser, with: selectedViewModel)
             
@@ -316,8 +303,7 @@ class AdoptListViewModel {
             
             StorageManager.shared.removePetfromFavorite(lsPet: lsFavoritePet) { [weak self] result in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 switch result {
                     

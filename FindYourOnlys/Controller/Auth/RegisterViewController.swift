@@ -145,8 +145,7 @@ class RegisterViewController: BaseViewController {
         
         viewModel.registerState.bind { [weak self] registerState in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch registerState {
                 
@@ -160,15 +159,13 @@ class RegisterViewController: BaseViewController {
                 
             case .failure(let error):
                 
-                if
-                    let authError = error as? AuthError {
+                if let authError = error as? AuthError {
                     
                     self.errorLabel.text = authError.errorMessage
                     
                     self.errorLabel.isHidden = false
                     
-                } else if
-                    let firebaseError = error as? FirebaseError {
+                } else if let firebaseError = error as? FirebaseError {
                     
                     self.errorLabel.text = firebaseError.errorMessage
                     
@@ -194,16 +191,14 @@ class RegisterViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -219,8 +214,7 @@ class RegisterViewController: BaseViewController {
             nickName != "",
             email != "",
             password != "",
-            checkPassword != ""
-                
+            checkPassword != ""  
         else {
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫完整註冊資料喔！")

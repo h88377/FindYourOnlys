@@ -24,13 +24,11 @@ class FriendRequestViewModel {
     
     func fetchFriendRequestList() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         PetSocietyFirebaseManager.shared.fetchFriendRequest(with: currentUser.id) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -74,10 +72,7 @@ class FriendRequestViewModel {
     
     private func getRequestUserIds(with requests: [FriendRequest]) -> [String] {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser
-        
-        else { return [] }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return [] }
         
         let requestUserIds = requests
             .filter { $0.requestUserId == currentUser.id }
@@ -88,10 +83,7 @@ class FriendRequestViewModel {
     
     private func getRequestedUserIds(with requests: [FriendRequest]) -> [String] {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser
-        
-        else { return [] }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return [] }
         
         let requestedUserIds = requests
             .filter {
@@ -118,8 +110,7 @@ class FriendRequestViewModel {
             at: indexPath
         ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
@@ -133,8 +124,7 @@ class FriendRequestViewModel {
             at: indexPath
         ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
@@ -151,8 +141,7 @@ class FriendRequestViewModel {
             at: indexPath
         ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 

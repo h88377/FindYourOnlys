@@ -36,10 +36,7 @@ class EditProfileViewModel {
     
     func tapConfirm() {
         
-        confirm { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        confirm { result in
             
             switch result {
                 
@@ -60,8 +57,7 @@ class EditProfileViewModel {
         
         UserFirebaseManager.shared.deleteAuthUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -93,13 +89,11 @@ class EditProfileViewModel {
         guard
             var currentUser = currentUser,
             isValidEditedProfile
-        
         else { return }
 
         DispatchQueue.global().async { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let semaphore = DispatchSemaphore(value: 0)
             
@@ -111,7 +105,8 @@ class EditProfileViewModel {
                 
                 PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
                         image: self.selectedImage!,
-                        with: FirebaseCollectionType.user.rawValue) { result in
+                        with: FirebaseCollectionType.user.rawValue
+                ) { result in
                     
                     switch result {
                         

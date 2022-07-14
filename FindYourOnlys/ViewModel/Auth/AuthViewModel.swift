@@ -30,8 +30,7 @@ class AuthViewModel {
         
         UserFirebaseManager.shared.signInWithAppleAuthorization(with: authorization) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

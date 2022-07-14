@@ -77,8 +77,7 @@ class AuthViewController: BaseModalViewController {
         
         viewModel.authState.bind { [weak self] authState in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch authState {
                 
@@ -134,17 +133,15 @@ class AuthViewController: BaseModalViewController {
         let storyboard = UIStoryboard.auth
         guard
             let registerVC = storyboard.instantiateViewController(
-                withIdentifier: RegisterViewController.identifier)
-                as? RegisterViewController
-                
+                withIdentifier: RegisterViewController.identifier
+            )as? RegisterViewController
         else { return }
         
         present(registerVC, animated: true)
         
         registerVC.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.dismiss(animated: true)
         }
@@ -156,17 +153,15 @@ class AuthViewController: BaseModalViewController {
         
         guard
             let signInVC = storyboard.instantiateViewController(
-                withIdentifier: SignInViewController.identifier)
-                as? SignInViewController
-                
+                withIdentifier: SignInViewController.identifier
+            )as? SignInViewController
         else { return }
         
         present(signInVC, animated: true)
         
         signInVC.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.dismiss(animated: true)
         }
@@ -178,9 +173,8 @@ class AuthViewController: BaseModalViewController {
         
         guard
             let policyVC = storyboard.instantiateViewController(
-                withIdentifier: PolicyViewController.identifier)
-                as? PolicyViewController
-                
+                withIdentifier: PolicyViewController.identifier
+            )as? PolicyViewController
         else { return }
         
         policyVC.viewModel = PolicyViewModel(urlString: "https://pages.flycricket.io/findyouronlys/privacy.html")
@@ -194,14 +188,12 @@ class AuthViewController: BaseModalViewController {
         
         guard
             let policyVC = storyboard.instantiateViewController(
-                withIdentifier: PolicyViewController.identifier)
-                as? PolicyViewController
-                
+                withIdentifier: PolicyViewController.identifier
+            )as? PolicyViewController
         else { return }
         
         policyVC.viewModel = PolicyViewModel(
-            urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
-        )
+            urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")
         
         present(policyVC, animated: true)
     }
@@ -214,7 +206,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(
         controller: ASAuthorizationController,
-        didCompleteWithAuthorization authorization: ASAuthorization) {
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
             
             viewModel.didCompleteWithAuthorization(with: authorization)
         }

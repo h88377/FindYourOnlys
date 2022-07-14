@@ -32,8 +32,7 @@ class FriendProfileViewModel {
         
         PetSocietyFirebaseManager.shared.sendFriendRequest(user.id) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 

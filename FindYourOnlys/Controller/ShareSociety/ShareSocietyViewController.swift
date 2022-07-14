@@ -50,8 +50,7 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.sharedArticleViewModels.bind { [weak self] articleViewModels in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
             
@@ -60,8 +59,7 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.sharedAuthorViewModels.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
         }
@@ -69,13 +67,11 @@ class ShareSocietyViewController: BaseViewController {
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = errorViewModel?.error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.signInHandler = { [weak self] in
@@ -120,16 +116,14 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -139,13 +133,11 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.editHandler = { [weak self] articleViewModel in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
                 articleViewModel.article.userId == currentUser.id
-                    
             else {
                 
                 let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
@@ -166,14 +158,12 @@ class ShareSocietyViewController: BaseViewController {
             AlertWindowManager.shared.presentEditActionSheet(
                 at: self,
                 articleViewModel: articleViewModel,
-                with: deleteConfirmAction
-            )
+                with: deleteConfirmAction)
         }
         
         viewModel.tapAddArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let storyboard = UIStoryboard.findPetSociety
             
@@ -181,7 +171,6 @@ class ShareSocietyViewController: BaseViewController {
                 let publishVC = storyboard.instantiateViewController(
                     withIdentifier: PublishViewController.identifier)
                     as? PublishViewController
-                    
             else { return }
             
             publishVC.viewModel.articleType = .share
@@ -197,16 +186,14 @@ class ShareSocietyViewController: BaseViewController {
     ) {
         articleCell.likeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.likeArticle(with: articleViewModel)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.unlikeArticle(with: articleViewModel)
         }
@@ -220,7 +207,6 @@ class ShareSocietyViewController: BaseViewController {
                     withIdentifier: PetSocietyCommentViewController.identifier
                 ) as? PetSocietyCommentViewController,
                 let self = self
-                    
             else { return }
             
             petSocietyCommentVC.modalPresentationStyle = .custom
@@ -236,8 +222,7 @@ class ShareSocietyViewController: BaseViewController {
         
         articleCell.shareHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             AlertWindowManager.shared.showShareActivity(at: self)
         }
@@ -248,8 +233,7 @@ class ShareSocietyViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -271,7 +255,6 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
         guard
             viewModel.sharedAuthorViewModels.value.count > 0,
             viewModel.sharedArticleViewModels.value.count == viewModel.sharedAuthorViewModels.value.count
-                
         else { return 0 }
         
         return viewModel.sharedArticleViewModels.value.count
@@ -299,17 +282,13 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
             
-            guard
-                let photoCell = cell as? ArticlePhotoCell
-                    
-            else { return cell }
+            guard let photoCell = cell as? ArticlePhotoCell else { return cell }
             
             photoCell.configureCell(with: articleCellViewModel, authorViewModel: authorCellViewModel)
             
             photoCell.editHandler = { [weak self] in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
                 self.viewModel.editArticle(with: articleCellViewModel)
             }
@@ -321,18 +300,14 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
-            guard
-                let contentCell = cell as? ArticleContentCell
-                    
-            else { return cell }
+            guard let contentCell = cell as? ArticleContentCell else { return cell }
             
             contentCell.configureCell(with: articleCellViewModel)
             
             setupArticleContentCellHandler(
                 articleCell: contentCell,
                 with: articleCellViewModel,
-                authorViewModel: authorCellViewModel
-            )
+                authorViewModel: authorCellViewModel)
             
             return contentCell   
         }

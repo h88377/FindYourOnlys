@@ -111,11 +111,9 @@ class AdoptPetsLocationViewController: BaseViewController {
         // After lose network, calculateRouteError would not be satisfied by using below conditions.
         viewModel.errorViewModel.bind { [weak self] errorViewModel in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
-            if
-                let error = errorViewModel?.error {
+            if let error = errorViewModel?.error {
 
                 // Check user's location if have shelters' information
                 if self.viewModel.shelters != nil {
@@ -135,16 +133,14 @@ class AdoptPetsLocationViewController: BaseViewController {
 
         viewModel.showDirectionHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.showDirectionView()
         }
 
         viewModel.showAlertHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             AlertWindowManager.shared.showAlertWindow(at: self, title: "注意", message: "請先選擇想要前往的收容所或動物的位置喔！")
         }
@@ -182,8 +178,7 @@ class AdoptPetsLocationViewController: BaseViewController {
 
         adoptDirectionVC.closeHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.dismiss(adoptDirectionVC)
         }
@@ -195,16 +190,14 @@ class AdoptPetsLocationViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.startLoading()
         }
 
         viewModel.stopLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.stopLoading()
         }
@@ -218,7 +211,6 @@ class AdoptPetsLocationViewController: BaseViewController {
                 let self = self,
                 let petLocation = self.viewModel.petLocation,
                 let selectedMapAnnotation = self.viewModel.selectedMapAnnotation
-
             else { return }
 
             self.mapView.centerToLocation(petLocation)
@@ -233,7 +225,6 @@ class AdoptPetsLocationViewController: BaseViewController {
                 let currentLocation = self.viewModel.currentLocation,
                 let currentMapAnnotation = self.viewModel.currentMapAnnotation,
                 let mapRoute = self.viewModel.mapRoute
-
             else { return }
 
             self.mapView.centerToLocation(currentLocation)
@@ -246,8 +237,7 @@ class AdoptPetsLocationViewController: BaseViewController {
 
     private func attemptLocationAccess() {
 
-        guard
-            CLLocationManager.locationServicesEnabled() else { return }
+        guard CLLocationManager.locationServicesEnabled() else { return }
 
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
 
@@ -269,7 +259,6 @@ class AdoptPetsLocationViewController: BaseViewController {
             let currentMapAnnotation = viewModel.currentMapAnnotation,
             let selectedMapAnnotation = viewModel.selectedMapAnnotation,
             let route = viewModel.route
-
         else { return }
 
         if
@@ -288,10 +277,8 @@ class AdoptPetsLocationViewController: BaseViewController {
                 top: 0,
                 left: padding,
                 bottom: padding,
-                right: padding
-            ),
-            animated: true
-        )
+                right: padding),
+            animated: true)
 
         mapView.showAnnotations([currentMapAnnotation, selectedMapAnnotation], animated: true)
 
@@ -304,9 +291,7 @@ class AdoptPetsLocationViewController: BaseViewController {
                 route: route,
                 mapRoutes: [mapRoute],
                 totalDistance: totalDistance,
-                totalTravelTime: totalTravelTime
-            )
-        )
+                totalTravelTime: totalTravelTime))
     }
 
     private func setupSearchViews() {
@@ -325,8 +310,7 @@ class AdoptPetsLocationViewController: BaseViewController {
         directionView.frame = CGRect(
             x: 0, y: maxY,
             width: screenWidth,
-            height: 0.0
-        )
+            height: 0.0)
 
         view.addSubview(directionView)
 
@@ -334,16 +318,14 @@ class AdoptPetsLocationViewController: BaseViewController {
             withDuration: 0.3,
             animations: { [weak self] in
 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
 
                 let height = self.view.frame.height * 0.4
 
                 self.directionView.frame = CGRect(
                     x: 0, y: maxY - height,
                     width: screenWidth,
-                    height: height
-                )
+                    height: height)
             }
         )
     }
@@ -355,22 +337,19 @@ class AdoptPetsLocationViewController: BaseViewController {
         let nextFrame = CGRect(
             x: origin.minX, y: origin.maxY,
             width: origin.width,
-            height: origin.height
-        )
+            height: origin.height)
 
         UIView.animate(
             withDuration: 0.3,
             animations: { [weak self] in
 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
 
                 self.directionView.frame = nextFrame
 
             }, completion: { [weak self] _ in
 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
 
                 self.directionView.removeFromSuperview()
             }
@@ -398,38 +377,33 @@ class AdoptPetsLocationViewController: BaseViewController {
 
             UIView.animate(withDuration: 0.3) { [weak self] in
 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
 
                 if self.directionView.frame.height == lowHeight {
 
                     self.directionView.frame = CGRect(
                         x: 0, y: maxY - highHeight,
                         width: screenWidth,
-                        height: highHeight
-                    )
+                        height: highHeight)
 
                 } else {
 
                     self.directionView.frame = CGRect(
                         x: 0, y: maxY - lowHeight,
                         width: screenWidth,
-                        height: highHeight
-                    )
+                        height: highHeight)
                 }
 
             } completion: { [weak self] _ in
 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
 
                 if self.directionView.frame.minY == maxY - lowHeight {
 
                     self.directionView.frame = CGRect(
                         x: 0, y: maxY - lowHeight,
                         width: screenWidth,
-                        height: lowHeight
-                    )
+                        height: lowHeight)
                 }
             }
         }
@@ -450,7 +424,6 @@ class AdoptPetsLocationViewController: BaseViewController {
         guard
             let searchText = searchTextField.text,
             searchText != ""
-
         else {
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "請輸入縣市")
@@ -466,8 +439,7 @@ class AdoptPetsLocationViewController: BaseViewController {
 
         mapView.removeAnnotations(mapView.annotations)
 
-        if
-            mapView.overlays.count != 0 {
+        if mapView.overlays.count != 0 {
 
             mapView.removeOverlay(mapView.overlays[0])
         }
@@ -479,21 +451,18 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
 
     func locationManager(
         _ manager: CLLocationManager,
-        didChangeAuthorization status: CLAuthorizationStatus) {
+        didChangeAuthorization status: CLAuthorizationStatus
+    ) {
 
-            guard
-                status == .authorizedWhenInUse
-
-            else {
-
-                return
-            }
+            guard status == .authorizedWhenInUse else { return }
+            
             manager.requestLocation()
         }
 
     func locationManager(
         _ manager: CLLocationManager,
-        didUpdateLocations locations: [CLLocation]) {
+        didUpdateLocations locations: [CLLocation]
+    ) {
 
             guard
                 let firstLocation = locations.first else { return }
@@ -506,7 +475,6 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
                     let firstPlace = places?.first,
                     let city = firstPlace.subAdministrativeArea,
                     let self = self
-
                 else {
 
                     AlertWindowManager.shared.showAlertWindow(at: self!, title: "異常", message: "無法取得所在位置，請確認網路連線")
@@ -565,7 +533,10 @@ extension AdoptPetsLocationViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 
-        AlertWindowManager.shared.showAlertWindow(at: self, title: "取得所在位置異常", message: "請確認網路狀況或者允許該應用程式取得您裝置的所在位置")
+        AlertWindowManager.shared.showAlertWindow(
+            at: self,
+            title: "取得所在位置異常",
+            message: "請確認網路狀況或者允許該應用程式取得您裝置的所在位置")
     }
 }
 

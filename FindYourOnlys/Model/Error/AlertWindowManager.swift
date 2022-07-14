@@ -124,12 +124,12 @@ class AlertWindowManager {
             
             let storyboard = UIStoryboard.profile
             
-            guard
-                let editVC = storyboard.instantiateViewController(
-                    withIdentifier: EditArticleViewController.identifier)
-                    as? EditArticleViewController
-            
-            else { return }
+            guard let editVC = storyboard.instantiateViewController(
+                withIdentifier: EditArticleViewController.identifier
+            ) as? EditArticleViewController else {
+                
+                return
+            }
             
             let article = articleViewModel.article
             
@@ -147,7 +147,6 @@ class AlertWindowManager {
             deleteAlert.addAction(deleteConfirmAction)
             
             controller.present(deleteAlert, animated: true)
-            
         }
         
         alert.addAction(editAction)

@@ -102,17 +102,15 @@ class ArticlePhotoCell: UITableViewCell {
 
         userImageView.loadImage(
             authorViewModel.user.imageURLString,
-            placeHolder: UIImage.system(.personPlaceHolder)
-        )
+            placeHolder: UIImage.system(.personPlaceHolder))
         
         userNameLabel.text = authorViewModel.user.nickName
         
         postedImageView.loadImage(
             viewModel.article.imageURLString,
-            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-        )
+            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text =  viewModel
+        timeLabel.text = viewModel
             .article
             .createdTime
             .formatedTime
@@ -152,15 +150,13 @@ class ArticlePhotoCell: UITableViewCell {
         
         userImageView.loadImage(
             currentUser.imageURLString,
-            placeHolder: UIImage.system(.personPlaceHolder)
-        )
+            placeHolder: UIImage.system(.personPlaceHolder))
         
         userNameLabel.text = currentUser.nickName
         
         postedImageView.loadImage(
             viewModel.article.imageURLString,
-            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-        )
+            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         timeLabel.text = viewModel.article.createdTime.formatedTime
         
