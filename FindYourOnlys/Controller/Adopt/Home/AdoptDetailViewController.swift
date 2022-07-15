@@ -81,17 +81,17 @@ class AdoptDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.petViewModel.bind { [weak self] _ in
+        viewModel?.pet.bind { [weak self] _ in
             
             guard let self = self else { return }
             
             self.tableView.reloadData()
         }
         
-        viewModel?.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel?.error.bind { [weak self] error in
             
             guard let self = self,
-                  let error = errorViewModel?.error
+                  let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -162,7 +162,7 @@ class AdoptDetailViewController: BaseViewController {
             width: view.frame.width,
             height: view.frame.width))
         
-        header.configureView(with: viewModel.petViewModel.value)
+        header.configureView(with: viewModel.pet.value)
         
         tableView.tableHeaderView = header
     }
@@ -213,7 +213,7 @@ class AdoptDetailViewController: BaseViewController {
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
         guard
-            let phoneNumber = viewModel?.petViewModel.value.pet.telephone,
+            let phoneNumber = viewModel?.pet.value.telephone,
             let url = URL(string: "tel://\(String(describing: phoneNumber))"),
             UIApplication.shared.canOpenURL(url)
         else {
@@ -248,7 +248,7 @@ class AdoptDetailViewController: BaseViewController {
             let viewModel = viewModel
         else { return }
         
-        petsLocationVC.viewModel.pet = viewModel.petViewModel.value.pet
+        petsLocationVC.viewModel.pet = viewModel.pet.value
         
         petsLocationVC.viewModel.isShelterMap = false
         
@@ -280,7 +280,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let cellViewModel = viewModel?.petViewModel.value,
+            let pet = viewModel?.pet.value,
             let adoptDetailContentCategory = viewModel?.adoptDetailContentCategory
         else { return UITableViewCell() }
         
@@ -288,12 +288,11 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: AdoptDetailTableViewCell.identifier,
-                for: indexPath
-            )
+                for: indexPath)
             
             guard let detailCell = cell as? AdoptDetailTableViewCell else { return cell }
             
-            detailCell.configureCell(with: cellViewModel)
+            detailCell.configureCell(with: pet)
             
             detailCell.shareHandler = { [weak self] in
                 
@@ -309,7 +308,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
             let detailContentCell = adoptDetailContentCategory[indexPath.row].cellForIndexPath(
                 indexPath,
                 tableView: tableView,
-                viewModel: cellViewModel)
+                pet: pet)
             
             return detailContentCell
         }

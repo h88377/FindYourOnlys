@@ -11,7 +11,7 @@ class AdoptViewModel {
     
     // MARK: - Properties
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var adoptFilterCondition = AdoptFilterCondition()
     
@@ -36,7 +36,7 @@ class AdoptViewModel {
                 
             case .failure(let error):
                 
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                self?.error.value = error
             }
         }
     }

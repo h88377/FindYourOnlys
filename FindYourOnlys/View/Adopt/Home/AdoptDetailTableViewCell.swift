@@ -89,13 +89,13 @@ class AdoptDetailTableViewCell: UITableViewCell {
         shareButton.layer.cornerRadius = 10
     }
     
-    func configureCell(with viewModel: PetViewModel) {
+    func configureCell(with pet: Pet) {
         
-        kindLabel.text = viewModel.pet.kind
+        kindLabel.text = pet.kind
         
-        varietyLabel.text = viewModel.pet.variety
+        varietyLabel.text = pet.variety
         
-        if viewModel.pet.status == "OPEN" {
+        if pet.status == "OPEN" {
             
             statusLabel.text = "開放認養"
             
@@ -104,7 +104,7 @@ class AdoptDetailTableViewCell: UITableViewCell {
             statusLabel.text = "不開放認養"
         }
         
-        if viewModel.pet.sex == "M" {
+        if pet.sex == "M" {
             
             sexLabel.text = "♂"
             

@@ -52,19 +52,19 @@ class AdoptListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
          
-        viewModel.petViewModels.bind { [weak self] petViewModels in
+        viewModel.pets.bind { [weak self] pets in
             
             guard let self = self else { return }
             
             self.collectionView.reloadData()
 
-            self.collectionView.isHidden = petViewModels.isEmpty
+            self.collectionView.isHidden = pets.isEmpty
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard let self = self,
-                  let error = errorViewModel?.error
+                  let error = error
             else { return }
                 
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -73,7 +73,7 @@ class AdoptListViewController: BaseViewController {
         viewModel.resetPetHandler = { [weak self] in
             
             guard let self = self,
-                  self.viewModel.petViewModels.value.count > 0
+                  self.viewModel.pets.value.count > 0
             else { return }
             
             DispatchQueue.main.async {
@@ -293,22 +293,22 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        viewModel.petViewModels.value.count
+        viewModel.pets.value.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath)
         
-        guard
-            let adoptCell = cell as? AdoptCollectionViewCell
-                
-        else { return cell }
+        guard let adoptCell = cell as? AdoptCollectionViewCell else { return cell }
         
-        let cellViewModel = viewModel.petViewModels.value[indexPath.item]
+        let pet = viewModel.pets.value[indexPath.item]
         
-        adoptCell.configureCell(with: cellViewModel)
+        adoptCell.configureCell(with: pet)
         
         return cell
     }
@@ -317,20 +317,19 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         let storyboard = UIStoryboard.adopt
         
-        guard
-            let adoptDetaiVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptDetailViewController.identifier)
-                as? AdoptDetailViewController
+        guard let adoptDetaiVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptDetailViewController.identifier
+        ) as? AdoptDetailViewController
                 
         else { return }
         
-        let selectedPetViewModel = viewModel.petViewModels.value[indexPath.item]
+        var selectedPet = viewModel.pets.value[indexPath.item]
         
         let currentUserId = UserFirebaseManager.shared.currentUser?.id
         
-        selectedPetViewModel.pet.userID = currentUserId
+        selectedPet.userID = currentUserId
         
-        adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
+        adoptDetaiVC.viewModel = AdoptDetailViewModel(pet: Box(selectedPet))
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
@@ -341,8 +340,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         activityIndicator.start { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             DispatchQueue.global(qos: .utility).async {
                 

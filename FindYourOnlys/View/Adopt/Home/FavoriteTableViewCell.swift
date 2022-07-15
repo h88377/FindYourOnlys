@@ -107,17 +107,17 @@ class FavoriteTableViewCell: UITableViewCell {
         baseView.layer.cornerRadius = 15
     }
     
-    func configureCell(with viewModel: PetViewModel) {
+    func configureCell(with pet: Pet) {
         
-        kindLabel.text = viewModel.pet.kind
+        kindLabel.text = pet.kind
         
-        varietyLabel.text = viewModel.pet.variety
+        varietyLabel.text = pet.variety
         
-        organizationLabel.text = viewModel.pet.shelterName
+        organizationLabel.text = pet.shelterName
         
-        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
+        photoImageView.loadImage(pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        if viewModel.pet.sex == "M" {
+        if pet.sex == "M" {
             
             sexLabel.text = "♂"
             
@@ -130,7 +130,7 @@ class FavoriteTableViewCell: UITableViewCell {
             sexLabel.textColor = UIColor.femaleColor
         }
         
-        if viewModel.pet.sterilization == "T" {
+        if pet.sterilization == "T" {
             
             sterilizationLabel.text = "已結紮"
             
@@ -139,7 +139,7 @@ class FavoriteTableViewCell: UITableViewCell {
             sterilizationLabel.text = "未結紮"
         }
         
-        if viewModel.pet.bacterin == "T" {
+        if pet.bacterin == "T" {
             
             bacterinLabel.text = "已注射疫苗"
             

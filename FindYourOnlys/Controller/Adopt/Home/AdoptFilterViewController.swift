@@ -157,7 +157,7 @@ class AdoptFilterViewController: BaseViewController {
         
         adoptVC.adoptListVC?.viewModel.resetFilterCondition()
         
-        adoptVC.adoptListVC?.viewModel.filterConditionViewModel.value = viewModel.adoptFilterCondition
+        adoptVC.adoptListVC?.viewModel.filteredCondition.value = viewModel.adoptFilterCondition
         
         adoptVC.adoptListVC?.viewModel.resetFetchPet()
         

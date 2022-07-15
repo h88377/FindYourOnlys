@@ -10,9 +10,9 @@ import Foundation
 class AdoptFavoriteViewModel {
     
     // MARK: - Properties
-    let favoritePetViewModels = Box([PetViewModel]())
+    let favoritePets = Box([Pet]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     private var didSignIn: Bool {
         
@@ -51,11 +51,11 @@ class AdoptFavoriteViewModel {
                     favoritePets.append(pet)
                 }
                 
-                self.favoritePetViewModels.value = favoritePets.map { PetViewModel(model: $0) }
+                self.favoritePets.value = favoritePets
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
@@ -72,11 +72,11 @@ class AdoptFavoriteViewModel {
                 
                 let pets = StorageManager.shared.convertLsPetsToPets(from: lsPets)
                 
-                self.favoritePetViewModels.value = pets.map { PetViewModel(model: $0) }
+                self.favoritePets.value = pets
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }

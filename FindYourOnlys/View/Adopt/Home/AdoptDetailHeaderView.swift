@@ -96,8 +96,8 @@ class AdoptDetailHeaderView: UIView {
         
     }
     
-    func configureView(with viewModel: PetViewModel) {
+    func configureView(with pet: Pet) {
         
-        imageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
+        imageView.loadImage(pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
     }
 }

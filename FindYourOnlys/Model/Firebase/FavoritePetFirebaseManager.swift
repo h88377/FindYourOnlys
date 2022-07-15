@@ -79,7 +79,7 @@ class FavoritePetFirebaseManager {
     
     func saveFavoritePet(
         _ userID: String,
-        with petViewModel: PetViewModel,
+        with pet: Pet,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         
@@ -89,13 +89,13 @@ class FavoritePetFirebaseManager {
         
         do {
             
-            var pet = petViewModel.pet
+            var savedPet = pet
             
-            pet.favoriteID = documentId
+            savedPet.favoriteID = documentId
             
-            pet.userID = userID
+            savedPet.userID = userID
             
-            try documentReference.setData(from: pet)
+            try documentReference.setData(from: savedPet)
             
             completion(.success(()))
             
@@ -106,7 +106,7 @@ class FavoritePetFirebaseManager {
     }
     
     func removeFavoritePet(
-        with petViewModel: PetViewModel,
+        with pet: Pet,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         
@@ -125,8 +125,8 @@ class FavoritePetFirebaseManager {
                     
                     let removePet = try snapshot.documents[index].data(as: Pet.self)
                     
-                    if petViewModel.pet.userID == removePet.userID &&
-                        petViewModel.pet.id == removePet.id {
+                    if pet.userID == removePet.userID &&
+                        pet.id == removePet.id {
                         
                         let docID = snapshot.documents[index].documentID
                         

@@ -53,6 +53,7 @@
 		98822C7B282F67C1006F8910 /* TransformButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C7A282F67C1006F8910 /* TransformButton.swift */; };
 		98822C7D282F681F006F8910 /* TransformCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98822C7C282F681F006F8910 /* TransformCollectionCell.swift */; };
 		98822C872830B6F7006F8910 /* addToFavorite.json in Resources */ = {isa = PBXBuildFile; fileRef = 98822C862830B6F7006F8910 /* addToFavorite.json */; };
+		9884BE0728811BB10070D9E8 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9884BE0628811BB10070D9E8 /* ErrorViewModel.swift */; };
 		989399EE280F9F74004312F1 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399ED280F9F74004312F1 /* TimeInterval.swift */; };
 		989399F0280FAB37004312F1 /* AdoptPetsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */; };
 		989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */; };
@@ -98,7 +99,6 @@
 		9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D931280D6694003D4A16 /* FriendRequestCell.xib */; };
 		9896D936280D6DC9003D4A16 /* FriendRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */; };
 		9896D938280D6E8E003D4A16 /* ProfileFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */; };
-		9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */; };
 		9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */; };
 		9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D948280DBD83003D4A16 /* SearchFriendResult.swift */; };
 		9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D951280E89D9003D4A16 /* MapAnnotation.swift */; };
@@ -251,6 +251,7 @@
 		98822C7A282F67C1006F8910 /* TransformButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformButton.swift; sourceTree = "<group>"; };
 		98822C7C282F681F006F8910 /* TransformCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformCollectionCell.swift; sourceTree = "<group>"; };
 		98822C862830B6F7006F8910 /* addToFavorite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addToFavorite.json; sourceTree = "<group>"; };
+		9884BE0628811BB10070D9E8 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		989399ED280F9F74004312F1 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		989399EF280FAB37004312F1 /* AdoptPetsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewController.swift; sourceTree = "<group>"; };
 		989399F1280FAC19004312F1 /* AdoptPetsLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdoptPetsLocationViewModel.swift; sourceTree = "<group>"; };
@@ -296,7 +297,6 @@
 		9896D931280D6694003D4A16 /* FriendRequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestCell.xib; sourceTree = "<group>"; };
 		9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewModel.swift; sourceTree = "<group>"; };
 		9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFirebaseManager.swift; sourceTree = "<group>"; };
-		9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListViewModel.swift; sourceTree = "<group>"; };
 		9896D948280DBD83003D4A16 /* SearchFriendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendResult.swift; sourceTree = "<group>"; };
 		9896D951280E89D9003D4A16 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
@@ -748,8 +748,8 @@
 		989D7EDB2842072D008ECB7D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				9896D93B280D80D3003D4A16 /* ErrorViewModel.swift */,
 				987D8B69281B98B7000D1F95 /* BaseSocietyViewModel.swift */,
+				9884BE0628811BB10070D9E8 /* ErrorViewModel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1413,7 +1413,6 @@
 				987D8B32281681EB000D1F95 /* AuthViewController.swift in Sources */,
 				9896D8EF280968C5003D4A16 /* ChatRoomMessageViewController.swift in Sources */,
 				9896D936280D6DC9003D4A16 /* FriendRequestViewModel.swift in Sources */,
-				9896D93C280D80D3003D4A16 /* ErrorViewModel.swift in Sources */,
 				9896D964280EDC98003D4A16 /* Direction.swift in Sources */,
 				98939A152812856A004312F1 /* AdoptFilterViewModel.swift in Sources */,
 				98CC15AB28005B6C00B9FDC6 /* AdoptViewController.swift in Sources */,
@@ -1534,6 +1533,7 @@
 				9896D968280EDD0A003D4A16 /* DirectionViewModel.swift in Sources */,
 				989399F2280FAC19004312F1 /* AdoptPetsLocationViewModel.swift in Sources */,
 				98CC164828059F0C00B9FDC6 /* PublishUserCell.swift in Sources */,
+				9884BE0728811BB10070D9E8 /* ErrorViewModel.swift in Sources */,
 				987D8B74281D1848000D1F95 /* FriendProfileViewController.swift in Sources */,
 				987D8B5C281AAE3B000D1F95 /* ProfileArticle.swift in Sources */,
 				9896D92C280D6127003D4A16 /* ProfileViewController.swift in Sources */,

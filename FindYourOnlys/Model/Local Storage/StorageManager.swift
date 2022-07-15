@@ -93,15 +93,13 @@ class StorageManager {
     }
     
     func savePetInFavorite(
-        with petViewModel: PetViewModel,
+        with pet: Pet,
         completion: (Result<Void, Error>) -> Void
     ) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
         let lsPet = LSPet(entity: LSPet.entity(), insertInto: context)
-        
-        let pet = petViewModel.pet
         
         lsPet.photoURLString = pet.photoURLString
         

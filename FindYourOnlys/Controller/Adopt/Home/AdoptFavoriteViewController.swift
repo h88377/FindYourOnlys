@@ -34,19 +34,19 @@ class AdoptFavoriteViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+        viewModel.favoritePets.bind { [weak self] favoritePets in
             
             guard let self = self else { return }
             
             self.tableView.reloadData()
             
-            self.tableView.isHidden = favoritePetViewModels.isEmpty
+            self.tableView.isHidden = favoritePets.isEmpty
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard let self = self,
-                  let error = errorViewModel?.error
+                  let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -83,7 +83,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.favoritePetViewModels.value.count
+        return viewModel.favoritePets.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,9 +92,9 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         
         guard let favoriteCell = cell as? FavoriteTableViewCell else { return cell }
         
-        let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
+        let pet = viewModel.favoritePets.value[indexPath.item]
         
-        favoriteCell.configureCell(with: cellViewModel)
+        favoriteCell.configureCell(with: pet)
         
         return favoriteCell
     }
@@ -107,9 +107,9 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
                 withIdentifier: AdoptDetailViewController.identifier
         )as? AdoptDetailViewController else { return }
         
-        let selectedPetViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
+        let selectedPet = viewModel.favoritePets.value[indexPath.item]
         
-        adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
+        adoptDetaiVC.viewModel = AdoptDetailViewModel(pet: Box(selectedPet))
         
         adoptDetaiVC.delegate = self
         

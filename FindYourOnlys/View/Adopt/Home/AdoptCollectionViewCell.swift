@@ -81,17 +81,17 @@ class AdoptCollectionViewCell: TransformCollectionCell {
         photoImageView.layer.cornerRadius = 12
     }
     
-    func configureCell(with viewModel: PetViewModel) {
+    func configureCell(with pet: Pet) {
         
-        let location = viewModel.pet.address
+        let location = pet.address
         
         cityLabel.text = String(location[...2])
         
-        kindLabel.text = viewModel.pet.kind
+        kindLabel.text = pet.kind
         
-        photoImageView.loadImage(viewModel.pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
+        photoImageView.loadImage(pet.photoURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        if viewModel.pet.sex == "M" {
+        if pet.sex == "M" {
             
             sexLabel.text = "♂"
             
