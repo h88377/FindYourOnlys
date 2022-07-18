@@ -203,9 +203,9 @@ class AdoptDetailViewController: BaseViewController {
     
     @IBAction func pressedFavoriteButton(_ sender: UIButton) {
         
-        viewModel?.fetchFavoritePet()
-        
         viewModel?.toggleFavorite()
+        
+        viewModel?.fetchFavoritePet()
         
         self.delegate?.adoptDetailViewControllerFavoriteButtonDidTap()
     }
