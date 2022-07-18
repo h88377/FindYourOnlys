@@ -98,26 +98,23 @@ class ArticlePhotoCell: UITableViewCell {
         postTypeView.clipsToBounds = true
     }
     
-    func configureCell(with viewModel: ArticleViewModel, authorViewModel: UserViewModel) {
+    func configureCell(with article: Article, author: User) {
 
         userImageView.loadImage(
-            authorViewModel.user.imageURLString,
+            author.imageURLString,
             placeHolder: UIImage.system(.personPlaceHolder))
         
-        userNameLabel.text = authorViewModel.user.nickName
+        userNameLabel.text = author.nickName
         
         postedImageView.loadImage(
-            viewModel.article.imageURLString,
+            article.imageURLString,
             placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text = viewModel
-            .article
-            .createdTime
-            .formatedTime
+        timeLabel.text = article.createdTime.formatedTime
         
-        cityLabel.text = viewModel.article.city
+        cityLabel.text = article.city
         
-        switch viewModel.article.postType {
+        switch article.postType {
             
         case 0:
             
@@ -143,10 +140,9 @@ class ArticlePhotoCell: UITableViewCell {
         }   
     }
     
-    func configureCell(with viewModel: ArticleViewModel) {
+    func configureCell(with article: Article) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         userImageView.loadImage(
             currentUser.imageURLString,
@@ -155,14 +151,14 @@ class ArticlePhotoCell: UITableViewCell {
         userNameLabel.text = currentUser.nickName
         
         postedImageView.loadImage(
-            viewModel.article.imageURLString,
+            article.imageURLString,
             placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
-        timeLabel.text = viewModel.article.createdTime.formatedTime
+        timeLabel.text = article.createdTime.formatedTime
         
-        cityLabel.text = viewModel.article.city
+        cityLabel.text = article.city
         
-        switch viewModel.article.postType {
+        switch article.postType {
             
         case 0:
             

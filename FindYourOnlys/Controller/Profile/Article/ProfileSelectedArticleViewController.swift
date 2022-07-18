@@ -34,17 +34,17 @@ class ProfileSelectedArticleViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.articleViewModel.bind { [weak self] _ in
+        viewModel.profileSelectedArticle.bind { [weak self] _ in
             
             guard let self = self else { return }
             
             self.tableView.reloadData()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard let self = self,
-                  let error = errorViewModel?.error
+                  let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -57,22 +57,22 @@ class ProfileSelectedArticleViewController: BaseViewController {
             self.popBack()
         }
         
-        viewModel.editHandler = { [weak self] articleViewModel in
+        viewModel.editHandler = { [weak self] article in
             
             guard let self = self else { return }
             
             let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
                 
-                self?.viewModel.deleteArticle(with: articleViewModel)
+                self?.viewModel.deleteArticle(with: article)
             }
             
             AlertWindowManager.shared.presentEditActionSheet(
                 at: self,
-                articleViewModel: articleViewModel,
+                article: article,
                 with: deleteConfirmAction)
         }
         
-        viewModel.fetchArticle()
+        viewModel.fetchSelectedArticle()
     }
     
     // MARK: - Method
@@ -104,7 +104,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
     
     private func setupArticleContentCellHandler(
         articleCell: ArticleContentCell,
-        with articleViewModel: ArticleViewModel,
+        with article: Article,
         author: User
     ) {
         
@@ -112,14 +112,14 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             guard let self = self else { return }
             
-            self.viewModel.likeArticle(with: articleViewModel)
+            self.viewModel.likeArticle(with: article)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
             guard let self = self else { return }
              
-            self.viewModel.unlikeArticle(with: articleViewModel)
+            self.viewModel.unlikeArticle(with: article)
         }
         
         articleCell.leaveCommentHandler = { [weak self] in
@@ -137,7 +137,7 @@ class ProfileSelectedArticleViewController: BaseViewController {
             
             petSocietyCommentVC.transitioningDelegate = self
             
-            petSocietyCommentVC.viewModel.selectedArticle = articleViewModel.article
+            petSocietyCommentVC.viewModel.selectedArticle = article
             
             petSocietyCommentVC.viewModel.selectedAuthor = author
             
@@ -164,7 +164,7 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let articleCellViewModel = viewModel.articleViewModel.value,
+            let articleCellViewModel = viewModel.profileSelectedArticle.value,
             let currentUser = UserFirebaseManager.shared.currentUser
                 
         else { return UITableViewCell() }

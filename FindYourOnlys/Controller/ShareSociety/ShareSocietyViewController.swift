@@ -48,27 +48,27 @@ class ShareSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.sharedArticleViewModels.bind { [weak self] articleViewModels in
+        viewModel.sharedArticles.bind { [weak self] article in
             
             guard let self = self else { return }
             
             self.tableView.reloadData()
             
-            self.tableView.isHidden = articleViewModels.isEmpty
+            self.tableView.isHidden = article.isEmpty
         }
         
-        viewModel.sharedAuthorViewModels.bind { [weak self] _ in
+        viewModel.sharedAuthors.bind { [weak self] _ in
             
             guard let self = self else { return }
             
             self.tableView.reloadData()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                let error = errorViewModel?.error
+                let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -131,18 +131,18 @@ class ShareSocietyViewController: BaseViewController {
     
     private func setupArticleHandler() {
         
-        viewModel.editHandler = { [weak self] articleViewModel in
+        viewModel.editHandler = { [weak self] article in
             
             guard let self = self else { return }
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
-                articleViewModel.article.userId == currentUser.id
+                article.userId == currentUser.id
             else {
                 
                 let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
                     
-                    self.viewModel.blockUser(with: articleViewModel)
+                    self.viewModel.blockUser(with: article)
                 }
                 
                 AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
@@ -152,12 +152,12 @@ class ShareSocietyViewController: BaseViewController {
             
             let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
                 
-                self?.viewModel.deleteArticle(with: articleViewModel)
+                self?.viewModel.deleteArticle(with: article)
             }
             
             AlertWindowManager.shared.presentEditActionSheet(
                 at: self,
-                articleViewModel: articleViewModel,
+                article: article,
                 with: deleteConfirmAction)
         }
         
@@ -181,21 +181,21 @@ class ShareSocietyViewController: BaseViewController {
     
     private func setupArticleContentCellHandler(
         articleCell: ArticleContentCell,
-        with articleViewModel: ArticleViewModel,
-        authorViewModel: UserViewModel
+        with article: Article,
+        author: User
     ) {
         articleCell.likeArticleHandler = { [weak self] in
             
             guard let self = self else { return }
             
-            self.viewModel.likeArticle(with: articleViewModel)
+            self.viewModel.likeArticle(with: article)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
             guard let self = self else { return }
             
-            self.viewModel.unlikeArticle(with: articleViewModel)
+            self.viewModel.unlikeArticle(with: article)
         }
         
         articleCell.leaveCommentHandler = { [weak self] in
@@ -213,9 +213,9 @@ class ShareSocietyViewController: BaseViewController {
             
             petSocietyCommentVC.transitioningDelegate = self
             
-            petSocietyCommentVC.viewModel.selectedArticle = articleViewModel.article
+            petSocietyCommentVC.viewModel.selectedArticle = article
             
-            petSocietyCommentVC.viewModel.selectedAuthor = authorViewModel.user
+            petSocietyCommentVC.viewModel.selectedAuthor = author
             
             self.present(petSocietyCommentVC, animated: true)
         }
@@ -253,11 +253,11 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         
         guard
-            viewModel.sharedAuthorViewModels.value.count > 0,
-            viewModel.sharedArticleViewModels.value.count == viewModel.sharedAuthorViewModels.value.count
+            viewModel.sharedAuthors.value.count > 0,
+            viewModel.sharedArticles.value.count == viewModel.sharedAuthors.value.count
         else { return 0 }
         
-        return viewModel.sharedArticleViewModels.value.count
+        return viewModel.sharedArticles.value.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -269,12 +269,12 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let articleCellViewModel = viewModel
-            .sharedArticleViewModels
+        let article = viewModel
+            .sharedArticles
             .value[indexPath.section]
         
-        let authorCellViewModel = viewModel
-            .sharedAuthorViewModels
+        let author = viewModel
+            .sharedAuthors
             .value[indexPath.section]
         
         if indexPath.row == 0 {
@@ -284,13 +284,13 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             
             guard let photoCell = cell as? ArticlePhotoCell else { return cell }
             
-            photoCell.configureCell(with: articleCellViewModel, authorViewModel: authorCellViewModel)
+            photoCell.configureCell(with: article, author: author)
             
             photoCell.editHandler = { [weak self] in
                 
                 guard let self = self else { return }
                 
-                self.viewModel.editArticle(with: articleCellViewModel)
+                self.viewModel.editArticle(with: article)
             }
             
             return photoCell
@@ -302,12 +302,12 @@ extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource
             
             guard let contentCell = cell as? ArticleContentCell else { return cell }
             
-            contentCell.configureCell(with: articleCellViewModel)
+            contentCell.configureCell(with: article)
             
             setupArticleContentCellHandler(
                 articleCell: contentCell,
-                with: articleCellViewModel,
-                authorViewModel: authorCellViewModel)
+                with: article,
+                author: author)
             
             return contentCell   
         }

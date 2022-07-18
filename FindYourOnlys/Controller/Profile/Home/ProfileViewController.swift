@@ -315,11 +315,10 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         else { return }
         
-        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(
-            model: viewModel
-                .profileArticleViewModels
-                .value[indexPath.section]
-                .profileArticle.articles[indexPath.row])
+        profileSelectedArticleVC.viewModel.profileSelectedArticle.value = viewModel
+            .profileArticleViewModels
+            .value[indexPath.section]
+            .profileArticle.articles[indexPath.row]
         
         collectionView.deselectItem(at: indexPath, animated: true)
         

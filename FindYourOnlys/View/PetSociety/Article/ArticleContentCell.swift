@@ -101,23 +101,23 @@ class ArticleContentCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configureCell(with viewModel: ArticleViewModel) {
+    func configureCell(with article: Article) {
         
-        likeCountLabel.text = "\(viewModel.article.likeUserIds.count)"
+        likeCountLabel.text = "\(article.likeUserIds.count)"
         
-        commentCountLabel.text = "\(viewModel.article.comments.count)"
+        commentCountLabel.text = "\(article.comments.count)"
         
-        kindLabel.text = viewModel.article.petKind
+        kindLabel.text = article.petKind
         
-        contentLabel.text = viewModel.article.content
+        contentLabel.text = article.content
         
-        colorLabel.text = viewModel.article.color
+        colorLabel.text = article.color
         
-        hideLike(viewModel: viewModel)
+        hideLike(article: article)
         
         if let currentUser = UserFirebaseManager.shared.currentUser {
             
-            likeButton.isSelected = viewModel.article.likeUserIds.contains(currentUser.id)
+            likeButton.isSelected = article.likeUserIds.contains(currentUser.id)
             
         } else {
             
@@ -125,9 +125,9 @@ class ArticleContentCell: UITableViewCell {
         }
     }
     
-    func hideLike(viewModel: ArticleViewModel) {
+    func hideLike(article: Article) {
         
-        if viewModel.article.postType != nil {
+        if article.postType != nil {
             
             likeButton.isHidden = true
             

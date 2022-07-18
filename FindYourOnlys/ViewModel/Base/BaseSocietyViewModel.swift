@@ -11,9 +11,9 @@ class BaseSocietyViewModel {
     
     // MARK: - Properties
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
-    var editHandler: ((ArticleViewModel) -> Void)?
+    var editHandler: ((Article) -> Void)?
     
     var tapAddArticleHandler: (() -> Void)?
     
@@ -25,7 +25,9 @@ class BaseSocietyViewModel {
     
     // MARK: - Methods
     
-    func likeArticle(with articleViewModel: ArticleViewModel) {
+    func likeArticle(with article: Article) {
+        
+        var variableArticle = article
         
         guard UserFirebaseManager.shared.currentUser != nil else {
             
@@ -34,18 +36,20 @@ class BaseSocietyViewModel {
             return
         }
         
-        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { [weak self] result in
+        PetSocietyFirebaseManager.shared.likeArticle(with: &variableArticle) { [weak self] result in
             
             guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
-    func unlikeArticle(with articleViewModel: ArticleViewModel) {
+    func unlikeArticle(with article: Article) {
+        
+        var variableArticle = article
         
         guard UserFirebaseManager.shared.currentUser != nil else {
             
@@ -54,18 +58,18 @@ class BaseSocietyViewModel {
             return
         }
         
-        PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { [weak self] result in
+        PetSocietyFirebaseManager.shared.unlikeArticle(with: &variableArticle) { [weak self] result in
             
             guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
-    func editArticle(with articleViewModel: ArticleViewModel) {
+    func editArticle(with article: Article) {
         
         guard UserFirebaseManager.shared.currentUser != nil else {
             
@@ -74,7 +78,7 @@ class BaseSocietyViewModel {
             return
         }
         
-        editHandler?(articleViewModel)
+        editHandler?(article)
     }
     
     func tapAddArticle() {

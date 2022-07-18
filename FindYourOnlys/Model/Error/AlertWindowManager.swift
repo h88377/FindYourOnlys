@@ -112,7 +112,7 @@ class AlertWindowManager {
     
     func presentEditActionSheet(
         at controller: UIViewController,
-        articleViewModel: ArticleViewModel,
+        article: Article,
         with deleteConfirmAction: UIAlertAction
     ) {
         
@@ -130,8 +130,6 @@ class AlertWindowManager {
                 
                 return
             }
-            
-            let article = articleViewModel.article
             
             editVC.viewModel.article = article
             
