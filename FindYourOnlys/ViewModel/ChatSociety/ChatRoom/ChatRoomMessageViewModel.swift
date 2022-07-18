@@ -11,9 +11,9 @@ class ChatRoomMessageViewModel {
     
     // MARK: - Properties
     
-    let messageViewModels = Box([MessageViewModel]())
+    let messages = Box([Message]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     private var selectedChatRoom: ChatRoom?
     
@@ -42,7 +42,7 @@ class ChatRoomMessageViewModel {
             
         if isBlocked {
             
-            messageViewModels.value = []
+            messages.value = []
             
         } else {
             
@@ -54,11 +54,11 @@ class ChatRoomMessageViewModel {
                     
                 case .success(let messages):
                     
-                    self.messageViewModels.value = messages.map { MessageViewModel(model: $0) }
+                    self.messages.value = messages
                     
                 case .failure(let error):
                     
-                    self.errorViewModel.value = ErrorViewModel(model: error)
+                    self.error.value = error
                 }
             }
         }
@@ -74,7 +74,7 @@ class ChatRoomMessageViewModel {
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
@@ -125,19 +125,22 @@ class ChatRoomMessageViewModel {
                     
                 case .failure(let error):
                     
-                    self.errorViewModel.value = ErrorViewModel(model: error)
+                    self.error.value = error
                 }
                 semaphore.signal()
             }
             
             semaphore.wait()
-            PetSocietyFirebaseManager.shared.sendMessage(currentUser.id, with: &self.message) { [weak self] result in
+            PetSocietyFirebaseManager.shared.sendMessage(
+                currentUser.id,
+                with: &self.message
+            ) { [weak self] result in
                 
                 guard let self = self else { return }
                 
                 if case .failure(let error) = result {
                     
-                    self.errorViewModel.value = ErrorViewModel(model: error)
+                    self.error.value = error
                 }
                 
                 semaphore.signal()

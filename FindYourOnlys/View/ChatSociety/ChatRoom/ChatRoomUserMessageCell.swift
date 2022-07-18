@@ -46,11 +46,11 @@ class ChatRoomUserMessageCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configureCell(with viewModel: MessageViewModel, friend: User) {
+    func configureCell(with message: Message, friend: User) {
         
         guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        if currentUser.id == viewModel.message.senderId {
+        if currentUser.id == message.senderId {
             
             timeLabel.textAlignment = .right
             
@@ -73,13 +73,13 @@ class ChatRoomUserMessageCell: UITableViewCell {
         
         userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        timeLabel.text = viewModel.message.createdTime.formatedTime
+        timeLabel.text = message.createdTime.formatedTime
         
         contentLabel.isHidden = true
         
         contentImageView.isHidden = true
         
-        if let content = viewModel.message.content, content != "" {
+        if let content = message.content, content != "" {
             
             contentLabel.text = content
             
@@ -87,7 +87,7 @@ class ChatRoomUserMessageCell: UITableViewCell {
             
             imageViewHeightConstraint.constant = 0
             
-        } else if let imageURLString = viewModel.message.contentImageURLString {
+        } else if let imageURLString = message.contentImageURLString {
             
             contentImageView.loadImage(imageURLString, placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
             

@@ -80,13 +80,11 @@
 		9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8DE28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift */; };
 		9896D8E128084BA9003D4A16 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8E028084BA9003D4A16 /* UserViewModel.swift */; };
 		9896D8E3280914DF003D4A16 /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8E2280914DF003D4A16 /* ChatRoom.swift */; };
-		9896D8E528091720003D4A16 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8E428091720003D4A16 /* ChatRoomViewModel.swift */; };
 		9896D8EC28094E84003D4A16 /* ChatRoomFriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8EA28094E84003D4A16 /* ChatRoomFriendListCell.swift */; };
 		9896D8ED28094E84003D4A16 /* ChatRoomFriendListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D8EB28094E84003D4A16 /* ChatRoomFriendListCell.xib */; };
 		9896D8EF280968C5003D4A16 /* ChatRoomMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8EE280968C5003D4A16 /* ChatRoomMessageViewController.swift */; };
 		9896D8F128096B57003D4A16 /* ChatRoomMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F028096B57003D4A16 /* ChatRoomMessageViewModel.swift */; };
 		9896D8F328096B97003D4A16 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F228096B97003D4A16 /* Message.swift */; };
-		9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D8F42809769A003D4A16 /* MessageViewModel.swift */; };
 		9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D916280A6F42003D4A16 /* UITextView+Extension.swift */; };
 		9896D91B280BC6A2003D4A16 /* SearchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */; };
 		9896D925280BCC32003D4A16 /* SearchFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */; };
@@ -275,13 +273,11 @@
 		9896D8DE28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendListViewModel.swift; sourceTree = "<group>"; };
 		9896D8E028084BA9003D4A16 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		9896D8E2280914DF003D4A16 /* ChatRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
-		9896D8E428091720003D4A16 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
 		9896D8EA28094E84003D4A16 /* ChatRoomFriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFriendListCell.swift; sourceTree = "<group>"; };
 		9896D8EB28094E84003D4A16 /* ChatRoomFriendListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomFriendListCell.xib; sourceTree = "<group>"; };
 		9896D8EE280968C5003D4A16 /* ChatRoomMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageViewController.swift; sourceTree = "<group>"; };
 		9896D8F028096B57003D4A16 /* ChatRoomMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessageViewModel.swift; sourceTree = "<group>"; };
 		9896D8F228096B97003D4A16 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		9896D8F42809769A003D4A16 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		9896D916280A6F42003D4A16 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		9896D91A280BC6A2003D4A16 /* SearchFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewController.swift; sourceTree = "<group>"; };
 		9896D924280BCC32003D4A16 /* SearchFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewModel.swift; sourceTree = "<group>"; };
@@ -604,8 +600,6 @@
 				9896D8DE28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift */,
 				9896D8F028096B57003D4A16 /* ChatRoomMessageViewModel.swift */,
 				9896D8E028084BA9003D4A16 /* UserViewModel.swift */,
-				9896D8E428091720003D4A16 /* ChatRoomViewModel.swift */,
-				9896D8F42809769A003D4A16 /* MessageViewModel.swift */,
 			);
 			path = ChatRoom;
 			sourceTree = "<group>";
@@ -1446,7 +1440,6 @@
 				98CC15D32801B91600B9FDC6 /* AdoptFavoriteViewController.swift in Sources */,
 				98CC15F228028A3500B9FDC6 /* FindYourOnlys.xcdatamodeld in Sources */,
 				98CC15EE280289C000B9FDC6 /* StorageManager.swift in Sources */,
-				9896D8E528091720003D4A16 /* ChatRoomViewModel.swift in Sources */,
 				987D8B372816BC1B000D1F95 /* RegisterViewController.swift in Sources */,
 				98CC16682806B3A400B9FDC6 /* UserFirebaseManager.swift in Sources */,
 				98CC16292805518400B9FDC6 /* HomeTabBarController.swift in Sources */,
@@ -1491,7 +1484,6 @@
 				9896D956280E9C3F003D4A16 /* RouteAnnotation.swift in Sources */,
 				98CC15D52801B9B500B9FDC6 /* UICollectionView+Extension.swift in Sources */,
 				98CC164028059EBD00B9FDC6 /* KindSelectionCell.swift in Sources */,
-				9896D8F52809769A003D4A16 /* MessageViewModel.swift in Sources */,
 				9896D96A280F91B0003D4A16 /* DirectionHeaderView.swift in Sources */,
 				989D7ED8283FE216008ECB7D /* SearchViewModel.swift in Sources */,
 				9896D954280E9BFB003D4A16 /* Route.swift in Sources */,

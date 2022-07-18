@@ -69,7 +69,7 @@ class ChatRoomMessageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.messageViewModels.bind { [weak self] _ in
+        viewModel.messages.bind { [weak self] _ in
             
             guard let self = self else { return }
             
@@ -78,11 +78,11 @@ class ChatRoomMessageViewController: BaseViewController {
             self.scrollToBottomIfHasMessage()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                let error = errorViewModel?.error
+                let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -171,7 +171,7 @@ class ChatRoomMessageViewController: BaseViewController {
     
     private func scrollToBottomIfHasMessage() {
         
-        let messageCount = viewModel.messageViewModels.value.count
+        let messageCount = viewModel.messages.value.count
         
         guard messageCount > 0 else { return }
         
@@ -287,7 +287,7 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.messageViewModels.value.count
+        return viewModel.messages.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -303,17 +303,17 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
                 
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.messageViewModels.value[indexPath.row]
+        let message = viewModel.messages.value[indexPath.row]
         
-        if cellViewModel.message.senderId == selectedFriend.id {
+        if message.senderId == selectedFriend.id {
             
-            friendCell.configureCell(with: cellViewModel, friend: selectedFriend)
+            friendCell.configureCell(with: message, friend: selectedFriend)
             
             return friendCell
             
         } else {
             
-            userCell.configureCell(with: cellViewModel, friend: selectedFriend)
+            userCell.configureCell(with: message, friend: selectedFriend)
             
             return userCell
         }
