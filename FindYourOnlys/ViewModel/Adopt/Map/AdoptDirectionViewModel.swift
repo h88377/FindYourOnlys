@@ -9,9 +9,5 @@ import Foundation
 
 class AdoptDirectionViewModel {
     
-    var directionViewModel = Box(
-        DirectionViewModel(
-            model: Direction()
-        )
-    )
+    var direction = Box(Direction())
 }

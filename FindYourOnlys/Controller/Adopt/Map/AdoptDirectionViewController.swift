@@ -50,7 +50,7 @@ class AdoptDirectionViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.directionViewModel.bind { [weak self] _ in
+        viewModel.direction.bind { [weak self] _ in
             
             guard let self = self else { return }
             
@@ -79,18 +79,18 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        let directionViewModel = viewModel.directionViewModel
+        let direction = viewModel.direction.value
         
-        return directionViewModel.value.direction.mapRoutes.isEmpty
+        return direction.mapRoutes.isEmpty
         ? 0
-        : directionViewModel.value.direction.mapRoutes.count
+        : direction.mapRoutes.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let directionViewModel = viewModel.directionViewModel
+        let direction = viewModel.direction.value
         
-        let route = directionViewModel.value.direction.mapRoutes[section]
+        let route = direction.mapRoutes[section]
         
         return route.steps.count - 1
     }
@@ -103,9 +103,9 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         
         guard let directionCell = cell as? DirectionCell else { return cell }
         
-        let directionViewModel = viewModel.directionViewModel
+        let direction = viewModel.direction.value
         
-        directionCell.configureCell(with: directionViewModel.value, at: indexPath)
+        directionCell.configureCell(with: direction, at: indexPath)
         
         return directionCell
     }
@@ -114,13 +114,13 @@ extension AdoptDirectionViewController: UITableViewDataSource, UITableViewDelega
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: DirectionHeaderView.identifier
-        )as? DirectionHeaderView else { return nil }
+        ) as? DirectionHeaderView else { return nil }
         
-        let route = viewModel.directionViewModel.value.direction.mapRoutes[section]
+        let direction = viewModel.direction.value
         
-        let directionViewModel = viewModel.directionViewModel
+        let route = direction.mapRoutes[section]
         
-        headerView.configureView(with: directionViewModel.value, route: route)
+        headerView.configureView(with: direction, route: route)
         
         return headerView
     }
