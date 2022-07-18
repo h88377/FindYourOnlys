@@ -80,9 +80,9 @@ class AdoptPetsLocationViewModel {
     
     // MARK: - Properties
     
-    var mapAnnotationViewModels: Box<[MapAnnotationViewModel]?> = Box(nil)
+    var mapAnnotations: Box<[MapAnnotation]?> = Box(nil)
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var isShelterMap: Bool = true
     
@@ -146,7 +146,7 @@ class AdoptPetsLocationViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -159,7 +159,7 @@ class AdoptPetsLocationViewModel {
         
         if isSearch {
             
-            mapAnnotationViewModels.value = nil
+            mapAnnotations.value = nil
         }
         
         startLoadingHandler?()
@@ -176,7 +176,7 @@ class AdoptPetsLocationViewModel {
                 
                 if shelters.isEmpty {
                     
-                    self.mapAnnotationViewModels.value = []
+                    self.mapAnnotations.value = []
                     
                 } else {
                     
@@ -187,7 +187,7 @@ class AdoptPetsLocationViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -222,7 +222,7 @@ class AdoptPetsLocationViewModel {
                     
                 case .failure(let error):
                     
-                    self.errorViewModel.value = ErrorViewModel(model: error)
+                    self.error.value = error
                     
                 }
             }
@@ -265,7 +265,7 @@ class AdoptPetsLocationViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -322,13 +322,13 @@ class AdoptPetsLocationViewModel {
     
     private func appendMapAnnotation(annotation: MapAnnotation) {
         
-        if mapAnnotationViewModels.value == nil {
+        if mapAnnotations.value == nil {
             
-            mapAnnotationViewModels.value = [MapAnnotationViewModel(model: annotation)]
+            mapAnnotations.value = [annotation]
             
         } else {
             
-            mapAnnotationViewModels.value?.append(MapAnnotationViewModel(model: annotation))
+            mapAnnotations.value?.append(annotation)
         }
     }
 }

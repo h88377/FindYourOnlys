@@ -88,13 +88,11 @@ class AdoptPetsLocationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.mapAnnotationViewModels.bind { [weak self] mapAnnotationViewModels in
+        viewModel.mapAnnotations.bind { [weak self] mapAnnotations in
 
             guard
-                let mapAnnotationViewModels = mapAnnotationViewModels,
+                let mapAnnotations = mapAnnotations,
                 let self = self else { return }
-
-            let mapAnnotations = mapAnnotationViewModels.map { $0.mapAnnotation }
             
             self.mapView.addAnnotations(mapAnnotations)
             
@@ -109,17 +107,17 @@ class AdoptPetsLocationViewController: BaseViewController {
         }
 
         // After lose network, calculateRouteError would not be satisfied by using below conditions.
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
 
             guard let self = self else { return }
 
-            if let error = errorViewModel?.error {
+            if let error = error {
 
                 // Check user's location if have shelters' information
                 if self.viewModel.shelters != nil {
 
                     // Filter out alert window when there are annotations on the map to enhance UX.
-                    if self.viewModel.mapAnnotationViewModels.value == nil {
+                    if self.viewModel.mapAnnotations.value == nil {
 
                         AlertWindowManager.shared.showAlertWindow(at: self, of: error)
                     }
