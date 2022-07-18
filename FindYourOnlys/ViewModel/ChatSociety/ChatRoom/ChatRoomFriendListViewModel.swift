@@ -11,11 +11,11 @@ class ChatRoomFriendListViewModel {
     
     // MARK: - Properties
     
-    let chatRoomViewModels = Box([ChatRoomViewModel]())
+    let chatRooms = Box([ChatRoom]())
     
-    let friendViewModels = Box([UserViewModel]())
+    let friends = Box([User]())
     
-    let errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    let error: Box<Error?> = Box(nil)
     
     // MARK: - Methods
     
@@ -37,7 +37,7 @@ class ChatRoomFriendListViewModel {
                     .flatMap { $0.userIds }
                     .filter { $0 != currentUser.id }
                 
-                self.chatRoomViewModels.value = currentChatRooms.map { ChatRoomViewModel(model: $0) }
+                self.chatRooms.value = currentChatRooms
                 
                 self.fetchFriends(with: friendIds) { result in
                     
@@ -47,17 +47,17 @@ class ChatRoomFriendListViewModel {
                         
                         let chatRoomFriends = self.reorderFriends(users: users, withIds: friendIds)
                         
-                        UserFirebaseManager.shared.setUsers(with: self.friendViewModels, users: chatRoomFriends)
+                        self.friends.value = chatRoomFriends
                         
                     case .failure(let error):
                         
-                        self.errorViewModel.value = ErrorViewModel(model: error)
+                        self.error.value = error
                     }
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }

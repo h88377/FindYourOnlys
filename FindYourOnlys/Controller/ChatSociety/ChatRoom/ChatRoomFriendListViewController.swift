@@ -38,29 +38,29 @@ class ChatRoomFriendListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.chatRoomViewModels.bind { [weak self] chatRoomViewModels in
+        viewModel.chatRooms.bind { [weak self] chatRooms in
             
             guard let self = self else { return }
             
-            self.tableView.isHidden = chatRoomViewModels.isEmpty
+            self.tableView.isHidden = chatRooms.isEmpty
             
             self.tableView.reloadData()
         }
         
-        viewModel.friendViewModels.bind { [weak self] friendViewModels in
+        viewModel.friends.bind { [weak self] friends in
             
             guard let self = self else { return }
             
-            self.tableView.isHidden = friendViewModels.isEmpty
+            self.tableView.isHidden = friends.isEmpty
             
             self.tableView.reloadData()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                let error = errorViewModel?.error
+                let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -138,7 +138,7 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.friendViewModels.value.count
+        viewModel.friends.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,9 +150,9 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
             )as? ChatRoomFriendListCell
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.friendViewModels.value[indexPath.row]
+        let friend = viewModel.friends.value[indexPath.row]
         
-        cell.configureCell(with: cellViewModel)
+        cell.configureCell(with: friend)
         
         return cell
     }
@@ -167,9 +167,9 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
             )as? ChatRoomMessageViewController
         else { return }
         
-        let selectedChatRoom = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom
+        let selectedChatRoom = viewModel.chatRooms.value[indexPath.row]
         
-        let selectedFriend = viewModel.friendViewModels.value[indexPath.row].user
+        let selectedFriend = viewModel.friends.value[indexPath.row]
         
         chatRoomMessageVC.viewModel.changedSelectedChatRoom(with: selectedChatRoom)
         

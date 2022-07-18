@@ -41,8 +41,6 @@ class PetSocietyViewModel: BaseSocietyViewModel {
                 
                 self.filterOutBlockedComments(with: &articles)
                 
-//                PetSocietyFirebaseManager.shared.setArticles(with: self.findArticles, articles: articles)
-                
                 self.findArticles.value = articles
                 
                 self.fetchAuthors(with: articles, type: .find) { error in
@@ -73,8 +71,6 @@ class PetSocietyViewModel: BaseSocietyViewModel {
             case .success(var articles):
                 
                 self.filterOutBlockedComments(with: &articles)
-                
-//                PetSocietyFirebaseManager.shared.setArticles(with: self.sharedArticles, articles: articles)
                 
                 self.sharedArticles.value = articles
                 
@@ -141,12 +137,10 @@ class PetSocietyViewModel: BaseSocietyViewModel {
                     
                 case .find:
                     
-//                    UserFirebaseManager.shared.setUsers(with: self.findAuthors, users: authors)
                     self.findAuthors.value = authors
                     
                 case .share:
                     
-//                    UserFirebaseManager.shared.setUsers(with: self.sharedAuthors, users: authors)
                     self.sharedAuthors.value = authors
                 }
                   
