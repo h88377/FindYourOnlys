@@ -96,7 +96,6 @@
 		9896D933280D6694003D4A16 /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896D931280D6694003D4A16 /* FriendRequestCell.xib */; };
 		9896D936280D6DC9003D4A16 /* FriendRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */; };
 		9896D938280D6E8E003D4A16 /* ProfileFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */; };
-		9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */; };
 		9896D949280DBD83003D4A16 /* SearchFriendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D948280DBD83003D4A16 /* SearchFriendResult.swift */; };
 		9896D952280E89D9003D4A16 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D951280E89D9003D4A16 /* MapAnnotation.swift */; };
 		9896D954280E9BFB003D4A16 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896D953280E9BFB003D4A16 /* Route.swift */; };
@@ -289,7 +288,6 @@
 		9896D931280D6694003D4A16 /* FriendRequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestCell.xib; sourceTree = "<group>"; };
 		9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewModel.swift; sourceTree = "<group>"; };
 		9896D937280D6E8E003D4A16 /* ProfileFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFirebaseManager.swift; sourceTree = "<group>"; };
-		9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListViewModel.swift; sourceTree = "<group>"; };
 		9896D948280DBD83003D4A16 /* SearchFriendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendResult.swift; sourceTree = "<group>"; };
 		9896D951280E89D9003D4A16 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		9896D953280E9BFB003D4A16 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -620,7 +618,6 @@
 				9896D935280D6DC9003D4A16 /* FriendRequestViewModel.swift */,
 				987D8B75281D1E36000D1F95 /* FriendProfileViewModel.swift */,
 				989D7ED7283FE216008ECB7D /* SearchViewModel.swift */,
-				9896D93D280DB713003D4A16 /* FriendRequestListViewModel.swift */,
 			);
 			path = "Add Friend";
 			sourceTree = "<group>";
@@ -1531,7 +1528,6 @@
 				98939A112812759C004312F1 /* AdoptFilterViewController.swift in Sources */,
 				98939A1F281395EE004312F1 /* FindPetSocietyFilterCategory.swift in Sources */,
 				9808D987282902F70059DDF5 /* ProportionSizeImageView.swift in Sources */,
-				9896D93E280DB714003D4A16 /* FriendRequestListViewModel.swift in Sources */,
 				98CC162E28055F5A00B9FDC6 /* FindPetSocietyViewController.swift in Sources */,
 				98939A19281291CD004312F1 /* AdoptFilterCondition.swift in Sources */,
 				98CC163528056FD500B9FDC6 /* PublishViewController.swift in Sources */,

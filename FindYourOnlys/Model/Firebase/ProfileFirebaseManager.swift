@@ -19,7 +19,7 @@ class ProfileFirebaseManager {
     private let database = Firestore.firestore()
     
     func removeFriendRequest(
-        with viewModels: [FriendRequestListViewModel],
+        with friendRequestLists: [FriendRequestList],
         at indexPath: IndexPath,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
@@ -42,7 +42,7 @@ class ProfileFirebaseManager {
                     
                     let currentUserId = UserFirebaseManager.shared.currentUser?.id
                     
-                    let requestUserId = viewModels[indexPath.section].friendRequestList.users[indexPath.row].id
+                    let requestUserId = friendRequestLists[indexPath.section].users[indexPath.row].id
                     
                     if removeRequest.requestedUserId == currentUserId && removeRequest.requestUserId == requestUserId {
                         
@@ -110,13 +110,13 @@ class ProfileFirebaseManager {
     }
     
     func addFriendRequest(
-        with viewModels: [FriendRequestListViewModel],
+        with friendRequestLists: [FriendRequestList],
         at indexPath: IndexPath, completion: @escaping (Result<Void, Error>) -> Void
     ) {
         
         guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
-        var requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
+        var requestUser = friendRequestLists[indexPath.section].users[indexPath.row]
         
         var requestedUser = currentUser
         
@@ -144,7 +144,7 @@ class ProfileFirebaseManager {
     }
     
     func createChatRoom(
-        with viewModels: [FriendRequestListViewModel],
+        with friendRequestLists: [FriendRequestList],
         at indexPath: IndexPath,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
@@ -153,7 +153,7 @@ class ProfileFirebaseManager {
         
         let documentReference = database.collection(FirebaseCollectionType.chatRoom.rawValue).document()
         
-        let requestUser = viewModels[indexPath.section].friendRequestList.users[indexPath.row]
+        let requestUser = friendRequestLists[indexPath.section].users[indexPath.row]
         
         let requestedUser = currentUser
         

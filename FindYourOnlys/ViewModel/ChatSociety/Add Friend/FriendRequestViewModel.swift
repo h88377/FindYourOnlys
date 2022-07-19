@@ -18,9 +18,9 @@ class FriendRequestViewModel {
     
     // MARK: - Properties
     
-    var friendRequestListViewModels = Box([FriendRequestListViewModel]())
+    var friendRequestLists = Box([FriendRequestList]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     func fetchFriendRequestList() {
         
@@ -54,18 +54,17 @@ class FriendRequestViewModel {
                         
                         let requestedList = FriendRequestList(type: .requested, users: requestedUsers)
                         
-                        self.friendRequestListViewModels.value = [requestList, requestedList]
-                            .map { FriendRequestListViewModel(model: $0) }
+                        self.friendRequestLists.value = [requestList, requestedList]
                         
                     case .failure(let error):
                         
-                        self.errorViewModel.value = ErrorViewModel(model: error)
+                        self.error.value = error
                     }
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
@@ -106,7 +105,7 @@ class FriendRequestViewModel {
         
         // Add friend into each user's friend array
         ProfileFirebaseManager.shared.addFriendRequest(
-            with: friendRequestListViewModels.value,
+            with: friendRequestLists.value,
             at: indexPath
         ) { [weak self] result in
             
@@ -114,13 +113,13 @@ class FriendRequestViewModel {
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
         
         // Create chatroom (including created time)
         ProfileFirebaseManager.shared.createChatRoom(
-            with: friendRequestListViewModels.value,
+            with: friendRequestLists.value,
             at: indexPath
         ) { [weak self] result in
             
@@ -128,7 +127,7 @@ class FriendRequestViewModel {
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
@@ -137,7 +136,7 @@ class FriendRequestViewModel {
         
         // Remove friend request
         ProfileFirebaseManager.shared.removeFriendRequest(
-            with: friendRequestListViewModels.value,
+            with: friendRequestLists.value,
             at: indexPath
         ) { [weak self] result in
             
@@ -145,7 +144,7 @@ class FriendRequestViewModel {
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }

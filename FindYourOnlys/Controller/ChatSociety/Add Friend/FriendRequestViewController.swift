@@ -40,20 +40,20 @@ class FriendRequestViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.friendRequestListViewModels.bind { [weak self] friendRequestViewModels in
+        viewModel.friendRequestLists.bind { [weak self] friendRequestLists in
             
             guard let self = self else { return }
             
-            self.tableView.isHidden = friendRequestViewModels.flatMap { $0.friendRequestList.users }.isEmpty
+            self.tableView.isHidden = friendRequestLists.flatMap { $0.users }.isEmpty
             
             self.tableView.reloadData()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                let error = errorViewModel?.error
+                let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
@@ -85,7 +85,7 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        let requestListCount = viewModel.friendRequestListViewModels.value.count
+        let requestListCount = viewModel.friendRequestLists.value.count
         
         return requestListCount
     }
@@ -93,9 +93,9 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let friendRequestCount = viewModel
-            .friendRequestListViewModels
+            .friendRequestLists
             .value[section]
-            .friendRequestList.users.count
+            .users.count
         
         return friendRequestCount
     }
@@ -106,11 +106,11 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         
         guard let friendRequestCell = cell as? FriendRequestCell else { return cell }
         
-        let cellViewModel = viewModel.friendRequestListViewModels.value[indexPath.section]
+        let friendRequestList = viewModel.friendRequestLists.value[indexPath.section]
         
-        let requestType = cellViewModel.friendRequestList.type
+        let requestType = friendRequestList.type
         
-        let user = cellViewModel.friendRequestList.users[indexPath.row]
+        let user = friendRequestList.users[indexPath.row]
         
         friendRequestCell.configureCell(
             with: requestType,
@@ -139,7 +139,7 @@ extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSourc
         
         guard let headerView = view as? FriendRequestHeaderView else { return view }
         
-        let requestTypeText = viewModel.friendRequestListViewModels.value[section].friendRequestList.type.rawValue
+        let requestTypeText = viewModel.friendRequestLists.value[section].type.rawValue
         
         headerView.configureView(with: requestTypeText)
         

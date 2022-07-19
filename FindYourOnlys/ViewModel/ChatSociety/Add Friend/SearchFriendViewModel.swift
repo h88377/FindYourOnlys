@@ -13,7 +13,7 @@ class SearchFriendViewModel {
     
     var searchViewModel: Box<SearchViewModel?> = Box(nil)
     
-    var errorViewModel: Box<Error?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var userEmail: String?
     
@@ -45,7 +45,7 @@ class SearchFriendViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = error
+                self.error.value = error
             }
         }
     }
@@ -106,7 +106,7 @@ class SearchFriendViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = error
+                self.error.value = error
             }
         }
     }

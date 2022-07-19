@@ -100,7 +100,7 @@ class SearchFriendViewController: BaseViewController {
             }
         }
         
-        viewModel.errorViewModel.bind { [weak self] error in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
