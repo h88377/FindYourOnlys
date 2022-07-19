@@ -8,7 +8,7 @@
 import UIKit
 
 class KindSelectionCell: BasePublishCell {
-
+    
     // MARK: - Properties
     
     @IBOutlet private weak var kindLabel: UILabel! {
@@ -28,9 +28,8 @@ class KindSelectionCell: BasePublishCell {
             let dogImage = UIImage.asset(.dog)?.withTintColor(.projectPlaceHolderColor, renderingMode: .alwaysOriginal),
             let othersImage = UIImage.asset(.others)?
                 .withTintColor(
-                .projectPlaceHolderColor,
-                renderingMode: .alwaysOriginal)
-                
+                    .projectPlaceHolderColor,
+                    renderingMode: .alwaysOriginal)
         else { return [] }
         
         return [catImage, dogImage, othersImage]
@@ -42,7 +41,6 @@ class KindSelectionCell: BasePublishCell {
             let catImage = UIImage.asset(.cat)?.withTintColor(.white, renderingMode: .alwaysOriginal),
             let dogImage = UIImage.asset(.dog)?.withTintColor(.white, renderingMode: .alwaysOriginal),
             let othersImage = UIImage.asset(.others)?.withTintColor(.white, renderingMode: .alwaysOriginal)
-                
         else { return [] }
         
         return [catImage, dogImage, othersImage]
@@ -67,11 +65,10 @@ class KindSelectionCell: BasePublishCell {
         case PublishContentCategory.petKind.rawValue:
             
             let petKinds = PetKind.allCases
-
+            
             for index in 0..<petKinds.count {
-
-                if
-                    let article = article {
+                
+                if let article = article {
                     
                     let isSelected = article.petKind == petKinds[index].rawValue
                     
@@ -85,11 +82,10 @@ class KindSelectionCell: BasePublishCell {
         case PublishContentCategory.postType.rawValue:
             
             let postTypes = PostType.allCases
-
+            
             for index in 0..<postTypes.count {
                 
-                if
-                    let article = article {
+                if let article = article {
                     
                     let isSelected = article.postType == index
                     
@@ -104,9 +100,9 @@ class KindSelectionCell: BasePublishCell {
         default:
             
             let sexes = Sex.allCases
-
+            
             for index in 0..<sexes.count {
-
+                
                 createButton(with: sexes[index].rawValue, index: index)
             }
             
@@ -122,11 +118,10 @@ class KindSelectionCell: BasePublishCell {
         case AdoptFilterCategory.petKind.rawValue:
             
             let petKinds = PetKind.allCases
-
+            
             for index in 0..<petKinds.count {
-
-                if
-                    let condition = condition {
+                
+                if let condition = condition {
                     
                     let isSelected = condition.petKind == petKinds[index].rawValue
                     
@@ -140,11 +135,10 @@ class KindSelectionCell: BasePublishCell {
         default:
             
             let sexTypes = Sex.allCases
-
+            
             for index in 0..<sexTypes.count {
                 
-                if
-                    let condition = condition {
+                if let condition = condition {
                     
                     let isSelected = condition.sex == convertSex(with: sexTypes[index])
                     
@@ -168,15 +162,15 @@ class KindSelectionCell: BasePublishCell {
         case FindPetSocietyFilterCategory.petKind.rawValue:
             
             let petKinds = PetKind.allCases
-
+            
             for index in 0..<petKinds.count {
-
-                if
-                    let findCondition = findCondition {
+                
+                if let findCondition = findCondition {
                     
                     let isSelected = findCondition.petKind == petKinds[index].rawValue
                     
                     createButton(with: petKinds[index].rawValue, index: index, isSelected: isSelected)
+                    
                 } else {
                     
                     createButton(with: petKinds[index].rawValue, index: index)
@@ -186,11 +180,10 @@ class KindSelectionCell: BasePublishCell {
         case FindPetSocietyFilterCategory.postType.rawValue:
             
             let postTypes = PostType.allCases
-
+            
             for index in 0..<postTypes.count {
                 
-                if
-                    let findCondition = findCondition {
+                if let findCondition = findCondition {
                     
                     let isSelected = findCondition.postType == index
                     
@@ -205,9 +198,9 @@ class KindSelectionCell: BasePublishCell {
         default:
             
             let sexes = Sex.allCases
-
+            
             for index in 0..<sexes.count {
-
+                
                 createButton(with: sexes[index].rawValue, index: index)
             }
             
@@ -217,7 +210,7 @@ class KindSelectionCell: BasePublishCell {
     private func createButton(with title: String, index: Int, isSelected: Bool = false) {
         
         let button = TransformButton()
-
+        
         if kindLabel.text == PublishContentCategory.petKind.rawValue {
             
             button.setImage(petImages[index], for: .normal)
@@ -250,25 +243,20 @@ class KindSelectionCell: BasePublishCell {
         button.addTarget(self, action: #selector(toggleButton), for: .touchUpInside)
         
         buttons.append(button)
-
+        
         kindStackView.addSubview(button)
-
-        NSLayoutConstraint.activate(
-            [
-                button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
-                
-                button.widthAnchor.constraint(equalToConstant: 60),
-                
-                button.heightAnchor.constraint(equalToConstant: 60),
-                
-                button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
-                
-                button.leadingAnchor.constraint(
-                    equalTo: kindStackView.leadingAnchor,
-                    constant: (80 * CGFloat(index))
-                )
-            ]
-        )
+        
+        NSLayoutConstraint.activate([
+            
+            button.heightAnchor.constraint(equalTo: kindStackView.heightAnchor),
+            
+            button.widthAnchor.constraint(equalToConstant: 60),
+            
+            button.heightAnchor.constraint(equalToConstant: 60),
+            
+            button.topAnchor.constraint(equalTo: kindStackView.topAnchor),
+            
+            button.leadingAnchor.constraint(equalTo: kindStackView.leadingAnchor,constant: (80 * CGFloat(index)))])
     }
     
     private func convertSex(with sexType: Sex) -> String {
@@ -287,10 +275,7 @@ class KindSelectionCell: BasePublishCell {
     
     @objc func toggleButton(_ sender: UIButton) {
         
-        guard
-            let currentTitle = sender.currentTitle
-        
-        else { return }
+        guard let currentTitle = sender.currentTitle else { return }
         
         buttons.forEach {
             

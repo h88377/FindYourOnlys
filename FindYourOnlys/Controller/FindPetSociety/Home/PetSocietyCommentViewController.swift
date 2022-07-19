@@ -123,85 +123,47 @@ class PetSocietyCommentViewController: BaseModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-            
-            guard
-                let self = self else { return }
-            
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
-        }
-        
-        viewModel.senderViewModels.bind { [weak self] senderViewModels in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
-                    
+                let error = error
             else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-                
-                self.setupArticleContent()
-                    
-                self.viewModel.scrollToBottom()
-                
-                self.tableView.isHidden = senderViewModels.count == 0
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
-        viewModel.commentViewModels.bind { [weak self] _ in
+        viewModel.commentSenders.bind { [weak self] commentSenders in
             
             guard
                 let self = self,
-                self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
-                    
+                self.viewModel.comments.value.count == self.viewModel.commentSenders.value.count
             else { return }
             
-            DispatchQueue.main.async {
+            self.tableView.reloadData()
+            
+            self.setupArticleContent()
                 
-                self.tableView.reloadData()
-                
-                self.setupArticleContent()
-            }
+            self.scrollToBottomIfHasComment()
+            
+            self.tableView.isHidden = commentSenders.isEmpty
         }
         
-        viewModel.scrollToBottomHandler = { [weak self] in
+        viewModel.comments.bind { [weak self] _ in
             
             guard
-                let commentCount = self?.viewModel.commentViewModels.value.count,
                 let self = self,
-                commentCount > 0
-                    
+                self.viewModel.comments.value.count == self.viewModel.commentSenders.value.count
             else { return }
-            
-            let indexPath = IndexPath(row: commentCount - 1, section: 0)
-            
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-        }
-        
-        viewModel.blockHandler = { [weak self] senderViewModel in
-            
-            guard
-                let self = self else { return }
-            
-            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
                 
-                self.viewModel.blockUser(with: senderViewModel)
-            }
+            self.tableView.reloadData()
             
-            AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
+            self.setupArticleContent()
         }
         
         viewModel.signInHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.commentTextView.isEditable = false
             
@@ -218,7 +180,17 @@ class PetSocietyCommentViewController: BaseModalViewController {
             self.present(authVC, animated: true)
         }
         
-        setupEditCommentHandler()
+        viewModel.beginEditCommentHander = { [weak self ] in
+            
+            guard let self = self else { return }
+            
+            if self.commentTextView.textColor == UIColor.systemGray3 {
+                
+                self.commentTextView.text = nil
+                
+                self.commentTextView.textColor = UIColor.black
+            }
+        }
 
         setupKeyBoard()
         
@@ -249,54 +221,34 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
     }
     
-    private func setupEditCommentHandler() {
+    private func scrollToBottomIfHasComment() {
         
-        viewModel.beginEditCommentHander = { [weak self ] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.commentTextView.textColor == UIColor.systemGray3 {
-                
-                self.commentTextView.text = nil
-                
-                self.commentTextView.textColor = UIColor.black
-            }
-        }
+        let commentCount = viewModel.comments.value.count
         
-        viewModel.changeCommentHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.checkCommentButton()
-            
-            if self.commentTextView.textColor == UIColor.systemGray3 {
-                
-                self.commentTextView.textColor = UIColor.black
-            }
-        }
+        guard commentCount > 0 else { return }
+        
+        let indexPath = IndexPath(row: commentCount - 1, section: 0)
+        
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
     private func checkCommentButton() {
         
-        if commentTextView.text != MessageType.placeHolder.rawValue
-            && commentTextView.text?.isEmpty == false {
+        if commentTextView.text != MessageType.placeHolder.rawValue &&
+            commentTextView.text?.isEmpty == false {
             
             sendButton.isEnabled = true
             
@@ -314,8 +266,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         userImageView.loadImage(
             selectedAuthor?.imageURLString,
-            placeHolder: UIImage.system(.personPlaceHolder)
-        )
+            placeHolder: UIImage.system(.personPlaceHolder))
         
         nickNameLabel.text = selectedAuthor?.nickName
         
@@ -330,15 +281,13 @@ class PetSocietyCommentViewController: BaseModalViewController {
             self,
             selector: #selector(keyboardWillShow),
             name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
+            object: nil)
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+            object: nil)
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
@@ -347,9 +296,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         let originY = view.frame.origin.y
         
-        if
-            let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
-                                as? NSValue)?.cgRectValue {
+        if let keyboardSize = (
+            notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
             if CGFloatToInt(originY) == CGFloatToInt(screenHeight * 0.4) {
                 
@@ -395,37 +343,38 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard
-             viewModel.commentViewModels.value.count == viewModel.senderViewModels.value.count
-                
-        else { return 0 }
+        guard viewModel.comments.value.count == viewModel.commentSenders.value.count else {
+            
+            return 0
+        }
         
-        return viewModel.commentViewModels.value.count
+        return viewModel.comments.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath)
         
-        let commentViewModel = viewModel.commentViewModels.value[indexPath.row]
+        let comment = viewModel.comments.value[indexPath.row]
         
-        let senderViewModel = viewModel.senderViewModels.value[indexPath.row]
+        let commentSender = viewModel.commentSenders.value[indexPath.row]
         
-        guard
-            let commentCell = cell as? CommentCell
-                
-        else { return cell }
+        guard let commentCell = cell as? CommentCell else { return cell }
         
         commentCell.configure(
-            with: commentViewModel,
-            senderViewModel: senderViewModel)
+            with: comment,
+            sender: commentSender)
         
         commentCell.blockHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.viewModel.block(with: senderViewModel)
+            let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+                
+                self.viewModel.blockUser(with: commentSender)
+            }
+            
+            AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
         }
         
         return commentCell
@@ -442,6 +391,11 @@ extension PetSocietyCommentViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         
-        viewModel.changeMessage()
+        checkCommentButton()
+        
+        if commentTextView.textColor == UIColor.systemGray3 {
+            
+            commentTextView.textColor = UIColor.black
+        }
     }
 }

@@ -34,31 +34,22 @@ class AdoptFavoriteViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.favoritePetViewModels.bind { [weak self] favoritePetViewModels in
+        viewModel.favoritePets.bind { [weak self] favoritePets in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-                
-                self.tableView.isHidden = favoritePetViewModels.count == 0
-                ? true
-                : false
-            }
+            self.tableView.reloadData()
+            
+            self.tableView.isHidden = favoritePets.isEmpty
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         addCurrentUserObserver()
@@ -78,8 +69,7 @@ class AdoptFavoriteViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -93,31 +83,18 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.favoritePetViewModels.value.count
+        return viewModel.favoritePets.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath)
         
-        guard
-            let favoriteCell = cell as? FavoriteTableViewCell else { return cell }
+        guard let favoriteCell = cell as? FavoriteTableViewCell else { return cell }
         
-        let selectedView = UIView()
+        let pet = viewModel.favoritePets.value[indexPath.item]
         
-        let backgroundView = UIView()
-        
-        selectedView.backgroundColor = UIColor.systemGray5
-        
-        backgroundView.backgroundColor = UIColor.systemGray6
-        
-        let cellViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
-        
-        favoriteCell.configureCell(with: cellViewModel)
-        
-        favoriteCell.selectedBackgroundView = selectedView
-        
-        favoriteCell.backgroundView = backgroundView
+        favoriteCell.configureCell(with: pet)
         
         return favoriteCell
     }
@@ -126,16 +103,13 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
         
         let storyboard = UIStoryboard.adopt
         
-        guard
-            let adoptDetaiVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptDetailViewController.identifier)
-                as? AdoptDetailViewController
-                
-        else { return }
+        guard let adoptDetaiVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptDetailViewController.identifier
+        )as? AdoptDetailViewController else { return }
         
-        let selectedPetViewModel = viewModel.favoritePetViewModels.value[indexPath.item]
+        let selectedPet = viewModel.favoritePets.value[indexPath.item]
         
-        adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
+        adoptDetaiVC.viewModel = AdoptDetailViewModel(pet: Box(selectedPet))
         
         adoptDetaiVC.delegate = self
         
@@ -162,7 +136,7 @@ extension AdoptFavoriteViewController: UITableViewDataSource, UITableViewDelegat
 // MARK: - AdoptDetailViewControllerDelegate
 extension AdoptFavoriteViewController: AdoptDetailViewControllerDelegate {
     
-    func toggleFavorite() {
+    func adoptDetailViewControllerFavoriteButtonDidTap() {
         
         viewModel.fetchFavoritePets()
         

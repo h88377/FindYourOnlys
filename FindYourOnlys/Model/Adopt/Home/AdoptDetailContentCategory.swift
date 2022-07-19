@@ -39,16 +39,19 @@ enum AdoptDetailContentCategory: String, CaseIterable {
     
     case remark = "備註"
     
-    func cellForIndexPath(_ indexPath: IndexPath, tableView: UITableView, viewModel: PetViewModel) -> UITableViewCell {
+    func cellForIndexPath(
+        _ indexPath: IndexPath,
+        tableView: UITableView,
+        pet: Pet
+    ) -> UITableViewCell {
 
         guard
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: AdoptDetailDecriptionTableViewCell.identifier,
-                for: indexPath) as? AdoptDetailDecriptionTableViewCell
+                for: indexPath
+            ) as? AdoptDetailDecriptionTableViewCell
                 
         else { return UITableViewCell() }
-        
-        let pet = viewModel.pet
 
         switch self {
 

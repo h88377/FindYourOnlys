@@ -17,6 +17,7 @@ class BaseModalViewController: BaseViewController {
         super.viewDidLoad()
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
+        
         view.addGestureRecognizer(panGesture)
     }
     

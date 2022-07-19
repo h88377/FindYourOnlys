@@ -17,10 +17,7 @@ struct Route {
         
         var annotations: [MKAnnotation] = []
         
-        annotations.append(
-            
-            RouteAnnotation(item: origin)
-        )
+        annotations.append(RouteAnnotation(item: origin))
         
         annotations.append(contentsOf: stops.map { stop in
             

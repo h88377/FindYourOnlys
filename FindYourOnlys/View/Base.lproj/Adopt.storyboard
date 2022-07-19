@@ -189,7 +189,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressFavoriteButton:" destination="63v-a2-Ckk" eventType="touchUpInside" id="DSa-L1-GeR"/>
+                                    <action selector="pressedFavoriteButton:" destination="63v-a2-Ckk" eventType="touchUpInside" id="eGG-8E-D0P"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -221,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gwr-iO-Ljl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="45" y="785"/>
+            <point key="canvasLocation" x="44.927536231884062" y="784.82142857142856"/>
         </scene>
         <!--Adopt Directions View Controller-->
         <scene sceneID="Jm7-KF-6Ho">

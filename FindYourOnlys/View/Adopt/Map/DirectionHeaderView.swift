@@ -54,14 +54,13 @@ class DirectionHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - Methods
     
-    func configureView(with viewModel: DirectionViewModel, route: MKRoute) {
+    func configureView(with direction: Direction, route: MKRoute) {
         
-        headerLabel.text = viewModel.direction.route.label
+        headerLabel.text = direction.route.label
         
         let informationComponents = [
-            viewModel.direction.totalTravelTime.formatted,
-            "• \(distanceFormatter.string(fromDistance: viewModel.direction.totalDistance))"
-        ]
+            direction.totalTravelTime.formatted,
+            "• \(distanceFormatter.string(fromDistance: direction.totalDistance))"]
         
         self.informationLabel.text = informationComponents.joined(separator: " ")
         

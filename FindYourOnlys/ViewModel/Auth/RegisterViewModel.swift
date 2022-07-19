@@ -11,9 +11,7 @@ class RegisterViewModel {
     
     // MARK: - Properties
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
-    var dismissHandler: (() -> Void)?
+    var registerState: Box<AuthState> = Box(.none)
     
     var startLoadingHandler: (() -> Void)?
     
@@ -25,10 +23,13 @@ class RegisterViewModel {
         
         startLoadingHandler?()
         
-        UserFirebaseManager.shared.register(with: nickName, with: email, with: password) { [weak self] result in
+        UserFirebaseManager.shared.register(
+            with: nickName,
+            with: email,
+            with: password
+        ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -44,14 +45,14 @@ class RegisterViewModel {
 
                             UserFirebaseManager.shared.currentUser = user
                             
-                            self.dismissHandler?()
+                            self.registerState.value = .success
                             
                             break
                         }
 
                     case .failure(let error):
-
-                        self.errorViewModel.value = ErrorViewModel(model: error)
+                        
+                        self.registerState.value = .failure(error)
                     }
                     
                     self.stopLoadingHandler?()
@@ -59,7 +60,7 @@ class RegisterViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.registerState.value = .failure(error)
                 
                 self.stopLoadingHandler?()
             }

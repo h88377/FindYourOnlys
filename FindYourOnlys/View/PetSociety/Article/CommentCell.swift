@@ -68,21 +68,19 @@ class CommentCell: UITableViewCell {
         userImageView.makeRound()
     }
     
-    func configure(with viewModel: CommentViewModel, senderViewModel: UserViewModel) {
+    func configure(with comment: Comment, sender: User) {
         
-        nickNameLabel.text = senderViewModel.user.nickName
+        nickNameLabel.text = sender.nickName
         
-        commentLabel.text = viewModel.comment.content
+        commentLabel.text = comment.content
         
-        createdTimeLabel.text = viewModel.comment.createdTime.formatedTime
+        createdTimeLabel.text = comment.createdTime.formatedTime
         
-        userImageView.loadImage(senderViewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(sender.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        if
-            let currentUser = UserFirebaseManager.shared.currentUser
+        if let currentUser = UserFirebaseManager.shared.currentUser {
             
-        {
-            editButton.isHidden = currentUser.id == senderViewModel.user.id
+            editButton.isHidden = currentUser.id == sender.id
         }
     }
     

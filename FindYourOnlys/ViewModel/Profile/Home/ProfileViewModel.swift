@@ -11,11 +11,11 @@ class ProfileViewModel {
     
     // MARK: - Properties
     
-    var userViewModel: Box<UserViewModel?> = Box(nil)
+    var user: Box<User?> = Box(nil)
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
-    var profileArticleViewModels = Box([ProfileArticleViewModel]())
+    var profileArticles = Box([ProfileArticle]())
     
     var startLoadingHandler: (() -> Void)?
     
@@ -27,17 +27,13 @@ class ProfileViewModel {
     
     func fetchCurrentUser() {
         
-        guard
-            let currentUserId = UserFirebaseManager.shared.initialUser?.uid
-                
-        else { return }
+        guard let currentUserId = UserFirebaseManager.shared.initialUser?.uid else { return }
         
         startLoadingHandler?()
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -45,14 +41,14 @@ class ProfileViewModel {
                 
                 for user in users where user.id == currentUserId {
                     
-                    self.userViewModel.value = UserViewModel(model: user)
+                    self.user.value = user
                     
                     break
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -63,20 +59,17 @@ class ProfileViewModel {
         
         PetSocietyFirebaseManager.shared.fetchArticle { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
             case .success(let articles):
                 
-                self.profileArticleViewModels.value = self
-                    .getProfileArticles(with: articles)
-                    .map { ProfileArticleViewModel(model: $0) }
+                self.profileArticles.value = self.getProfileArticles(with: articles)
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -88,8 +81,7 @@ class ProfileViewModel {
         
         UserFirebaseManager.shared.signOut { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -101,7 +93,7 @@ class ProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }

@@ -22,7 +22,7 @@ class FriendProfileViewModel {
         self.searchFriendResult = result
     }
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var dismissHandler: (() -> Void)?
     
@@ -32,8 +32,7 @@ class FriendProfileViewModel {
         
         PetSocietyFirebaseManager.shared.sendFriendRequest(user.id) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -43,7 +42,7 @@ class FriendProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }

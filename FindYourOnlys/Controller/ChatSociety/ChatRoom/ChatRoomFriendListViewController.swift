@@ -38,36 +38,32 @@ class ChatRoomFriendListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.chatRoomViewModels.bind { [weak self] chatRoomViewModels in
+        viewModel.chatRooms.bind { [weak self] chatRooms in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.tableView.isHidden = chatRoomViewModels.count == 0
-            
-            self.tableView.reloadData()
-        }
-        
-        viewModel.friendViewModels.bind { [weak self] friendViewModels in
-            
-            guard
-                let self = self else { return }
-            
-            self.tableView.isHidden = friendViewModels.count == 0
+            self.tableView.isHidden = chatRooms.isEmpty
             
             self.tableView.reloadData()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.friends.bind { [weak self] friends in
+            
+            guard let self = self else { return }
+            
+            self.tableView.isHidden = friends.isEmpty
+            
+            self.tableView.reloadData()
+        }
+        
+        viewModel.error.bind { [weak self] error in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         addCurrentUserObserver()
@@ -91,15 +87,13 @@ class ChatRoomFriendListViewController: BaseViewController {
             image: UIImage.system(.notification),
             style: .plain,
             target: self,
-            action: #selector(checkFriendRequest)
-        )
+            action: #selector(checkFriendRequest))
         
         let searchItem = UIBarButtonItem(
             image: UIImage.system(.addFriend),
             style: .plain,
             target: self,
-            action: #selector(searchFriend)
-        )
+            action: #selector(searchFriend))
         
         navigationItem.rightBarButtonItems = [searchItem, requestItem]
     }
@@ -129,8 +123,7 @@ class ChatRoomFriendListViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -145,7 +138,7 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        viewModel.friendViewModels.value.count
+        viewModel.friends.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -153,14 +146,13 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         guard
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ChatRoomFriendListCell.identifier,
-                for: indexPath)
-                as? ChatRoomFriendListCell
-                
+                for: indexPath
+            )as? ChatRoomFriendListCell
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.friendViewModels.value[indexPath.row]
+        let friend = viewModel.friends.value[indexPath.row]
         
-        cell.configureCell(with: cellViewModel)
+        cell.configureCell(with: friend)
         
         return cell
     }
@@ -171,14 +163,13 @@ extension ChatRoomFriendListViewController: UITableViewDataSource, UITableViewDe
         
         guard
             let chatRoomMessageVC = storyboard.instantiateViewController(
-                withIdentifier: ChatRoomMessageViewController.identifier)
-                as? ChatRoomMessageViewController
-                
+                withIdentifier: ChatRoomMessageViewController.identifier
+            )as? ChatRoomMessageViewController
         else { return }
         
-        let selectedChatRoom = viewModel.chatRoomViewModels.value[indexPath.row].chatRoom
+        let selectedChatRoom = viewModel.chatRooms.value[indexPath.row]
         
-        let selectedFriend = viewModel.friendViewModels.value[indexPath.row].user
+        let selectedFriend = viewModel.friends.value[indexPath.row]
         
         chatRoomMessageVC.viewModel.changedSelectedChatRoom(with: selectedChatRoom)
         

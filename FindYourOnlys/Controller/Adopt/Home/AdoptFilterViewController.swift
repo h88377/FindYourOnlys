@@ -67,19 +67,17 @@ class AdoptFilterViewController: BaseViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                
-                tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            tableView.bottomAnchor.constraint(equalTo: filterButton.topAnchor)])
     }
     
     override func setupNavigationTitle() {
@@ -110,17 +108,15 @@ class AdoptFilterViewController: BaseViewController {
         
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                
-                filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-                
-                filterButton.widthAnchor.constraint(equalToConstant: 150),
-                
-                filterButton.heightAnchor.constraint(equalToConstant: 60)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            filterButton.widthAnchor.constraint(equalToConstant: 150),
+            
+            filterButton.heightAnchor.constraint(equalToConstant: 60)])
     }
     
     private func setupAnimationView() {
@@ -131,17 +127,15 @@ class AdoptFilterViewController: BaseViewController {
         
         animationView.loopMode = .loop
         
-        NSLayoutConstraint.activate(
-            [
-                animationView.heightAnchor.constraint(equalToConstant: 150),
-                
-                animationView.bottomAnchor.constraint(equalTo: filterButton.bottomAnchor),
-                
-                animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                animationView.leadingAnchor.constraint(equalTo: filterButton.trailingAnchor)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            animationView.heightAnchor.constraint(equalToConstant: 150),
+            
+            animationView.bottomAnchor.constraint(equalTo: filterButton.bottomAnchor),
+            
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            animationView.leadingAnchor.constraint(equalTo: filterButton.trailingAnchor)])
     }
     
     @objc func clear(sender: UIBarButtonItem) {
@@ -153,20 +147,17 @@ class AdoptFilterViewController: BaseViewController {
     
     @objc func filter(sender: UIButton) {
         
-        guard
-            let adoptVC = navigationController?.viewControllers[0] as? AdoptViewController,
-            viewModel.isValidCondition
-                
-        else {
-            
-            AlertWindowManager.shared.showAlertWindow(at: self, title: "提醒", message: "請至少填寫一個條件喔！")
-            
-            return
-        }
+        guard let adoptVC = navigationController?.viewControllers[0] as? AdoptViewController,
+              viewModel.isValidCondition else {
+                  
+                  AlertWindowManager.shared.showAlertWindow(at: self, title: "提醒", message: "請至少填寫一個條件喔！")
+                  
+                  return
+              }
         
         adoptVC.adoptListVC?.viewModel.resetFilterCondition()
         
-        adoptVC.adoptListVC?.viewModel.filterConditionViewModel.value = viewModel.adoptFilterCondition
+        adoptVC.adoptListVC?.viewModel.filteredCondition.value = viewModel.adoptFilterCondition
         
         adoptVC.adoptListVC?.viewModel.resetFetchPet()
         
@@ -196,10 +187,7 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
                 condition: viewModel.adoptFilterCondition
             )
             
-            guard
-                let basicCell = cell as? BasePublishCell
-                    
-            else { return cell }
+            guard let basicCell = cell as? BasePublishCell else { return cell }
             
             basicCell.delegate = self
             
@@ -211,10 +199,7 @@ extension AdoptFilterViewController: UITableViewDataSource, UITableViewDelegate 
             
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterRemindCell.identifier, for: indexPath)
             
-            guard
-                let remindCell = cell as? FilterRemindCell
-            
-            else { return cell }
+            guard let remindCell = cell as? FilterRemindCell else { return cell }
             
             remindCell.configureCell(with: .allowOneCondition)
             
@@ -243,7 +228,7 @@ extension AdoptFilterViewController: BasePublishCellDelegate {
     }
     
     func didChangeColor(_ cell: BasePublishCell, with color: String) {
-    
+        
         viewModel.colorChanged(with: color)
     }
 }

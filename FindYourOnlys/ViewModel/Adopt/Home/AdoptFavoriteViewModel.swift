@@ -10,9 +10,9 @@ import Foundation
 class AdoptFavoriteViewModel {
     
     // MARK: - Properties
-    let favoritePetViewModels = Box([PetViewModel]())
+    let favoritePets = Box([Pet]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     private var didSignIn: Bool {
         
@@ -34,15 +34,11 @@ class AdoptFavoriteViewModel {
     
     private func fetchCloudFavoritePets() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser
-                
-        else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -55,18 +51,20 @@ class AdoptFavoriteViewModel {
                     favoritePets.append(pet)
                 }
                 
-                PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: favoritePets)
+                self.favoritePets.value = favoritePets
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
     private func fetchLSFavoritePets() {
         
-        StorageManager.shared.fetchPet { result in
+        StorageManager.shared.fetchPet { [weak self] result in
+            
+            guard let self = self else { return }
             
             switch result {
                 
@@ -74,11 +72,11 @@ class AdoptFavoriteViewModel {
                 
                 let pets = StorageManager.shared.convertLsPetsToPets(from: lsPets)
                 
-                PetProvider.shared.setPets(petViewModels: favoritePetViewModels, with: pets)
+                self.favoritePets.value = pets
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }

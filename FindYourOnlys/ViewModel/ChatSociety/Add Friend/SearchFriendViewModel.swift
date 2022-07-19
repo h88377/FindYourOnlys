@@ -13,7 +13,7 @@ class SearchFriendViewModel {
     
     var searchViewModel: Box<SearchViewModel?> = Box(nil)
     
-    var errorViewModel: Box<Error?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var userEmail: String?
     
@@ -26,21 +26,17 @@ class SearchFriendViewModel {
     
     func searchUserEmail() {
         
-        guard
-            let userEmail = userEmail
-                
-        else { return }
+        guard let userEmail = userEmail else { return }
         
         UserFirebaseManager.shared.fetchUser(with: userEmail) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
             case .success(let users):
                 
-                if users.count == 0 {
+                if users.isEmpty {
                     
                     self.searchViewModel.value = SearchViewModel(searchResult: .noRelativeEmail)
                 }
@@ -49,15 +45,14 @@ class SearchFriendViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = error
+                self.error.value = error
             }
         }
     }
     
     private func checkSearchResult(by userEmail: String, in users: [User]) {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         for user in users where user.email == userEmail {
             
@@ -84,13 +79,15 @@ class SearchFriendViewModel {
     
     private func checkFriendRequest(with user: User) {
         
-        PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: user.id) { result in
+        PetSocietyFirebaseManager.shared.fetchFriendRequest(withRequest: user.id) { [weak self] result in
+            
+            guard let self = self else { return }
             
             switch result {
                 
             case .success(let requests):
                 
-                if requests.count == 0 {
+                if requests.isEmpty {
                     
                     self.searchViewModel.value = SearchViewModel(user: user, searchResult: .normalUser)
                 }
@@ -109,7 +106,7 @@ class SearchFriendViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = error
+                self.error.value = error
             }
         }
     }

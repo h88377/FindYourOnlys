@@ -21,11 +21,11 @@ class ChatRoomFriendListCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configureCell(with viewModel: UserViewModel) {
+    func configureCell(with friend: User) {
         
-        friendImageView.loadImage(viewModel.user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        friendImageView.loadImage(friend.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        friendNickNameLabel.text = viewModel.user.nickName
+        friendNickNameLabel.text = friend.nickName
     }
     
     override func layoutSubviews() {

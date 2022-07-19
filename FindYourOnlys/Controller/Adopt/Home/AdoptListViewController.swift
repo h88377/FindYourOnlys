@@ -14,7 +14,7 @@ class AdoptListViewController: BaseViewController {
     // MARK: - Properties
     
     let viewModel = AdoptListViewModel()
-
+    
     @IBOutlet private weak var reminderLabel: UILabel!
     
     @IBOutlet private weak var refetchButton: UIButton!
@@ -42,7 +42,7 @@ class AdoptListViewController: BaseViewController {
             mapButton.tintColor = .white
         }
     }
-            
+    
     private var activityIndicator: LoadMoreActivityIndicator!
     
     var resetConditionHandler: (() -> Void)?
@@ -51,46 +51,29 @@ class AdoptListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.petViewModels.bind { [weak self] petViewModels in
+         
+        viewModel.pets.bind { [weak self] pets in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.collectionView.reloadData()
-                
-                self.collectionView.isHidden = petViewModels.count == 0
-            }
+            self.collectionView.reloadData()
+
+            self.collectionView.isHidden = pets.isEmpty
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
-            guard
-                let self = self else { return }
-            
-            if
-                let error = errorViewModel?.error {
+            guard let self = self,
+                  let error = error
+            else { return }
                 
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
-        }
-        
-        viewModel.isSelectedPetFavorite.bind { [weak self] isFavorite in
-            
-            guard
-                let self = self else { return }
-            
-            self.showFavoriteAlert(with: isFavorite)
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.resetPetHandler = { [weak self] in
             
-            guard
-                let self = self,
-                self.viewModel.petViewModels.value.count > 0
-            
+            guard let self = self,
+                  self.viewModel.pets.value.count > 0
             else { return }
             
             DispatchQueue.main.async {
@@ -101,18 +84,23 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.noMorePetHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "沒有更多動物資訊了喔！")
         }
         
         viewModel.addToFavoriteHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.addToFavorite()
+            self.addToFavoriteAnimation()
+        }
+        
+        viewModel.longPressedHandler = { [weak self] isFavorite in
+            
+            guard let self = self else { return }
+            
+            self.showFavoriteAlert(with: isFavorite)
         }
         
         activityIndicator = LoadMoreActivityIndicator(
@@ -151,16 +139,14 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -170,8 +156,7 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.startIndicatorHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             DispatchQueue.main.async {
                 
@@ -184,8 +169,7 @@ class AdoptListViewController: BaseViewController {
         
         viewModel.stopIndicatorHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             DispatchQueue.main.async {
                 
@@ -225,8 +209,7 @@ class AdoptListViewController: BaseViewController {
             
             let touchPoint = sender.location(in: collectionView)
             
-            if
-                let indexPath = collectionView.indexPathForItem(at: touchPoint) {
+            if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
                 
                 viewModel.fetchFavoritePet(at: indexPath.row)
             }
@@ -308,12 +291,9 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         CGFloat(16)
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        viewModel.petViewModels.value.count
+        viewModel.pets.value.count
     }
     
     func collectionView(
@@ -324,39 +304,32 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: AdoptCollectionViewCell.identifier, for: indexPath)
         
-        guard
-            let adoptCell = cell as? AdoptCollectionViewCell
-                
-        else { return cell }
+        guard let adoptCell = cell as? AdoptCollectionViewCell else { return cell }
         
-        let cellViewModel = viewModel.petViewModels.value[indexPath.item]
+        let pet = viewModel.pets.value[indexPath.item]
         
-        adoptCell.configureCell(with: cellViewModel)
+        adoptCell.configureCell(with: pet)
         
         return cell
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard.adopt
         
-        guard
-            let adoptDetaiVC = storyboard.instantiateViewController(
-                withIdentifier: AdoptDetailViewController.identifier)
-                as? AdoptDetailViewController
+        guard let adoptDetaiVC = storyboard.instantiateViewController(
+                withIdentifier: AdoptDetailViewController.identifier
+        ) as? AdoptDetailViewController
                 
         else { return }
         
-        let selectedPetViewModel = viewModel.petViewModels.value[indexPath.item]
+        var selectedPet = viewModel.pets.value[indexPath.item]
         
         let currentUserId = UserFirebaseManager.shared.currentUser?.id
         
-        selectedPetViewModel.pet.userID = currentUserId
+        selectedPet.userID = currentUserId
         
-        adoptDetaiVC.viewModel = AdoptDetailViewModel(petViewModel: Box(selectedPetViewModel))
+        adoptDetaiVC.viewModel = AdoptDetailViewModel(pet: Box(selectedPet))
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
@@ -367,8 +340,7 @@ extension AdoptListViewController: UICollectionViewDataSource, UICollectionViewD
         
         activityIndicator.start { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             DispatchQueue.global(qos: .utility).async {
                 

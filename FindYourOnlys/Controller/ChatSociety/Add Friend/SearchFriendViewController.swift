@@ -68,54 +68,46 @@ class SearchFriendViewController: BaseViewController {
             guard
                 let self = self,
                 let searchViewModel = searchViewModel
-                    
             else { return }
             
-            DispatchQueue.main.async {
+            let storyboard = UIStoryboard.chatSociety
+            
+            let searchResult = searchViewModel.searchResult
+            
+            guard
+                let friendProfileVC = storyboard.instantiateViewController(
+                    withIdentifier: FriendProfileViewController.identifier
+                )as? FriendProfileViewController,
+                searchResult != .noRelativeEmail
+            else {
                 
-                let storyboard = UIStoryboard.chatSociety
+                self.errorMessageLabel.isHidden = false
                 
-                let searchResult = searchViewModel.searchResult
+                self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
                 
-                guard
-                    let friendProfileVC = storyboard.instantiateViewController(
-                        withIdentifier: FriendProfileViewController.identifier)
-                        as? FriendProfileViewController,
-                    searchResult != .noRelativeEmail
-                        
-                else {
-                    
-                    self.errorMessageLabel.isHidden = false
-                    
-                    self.errorMessageLabel.text = SearchFriendResult.noRelativeEmail.rawValue
-                    
-                    return
-                }
+                return
+            }
+            
+            if let user = searchViewModel.user {
                 
-                if
-                    let user = searchViewModel.user {
-                    
-                    self.errorMessageLabel.isHidden = true
-                    
-                    friendProfileVC.viewModel = FriendProfileViewModel(model: user, result: searchResult)
-                    
-                    friendProfileVC.modalPresentationStyle = .overFullScreen
-                    
-                    self.present(friendProfileVC, animated: true)
-                }
+                self.errorMessageLabel.isHidden = true
+                
+                friendProfileVC.viewModel = FriendProfileViewModel(model: user, result: searchResult)
+                
+                friendProfileVC.modalPresentationStyle = .overFullScreen
+                
+                self.present(friendProfileVC, animated: true)
             }
         }
         
-        viewModel.errorViewModel.bind { [weak self] error in
+        viewModel.error.bind { [weak self] error in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = error
+            else { return }
             
-            if
-                let error = error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
     }
     
@@ -134,8 +126,7 @@ extension SearchFriendViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        guard
-            let userEmail = textField.text else { return }
+        guard let userEmail = textField.text else { return }
         
         viewModel.changedUserEmail(with: userEmail)
         

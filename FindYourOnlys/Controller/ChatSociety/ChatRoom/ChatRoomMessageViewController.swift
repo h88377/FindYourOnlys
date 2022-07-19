@@ -69,37 +69,31 @@ class ChatRoomMessageViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.messageViewModels.bind { [weak self] _ in
+        viewModel.messages.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tableView.reloadData()
             
-            self.viewModel.scrollToBottom()
+            self.scrollToBottomIfHasMessage()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.checkIsBlockHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.checkIsBlock()
         }
-        
-        setupMessageHandler()
         
         addCurrentUserObserver()
         
@@ -133,8 +127,7 @@ class ChatRoomMessageViewController: BaseViewController {
             image: itemImage,
             style: .plain,
             target: self,
-            action: #selector(block)
-        )
+            action: #selector(block))
         
         navigationItem.rightBarButtonItem = editItem
     }
@@ -151,60 +144,16 @@ class ChatRoomMessageViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
-        }
-    }
-    
-    private func setupMessageHandler() {
-        
-        viewModel.beginEditMessageHander = { [weak self ] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.messageTextView.textColor == UIColor.systemGray3 {
-                
-                self.messageTextView.text = nil
-                
-                self.messageTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.changeMessageHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.checkMessageButton()
-            
-            if self.messageTextView.textColor == UIColor.systemGray3 {
-                
-                self.messageTextView.textColor = UIColor.black
-            }
-        }
-        
-        viewModel.scrollToBottomHandler = { [weak self] in
-            
-            guard
-                let messageCount = self?.viewModel.messageViewModels.value.count,
-                messageCount > 0
-                    
-            else { return }
-            
-            let indexPath = IndexPath(row: messageCount - 1, section: 0)
-            
-            self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
     }
     
@@ -212,13 +161,23 @@ class ChatRoomMessageViewController: BaseViewController {
         
         let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.viewModel.blockUser()
         }
         
         AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
+    }
+    
+    private func scrollToBottomIfHasMessage() {
+        
+        let messageCount = viewModel.messages.value.count
+        
+        guard messageCount > 0 else { return }
+        
+        let indexPath = IndexPath(row: messageCount - 1, section: 0)
+        
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
     private func checkIsBlock() {
@@ -241,9 +200,9 @@ class ChatRoomMessageViewController: BaseViewController {
     
     private func checkMessageButton() {
         
-        if messageTextView.text != MessageType.placeHolder.rawValue
-            && messageTextView.text != MessageType.block.rawValue
-            && messageTextView.text?.isEmpty == false {
+        if messageTextView.text != MessageType.placeHolder.rawValue &&
+            messageTextView.text != MessageType.block.rawValue &&
+            messageTextView.text?.isEmpty == false {
             
             sendMessageButton.isEnabled = true
             
@@ -258,8 +217,7 @@ class ChatRoomMessageViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -329,33 +287,33 @@ extension ChatRoomMessageViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.messageViewModels.value.count
+        return viewModel.messages.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
             let userCell = tableView.dequeueReusableCell(
-                withIdentifier: ChatRoomUserMessageCell.identifier, for: indexPath)
-                as? ChatRoomUserMessageCell,
+                withIdentifier: ChatRoomUserMessageCell.identifier, for: indexPath
+            ) as? ChatRoomUserMessageCell,
             let friendCell = tableView.dequeueReusableCell(
-                withIdentifier: ChatRoomFriendMessageCell.identifier, for: indexPath)
-                as? ChatRoomFriendMessageCell,
+                withIdentifier: ChatRoomFriendMessageCell.identifier, for: indexPath
+            ) as? ChatRoomFriendMessageCell,
             let selectedFriend = viewModel.selectedFriend
                 
         else { return UITableViewCell() }
         
-        let cellViewModel = viewModel.messageViewModels.value[indexPath.row]
+        let message = viewModel.messages.value[indexPath.row]
         
-        if cellViewModel.message.senderId == selectedFriend.id {
+        if message.senderId == selectedFriend.id {
             
-            friendCell.configureCell(with: cellViewModel, friend: selectedFriend)
+            friendCell.configureCell(with: message, friend: selectedFriend)
             
             return friendCell
             
         } else {
             
-            userCell.configureCell(with: cellViewModel, friend: selectedFriend)
+            userCell.configureCell(with: message, friend: selectedFriend)
             
             return userCell
         }
@@ -367,12 +325,22 @@ extension ChatRoomMessageViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        viewModel.beginEditMessage()
+        if messageTextView.textColor == UIColor.systemGray3 {
+            
+            messageTextView.text = nil
+            
+            messageTextView.textColor = UIColor.black
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         
-        viewModel.changeMessage()
+        checkMessageButton()
+        
+        if messageTextView.textColor == UIColor.systemGray3 {
+            
+            messageTextView.textColor = UIColor.black
+        }
     }
 }
 
@@ -385,13 +353,11 @@ extension ChatRoomMessageViewController: UIImagePickerControllerDelegate, UINavi
     ) {
         dismiss(animated: true)
         
-        if
-            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
             viewModel.changeContent(with: editedImage)
             
-        } else if
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
         
             viewModel.changeContent(with: image)
         }

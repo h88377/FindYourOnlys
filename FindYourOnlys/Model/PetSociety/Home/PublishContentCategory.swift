@@ -54,8 +54,7 @@ enum PublishContentCategory: String, CaseIterable {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier(), for: indexPath)
 
-        guard
-            let basicCell = cell as? BasePublishCell else { return cell }
+        guard let basicCell = cell as? BasePublishCell else { return cell }
         
         switch self {
             

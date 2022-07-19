@@ -5,7 +5,6 @@
 //  Created by 鄭昭韋 on 2022/4/13.
 //
 
-import Foundation
 import UIKit.UIImage
 
 class PublishViewModel {
@@ -34,7 +33,7 @@ class PublishViewModel {
         }
     }
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var selectedImage: UIImage? {
         
@@ -57,7 +56,6 @@ class PublishViewModel {
                 article.postType != nil,
                 article.content != "",
                 selectedImage != nil
-                    
             else { return false }
                 
             return true
@@ -68,7 +66,6 @@ class PublishViewModel {
                 article.city != "",
                 article.content != "",
                 selectedImage != nil
-                    
             else { return false }
                 
             return true
@@ -103,10 +100,7 @@ class PublishViewModel {
     
     func tapPublish() {
         
-        publish { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        publish { result in
             
             switch result {
                 
@@ -116,7 +110,7 @@ class PublishViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -125,12 +119,9 @@ class PublishViewModel {
     
     func detectImage() {
         
-        guard
-            let selectedImage = selectedImage
-                
-        else {
+        guard let selectedImage = selectedImage else {
             
-            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            error.value = GoogleMLError.noImage
             
             return
         }
@@ -139,8 +130,7 @@ class PublishViewModel {
         
         GoogleMLWrapper.shared.detectLabels(with: selectedImage) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -158,13 +148,13 @@ class PublishViewModel {
                         
                     } else {
                         
-                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                        self.error.value = GoogleMLError.detectFailure
                     }
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
                     
@@ -182,7 +172,6 @@ class PublishViewModel {
             isValidPublishedContent,
             isValidDetectResult,
             let selectedImage = selectedImage
-                
         else { return }
         
         DispatchQueue.global().async { [weak self] in
@@ -190,7 +179,6 @@ class PublishViewModel {
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
                 let self = self
-                    
             else { return }
             
             let semaphore = DispatchSemaphore(value: 0)

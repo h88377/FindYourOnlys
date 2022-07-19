@@ -97,7 +97,9 @@ class GoogleMLWrapper {
     
     // MARK: - Methods
     
-    func detectLabels(with image: UIImage, completion: @escaping (Result<[ImageLabel], Error>) -> Void) {
+    func detectLabels(
+        with image: UIImage,
+        completion: @escaping (Result<[ImageLabel], Error>) -> Void) {
         
         let visionImage = VisionImage(image: image)
         

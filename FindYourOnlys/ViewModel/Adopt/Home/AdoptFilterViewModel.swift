@@ -19,8 +19,7 @@ class AdoptFilterViewModel {
             adoptFilterCondition.city,
             adoptFilterCondition.petKind,
             adoptFilterCondition.sex,
-            adoptFilterCondition.color
-        ]
+            adoptFilterCondition.color]
         
         let isValidCondition = conditionsArray.map { $0 == "" }.contains(false)
         

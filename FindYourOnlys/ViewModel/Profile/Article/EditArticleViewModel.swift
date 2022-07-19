@@ -32,7 +32,7 @@ class EditArticleViewModel {
         return article.postType != nil
     }
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var selectedImage: UIImage? {
         
@@ -71,10 +71,7 @@ class EditArticleViewModel {
     
     func tapEdit() {
         
-        edit { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        edit { result in
             
             switch result {
                 
@@ -84,7 +81,7 @@ class EditArticleViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -97,15 +94,11 @@ class EditArticleViewModel {
         guard
             isValidEditedContent,
             isValidDetectResult
-                
         else { return }
         
         DispatchQueue.global().async { [weak self] in
             
-            guard
-                let self = self
-                    
-            else { return }
+            guard let self = self else { return }
             
             let semaphore = DispatchSemaphore(value: 0)
             
@@ -159,12 +152,9 @@ class EditArticleViewModel {
     
     func detectImage() {
         
-        guard
-            article.imageURLString != ""
-        
-        else {
+        guard article.imageURLString != "" else {
             
-            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            error.value = GoogleMLError.noImage
             
                 return
             }
@@ -190,8 +180,7 @@ class EditArticleViewModel {
         
         GoogleMLWrapper.shared.detectLabels(with: image) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -209,13 +198,13 @@ class EditArticleViewModel {
                         
                     } else {
                         
-                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                        self.error.value = GoogleMLError.detectFailure
                     }
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
                     

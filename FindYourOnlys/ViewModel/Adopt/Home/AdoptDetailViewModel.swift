@@ -5,32 +5,26 @@
 //  Created by 鄭昭韋 on 2022/4/10.
 //
 
-// Should not import UIKit
-import UIKit
+import Foundation
 
 class AdoptDetailViewModel {
     
     // MARK: - Properties
+    
     let adoptDetailContentCategory = AdoptDetailContentCategory.allCases
     
-    let favoritePetViewModels = Box([PetViewModel]())
+    let favoritePets = Box([Pet]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
-    var petViewModel: Box<PetViewModel>
+    var pet: Box<Pet>
     
-    init(petViewModel: Box<PetViewModel>) {
-     
-        self.petViewModel = petViewModel
+    init(pet: Box<Pet>) {
+        
+        self.pet = pet
     }
     
-    var checkFavoriateButtonHandler: (() -> Void)?
-    
-    var toggleFavoriteButtonHandler: (() -> Void)?
-    
-    var makePhoneCallHandler: (() -> Void)?
-    
-    var shareHandler: (() -> Void)?
+    var isFavorite = false
     
     private var didSignIn: Bool {
         
@@ -39,7 +33,10 @@ class AdoptDetailViewModel {
     
     private var favoriteLSPets = [LSPet]()
     
+    var favoriteChangedHandler: ((Bool) -> Void)?
+    
     // MARK: - Methods
+    
     func fetchFavoritePet() {
         
         if didSignIn {
@@ -50,7 +47,6 @@ class AdoptDetailViewModel {
             
             fetchLSFavoritePet()
         }
-        
     }
     
     func addPetInFavorite() {
@@ -77,35 +73,37 @@ class AdoptDetailViewModel {
         }
     }
     
-    func checkFavoriteButton() {
+    func toggleFavorite() {
         
-        checkFavoriateButtonHandler?()
+        self.isFavorite = !isFavorite
+        
+        if isFavorite {
+            
+            addPetInFavorite()
+            
+        } else {
+            
+            removeFavoritePet()
+        }
     }
     
-    func toggleFavoriteButton() {
+    func setupFavoriteBinding() {
         
-        toggleFavoriteButtonHandler?()
-    }
-    
-    func makePhoneCall() {
-        
-        makePhoneCallHandler?()
-    }
-    
-    func share() {
-        
-        shareHandler?()
+        favoritePets.bind { pets in
+            
+            self.isFavorite = pets.contains { $0.id == self.pet.value.id }
+            
+            self.favoriteChangedHandler?(self.isFavorite)
+        }
     }
     
     private func fetchFavoritePetFromFB() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         FavoritePetFirebaseManager.shared.fetchFavoritePets { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -113,13 +111,11 @@ class AdoptDetailViewModel {
                 
                 let favoritePets = pets.filter { $0.userID == currentUser.id }
                 
-                PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: favoritePets)
-                
-                self.checkFavoriateButtonHandler?()
+                self.favoritePets.value = favoritePets
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
@@ -128,8 +124,7 @@ class AdoptDetailViewModel {
         
         StorageManager.shared.fetchPet { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -137,57 +132,61 @@ class AdoptDetailViewModel {
                 
                 let pets = StorageManager.shared.convertLsPetsToPets(from: lsPets)
                 
-                PetProvider.shared.setPets(petViewModels: self.favoritePetViewModels, with: pets)
+                self.favoritePets.value = pets
                 
                 self.favoriteLSPets = lsPets
                 
-                self.checkFavoriateButtonHandler?()
-                
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
     private func addFavoritePetInCloud() {
         
-        guard
-            let currentUser = UserFirebaseManager.shared.currentUser else { return }
+        guard let currentUser = UserFirebaseManager.shared.currentUser else { return }
         
         FavoritePetFirebaseManager.shared.saveFavoritePet(
-            currentUser.id, with: petViewModel.value
+            currentUser.id,
+            with: pet.value
         ) { [weak self] result in
             
+            guard let self = self else { return }
+            
             if case .failure(let error) = result {
-              
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.error.value = error
             }
         }
     }
     
     private func addFavoritePetInLS() {
         
-        StorageManager.shared.savePetInFavorite(with: petViewModel.value) { [weak self] result in
+        StorageManager.shared.savePetInFavorite(with: pet.value) { [weak self] result in
+            
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
-              
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.error.value = error
             }
         }
     }
     
     private func removeLSFavorite() {
         
-        let removeId = petViewModel.value.pet.id
+        let removeId = pet.value.id
         
         for favoriteLSPet in favoriteLSPets where favoriteLSPet.id == removeId {
             
             StorageManager.shared.removePetfromFavorite(lsPet: favoriteLSPet) { [weak self] result in
                 
+                guard let self = self else { return }
+                
                 if case .failure(let error) = result {
-                  
-                    self?.errorViewModel.value = ErrorViewModel(model: error)
+                    
+                    self.error.value = error
                 }
             }
         }
@@ -195,11 +194,13 @@ class AdoptDetailViewModel {
     
     private func removeCloudFavorite() {
         
-        FavoritePetFirebaseManager.shared.removeFavoritePet(with: petViewModel.value) { [weak self] result in
+        FavoritePetFirebaseManager.shared.removeFavoritePet(with: pet.value) { [weak self] result in
+            
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
-              
-                self?.errorViewModel.value = ErrorViewModel(model: error)
+                
+                self.error.value = error
             }
         }
     }
