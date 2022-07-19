@@ -55,7 +55,6 @@ class PetSocietyCommentViewModel {
                     
                 self.filteredArticle.value = article
                 
-//                PetSocietyFirebaseManager.shared.setComments(with: self.comments, comments: article.comments)
                 self.comments.value = article.comments
                 
                 self.fetchSenders(withArticle: article)
@@ -80,7 +79,10 @@ class PetSocietyCommentViewModel {
 
         comment.createdTime = NSDate().timeIntervalSince1970
 
-        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &filteredArticle, comment: comment) { [weak self] result in
+        PetSocietyFirebaseManager.shared.leaveComment(
+            withArticle: &filteredArticle,
+            comment: comment
+        ) { [weak self] result in
             
             guard let self = self else { return }
             
@@ -131,7 +133,6 @@ class PetSocietyCommentViewModel {
                 
                 let senders = self.getCommentedUsers(users: users, with: userIds)
                 
-//                UserFirebaseManager.shared.setUsers(with: self.commentSenders, users: senders)
                 self.commentSenders.value = senders
                 
             case .failure(let error):

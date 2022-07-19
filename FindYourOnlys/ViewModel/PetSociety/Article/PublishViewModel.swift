@@ -33,7 +33,7 @@ class PublishViewModel {
         }
     }
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var selectedImage: UIImage? {
         
@@ -110,7 +110,7 @@ class PublishViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -121,7 +121,7 @@ class PublishViewModel {
         
         guard let selectedImage = selectedImage else {
             
-            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            error.value = GoogleMLError.noImage
             
             return
         }
@@ -148,13 +148,13 @@ class PublishViewModel {
                         
                     } else {
                         
-                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                        self.error.value = GoogleMLError.detectFailure
                     }
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
                     
