@@ -13,7 +13,7 @@ class EditProfileViewModel {
     
     var currentUser: User?
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var selectedImage: UIImage?
     
@@ -46,7 +46,7 @@ class EditProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -71,7 +71,7 @@ class EditProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }

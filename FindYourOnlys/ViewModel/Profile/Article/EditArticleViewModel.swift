@@ -32,7 +32,7 @@ class EditArticleViewModel {
         return article.postType != nil
     }
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var selectedImage: UIImage? {
         
@@ -81,7 +81,7 @@ class EditArticleViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -154,7 +154,7 @@ class EditArticleViewModel {
         
         guard article.imageURLString != "" else {
             
-            errorViewModel.value = ErrorViewModel(model: GoogleMLError.noImage)
+            error.value = GoogleMLError.noImage
             
                 return
             }
@@ -198,13 +198,13 @@ class EditArticleViewModel {
                         
                     } else {
                         
-                        self.errorViewModel.value = ErrorViewModel(model: GoogleMLError.detectFailure)
+                        self.error.value = GoogleMLError.detectFailure
                     }
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.8) {
                     
