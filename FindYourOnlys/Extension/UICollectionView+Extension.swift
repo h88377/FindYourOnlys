@@ -24,9 +24,7 @@ extension UICollectionView {
         register(
             nib,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: identifier
-        )
-        
+            withReuseIdentifier: identifier)
     }
     
 }
@@ -40,6 +38,6 @@ extension UICollectionReusableView {
     
     static func getIdentifier() -> String {
         
-      return "\(self.self)"
+        return "\(self.self)"
     }
 }

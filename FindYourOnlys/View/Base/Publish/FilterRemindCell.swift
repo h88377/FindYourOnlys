@@ -43,6 +43,7 @@ class FilterRemindCell: UITableViewCell {
     func configureCell(with remindType: RemindType) {
         
         switch remindType {
+            
         case .allowOneCondition:
             
             remindLabel.text = "選擇一項條件即可搜尋囉！"

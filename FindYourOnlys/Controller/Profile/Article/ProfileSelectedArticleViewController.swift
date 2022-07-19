@@ -34,39 +34,45 @@ class ProfileSelectedArticleViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.articleViewModel.bind { [weak self] _ in
+        viewModel.profileSelectedArticle.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        
+        viewModel.error.bind { [weak self] error in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
-            
+            guard let self = self else { return }
+                
             self.popBack()
         }
         
-        setupArticleHandler()
+        viewModel.editHandler = { [weak self] article in
+            
+            guard let self = self else { return }
+            
+            let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
+                
+                self?.viewModel.deleteArticle(with: article)
+            }
+            
+            AlertWindowManager.shared.presentEditActionSheet(
+                at: self,
+                article: article,
+                with: deleteConfirmAction)
+        }
         
-        viewModel.fetchArticle()
+        viewModel.fetchSelectedArticle()
     }
     
     // MARK: - Method
@@ -79,48 +85,18 @@ class ProfileSelectedArticleViewController: BaseViewController {
         tableView.registerCellWithIdentifier(identifier: ArticleContentCell.identifier)
     }
     
-    private func setupArticleHandler() {
-        
-        viewModel.shareHanlder = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            AlertWindowManager.shared.showShareActivity(at: self)
-        }
-        
-        viewModel.editHandler = { [weak self] articleViewModel in
-            
-            guard
-                let self = self else { return }
-            
-            let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
-                
-                self?.viewModel.deleteArticle(with: articleViewModel)
-            }
-            
-            AlertWindowManager.shared.presentEditActionSheet(
-                at: self,
-                articleViewModel: articleViewModel,
-                with: deleteConfirmAction
-            )
-        }
-    }
-    
     override func setupLoadingViewHandler() {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -128,24 +104,22 @@ class ProfileSelectedArticleViewController: BaseViewController {
     
     private func setupArticleContentCellHandler(
         articleCell: ArticleContentCell,
-        with articleViewModel: ArticleViewModel,
+        with article: Article,
         author: User
     ) {
         
         articleCell.likeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.viewModel.likeArticle(with: articleViewModel)
+            self.viewModel.likeArticle(with: article)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
              
-            self.viewModel.unlikeArticle(with: articleViewModel)
+            self.viewModel.unlikeArticle(with: article)
         }
         
         articleCell.leaveCommentHandler = { [weak self] in
@@ -157,14 +131,13 @@ class ProfileSelectedArticleViewController: BaseViewController {
                     withIdentifier: PetSocietyCommentViewController.identifier
                 ) as? PetSocietyCommentViewController,
                 let self = self
-                    
             else { return }
             
             petSocietyCommentVC.modalPresentationStyle = .custom
             
             petSocietyCommentVC.transitioningDelegate = self
             
-            petSocietyCommentVC.viewModel.selectedArticle = articleViewModel.article
+            petSocietyCommentVC.viewModel.selectedArticle = article
             
             petSocietyCommentVC.viewModel.selectedAuthor = author
             
@@ -173,10 +146,9 @@ class ProfileSelectedArticleViewController: BaseViewController {
         
         articleCell.shareHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.viewModel.shareArticle(with: articleViewModel)
+            AlertWindowManager.shared.showShareActivity(at: self)
         }
     }
 }
@@ -192,7 +164,7 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let articleCellViewModel = viewModel.articleViewModel.value,
+            let articleCellViewModel = viewModel.profileSelectedArticle.value,
             let currentUser = UserFirebaseManager.shared.currentUser
                 
         else { return UITableViewCell() }
@@ -202,16 +174,15 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
             
-            guard
-                let articlePhotoCell = cell as? ArticlePhotoCell
-                    
-            else { return cell }
+            guard let articlePhotoCell = cell as? ArticlePhotoCell else { return cell }
             
             articlePhotoCell.configureCell(with: articleCellViewModel)
             
             articlePhotoCell.editHandler = { [weak self] in
                 
-                self?.viewModel.editArticle(with: articleCellViewModel)
+                guard let self = self else { return }
+                
+                self.viewModel.editArticle(with: articleCellViewModel)
             }
             
             return articlePhotoCell
@@ -220,18 +191,14 @@ extension ProfileSelectedArticleViewController: UITableViewDataSource, UITableVi
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
-            guard
-                let articleContentCell = cell as? ArticleContentCell
-                    
-            else { return cell }
+            guard let articleContentCell = cell as? ArticleContentCell else { return cell }
             
             articleContentCell.configureCell(with: articleCellViewModel)
             
             setupArticleContentCellHandler(
                 articleCell: articleContentCell,
                 with: articleCellViewModel,
-                author: currentUser
-            )
+                author: currentUser)
             
             return articleContentCell
         }

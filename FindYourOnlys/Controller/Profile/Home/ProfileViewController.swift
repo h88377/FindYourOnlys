@@ -69,51 +69,39 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.userViewModel.bind { [weak self] userViewModel in
+        viewModel.user.bind { [weak self] user in
             
             guard
-                let userViewModel = userViewModel,
+                let user = user,
                 let self = self
-                    
             else { return }
             
-            DispatchQueue.main.async {
-                
-                self.setupProfile(with: userViewModel)
-            }
+            self.setupProfile(with: user)
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
 
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
-        viewModel.profileArticleViewModels.bind { [weak self] profileArticleViewModels in
+        viewModel.profileArticles.bind { [weak self] profileArticles in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.collectionView.isHidden = profileArticleViewModels
-                    .flatMap { $0.profileArticle.articles }
-                    .count == 0
-                
-                self.collectionView.reloadData()
-            }
+            self.collectionView.isHidden = profileArticles
+                .flatMap { $0.articles }
+                .isEmpty
+            
+            self.collectionView.reloadData()
         }
         
         viewModel.backToHomeHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tabBarController?.selectedIndex = 0
         }
@@ -161,8 +149,7 @@ class ProfileViewController: BaseViewController {
 
         flowLayout.itemSize = CGSize(
             width: Int((UIScreen.main.bounds.width - 32 - 10) / 3),
-            height: Int((UIScreen.main.bounds.width - 32 - 10) / 3)
-        )
+            height: Int((UIScreen.main.bounds.width - 32 - 10) / 3))
 
         flowLayout.sectionInset = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0)
 
@@ -177,30 +164,26 @@ class ProfileViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
     }
     
-    private func setupProfile(with userViewModel: UserViewModel) {
-                
-        let currentUser = userViewModel.user
+    private func setupProfile(with user: User) {
         
-        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        userEmailLabel.text = currentUser.email
+        userEmailLabel.text = user.email
         
-        userNickNameLabel.text = currentUser.nickName
+        userNickNameLabel.text = user.nickName
     }
     
     @objc private func signOut(sender: UIBarButtonItem) {
@@ -228,8 +211,7 @@ class ProfileViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
@@ -245,8 +227,7 @@ class ProfileViewController: BaseViewController {
         
         let viewController = storyboard.instantiateViewController(withIdentifier: EditProfileViewController.identifier)
         
-        guard
-            let editProfileVC = viewController as? EditProfileViewController else { return }
+        guard let editProfileVC = viewController as? EditProfileViewController else { return }
         
         editProfileVC.viewModel.currentUser = UserFirebaseManager.shared.currentUser
         
@@ -260,32 +241,30 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         
-        let profileArticleTypeCount = viewModel.profileArticleViewModels.value.count
+        let profileArticleTypeCount = viewModel.profileArticles.value.count
         
         return profileArticleTypeCount
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        let profileArticleCount = viewModel.profileArticleViewModels.value[section].profileArticle.articles.count
+        let profileArticleCount = viewModel.profileArticles.value[section].articles.count
         
         return profileArticleCount
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath)
-    -> UICollectionViewCell {
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProfileArticleCell.identifier,
-            for: indexPath
-        )
+            for: indexPath)
         
-        guard
-            let profileArticleCell = cell as? ProfileArticleCell else { return cell }
+        guard let profileArticleCell = cell as? ProfileArticleCell else { return cell }
         
-        let article = viewModel.profileArticleViewModels.value[indexPath.section].profileArticle.articles[indexPath.row]
+        let article = viewModel.profileArticles.value[indexPath.section].articles[indexPath.row]
         
         profileArticleCell.configureCell(with: article)
         
@@ -294,23 +273,22 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(
         _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath)
-    -> UICollectionReusableView {
+        viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath
+    ) -> UICollectionReusableView {
         
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
             withReuseIdentifier: ProfileArticleHeaderView.getIdentifier(),
-            for: indexPath
-        )
+            for: indexPath)
         
-        guard
-            let profileArticleHeaderView = headerView as? ProfileArticleHeaderView
-                
-        else { return headerView }
+        guard let profileArticleHeaderView = headerView as? ProfileArticleHeaderView else {
+            
+            return headerView
+        }
         
-        let cellViewModel = viewModel.profileArticleViewModels.value[indexPath.section]
+        let profileArticle = viewModel.profileArticles.value[indexPath.section]
         
-        profileArticleHeaderView.configureView(with: cellViewModel.profileArticle)
+        profileArticleHeaderView.configureView(with: profileArticle)
         
         return profileArticleHeaderView
     }
@@ -318,8 +296,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        referenceSizeForHeaderInSection section: Int)
-    -> CGSize {
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
         
         CGSize(width: collectionView.frame.width, height: 44)
     }
@@ -330,17 +308,15 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         guard
             let profileSelectedArticleVC = storyboard.instantiateViewController(
-                withIdentifier: ProfileSelectedArticleViewController.identifier)
-                as? ProfileSelectedArticleViewController
+                withIdentifier: ProfileSelectedArticleViewController.identifier
+            )as? ProfileSelectedArticleViewController
         
         else { return }
         
-        profileSelectedArticleVC.viewModel.articleViewModel.value = ArticleViewModel(
-            model: viewModel
-                .profileArticleViewModels
-                .value[indexPath.section]
-                .profileArticle.articles[indexPath.row]
-        )
+        profileSelectedArticleVC.viewModel.profileSelectedArticle.value = viewModel
+            .profileArticles
+            .value[indexPath.section]
+            .articles[indexPath.row]
         
         collectionView.deselectItem(at: indexPath, animated: true)
         

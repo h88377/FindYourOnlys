@@ -40,7 +40,10 @@ class MapManager {
     
     private init() { }
     
-    func convertAddress(with address: String, completion: @escaping (Result<CLLocation, Error>) -> Void) {
+    func convertAddress(
+        with address: String,
+        completion: @escaping (Result<CLLocation, Error>) -> Void
+    ) {
         
         let geoCoder = CLGeocoder()
         
@@ -49,13 +52,11 @@ class MapManager {
             guard
                 let placemarks = placemarks,
                 let location = placemarks.first?.location
-                    
             else {
                 
                 completion(.failure(MapError.convertAddressError))
                 
                 return
-                
             }
             
             completion(.success(location))
@@ -65,15 +66,15 @@ class MapManager {
     func calculateRoute(
         currentCoordinate: CLLocationCoordinate2D,
         stopCoordinate: CLLocationCoordinate2D,
-        completion: @escaping (Result<(route: Route, mapRoute: MKRoute), Error>
-        ) -> Void) {
+        completion: @escaping (Result<(route: Route, mapRoute: MKRoute), Error>) -> Void
+    ) {
         
         let currentLatitude = currentCoordinate.latitude
         
         let currentLongitude = currentCoordinate.longitude
         
         let currentLocation = CLLocation(latitude: currentLatitude, longitude: currentLongitude)
-            
+        
         let currentSegment: RouteBuilder.Segment = .location(currentLocation)
         
         let stopLatitude = stopCoordinate.latitude
@@ -86,14 +87,15 @@ class MapManager {
         
         RouteBuilder.buildRoute(
             origin: currentSegment,
-            stops: stopSegments, within: nil
+            stops: stopSegments,
+            within: nil
         ) { result in
             
             switch result {
+                
             case .success(let route):
                 
-                guard
-                    let firstStop = route.stops.first else { return }
+                guard let firstStop = route.stops.first else { return }
                 
                 let group: (startItem: MKMapItem, endItem: MKMapItem) = (route.origin, firstStop)
                 
@@ -107,10 +109,7 @@ class MapManager {
                 
                 directions.calculate { response, _ in
                     
-                    guard
-                        let mapRoute = response?.routes.first
-                            
-                    else {
+                    guard let mapRoute = response?.routes.first else {
                         
                         completion(.failure(MapError.calculateRouteError))
                         

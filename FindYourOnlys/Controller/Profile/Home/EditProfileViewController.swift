@@ -62,22 +62,19 @@ class EditProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.checkEditedUserHandler = { [weak self] isValid in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if !isValid {
                 
@@ -86,8 +83,6 @@ class EditProfileViewController: BaseViewController {
         }
         
         setupBackHandler()
-        
-        setupPhotoHandler()
         
         setupProfile()
     }
@@ -118,16 +113,14 @@ class EditProfileViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -137,37 +130,16 @@ class EditProfileViewController: BaseViewController {
         
         viewModel.dismissHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.popBack()
         }
         
         viewModel.backToHomeHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.tabBarController?.selectedIndex = 0
-        }
-    }
-    
-    private func setupPhotoHandler() {
-        
-        viewModel.openGalleryHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.openGallery()
-        }
-        
-        viewModel.openCameraHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.openCamera()
         }
     }
 
@@ -178,8 +150,7 @@ class EditProfileViewController: BaseViewController {
     
     private func setupProfile() {
         
-        guard
-            let currentUser = viewModel.currentUser else { return }
+        guard let currentUser = viewModel.currentUser else { return }
        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(changeImage))
         
@@ -187,8 +158,7 @@ class EditProfileViewController: BaseViewController {
         
         userImageView.loadImage(
             currentUser.imageURLString,
-            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder)
-        )
+            placeHolder: UIImage.asset(.findYourOnlysPlaceHolder))
         
         userImageView.contentMode = .scaleAspectFill
         
@@ -206,14 +176,14 @@ class EditProfileViewController: BaseViewController {
         
         let cancel = UIAlertAction(title: "取消", style: .cancel)
         
-        let openGallery = UIAlertAction(title: "開啟相簿", style: .default) { [weak self] _ in
+        let openGallery = UIAlertAction(title: "開啟相簿", style: .default) { _ in
             
-            self?.viewModel.openGallery()
+            self.openGallery()
         }
         
-        let openCamera = UIAlertAction(title: "開啟相機", style: .default) { [weak self] _ in
+        let openCamera = UIAlertAction(title: "開啟相機", style: .default) { _ in
             
-            self?.viewModel.openCamera()
+            self.openCamera()
         }
         
         alert.addAction(cancel)
@@ -267,19 +237,18 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         
         dismiss(animated: true)
         
-        if
-            let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             
             userImageView.image = editedImage
             
             viewModel.selectedImage = editedImage
             
-        } else if
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             userImageView.image = image
             
@@ -308,6 +277,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     }
     
     func openGallery() {
+        
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             
             let imagePicker = UIImagePickerController()
@@ -333,8 +303,7 @@ extension EditProfileViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        guard
-            let nickName = nickNameTextField.text else { return }
+        guard let nickName = nickNameTextField.text else { return }
         
         viewModel.nickNameChange(with: nickName)
     }

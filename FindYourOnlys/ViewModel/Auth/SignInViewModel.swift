@@ -11,9 +11,7 @@ class SignInViewModel {
     
     // MARK: - Properties
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
-    
-    var dismissHandler: (() -> Void)?
+    var signInState: Box<AuthState> = Box(.none)
     
     var startLoadingHandler: (() -> Void)?
     
@@ -27,8 +25,7 @@ class SignInViewModel {
         
         UserFirebaseManager.shared.signIn(withEmail: email, password: password) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -44,21 +41,21 @@ class SignInViewModel {
 
                             UserFirebaseManager.shared.currentUser = user
                             
-                            self.dismissHandler?()
+                            self.signInState.value = .success
                             
                             break
                         }
 
                     case .failure(let error):
 
-                        self.errorViewModel.value = ErrorViewModel(model: error)
+                        self.signInState.value = .failure(error)
                     }
                     self.stopLoadingHandler?()
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.signInState.value = .failure(error)
                 
                 self.stopLoadingHandler?()
             }

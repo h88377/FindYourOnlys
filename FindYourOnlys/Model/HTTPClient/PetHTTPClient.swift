@@ -75,8 +75,7 @@ class PetHTTPClient {
                           "shelter_address": condition.city,
                           "animal_kind": condition.petKind,
                           "animal_sex": condition.sex,
-                          "animal_colour": condition.color
-            ]
+                          "animal_colour": condition.color]
         case false:
             
             parameters = ["UnitId": "QcbUEzN6E6DL",
@@ -85,14 +84,13 @@ class PetHTTPClient {
                           "shelter_address": condition.city,
                           "animal_kind": condition.petKind,
                           "animal_sex": condition.sex,
-                          "animal_colour": condition.color
-            ]
+                          "animal_colour": condition.color]
         }
         
-        guard
-            var component = URLComponents(string: urlString)
-                
-        else { return completion(.failure(HTTPClientError.urlError)) }
+        guard var component = URLComponents(string: urlString) else {
+            
+            return completion(.failure(HTTPClientError.urlError))
+        }
         
         component.queryItems = parameters.map { (key, value) in
             
@@ -103,7 +101,10 @@ class PetHTTPClient {
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
-            guard error == nil else { return completion(.failure(HTTPClientError.internetError)) }
+            guard error == nil else {
+                
+                return completion(.failure(HTTPClientError.internetError))
+            }
             
             // swiftlint:disable force_cast
             let httpResponse = response as! HTTPURLResponse
@@ -132,5 +133,4 @@ class PetHTTPClient {
         
         task.resume()
     }
-    
 }

@@ -13,7 +13,7 @@ class EditProfileViewModel {
     
     var currentUser: User?
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var selectedImage: UIImage?
     
@@ -24,10 +24,6 @@ class EditProfileViewModel {
     var startLoadingHandler: (() -> Void)?
     
     var stopLoadingHandler: (() -> Void)?
-    
-    var openCameraHandler: (() -> Void)?
-    
-    var openGalleryHandler: (() -> Void)?
     
     var checkEditedUserHandler: ((Bool) -> Void)?
     
@@ -40,10 +36,7 @@ class EditProfileViewModel {
     
     func tapConfirm() {
         
-        confirm { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        confirm { result in
             
             switch result {
                 
@@ -53,7 +46,7 @@ class EditProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -64,8 +57,7 @@ class EditProfileViewModel {
         
         UserFirebaseManager.shared.deleteAuthUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -79,20 +71,10 @@ class EditProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
-    }
-    
-    func openCamera() {
-        
-        openCameraHandler?()
-    }
-    
-    func openGallery() {
-        
-        openGalleryHandler?()
     }
     
     func nickNameChange(with nickName: String) {
@@ -107,13 +89,11 @@ class EditProfileViewModel {
         guard
             var currentUser = currentUser,
             isValidEditedProfile
-        
         else { return }
 
         DispatchQueue.global().async { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let semaphore = DispatchSemaphore(value: 0)
             
@@ -125,7 +105,8 @@ class EditProfileViewModel {
                 
                 PetSocietyFirebaseManager.shared.fetchDownloadImageURL(
                         image: self.selectedImage!,
-                        with: FirebaseCollectionType.user.rawValue) { result in
+                        with: FirebaseCollectionType.user.rawValue
+                ) { result in
                     
                     switch result {
                         

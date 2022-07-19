@@ -20,13 +20,12 @@ class FindPetSocietyFilterViewModel {
         let conditions = [
             findPetSocietyFilterCondition.city,
             findPetSocietyFilterCondition.petKind,
-            findPetSocietyFilterCondition.color
-        ]
+            findPetSocietyFilterCondition.color]
         
         let isValidCondition = !conditions
             .map { $0 == "" }
-            .contains(true)
-        && findPetSocietyFilterCondition.postType != -1
+            .contains(true) &&
+        findPetSocietyFilterCondition.postType != -1
         
         return isValidCondition
     }

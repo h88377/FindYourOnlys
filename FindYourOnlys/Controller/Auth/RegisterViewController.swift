@@ -143,41 +143,39 @@ class RegisterViewController: BaseViewController {
 
         view.backgroundColor = .white
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
-
-            guard
-                let self = self else { return }
+        viewModel.registerState.bind { [weak self] registerState in
             
-            if
-                let error = errorViewModel?.error {
+            guard let self = self else { return }
+            
+            switch registerState {
                 
-                if
-                    let authError = error as? AuthError {
+            case .success:
+                
+                self.errorLabel.isHidden = true
+                
+                self.presentingViewController?.dismiss(animated: true)
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
+                
+                if let authError = error as? AuthError {
                     
                     self.errorLabel.text = authError.errorMessage
                     
                     self.errorLabel.isHidden = false
                     
-                } else if
-                    let firebaseError = error as? FirebaseError {
+                } else if let firebaseError = error as? FirebaseError {
                     
                     self.errorLabel.text = firebaseError.errorMessage
                     
                     self.errorLabel.isHidden = false
                 }
+                
+            case .none:
+                
+                return
             }
-        }
-        
-        viewModel.dismissHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.errorLabel.isHidden = true
-            
-            self.presentingViewController?.dismiss(animated: true)
-            
-            self.dismissHandler?()
         }
     }
     
@@ -193,16 +191,14 @@ class RegisterViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -218,8 +214,7 @@ class RegisterViewController: BaseViewController {
             nickName != "",
             email != "",
             password != "",
-            checkPassword != ""
-                
+            checkPassword != ""  
         else {
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫完整註冊資料喔！")

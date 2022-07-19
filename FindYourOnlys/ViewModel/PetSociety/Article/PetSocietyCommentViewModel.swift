@@ -14,21 +14,17 @@ class PetSocietyCommentViewModel {
     
     var selectedAuthor: User?
     
-    var selectedArticleViewModel: Box<ArticleViewModel?> = Box(nil)
+    var filteredArticle: Box<Article?> = Box(nil)
     
-    var commentViewModels = Box([CommentViewModel]())
+    var comments = Box([Comment]())
     
-    var senderViewModels = Box([UserViewModel]())
+    var commentSenders = Box([User]())
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     private var comment = Comment()
     
-    var changeCommentHandler: (() -> Void)?
-    
     var beginEditCommentHander: (() -> Void)?
-    
-    var scrollToBottomHandler: (() -> Void)?
     
     var startLoadingHandler: (() -> Void)?
     
@@ -36,41 +32,36 @@ class PetSocietyCommentViewModel {
     
     var signInHandler: (() -> Void)?
     
-    var blockHandler: ((UserViewModel) -> Void)?
-    
     // MARK: - Methods
     
     func fetchComments() {
 
-        guard
-            let selectedArticle = selectedArticle else { return }
+        guard let selectedArticle = selectedArticle else { return }
 
         PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: selectedArticle.id) { [weak self] result in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
 
             switch result {
 
             case .success(var article):
                 
-                if
-                    let currentUser = UserFirebaseManager.shared.currentUser {
+                if let currentUser = UserFirebaseManager.shared.currentUser {
                     
                     let filteredComments = article.comments.filter { !currentUser.blockedUsers.contains($0.userId) }
                     
                     article.comments = filteredComments
                 }
                     
-                self.selectedArticleViewModel.value = ArticleViewModel(model: article)
+                self.filteredArticle.value = article
                 
-                PetSocietyFirebaseManager.shared.setComments(with: self.commentViewModels, comments: article.comments)
+                self.comments.value = article.comments
                 
                 self.fetchSenders(withArticle: article)
                 
             case .failure(let error):
 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
@@ -78,40 +69,33 @@ class PetSocietyCommentViewModel {
     func leaveComment() {
         
         guard
-            var article = selectedArticleViewModel.value?.article,
+            var filteredArticle = filteredArticle.value,
             let currentUser = UserFirebaseManager.shared.currentUser
-                
         else { return }
         
-        comment.articleId = article.id
+        comment.articleId = filteredArticle.id
 
         comment.userId = currentUser.id
 
         comment.createdTime = NSDate().timeIntervalSince1970
 
-        PetSocietyFirebaseManager.shared.leaveComment(withArticle: &article, comment: comment) { [weak self] result in
+        PetSocietyFirebaseManager.shared.leaveComment(
+            withArticle: &filteredArticle,
+            comment: comment
+        ) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
-    func changeMessage() {
-        
-        changeCommentHandler?()
-    }
-    
     func beginEditMessage() {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
@@ -121,19 +105,7 @@ class PetSocietyCommentViewModel {
         beginEditCommentHander?()
     }
     
-    func scrollToBottom() {
-        
-        scrollToBottomHandler?()
-    }
-    
-    func block(with senderViewModel: UserViewModel) {
-        
-        blockHandler?(senderViewModel)
-    }
-    
-    func blockUser(with viewModel: UserViewModel) {
-        
-        let user = viewModel.user
+    func blockUser(with user: User) {
         
         startLoadingHandler?()
         
@@ -153,8 +125,7 @@ class PetSocietyCommentViewModel {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -162,12 +133,11 @@ class PetSocietyCommentViewModel {
                 
                 let senders = self.getCommentedUsers(users: users, with: userIds)
                 
-                UserFirebaseManager.shared.setUsers(with: self.senderViewModels, users: senders)
+                self.commentSenders.value = senders
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
-                
+                self.error.value = error
             }
         }
     }
@@ -185,8 +155,7 @@ class PetSocietyCommentViewModel {
                     email: "",
                     imageURLString: "",
                     friends: [],
-                    blockedUsers: []
-                )
+                    blockedUsers: [])
 
                 senders.append(deletedUser)
                 

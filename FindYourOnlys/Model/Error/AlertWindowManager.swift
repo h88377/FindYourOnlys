@@ -70,16 +70,13 @@ class AlertWindowManager {
             message = "發生預期外的錯誤"
         }
         
-        DispatchQueue.main.async {
-            
-            let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "OK", style: .default)
-            
-            alert.addAction(action)
-            
-            controller.present(alert, animated: true)
-        }
+        let alert = UIAlertController(title: "異常", message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(action)
+        
+        controller.present(alert, animated: true)
     }
 
     func presentBlockActionSheet(at controller: UIViewController, with blockConfirmAction: UIAlertAction) {
@@ -115,7 +112,7 @@ class AlertWindowManager {
     
     func presentEditActionSheet(
         at controller: UIViewController,
-        articleViewModel: ArticleViewModel,
+        article: Article,
         with deleteConfirmAction: UIAlertAction
     ) {
         
@@ -127,14 +124,12 @@ class AlertWindowManager {
             
             let storyboard = UIStoryboard.profile
             
-            guard
-                let editVC = storyboard.instantiateViewController(
-                    withIdentifier: EditArticleViewController.identifier)
-                    as? EditArticleViewController
-            
-            else { return }
-            
-            let article = articleViewModel.article
+            guard let editVC = storyboard.instantiateViewController(
+                withIdentifier: EditArticleViewController.identifier
+            ) as? EditArticleViewController else {
+                
+                return
+            }
             
             editVC.viewModel.article = article
             
@@ -150,7 +145,6 @@ class AlertWindowManager {
             deleteAlert.addAction(deleteConfirmAction)
             
             controller.present(deleteAlert, animated: true)
-            
         }
         
         alert.addAction(editAction)

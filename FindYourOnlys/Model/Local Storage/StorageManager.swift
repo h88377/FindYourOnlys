@@ -46,8 +46,7 @@ class StorageManager {
         
         container.loadPersistentStores(completionHandler: { (_, error) in
             
-            if
-                let error = error as NSError? {
+            if let error = error as NSError? {
                 
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -93,13 +92,14 @@ class StorageManager {
         }
     }
     
-    func savePetInFavorite(with petViewModel: PetViewModel, completion: (Result<Void, Error>) -> Void) {
+    func savePetInFavorite(
+        with pet: Pet,
+        completion: (Result<Void, Error>) -> Void
+    ) {
         
         let context = StorageManager.shared.persistentContainer.viewContext
         
         let lsPet = LSPet(entity: LSPet.entity(), insertInto: context)
-        
-        let pet = petViewModel.pet
         
         lsPet.photoURLString = pet.photoURLString
         
@@ -208,8 +208,7 @@ class StorageManager {
                 address: lsPet.photoURLString,
                 telephone: lsPet.telephone,
                 variety: lsPet.variety,
-                shelterName: lsPet.shelterName
-            )
+                shelterName: lsPet.shelterName)
             
             pets.append(pet)
         }

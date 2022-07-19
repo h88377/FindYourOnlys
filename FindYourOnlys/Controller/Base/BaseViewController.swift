@@ -185,8 +185,7 @@ class BaseViewController: UIViewController {
         
         DispatchQueue.main.async { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.navigationController?.popViewController(animated: true)
         }
@@ -201,13 +200,12 @@ class BaseViewController: UIViewController {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     
-    func addToFavorite() {
+    func addToFavoriteAnimation() {
         
         DispatchQueue.main.async {
 
             LottieAnimationWrapper.shared.addToFavorite()
         }
-        
     }
 }
 
@@ -217,8 +215,8 @@ extension BaseViewController: UIViewControllerTransitioningDelegate {
     func presentationController(
         forPresented presented: UIViewController,
         presenting: UIViewController?,
-        source: UIViewController)
-    -> UIPresentationController? {
+        source: UIViewController
+    ) -> UIPresentationController? {
         
         PresentationController(presentedViewController: presented, presenting: presenting)
     }

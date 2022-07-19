@@ -6,13 +6,8 @@
 //
 
 import Foundation
-import MapKit
 
 class AdoptDirectionViewModel {
     
-    var directionViewModel = Box(
-        DirectionViewModel(
-            model: Direction()
-        )
-    )
+    var direction = Box(Direction())
 }

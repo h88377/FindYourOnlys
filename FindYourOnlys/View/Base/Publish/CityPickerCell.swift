@@ -120,8 +120,7 @@ class CityPickerCell: BasePublishCell {
             
             button.setBackgroundImage(
                 UIImage.asset(.pickerDropDown),
-                for: .normal
-            )
+                for: .normal)
             
             button.isUserInteractionEnabled = false
             

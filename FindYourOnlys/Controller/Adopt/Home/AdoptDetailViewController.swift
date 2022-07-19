@@ -9,7 +9,7 @@ import UIKit
 
 protocol AdoptDetailViewControllerDelegate: AnyObject {
     
-    func toggleFavorite()
+    func adoptDetailViewControllerFavoriteButtonDidTap()
 }
 
 class AdoptDetailViewController: BaseViewController {
@@ -81,67 +81,36 @@ class AdoptDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.petViewModel.bind { [weak self] _ in
+        viewModel?.pet.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
-        viewModel?.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel?.error.bind { [weak self] error in
             
-            guard
-                let self = self else { return }
+            guard let self = self,
+                  let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
-        viewModel?.shareHandler = { [weak self] in
+        viewModel?.favoriteChangedHandler = { [weak self] isFavorite in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            AlertWindowManager.shared.showShareActivity(at: self)
+            self.favoriteButton.isSelected = isFavorite
         }
-        
-        viewModel?.makePhoneCallHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            guard
-                let phoneNumber = self.viewModel?.petViewModel.value.pet.telephone,
-                let url = URL(string: "tel://\(String(describing: phoneNumber))"),
-                UIApplication.shared.canOpenURL(url)
-                    
-            else {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
-                
-                return
-            }
-            
-            if #available(iOS 10, *) {
-                
-                UIApplication.shared.open(url)
-                
-            } else {
-                
-                UIApplication.shared.openURL(url)
-            }
-        }
-        
-        configureFavoriteButton()
         
         viewModel?.fetchFavoritePet()
+        
+        viewModel?.setupFavoriteBinding()
+        
+        setupBackButton()
+        
+        setupFavoriteButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -160,8 +129,7 @@ class AdoptDetailViewController: BaseViewController {
     
     override func setupTableView() {
         
-        guard
-            let viewModel = viewModel else { return }
+        guard let viewModel = viewModel else { return }
         
         tableView.registerCellWithIdentifier(identifier: AdoptDetailTableViewCell.identifier)
         
@@ -179,54 +147,41 @@ class AdoptDetailViewController: BaseViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                
-                tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor, constant: 5)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            tableView.bottomAnchor.constraint(equalTo: bottomBaseView.topAnchor, constant: 5)])
         
         let header = AdoptDetailHeaderView(frame: CGRect(
             x: 0, y: 0,
             width: view.frame.width,
-            height: view.frame.width)
-        )
+            height: view.frame.width))
         
-        header.configureView(with: viewModel.petViewModel.value)
+        header.configureView(with: viewModel.pet.value)
         
         tableView.tableHeaderView = header
-        
-        setupButton()
     }
     
-    private func setupButton() {
+    private func setupBackButton() {
         
         view.addSubview(backButton)
         
-        backButton.frame = CGRect(
-            x: 0, y: 0,
-            width: 40,
-            height: 40
-        )
-        
         backButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate(
-            [
-                backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                
-                backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-                
-                backButton.heightAnchor.constraint(equalToConstant: 40),
-                
-                backButton.widthAnchor.constraint(equalToConstant: 40)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            
+            backButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            backButton.widthAnchor.constraint(equalToConstant: 40)])
         
         let config = UIImage.SymbolConfiguration(pointSize: 34)
         
@@ -239,59 +194,43 @@ class AdoptDetailViewController: BaseViewController {
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
-    private func configureFavoriteButton() {
+    private func setupFavoriteButton() {
         
-        viewModel?.checkFavoriateButtonHandler = { [weak self] in
-            
-            guard
-                let self = self,
-                let favoritePetViewModels = self.viewModel?.favoritePetViewModels.value,
-                let pet = self.viewModel?.petViewModel.value.pet
-            
-            else { return }
-            
-            self.favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
-            
-            for favoritePetViewModel in favoritePetViewModels where favoritePetViewModel.pet.id == pet.id {
-                
-                self.favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .normal)
-            }
-        }
+        favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
         
-        viewModel?.toggleFavoriteButtonHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            if self.favoriteButton.currentImage == UIImage.system(.addToFavorite) {
-                
-                self.viewModel?.addPetInFavorite()
-                
-            } else {
-                
-                self.viewModel?.removeFavoritePet()
-            }
-            
-            self.favoriteButton.setImage(
-                self.favoriteButton.currentImage == UIImage.system(.addToFavorite)
-                ? UIImage.system(.removeFromFavorite)
-                : UIImage.system(.addToFavorite), for: .normal
-            )
-        }
+        favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
     }
     
-    @IBAction func pressFavoriteButton(_ sender: UIButton) {
+    @IBAction func pressedFavoriteButton(_ sender: UIButton) {
+        
+        viewModel?.toggleFavorite()
         
         viewModel?.fetchFavoritePet()
         
-        viewModel?.toggleFavoriteButton()
-        
-        self.delegate?.toggleFavorite()
+        self.delegate?.adoptDetailViewControllerFavoriteButtonDidTap()
     }
     
     @IBAction func makePhoneCall(_ sender: UIButton) {
         
-        viewModel?.makePhoneCall()
+        guard
+            let phoneNumber = viewModel?.pet.value.telephone,
+            let url = URL(string: "tel://\(String(describing: phoneNumber))"),
+            UIApplication.shared.canOpenURL(url)
+        else {
+            
+            AlertWindowManager.shared.showAlertWindow(at: self, title: "號碼錯誤", message: "電話號碼格式錯誤，麻煩使用手機撥號")
+            
+            return
+        }
+        
+        if #available(iOS 10, *) {
+            
+            UIApplication.shared.open(url)
+            
+        } else {
+            
+            UIApplication.shared.openURL(url)
+        }
     }
     
     @objc func back(_ sender: UIButton) {
@@ -303,15 +242,13 @@ class AdoptDetailViewController: BaseViewController {
         
         let storyboard = UIStoryboard.adopt
         
-        guard
-            let petsLocationVC = storyboard.instantiateViewController(
+        guard let petsLocationVC = storyboard.instantiateViewController(
                 withIdentifier: AdoptPetsLocationViewController.identifier
             ) as? AdoptPetsLocationViewController,
             let viewModel = viewModel
-                
         else { return }
         
-        petsLocationVC.viewModel.pet = viewModel.petViewModel.value.pet
+        petsLocationVC.viewModel.pet = viewModel.pet.value
         
         petsLocationVC.viewModel.isShelterMap = false
         
@@ -322,53 +259,56 @@ class AdoptDetailViewController: BaseViewController {
 // MARK: - UITableViewDelegate & DataSource
 extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard
-            let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
-        
-        return 1 + adoptDetailDescription.count
+        if section == 0 {
+            
+            return 1
+            
+        } else {
+            
+            guard let adoptDetailDescription = viewModel?.adoptDetailContentCategory else { return 0 }
+            
+            return adoptDetailDescription.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard
-            let cellViewModel = viewModel?.petViewModel.value,
+            let pet = viewModel?.pet.value,
             let adoptDetailContentCategory = viewModel?.adoptDetailContentCategory
-        
         else { return UITableViewCell() }
         
-        if indexPath.item == 0 {
+        if indexPath.section == 0 {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: AdoptDetailTableViewCell.identifier,
-                for: indexPath
-            )
+                for: indexPath)
             
-            guard
-                let detailCell = cell as? AdoptDetailTableViewCell
-                    
-            else { return cell }
+            guard let detailCell = cell as? AdoptDetailTableViewCell else { return cell }
             
-            detailCell.configureCell(with: cellViewModel)
+            detailCell.configureCell(with: pet)
             
             detailCell.shareHandler = { [weak self] in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
-                self.viewModel?.share()
+                AlertWindowManager.shared.showShareActivity(at: self)
             }
             
             return detailCell
             
         } else {
             
-            let detailContentCell = adoptDetailContentCategory[indexPath.item - 1].cellForIndexPath(
+            let detailContentCell = adoptDetailContentCategory[indexPath.row].cellForIndexPath(
                 indexPath,
                 tableView: tableView,
-                viewModel: cellViewModel
-            )
+                pet: pet)
             
             return detailContentCell
         }
@@ -376,8 +316,7 @@ extension AdoptDetailViewController: UITableViewDelegate, UITableViewDataSource,
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        guard
-            let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
+        guard let header = tableView.tableHeaderView as? AdoptDetailHeaderView else { return }
         
         header.scrollViewDidScroll(scrollView: tableView)
     }

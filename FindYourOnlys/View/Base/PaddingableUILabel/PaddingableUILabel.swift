@@ -60,11 +60,11 @@ class PaddingableUILabel: UILabel {
         
         var rect = super.textRect(forBounds: bounds.inset(by: insets), limitedToNumberOfLines: numberOfLines)
         
-        rect.origin.x    -= insets.left
+        rect.origin.x -= insets.left
         
-        rect.origin.y    -= insets.top
+        rect.origin.y -= insets.top
         
-        rect.size.width  += (insets.left + insets.right)
+        rect.size.width += (insets.left + insets.right)
         
         rect.size.height += (insets.top + insets.bottom)
         

@@ -118,42 +118,40 @@ class SignInViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .signInBackGroundColor
-
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        
+        viewModel.signInState.bind { [weak self] signInState in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            if
-                let error = errorViewModel?.error {
+            switch signInState {
                 
-                if
-                    let authError = error as? AuthError {
+            case .success:
+                
+                self.errorLabel.isHidden = true
+                
+                self.dismiss(animated: true)
+                
+                self.dismissHandler?()
+                
+            case .failure(let error):
+                
+                if let authError = error as? AuthError {
                     
                     self.errorLabel.text = authError.errorMessage
                     
                     self.errorLabel.isHidden = false
                     
-                } else if
-                    let firebaseError = error as? FirebaseError {
+                } else if let firebaseError = error as? FirebaseError {
                     
                     self.errorLabel.text = firebaseError.errorMessage
                     
                     self.errorLabel.isHidden = false
                 }
+                
+            case .none:
+                
+                return
             }
-        }
-        
-        viewModel.dismissHandler = { [weak self] in
-            
-            guard
-                let self = self else { return }
-            
-            self.errorLabel.isHidden = true
-            
-            self.dismiss(animated: true)
-            
-            self.dismissHandler?()
         }
     }
     
@@ -170,16 +168,14 @@ class SignInViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
 
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -192,7 +188,6 @@ class SignInViewController: BaseViewController {
             let password = passwordTextField.text,
             email != "",
             password != ""
-        
         else {
             
             AlertWindowManager.shared.showAlertWindow(at: self, title: "請填寫完整資訊登入喔！")

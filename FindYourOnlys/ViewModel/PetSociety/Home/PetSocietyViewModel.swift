@@ -11,17 +11,17 @@ class PetSocietyViewModel: BaseSocietyViewModel {
     
     // MARK: - Properties
     
-    let findArticleViewModels = Box([ArticleViewModel]())
+    let findArticles = Box([Article]())
     
-    let findAuthorViewModels = Box([UserViewModel]())
+    let findAuthors = Box([User]())
     
-    let sharedArticleViewModels = Box([ArticleViewModel]())
+    let sharedArticles = Box([Article]())
     
-    let sharedAuthorViewModels = Box([UserViewModel]())
+    let sharedAuthors = Box([User]())
     
     var findPetSocietyFilterCondition = FindPetSocietyFilterCondition()
     
-    var articleViewModel: Box<ArticleViewModel?> = Box(nil)
+    var profileSelectedArticle: Box<Article?> = Box(nil)
     
     var dismissHandler: (() -> Void)?
     
@@ -33,8 +33,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .find, with: condition) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -42,16 +41,16 @@ class PetSocietyViewModel: BaseSocietyViewModel {
                 
                 self.filterOutBlockedComments(with: &articles)
                 
-                PetSocietyFirebaseManager.shared.setArticles(with: self.findArticleViewModels, articles: articles)
+                self.findArticles.value = articles
                 
                 self.fetchAuthors(with: articles, type: .find) { error in
                     
-                    self.errorViewModel.value = ErrorViewModel(model: error!)
+                    self.error.value = error
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
                 
                 self.stopLoadingHandler?()
             }
@@ -65,8 +64,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         PetSocietyFirebaseManager.shared.fetchArticle(articleType: .share) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -74,16 +72,16 @@ class PetSocietyViewModel: BaseSocietyViewModel {
                 
                 self.filterOutBlockedComments(with: &articles)
                 
-                PetSocietyFirebaseManager.shared.setArticles(with: self.sharedArticleViewModels, articles: articles)
+                self.sharedArticles.value = articles
                 
                 self.fetchAuthors(with: articles, type: .share) { error in
                     
-                    self.errorViewModel.value = ErrorViewModel(model: error!)
+                    self.error.value = error!
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
                 
                 self.stopLoadingHandler?()
             }
@@ -91,27 +89,25 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
     }
     
-    func fetchArticle() {
+    func fetchSelectedArticle() {
         
-        guard
-            let article = articleViewModel.value?.article else { return }
+        guard let selectedArticle = profileSelectedArticle.value else { return }
         
         startLoadingHandler?()
         
-        PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: article.id) { [weak self] result in
+        PetSocietyFirebaseManager.shared.fetchArticle(withArticleId: selectedArticle.id) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
             case .success(let article):
                 
-                self.articleViewModel.value = ArticleViewModel(model: article)
+                self.profileSelectedArticle.value = article
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -121,8 +117,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         
         UserFirebaseManager.shared.fetchUser { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             switch result {
                 
@@ -142,11 +137,11 @@ class PetSocietyViewModel: BaseSocietyViewModel {
                     
                 case .find:
                     
-                    UserFirebaseManager.shared.setUsers(with: self.findAuthorViewModels, users: authors)
+                    self.findAuthors.value = authors
                     
                 case .share:
                     
-                    UserFirebaseManager.shared.setUsers(with: self.sharedAuthorViewModels, users: authors)
+                    self.sharedAuthors.value = authors
                 }
                   
             case .failure(let error):
@@ -160,8 +155,7 @@ class PetSocietyViewModel: BaseSocietyViewModel {
     
     private func filterOutBlockedComments(with articles: inout [Article]) {
         
-        if
-            let currentUser = UserFirebaseManager.shared.currentUser {
+        if let currentUser = UserFirebaseManager.shared.currentUser {
             
             for index in 0..<articles.count {
                 
@@ -175,16 +169,11 @@ class PetSocietyViewModel: BaseSocietyViewModel {
         }
     }
     
-    func deleteArticle(with viewModel: ArticleViewModel) {
-        
-        let article = viewModel.article
+    func deleteArticle(with article: Article) {
         
         startLoadingHandler?()
         
-        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { [weak self] result in
-            
-            guard
-                let self = self else { return }
+        PetSocietyFirebaseManager.shared.deleteArticle(withArticleId: article.id) { result in
             
             switch result {
                 
@@ -194,15 +183,13 @@ class PetSocietyViewModel: BaseSocietyViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
     }
     
-    func blockUser(with viewModel: ArticleViewModel) {
-        
-        let article = viewModel.article
+    func blockUser(with article: Article) {
         
         startLoadingHandler?()
         

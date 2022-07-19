@@ -48,42 +48,30 @@ class ShareSocietyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.sharedArticleViewModels.bind { [weak self] articleViewModels in
+        viewModel.sharedArticles.bind { [weak self] article in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-                
-                self.tableView.isHidden = articleViewModels.count == 0
-                ? true
-                : false
-            }
+            self.tableView.reloadData()
+            
+            self.tableView.isHidden = article.isEmpty
         }
         
-        viewModel.sharedAuthorViewModels.bind { [weak self] _ in
+        viewModel.sharedAuthors.bind { [weak self] _ in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
-                let self = self else { return }
+                let self = self,
+                let error = error
+            else { return }
             
-            if
-                let error = errorViewModel?.error {
-                
-                AlertWindowManager.shared.showAlertWindow(at: self, of: error)
-            }
+            AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
         viewModel.signInHandler = { [weak self] in
@@ -91,11 +79,11 @@ class ShareSocietyViewController: BaseViewController {
             let storyboard = UIStoryboard.auth
             
             let authVC = storyboard.instantiateViewController(withIdentifier: AuthViewController.identifier)
-
+            
             authVC.modalPresentationStyle = .custom
             
             authVC.transitioningDelegate = self
-
+            
             self?.present(authVC, animated: true)
         }
         
@@ -128,16 +116,14 @@ class ShareSocietyViewController: BaseViewController {
         
         viewModel.startLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
-
+            guard let self = self else { return }
+            
             self.startLoading()
         }
         
         viewModel.stopLoadingHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             self.stopLoading()
         }
@@ -145,28 +131,18 @@ class ShareSocietyViewController: BaseViewController {
     
     private func setupArticleHandler() {
         
-        viewModel.shareHanlder = { [weak self] in
+        viewModel.editHandler = { [weak self] article in
             
-            guard
-                let self = self else { return }
-            
-            AlertWindowManager.shared.showShareActivity(at: self)
-        }
-        
-        viewModel.editHandler = { [weak self] articleViewModel in
-            
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             guard
                 let currentUser = UserFirebaseManager.shared.currentUser,
-                articleViewModel.article.userId == currentUser.id
-                    
+                article.userId == currentUser.id
             else {
                 
                 let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
                     
-                    self.viewModel.blockUser(with: articleViewModel)
+                    self.viewModel.blockUser(with: article)
                 }
                 
                 AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)
@@ -176,20 +152,18 @@ class ShareSocietyViewController: BaseViewController {
             
             let deleteConfirmAction = UIAlertAction(title: "刪除文章", style: .destructive) { [weak self] _ in
                 
-                self?.viewModel.deleteArticle(with: articleViewModel)
+                self?.viewModel.deleteArticle(with: article)
             }
             
             AlertWindowManager.shared.presentEditActionSheet(
                 at: self,
-                articleViewModel: articleViewModel,
-                with: deleteConfirmAction
-            )
+                article: article,
+                with: deleteConfirmAction)
         }
         
         viewModel.tapAddArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             let storyboard = UIStoryboard.findPetSociety
             
@@ -197,7 +171,6 @@ class ShareSocietyViewController: BaseViewController {
                 let publishVC = storyboard.instantiateViewController(
                     withIdentifier: PublishViewController.identifier)
                     as? PublishViewController
-            
             else { return }
             
             publishVC.viewModel.articleType = .share
@@ -208,23 +181,21 @@ class ShareSocietyViewController: BaseViewController {
     
     private func setupArticleContentCellHandler(
         articleCell: ArticleContentCell,
-        with articleViewModel: ArticleViewModel,
-        authorViewModel: UserViewModel
+        with article: Article,
+        author: User
     ) {
         articleCell.likeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.viewModel.likeArticle(with: articleViewModel)
+            self.viewModel.likeArticle(with: article)
         }
         
         articleCell.unlikeArticleHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
-             
-            self.viewModel.unlikeArticle(with: articleViewModel)
+            guard let self = self else { return }
+            
+            self.viewModel.unlikeArticle(with: article)
         }
         
         articleCell.leaveCommentHandler = { [weak self] in
@@ -236,26 +207,24 @@ class ShareSocietyViewController: BaseViewController {
                     withIdentifier: PetSocietyCommentViewController.identifier
                 ) as? PetSocietyCommentViewController,
                 let self = self
-                    
             else { return }
             
             petSocietyCommentVC.modalPresentationStyle = .custom
             
             petSocietyCommentVC.transitioningDelegate = self
             
-            petSocietyCommentVC.viewModel.selectedArticle = articleViewModel.article
+            petSocietyCommentVC.viewModel.selectedArticle = article
             
-            petSocietyCommentVC.viewModel.selectedAuthor = authorViewModel.user
+            petSocietyCommentVC.viewModel.selectedAuthor = author
             
             self.present(petSocietyCommentVC, animated: true)
         }
         
         articleCell.shareHandler = { [weak self] in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
-            self.viewModel.shareArticle(with: articleViewModel)
+            AlertWindowManager.shared.showShareActivity(at: self)
         }
     }
     
@@ -264,18 +233,12 @@ class ShareSocietyViewController: BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(currentUserDidSet),
-            name: .didSetCurrentUser, object: nil
-        )
+            name: .didSetCurrentUser, object: nil)
     }
     
     @objc private func currentUserDidSet(_ notification: Notification) {
         
         viewModel.fetchSharedArticles()
-    }
-    
-    private func convertDataSourceIndex(with index: Int, count: Int) -> Int {
-        
-        Int(index / count)
     }
     
     @IBAction func publish(_ sender: UIButton) {
@@ -287,79 +250,66 @@ class ShareSocietyViewController: BaseViewController {
 // MARK: - ShareSocietyViewController UITableViewDelegate and DataSource
 extension ShareSocietyViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        guard
+            viewModel.sharedAuthors.value.count > 0,
+            viewModel.sharedArticles.value.count == viewModel.sharedAuthors.value.count
+        else { return 0 }
+        
+        return viewModel.sharedArticles.value.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let registeredCellCount = 2
         
-        guard
-            viewModel.sharedAuthorViewModels.value.count > 0,
-            viewModel.sharedArticleViewModels.value.count == viewModel.sharedAuthorViewModels.value.count
-                
-        else { return 0 }
-        
-        return viewModel.sharedArticleViewModels.value.count * registeredCellCount
+        return registeredCellCount
     }
     
-    func tableView(
-        _ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let registeredCellCount = 2
+        let article = viewModel
+            .sharedArticles
+            .value[indexPath.section]
         
-        let articleCellViewModel = viewModel
-            .sharedArticleViewModels
-            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
+        let author = viewModel
+            .sharedAuthors
+            .value[indexPath.section]
         
-        let authorCellViewModel = viewModel
-            .sharedAuthorViewModels
-            .value[convertDataSourceIndex(with: indexPath.row, count: registeredCellCount)]
-        
-        switch indexPath.row % registeredCellCount {
-            
-        case 0:
+        if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticlePhotoCell.identifier, for: indexPath)
             
-            guard
-                let photoCell = cell as? ArticlePhotoCell
-                    
-            else { return cell }
+            guard let photoCell = cell as? ArticlePhotoCell else { return cell }
             
-            photoCell.configureCell(with: articleCellViewModel, authorViewModel: authorCellViewModel)
+            photoCell.configureCell(with: article, author: author)
             
             photoCell.editHandler = { [weak self] in
                 
-                guard
-                    let self = self else { return }
+                guard let self = self else { return }
                 
-                self.viewModel.editArticle(with: articleCellViewModel)
+                self.viewModel.editArticle(with: article)
             }
             
             return photoCell
             
-        case 1:
+        } else {
             
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticleContentCell.identifier, for: indexPath)
             
-            guard
-                let contentCell = cell as? ArticleContentCell
-                    
-            else { return cell }
+            guard let contentCell = cell as? ArticleContentCell else { return cell }
             
-            contentCell.configureCell(with: articleCellViewModel)
+            contentCell.configureCell(with: article)
             
             setupArticleContentCellHandler(
                 articleCell: contentCell,
-                with: articleCellViewModel,
-                authorViewModel: authorCellViewModel
-            )
+                with: article,
+                author: author)
             
-            return contentCell
-            
-        default:
-        
-            return UITableViewCell()
+            return contentCell   
         }
     }
 }

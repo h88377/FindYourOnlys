@@ -62,8 +62,7 @@ private enum Tab: CaseIterable {
             let item = UITabBarItem(
                 title: "領養",
                 image: UIImage.system(.adoptItem),
-                selectedImage: UIImage.system(.adoptSelectedItem)
-            )
+                selectedImage: UIImage.system(.adoptSelectedItem))
             
             return item
             
@@ -72,8 +71,7 @@ private enum Tab: CaseIterable {
             let item = UITabBarItem(
                 title: "協尋",
                 image: UIImage.system(.findPetSocietyItem),
-                selectedImage: UIImage.system(.findPetSocietySelectedItem)
-            )
+                selectedImage: UIImage.system(.findPetSocietySelectedItem))
             
             return item
             
@@ -82,8 +80,7 @@ private enum Tab: CaseIterable {
             let item = UITabBarItem(
                 title: "分享",
                 image: UIImage.system(.shareSocietyItem),
-                selectedImage: UIImage.system(.shareSocietySelectedItem)
-            )
+                selectedImage: UIImage.system(.shareSocietySelectedItem))
             
             return item
             
@@ -92,8 +89,7 @@ private enum Tab: CaseIterable {
             let item = UITabBarItem(
                 title: "個人",
                 image: UIImage.system(.profileItem),
-                selectedImage: UIImage.system(.profileSelectedItem)
-            )
+                selectedImage: UIImage.system(.profileSelectedItem))
             
             return item
             
@@ -101,19 +97,16 @@ private enum Tab: CaseIterable {
             
             let chatImage = UIImage.resizeImage(
                 image: UIImage.asset(.chatSocietyItem)!,
-                targetSize: CGSize(width: 30, height: 30)
-            )
+                targetSize: CGSize(width: 30, height: 30))
             
             let selectedChatImage = UIImage.resizeImage(
                 image: UIImage.asset(.chatSocietySelectedItem)!,
-                targetSize: CGSize(width: 30, height: 30)
-            )
+                targetSize: CGSize(width: 30, height: 30))
             
             let item = UITabBarItem(
                 title: "聊天",
                 image: chatImage,
-                selectedImage: selectedChatImage
-            )
+                selectedImage: selectedChatImage)
             
             return item
         }
@@ -146,15 +139,13 @@ extension HomeTabBarController: UITabBarControllerDelegate {
 
         guard
             let navVC = viewController as? UINavigationController,
-            navVC.viewControllers.first is ProfileViewController
-                || navVC.viewControllers.first is ChatRoomFriendListViewController
-                
+            navVC.viewControllers.first is ProfileViewController ||
+                navVC.viewControllers.first is ChatRoomFriendListViewController
         else { return true }
 
         guard UserFirebaseManager.shared.currentUser != nil else {
 
-            if
-                let authVC = UIStoryboard.auth.instantiateInitialViewController() as? AuthViewController {
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() as? AuthViewController {
 
                 authVC.modalPresentationStyle = .custom
                 

@@ -9,11 +9,11 @@ import Foundation
 
 class BaseSocietyViewModel {
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    // MARK: - Properties
     
-    var shareHanlder: (() -> Void)?
+    var error: Box<Error?> = Box(nil)
     
-    var editHandler: ((ArticleViewModel) -> Void)?
+    var editHandler: ((Article) -> Void)?
     
     var tapAddArticleHandler: (() -> Void)?
     
@@ -23,80 +23,67 @@ class BaseSocietyViewModel {
     
     var stopLoadingHandler: (() -> Void)?
     
-    func likeArticle(with articleViewModel: ArticleViewModel) {
+    // MARK: - Methods
+    
+    func likeArticle(with article: Article) {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        var variableArticle = article
+        
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
             return
         }
         
-        PetSocietyFirebaseManager.shared.likeArticle(with: &articleViewModel.article) { [weak self] result in
+        PetSocietyFirebaseManager.shared.likeArticle(with: &variableArticle) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
-    func unlikeArticle(with articleViewModel: ArticleViewModel) {
+    func unlikeArticle(with article: Article) {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        var variableArticle = article
+        
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
             return
         }
         
-        PetSocietyFirebaseManager.shared.unlikeArticle(with: &articleViewModel.article) { [weak self] result in
+        PetSocietyFirebaseManager.shared.unlikeArticle(with: &variableArticle) { [weak self] result in
             
-            guard
-                let self = self else { return }
+            guard let self = self else { return }
             
             if case .failure(let error) = result {
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
     
-    func shareArticle(with articleViewModel: ArticleViewModel) {
+    func editArticle(with article: Article) {
         
-        shareHanlder?()
-    }
-    
-    func editArticle(with articleViewModel: ArticleViewModel) {
-        
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             
             return
         }
         
-        editHandler?(articleViewModel)
+        editHandler?(article)
     }
     
     func tapAddArticle() {
         
-        guard
-            UserFirebaseManager.shared.currentUser != nil
-                
-        else {
+        guard UserFirebaseManager.shared.currentUser != nil else {
             
             signInHandler?()
             

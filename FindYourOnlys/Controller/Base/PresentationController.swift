@@ -19,12 +19,13 @@ class PresentationController: UIPresentationController {
             origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.4),
             size: CGSize(
                 width: containerView!.frame.width,
-                height: containerView!.frame.height * 0.6
-            )
-        )
+                height: containerView!.frame.height * 0.6))
     }
     
-    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+    override init(
+        presentedViewController: UIViewController,
+        presenting presentingViewController: UIViewController?
+    ) {
         
         let blurEffect = UIBlurEffect(style: .dark)
         
@@ -47,7 +48,8 @@ class PresentationController: UIPresentationController {
         
         containerView?.addSubview(blurEffectView)
         
-        presentedViewController.transitionCoordinator?
+        presentedViewController
+            .transitionCoordinator?
             .animate(alongsideTransition: { _ in
 
             self.blurEffectView.alpha = 0.7
@@ -57,7 +59,8 @@ class PresentationController: UIPresentationController {
     
     override func dismissalTransitionWillBegin() {
         
-        self.presentedViewController.transitionCoordinator?
+        self.presentedViewController
+            .transitionCoordinator?
             .animate(alongsideTransition: { _ in
             
             self.blurEffectView.alpha = 0
