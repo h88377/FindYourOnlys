@@ -12,11 +12,6 @@ import AudioToolbox.AudioServices
 class BaseViewController: UIViewController {
     
     // MARK: - Properties
-    
-    var isHiddenTabBar: Bool {
-        
-        return false
-    }
 
     var isHiddenNavigationBar: Bool {
         
@@ -57,11 +52,6 @@ class BaseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if isHiddenTabBar {
-            
-            tabBarController?.tabBar.isHidden = true
-        }
-        
         if isHiddenNavigationBar {
             
             navigationController?.navigationBar.isHidden = true
@@ -93,11 +83,6 @@ class BaseViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        if isHiddenTabBar {
-            
-            tabBarController?.tabBar.isHidden = false
-        }
         
         if isHiddenNavigationBar {
             

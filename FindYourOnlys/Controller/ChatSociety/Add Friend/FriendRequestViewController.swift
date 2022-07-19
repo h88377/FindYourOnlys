@@ -33,7 +33,15 @@ class FriendRequestViewController: BaseViewController {
         }
     }
     
-    override var isHiddenTabBar: Bool { return true }
+    override var hidesBottomBarWhenPushed: Bool {
+        
+        get {
+            return navigationController?.topViewController == self
+        }
+        set {
+            super.hidesBottomBarWhenPushed = newValue
+        }
+    }
     
     // MARK: - View Life Cycle
     

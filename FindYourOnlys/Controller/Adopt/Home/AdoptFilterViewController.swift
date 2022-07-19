@@ -20,7 +20,15 @@ class AdoptFilterViewController: BaseViewController {
     
     private let animationView = AnimationView(name: LottieName.curiousCat.rawValue)
     
-    override var isHiddenTabBar: Bool { return true }
+    override var hidesBottomBarWhenPushed: Bool {
+        
+        get {
+            return navigationController?.topViewController == self
+        }
+        set {
+            super.hidesBottomBarWhenPushed = newValue
+        }
+    }
     
     // MARK: - View Lift Cycle
     
