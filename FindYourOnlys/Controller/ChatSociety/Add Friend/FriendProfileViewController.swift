@@ -93,11 +93,11 @@ class FriendProfileViewController: BaseViewController {
         
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
-        viewModel?.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel?.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                let error = errorViewModel?.error
+                let error = error
             else { return }
           
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)

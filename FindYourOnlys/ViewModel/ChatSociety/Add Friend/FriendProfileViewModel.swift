@@ -22,7 +22,7 @@ class FriendProfileViewModel {
         self.searchFriendResult = result
     }
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
     var dismissHandler: (() -> Void)?
     
@@ -42,7 +42,7 @@ class FriendProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
         }
     }
