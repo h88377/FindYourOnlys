@@ -69,31 +69,31 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.userViewModel.bind { [weak self] userViewModel in
+        viewModel.user.bind { [weak self] user in
             
             guard
-                let userViewModel = userViewModel,
+                let user = user,
                 let self = self
             else { return }
             
-            self.setupProfile(with: userViewModel)
+            self.setupProfile(with: user)
         }
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
 
             guard let self = self,
-                  let error = errorViewModel?.error
+                  let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
-        viewModel.profileArticleViewModels.bind { [weak self] profileArticleViewModels in
+        viewModel.profileArticles.bind { [weak self] profileArticles in
             
             guard let self = self else { return }
             
-            self.collectionView.isHidden = profileArticleViewModels
-                .flatMap { $0.profileArticle.articles }
+            self.collectionView.isHidden = profileArticles
+                .flatMap { $0.articles }
                 .isEmpty
             
             self.collectionView.reloadData()
@@ -177,15 +177,13 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    private func setupProfile(with userViewModel: UserViewModel) {
-                
-        let currentUser = userViewModel.user
+    private func setupProfile(with user: User) {
         
-        userImageView.loadImage(currentUser.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
+        userImageView.loadImage(user.imageURLString, placeHolder: UIImage.system(.personPlaceHolder))
         
-        userEmailLabel.text = currentUser.email
+        userEmailLabel.text = user.email
         
-        userNickNameLabel.text = currentUser.nickName
+        userNickNameLabel.text = user.nickName
     }
     
     @objc private func signOut(sender: UIBarButtonItem) {
@@ -243,14 +241,14 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         
-        let profileArticleTypeCount = viewModel.profileArticleViewModels.value.count
+        let profileArticleTypeCount = viewModel.profileArticles.value.count
         
         return profileArticleTypeCount
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        let profileArticleCount = viewModel.profileArticleViewModels.value[section].profileArticle.articles.count
+        let profileArticleCount = viewModel.profileArticles.value[section].articles.count
         
         return profileArticleCount
     }
@@ -266,7 +264,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         guard let profileArticleCell = cell as? ProfileArticleCell else { return cell }
         
-        let article = viewModel.profileArticleViewModels.value[indexPath.section].profileArticle.articles[indexPath.row]
+        let article = viewModel.profileArticles.value[indexPath.section].articles[indexPath.row]
         
         profileArticleCell.configureCell(with: article)
         
@@ -288,9 +286,9 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
             return headerView
         }
         
-        let cellViewModel = viewModel.profileArticleViewModels.value[indexPath.section]
+        let profileArticle = viewModel.profileArticles.value[indexPath.section]
         
-        profileArticleHeaderView.configureView(with: cellViewModel.profileArticle)
+        profileArticleHeaderView.configureView(with: profileArticle)
         
         return profileArticleHeaderView
     }
@@ -316,9 +314,9 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         else { return }
         
         profileSelectedArticleVC.viewModel.profileSelectedArticle.value = viewModel
-            .profileArticleViewModels
+            .profileArticles
             .value[indexPath.section]
-            .profileArticle.articles[indexPath.row]
+            .articles[indexPath.row]
         
         collectionView.deselectItem(at: indexPath, animated: true)
         

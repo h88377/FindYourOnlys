@@ -11,11 +11,11 @@ class ProfileViewModel {
     
     // MARK: - Properties
     
-    var userViewModel: Box<UserViewModel?> = Box(nil)
+    var user: Box<User?> = Box(nil)
     
-    var errorViewModel: Box<ErrorViewModel?> = Box(nil)
+    var error: Box<Error?> = Box(nil)
     
-    var profileArticleViewModels = Box([ProfileArticleViewModel]())
+    var profileArticles = Box([ProfileArticle]())
     
     var startLoadingHandler: (() -> Void)?
     
@@ -41,14 +41,14 @@ class ProfileViewModel {
                 
                 for user in users where user.id == currentUserId {
                     
-                    self.userViewModel.value = UserViewModel(model: user)
+                    self.user.value = user
                     
                     break
                 }
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             
             self.stopLoadingHandler?()
@@ -65,13 +65,11 @@ class ProfileViewModel {
                 
             case .success(let articles):
                 
-                self.profileArticleViewModels.value = self
-                    .getProfileArticles(with: articles)
-                    .map { ProfileArticleViewModel(model: $0) }
+                self.profileArticles.value = self.getProfileArticles(with: articles)
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
@@ -95,7 +93,7 @@ class ProfileViewModel {
                 
             case .failure(let error):
                 
-                self.errorViewModel.value = ErrorViewModel(model: error)
+                self.error.value = error
             }
             self.stopLoadingHandler?()
         }
