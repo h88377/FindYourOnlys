@@ -714,18 +714,4 @@ class PetSocietyFirebaseManager {
             articles.append(article)
         }
     }
-    
-    // MARK: - Convert functions
-    
-    private func convertCommentsToViewModels(from comments: [Comment]) -> [CommentViewModel] {
-        
-        let viewModels = comments.map { CommentViewModel(model: $0) }
-        
-        return viewModels
-    }
-    
-    func setComments(with viewModels: Box<[CommentViewModel]>, comments: [Comment]) {
-        
-        viewModels.value = convertCommentsToViewModels(from: comments)
-    }
 }

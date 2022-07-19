@@ -123,21 +123,21 @@ class PetSocietyCommentViewController: BaseModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.errorViewModel.bind { [weak self] errorViewModel in
+        viewModel.error.bind { [weak self] error in
             
             guard
                 let self = self,
-                let error = errorViewModel?.error
+                let error = error
             else { return }
             
             AlertWindowManager.shared.showAlertWindow(at: self, of: error)
         }
         
-        viewModel.senderViewModels.bind { [weak self] senderViewModels in
+        viewModel.commentSenders.bind { [weak self] commentSenders in
             
             guard
                 let self = self,
-                self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
+                self.viewModel.comments.value.count == self.viewModel.commentSenders.value.count
             else { return }
             
             self.tableView.reloadData()
@@ -146,14 +146,14 @@ class PetSocietyCommentViewController: BaseModalViewController {
                 
             self.scrollToBottomIfHasComment()
             
-            self.tableView.isHidden = senderViewModels.isEmpty
+            self.tableView.isHidden = commentSenders.isEmpty
         }
         
-        viewModel.commentViewModels.bind { [weak self] _ in
+        viewModel.comments.bind { [weak self] _ in
             
             guard
                 let self = self,
-                self.viewModel.commentViewModels.value.count == self.viewModel.senderViewModels.value.count
+                self.viewModel.comments.value.count == self.viewModel.commentSenders.value.count
             else { return }
                 
             self.tableView.reloadData()
@@ -236,7 +236,7 @@ class PetSocietyCommentViewController: BaseModalViewController {
     
     private func scrollToBottomIfHasComment() {
         
-        let commentCount = viewModel.commentViewModels.value.count
+        let commentCount = viewModel.comments.value.count
         
         guard commentCount > 0 else { return }
         
@@ -296,7 +296,8 @@ class PetSocietyCommentViewController: BaseModalViewController {
         
         let originY = view.frame.origin.y
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (
+            notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
             if CGFloatToInt(originY) == CGFloatToInt(screenHeight * 0.4) {
                 
@@ -342,27 +343,27 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard viewModel.commentViewModels.value.count == viewModel.senderViewModels.value.count else {
+        guard viewModel.comments.value.count == viewModel.commentSenders.value.count else {
             
             return 0
         }
         
-        return viewModel.commentViewModels.value.count
+        return viewModel.comments.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath)
         
-        let commentViewModel = viewModel.commentViewModels.value[indexPath.row]
+        let comment = viewModel.comments.value[indexPath.row]
         
-        let senderViewModel = viewModel.senderViewModels.value[indexPath.row]
+        let commentSender = viewModel.commentSenders.value[indexPath.row]
         
         guard let commentCell = cell as? CommentCell else { return cell }
         
         commentCell.configure(
-            with: commentViewModel,
-            senderViewModel: senderViewModel)
+            with: comment,
+            sender: commentSender)
         
         commentCell.blockHandler = { [weak self] in
             
@@ -370,7 +371,7 @@ extension PetSocietyCommentViewController: UITableViewDelegate, UITableViewDataS
             
             let blockConfirmAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
                 
-                self.viewModel.blockUser(with: senderViewModel)
+                self.viewModel.blockUser(with: commentSender)
             }
             
             AlertWindowManager.shared.presentBlockActionSheet(at: self, with: blockConfirmAction)

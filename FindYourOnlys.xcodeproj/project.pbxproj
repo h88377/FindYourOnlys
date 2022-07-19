@@ -26,7 +26,6 @@
 		987D8B4728192176000D1F95 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B4528192176000D1F95 /* CommentCell.xib */; };
 		987D8B4B28195F15000D1F95 /* BaseModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B4A28195F15000D1F95 /* BaseModalViewController.swift */; };
 		987D8B4D2819622A000D1F95 /* PetSocietyCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B4C2819622A000D1F95 /* PetSocietyCommentViewModel.swift */; };
-		987D8B50281962BF000D1F95 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B4F281962BF000D1F95 /* CommentViewModel.swift */; };
 		987D8B57281AAD02000D1F95 /* ProfileArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B55281AAD02000D1F95 /* ProfileArticleCell.swift */; };
 		987D8B5A281AAD39000D1F95 /* ProfileArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D8B59281AAD39000D1F95 /* ProfileArticleCell.xib */; };
 		987D8B5C281AAE3B000D1F95 /* ProfileArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D8B5B281AAE3B000D1F95 /* ProfileArticle.swift */; };
@@ -182,7 +181,6 @@
 		98CC16562806587D00B9FDC6 /* ArticleContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98CC16542806587D00B9FDC6 /* ArticleContentCell.xib */; };
 		98CC16592806651D00B9FDC6 /* ContentInsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */; };
 		98CC165C2806717800B9FDC6 /* PetSocietyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165B2806717800B9FDC6 /* PetSocietyViewModel.swift */; };
-		98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */; };
 		98CC16602806724000B9FDC6 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC165F2806724000B9FDC6 /* Article.swift */; };
 		98CC16642806ACF600B9FDC6 /* PublishContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */; };
 		98CC16662806AFAC00B9FDC6 /* BasePublishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC16652806AFAC00B9FDC6 /* BasePublishCell.swift */; };
@@ -217,7 +215,6 @@
 		987D8B4528192176000D1F95 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		987D8B4A28195F15000D1F95 /* BaseModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModalViewController.swift; sourceTree = "<group>"; };
 		987D8B4C2819622A000D1F95 /* PetSocietyCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyCommentViewModel.swift; sourceTree = "<group>"; };
-		987D8B4F281962BF000D1F95 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		987D8B55281AAD02000D1F95 /* ProfileArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArticleCell.swift; sourceTree = "<group>"; };
 		987D8B59281AAD39000D1F95 /* ProfileArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileArticleCell.xib; sourceTree = "<group>"; };
 		987D8B5B281AAE3B000D1F95 /* ProfileArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArticle.swift; sourceTree = "<group>"; };
@@ -375,7 +372,6 @@
 		98CC16542806587D00B9FDC6 /* ArticleContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleContentCell.xib; sourceTree = "<group>"; };
 		98CC16582806651D00B9FDC6 /* ContentInsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentInsetTextField.swift; sourceTree = "<group>"; };
 		98CC165B2806717800B9FDC6 /* PetSocietyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyViewModel.swift; sourceTree = "<group>"; };
-		98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModel.swift; sourceTree = "<group>"; };
 		98CC165F2806724000B9FDC6 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		98CC16632806ACF600B9FDC6 /* PublishContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishContentCategory.swift; sourceTree = "<group>"; };
 		98CC16652806AFAC00B9FDC6 /* BasePublishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePublishCell.swift; sourceTree = "<group>"; };
@@ -427,8 +423,6 @@
 			children = (
 				98CC166D2806C25600B9FDC6 /* PublishViewModel.swift */,
 				987D8B4C2819622A000D1F95 /* PetSocietyCommentViewModel.swift */,
-				98CC165D280671D300B9FDC6 /* ArticleViewModel.swift */,
-				987D8B4F281962BF000D1F95 /* CommentViewModel.swift */,
 			);
 			path = Article;
 			sourceTree = "<group>";
@@ -1456,7 +1450,6 @@
 				98CC161A280427B700B9FDC6 /* FavoritePetFirebaseManager.swift in Sources */,
 				98CC164428059EE800B9FDC6 /* CityPickerCell.swift in Sources */,
 				98CC166C2806C1FD00B9FDC6 /* FirebaseCollectionType.swift in Sources */,
-				98CC165E280671D300B9FDC6 /* ArticleViewModel.swift in Sources */,
 				98CC15E52801E01100B9FDC6 /* PetProvider.swift in Sources */,
 				98BC47562822D90300740855 /* Notification+Extension.swift in Sources */,
 				987D8B83281FD0A3000D1F95 /* LottieAnimationWrapper.swift in Sources */,
@@ -1514,7 +1507,6 @@
 				987D8B4D2819622A000D1F95 /* PetSocietyCommentViewModel.swift in Sources */,
 				98CC16602806724000B9FDC6 /* Article.swift in Sources */,
 				98CC15C328017A1C00B9FDC6 /* AdoptCollectionViewCell.swift in Sources */,
-				987D8B50281962BF000D1F95 /* CommentViewModel.swift in Sources */,
 				987D8B3F28179A66000D1F95 /* ProfileViewModel.swift in Sources */,
 				9896D917280A6F42003D4A16 /* UITextView+Extension.swift in Sources */,
 				9896D8DF28084B3B003D4A16 /* ChatRoomFriendListViewModel.swift in Sources */,

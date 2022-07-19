@@ -740,11 +740,4 @@ class UserFirebaseManager {
         
         return hashString
     }
-    
-    // MARK: - Convert functions
-    
-    func setUsers(with viewModels: Box<[UserViewModel]>, users: [User]) {
-        
-        viewModels.value = users.map { UserViewModel(model: $0) }
-    }
 }
