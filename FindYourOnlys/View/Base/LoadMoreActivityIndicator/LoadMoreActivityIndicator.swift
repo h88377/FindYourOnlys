@@ -43,10 +43,9 @@ class LoadMoreActivityIndicator {
         
         let frame = CGRect(
             x: (scrollView.frame.width-size)/2,
-            y: scrollView.contentSize.height + spacingFromLastCell,
+            y: scrollView.frame.height + spacingFromLastCell,
             width: size,
-            height: size
-        )
+            height: size)
         
         let activityIndicatorView = UIActivityIndicatorView(frame: frame)
         
@@ -107,9 +106,9 @@ class LoadMoreActivityIndicator {
             
             if !activityIndicatorView.isAnimating {
                 
-                if offsetY > contentDelta
-                    && offsetDelta >= spacingFromLastCellWhenLoadMoreStart
-                    && !activityIndicatorView.isAnimating {
+                if offsetY > contentDelta &&
+                    offsetDelta >= spacingFromLastCellWhenLoadMoreStart &&
+                    !activityIndicatorView.isAnimating {
                     
                     activityIndicatorView.startAnimating()
                     
@@ -123,9 +122,12 @@ class LoadMoreActivityIndicator {
                     
                     UIView.animate(withDuration: 0.3) { [weak self] in
                         
-                        if
-                            let bottom = self?.spacingFromLastCellWhenLoadMoreStart {
-                            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+                        if let bottom = self?.spacingFromLastCellWhenLoadMoreStart {
+                            scrollView.contentInset = UIEdgeInsets(
+                                top: 0,
+                                left: 0,
+                                bottom: bottom,
+                                right: 0)
                         }
                     }
                 }
@@ -137,7 +139,8 @@ class LoadMoreActivityIndicator {
         
         guard
             let scrollView = scrollView,
-            let activityIndicatorView = activityIndicatorView else { return }
+            let activityIndicatorView = activityIndicatorView
+        else { return }
         
         let contentDelta = scrollView.contentSize.height - scrollView.frame.size.height
         
