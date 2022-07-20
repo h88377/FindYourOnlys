@@ -56,7 +56,11 @@ class AdoptListViewController: BaseViewController {
             
             guard let self = self else { return }
             
+            CATransaction.setDisableActions(true)
+            
             self.collectionView.reloadData()
+
+            CATransaction.commit()
 
             self.collectionView.isHidden = pets.isEmpty
         }
