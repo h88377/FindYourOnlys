@@ -19,6 +19,9 @@ class ArticleContentCell: UITableViewCell {
             
             likeButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
             
+            // Highlighted state (after button is selected)
+            likeButton.setImage(UIImage.system(.removeFromFavorite), for: UIControl.State.selected.union(.highlighted))
+            
             likeButton.tintColor = .projectIconColor1
             
             likeButton.adjustsImageWhenHighlighted = false

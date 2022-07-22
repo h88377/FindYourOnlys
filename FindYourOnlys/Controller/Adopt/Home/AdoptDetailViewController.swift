@@ -207,6 +207,9 @@ class AdoptDetailViewController: BaseViewController {
         favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: .selected)
         
         favoriteButton.setImage(UIImage.system(.addToFavorite), for: .normal)
+        
+        // Highlighted state (after button is selected)
+        favoriteButton.setImage(UIImage.system(.removeFromFavorite), for: UIControl.State.selected.union(.highlighted))
     }
     
     @IBAction func pressedFavoriteButton(_ sender: UIButton) {
