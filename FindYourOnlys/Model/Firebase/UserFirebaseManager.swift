@@ -14,6 +14,8 @@ import CoreMedia
 
 class UserFirebaseManager {
     
+    // MARK: - Properties
+    
     static let shared = UserFirebaseManager()
     
     private init() { }
@@ -32,6 +34,8 @@ class UserFirebaseManager {
     
     // Unhashed nonce.
     var currentNonce: String?
+    
+    // MARK: - Methods
     
     // Sign in with Apple
     func createAppleIdRequest() -> ASAuthorizationAppleIDRequest {
@@ -378,6 +382,8 @@ class UserFirebaseManager {
     // Delete User
     func deleteAuthUser(completion: @escaping (Result<Void, Error>) -> Void) {
         
+        var isDeletedUserData = true
+        
         guard let user = Auth.auth().currentUser else { return }
         
         let group = DispatchGroup()
@@ -395,6 +401,8 @@ class UserFirebaseManager {
                     group.leave()
                     
                 case .failure:
+                    
+                    isDeletedUserData = false
                     
                     completion(.failure(DeleteDataError.deleteFavoritePetError))
                     
@@ -414,6 +422,8 @@ class UserFirebaseManager {
                     
                 case .failure:
                     
+                    isDeletedUserData = false
+                    
                     completion(.failure(DeleteDataError.deleteFriendRequestError))
                     
                     group.leave()
@@ -431,6 +441,8 @@ class UserFirebaseManager {
                     group.leave()
                     
                 case .failure:
+                    
+                    isDeletedUserData = false
                     
                     completion(.failure(DeleteDataError.deleteArticleError))
                     
@@ -450,6 +462,8 @@ class UserFirebaseManager {
                     
                 case .failure:
                     
+                    isDeletedUserData = false
+                    
                     completion(.failure(DeleteDataError.deleteChatRoomError))
                     
                     group.leave()
@@ -467,6 +481,8 @@ class UserFirebaseManager {
                     group.leave()
                     
                 case .failure:
+                    
+                    isDeletedUserData = false
                     
                     completion(.failure(DeleteDataError.deleteMessageError))
                     
@@ -486,14 +502,19 @@ class UserFirebaseManager {
                     
                 case .failure:
                     
+                    isDeletedUserData = false
+                    
                     completion(.failure(DeleteDataError.deleteFriendError))
                     
                     group.leave()
                 }
             }
+        }
+        
+        // Need all delete process finish to end the delete process.
+        group.notify(queue: DispatchQueue.global()) {
             
-            // Need all delete process finish to end the delete process.
-            group.notify(queue: DispatchQueue.global()) {
+            if isDeletedUserData {
                 
                 let semaphore = DispatchSemaphore(value: 0)
                 
